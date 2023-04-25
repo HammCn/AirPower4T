@@ -194,7 +194,7 @@ function filterNode(value: string, node: ITree) {
     width: 300px;
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   &-panel {
