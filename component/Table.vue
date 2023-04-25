@@ -956,6 +956,13 @@ init()
   display: flex;
   flex-direction: column;
 
+  thead .cell {
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+  }
+
   td .cell {
     display: flex;
     flex-direction: row;
