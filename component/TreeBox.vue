@@ -51,8 +51,8 @@ import {
 } from 'vue'
 import { APanel } from '.'
 import { AirConfig } from '../AirConfig'
-import { AirTreeInstance } from '../type/AirType'
 import { ITree } from '../interface/ITree'
+import { AirTreeInstance } from '../type/AirType'
 
 defineProps({
   /**
@@ -128,7 +128,7 @@ defineProps({
   },
 })
 
-const emits = defineEmits(['onChange', 'change'])
+const emits = defineEmits(['onChange'])
 
 /**
  * 树的实例
@@ -194,17 +194,27 @@ function filterNode(value: string, node: ITree) {
     width: 300px;
     display: flex;
     flex-direction: column;
-    margin-right: 5px;
+    margin-right: 10px;
   }
 
   &-panel {
 
-    .search-box {
-      margin-bottom: 10px;
-    }
-
     .panel-body {
       padding: 10px !important;
+      padding-right: 0px !important;
+
+      .search-box {
+        padding-right: 10px;
+      }
+
+      .el-tree {
+        padding-top: 10px;
+        height: 0;
+        flex: 1;
+        overflow: hidden;
+        overflow-y: auto;
+        padding-right: 5px;
+      }
     }
   }
 
