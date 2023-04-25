@@ -3,6 +3,7 @@
     effect="customized"
     :content="toolTips"
     placement="top"
+    :disabled="toolTips === '-'"
   >
     <el-link
       class="air-friend-datetime"
@@ -49,7 +50,7 @@ const props = defineProps({
  * # 读取友好时间
  */
 const getDateTimeString = computed(() => {
-  if (props.time === undefined || props.time === null) {
+  if (!props.time) {
     return '-'
   }
   if (props.isFriendly) {
@@ -62,7 +63,7 @@ const getDateTimeString = computed(() => {
  * # 提示信息取反
  */
 const toolTips = computed(() => {
-  if (props.time === undefined || props.time === null) {
+  if (!props.time) {
     return '-'
   }
   if (!props.isFriendly) {
