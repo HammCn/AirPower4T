@@ -20,13 +20,11 @@
           v-if="page.pageNum && response.pageCount"
           class="air-page-count"
         >
-          <span>{{ page.pageNum }}/{{ response.pageCount }}</span>页
+          <span>{{ page.pageNum }} / {{ response.pageCount }}</span>页
         </div>
       </template>
       <template #default>
-        <div
-          class="air-page-panel-box"
-        >
+        <div class="air-page-panel-box">
           <div class="air-page-header">
             <div class="air-page-title">
               每页显示
@@ -121,7 +119,7 @@ function sizeChanged(size: number): void {
   font-size: 13px;
 
   .air-page-bar {
-    margin-right: 5px;
+    margin-right: 10px;
     color: #aaa;
 
     .btn-next,
@@ -129,11 +127,23 @@ function sizeChanged(size: number): void {
       color: #000;
       font-weight: bolder;
     }
+
+    .btn-next:hover,
+    .btn-prev:hover {
+      background-color: var(--el-color-primary-light-9) !important;
+      color: var(--el-color-primary);
+
+    }
   }
 
-  .air-page-count:hover,
-  .air-page-count span:hover {
+  .air-page-count:hover {
+    display: inline-block;
+    background-color: var(--el-color-primary-light-9);
     color: var(--el-color-primary);
+
+    * {
+      color: var(--el-color-primary);
+    }
   }
 
   .air-page-count,
@@ -147,7 +157,7 @@ function sizeChanged(size: number): void {
       margin: 0px 3px;
     }
 
-    margin: 0px 5px;
+    padding: 3px 8px;
   }
 }
 
@@ -176,7 +186,8 @@ function sizeChanged(size: number): void {
     justify-content: flex-start;
     flex-wrap: wrap;
     padding: 10px 0px;
-    height: 140px;
+    max-height: 140px;
+    padding-bottom: 10px;
     overflow: hidden;
     overflow-y: auto;
     align-content: flex-start;
