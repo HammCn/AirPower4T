@@ -12,12 +12,12 @@
       @current-change="pageChanged($event)"
     />
     <el-popover
+      v-if="page.pageNum && response.pageCount"
       :width="240"
       trigger="click"
     >
       <template #reference>
         <div
-          v-if="page.pageNum && response.pageCount"
           class="air-page-count"
         >
           <span>{{ page.pageNum }} / {{ response.pageCount }}</span>页

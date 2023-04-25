@@ -5,7 +5,7 @@
   >
     <template v-if="!menu.isHide">
       <el-sub-menu
-        v-show="menu.children && menu.children.length > 0"
+        v-if="menu.children && menu.children.length > 0"
         :id="menu.id"
         :index="menu.id + ''"
       >
@@ -19,16 +19,19 @@
         <ChildMenu :menu-list="menu.children" />
       </el-sub-menu>
       <el-menu-item
-        v-show="!menu.children || menu.children.length === 0"
+        v-else
         :id="menu.id"
         :index="menu.path"
       >
-        <i
-          class="iconfont menu-icon"
-          :class="menu.icon"
-        />
-        <!-- eslint-disable-next-line vue/no-deprecated-slot-attribute -->
-        <span slot="title">{{ menu.name }}</span>
+        <template #title>
+          <i
+            class="iconfont menu-icon"
+            :class="menu.icon"
+          />
+          <span>
+            {{ menu.name }}
+          </span>
+        </template>
       </el-menu-item>
     </template>
   </template>
