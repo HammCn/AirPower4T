@@ -2,6 +2,8 @@
 import { FormItemRule } from 'element-plus'
 import { Arrayable } from 'element-plus/es/utils'
 import { IValidateRule } from '../interface/IValidateRule'
+import { AirInputType } from '../enum/AirInputType'
+import { AirNotification } from '../feedback/AirNotification'
 
 /**
  * # 基础验证类
@@ -41,23 +43,12 @@ export class AirValidatorHelper {
   }
 
   /**
-   * # 是否普通字符串(不包含特殊字符)
-   *
-   * 允许字符:
-   * > @ # % a-z A-Z 0-9 汉字 _ + /
-   * @param str 字符串
-   */
-  static isNormalCode(str: string): boolean {
-    return /^[@#%a-zA-Z0-9\u4e00-\u9fa5_\-\\/\\+]+$/.test(str)
-  }
-
-  /**
    * # 是否是纯汉字
    *
    * @param str 字符串
    */
   static isChinese(str: string): boolean {
-    return /^[\u4e00-\u9fa5]+$/.test(str)
+    return new RegExp(String.raw`^[${AirInputType.CHINESE}]+$`).test(str)
   }
 
   /**
@@ -65,7 +56,7 @@ export class AirValidatorHelper {
    * @param str 字符串
    */
   static isOnlyLetter(str: string): boolean {
-    return /^[a-zA-Z]+$/.test(str)
+    return new RegExp(String.raw`^[${AirInputType.LETTER}]+$`).test(str)
   }
 
   /**
@@ -73,7 +64,7 @@ export class AirValidatorHelper {
    * @param str 字符串
    */
   static isOnlyNumberAndLetter(str: string): boolean {
-    return /^[0-9a-zA-Z]+$/.test(str)
+    return new RegExp(String.raw`^[${AirInputType.LETTER + AirInputType.NUMBER}]+$`).test(str)
   }
 
   /**
@@ -151,6 +142,24 @@ export class AirValidatorHelper {
     }
 
     return false
+  }
+
+  /**
+   * # 是否满足如下的规则
+   * @param str 被验证字符串
+   * @param list 验证器
+   */
+  static validate(str: string, ...list: AirInputType[]) {
+    let regString = ''
+    for (let i = 0; i < list.length; i += 1) {
+      regString += list[i]
+    }
+    try {
+      return new RegExp(String.raw`^[${regString}]+$`).test(str)
+    } catch (e) {
+      AirNotification.error('开发者自己的正则都写错了...')
+      return false
+    }
   }
 
   /**

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-unused-vars */
 
+import { AirInputType } from '../enum/AirInputType'
 import { AirValidatorHelper } from '../helper/AirValidatorHelper'
 
 /**
@@ -356,20 +357,6 @@ export class AirValidator {
   }
 
   /**
-   * # 如果包含特殊字符时报错
-   */
-  ifNotNormalCode(): this {
-    this.validator = (_: any, value: string, callback: Function) => {
-      if (!value || AirValidatorHelper.isNormalCode(value)) {
-        callback()
-      } else {
-        callback(this.message || '请不要输入特殊字符')
-      }
-    }
-    return this
-  }
-
-  /**
    * # 如果不是纯字母时报错
    */
   ifNotOnlyLetter(): this {
@@ -482,6 +469,21 @@ export class AirValidator {
         callback()
       } else {
         callback(this.message || '只允许输入中文汉字')
+      }
+    }
+    return this
+  }
+
+  /**
+   * # 如果输入内容不在以下范围内报错
+   * @param list 范围 枚举或字符
+   */
+  ifNot(...list: AirInputType[] | string[]): this {
+    this.validator = (_: any, value: string, callback: Function) => {
+      if (!value || AirValidatorHelper.validate(value, list as unknown as AirInputType)) {
+        callback()
+      } else {
+        callback(this.message || '包含不允许输入的字符')
       }
     }
     return this
