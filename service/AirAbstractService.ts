@@ -135,6 +135,24 @@ export abstract class AirAbstractService<E extends AirEntity> {
   }
 
   /**
+   * # 保存一条数据
+   *
+   * ### 💡 如包含ID 则更新 如不包含 则创建
+   * ---
+   *
+   * @param data 保存的数据实体
+   * @param message [可选]保存成功的消息提示内容
+   * @param title [可选]保存成功的消息提示标题 默认 '保存成功'
+   */
+  async save(data: E, message?: string, title = '保存成功'): Promise<void> {
+    if (data.id) {
+      this.update(data, message, title)
+    } else {
+      this.add(data, message, title)
+    }
+  }
+
+  /**
    * # 根据ID删除一条数据
    * @param id 删除的数据ID
    * @param message [可选]删除成功的消息提示内容
