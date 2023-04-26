@@ -146,9 +146,9 @@ export abstract class AirAbstractService<E extends AirEntity> {
    */
   async save(data: E, message?: string, title = '保存成功'): Promise<void> {
     if (data.id) {
-      this.update(data, message, title)
+      await this.update(data, message, title)
     } else {
-      this.add(data, message, title)
+      await this.add(data, message, title)
     }
   }
 
