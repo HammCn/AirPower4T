@@ -11,6 +11,14 @@ import { AirValidatorHelper } from '../helper/AirValidatorHelper'
  * */
 export class AirValidator {
   /**
+   * # 创建一个验证器规则
+   * @param message 验证失败的提示
+   */
+  static show(message: string): AirValidator {
+    return new AirValidator().show(message)
+  }
+
+  /**
    * # 类型 默认string
    * 可通过 ```toString``` ```toNumber``` ```toArray```设置
    */
@@ -224,7 +232,7 @@ export class AirValidator {
    * # 当不包含某些字符串时报错
    * @param whats 字符串数组
    */
-  ifNotContain(whats: string[]): this {
+  ifNotContain(...whats: string[]): this {
     let error = false
     this.validator = (_: any, value: string, callback: Function) => {
       error = false
