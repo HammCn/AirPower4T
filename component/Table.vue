@@ -323,6 +323,8 @@ import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermissionHelper } from '../helper/AirPermissionHelper'
 import { AirEntity } from '../dto/AirEntity'
 
+const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
+
 const props = defineProps({
   /**
    * # 行尾编辑按钮的权限标识
@@ -692,8 +694,6 @@ function getPayloadRowData(row: any, config: AirTableFieldConfig) {
   }
   return config.emptyValue
 }
-
-const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
 /**
  * 表格dom

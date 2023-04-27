@@ -74,6 +74,8 @@ import { AirConfig } from '../AirConfig'
 import { AirResponsePage } from '../dto/AirResponsePage'
 import { AirPage } from '../dto/AirPage'
 
+const emits = defineEmits(['onChange', 'change'])
+
 const props = defineProps({
   /**
    * # 响应对象
@@ -83,8 +85,6 @@ const props = defineProps({
     default: new AirResponsePage(),
   },
 })
-
-const emits = defineEmits(['onChange', 'change'])
 
 const page = ref(new AirPage())
 

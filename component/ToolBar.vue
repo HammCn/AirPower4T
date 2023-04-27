@@ -258,6 +258,8 @@ import { AirRequestPage } from '../dto/AirRequestPage'
 import { AirModel } from '../model/AirModel'
 import { IFile } from '../interface/IFile'
 
+const emits = defineEmits(['onSearch', 'onAdd'])
+
 const props = defineProps({
   /**
    * # 左侧新增按钮的权限标识
@@ -599,8 +601,6 @@ const searchFieldList = computed(() => {
   }
   return (props.entity.prototype as AirModel).getSearchFieldConfigList()
 })
-
-const emits = defineEmits(['onSearch', 'onAdd'])
 
 /**
  * 查询用的临时JSON

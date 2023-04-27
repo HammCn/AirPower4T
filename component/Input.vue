@@ -220,6 +220,8 @@ import { IRecord } from '../interface/IRecord'
 import { AirValidatorHelper } from '../helper/AirValidatorHelper'
 import { AirTrim } from '../enum/AirTrim'
 
+const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
+
 const props = defineProps({
   modelValue: {
     type: [String, Boolean, Number, Array, Object],
@@ -428,11 +430,6 @@ watch(props, (newProps) => {
   isClearButtonShow.value = props.showClear
   setValue(newProps)
 })
-
-/**
- * 声明回调
- */
-const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
 /**
  * 输入事件

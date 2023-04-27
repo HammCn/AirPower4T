@@ -29,8 +29,9 @@ const props = defineProps({
   },
 
   /**
-   * # 时间格式
-   * @see AirDateTimeFormatter
+   * # 时间格式化模板
+   * ---
+   * ### 💡 建议使用 ```AirDateTimeFormatter```
    */
   formatter: {
     type: String as PropType<AirDateTimeFormatter | string>,
@@ -47,7 +48,7 @@ const props = defineProps({
 })
 
 /**
- * # 读取友好时间
+ * 读取友好时间
  */
 const getDateTimeString = computed(() => {
   if (!props.time) {
@@ -60,7 +61,7 @@ const getDateTimeString = computed(() => {
 })
 
 /**
- * # 提示信息取反
+ * 提示信息
  */
 const toolTips = computed(() => {
   if (!props.time) {
@@ -73,7 +74,7 @@ const toolTips = computed(() => {
 })
 
 </script>
-<style  lang="scss">
+<style lang="scss">
 .air-friend-datetime,
 .air-friend-datetime * {
   user-select: none !important;

@@ -96,6 +96,8 @@ import { AirValidator } from '../model/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
 import { AirRandHelper } from '../helper/AirRandHelper'
 
+const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
+
 const props = defineProps({
   /**
    * # 弹窗标题
@@ -123,6 +125,8 @@ const props = defineProps({
 
   /**
    * # 宽度
+   * ---
+   * ### 💡 支持像素和百分比
    */
   width: {
     type: String,
@@ -131,6 +135,8 @@ const props = defineProps({
 
   /**
    * # 高度
+   * ---
+   * ### 💡 支持像素和百分比
    */
   height: {
     type: String,
@@ -139,6 +145,8 @@ const props = defineProps({
 
   /**
    * # 最小宽度
+   * ---
+   * ### 💡 支持像素和百分比
    */
   minWidth: {
     type: String,
@@ -147,6 +155,8 @@ const props = defineProps({
 
   /**
    * # 最小高度
+   * ---
+   * ### 💡 支持像素和百分比
    */
   minHeight: {
     type: String,
@@ -187,6 +197,8 @@ const props = defineProps({
 
   /**
    * # 隐藏取消按钮
+   * -
+   * ### 💡 默认为 ```AirConfig.defaultDialogHideCancel```
    */
   hideCancel: {
     type: Boolean,
@@ -234,7 +246,9 @@ const props = defineProps({
   },
 
   /**
-   * # 如传入此参数,则自动校验,否则请自行校验
+   * # Form的Ref实例
+   * ---
+   * ### 💡 如传入此参数,则自动校验,否则请自行校验
    */
   formRef: {
     type: Object as PropType<AirFormInstance>,
@@ -259,8 +273,6 @@ const cursorRef = ref('grab')
  * # 随机ID
  */
 const randId = ref(`id${AirRandHelper.getRandNumberAndCharString()}`)
-
-const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
 /**
  * 窗体偏移的x

@@ -35,6 +35,8 @@ import { AirConfirm } from '../feedback/AirConfirm'
 import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
 import { IUser } from '../interface/IUser'
 
+const emits = defineEmits(['onCommand'])
+
 defineProps({
   /**
    * # 用户信息
@@ -52,8 +54,6 @@ defineProps({
     default: false,
   },
 })
-
-const emits = defineEmits(['onCommand'])
 
 /**
  * 右上角菜单点击事件

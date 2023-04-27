@@ -56,6 +56,8 @@ import { AirFileHelper } from '../helper/AirFileHelper'
 import { AirConfig } from '../AirConfig'
 import { IFile } from '../interface/IFile'
 
+const emits = defineEmits(['onUpload', 'onRemove'])
+
 const props = defineProps({
   /**
    * # 显示的URL
@@ -148,15 +150,11 @@ watch(props, () => {
   }
 })
 
-init()
-
 /**
  * # 上传文件的头
  */
 const uploadHeader = ref({} as Record<string, unknown>)
 uploadHeader.value[AirConfig.accessTokenKey] = localStorage.getItem(AirConfig.accessTokenKey)
-
-const emits = defineEmits(['onUpload', 'onRemove'])
 
 /**
  * # 移除图像事件
@@ -210,6 +208,8 @@ function uploadSuccess(response: { data: { url: string } }) {
     uploadError()
   }
 }
+
+init()
 </script>
 <style lang="scss">
 .air-image {

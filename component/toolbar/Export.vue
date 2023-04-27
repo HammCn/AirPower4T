@@ -10,7 +10,7 @@
   >
     <template #body>
       <div class="tips">
-        <template v-if="loading">
+        <template v-if="isLoading">
           <el-progress
             :percentage="100"
             :indeterminate="true"
@@ -46,31 +46,24 @@ import { ADialog } from '..'
 import { AirExportModel } from '@/airpower/model/AirExportModel'
 import { AirFileHelper } from '@/airpower/helper/AirFileHelper'
 import { AirHttp } from '@/airpower/model/AirHttp'
+import { airPropsParam } from '@/airpower/config/AirProps'
 
-const props = defineProps({
-  onConfirm: {
-    type: Function,
-    default: () => null,
-  },
-  onCancel: {
-    type: Function,
-    default: () => null,
-  },
-  param: {
-    type: AirExportModel,
-    default: new AirExportModel(),
-  },
-})
-const loading = ref(false)
+const props = defineProps(airPropsParam<AirExportModel>(new AirExportModel()))
+
 /**
- * # 轮询Timer
+ * 加载状态
+ */
+const isLoading = ref(false)
+
+/**
+ * 轮询Timer
  */
 let loopTimer: number
 
 /**
- * # 关闭弹窗时询问是否取消导出
+ * 关闭弹窗时询问是否取消导出
  */
-const cancelExport = async () => {
+async function cancelExport() {
   clearTimeout(loopTimer)
   props.onCancel()
 }
@@ -81,15 +74,15 @@ const cancelExport = async () => {
 const exportFilePath = ref('')
 
 /**
- * # 轮询任务结果
+ * 轮询任务结果
  * @param fileCode 请求的文件code
  */
-const startLoop = async (fileCode: string) => {
+async function startLoop(fileCode: string) {
   clearTimeout(loopTimer)
   try {
     const downloadPath: string = await new AirHttp('file/download').withOutError()
       .post({ fileCode })
-    loading.value = false
+    isLoading.value = false
     exportFilePath.value = AirFileHelper.getStaticFileUrl(downloadPath)
   } catch (e) {
     // 文件暂未生成
@@ -102,7 +95,7 @@ const startLoop = async (fileCode: string) => {
 /**
  * 下载导出的文件
  */
-const download = () => {
+function download() {
   window.open(exportFilePath.value)
   props.onConfirm(exportFilePath.value)
 }
@@ -110,8 +103,8 @@ const download = () => {
 /**
  * # 创建下载任务
  */
-const createExportTask = async () => {
-  loading.value = true
+async function createExportTask() {
+  isLoading.value = true
   try {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
     const json = props.param.param.toSourceObject()
@@ -123,6 +116,7 @@ const createExportTask = async () => {
     props.onCancel()
   }
 }
+
 createExportTask()
 </script>
 <style lang="scss">

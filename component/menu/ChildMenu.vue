@@ -44,6 +44,8 @@ import { IMenu } from '@/airpower/interface/IMenu'
 defineProps({
   /**
    * # 菜单列表
+   * ---
+   * ### 💡 请确保传入的数组类型为 ```IMenu``` 的实现类
    */
   menuList: {
     type: Array as PropType<IMenu[]>,

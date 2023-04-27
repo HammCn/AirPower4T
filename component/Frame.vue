@@ -62,6 +62,8 @@ defineProps({
 
   /**
    * # 菜单列表
+   * ---
+   * ### 💡 请确保传入的数组类型为 ```IMenu``` 的实现类
    */
   menuList: {
     type: Array as PropType<Array<IMenu>>,
@@ -70,6 +72,8 @@ defineProps({
 
   /**
    * # 用户信息
+   * ---
+   * ### 💡 请确保传入的类型为 ```IUser``` 的实现类
    */
   user: {
     type: Object as PropType<IUser>,

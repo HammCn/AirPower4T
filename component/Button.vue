@@ -15,20 +15,20 @@
     >
       <i
         class="airpower"
-        :class="showIcon"
+        :class=" showIcon "
       />
     </el-link>
     <el-button
       v-else
-      :class="customClass"
-      :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
-      :disabled="isDisabled"
-      @click="$emit('onClick'); $emit('click')"
+      :class=" customClass "
+      :type=" danger ? 'danger' : (primary ? 'primary' : 'default') "
+      :disabled=" isDisabled "
+      @click=" $emit('onClick'); $emit('click') "
     >
       <i
-        v-if="showIcon"
+        v-if=" showIcon "
         class="airpower"
-        :class="showIcon"
+        :class=" showIcon "
         style="margin-right: 5px;"
       />
       <slot />
@@ -40,6 +40,8 @@ import { computed, PropType } from 'vue'
 import { AirConfig } from '../AirConfig'
 import { AirIcon } from '../enum/AirIcon'
 import { AirIconType } from '../type/AirType'
+
+defineEmits(['click', 'onClick'])
 
 const props = defineProps({
   /**
@@ -69,6 +71,8 @@ const props = defineProps({
 
   /**
    * # 自定义图标类名
+   * ---
+   * ### 💡 如传入了 ```type``` 则此项配置无效
    */
   icon: {
     type: String,
@@ -77,6 +81,8 @@ const props = defineProps({
 
   /**
    * # 常用图标
+   * ---
+   * ### 💡 仅支持传入 ```AirIconType``` 支持的图标类型
    */
   type: {
     type: String as PropType<AirIconType>,
@@ -92,7 +98,9 @@ const props = defineProps({
   },
 
   /**
-   * # 是否是主按钮 在button下有效 否则为白底按钮
+   * # 是否是主按钮
+   * ---
+   * ### 💡 仅在 ```icon-button``` 下生效
    */
   primary: {
     type: Boolean,
@@ -101,6 +109,8 @@ const props = defineProps({
 
   /**
    * # 是否是危险按钮
+   * ---
+   * ### 💡 仅在 ```icon-button``` 下生效
    */
   danger: {
     type: Boolean,
@@ -109,6 +119,8 @@ const props = defineProps({
 
   /**
    * # 是否禁用按钮
+   * ---
+   * ### 💡 如传入了 ```permission```, 则优先判断权限
    */
   disabled: {
     type: Boolean,
@@ -117,7 +129,7 @@ const props = defineProps({
 })
 
 /**
- * # 是否禁用
+ * 是否禁用
  */
 const isDisabled = computed(() => {
   if (props.permission) {
@@ -127,13 +139,9 @@ const isDisabled = computed(() => {
   return props.disabled
 })
 
-defineEmits(['click', 'onClick'])
-
 /**
- * # 显示的图标
+ * 显示的图标
  */
 const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
 </script>
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

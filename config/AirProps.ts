@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PropType } from 'vue'
 import { AirEntity } from '@/airpower/dto/AirEntity'
-import { AirModel } from '../model/AirModel'
 
 /**
  * # 使用无参DialogProps配置
@@ -33,35 +32,23 @@ export function airProps() {
 
 /**
  * # 使用ID的DialogProps配置
+ * ---
+ * ### 💡 传入的 ```param``` 参数为 ```Number``` 类型的ID
  */
 export function airPropsId() {
-  return Object.assign(airProps(), {
-    /**
-     * # 传入参数为一个Number的ID
-     * 你可以直接拿这个ID去调用detail详情接口获取实体
-     */
-    param: {
-      type: Number,
-      default: () => 0,
-    },
-  })
+  return airPropsParam<number>(0)
 }
 
 /**
  * # 使用实体的DialogProps配置
- * - P: Param的类型
+ * ---
+ * ### 💡 [可选]泛型: Param的类型
  * @param value [可选]默认参数
  */
-export function airPropsParam<P extends AirModel>(value: P | null = null) {
+export function airPropsParam<P>(value: P | null = null) {
   return Object.assign(airProps(), {
     /**
-     * # 传入参数为一个实体
-     *
-     * 能保证的是, 确实是一个实体的基类, 可以调用一些AirModel的方法
-     *
-     * ```typescript
-     * AirClassTransformerHelper.parse(props.param.toSourceObject(), UserEntity)
-     * ```
+     * # 支持一个传入参数
      */
     param: {
       type: Object as PropType<P>,

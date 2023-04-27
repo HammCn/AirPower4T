@@ -54,6 +54,8 @@ import { AirConfig } from '../AirConfig'
 import { ITree } from '../interface/ITree'
 import { AirTreeInstance } from '../type/AirType'
 
+const emits = defineEmits(['onChange'])
+
 defineProps({
   /**
    * # 是否默认展开全部
@@ -127,8 +129,6 @@ defineProps({
     default: 300,
   },
 })
-
-const emits = defineEmits(['onChange'])
 
 /**
  * 树的实例
