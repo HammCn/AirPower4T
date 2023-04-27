@@ -11,9 +11,9 @@ import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 /**
  * # AirModel 模型基类
  * ---
- * 模型基类包含了一些常用模型的操作
+ * ### 💡 模型基类包含了一些常用模型的操作
  *
- * 💡 一般不建议为实体给默认值 @see withDefaultValue
+ * @see ```withDefaultValue()```
  * @author Hamm
  */
 export class AirModel {

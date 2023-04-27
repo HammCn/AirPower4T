@@ -111,7 +111,9 @@ export class AirHttp {
   }
 
   /**
-   * # 设置不自动弹出错误,自行处理
+   * # 不自动处理错误
+   * ---
+   * ### 💡 请注意自行接管错误信息
    */
   withOutError(): this {
     this.flagIgnoreError = true
@@ -119,7 +121,7 @@ export class AirHttp {
   }
 
   /**
-   * # 不允许自动提交AccessToken
+   * # 不提交认证的header信息
    */
   withOutToken(): this {
     if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers[AirConfig.accessTokenKey]) {
@@ -210,7 +212,7 @@ export class AirHttp {
   }
 
   /**
-   * # 😁发送POST请求
+   * # 发送POST请求
    * @param body [可选]POST的数据
    */
   post(body?: any): Promise<any> {
@@ -219,7 +221,7 @@ export class AirHttp {
   }
 
   /**
-   * # 😁发送GET请求 只支持简单一维数据
+   * # 发送GET请求 只支持简单一维数据
    * @param params [可选]可携带的参数
    */
   get(params?: Record<string, any>): Promise<any> {
