@@ -23,21 +23,20 @@
       </div>
       <div class="panel-right">
         <slot name="headerRight" />
-        <el-tooltip
-          v-if="!fullable"
-          effect="customized"
-          content="全屏/退出全屏"
-          placement="left"
+        <div
+          class="panel-full"
+          @mouseover="
+            (e: any) => {
+              AirStore().tooltipRef = e.currentTarget;
+              AirStore().tooltip = '全屏/退出全屏'
+            }
+          "
+          @click="isFullScreen = !isFullScreen"
         >
-          <div
-            class="panel-full"
-            @click="isFullScreen = !isFullScreen"
-          >
-            <el-icon>
-              <monitor />
-            </el-icon>
-          </div>
-        </el-tooltip>
+          <el-icon>
+            <monitor />
+          </el-icon>
+        </div>
       </div>
     </div>
     <div class="panel-body">
@@ -60,6 +59,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { AirConfig } from '../AirConfig'
+import { AirStore } from '../store/AirStore'
 
 defineProps({
   /**

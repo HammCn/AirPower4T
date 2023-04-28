@@ -1,23 +1,24 @@
 <template>
-  <el-tooltip
-    effect="customized"
-    :content="toolTips"
-    placement="top"
-    :disabled="toolTips === '-'"
+  <el-link
+
+    class="air-friend-datetime"
+    :underline="false"
+    @mouseover="
+      (e: any) => {
+        AirStore().tooltipRef = e.currentTarget;
+        AirStore().tooltip = toolTips
+      }
+    "
   >
-    <el-link
-      class="air-friend-datetime"
-      :underline="false"
-    >
-      {{ getDateTimeString }}
-    </el-link>
-  </el-tooltip>
+    {{ getDateTimeString }}
+  </el-link>
 </template>
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
 import { AirConfig } from '../AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeHelper } from '../helper/AirDateTimeHelper'
+import { AirStore } from '../store/AirStore'
 
 const props = defineProps({
   /**

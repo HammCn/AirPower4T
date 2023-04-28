@@ -194,18 +194,18 @@
               class="custom-header-title"
             >操作</span>
             <template v-if="isFieldSelectorEnabled">
-              <el-tooltip
-                effect="customized"
-                content="配置列字段"
-                placement="top"
+              <el-icon
+                class="air-field-select-icon"
+                @mouseover="
+                  (e: any) => {
+                    AirStore().tooltipRef = e.currentTarget;
+                    AirStore().tooltip = '配置列字段'
+                  }
+                "
+                @click="isFieldSelectorShow = true"
               >
-                <el-icon
-                  class="air-field-select-icon"
-                  @click="isFieldSelectorShow = true"
-                >
-                  <Setting />
-                </el-icon>
-              </el-tooltip>
+                <Setting />
+              </el-icon>
             </template>
           </div>
         </template>
@@ -322,6 +322,7 @@ import { AirConfig } from '../AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermissionHelper } from '../helper/AirPermissionHelper'
 import { AirEntity } from '../dto/AirEntity'
+import { AirStore } from '../store/AirStore'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 

@@ -1,21 +1,21 @@
 <template>
-  <el-tooltip
-    effect="customized"
-    :content="copyTips"
-    placement="top"
+  <el-link
+    :underline="false"
+    @mouseover="(e: any) => {
+      AirStore().tooltipRef = e.currentTarget;
+      AirStore().tooltip = copyTips
+    }
+    "
+    @click="copy"
   >
-    <el-link
-      :underline="false"
-      @click="copy"
-    >
-      <!-- 自定义显示的插槽 -->
-      <slot>{{ content }}</slot>
-    </el-link>
-  </el-tooltip>
+    <!-- 自定义显示的插槽 -->
+    <slot>{{ content }}</slot>
+  </el-link>
 </template>
 <script lang="ts" setup>
 import userClipboard from 'vue-clipboard3'
 import { ref } from 'vue'
+import { AirStore } from '../store/AirStore'
 
 const props = defineProps({
   /**
@@ -50,9 +50,11 @@ let timer: number
 async function copy() {
   await toClipboard(props.content)
   copyTips.value = '成功复制到剪切板!'
+  AirStore().tooltip = copyTips.value
   clearTimeout(timer)
   timer = setTimeout(() => {
     copyTips.value = defaultTips
+    AirStore().tooltip = copyTips.value
   }, 2000)
 }
 </script>

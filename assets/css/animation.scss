@@ -151,3 +151,12 @@
 }
 
 /* 高级搜索动画结束  */
+
+@keyframes tooltip-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

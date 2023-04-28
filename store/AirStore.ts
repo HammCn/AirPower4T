@@ -6,5 +6,14 @@ import { defineStore } from 'pinia'
  */
 export const AirStore = defineStore('AirStore', {
   state: () => ({
+    /**
+     * # 全局的ToolTip的Dom
+     */
+    tooltipRef: null,
+
+    /**
+     * # 全局的ToolTip内容
+     */
+    tooltip: '',
   }),
 })

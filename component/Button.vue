@@ -1,45 +1,51 @@
 <template>
-  <el-tooltip
-    effect="customized"
-    :content="permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip"
-    placement="top"
-    :disabled="!tooltip"
+  <el-link
+    v-if="iconButton"
+    :class="customClass"
+    :type="danger ? 'danger' : 'default'"
+    :underline="false"
+    :disabled="isDisabled"
+    @click="$emit('onClick'); $emit('click')"
+    @mouseover="
+      (e: any) => {
+        AirStore().tooltipRef = e.currentTarget;
+        AirStore().tooltip = permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip
+      }
+    "
   >
-    <el-link
-      v-if="iconButton"
-      :class="customClass"
-      :type="danger ? 'danger' : 'default'"
-      :underline="false"
-      :disabled="isDisabled"
-      @click="$emit('onClick'); $emit('click')"
-    >
-      <i
-        class="airpower"
-        :class=" showIcon "
-      />
-    </el-link>
-    <el-button
-      v-else
-      :class=" customClass "
-      :type=" danger ? 'danger' : (primary ? 'primary' : 'default') "
-      :disabled=" isDisabled "
-      @click=" $emit('onClick'); $emit('click') "
-    >
-      <i
-        v-if=" showIcon "
-        class="airpower"
-        :class=" showIcon "
-        style="margin-right: 5px;"
-      />
-      <slot />
-    </el-button>
-  </el-tooltip>
+    <i
+      class="airpower"
+      :class=" showIcon "
+    />
+  </el-link>
+  <el-button
+    v-else
+    :class=" customClass "
+    :type=" danger ? 'danger' : (primary ? 'primary' : 'default') "
+    :disabled=" isDisabled "
+    @click=" $emit('onClick'); $emit('click') "
+    @mouseover="
+      (e: any) => {
+        AirStore().tooltipRef = e.currentTarget;
+        AirStore().tooltip = permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip
+      }
+    "
+  >
+    <i
+      v-if=" showIcon "
+      class="airpower"
+      :class=" showIcon "
+      style="margin-right: 5px;"
+    />
+    <slot />
+  </el-button>
 </template>
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
 import { AirConfig } from '../AirConfig'
 import { AirIcon } from '../enum/AirIcon'
 import { AirIconType } from '../type/AirType'
+import { AirStore } from '../store/AirStore'
 
 defineEmits(['click', 'onClick'])
 

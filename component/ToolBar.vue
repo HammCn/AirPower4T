@@ -25,35 +25,34 @@
     <div class="air-tool-bar--right">
       <slot name="beforeSearch" />
       <template v-if="isKeywordSearchEnabled">
-        <el-tooltip
-          effect="customized"
-          :content="searchPlaceholder"
-          placement="top"
-          :disabled="searchPlaceholder === ''"
+        <el-input
+          v-model="keyword"
+          :placeholder="keywordSearchPlaceholder"
+          class="keyword"
+          @mouseover="
+            (e: any) => {
+              AirStore().tooltipRef = e.currentTarget;
+              AirStore().tooltip = searchPlaceholder
+            }
+          "
+          @keydown.enter="searchKeyword"
         >
-          <el-input
-            v-model="keyword"
-            :placeholder="keywordSearchPlaceholder"
-            class="keyword"
-            @keydown.enter="searchKeyword"
-          >
-            <template #suffix>
-              <el-icon
-                v-if="keyword"
-                style="margin-right:6px;"
-                @click="keyword = ''; searchKeyword()"
-              >
-                <CircleClose />
-              </el-icon>
-              <el-icon
-                style="vertical-align: middle"
-                @click=" searchKeyword "
-              >
-                <Search />
-              </el-icon>
-            </template>
-          </el-input>
-        </el-tooltip>
+          <template #suffix>
+            <el-icon
+              v-if="keyword"
+              style="margin-right:6px;"
+              @click="keyword = ''; searchKeyword()"
+            >
+              <CircleClose />
+            </el-icon>
+            <el-icon
+              style="vertical-align: middle"
+              @click=" searchKeyword "
+            >
+              <Search />
+            </el-icon>
+          </template>
+        </el-input>
       </template>
       <slot name="customSearch" />
       <template v-if=" isAdvanceSearchEnabled ">
@@ -257,6 +256,7 @@ import { AirRequest } from '../dto/AirRequest'
 import { AirRequestPage } from '../dto/AirRequestPage'
 import { AirModel } from '../model/AirModel'
 import { IFile } from '../interface/IFile'
+import { AirStore } from '../store/AirStore'
 
 const emits = defineEmits(['onSearch', 'onAdd'])
 
