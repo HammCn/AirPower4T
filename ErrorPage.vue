@@ -54,7 +54,7 @@ const timer = setTimeout(() => {
   isError.value = true
   errorCode.value = AirHttpStatus.GATEWAY_TIMEOUT
   AirConfig.isTimeout = true
-}, AirConfig.timeout || 5000)
+}, AirConfig.timeout)
 
 watch(errorCode, () => {
   switch (errorCode.value) {
