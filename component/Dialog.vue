@@ -1,81 +1,40 @@
 <template>
   <transition name="dialog">
-    <div
-      class="dialog air-dialog"
-      :class="getDialogClass"
-      @mouseup="dialogMouseUpEvent"
-      @mousemove="dialogMouseMoveEvent"
-      @click.self="dialogBgClicked"
-    >
-      <div
-        :id="randId"
-        class="main"
-        :style="{
-          width: width,
-          height: height,
-          minWidth: minWidth,
-          minHeight: minHeight,
-          transform: 'translate(' + x + 'px, ' + y + 'px)',
-          borderRadius: isFullScreen ? '0px' : '4px',
-        }"
-        :class="isFullScreen && fullable ? 'fullscreen' : ''"
-      >
-        <div
-          class="header"
-          :style="{
-            cursor: cursorRef,
-          }"
-          @mousedown="dialogMouseDownEvent"
-          @dblclick="headerDoubleClicked"
-        >
+    <div class="dialog air-dialog" :class="getDialogClass" @mouseup="dialogMouseUpEvent" @mousemove="dialogMouseMoveEvent"
+      @click.self="dialogBgClicked">
+      <div :id="randId" class="main" :style="{
+        width: width,
+        height: height,
+        minWidth: minWidth,
+        minHeight: minHeight,
+        transform: 'translate(' + x + 'px, ' + y + 'px)',
+        borderRadius: isFullScreen ? '0px' : '4px',
+      }" :class="isFullScreen && fullable ? 'fullscreen' : ''">
+        <div class="header" :style="{
+          cursor: cursorRef,
+        }" @mousedown="dialogMouseDownEvent" @dblclick="headerDoubleClicked">
           <div class="title">
             {{ title }}
           </div>
-          <i
-            v-if="fullable"
-            class="airpower"
-            :class="isFullScreen ? 'icon-commonicon_suoxiao' : 'icon-commonicon_quanping'"
-            @click="headerDoubleClicked"
-          />
-          <i
-            v-if="!hideClose"
-            class="airpower icon-commonicon_guanbi close"
-            @click="emits('onCancel')"
-          />
+          <i v-if="fullable" class="airpower"
+            :class="isFullScreen ? 'icon-commonicon_suoxiao' : 'icon-commonicon_quanping'" @click="headerDoubleClicked" />
+          <i v-if="!hideClose" class="airpower icon-commonicon_guanbi close" @click="emits('onCancel')" />
         </div>
-        <div
-          v-loading="loading"
-          class="body"
-        >
+        <div v-loading="loading" class="body">
           <slot />
         </div>
-        <div
-          v-if="!hideFooter"
-          class="footer"
-        >
+        <div v-if="!hideFooter" class="footer">
           <div class="status">
             <slot name="status" />
           </div>
-          <div
-            v-if="!hideCtrl"
-            class="control"
-          >
+          <div v-if="!hideCtrl" class="control">
             <slot name="leftCtrl" />
-            <AButton
-              v-if="!hideConfirm"
-              primary
-              type="FINISH"
-              :disabled="disableConfirm || loading"
-              @click="confirmEvent"
-            >
+            <AButton v-if="!hideConfirm" primary type="FINISH" :disabled="disableConfirm || loading"
+              @click="confirmEvent">
               {{ confirmText }}
             </AButton>
             <slot name="middleButton" />
-            <AButton
-              v-if="!hideCancel"
-              type="CLOCK"
-              @click="emits('onCancel')"
-            >
+            <AButton v-if="!hideCancel" type="CLOCK" @click="emits('onCancel')">
               {{ cancelText }}
             </AButton>
           </div>
@@ -262,6 +221,16 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  /**
+   * # 是否支持点击遮罩层关闭
+   * ---
+   * 默认值 ```AirConfig.dialogHoverCloseEnabled = false```
+   */
+  hoverClose: {
+    type: Boolean,
+    default: AirConfig.dialogHoverCloseEnabled
+  }
 })
 
 /**
@@ -410,6 +379,10 @@ const getDialogClass = computed(() => {
  * 点击背景后的抖动
  */
 function dialogBgClicked() {
+  if (props.hoverClose) {
+    emits('onCancel')
+    return
+  }
   if (isShaking.value) {
     return
   }
