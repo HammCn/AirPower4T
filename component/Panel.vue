@@ -24,6 +24,7 @@
       <div class="panel-right">
         <slot name="headerRight" />
         <div
+          v-if="fullable"
           class="panel-full"
           @mouseover="(e: any) => {
             AirStore().tooltipRef = e.currentTarget;
@@ -33,7 +34,7 @@
           @click="isFullScreen = !isFullScreen"
         >
           <el-icon>
-            <monitor />
+            <FullScreen />
           </el-icon>
         </div>
       </div>
@@ -107,7 +108,7 @@ defineProps({
    */
   fullable: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
 
