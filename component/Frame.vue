@@ -47,8 +47,6 @@
 import { PropType } from 'vue'
 import { AMenu, AUser } from '.'
 import { IMenu } from '../interface/IMenu'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
-import { AirConfig } from '../AirConfig'
 import { IUser } from '../interface/IUser'
 
 defineProps({
@@ -67,7 +65,7 @@ defineProps({
    */
   menuList: {
     type: Array as PropType<Array<IMenu>>,
-    default: () => [],
+    required: true,
   },
 
   /**
@@ -77,7 +75,7 @@ defineProps({
    */
   user: {
     type: Object as PropType<IUser>,
-    default: () => AirClassTransformerHelper.newInstance(AirConfig.defaultUserEntity),
+    required: true,
   },
 
   /**

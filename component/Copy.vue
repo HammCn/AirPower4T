@@ -23,7 +23,7 @@ const props = defineProps({
    */
   content: {
     type: String,
-    default: '-',
+    required: true,
   },
 })
 

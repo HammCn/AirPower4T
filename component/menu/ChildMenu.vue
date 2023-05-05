@@ -49,7 +49,7 @@ defineProps({
    */
   menuList: {
     type: Array as PropType<IMenu[]>,
-    default: () => [],
+    required: true,
   },
 })
 </script>

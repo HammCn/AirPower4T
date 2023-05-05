@@ -365,10 +365,9 @@ export class AirConfig {
    */
   static defaultUserEntity: ClassConstructor<IUser> = AirUserEntity
 
-
   /**
    * # 弹窗遮罩层是否可以关闭
-   * 
+   *
    * ---
    * 默认不允许遮罩层关闭 设置为 ```true``` 即允许遮罩层关闭
    */

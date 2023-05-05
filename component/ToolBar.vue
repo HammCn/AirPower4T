@@ -3,31 +3,51 @@
     <div class="air-tool-bar--left">
       <slot name="beforeButton" />
       <slot name="customButton">
-        <AButton v-if="props.entity && !hideAdd"
-          :permission="addPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.ADD)" primary
-          type="ADD" @click="emits('onAdd')">
+        <AButton
+          v-if="props.entity && !hideAdd"
+          :permission="addPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.ADD)"
+          primary
+          type="ADD"
+          @click="emits('onAdd')"
+        >
           {{ addTitle }}
         </AButton>
       </slot>
-      <AButton v-if="showImport"
+      <AButton
+        v-if="showImport"
         :permission="importPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.IMPORT)"
-        type="IMPORT" @click="importIt()">
+        type="IMPORT"
+        @click="importIt()"
+      >
         导入
       </AButton>
     </div>
     <div class="air-tool-bar--right">
       <slot name="beforeSearch" />
       <template v-if="isKeywordSearchEnabled">
-        <el-input v-model="keyword" :placeholder="keywordSearchPlaceholder" class="keyword" @mouseover="(e: any) => {
+        <el-input
+          v-model="keyword"
+          :placeholder="keywordSearchPlaceholder"
+          class="keyword"
+          @mouseover="(e: any) => {
             AirStore().tooltipRef = e.currentTarget;
             AirStore().tooltip = searchPlaceholder
           }
-          " @keydown.enter="searchKeyword">
+          "
+          @keydown.enter="searchKeyword"
+        >
           <template #suffix>
-            <el-icon v-if="keyword" style="margin-right:6px;" @click="keyword = ''; searchKeyword()">
+            <el-icon
+              v-if="keyword"
+              style="margin-right:6px;"
+              @click="keyword = ''; searchKeyword()"
+            >
               <CircleClose />
             </el-icon>
-            <el-icon style="vertical-align: middle" @click="searchKeyword">
+            <el-icon
+              style="vertical-align: middle"
+              @click="searchKeyword"
+            >
               <Search />
             </el-icon>
           </template>
@@ -36,76 +56,156 @@
       <slot name="customSearch" />
       <template v-if="isAdvanceSearchEnabled">
         <div class="advance-search">
-          <el-button :class="searchAnimation" @click.stop=" keyword = ''; showDialog = !showDialog">
+          <el-button
+            :class="searchAnimation"
+            @click.stop=" keyword = ''; showDialog = !showDialog"
+          >
             <i class="airpower icon-commonicon_gengduoshaixuan" />{{ searchTitle }}
           </el-button>
-          <div v-if="showDialog" class="advance-search-bg" :title="'点击关闭' + searchTitle"
-            @click="hideAdvanceSearchDialog" />
+          <div
+            v-if="showDialog"
+            class="advance-search-bg"
+            :title="'点击关闭' + searchTitle"
+            @click="hideAdvanceSearchDialog"
+          />
           <transition name="search">
-            <div v-if="showDialog" class="advance-search-dialog">
+            <div
+              v-if="showDialog"
+              class="advance-search-dialog"
+            >
               <div class="advance-search-title">
                 <div class="advance-search-title-label">
                   {{ searchTitle }}
                 </div>
-                <div class="advance-search-title-close" @click="hideAdvanceSearchDialog">
+                <div
+                  class="advance-search-title-close"
+                  @click="hideAdvanceSearchDialog"
+                >
                   <i class="airpower icon-commonicon_guanbi" />
                 </div>
               </div>
               <div class="advance-search-form">
-                <el-form ref="formRef" label-width="auto" :model="filter">
-                  <template v-for=" item in searchFieldList " :key="item.key">
-                    <el-form-item v-if="!item.hide" :label="item.label">
-                      <slot :name="item.key" :data="filter">
+                <el-form
+                  ref="formRef"
+                  label-width="auto"
+                  :model="filter"
+                >
+                  <template
+                    v-for=" item in searchFieldList "
+                    :key="item.key"
+                  >
+                    <el-form-item
+                      v-if="!item.hide"
+                      :label="item.label"
+                    >
+                      <slot
+                        :name="item.key"
+                        :data="filter"
+                      >
                         <template v-if="item.between">
-                          <el-date-picker v-if="item.betweenType === AirBetweenType.DATE" v-model="filter[item.key]"
-                            :editable="false" type="daterange" range-separator="至" start-placeholder="开始日期"
-                            end-placeholder="结束日期" format="YYYY/MM/DD" value-format="x" :default-time="[
-                                new Date(1991, 10, 3, 0, 0, 0),
-                                new Date(1991, 10, 3, 23, 59, 59),
-                              ]
-                              " />
-                          <el-time-picker v-if="item.betweenType === AirBetweenType.TIME" v-model="filter[item.key]"
-                            is-range arrow-control :editable="false" range-separator="至" start-placeholder="开始时间"
-                            end-placeholder="结束时间" value-format="HH:mm:ss" />
-                          <el-date-picker v-if="item.betweenType === AirBetweenType.DATETIME"
-                            v-model="filter[item.key]" type="datetimerange" range-separator="至" start-placeholder="开始时间"
-                            end-placeholder="结束时间" format="YYYY/MM/DD HH:mm:ss" :editable="false" value-format="x"
+                          <el-date-picker
+                            v-if="item.betweenType === AirBetweenType.DATE"
+                            v-model="filter[item.key]"
+                            :editable="false"
+                            type="daterange"
+                            range-separator="至"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期"
+                            format="YYYY/MM/DD"
+                            value-format="x"
                             :default-time="[
-                                new Date(1991, 10, 3, 0, 0, 0),
-                                new Date(1991, 10, 3, 23, 59, 59),
-                              ]
-                              " />
+                              new Date(1991, 10, 3, 0, 0, 0),
+                              new Date(1991, 10, 3, 23, 59, 59),
+                            ]
+                            "
+                          />
+                          <el-time-picker
+                            v-if="item.betweenType === AirBetweenType.TIME"
+                            v-model="filter[item.key]"
+                            is-range
+                            arrow-control
+                            :editable="false"
+                            range-separator="至"
+                            start-placeholder="开始时间"
+                            end-placeholder="结束时间"
+                            value-format="HH:mm:ss"
+                          />
+                          <el-date-picker
+                            v-if="item.betweenType === AirBetweenType.DATETIME"
+                            v-model="filter[item.key]"
+                            type="datetimerange"
+                            range-separator="至"
+                            start-placeholder="开始时间"
+                            end-placeholder="结束时间"
+                            format="YYYY/MM/DD HH:mm:ss"
+                            :editable="false"
+                            value-format="x"
+                            :default-time="[
+                              new Date(1991, 10, 3, 0, 0, 0),
+                              new Date(1991, 10, 3, 23, 59, 59),
+                            ]
+                            "
+                          />
 
-                          <el-slider v-if="item.betweenType === AirBetweenType.NUMBER" v-model="filter[item.key]"
-                            range :min="item.betweenMin || 0" :max="item.betweenMax || 100" />
+                          <el-slider
+                            v-if="item.betweenType === AirBetweenType.NUMBER"
+                            v-model="filter[item.key]"
+                            range
+                            :min="item.betweenMin || 0"
+                            :max="item.betweenMax || 100"
+                          />
                         </template>
 
-                        <el-select v-else-if="item.enumRecord && item.enumRecord.length > 0"
-                          v-model="filter[item.key]" :placeholder="'请选择' + item.label + '...'" clearable
-                          :filterable="item.filterable" @clear=" filter[item.key] = undefined">
+                        <el-select
+                          v-else-if="item.enumRecord && item.enumRecord.length > 0"
+                          v-model="filter[item.key]"
+                          :placeholder="'请选择' + item.label + '...'"
+                          clearable
+                          :filterable="item.filterable"
+                          @clear=" filter[item.key] = undefined"
+                        >
                           <template v-for=" enumItem of item.enumRecord ">
-                            <el-option v-if="!enumItem.disabled" :key="(enumItem.key as string)"
-                              :value="enumItem.key" :label="enumItem.label" />
+                            <el-option
+                              v-if="!enumItem.disabled"
+                              :key="(enumItem.key as string)"
+                              :value="enumItem.key"
+                              :label="enumItem.label"
+                            />
                           </template>
                         </el-select>
-                        <el-input-number v-else-if="item.dataType === AirSearchDataType.NUMBER"
-                          v-model.number="filter[item.key]" :placeholder="'请输入' + item.label + '...'"
-                          :type="getInputType(item)" :controls="false" />
-                        <el-input v-else v-model="filter[item.key]" :placeholder="'请输入' + item.label + '...'"
-                          clearable :type="getInputType(item)" @clear=" filter[item.key] = undefined" />
+                        <el-input-number
+                          v-else-if="item.dataType === AirSearchDataType.NUMBER"
+                          v-model.number="filter[item.key]"
+                          :placeholder="'请输入' + item.label + '...'"
+                          :type="getInputType(item)"
+                          :controls="false"
+                        />
+                        <el-input
+                          v-else
+                          v-model="filter[item.key]"
+                          :placeholder="'请输入' + item.label + '...'"
+                          clearable
+                          :type="getInputType(item)"
+                          @clear=" filter[item.key] = undefined"
+                        />
                       </slot>
                     </el-form-item>
                   </template>
                 </el-form>
               </div>
               <div class="advance-search-footer">
-                <el-button type="primary" @click="advanceSearch">
+                <el-button
+                  type="primary"
+                  @click="advanceSearch"
+                >
                   确定筛选
                 </el-button>
-                <el-button @click="
-                  resetSearch();
-                hideAdvanceSearchDialog()
-                  ">
+                <el-button
+                  @click="
+                    resetSearch();
+                    hideAdvanceSearchDialog()
+                  "
+                >
                   重置筛选
                 </el-button>
               </div>
@@ -114,9 +214,13 @@
         </div>
       </template>
 
-      <AButton v-if="showExport"
+      <AButton
+        v-if="showExport"
         :permission="exportPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.EXPORT)"
-        type="EXPORT" custom-class="export-button" @click=" exportIt()">
+        type="EXPORT"
+        custom-class="export-button"
+        @click=" exportIt()"
+      >
         导出
       </AButton>
       <slot name="toolbarExtend" />
@@ -211,7 +315,7 @@ const props = defineProps({
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<AirEntity>>,
-    default: AirEntity,
+    required: true,
   },
 
   /**

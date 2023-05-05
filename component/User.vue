@@ -32,7 +32,6 @@
 import { PropType } from 'vue'
 import { AirConfig } from '../AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
 import { IUser } from '../interface/IUser'
 
 const emits = defineEmits(['onCommand'])
@@ -43,7 +42,7 @@ defineProps({
    */
   user: {
     type: Object as PropType<IUser>,
-    default: () => AirClassTransformerHelper.newInstance(AirConfig.defaultUserEntity),
+    required: true,
   },
 
   /**

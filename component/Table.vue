@@ -196,11 +196,10 @@
             <template v-if="isFieldSelectorEnabled">
               <el-icon
                 class="air-field-select-icon"
-                @mouseover="
-                  (e: any) => {
-                    AirStore().tooltipRef = e.currentTarget;
-                    AirStore().tooltip = '配置列字段'
-                  }
+                @mouseover="(e: any) => {
+                  AirStore().tooltipRef = e.currentTarget;
+                  AirStore().tooltip = '配置列字段'
+                }
                 "
                 @click="isFieldSelectorShow = true"
               >
@@ -368,7 +367,7 @@ const props = defineProps({
    */
   dataList: {
     type: Array as PropType<AirEntity[]>,
-    default: () => [],
+    required: true,
   },
 
   /**
@@ -533,7 +532,7 @@ const props = defineProps({
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<AirEntity>>,
-    default: AirEntity,
+    required: true,
   },
 
   /**

@@ -26,7 +26,7 @@ const props = defineProps({
    */
   time: {
     type: Number,
-    default: undefined,
+    required: true,
   },
 
   /**

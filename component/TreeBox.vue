@@ -86,7 +86,7 @@ defineProps({
    */
   treeData: {
     type: Array as PropType<ITree[]>,
-    default: () => [],
+    required: true,
   },
 
   /**
