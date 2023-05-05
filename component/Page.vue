@@ -1,9 +1,21 @@
 <template>
   <div class="air-page">
-    <el-pagination v-model:currentPage="page.pageNum" v-model:page-size="page.pageSize" class="air-page-bar" background
-      :page-sizes="AirConfig.defaultPageSizes" layout=" prev, next" :total="response.total" small
-      @current-change="pageChanged($event)" />
-    <el-popover v-if="page.pageNum && response.pageCount" :width="240" trigger="click">
+    <el-pagination
+      v-model:currentPage="page.pageNum"
+      v-model:page-size="page.pageSize"
+      class="air-page-bar"
+      background
+      :page-sizes="AirConfig.defaultPageSizes"
+      layout=" prev, next"
+      :total="response.total"
+      small
+      @current-change="pageChanged($event)"
+    />
+    <el-popover
+      v-if="page.pageNum && response.pageCount"
+      :width="240"
+      trigger="click"
+    >
       <template #reference>
         <div class="air-page-count">
           <span>{{ page.pageNum }} / {{ response.pageCount }}</span>页
@@ -16,23 +28,39 @@
               每页显示
             </div>
 
-            <el-radio-group v-model="page.pageSize" class="air-page-radio" size="small">
-              <el-radio-button v-for="item in AirConfig.defaultPageSizes" :key="item" :label="item"
-                @click="sizeChanged(item)">
+            <el-radio-group
+              v-model="page.pageSize"
+              class="air-page-radio"
+              size="small"
+            >
+              <el-radio-button
+                v-for="item in AirConfig.defaultPageSizes"
+                :key="item"
+                :label="item"
+                @click="sizeChanged(item)"
+              >
                 {{ item }}
               </el-radio-button>
             </el-radio-group>
           </div>
           <div class="air-page-goto">
-            <el-button v-for="item in response.pageCount" :key="item" round
-              :type="page.pageNum === item ? 'primary' : 'default'" @click="pageChanged(item)">
+            <el-button
+              v-for="item in response.pageCount"
+              :key="item"
+              round
+              :type="page.pageNum === item ? 'primary' : 'default'"
+              @click="pageChanged(item)"
+            >
               {{ item }}
             </el-button>
           </div>
         </div>
       </template>
     </el-popover>
-    <div v-if="response.total" class="air-page-total">
+    <div
+      v-if="response.total"
+      class="air-page-total"
+    >
       共<span>{{ response.total }}</span>条数据
     </div>
   </div>
@@ -52,7 +80,7 @@ const props = defineProps({
    */
   response: {
     type: AirResponsePage,
-    required: true
+    required: true,
   },
 })
 

@@ -40,11 +40,10 @@
         '--el-switch-on-color': getSwitchColor('on'),
         '--el-switch-off-color': getSwitchColor('off')
       }"
-      :active-text="
-        !fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
-          item => item.key === true
-        )?.label
-          || ''"
+      :active-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
+        item => item.key === true
+      )?.label
+        || ''"
       :inactive-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
         item => item.key === false
       )?.label
@@ -166,10 +165,9 @@
     :placeholder="placeholderRef"
     :clearable="fieldConfig?.clearable"
     :disabled="disabled"
-    :maxlength="
-      fieldConfig?.maxLength || (fieldConfig?.isTextarea
-        ? AirConfig.maxTextAreaLength :
-          AirConfig.maxTextLength)
+    :maxlength="fieldConfig?.maxLength || (fieldConfig?.isTextarea
+      ? AirConfig.maxTextAreaLength :
+        AirConfig.maxTextLength)
     "
     :max="fieldConfig?.max"
     :min="fieldConfig?.min || 0"
@@ -178,10 +176,9 @@
     :rows="fieldConfig?.isTextarea ? AirConfig.defaultTextareaMinRows : 0"
     :prefix-icon="fieldConfig?.prefixIcon"
     :suffix-icon="fieldConfig?.suffixIcon"
-    :autosize="
-      fieldConfig?.autoSize ?
-        { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
-        : false
+    :autosize="fieldConfig?.autoSize ?
+      { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
+      : false
     "
     @keydown="inputKeyDown"
     @change="inputEvent"

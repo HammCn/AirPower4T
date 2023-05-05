@@ -25,11 +25,10 @@
         <slot name="headerRight" />
         <div
           class="panel-full"
-          @mouseover="
-            (e: any) => {
-              AirStore().tooltipRef = e.currentTarget;
-              AirStore().tooltip = '全屏/退出全屏'
-            }
+          @mouseover="(e: any) => {
+            AirStore().tooltipRef = e.currentTarget;
+            AirStore().tooltip = '全屏/退出全屏'
+          }
           "
           @click="isFullScreen = !isFullScreen"
         >

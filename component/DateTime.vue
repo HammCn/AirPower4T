@@ -1,13 +1,11 @@
 <template>
   <el-link
-
     class="air-friend-datetime"
     :underline="false"
-    @mouseover="
-      (e: any) => {
-        AirStore().tooltipRef = e.currentTarget;
-        AirStore().tooltip = toolTips
-      }
+    @mouseover="(e: any) => {
+      AirStore().tooltipRef = e.currentTarget;
+      AirStore().tooltip = toolTips
+    }
     "
   >
     {{ getDateTimeString }}
