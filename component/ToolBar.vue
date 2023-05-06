@@ -769,7 +769,7 @@ init()
       right: 0;
       top: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.05);
       z-index: 10001;
     }
 
@@ -791,7 +791,7 @@ init()
         top: 0px;
         z-index: 10002;
         background: white;
-        box-shadow: 0px 0px 20px rgb(0 0 0 / 30%);
+        box-shadow: 0px 0px 20px rgb(0 0 0 / 20%);
         border-radius: 6px;
         max-height: 500px;
         display: flex;

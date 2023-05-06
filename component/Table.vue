@@ -892,18 +892,18 @@ init()
       right: 0;
       top: 0;
       bottom: 0;
-      background-color: rgba($color: #000000, $alpha: 0.1);
+      background-color: rgba($color: #000000, $alpha: 0.05);
     }
 
     &-dialog {
-      box-shadow: 0px 0px 20px rgb(0 0 0 / 30%);
+      box-shadow: 0px 0px 20px rgb(0 0 0 / 20%);
       position: absolute;
       right: 30px;
       top: 30px;
       background-color: white;
       width: 350px;
       z-index: 101;
-      border-radius: 8px;
+      border-radius: 6px;
       display: flex;
       flex-direction: column;
       overflow: hidden;

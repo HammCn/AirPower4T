@@ -9,12 +9,7 @@
       <div class="air-navigator">
         <slot name="navigator" />
       </div>
-      <slot name="user">
-        <AUser
-          :user="user"
-          @on-command="handleCommand"
-        />
-      </slot>
+      <slot name="user" />
     </div>
     <div class="air-main">
       <div
@@ -45,9 +40,8 @@
 
 <script lang="ts" setup>
 import { PropType } from 'vue'
-import { AMenu, AUser } from '.'
+import { AMenu } from '.'
 import { IMenu } from '../interface/IMenu'
-import { IUser } from '../interface/IUser'
 
 defineProps({
   /**
@@ -67,38 +61,7 @@ defineProps({
     type: Array as PropType<Array<IMenu>>,
     required: true,
   },
-
-  /**
-   * # 用户信息
-   * ---
-   * ### 💡 请确保传入的类型为 ```IUser``` 的实现类
-   */
-  user: {
-    type: Object as PropType<IUser>,
-    required: true,
-  },
-
-  /**
-   * # 显示的头像
-   */
-  avatar: {
-    type: String,
-    default: () => '',
-  },
 })
-
-/**
- * 回调事件
- */
-const emits = defineEmits(['onUserCommand'])
-
-/**
- * 下拉菜单点击事件
- * @param cmd 指令
- */
-function handleCommand(cmd: string) {
-  emits('onUserCommand', cmd)
-}
 
 </script>
 
