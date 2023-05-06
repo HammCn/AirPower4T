@@ -84,7 +84,7 @@ const isDialogShow = ref(false)
  * 退出登录
  */
 async function logout() {
-  await AirConfirm.create().dangerButton().setConfirmText('确认退出').error('是否确认退出当前登录的用户?', '退出登录')
+  await AirConfirm.create().dangerButton().setConfirmText('确认退出').show('是否确认退出当前登录的用户?', '退出登录')
   AirConfig.removeAccessToken()
   if (AirConfig.router) {
     AirConfig.router.replace('/login')

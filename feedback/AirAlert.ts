@@ -66,6 +66,7 @@ export class AirAlert {
 
   /**
    * # 将确认按钮设置为危险颜色
+   * ### 💡 请注意,设置了危险按钮后, 所有的图标都将失效
    */
   dangerButton(): this {
     this.confirmButtonClass = 'danger'
@@ -179,7 +180,6 @@ export class AirAlert {
    * @param title [可选] 消息标题
    */
   info(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.INFO
     return this.alert(content, title)
   }
 
@@ -272,7 +272,7 @@ export class AirAlert {
       showConfirmButton: this.isConfirmButtonShow,
       confirmButtonText: this.confirmText,
       cancelButtonText: this.cancelText,
-      type: this.icon,
+      type: this.confirmButtonClass ? AirFeedbackIcon.NONE : this.icon,
       draggable: true,
       dangerouslyUseHTMLString: this.isHtmlEnabled,
       customClass: this.isHtmlEnabled ? 'rich-text' : '',

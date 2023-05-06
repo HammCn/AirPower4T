@@ -790,7 +790,7 @@ async function handleDelete(item: AirEntity) {
     // 如果实体传入 则尝试自动获取
 
     const entityName = getClassName(props.entity)
-    title = `删除${entityName}提醒`
+    title = '删除提醒'
     content = `是否确认删除当前选中的${entityName}？`
 
     // 如果传入配置项 则覆盖实体标注的内容
@@ -800,7 +800,8 @@ async function handleDelete(item: AirEntity) {
     if (props.deleteContent) {
       content = props.deleteContent
     }
-    await AirConfirm.warning(content, title)
+    await AirConfirm.create().dangerButton().enableEscClose().setConfirmText('确认删除')
+      .show(content, title)
     emits('onDelete', item)
   } catch (e) {
     // 取消删除
