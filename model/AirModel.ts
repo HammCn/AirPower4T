@@ -7,6 +7,7 @@ import { getCustomTableFieldList } from '../decorator/TableField'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 
 /**
  * # AirModel 模型基类
@@ -24,8 +25,23 @@ export class AirModel {
    *
    * @param obj 普通JSON对象
    */
-  copy(obj: Record<string, any>): this {
+  assign(obj: Record<string, any>): this {
     return Object.assign(this, obj)
+  }
+
+  /**
+   * # 将当前实例复制到一个新实例上
+   */
+  copy(): this {
+    return AirClassTransformer.copy(this, (this as any).constructor)
+  }
+
+  /**
+   * # 从JSON强制转换一个当前类的实体
+   * @param loading Loading的Ref对象
+   */
+  static parse<T extends AirModel>(this: new () => T, json: Record<string, any>): T {
+    return AirClassTransformer.parse(json, this) as T
   }
 
   /**

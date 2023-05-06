@@ -131,7 +131,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
   }
 
   /**
-   * # 保存一条数据
+   * # 保存一条数据并返回主键ID
    *
    * ### 💡 如包含ID 则更新 如不包含 则创建
    * ---
@@ -140,12 +140,12 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param message [可选]保存成功的消息提示内容
    * @param title [可选]保存成功的消息提示标题 默认 '保存成功'
    */
-  async save(data: E, message?: string, title = '保存成功'): Promise<void> {
+  async save(data: E, message?: string, title = '保存成功'): Promise<number> {
     if (data.id) {
       await this.update(data, message, title)
-    } else {
-      await this.add(data, message, title)
+      return data.id
     }
+    return this.add(data, message, title)
   }
 
   /**
@@ -165,5 +165,15 @@ export abstract class AirAbstractService<E extends AirEntity> {
       .catch((err: Error) => {
         AirAlert.error(err.message, '删除失败')
       })
+  }
+
+  /**
+   * # 带Loading状态创建一个Service实例
+   * @param loading Loading的Ref对象
+   */
+  static loading<T>(this: new () => T, loading?: Ref<boolean>): T {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return Object.assign(new this(), loading) as T
   }
 }
