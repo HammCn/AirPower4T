@@ -77,7 +77,8 @@ export function getCustomTableFieldNameList<E extends AirModel>(target: E): stri
  * # 获取字段标记的表格字段配置列表
  * @param fieldNameList 字段列表
  */
-export function getCustomTableFieldList<E extends AirModel>(target: E, fieldNameList: string[]) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getCustomTableFieldList(target: any, fieldNameList: string[]) {
   const tableFieldConfigList: AirTableFieldConfig[] = []
   const keyList = []
   if (fieldNameList.length === 0) {

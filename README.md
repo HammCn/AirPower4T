@@ -106,7 +106,7 @@ AirPower内置了以下一些模块：
     使用时，可通过类的原型或类的对象进行读取并传入给 ```ATable``` 组件。获取方法如下：
     
     ```typescript
-    UserEntity.prototype.getTableFieldConfigList()
+    UserEntity.getTableFieldConfigList()
     //或者
     const user = new UserEntity()
     user.getTableFieldConfigList() //用户列表的表格显示字段配置信息数组
@@ -122,7 +122,7 @@ AirPower内置了以下一些模块：
 
     使用时，可通过类的原型或类的对象进行读取并传入给 ```AToolBar``` 组件。获取方法如下：
     ```typescript
-    UserEntity.prototype.getSearchFieldConfigList()
+    UserEntity.getSearchFieldConfigList()
     //或者
     const user = new UserEntity()
     user.getSearchFieldConfigList() //用户搜索字段配置信息数组

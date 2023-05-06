@@ -10,7 +10,7 @@ import { ITree } from '../interface/ITree'
  */
 export class AirClassTransformer {
   /**
-   * # 强制转换数据到指定的类型
+   * # 强制转换JSON原始对象到指定类的实例
    *
    * @param from 来源JSON对象
    * @param to 目标类

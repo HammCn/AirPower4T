@@ -45,7 +45,7 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
   if (formFieldConfig === undefined) {
     // 没有查询到配置
     const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name === AirModel.name) {
+    if (superClass.name === AirModel.name) {
       return null
     }
     formFieldConfig = getFormFieldConfig(superClass, fieldKey)
@@ -78,7 +78,8 @@ export function getCustomFormFieldNameList<E extends AirModel>(target: E): strin
  * @param target 目标类或对象
  * @param fieldNameList 选择字段列表
  */
-export function getCustomFormFieldList<E extends AirModel>(target: E, fieldNameList: string[]) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getCustomFormFieldList(target: any, fieldNameList: string[]) {
   if (fieldNameList.length === 0) {
     fieldNameList = getCustomFormFieldNameList(target)
   }

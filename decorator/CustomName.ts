@@ -82,13 +82,13 @@ export function FieldName(fieldName: string) {
  * @param target 目标对象
  * @param fieldKey 属性名
  */
-export function getFieldName<E extends AirModel>(target: E, fieldKey: string): string {
+export function getFieldName(target: any, fieldKey: string): string {
   let fieldName = Reflect.getOwnMetadata(customFieldNameMetaKey, target, fieldKey)
   if (fieldName) {
     return fieldName
   }
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AirModel.name) {
+  if (superClass.name === AirModel.name) {
     return fieldKey
   }
   fieldName = getFieldName(superClass, fieldKey)
