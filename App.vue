@@ -48,9 +48,7 @@ onMounted(() => {
 
 const airpowerInit = () => {
   if (!AirConfig.router) {
-    new AirAlert().setTitle('请先配置')
-      .setContent('请在main.ts中配置 AirConfig.router')
-      .error()
+    AirAlert.error('请在main.ts中配置 AirConfig.router', '请先配置')
   }
 }
 airpowerInit()

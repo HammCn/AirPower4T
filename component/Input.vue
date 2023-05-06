@@ -214,7 +214,7 @@ import { AirConfig } from '../AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { IRecord } from '../interface/IRecord'
-import { AirValidatorHelper } from '../helper/AirValidatorHelper'
+import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
@@ -437,7 +437,7 @@ function inputEvent() {
     let tempValue = value.value as number | string | undefined
     const max = fieldConfig.value.max || AirConfig.maxNumber
     const min = fieldConfig.value.min || AirConfig.minNumber
-    if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidatorHelper.isNumber(tempValue.toString())) {
+    if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidator.isNumber(tempValue.toString())) {
       tempValue = parseFloat(tempValue.toString())
       // 按最大值最小值做边界处理
       tempValue = Math.max(tempValue, min)

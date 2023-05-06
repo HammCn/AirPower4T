@@ -88,8 +88,8 @@
                   style="background-color:#f3f6f9"
                   :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px' }"
                   lazy
-                  :src="AirFileHelper.getStaticFileUrl((scope as any).row[item.key])"
-                  :preview-src-list="[AirFileHelper.getStaticFileUrl((scope as any).row[item.key])]"
+                  :src="AirFile.getStaticFileUrl((scope as any).row[item.key])"
+                  :preview-src-list="[AirFile.getStaticFileUrl((scope as any).row[item.key])]"
                   :z-index="999999"
                   preview-teleported
                   fit="contain"
@@ -223,7 +223,7 @@
                 type="ADD"
                 :disabled="isAddDisabled((scope as any).row)"
                 :tooltip="isAddDisabled((scope as any).row) ? '禁止添加' : '添加'"
-                :permission="addPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.ADD_CHILD)"
+                :permission="addPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.ADD_CHILD)"
                 @click="handleAdd((scope as any).row)"
               />
               <AButton
@@ -232,7 +232,7 @@
                 type="EDIT"
                 :disabled="isEditDisabled((scope as any).row)"
                 :tooltip="isEditDisabled((scope as any).row) ? '禁止编辑' : '编辑'"
-                :permission="editPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.EDIT)"
+                :permission="editPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.EDIT)"
                 @click="handleEdit((scope as any).row)"
               />
               <AButton
@@ -241,7 +241,7 @@
                 type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
                 :tooltip="isDetailDisabled((scope as any).row) ? '禁止查看详情' : '查看详情'"
-                :permission="detailPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.DETAIL)"
+                :permission="detailPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.DETAIL)"
                 @click="handleDetail((scope as any).row)"
               />
               <AButton
@@ -251,7 +251,7 @@
                 danger
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :tooltip="isDeleteDisabled((scope as any).row) ? '禁止删除' : '删除'"
-                :permission="deletePermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.DELETE)"
+                :permission="deletePermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.DELETE)"
                 @click="handleDelete((scope as any).row)"
               />
             </template>
@@ -314,12 +314,12 @@ import { AirEntityConfig } from '../config/AirEntityConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirTableInstance } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
-import { AirFileHelper } from '../helper/AirFileHelper'
+import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../dto/AirSort'
 import { ADateTime, ACopy, AButton } from '.'
 import { AirConfig } from '../AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
-import { AirPermissionHelper } from '../helper/AirPermissionHelper'
+import { AirPermission } from '../helper/AirPermission'
 import { AirEntity } from '../dto/AirEntity'
 import { AirStore } from '../store/AirStore'
 
@@ -800,12 +800,7 @@ async function handleDelete(item: AirEntity) {
     if (props.deleteContent) {
       content = props.deleteContent
     }
-    await new AirConfirm()
-      .setTitle(title)
-      .setContent(content)
-      .setConfirmText('确定')
-      .setCancelText('取消')
-      .warning()
+    await AirConfirm.warning(content, title)
     emits('onDelete', item)
   } catch (e) {
     // 取消删除

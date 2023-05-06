@@ -16,7 +16,7 @@ import { IFile } from '../interface/IFile'
  * # 弹窗助手类
  * @author Hamm
  */
-export class AirDialogHelper {
+export class AirDialog {
   /**
   * # 弹出对话框的内部方法
   * @param view 使用的视图组件 传入一个import的vue

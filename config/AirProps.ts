@@ -88,7 +88,7 @@ export function airPropsSelector<
      * 能保证的是, 确实是一个实体的基类, 可以调用一些AirModel的方法
      *
      * ```typescript
-     * AirClassTransformerHelper.parse(props.param.toSourceObject(), UserEntity)
+     * AirClassTransformer.parse(props.param.toSourceObject(), UserEntity)
      * ```
      */
     param: {

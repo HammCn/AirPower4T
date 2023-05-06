@@ -7,7 +7,7 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
  * # 时间日期时间戳格式化类
  * @author Hamm
  */
-export class AirDateTimeHelper {
+export class AirDateTime {
   /**
    * # 格式化到Unix秒时间戳(默认当前时间)
    * @param date [可选]Date对象/时间字符串

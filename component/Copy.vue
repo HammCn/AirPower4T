@@ -8,8 +8,7 @@
     "
     @click="copy"
   >
-    <!-- 自定义显示的插槽 -->
-    <slot>{{ content }}</slot>
+    <slot>{{ content || "-" }}</slot>
   </el-link>
 </template>
 <script lang="ts" setup>
@@ -23,7 +22,7 @@ const props = defineProps({
    */
   content: {
     type: String,
-    required: true,
+    default: '',
   },
 })
 
@@ -48,6 +47,9 @@ let timer: number
  * 复制事件
  */
 async function copy() {
+  if (!props.content) {
+    return
+  }
   await toClipboard(props.content)
   copyTips.value = '成功复制到剪切板!'
   AirStore().tooltip = copyTips.value

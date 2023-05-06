@@ -1,18 +1,12 @@
-.dialog .el-select .el-input__inner {
-  min-height: 32px !important;
-}
-
 .el-select {
   width: 100%;
 }
 
-textarea {
-  resize: none !important;
-}
 .el-scrollbar__thumb {
   background-color: var(--el-color-primary-light-8) !important;
   opacity: 1 !important;
 }
+
 .el-popper.is-customized {
   padding: 6px 12px;
   background: #666;
@@ -44,13 +38,14 @@ textarea {
   cursor: wait !important;
 }
 
-.el-button.el-loading-parent--relative .el-loading-mask .el-loading-spinner .path {
-  stroke: white;
-  stroke-width: 5px;
-}
-
-.el-button.el-loading-parent--relative .el-loading-mask .circular {
-  width: 20px;
+.el-button.el-loading-parent--relative .el-loading-mask {
+  .el-loading-spinner .path {
+    stroke: white;
+    stroke-width: 5px;
+  }
+  .circular {
+    width: 20px;
+  }
 }
 
 .el-button span {
@@ -59,16 +54,6 @@ textarea {
 
 .el-button.el-loading-parent--relative span {
   opacity: 0;
-}
-
-.air-dialog {
-  .el-input-number .el-input__inner {
-    text-align: left !important;
-  }
-  .el-date-editor,
-  .el-input-number {
-    width: 100% !important;
-  }
 }
 
 .el-cascader-menu__list {
@@ -94,7 +79,7 @@ textarea {
   background-color: var(--primary-color);
   color: white;
   border-radius: 3px;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content > .el-icon.el-tree-node__expand-icon {
@@ -135,16 +120,16 @@ textarea {
   }
 
   .el-message-box__status + .el-message-box__message {
-    padding-left: 56px;
+    padding-left: 30px;
   }
 
   .el-message-box__content {
-    padding: 40px 20px;
+    padding: 30px;
     font-size: 16px;
 
     .iconfont,
     .el-message-box__status {
-      font-size: 46px !important;
+      font-size: 24px !important;
     }
 
     .icon-mes-warning {
@@ -159,35 +144,35 @@ textarea {
       color: var(--icon-sucess-color);
     }
   }
-
-  .el-message-box__btns {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-  }
-
-  .el-message-box__btns .el-button {
-    margin: 5px;
-    padding: 10px 30px;
-    font-size: 14px;
-  }
-
   .el-message-box__container {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
   }
 
+  .el-message-box__btns {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    .el-button {
+      margin: 5px;
+      padding: 10px 30px;
+      font-size: 14px;
+    }
+    .danger {
+      background-color: var(--el-color-danger);
+      border-color: var(--el-color-danger);
+    }
+  }
+
   .el-message-box__message {
     flex: 1;
     width: 0;
+    p {
+      word-wrap: break-word;
+      word-break: break-all;
+    }
   }
-
-  .el-message-box__message p {
-    word-wrap: break-word;
-    word-break: break-all;
-  }
-
   .el-message-box__status.el-icon-error {
     top: 50% !important;
   }

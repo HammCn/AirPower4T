@@ -1,5 +1,6 @@
 * {
   font-family: "Nunito";
+  outline: none;
 }
 
 html {
@@ -94,22 +95,19 @@ input[type="number"] {
   }
 }
 
-.lf-menu {
-  padding: 0 !important;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3) !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
-  border: none !important;
-  user-select: none;
-
-  .lf-menu-item {
-    padding: 12px 24px !important;
-    font-size: 14px !important;
-    color: #666 !important;
-
-    &:hover {
-      background: var(--el-color-primary) !important;
-      color: white !important;
-    }
+.air-dialog {
+  .el-input-number .el-input__inner {
+    text-align: left !important;
   }
+  .el-date-editor,
+  .el-input-number {
+    width: 100% !important;
+  }
+  .el-select .el-input__inner {
+    min-height: 32px !important;
+  }
+}
+
+textarea {
+  resize: none !important;
 }

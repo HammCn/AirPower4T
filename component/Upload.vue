@@ -31,7 +31,7 @@
           <b>点击或拖到此处上传</b>
           <span>
             仅限不超过
-            <b>{{ AirFileHelper.getFileSizeFriendly(props.maxSize) }}</b>
+            <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
             的
             <template v-if="!exts.includes('*')">
               <b>{{ exts.join('/') }}</b>文件
@@ -49,8 +49,8 @@ import { ClassConstructor } from 'class-transformer'
 import { ADialog } from '.'
 import { AirConfig } from '../AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
-import { AirFileHelper } from '../helper/AirFileHelper'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { AirFile } from '../helper/AirFile'
 import { AirHttpStatus } from '../enum/AirHttpStatus'
 import { IFile } from '../interface/IFile'
 
@@ -189,18 +189,14 @@ function uploadReady(file: { name: string; size: number; }): boolean {
     const fileExt = arr && arr.length > 1 ? arr[arr.length - 1] : ''
     const isFileTypeInLimited = !(props.exts.indexOf(fileExt.toLowerCase()) < 0)
     if (!isFileTypeInLimited) {
-      new AirNotification().setTitle(`不允许的文件类型${fileExt}`)
-        .setMessage(`只允许上传${props.exts.join('/')}类型的文件`)
-        .error()
+      AirNotification.error(`只允许上传${props.exts.join('/')}类型的文件`, `不允许的文件类型${fileExt}`)
       return false
     }
   }
   const isFileSizeInLimited = file.size <= props.maxSize
   // 文件大小验证
   if (!isFileSizeInLimited) {
-    new AirNotification().setTitle(`文件大小超限${AirFileHelper.getFileSizeFriendly(file.size)}`)
-      .setMessage(`只允许上传不超过${AirFileHelper.getFileSizeFriendly(props.maxSize)}的文件`)
-      .error()
+    AirNotification.error(`只允许上传不超过${AirFile.getFileSizeFriendly(props.maxSize)}的文件`, `文件大小超限${AirFile.getFileSizeFriendly(file.size)}`)
     return false
   }
 
@@ -214,20 +210,16 @@ function uploadReady(file: { name: string; size: number; }): boolean {
 function uploadSuccess(result: Record<string, unknown>) {
   loading.value = false
   if (result.code === undefined || result.code === null) {
-    new AirNotification().setTitle('上传失败')
-      .setMessage('好家伙,服务器连Code都没返回???')
-      .error()
+    uploadError()
     return
   }
   if (result.code === AirHttpStatus.OK) {
-    new AirNotification().setTitle('上传成功')
-      .setMessage(props.uploadSuccess)
-      .success()
+    AirNotification.success(props.uploadSuccess, '上传成功')
     if (props.onCustomSuccess) {
       props.onCustomSuccess(result.data)
       props.onConfirm(null)
     } else {
-      const entity = AirClassTransformerHelper.parse(
+      const entity = AirClassTransformer.parse(
         result.data as Record<string, unknown>,
         props.entity,
       )
@@ -243,9 +235,7 @@ function uploadSuccess(result: Record<string, unknown>) {
  */
 function uploadError() {
   loading.value = false
-  new AirNotification().setTitle('上传失败')
-    .setMessage('文件上传失败,请稍候再试')
-    .error()
+  AirNotification.error('上传文件失败, 请稍后再试', '上传失败')
 }
 </script>
 <style lang="scss">

@@ -53,7 +53,7 @@ export interface IUploadConfig {
 
   /**
    * # 自定义上传成功的回调
-   * 如果传入了回调, ```AirDialogHelper.showUpload()``` 将返回 ```null```
+   * 如果传入了回调, ```AirDialog.showUpload()``` 将返回 ```null```
    * @请在此回调中接收数据
    */
   // eslint-disable-next-line @typescript-eslint/ban-types

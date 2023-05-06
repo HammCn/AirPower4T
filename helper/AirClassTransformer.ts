@@ -8,7 +8,7 @@ import { ITree } from '../interface/ITree'
  * # 转换类型助手
  * @author Hamm
  */
-export class AirClassTransformerHelper {
+export class AirClassTransformer {
   /**
    * # 强制转换数据到指定的类型
    *

@@ -17,21 +17,13 @@
         class="air-user-dialog"
         :style="{ width: width + 'px', height: height + 'px' }"
       >
-        <div class="air-user-body">
-          <slot>
-            <div class="slot">
-              your slot here...
-            </div>
-          </slot>
-        </div>
-        <div class="air-user-footer">
-          <div class="air-user-setting">
-            <slot name="setting" />
+        <div class="air-user-header">
+          <div class="air-user-title">
+            <slot name="title" />
           </div>
           <div class="air-user-logout">
             <el-button
               type="danger"
-              size="small"
               text
               @click="logout"
             >
@@ -41,6 +33,13 @@
               退出登录
             </el-button>
           </div>
+        </div>
+        <div class="air-user-body">
+          <slot>
+            <div class="slot">
+              User Profile Card...
+            </div>
+          </slot>
         </div>
       </div>
     </transition>
@@ -67,7 +66,7 @@ defineProps({
    */
   width: {
     type: Number,
-    default: 250,
+    default: 300,
   },
 
   /**
@@ -75,7 +74,7 @@ defineProps({
    */
   height: {
     type: Number,
-    default: 300,
+    default: 400,
   },
 })
 
@@ -85,9 +84,7 @@ const isDialogShow = ref(false)
  * 退出登录
  */
 async function logout() {
-  await new AirConfirm().setTitle('退出登录')
-    .setContent('是否确认退出当前登录的用户?')
-    .warning()
+  await AirConfirm.create().dangerButton().setConfirmText('确认退出').error('是否确认退出当前登录的用户?', '退出登录')
   AirConfig.removeAccessToken()
   if (AirConfig.router) {
     AirConfig.router.replace('/login')
@@ -143,19 +140,19 @@ async function logout() {
       }
     }
 
-    .air-user-footer {
+    .air-user-header {
       display: flex;
       flex-direction: row;
-      border-top: 1px solid #f5f5f5;
+      border-bottom: 1px solid #f5f5f5;
       padding: 10px;
       align-items: center;
       display: flex;
       flex-direction: row;
       align-items: center;
 
-      .air-user-setting {
+      .air-user-title {
         flex: 1;
-        font-size: 12px;
+        font-size: 16px;
       }
     }
   }

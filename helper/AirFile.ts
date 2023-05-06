@@ -4,7 +4,7 @@ import { AirConfig } from '../AirConfig'
  * # 文件助手类
  * @author Hamm
  */
-export class AirFileHelper {
+export class AirFile {
   /**
    * # 字节数转可读文件大小
    * @param size 字节数

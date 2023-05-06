@@ -18,7 +18,7 @@
             :stroke-width="10"
             :format="() => { }"
           />
-          数据生成中,请稍后...
+          数据准备中,请稍后...
         </template>
         <template v-else>
           <el-result
@@ -44,8 +44,8 @@
 import { ref } from 'vue'
 import { ADialog } from '..'
 import { AirExportModel } from '@/airpower/model/AirExportModel'
-import { AirFileHelper } from '@/airpower/helper/AirFileHelper'
-import { AirHttp } from '@/airpower/model/AirHttp'
+import { AirFile } from '@/airpower/helper/AirFile'
+import { AirHttp } from '@/airpower/helper/AirHttp'
 import { airPropsParam } from '@/airpower/config/AirProps'
 
 const props = defineProps(airPropsParam<AirExportModel>(new AirExportModel()))
@@ -80,10 +80,10 @@ const exportFilePath = ref('')
 async function startLoop(fileCode: string) {
   clearTimeout(loopTimer)
   try {
-    const downloadPath: string = await new AirHttp('file/download').withOutError()
+    const downloadPath: string = await AirHttp.create('file/download').withOutError()
       .post({ fileCode })
     isLoading.value = false
-    exportFilePath.value = AirFileHelper.getStaticFileUrl(downloadPath)
+    exportFilePath.value = AirFile.getStaticFileUrl(downloadPath)
   } catch (e) {
     // 文件暂未生成
     loopTimer = setTimeout(() => {
@@ -109,7 +109,7 @@ async function createExportTask() {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
     const json = props.param.param.toSourceObject()
     json.page = undefined
-    const fileCode: string = await new AirHttp(props.param.url).post(json)
+    const fileCode: string = await AirHttp.create(props.param.url).post(json)
     // 轮询任务结果
     startLoop(fileCode)
   } catch (e) {

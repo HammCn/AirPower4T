@@ -64,7 +64,6 @@
             <AButton
               v-if="!hideConfirm"
               primary
-              type="FINISH"
               :disabled="disableConfirm || loading"
               @click="confirmEvent"
             >
@@ -73,7 +72,6 @@
             <slot name="middleButton" />
             <AButton
               v-if="!hideCancel"
-              type="CLOCK"
               @click="emits('onCancel')"
             >
               {{ cancelText }}
@@ -92,9 +90,9 @@ import {
 import { AButton } from '.'
 import { AirConfig } from '../AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
-import { AirValidator } from '../model/AirValidator'
+import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
-import { AirRandHelper } from '../helper/AirRandHelper'
+import { AirRand } from '../helper/AirRand'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
@@ -282,7 +280,7 @@ const cursorRef = ref('grab')
 /**
  * # 随机ID
  */
-const randId = ref(`id${AirRandHelper.getRandNumberAndCharString()}`)
+const randId = ref(`id${AirRand.getRandNumberAndCharString()}`)
 
 /**
  * 窗体偏移的x
@@ -453,9 +451,7 @@ async function confirmEvent() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const list = ((e as any)[keys[0]] as AirValidator[])
       if (list.length > 0) {
-        new AirNotification().setTitle('验证失败')
-          .setMessage(list[0].message)
-          .warning()
+        AirNotification.warning(list[0].message, '验证失败')
       }
     }
     dialogBgClicked()

@@ -1,7 +1,7 @@
 import { AirConfig } from '../AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { IMenu } from '../interface/IMenu'
-import { AirConsoleHelper } from './AirConsoleHelper'
+import { AirConsole } from './AirConsole'
 
 const modules = import.meta.glob('../../view/**/*.vue')
 
@@ -9,7 +9,7 @@ const modules = import.meta.glob('../../view/**/*.vue')
  * # Vue路由助手
  * @author Hamm
  */
-export class AirRouterHelper {
+export class AirRouter {
   /**
    * # 将AirMenu菜单列表初始化到Vue路由中
    * @param menuList 菜单列表
@@ -31,16 +31,14 @@ export class AirRouterHelper {
    */
   private static addRouterAsync(menuList: IMenu[], parentRouter: string): void {
     if (!AirConfig.router) {
-      new AirNotification().setTitle('配置错误')
-        .setMessage('请先向AirConfig注入当前路由对象')
-        .error()
+      AirNotification.error('请先向AirConfig注入当前路由对象', '配置错误')
       return
     }
     menuList.forEach((item) => {
       if (!item.children || item.children.length === 0) {
         if (AirConfig.router) {
           if (!item.name || !item.path || !item.component) {
-            AirConsoleHelper.error('路由初始化失败，缺少参数')
+            AirConsole.error('路由初始化失败，缺少参数')
           } else {
             AirConfig.router.addRoute(parentRouter, {
               path: item.path,

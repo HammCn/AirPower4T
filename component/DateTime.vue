@@ -15,7 +15,7 @@
 import { computed, PropType } from 'vue'
 import { AirConfig } from '../AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirDateTimeHelper } from '../helper/AirDateTimeHelper'
+import { AirDateTime } from '../helper/AirDateTime'
 import { AirStore } from '../store/AirStore'
 
 const props = defineProps({
@@ -24,7 +24,7 @@ const props = defineProps({
    */
   time: {
     type: Number,
-    required: true,
+    default: 0,
   },
 
   /**
@@ -54,9 +54,9 @@ const getDateTimeString = computed(() => {
     return '-'
   }
   if (props.isFriendly) {
-    return AirDateTimeHelper.getFriendlyDateTime(props.time)
+    return AirDateTime.getFriendlyDateTime(props.time)
   }
-  return AirDateTimeHelper.formatFromMilliSecond(props.time, props.formatter)
+  return AirDateTime.formatFromMilliSecond(props.time, props.formatter)
 })
 
 /**
@@ -67,9 +67,9 @@ const toolTips = computed(() => {
     return '-'
   }
   if (!props.isFriendly) {
-    return AirDateTimeHelper.getFriendlyDateTime(props.time)
+    return AirDateTime.getFriendlyDateTime(props.time)
   }
-  return AirDateTimeHelper.formatFromMilliSecond(props.time, props.formatter)
+  return AirDateTime.formatFromMilliSecond(props.time, props.formatter)
 })
 
 </script>

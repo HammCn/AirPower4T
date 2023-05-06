@@ -11,7 +11,7 @@ import { IFile } from '../interface/IFile'
 export class AirFileEntity extends AirEntity implements IFile {
   /**
    * # 文件的相对路径
-   * 可以调用 ```AirFileHelper.getStaticFileUrl()``` 获取文件的真实地址
+   * 可以调用 ```AirFile.getStaticFileUrl()``` 获取文件的真实地址
    */
   @Expose() url!: string
 }

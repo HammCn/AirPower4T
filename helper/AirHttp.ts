@@ -60,6 +60,14 @@ export class AirHttp {
   }
 
   /**
+   * # 创建一个AirHttp客户端
+   * @param url 请求的URL
+   */
+  static create(url: string): AirHttp {
+    return new AirHttp(url)
+  }
+
+  /**
    * # 设置Loading的Ref对象
    * @param loading Loading的Ref
    *
@@ -180,19 +188,13 @@ export class AirHttp {
                 AirConfig.router.push('/login')
               }
             } else {
-              new AirNotification()
-                .setTitle('请先登录')
-                .setMessage('请为@/airpower/app的AirConfig注入当前项目的路由')
-                .error()
+              AirNotification.error('请为@/airpower/app的AirConfig注入当前项目的路由', '请先登录')
             }
             break
           default:
             // 其他业务错误
             if (!this.flagIgnoreError) {
-              new AirNotification()
-                .setTitle(AirConfig.errorTitle)
-                .setMessage(res.data[AirConfig.defaultHttpGlobalMessageKey] || AirConfig.errorMessage)
-                .error()
+              AirNotification.error(res.data[AirConfig.defaultHttpGlobalMessageKey] || AirConfig.errorMessage, AirConfig.errorTitle)
             }
             error(res.data)
         }
@@ -202,10 +204,7 @@ export class AirHttp {
           this.loading.value = false
         }
         if (!this.flagIgnoreError) {
-          new AirNotification()
-            .setTitle(AirConfig.errorTitle)
-            .setMessage(AirConfig.errorMessage)
-            .error()
+          AirNotification.error(AirConfig.errorMessage, AirConfig.errorTitle)
         }
         error(err)
       })

@@ -2,7 +2,7 @@
  * # 随机生成数据助手
  * @author Hamm
  */
-export class AirRandHelper {
+export class AirRand {
   /**
    * # 数字集合
    */

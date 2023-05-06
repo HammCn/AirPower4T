@@ -1,20 +1,21 @@
 import CryptoJS from 'crypto-js'
 import { Base64 } from 'js-base64'
+import { AirConfig } from '../AirConfig'
 
 /**
  * # 加解密和散列摘要算法助手类
  * @author Hamm
  */
-export class AirCryptoHelper {
+export class AirCrypto {
   /**
    * # 默认key
    */
-  private static key = '123456789@houhou'
+  private static key = AirConfig.cryptoKey
 
   /**
    * # AES加密方法
    * @param data 加密数据
-   * @param key [可选]密钥 默认```123456789@houhou```
+   * @param key [可选]密钥 默认```AirConfig.cryptoKey```
    * @param mode [可选]加密方式 默认 CBC
    * @param padding [可选]填充方式 默认无填充
    */
@@ -31,7 +32,7 @@ export class AirCryptoHelper {
   /**
    * # AES解密方法
    * @param data 需要解密的数据
-   * @param key [可选]密钥 默认```123456789@houhou```
+   * @param key [可选]密钥 默认```AirConfig.cryptoKey```
    * @param mode [可选]加密方式 默认 CBC
    * @param padding [可选]填充方式 默认无填充
    */

@@ -21,6 +21,11 @@ export class AirConfig {
   static readonly version = 'v1.0.0'
 
   /**
+   * # AES加解密使用的key
+   */
+  static cryptoKey = 'abcdef0123456789'
+
+  /**
    * # AppID
    * 用于处理一些唯一场景做项目区分
    */

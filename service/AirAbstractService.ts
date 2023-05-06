@@ -4,8 +4,8 @@ import { Ref } from 'vue'
 import { AirRequest } from '../dto/AirRequest'
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
-import { AirHttp } from '../model/AirHttp'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { AirHttp } from '../helper/AirHttp'
 import { AirEntity } from '../dto/AirEntity'
 import { AirResponsePage } from '../dto/AirResponsePage'
 
@@ -51,9 +51,9 @@ export abstract class AirAbstractService<E extends AirEntity> {
       url = `${this.baseUrl}/${url}`
     }
     if (this.loading) {
-      return new AirHttp(url).setLoading(this.loading)
+      return AirHttp.create(url).setLoading(this.loading)
     }
-    return new AirHttp(url)
+    return AirHttp.create(url)
   }
 
   /**
@@ -62,11 +62,11 @@ export abstract class AirAbstractService<E extends AirEntity> {
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
     if (request.filter) {
-      request.filter = AirClassTransformerHelper.parse(request.filter, this.entityClass)
+      request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
     }
     const json = await this.api('getPage').post(request.toSourceObject())
-    const responsePage = AirClassTransformerHelper.parse<AirResponsePage<E>>(json, AirResponsePage)
-    responsePage.list = AirClassTransformerHelper.parseArray(responsePage.list, this.entityClass)
+    const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
+    responsePage.list = AirClassTransformer.parseArray(responsePage.list, this.entityClass)
     return responsePage
   }
 
@@ -76,10 +76,10 @@ export abstract class AirAbstractService<E extends AirEntity> {
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
     if (request.filter) {
-      request.filter = AirClassTransformerHelper.parse(request.filter, this.entityClass)
+      request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
     }
     const json = await this.api('getList').post(request.toSourceObject())
-    return AirClassTransformerHelper.parseArray(json, this.entityClass)
+    return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
   /**
@@ -88,10 +88,10 @@ export abstract class AirAbstractService<E extends AirEntity> {
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
     if (request.filter) {
-      request.filter = AirClassTransformerHelper.parse(request.filter, this.entityClass)
+      request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
     }
     const json = await this.api('getTreeList').post(request.toSourceObject())
-    return AirClassTransformerHelper.parseArray(json, this.entityClass)
+    return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
   /**
@@ -100,7 +100,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    */
   async getDetail(id: number): Promise<E> {
     const json = await this.api('getDetail').post(new AirEntity().setId(id))
-    return AirClassTransformerHelper.parse(json, this.entityClass)
+    return AirClassTransformer.parse(json, this.entityClass)
   }
 
   /**
@@ -112,11 +112,9 @@ export abstract class AirAbstractService<E extends AirEntity> {
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
     const json = await this.api('add').post(data.toSourceObject())
     if (message) {
-      new AirNotification().setTitle(title)
-        .setMessage(message)
-        .success()
+      AirNotification.success(message, title)
     }
-    return AirClassTransformerHelper.parse(json, this.entityClass).id
+    return AirClassTransformer.parse(json, this.entityClass).id
   }
 
   /**
@@ -128,9 +126,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
     await this.api('update').post(data.toSourceObject())
     if (message) {
-      new AirNotification().setTitle(title)
-        .setMessage(message)
-        .success()
+      AirNotification.success(message, title)
     }
   }
 
@@ -163,17 +159,11 @@ export abstract class AirAbstractService<E extends AirEntity> {
       .post(new AirEntity().setId(id))
       .then(() => {
         if (message) {
-          new AirNotification().setTitle(title)
-            .setMessage(message)
-            .success()
+          AirNotification.success(message, title)
         }
       })
-      .catch((err) => {
-        new AirAlert()
-          .setTitle('删除失败')
-          .setContent(err.message)
-          .setConfirmText('确定')
-          .error()
+      .catch((err: Error) => {
+        AirAlert.error(err.message, '删除失败')
       })
   }
 }

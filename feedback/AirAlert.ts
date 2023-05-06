@@ -5,33 +5,24 @@ import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
 
 /**
  * # 消息弹窗类
+ * 可通过 ```.create()``` 方法创建自定义实例
  * @author Hamm
  */
 export class AirAlert {
   /**
-   * # 标题
-   */
-  protected title: string
-
-  /**
-   * # 内容
-   */
-  protected content: string
-
-  /**
    * # 确认按钮文字
    */
-  protected confirmText: string
+  protected confirmText = '确认'
 
   /**
    * # 取消按钮文字
    */
-  protected cancelText!: string
+  protected cancelText = '取消'
 
   /**
    * # 可选的确认图标类型
    */
-  protected icon: AirFeedbackIcon
+  protected icon = AirFeedbackIcon.NONE
 
   /**
    * # 是否启用HTML富文本
@@ -69,51 +60,15 @@ export class AirAlert {
   protected height = ''
 
   /**
-   * # 弹出消息框 使用DEMO如下
-   * @param content [可选] 消息内容
-   *
-   * ```javascript
-   * try{
-   *    await new AirAlert()
-   *        .setTitle("确认提醒").setContent("是否确认继续操作？").setConfirmText("继续")
-   *        .success();
-   *    //接下来是确认后的操作代码
-   * }catch(e){
-   *    //接下来是取消操作后的代码
-   * }
-   * ```
+   * # 确认按钮样式类名
    */
-  constructor(content?: string) {
-    this.title = '温馨提示'
-    this.content = content || '操作成功!'
-    this.confirmText = '确认'
-    this.icon = AirFeedbackIcon.NONE
-  }
+  protected confirmButtonClass = ''
 
   /**
-   * # 创建实例方法
+   * # 将确认按钮设置为危险颜色
    */
-  static create(): AirAlert {
-    return new AirAlert()
-  }
-
-  /**
-   * # 设置Confirm标题
-   * @param title 标题
-   */
-  setTitle(title: string): this {
-    this.title = title
-    return this
-  }
-
-  /**
-   * # 设置Confirm消息内容
-   * @param content [可选]内容
-   */
-  setContent(content?: string): this {
-    if (content) {
-      this.content = content
-    }
+  dangerButton(): this {
+    this.confirmButtonClass = 'danger'
     return this
   }
 
@@ -181,102 +136,116 @@ export class AirAlert {
   /**
    * # 显示成功消息提醒
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
    */
-  success(content?: string): Promise<void> {
-    this.setContent(content)
+  success(content?: string, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.SUCCESS
-    return this.alert()
+    return this.alert(content, title)
+  }
+
+  /**
+   * # 显示警告消息提醒
+   * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
+   */
+  warning(content?: string, title?: string): Promise<void> {
+    this.icon = AirFeedbackIcon.WARNING
+    return this.alert(content, title)
+  }
+
+  /**
+   * # 显示无图标的消息提醒
+   * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
+   */
+  show(content?: string, title?: string): Promise<void> {
+    this.icon = AirFeedbackIcon.NONE
+    return this.alert(content, title)
+  }
+
+  /**
+   * # 显示错误消息提醒
+   * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
+   */
+  error(content?: string, title?: string): Promise<void> {
+    this.icon = AirFeedbackIcon.ERROR
+    return this.alert(content, title)
+  }
+
+  /**
+   * # 显示信息类消息提醒
+   * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
+   */
+  info(content?: string, title?: string): Promise<void> {
+    this.icon = AirFeedbackIcon.INFO
+    return this.alert(content, title)
+  }
+
+  /**
+   * # 创建实例方法
+   */
+  static create(): AirAlert {
+    return new AirAlert()
   }
 
   /**
    * # 显示成功消息提醒
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
    */
-  static success(content?: string): Promise<void> {
-    return this.create().success(content)
+  static success(content?: string, title?: string): Promise<void> {
+    return this.create().success(content, title)
   }
 
   /**
    * # 显示警告消息提醒
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
    */
-  warning(content?: string): Promise<void> {
-    this.setContent(content)
-    this.icon = AirFeedbackIcon.WARNING
-    return this.alert()
-  }
-
-  /**
-   * # 显示警告消息提醒
-   * @param content [可选] 消息内容
-   */
-  static warning(content?: string): Promise<void> {
-    return this.create().warning(content)
+  static warning(content?: string, title?: string): Promise<void> {
+    return this.create().warning(content, title)
   }
 
   /**
    * # 显示无图标的消息提醒
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
    */
-  show(content?: string): Promise<void> {
-    this.setContent(content)
-    this.icon = AirFeedbackIcon.NONE
-    return this.alert()
-  }
-
-  /**
-   * # 显示无图标的消息提醒
-   * @param content [可选] 消息内容
-   */
-  static show(content?: string): Promise<void> {
-    return this.create().show(content)
+  static show(content?: string, title?: string): Promise<void> {
+    return this.create().show(content, title)
   }
 
   /**
    * # 显示错误消息提醒
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
    */
-  error(content?: string): Promise<void> {
-    this.setContent(content)
-    this.icon = AirFeedbackIcon.ERROR
-    return this.alert()
-  }
-
-  /**
-   * # 显示错误消息提醒
-   * @param content [可选] 消息内容
-   */
-  static error(content?: string): Promise<void> {
-    return this.create().error(content)
+  static error(content?: string, title?: string): Promise<void> {
+    return this.create().error(content, title)
   }
 
   /**
    * # 显示信息类消息提醒
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
    */
-  info(content?: string): Promise<void> {
-    this.setContent(content)
-    this.icon = AirFeedbackIcon.INFO
-    return this.alert()
+  static info(content?: string, title?: string): Promise<void> {
+    return this.create().info(content, title)
   }
 
   /**
-   * # 显示信息类消息提醒
+   * # 弹出提示
    * @param content [可选] 消息内容
+   * @param title [可选] 消息标题
+   *
    */
-  static info(content?: string): Promise<void> {
-    return this.create().info(content)
-  }
-
-  /**
-   * #  请不要直接调用这个方法
-   * 你可以调用 ```.success()``` ```.info()``` ```.error()``` ```.warning()```
-   */
-  private alert(): Promise<void> {
+  private alert(content = '操作成功', title = '温馨提示'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       ElMessageBox.alert(
-        this.content,
-        this.title,
+        content,
+        title,
         this.getConfig(),
       )
         .then(() => {
@@ -311,6 +280,7 @@ export class AirAlert {
       showClose: this.isCloseButtonShow,
       closeOnClickModal: this.isCloseByCover,
       closeOnPressEscape: this.isCloseByEscape,
+      confirmButtonClass: this.confirmButtonClass,
     }
   }
 }

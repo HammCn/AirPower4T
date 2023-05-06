@@ -51,8 +51,8 @@ import {
 import { ClassConstructor } from 'class-transformer'
 import { AirImageConfig } from '../config/AirImageConfig'
 import { AirNotification } from '../feedback/AirNotification'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
-import { AirFileHelper } from '../helper/AirFileHelper'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { AirFile } from '../helper/AirFile'
 import { AirConfig } from '../AirConfig'
 import { IFile } from '../interface/IFile'
 
@@ -138,7 +138,7 @@ const imageUrl = ref('')
 
 function init() {
   if (props.src) {
-    imageUrl.value = AirFileHelper.getStaticFileUrl(props.src)
+    imageUrl.value = AirFile.getStaticFileUrl(props.src)
     return
   }
   imageUrl.value = ''
@@ -146,7 +146,7 @@ function init() {
 
 watch(props, () => {
   if (props.src) {
-    imageUrl.value = AirFileHelper.getStaticFileUrl(props.src)
+    imageUrl.value = AirFile.getStaticFileUrl(props.src)
   }
 })
 
@@ -178,7 +178,7 @@ function beforeUpload(file: File): boolean {
     return false
   }
   if (file.size > props.limit) {
-    airNotify.setTitle('图片过大').setMessage(`图片大小不能超过${AirFileHelper.getFileSizeFriendly(props.limit)}!`)
+    airNotify.setTitle('图片过大').setMessage(`图片大小不能超过${AirFile.getFileSizeFriendly(props.limit)}!`)
       .warning()
     return false
   }
@@ -189,9 +189,7 @@ function beforeUpload(file: File): boolean {
  * # 上传失败事件
  */
 function uploadError() {
-  new AirNotification().setTitle('上传失败')
-    .setMessage('图片上传失败,请重新上传')
-    .error()
+  AirNotification.error('图片上传失败,请重新上传', '上传失败')
 }
 
 /**
@@ -200,9 +198,9 @@ function uploadError() {
  * @param file 文件
  */
 function uploadSuccess(response: { data: { url: string } }) {
-  const entityData = AirClassTransformerHelper.parse(response.data, props.entity)
+  const entityData = AirClassTransformer.parse(response.data, props.entity)
   if (entityData && entityData.id && entityData.url) {
-    imageUrl.value = AirFileHelper.getStaticFileUrl(entityData.url)
+    imageUrl.value = AirFile.getStaticFileUrl(entityData.url)
     emits('onUpload', entityData)
   } else {
     uploadError()

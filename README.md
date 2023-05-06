@@ -167,16 +167,16 @@ AirPower内置了以下一些模块：
 
     当然, 我们将 ```class-transformer``` 和 ```Reflect-metadata``` 进行了一系列的封装, 请看下面的内容.
 
-- #### AirClassTransformerHelper 转换助手类
+- #### AirClassTransformer 转换助手类
 
-    我们将上面的两个库进行了更适合我们的业务封装, 实现了 ```AirClassTransformerHelper``` 一系列的装饰器和反射高级编程的功能.
+    我们将上面的两个库进行了更适合我们的业务封装, 实现了 ```AirClassTransformer``` 一系列的装饰器和反射高级编程的功能.
     
     其中提供了两个静态方法:
     ```typescript
     // 将普通的JSON对象转换到声明的实体类中, 方便字段的调用和数据转换
-    AirClassTransformerHelper.parse()
+    AirClassTransformer.parse()
     // 将一个对象拷贝到一个新的对象上, 避免深浅拷贝的尴尬
-    AirClassTransformerHelper.copy()
+    AirClassTransformer.copy()
     ```
 
 - ### 3️⃣ 面向对象篇

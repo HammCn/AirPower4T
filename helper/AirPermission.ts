@@ -8,7 +8,7 @@ import { AirEntity } from '../dto/AirEntity'
  * # 权限标识处理类
  * @author Hamm
  */
-export class AirPermissionHelper {
+export class AirPermission {
   static getPermissionFlag(clazz: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
     if (!clazz) {
       return ''

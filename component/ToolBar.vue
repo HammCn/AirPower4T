@@ -5,7 +5,7 @@
       <slot name="customButton">
         <AButton
           v-if="props.entity && !hideAdd"
-          :permission="addPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.ADD)"
+          :permission="addPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.ADD)"
           primary
           type="ADD"
           @click="emits('onAdd')"
@@ -15,7 +15,7 @@
       </slot>
       <AButton
         v-if="showImport"
-        :permission="importPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.IMPORT)"
+        :permission="importPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.IMPORT)"
         type="IMPORT"
         @click="importIt()"
       >
@@ -216,7 +216,7 @@
 
       <AButton
         v-if="showExport"
-        :permission="exportPermission || AirPermissionHelper.getPermissionFlag(entity, AirPermissionAction.EXPORT)"
+        :permission="exportPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.EXPORT)"
         type="EXPORT"
         custom-class="export-button"
         @click=" exportIt()"
@@ -235,19 +235,19 @@ import {
 import { ClassConstructor } from 'class-transformer'
 import { AButton } from '../component'
 import { AirEntityConfig } from '../config/AirEntityConfig'
-import { AirDialogHelper } from '../helper/AirDialogHelper'
+import { AirDialog } from '../helper/AirDialog'
 import { getClassName } from '../decorator/CustomName'
 import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../AirConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { AirNotification } from '../feedback/AirNotification'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirFormInstance } from '../type/AirType'
 import { AirAbstractService } from '../service/AirAbstractService'
 import { AirBetweenType } from '../enum/AirBetweenType'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
-import { AirPermissionHelper } from '../helper/AirPermissionHelper'
+import { AirPermission } from '../helper/AirPermission'
 import { AirEntity } from '../dto/AirEntity'
 import { AirRequest } from '../dto/AirRequest'
 import { AirRequestPage } from '../dto/AirRequestPage'
@@ -548,12 +548,10 @@ function exportIt() {
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      new AirNotification().setTitle('导出失败')
-        .setMessage('请为ToolBar传入service或者exportUrl')
-        .error()
+      AirNotification.error('请为ToolBar传入service或者exportUrl', '导出失败')
       return
     }
-    const service = AirClassTransformerHelper.newInstance(props.service)
+    const service = AirClassTransformer.newInstance(props.service)
     if (props.exportAsync) {
       url = `${service.baseUrl}/${AirConfig.defaultExportAsyncUrl}`
     } else {
@@ -561,7 +559,7 @@ function exportIt() {
     }
   }
   if (props.exportAsync) {
-    AirDialogHelper.createExportTask(url, request.value)
+    AirDialog.createExportTask(url, request.value)
     return
   }
   window.open(AirConfig.apiRootUrl + getUrlWithAccessToken(url))
@@ -575,12 +573,10 @@ function downloadTemplate() {
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      new AirNotification().setTitle('下载失败')
-        .setMessage('请为ToolBar传入service或者importTemplateUrl')
-        .error()
+      AirNotification.error('请为ToolBar传入service或者importTemplateUrl', '下载失败')
       return false
     }
-    const service = AirClassTransformerHelper.newInstance(props.service)
+    const service = AirClassTransformer.newInstance(props.service)
     url = `${service.baseUrl}/${AirConfig.defaultTemplateUrl}`
   }
   window.open(AirConfig.apiRootUrl + getUrlWithAccessToken(url))
@@ -616,7 +612,7 @@ function advanceSearch() {
   // 删除关键词搜索数据
   keyword.value = ''
   request.value.keyword = keyword.value
-  request.value.filter = AirClassTransformerHelper.newInstance(props.entity).copy(filter.value)
+  request.value.filter = AirClassTransformer.newInstance(props.entity).copy(filter.value)
   emits('onSearch', request.value)
 }
 
@@ -652,15 +648,13 @@ async function importIt() {
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      new AirNotification().setTitle('导入失败')
-        .setMessage('请为ToolBar传入service或者importUrl')
-        .error()
+      AirNotification.error('请为ToolBar传入service或者importUrl', '导入失败')
       return
     }
-    const service = AirClassTransformerHelper.newInstance(props.service)
+    const service = AirClassTransformer.newInstance(props.service)
     url = `${service.baseUrl}/${AirConfig.defaultImportUrl}`
   }
-  await AirDialogHelper.showUpload(
+  await AirDialog.showUpload(
     {
       uploadUrl: AirConfig.apiRootUrl + url,
       exts: ['xls', 'xlsx'],

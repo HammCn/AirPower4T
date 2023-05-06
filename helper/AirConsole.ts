@@ -2,7 +2,7 @@
  * #  控制台输出助手
  * @author Hamm
  */
-export class AirConsoleHelper {
+export class AirConsole {
   /**
    * # 控制台显示分组调试信息
    * @param title 分组标题

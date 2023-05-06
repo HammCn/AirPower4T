@@ -4,28 +4,10 @@ import { AirAlert } from './AirAlert'
 
 /**
  * #  确认弹窗类
+ * 可通过 ```.create()``` 方法创建自定义实例
  * @author Hamm
  */
 export class AirConfirm extends AirAlert {
-  /**
-   * # 弹出确认框 DEMO
-   */
-  constructor() {
-    super()
-    this.title = '请你确认'
-    this.content = '是否确认继续操作？'
-    this.confirmText = '确认'
-    this.cancelText = '取消'
-    this.icon = AirFeedbackIcon.NONE
-  }
-
-  /**
-   * # 创建实例方法
-   */
-  static create(): AirConfirm {
-    return new AirConfirm()
-  }
-
   /**
    * # 设置取消按钮文字
    * @param cancelText 取消按钮文字
@@ -53,87 +35,54 @@ export class AirConfirm extends AirAlert {
 
   /**
    * # 显示成功图标的确认框
-   * @param content [可选] 消息内容
+   * @param content 确认内容
+   * @param title [可选] 确认标题
    */
-  success(content?: string): Promise<void> {
-    this.setContent(content)
+  success(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.SUCCESS
-    return this.show()
-  }
-
-  /**
-   * # 显示成功图标的确认框
-   * @param content [可选] 消息内容
-   */
-  static success(content?: string): Promise<void> {
-    return this.create().success(content)
+    return this.show(content, title)
   }
 
   /**
    * # 显示警告图标的确认框
-   * @param content [可选] 消息内容
+   * @param content 确认内容
+   * @param title [可选] 确认标题
    */
-  warning(content?: string): Promise<void> {
-    this.setContent(content)
+  warning(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.WARNING
-    return this.show()
-  }
-
-  /**
-   * # 显示警告图标的确认框
-   * @param content [可选] 消息内容
-   */
-  static warning(content?: string): Promise<void> {
-    return this.create().warning(content)
+    return this.show(content, title)
   }
 
   /**
    * # 显示错误图标的确认框
-   * @param content [可选] 消息内容
+   * @param content 确认内容
+   * @param title [可选] 确认标题
    */
-  error(content?: string): Promise<void> {
-    this.setContent(content)
+  error(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.ERROR
-    return this.show()
-  }
-
-  /**
-   * # 显示错误图标的确认框
-   * @param content [可选] 消息内容
-   */
-  static error(content?: string): Promise<void> {
-    return this.create().error(content)
+    return this.show(content, title)
   }
 
   /**
    * # 显示消息图标的确认框
-   * @param content [可选] 消息内容
+   * @param content 确认内容
+   * @param title [可选] 确认标题
    */
-  info(content?: string): Promise<void> {
-    this.setContent(content)
+  info(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.INFO
-    return this.show()
-  }
-
-  /**
-   * # 显示消息图标的确认框
-   * @param content [可选] 消息内容
-   */
-  static info(content?: string): Promise<void> {
-    return this.create().info(content)
+    return this.show(content, title)
   }
 
   /**
    * # 显示无图标确认弹窗
-   * 带图标请直接 ```.success()``` ```.warning()``` ```.error()```
-   * @param content [可选] 消息内容
+   * @param content 确认内容
+   * @param title [可选] 确认标题
    */
-  show(content?: string): Promise<void> {
-    this.setContent(content)
+  show(content: string, title = '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       ElMessageBox.confirm(
-        this.content,
-        this.title,
+        content,
+        title,
         this.getConfig(),
       )
         .then(() => {
@@ -146,11 +95,54 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 显示无图标确认弹窗
-   * 带图标请直接 ```.success()``` ```.warning()``` ```.error()```
-   * @param content [可选] 消息内容
+   * # 创建实例方法
    */
-  static show(content?: string): Promise<void> {
-    return this.create().show(content)
+  static create(): AirConfirm {
+    return new AirConfirm()
+  }
+
+  /**
+   * # 显示成功图标的确认框
+   * @param content 确认内容
+   * @param title [可选] 确认标题
+   */
+  static success(content: string, title?: string): Promise<void> {
+    return this.create().success(content, title)
+  }
+
+  /**
+   * # 显示警告图标的确认框
+   * @param content 确认内容
+   * @param title [可选] 确认标题
+   */
+  static warning(content: string, title?: string): Promise<void> {
+    return this.create().warning(content, title)
+  }
+
+  /**
+   * # 显示错误图标的确认框
+   * @param content 确认内容
+   * @param title [可选] 确认标题
+   */
+  static error(content: string, title?: string): Promise<void> {
+    return this.create().error(content, title)
+  }
+
+  /**
+   * # 显示消息图标的确认框
+   * @param content 确认内容
+   * @param title [可选] 确认标题
+   */
+  static info(content: string, title?: string): Promise<void> {
+    return this.create().info(content, title)
+  }
+
+  /**
+   * # 显示无图标确认弹窗
+   * @param content 确认内容
+   * @param title [可选] 确认标题
+   */
+  static show(content: string, title?: string): Promise<void> {
+    return this.create().show(content, title)
   }
 }

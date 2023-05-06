@@ -20,7 +20,7 @@ export class AirModel {
   /**
    * # 将普通JSON对象合并到实体上
    *
-   * 💡 请通过 ```AirClassTransformerHelper.parse()``` 转换原始JSON对象
+   * 💡 请通过 ```AirClassTransformer.parse()``` 转换原始JSON对象
    *
    * @param obj 普通JSON对象
    */

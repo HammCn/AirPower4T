@@ -1,4 +1,4 @@
-import { AirValidator } from '../model/AirValidator'
+import { AirValidator } from '../helper/AirValidator'
 
 /**
  * # 表单验证规则
