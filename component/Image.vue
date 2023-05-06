@@ -170,16 +170,13 @@ function imageRemoved() {
  * @return 是否成功
  */
 function beforeUpload(file: File): boolean {
-  const airNotify = new AirNotification()
   const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1)
   if (!props.exts.includes(fileExt.toLocaleLowerCase())) {
-    airNotify.setTitle('图片格式不支持').setMessage(`仅允许${props.exts.join('/')}格式`)
-      .warning()
+    AirNotification.warning(`仅允许${props.exts.join('/')}格式`, '图片格式不支持')
     return false
   }
   if (file.size > props.limit) {
-    airNotify.setTitle('图片过大').setMessage(`图片大小不能超过${AirFile.getFileSizeFriendly(props.limit)}!`)
-      .warning()
+    AirNotification.warning(`图片大小不能超过${AirFile.getFileSizeFriendly(props.limit)}!`, '图片过大')
     return false
   }
   return true
