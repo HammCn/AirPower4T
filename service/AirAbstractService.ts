@@ -64,7 +64,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
     if (request.filter) {
       request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
     }
-    const json = await this.api('getPage').post(request.toSourceObject())
+    const json = await this.api('getPage').post(request.toJson())
     const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
     responsePage.list = AirClassTransformer.parseArray(responsePage.list, this.entityClass)
     return responsePage
@@ -78,7 +78,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
     if (request.filter) {
       request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
     }
-    const json = await this.api('getList').post(request.toSourceObject())
+    const json = await this.api('getList').post(request.toJson())
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -90,7 +90,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
     if (request.filter) {
       request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
     }
-    const json = await this.api('getTreeList').post(request.toSourceObject())
+    const json = await this.api('getTreeList').post(request.toJson())
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -110,7 +110,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param title [可选]新增成功的消息提示标题 默认 '新增成功'
    */
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
-    const json = await this.api('add').post(data.toSourceObject())
+    const json = await this.api('add').post(data.toJson())
     if (message) {
       AirNotification.success(message, title)
     }
@@ -124,7 +124,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param title [可选]修改成功的消息提示标题 默认 '修改成功'
    */
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
-    await this.api('update').post(data.toSourceObject())
+    await this.api('update').post(data.toJson())
     if (message) {
       AirNotification.success(message, title)
     }

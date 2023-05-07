@@ -9,7 +9,12 @@ import { AirEntity } from '../dto/AirEntity'
  * @author Hamm
  */
 export class AirPermission {
-  static getPermissionFlag(clazz: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
+  /**
+   * # 获取指定实体类在某个场景的权限标识字符串
+   * @param clazz 实体类
+   * @param action 权限场景
+   */
+  static getPermission(clazz: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
     if (!clazz) {
       return ''
     }
@@ -46,11 +51,11 @@ export class AirPermission {
   }
 
   /**
-     * ## 根据配置获取权限后缀
-     *
-     * - ```AirConfig.autoPermission=false``` 只取 ```EntityConfig``` 配置的权限, 取不到则认为不校验权限
-     * - ```AirConfig.autoPermission=true```  取 ```EntityConfig``` 配置的权限, 取不到则按 ```action``` 自动取
-     */
+   * # 根据配置获取权限后缀
+   *
+   * - ```AirConfig.autoPermission=false``` 只取 ```EntityConfig``` 配置的权限, 取不到则认为不校验权限
+   * - ```AirConfig.autoPermission=true```  取 ```EntityConfig``` 配置的权限, 取不到则按 ```action``` 自动取
+   */
   private static getAutoPermissionFlag(permission: string | undefined, action: AirPermissionAction) {
     if (AirConfig.autoPermission) {
       return permission || action

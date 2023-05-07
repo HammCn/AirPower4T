@@ -107,7 +107,7 @@ async function createExportTask() {
   isLoading.value = true
   try {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
-    const json = props.param.param.toSourceObject()
+    const json = props.param.param.toJson()
     json.page = undefined
     const fileCode: string = await AirHttp.create(props.param.url).post(json)
     // 轮询任务结果

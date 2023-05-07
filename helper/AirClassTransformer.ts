@@ -50,7 +50,7 @@ export class AirClassTransformer {
    * @param to 目标类
    */
   static copy<F extends AirModel, M extends AirModel>(from: F, to: ClassConstructor<M>): M {
-    return this.parse(from.toSourceObject(), to)
+    return this.parse(from.toJson(), to)
   }
 
   /**

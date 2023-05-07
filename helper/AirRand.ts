@@ -6,17 +6,17 @@ export class AirRand {
   /**
    * # 数字集合
    */
-  static numberString = '0123456789'
+  private static numberString = '0123456789'
 
   /**
    * # 小写字母集合
    */
-  static lowerCharString = 'abcdefghijklmnopqrstuvwxyz'
+  private static lowerCharString = 'abcdefghijklmnopqrstuvwxyz'
 
   /**
    * # 大写字母集合
    */
-  static upperCharString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  private static upperCharString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
   /**
    * # 指定范围内获取随机整数

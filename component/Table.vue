@@ -223,7 +223,7 @@
                 type="ADD"
                 :disabled="isAddDisabled((scope as any).row)"
                 :tooltip="isAddDisabled((scope as any).row) ? '禁止添加' : '添加'"
-                :permission="addPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.ADD_CHILD)"
+                :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD_CHILD)"
                 @click="handleAdd((scope as any).row)"
               />
               <AButton
@@ -232,7 +232,7 @@
                 type="EDIT"
                 :disabled="isEditDisabled((scope as any).row)"
                 :tooltip="isEditDisabled((scope as any).row) ? '禁止编辑' : '编辑'"
-                :permission="editPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.EDIT)"
+                :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
                 @click="handleEdit((scope as any).row)"
               />
               <AButton
@@ -241,7 +241,7 @@
                 type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
                 :tooltip="isDetailDisabled((scope as any).row) ? '禁止查看详情' : '查看详情'"
-                :permission="detailPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.DETAIL)"
+                :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
                 @click="handleDetail((scope as any).row)"
               />
               <AButton
@@ -251,7 +251,7 @@
                 danger
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :tooltip="isDeleteDisabled((scope as any).row) ? '禁止删除' : '删除'"
-                :permission="deletePermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.DELETE)"
+                :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
                 @click="handleDelete((scope as any).row)"
               />
             </template>

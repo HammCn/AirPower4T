@@ -66,18 +66,9 @@ export class AirModel {
   }
 
   /**
-   * # 直接转为普通JSON对象
-   * 此方法不会按别名转换,如需别名转换 请调用
-   * @see toSourceObject()
-   */
-  toObject(): Record<string, any> {
-    return JSON.parse(JSON.stringify(this))
-  }
-
-  /**
    * # 将模型对象转为JSON字符串
    * 此方法不会按别名转换,如需别名转换 请调用
-   * @see toSourceString()
+   * @see toJsonString()
    */
   toString(): string {
     return JSON.stringify(this)
@@ -86,14 +77,14 @@ export class AirModel {
   /**
    * # 按别名转换为普通的JSON对象
    */
-  toSourceObject(): Record<string, any> {
+  toJson(): Record<string, any> {
     return instanceToPlain(this)
   }
 
   /**
    * # 按别名转换为原始JSON字符串
    */
-  toSourceString(): string {
+  toJsonString(): string {
     return JSON.stringify(instanceToPlain(this))
   }
 

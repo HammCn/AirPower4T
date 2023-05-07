@@ -5,7 +5,7 @@
       <slot name="customButton">
         <AButton
           v-if="props.entity && !hideAdd"
-          :permission="addPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.ADD)"
+          :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD)"
           primary
           type="ADD"
           @click="emits('onAdd')"
@@ -15,7 +15,7 @@
       </slot>
       <AButton
         v-if="showImport"
-        :permission="importPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.IMPORT)"
+        :permission="importPermission || AirPermission.getPermission(entity, AirPermissionAction.IMPORT)"
         type="IMPORT"
         @click="importIt()"
       >
@@ -216,7 +216,7 @@
 
       <AButton
         v-if="showExport"
-        :permission="exportPermission || AirPermission.getPermissionFlag(entity, AirPermissionAction.EXPORT)"
+        :permission="exportPermission || AirPermission.getPermission(entity, AirPermissionAction.EXPORT)"
         type="EXPORT"
         custom-class="export-button"
         @click=" exportIt()"
