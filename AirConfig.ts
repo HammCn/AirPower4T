@@ -12,6 +12,9 @@ import { AirUserEntity } from './dto/AirUserEntity'
 
 /**
  * # AirPower 全局配置
+ * ---
+ *
+ * ### 💡 可自行在 ```main.ts``` 中覆盖此类中的配置
  * @author Hamm
  */
 export class AirConfig {
@@ -78,12 +81,6 @@ export class AirConfig {
   static lastPathKey = 'air_last_path'
 
   /**
-   * # 是否允许切换企业 默认允许
-   * 如设置false 则菜单不显示切换企业按钮
-   */
-  static allowChangeTenant = true
-
-  /**
    * # 默认树结构配置数据
    */
   static defaultTreeProps: INormalTreeProps = {
@@ -133,32 +130,26 @@ export class AirConfig {
 
   /**
    * # 全局http请求返回code的key
-   * 默认 "code"
    */
   static defaultHttpGlobalCodeKey = 'code'
 
   /**
    * # 全局http请求返回message的key
-   * 默认 "message"
    */
   static defaultHttpGlobalMessageKey = 'message'
 
   /**
    * # 全局http请求返回data的key
-   * 默认 "data"
    */
   static defaultHttpGlobalDataKey = 'data'
 
   /**
    * # 全局http请求返回成功状态码
-   * 默认 200
    */
   static defaultHttpSuccessCode: number = AirHttpStatus.OK
 
   /**
    * # 全局http请求返回登录状态码
-   * 默认 401
-   * @see AirHttpStatus
    */
   static defaultHttpUnauthorizedCode: number = AirHttpStatus.UNAUTHORIZED
 
@@ -167,7 +158,6 @@ export class AirConfig {
    * 如设置,则未格式化方式的地方将默认使用此方式
    * ```
    * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
-   * @see AirDateTimeFormatter
    * ```
    */
   static defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss

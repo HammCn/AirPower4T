@@ -13,6 +13,17 @@ export class AirEntity extends AirModel implements IEntity {
   @Expose() id!: number
 
   /**
+   * # 实例化一个实体
+   * @param id [可选] 主键ID
+   */
+  constructor(id?: number) {
+    super()
+    if (id) {
+      this.id = id
+    }
+  }
+
+  /**
    * # 设置ID
    * @param id ID
    */

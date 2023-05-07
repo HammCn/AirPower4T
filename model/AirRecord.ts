@@ -19,6 +19,20 @@ export class AirRecord implements IRecord {
   children?: this[]
 
   /**
+   * # 实例化一个标准记录集选项
+   * @param key [可选] 记录的key
+   * @param label [可选] 记录的Label
+   */
+  constructor(key?: number | string | boolean, label?: any) {
+    if (key) {
+      this.key = key
+    }
+    if (label) {
+      this.label = label
+    }
+  }
+
+  /**
    * #  设置常量值
    * @param key 常量值
    */

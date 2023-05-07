@@ -105,10 +105,7 @@ export class AirDialog {
    * @param exportParam [可选]导出request参数对象
    */
   static async createExportTask<R extends AirRequest>(url: string, exportParam?: R): Promise<unknown> {
-    const param = new AirExportModel()
-    param.url = url
-    param.param = exportParam || new AirRequest()
-
+    const param = new AirExportModel(url, exportParam || new AirRequest())
     return this.show(ExportView, param)
   }
 

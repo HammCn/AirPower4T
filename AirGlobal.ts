@@ -6,6 +6,7 @@ import { IRecord } from './interface/IRecord'
 
 /**
  * # 一些全局使用的扩展方法
+ * @author Hamm
  */
 declare global {
   interface Window {

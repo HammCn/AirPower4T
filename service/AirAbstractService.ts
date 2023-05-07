@@ -99,7 +99,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api('getDetail').post(new AirEntity().setId(id))
+    const json = await this.api('getDetail').post(new AirEntity(id))
     return AirClassTransformer.parse(json, this.entityClass)
   }
 
@@ -156,7 +156,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
     return this.api('delete').withOutError()
-      .post(new AirEntity().setId(id))
+      .post(new AirEntity(id))
       .then(() => {
         if (message) {
           AirNotification.success(message, title)
