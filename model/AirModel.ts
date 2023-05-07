@@ -218,7 +218,7 @@ export class AirModel {
     return this.newInstance().getCustomFormFieldConfig(fieldKey)
   }
 
-  /// ////////////////////////////////// 保留方法
+  //! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
 
   /**
    * # 请直接调用静态方法获取

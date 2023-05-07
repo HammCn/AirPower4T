@@ -552,11 +552,7 @@ function exportIt() {
       return
     }
     const service = AirClassTransformer.newInstance(props.service)
-    if (props.exportAsync) {
-      url = `${service.baseUrl}/${AirConfig.defaultExportAsyncUrl}`
-    } else {
-      url = `${service.baseUrl}/${AirConfig.defaultExportSyncUrl}`
-    }
+    url = `${service.baseUrl}/${props.exportAsync ? AirConfig.defaultExportAsyncUrl : AirConfig.defaultExportSyncUrl}`
   }
   if (props.exportAsync) {
     AirDialog.createExportTask(url, request.value)
