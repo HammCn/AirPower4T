@@ -66,15 +66,6 @@ export class AirModel {
   }
 
   /**
-   * # 将模型对象转为JSON字符串
-   * 此方法不会按别名转换,如需别名转换 请调用
-   * @see toJsonString()
-   */
-  toString(): string {
-    return JSON.stringify(this)
-  }
-
-  /**
    * # 按别名转换为普通的JSON对象
    */
   toJson(): Record<string, any> {
@@ -125,7 +116,7 @@ export class AirModel {
 
   /**
    * # 将JSON原始对象强制转换到当前类的实体
-   * @param loading Loading的Ref对象
+   * @param json JSON原始对象
    */
   static fromJson<T extends AirModel>(this: new () => T, json: Record<string, any>): T {
     return AirClassTransformer.parse(json, this) as T
@@ -133,7 +124,7 @@ export class AirModel {
 
   /**
    * # 将JSON原始对象数组强制转换到当前类的实体数组
-   * @param loading Loading的Ref对象
+   * @param json JSON原始对象
    */
   static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: Record<string, any>[]): T[] {
     return AirClassTransformer.parseArray(jsonArray, this) as T[]
