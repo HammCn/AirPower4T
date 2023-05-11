@@ -741,7 +741,7 @@ export class AirValidator {
                 callback()
                 return
               }
-              callback(config.isUnique || '该条记录已存在, 请重新输入')
+              callback(typeof config.isUnique === 'string' ? config.isUnique : '该条记录已存在, 请重新输入')
             } catch (e) {
               callback()
             }
