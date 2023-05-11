@@ -18,6 +18,7 @@
       :tree-props="treeProps"
       :data="dataList"
       height="100%"
+      intent="32"
       @select="selectChanged"
       @select-all="selectChanged"
       @sort-change="sortChanged"

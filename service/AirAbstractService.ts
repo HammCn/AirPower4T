@@ -8,6 +8,8 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirHttp } from '../helper/AirHttp'
 import { AirEntity } from '../dto/AirEntity'
 import { AirResponsePage } from '../dto/AirResponsePage'
+import { IValidateRule } from '../interface/IValidateRule'
+import { AirValidator } from '../helper/AirValidator'
 
 /**
  * # Service超类
@@ -175,5 +177,35 @@ export abstract class AirAbstractService<E extends AirEntity> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return Object.assign(new this(), loading) as T
+  }
+
+  /**
+   * # 指定的key字段的值是否已存在
+   * @param key Key
+   * @param value Value
+   * ---
+   * 如查到了数据, 则返回
+   */
+  async getOneBy(key: string, value: string) {
+    const entity = AirClassTransformer.newInstance(this.entityClass);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (entity as any)[key] = value
+    const airHttp = this.api('getOneBy').withOutError()
+    try {
+      const json = await airHttp.post(entity.toJson())
+      return AirClassTransformer.parse(json, this.entityClass)
+    } catch (e) {
+      throw new Error()
+    }
+  }
+
+  /**
+   * # 创建验证器
+   * @param form 表单对象
+   * @param moreRule [可选] 更多的验证规则
+   */
+  static createValidateRules<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return AirValidator.createRules(form, (this as any), moreRule)
   }
 }

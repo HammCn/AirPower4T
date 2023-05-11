@@ -2,12 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-unused-vars */
-
-import { FormItemRule } from 'element-plus'
-import { Arrayable } from 'element-plus/es/utils'
+import { ClassConstructor } from 'class-transformer'
 import { AirInputType } from '../enum/AirInputType'
 import { AirNotification } from '../feedback/AirNotification'
 import { IValidateRule } from '../interface/IValidateRule'
+import { AirClassTransformer } from './AirClassTransformer'
+import { AirEntity } from '../dto/AirEntity'
+import { AirAbstractService } from '../service/AirAbstractService'
 
 /**
  * # 表单验证工具
@@ -666,8 +667,82 @@ export class AirValidator {
   /**
    * # 创建一个验证器
    * @param rule 验证规则
+   * @returns
    */
-  static createRules(rule: IValidateRule): Partial<Record<string, Arrayable<FormItemRule>>> {
-    return rule as Partial<Record<string, Arrayable<FormItemRule>>>
+  static create(rule: IValidateRule): IValidateRule {
+    return rule
+  }
+
+  /**
+   * # 创建验证器
+   * @param service 接口服务对象
+   * @param formRules [可选]表单验证规则
+   */
+  static createRules<T extends AirEntity, S extends AirAbstractService<T>>(form: T, serviceClass: ClassConstructor<S>, formRules: IValidateRule = {}) {
+    const service = AirClassTransformer.newInstance(serviceClass)
+    const entity = AirClassTransformer.newInstance(service.entityClass)
+    const formFieldList = entity.getFormFieldConfigList()
+    for (let i = 0; i < formFieldList.length; i += 1) {
+      const config = formFieldList[i]
+      const fieldKey = config.key
+      const fieldName = entity.getCustomFieldName(fieldKey)
+      if (!formRules[fieldKey]) {
+        formRules[fieldKey] = []
+      }
+      if (config.isRequired) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isRequired === 'string' ? config.isRequired : `${fieldName}为必填项`).ifEmpty())
+      }
+      if (config.minLength) {
+        (formRules[fieldKey]).push(AirValidator.show(`${fieldName}长度至少${config.minLength}位`).ifLengthLessThan(config.minLength))
+      }
+      if (config.isNumber) {
+        if (config.min) {
+          (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不能小于${config.min}`).ifLessThan(config.min))
+        }
+        if (config.max) {
+          (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不能超过${config.max}`).ifGreaterThan(config.max))
+        }
+      }
+      if (config.isChinese) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isChinese === 'string' ? config.isChinese : `${fieldName}只允许输入中文汉字`).ifNotChinese())
+      }
+      if (config.isTelPhone) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isTelPhone === 'string' ? config.isTelPhone : `${fieldName}不是有效的座机电话`).ifNotTelPhone())
+      }
+      if (config.isMobilePhone) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isMobilePhone === 'string' ? config.isMobilePhone : `${fieldName}不是有效的手机号码`).ifNotMobilePhone())
+      }
+      if (config.isPhone) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isPhone === 'string' ? config.isPhone : `${fieldName}不是有效的联系电话`).ifNotPhone())
+      }
+      if (config.isEmail) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isEmail === 'string' ? config.isEmail : `${fieldName}不是有效的电话`).ifNotEmail())
+      }
+      if (config.regExp) {
+        (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不符合验证规则`).ifNotTest(config.regExp))
+      }
+      if (config.isUnique) {
+        (formRules[fieldKey]).push(
+          // eslint-disable-next-line @typescript-eslint/ban-types, no-loop-func
+          AirValidator.show('').whenBlur().setCustomValidator(async (_: unknown, value: string, callback: Function) => {
+            if (!value) {
+              callback()
+              return
+            }
+            try {
+              const exist = await service.getOneBy(fieldKey, value)
+              if (form.id === exist.id || !exist.id) {
+                callback()
+              } else {
+                callback('该编码已经存在, 请重新输入')
+              }
+            } catch (e) {
+              callback()
+            }
+          }),
+        )
+      }
+    }
+    return formRules
   }
 }

@@ -23,6 +23,8 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   maxLength?: number
 
+  minLength?: number
+
   placeholder?: string
 
   isTextarea?: boolean
@@ -80,4 +82,20 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
   disableSwitchColor = false
 
   trim = AirTrim.NONE
+
+  isUnique = false
+
+  isChinese = false
+
+  isMobilePhone = false
+
+  isRequired = false
+
+  isTelPhone = false
+
+  isPhone = false
+
+  isEmail = false
+
+  regExp = undefined
 }
