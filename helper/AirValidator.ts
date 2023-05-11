@@ -731,11 +731,17 @@ export class AirValidator {
             }
             try {
               const exist = await service.getOneBy(fieldKey, value)
-              if (form.id === exist.id || !exist.id) {
+              if (!exist) {
                 callback()
-              } else {
-                callback('该编码已经存在, 请重新输入')
+                return
               }
+              // 查到了ID
+              if ((form && exist.id === form.id)) {
+                // 没有查询到ID 或者查到了ID但是当前修改的ID
+                callback()
+                return
+              }
+              callback(config.isUnique || '该条记录已存在, 请重新输入')
             } catch (e) {
               callback()
             }
