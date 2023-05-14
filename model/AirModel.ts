@@ -19,13 +19,13 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
  */
 export class AirModel {
   /**
-   * # 将普通JSON对象合并到实体上
-   *
-   * 💡 请通过 ```AirClassTransformer.parse()``` 转换原始JSON对象
-   *
-   * @param obj 普通JSON对象
+   * # 用指定的数据对当前实例进行覆盖
+   * ---
+   * # 💡 相同字段才会覆盖上去
+   * @param obj 覆盖对象
    */
-  assign(obj: Record<string, any>): this {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  recoverBy(obj: any): this {
     return Object.assign(this, obj)
   }
 
@@ -33,6 +33,7 @@ export class AirModel {
    * # 将当前实例复制到一个新实例上
    */
   copy(): this {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return AirClassTransformer.copy(this, (this as any).constructor)
   }
 

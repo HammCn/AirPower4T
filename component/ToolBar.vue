@@ -608,7 +608,7 @@ function advanceSearch() {
   // 删除关键词搜索数据
   keyword.value = ''
   request.value.keyword = keyword.value
-  request.value.filter = AirClassTransformer.newInstance(props.entity).assign(filter.value)
+  request.value.filter = AirClassTransformer.newInstance(props.entity).recoverBy(filter.value)
   emits('onSearch', request.value)
 }
 

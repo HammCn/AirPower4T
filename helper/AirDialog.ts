@@ -8,7 +8,6 @@ import { AUpload } from '../component'
 import ExportView from '../component/toolbar/Export.vue'
 import { AirEntity } from '../dto/AirEntity'
 import { AirRequest } from '../dto/AirRequest'
-import { AirModel } from '../model/AirModel'
 import { IUploadConfig } from '../interface/IUploadConfig'
 import { IFile } from '../interface/IFile'
 
@@ -110,16 +109,26 @@ export class AirDialog {
   }
 
   /**
-   * # 弹出一个选择器
+   * # 弹出一个单选选择器
    * @param view 使用的视图组件 传入一个import的vue
-   * @param mult [可选]是否多选 将传入到目标对象的props.mult参数上
+   * @param param [可选]普通参数 将传入到目标对象的props.param参数上
+   */
+  static async select<E extends AirEntity>(view: Component, param: E | undefined = undefined): Promise<E> {
+    return this.build(view, {
+      param,
+    })
+  }
+
+  /**
+   * # 弹出一个多选选择器
+   * @param view 使用的视图组件 传入一个import的vue
    * @param selectList [可选]已选列表 将传入到目标对象的props.selectList参数上
    * @param param [可选]普通参数 将传入到目标对象的props.param参数上
    */
-  static async selector<E extends AirEntity>(view: Component, mult = false, selectList: E[] = [], param: AirModel | undefined = undefined): Promise<E | E[]> {
+  static async selectList<E extends AirEntity>(view: Component, selectList: E[] = [], param: E | undefined = undefined): Promise<E[]> {
     return this.build(view, {
       selectList,
-      mult,
+      mult: true,
       param,
     })
   }
