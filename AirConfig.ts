@@ -146,12 +146,12 @@ export class AirConfig {
   /**
    * # 全局http请求返回成功状态码
    */
-  static defaultHttpSuccessCode: number = AirHttpStatus.OK
+  static defaultHttpSuccessCode = AirHttpStatus.OK
 
   /**
    * # 全局http请求返回登录状态码
    */
-  static defaultHttpUnauthorizedCode: number = AirHttpStatus.UNAUTHORIZED
+  static defaultHttpUnauthorizedCode = AirHttpStatus.UNAUTHORIZED
 
   /**
    * # 默认的格式化时间
