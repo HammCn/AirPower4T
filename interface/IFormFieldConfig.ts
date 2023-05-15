@@ -10,14 +10,19 @@ import { IRecord } from './IRecord'
  */
 export interface IFormFieldConfig extends IFieldConfig {
   /**
-   * # 回传值的格式化方式
-   * 仅设置了 ```dateType``` 为 ```AirDateTimeType``` 时有效
+   * # 时间日期真实数据的格式
+   * - 仅在传入了 ```dateType``` 时有效
+   * - 默认值 ```AirDateTimeFormatter.TIMESTAMP```
    */
   dateValueFormatter?: AirDateTimeFormatter | string;
 
   /**
-   * # 显示值的格式化方式
-   * 仅设置了 ```dateType``` 为 ```AirDateTimeType``` 时有效
+   * # 显示到表单中的时间日期格式
+   * - 仅在传入了 ```dateType``` 时有效
+   * - 如不设置:
+   * > - 时间日期类型默认通过 ```dateType``` 的类型自动获取
+   * > - 时间类型默认为 ```HH_mm_ss```
+   * > - ```AirConfig.defaultDateTimeFormatter``` 可作为全局兜底配置
    */
   dateShowFormatter?: AirDateTimeFormatter | string;
 
@@ -29,6 +34,9 @@ export interface IFormFieldConfig extends IFieldConfig {
 
   /**
    * # 最大数字
+   * ---
+   * ### 💡 如不设置 则取默认的配置 ```AirConfig.maxNumber```
+   * - 仅在 ```isNumber``` 时有效
    */
   max?: number;
 
@@ -289,13 +297,22 @@ export interface IFormFieldConfig extends IFieldConfig {
   isPhone?: boolean | string
 
   /**
-   * # 是否必填
+   * # 是否必填(字符串类型)
    * ---
    * ### 💡 支持传入 ```boolean``` 和 ```string```
    * - 如传入 ```有效字符串``` 则认为需要校验, 内容即是校验失败的报错信息
    * - 如传入 ```true``` 则认为需要校验且自动生成校验失败的报错信息
    */
-  isRequired?: boolean | string
+  isRequiredString?: boolean | string
+
+  /**
+   * # 是否必填(数字类型)
+   * ---
+   * ### 💡 支持传入 ```boolean``` 和 ```string```
+   * - 如传入 ```有效字符串``` 则认为需要校验, 内容即是校验失败的报错信息
+   * - 如传入 ```true``` 则认为需要校验且自动生成校验失败的报错信息
+   */
+  isRequiredNumber?: boolean | string
 
   /**
    * # 正则表达式对象

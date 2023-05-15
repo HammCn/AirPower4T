@@ -689,8 +689,11 @@ export class AirValidator {
       if (!formRules[fieldKey]) {
         formRules[fieldKey] = []
       }
-      if (config.isRequired) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isRequired === 'string' ? config.isRequired : `${fieldName}为必填项`).ifEmpty())
+      if (config.isRequiredString) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isRequiredString === 'string' ? config.isRequiredString : `${fieldName}为必填项`).ifEmpty())
+      }
+      if (config.isRequiredNumber) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isRequiredNumber === 'string' ? config.isRequiredNumber : `${fieldName}为必填项`).toNumber().ifEmpty())
       }
       if (config.minLength) {
         (formRules[fieldKey]).push(AirValidator.show(`${fieldName}长度至少${config.minLength}位`).ifLengthLessThan(config.minLength))
