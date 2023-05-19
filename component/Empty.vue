@@ -1,21 +1,18 @@
 <template>
   <el-empty
     :image="image"
-    :description="description"
-  />
+    class="air-empty"
+  >
+    <slot name="footer" />
+    <template #description>
+      <p>
+        <slot />
+      </p>
+    </template>
+  </el-empty>
 </template>
 <script lang="ts" setup>
 import image from '../assets/img/empty.svg'
-
-defineProps({
-  /**
-   * # 空描述文案
-   */
-  description: {
-    type: String,
-    default: '暂无数据',
-  },
-})
 </script>
 <style scoped lang="scss">
 .el-empty {
