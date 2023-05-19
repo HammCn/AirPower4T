@@ -1,41 +1,100 @@
 <template>
-  <div class="air-table-container" :style="{ height: (autoHeight ? 'auto' : '0px') }">
+  <div
+    class="air-table-container"
+    :style="{ height: (autoHeight ? 'auto' : '0px') }"
+  >
     <div class="air-table-tool-bar">
       <slot name="addButton" />
     </div>
-    <el-table v-if="allFieldList" :id="tableId" ref="airTableRef" class="air-table" :row-key="(row: any) => row.id"
-      :lazy="lazy" :load="load" :default-expand-all="defaultExpandAll" :tree-props="treeProps" :data="dataList"
-      height="100%" intent="32" @select="selectChanged" @select-all="selectChanged" @sort-change="sortChanged">
-      <el-table-column v-if="!hideSelect" type="selection" width="40" fixed="left" :reserve-selection="true" />
-      <el-table-column v-if="!hideIndex" type="index" label="序号" fixed="left" width="60" />
+    <el-table
+      v-if="allFieldList"
+      :id="tableId"
+      ref="airTableRef"
+      class="air-table"
+      :row-key="(row: any) => row.id"
+      :lazy="lazy"
+      :load="load"
+      :default-expand-all="defaultExpandAll"
+      :tree-props="treeProps"
+      :data="dataList"
+      height="100%"
+      intent="32"
+      @select="selectChanged"
+      @select-all="selectChanged"
+      @sort-change="sortChanged"
+    >
+      <el-table-column
+        v-if="!hideSelect"
+        type="selection"
+        width="40"
+        fixed="left"
+        :reserve-selection="true"
+      />
+      <el-table-column
+        v-if="!hideIndex"
+        type="index"
+        label="序号"
+        fixed="left"
+        width="60"
+      />
       <!-- 文本数据渲染 -->
-      <template v-for="item in allFieldList" :key="item.key">
-        <el-table-column v-if="isSelected(item)" :prop="item.key" :label="item.label" :width="item.width || 'auto'"
-          :min-width="item.minWidth || 'auto'" :fixed="item.fixed" :sortable="item.sortable" :align="item.align">
+      <template
+        v-for="item in allFieldList"
+        :key="item.key"
+      >
+        <el-table-column
+          v-if="isSelected(item)"
+          :prop="item.key"
+          :label="item.label"
+          :width="item.width || 'auto'"
+          :min-width="item.minWidth || 'auto'"
+          :fixed="item.fixed"
+          :sortable="item.sortable"
+          :align="item.align"
+        >
           <template #default="scope">
             <!-- 支持自定义插槽 -->
-            <slot :name="item.key" :data="(scope as any).row" :index="(scope as any).$index">
+            <slot
+              :name="item.key"
+              :data="(scope as any).row"
+              :index="(scope as any).$index"
+            >
               <!-- 自动读取枚举 -->
-              <div v-if="item.enumRecord" class="status">
+              <div
+                v-if="item.enumRecord"
+                class="status"
+              >
                 <!-- 显示状态灯 -->
-                <span v-if="item.showStatus" class="light" :style="{
-                  backgroundColor:
-                    item.enumRecord.getColor((scope as any).row[item.key], AirColor.NORMAL)
-                }" />
+                <span
+                  v-if="item.showStatus"
+                  class="light"
+                  :style="{
+                    backgroundColor:
+                      item.enumRecord.getColor((scope as any).row[item.key], AirColor.NORMAL)
+                  }"
+                />
                 {{ item.enumRecord.getLabel((scope as any).row[item.key], item.emptyValue) }}
               </div>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
-                <ADateTime :time="(scope as any).row[item.key]" :formatter="item.dateTimeFormatter"
-                  :is-friendly="item.isFriendlyDateTime" />
+                <ADateTime
+                  :time="(scope as any).row[item.key]"
+                  :formatter="item.dateTimeFormatter"
+                  :is-friendly="item.isFriendlyDateTime"
+                />
               </template>
               <!-- 图片字段 -->
               <template v-else-if="item.isImage">
-                <el-image style="background-color:#f3f6f9"
-                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px' }" lazy
+                <el-image
+                  style="background-color:#f3f6f9"
+                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px' }"
+                  lazy
                   :src="AirFile.getStaticFileUrl((scope as any).row[item.key])"
-                  :preview-src-list="[AirFile.getStaticFileUrl((scope as any).row[item.key])]" :z-index="999999"
-                  preview-teleported fit="contain">
+                  :preview-src-list="[AirFile.getStaticFileUrl((scope as any).row[item.key])]"
+                  :z-index="999999"
+                  preview-teleported
+                  fit="contain"
+                >
                   <template #error>
                     <div class="image-error">
                       暂无
@@ -46,9 +105,16 @@
               <!-- 读取挂载数据 -->
               <template v-else-if="item.payloadField">
                 <template v-if="item.isCopyField">
-                  <el-popover :width="400" trigger="click" :content="(scope as any).row[item.key] || item.emptyValue">
+                  <el-popover
+                    :width="400"
+                    trigger="click"
+                    :content="(scope as any).row[item.key] || item.emptyValue"
+                  >
                     <template #reference>
-                      <div class="air-table-column" :class="item.nowrap ? 'nowrap' : ''">
+                      <div
+                        class="air-table-column"
+                        :class="item.nowrap ? 'nowrap' : ''"
+                      >
                         <ACopy :content="getPayloadRowData((scope as any).row, item)">
                           {{ getPayloadRowData((scope as any).row, item) }}
                         </ACopy>
@@ -57,10 +123,17 @@
                   </el-popover>
                 </template>
                 <template v-else>
-                  <el-popover :disabled="!item.nowrap" :width="400" trigger="click"
-                    :content="getPayloadRowData((scope as any).row, item) || item.emptyValue">
+                  <el-popover
+                    :disabled="!item.nowrap"
+                    :width="400"
+                    trigger="click"
+                    :content="getPayloadRowData((scope as any).row, item) || item.emptyValue"
+                  >
                     <template #reference>
-                      <div class="air-table-column" :class="item.nowrap ? 'nowrap' : ''">
+                      <div
+                        class="air-table-column"
+                        :class="item.nowrap ? 'nowrap' : ''"
+                      >
                         {{ getPayloadRowData((scope as any).row, item) }}
                       </div>
                     </template>
@@ -70,7 +143,10 @@
               <!-- 通用字段 -->
               <template v-else>
                 <template v-if="item.isCopyField">
-                  <div class="air-table-column" :class="item.nowrap ? 'nowrap' : ''">
+                  <div
+                    class="air-table-column"
+                    :class="item.nowrap ? 'nowrap' : ''"
+                  >
                     <ACopy :content="(scope as any).row[item.key]">
                       {{
                         (scope as any).row[item.key] || item.emptyValue
@@ -79,33 +155,55 @@
                   </div>
                 </template>
                 <template v-else>
-                  <el-popover :disabled="!item.nowrap" :width="400" trigger="click"
-                    :content="(scope as any).row[item.key] || item.emptyValue">
+                  <el-popover
+                    :disabled="!item.nowrap"
+                    :width="400"
+                    trigger="click"
+                    :content="(scope as any).row[item.key] || item.emptyValue"
+                  >
                     <template #reference>
-                      <div class="air-table-column" :class="item.nowrap ? 'nowrap' : ''">
+                      <div
+                        class="air-table-column"
+                        :class="item.nowrap ? 'nowrap' : ''"
+                      >
                         {{ (scope as any).row[item.key] || item.emptyValue }}
                       </div>
                     </template>
                   </el-popover>
                 </template>
               </template>
-              <span v-if="item.suffixText" style="color:#aaa">{{ item.suffixText }}</span>
+              <span
+                v-if="item.suffixText"
+                style="color:#aaa"
+              >{{ item.suffixText }}</span>
             </slot>
           </template>
         </el-table-column>
       </template>
       <!-- 如果没有隐藏操作列 或者字段选择器启用 -->
-      <el-table-column v-if="!hideCtrl || isFieldSelectorEnabled" fixed="right" align="right" :width="ctrlWidth || 'auto'
-        ">
+      <el-table-column
+        v-if="!hideCtrl || isFieldSelectorEnabled"
+        fixed="right"
+        align="right"
+        :width="ctrlWidth || 'auto'
+        "
+      >
         <template #header>
           <div class="custom-header">
-            <span v-if="!hideCtrl" class="custom-header-title">操作</span>
+            <span
+              v-if="!hideCtrl"
+              class="custom-header-title"
+            >操作</span>
             <template v-if="isFieldSelectorEnabled">
-              <el-icon class="air-field-select-icon" @mouseover="(e: any) => {
-                AirStore().tooltipRef = e.currentTarget;
-                AirStore().tooltip = '配置列字段'
-              }
-                " @click="isFieldSelectorShow = true">
+              <el-icon
+                class="air-field-select-icon"
+                @mouseover="(e: any) => {
+                  AirStore().tooltipRef = e.currentTarget;
+                  AirStore().tooltip = '配置列字段'
+                }
+                "
+                @click="isFieldSelectorShow = true"
+              >
                 <Setting />
               </el-icon>
             </template>
@@ -114,28 +212,56 @@
         <template #default="scope">
           <div class="ctrlRow">
             <!-- 自定义操作列前置插槽 -->
-            <slot name="customRow" :data="(scope as any).row" :index="(scope as any).$index" />
+            <slot
+              name="customRow"
+              :data="(scope as any).row"
+              :index="(scope as any).$index"
+            />
             <template v-if="!hideCtrl">
-              <AButton v-if="showAdd" icon-button type="ADD" :disabled="isAddDisabled((scope as any).row)"
+              <AButton
+                v-if="showAdd"
+                icon-button
+                type="ADD"
+                :disabled="isAddDisabled((scope as any).row)"
                 :tooltip="isAddDisabled((scope as any).row) ? '禁止添加' : '添加'"
                 :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD_CHILD)"
-                @click="handleAdd((scope as any).row)" />
-              <AButton v-if="!hideEdit" icon-button type="EDIT" :disabled="isEditDisabled((scope as any).row)"
+                @click="handleAdd((scope as any).row)"
+              />
+              <AButton
+                v-if="!hideEdit"
+                icon-button
+                type="EDIT"
+                :disabled="isEditDisabled((scope as any).row)"
                 :tooltip="isEditDisabled((scope as any).row) ? '禁止编辑' : '编辑'"
                 :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
-                @click="handleEdit((scope as any).row)" />
-              <AButton v-if="showDetail" icon-button type="DETAIL" :disabled="isDetailDisabled((scope as any).row)"
+                @click="handleEdit((scope as any).row)"
+              />
+              <AButton
+                v-if="showDetail"
+                icon-button
+                type="DETAIL"
+                :disabled="isDetailDisabled((scope as any).row)"
                 :tooltip="isDetailDisabled((scope as any).row) ? '禁止查看详情' : '查看详情'"
                 :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
-                @click="handleDetail((scope as any).row)" />
-              <AButton v-if="!hideDelete" icon-button type="DELETE" danger
+                @click="handleDetail((scope as any).row)"
+              />
+              <AButton
+                v-if="!hideDelete"
+                icon-button
+                type="DELETE"
+                danger
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :tooltip="isDeleteDisabled((scope as any).row) ? '禁止删除' : '删除'"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
-                @click="handleDelete((scope as any).row)" />
+                @click="handleDelete((scope as any).row)"
+              />
             </template>
             <!-- 自定义操作列后置插槽 -->
-            <slot name="endRow" :data="(scope as any).row" :index="(scope as any).$index" />
+            <slot
+              name="endRow"
+              :data="(scope as any).row"
+              :index="(scope as any).$index"
+            />
           </div>
         </template>
       </el-table-column>
@@ -145,15 +271,27 @@
       </template>
     </el-table>
     <div class="air-field-selector">
-      <div v-if="isFieldSelectorShow" class="air-field-selector-bg" @click.self="isFieldSelectorShow = false" />
+      <div
+        v-if="isFieldSelectorShow"
+        class="air-field-selector-bg"
+        @click.self="isFieldSelectorShow = false"
+      />
       <transition name="search">
-        <div v-if="isFieldSelectorShow" class="air-field-selector-dialog">
+        <div
+          v-if="isFieldSelectorShow"
+          class="air-field-selector-dialog"
+        >
           <div class="air-field-selector-title">
             请选择需要显示的字段
           </div>
           <div class="air-field-selector-list">
-            <el-check-tag v-for="item in allFieldList" :key="item.key" :disabled="item.forceShow"
-              :checked="!!selectedFieldList.find(i => i === item.key)" @change="fieldSelectChanged($event, item)">
+            <el-check-tag
+              v-for="item in allFieldList"
+              :key="item.key"
+              :disabled="item.forceShow"
+              :checked="!!selectedFieldList.find(i => i === item.key)"
+              @change="fieldSelectChanged($event, item)"
+            >
               {{ item.label }}
             </el-check-tag>
           </div>
