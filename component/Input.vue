@@ -1,206 +1,208 @@
 <template>
-  <template v-if="fieldConfig && fieldConfig.dateType !== undefined">
-    <el-date-picker
-      v-if="fieldConfig.dateType !== AirDateTimeType.TIME"
-      v-model="value"
-      :placeholder="placeholderRef"
-      :clearable="fieldConfig?.clearable"
-      :disabled="disabled"
-      :prefix-icon="fieldConfig?.prefixIcon"
-      :suffix-icon="fieldConfig?.suffixIcon"
-      :format="fieldConfig.dateShowFormatter || getShowFormatter"
-      :value-format="fieldConfig.dateValueFormatter"
-      :type="fieldConfig.dateType"
-      style="width:100%"
-      @change="selectEvent"
-      @visible-change="selectEvent"
-      @keydown="inputKeyDown"
-    />
-    <el-time-picker
-      v-else
-      v-model="value"
-      style="width:100%"
-      :placeholder="placeholderRef"
-      :clearable="fieldConfig?.clearable"
-      :disabled="disabled"
-      :prefix-icon="fieldConfig?.prefixIcon"
-      :suffix-icon="fieldConfig?.suffixIcon"
-      :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
-      :value-format="fieldConfig.dateValueFormatter"
-      @change="selectEvent"
-      @visible-change="selectEvent"
-      @keydown="inputKeyDown"
-    />
-  </template>
-  <template v-else-if="fieldConfig && fieldConfig.enumRecord || list">
-    <el-switch
-      v-if="fieldConfig?.isSwitch"
-      v-model="value"
-      :style="{
-        '--el-switch-on-color': getSwitchColor('on'),
-        '--el-switch-off-color': getSwitchColor('off')
-      }"
-      :active-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
-        item => item.key === true
-      )?.label
-        || ''"
-      :inactive-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
-        item => item.key === false
-      )?.label
-        || ''"
-      @change="selectEvent"
-    />
-    <el-radio-group
-      v-else-if="fieldConfig?.isRadioButton"
-      v-model="value"
-      @change="selectEvent"
-    >
-      <template v-if="list">
-        <el-radio-button
-          v-for="item in list"
-          :key="item.key"
-          :label="item.key"
-        >
-          {{ item.label }}
-        </el-radio-button>
-      </template>
-      <template v-else>
-        <el-radio-button
-          v-for="item in fieldConfig.enumRecord"
-          :key="item.key"
-          :label="item.key"
-        >
-          {{ item.label }}
-        </el-radio-button>
-      </template>
-    </el-radio-group>
-    <el-radio-group
-      v-else-if="fieldConfig?.isRadio"
-      v-model="value"
-      @change="selectEvent"
-    >
-      <template v-if="list">
-        <el-radio
-          v-for="item in list"
-          :key="item.key"
-          :label="item.key"
-        >
-          {{ item.label }}
-        </el-radio>
-      </template>
-      <template v-else>
-        <el-radio
-          v-for="item in fieldConfig.enumRecord"
-          :key="item.key"
-          :label="item.key"
-        >
-          {{ item.label }}
-        </el-radio>
-      </template>
-    </el-radio-group>
-    <el-select
-      v-else
-      v-model="value"
-      :placeholder="placeholderRef"
-      :clearable="fieldConfig?.clearable"
-      :disabled="disabled"
-      :prefix-icon="fieldConfig?.prefixIcon"
-      :suffix-icon="fieldConfig?.suffixIcon"
-      :multiple="fieldConfig?.multiple"
-      :multiple-limit="fieldConfig?.multipleLimit"
-      fit-input-width
-      :collapse-tags="fieldConfig?.collapseTags"
-      :filterable="fieldConfig?.filterable"
-      :remote-method="onSearch"
-      :remote="!!onSearch"
-      collapse-tags-tooltip
-      @keydown="inputKeyDown"
-      @change="selectEvent"
-    >
-      <template v-if="list">
-        <el-option
-          v-for="item in list"
-          :key="(item.key as string)"
-          :label="item.label"
-          :value="item.key"
-          :disabled="item.disabled"
-        />
-      </template>
-      <template v-else-if="fieldConfig">
-        <el-option
-          v-for="item in fieldConfig.enumRecord"
-          :key="(item.key as string)"
-          :label="item.label"
-          :value="item.key"
-          :disabled="item.disabled"
-        />
-      </template>
-    </el-select>
-  </template>
-
-  <el-cascader
-    v-else-if="(fieldConfig && tree)"
-    v-model="value"
-    class="air-input-cascader"
-    :options="tree"
-    popper-class="air-input-cascader-popper"
-    :placeholder="placeholderRef"
-    :clearable="fieldConfig?.clearable"
-    :show-all-levels="fieldConfig?.showAllLevels"
-    :props="{
-      value: 'key',
-      multiple: fieldConfig?.multiple,
-      emitPath: fieldConfig?.emitPath,
-      checkStrictly: fieldConfig?.checkStrictly
-    }"
-    :disabled="disabled"
-    :collapse-tags="fieldConfig?.collapseTags"
-    collapse-tags-tooltip
-    @change="selectEvent"
-    @keydown="inputKeyDown"
-  />
-  <el-input
-    v-else
-    v-model="value"
-    :placeholder="placeholderRef"
-    :clearable="fieldConfig?.clearable"
-    :disabled="disabled"
-    :maxlength="fieldConfig?.maxLength || (fieldConfig?.isTextarea
-      ? AirConfig.maxTextAreaLength :
-        AirConfig.maxTextLength)
-    "
-    :max="fieldConfig?.max"
-    :min="fieldConfig?.min || 0"
-    :show-word-limit="getShowWordLimit()"
-    :type="getInputType"
-    :rows="fieldConfig?.isTextarea ? AirConfig.defaultTextareaMinRows : 0"
-    :prefix-icon="fieldConfig?.prefixIcon"
-    :suffix-icon="fieldConfig?.suffixIcon"
-    :autosize="fieldConfig?.autoSize ?
-      { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
-      : false
-    "
-    @keydown="inputKeyDown"
-    @change="inputEvent"
-    @blur="inputBlur"
-  >
-    <template
-      v-if="fieldConfig && fieldConfig.suffixText"
-      #append
-    >
-      <slot name="append">
-        {{ fieldConfig?.suffixText }}
-      </slot>
+  <div class="air-input">
+    <template v-if="fieldConfig && fieldConfig.dateType !== undefined">
+      <el-date-picker
+        v-if="fieldConfig.dateType !== AirDateTimeType.TIME"
+        v-model="value"
+        :placeholder="placeholderRef"
+        :clearable="fieldConfig?.clearable"
+        :disabled="disabled"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :format="fieldConfig.dateShowFormatter || getShowFormatter"
+        :value-format="fieldConfig.dateValueFormatter"
+        :type="fieldConfig.dateType"
+        style="width:100%"
+        @change="selectEvent"
+        @visible-change="selectEvent"
+        @keydown="inputKeyDown"
+      />
+      <el-time-picker
+        v-else
+        v-model="value"
+        style="width:100%"
+        :placeholder="placeholderRef"
+        :clearable="fieldConfig?.clearable"
+        :disabled="disabled"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
+        :value-format="fieldConfig.dateValueFormatter"
+        @change="selectEvent"
+        @visible-change="selectEvent"
+        @keydown="inputKeyDown"
+      />
     </template>
-    <template #suffix>
-      <el-icon
-        v-if="isClearButtonShow"
-        @click="clearEvent()"
+    <template v-else-if="fieldConfig && fieldConfig.enumRecord || list">
+      <el-switch
+        v-if="fieldConfig?.isSwitch"
+        v-model="value"
+        :style="{
+          '--el-switch-on-color': getSwitchColor('on'),
+          '--el-switch-off-color': getSwitchColor('off')
+        }"
+        :active-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
+          item => item.key === true
+        )?.label
+          || ''"
+        :inactive-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
+          item => item.key === false
+        )?.label
+          || ''"
+        @change="selectEvent"
+      />
+      <el-radio-group
+        v-else-if="fieldConfig?.isRadioButton"
+        v-model="value"
+        @change="selectEvent"
       >
-        <CircleClose />
-      </el-icon>
+        <template v-if="list">
+          <el-radio-button
+            v-for="item in list"
+            :key="item.key"
+            :label="item.key"
+          >
+            {{ item.label }}
+          </el-radio-button>
+        </template>
+        <template v-else>
+          <el-radio-button
+            v-for="item in fieldConfig.enumRecord"
+            :key="item.key"
+            :label="item.key"
+          >
+            {{ item.label }}
+          </el-radio-button>
+        </template>
+      </el-radio-group>
+      <el-radio-group
+        v-else-if="fieldConfig?.isRadio"
+        v-model="value"
+        @change="selectEvent"
+      >
+        <template v-if="list">
+          <el-radio
+            v-for="item in list"
+            :key="item.key"
+            :label="item.key"
+          >
+            {{ item.label }}
+          </el-radio>
+        </template>
+        <template v-else>
+          <el-radio
+            v-for="item in fieldConfig.enumRecord"
+            :key="item.key"
+            :label="item.key"
+          >
+            {{ item.label }}
+          </el-radio>
+        </template>
+      </el-radio-group>
+      <el-select
+        v-else
+        v-model="value"
+        :placeholder="placeholderRef"
+        :clearable="fieldConfig?.clearable"
+        :disabled="disabled"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :multiple="fieldConfig?.multiple"
+        :multiple-limit="fieldConfig?.multipleLimit"
+        fit-input-width
+        :collapse-tags="fieldConfig?.collapseTags"
+        :filterable="fieldConfig?.filterable"
+        :remote-method="onSearch"
+        :remote="!!onSearch"
+        collapse-tags-tooltip
+        @keydown="inputKeyDown"
+        @change="selectEvent"
+      >
+        <template v-if="list">
+          <el-option
+            v-for="item in list"
+            :key="(item.key as string)"
+            :label="item.label"
+            :value="item.key"
+            :disabled="item.disabled"
+          />
+        </template>
+        <template v-else-if="fieldConfig">
+          <el-option
+            v-for="item in fieldConfig.enumRecord"
+            :key="(item.key as string)"
+            :label="item.label"
+            :value="item.key"
+            :disabled="item.disabled"
+          />
+        </template>
+      </el-select>
     </template>
-  </el-input>
+
+    <el-cascader
+      v-else-if="(fieldConfig && tree)"
+      v-model="value"
+      class="air-input-cascader"
+      :options="tree"
+      popper-class="air-input-cascader-popper"
+      :placeholder="placeholderRef"
+      :clearable="fieldConfig?.clearable"
+      :show-all-levels="fieldConfig?.showAllLevels"
+      :props="{
+        value: 'key',
+        multiple: fieldConfig?.multiple,
+        emitPath: fieldConfig?.emitPath,
+        checkStrictly: fieldConfig?.checkStrictly
+      }"
+      :disabled="disabled"
+      :collapse-tags="fieldConfig?.collapseTags"
+      collapse-tags-tooltip
+      @change="selectEvent"
+      @keydown="inputKeyDown"
+    />
+    <el-input
+      v-else
+      v-model="value"
+      :placeholder="placeholderRef"
+      :clearable="fieldConfig?.clearable"
+      :disabled="disabled"
+      :maxlength="fieldConfig?.maxLength || (fieldConfig?.isTextarea
+        ? AirConfig.maxTextAreaLength :
+          AirConfig.maxTextLength)
+      "
+      :max="fieldConfig?.max"
+      :min="fieldConfig?.min || 0"
+      :show-word-limit="getShowWordLimit()"
+      :type="getInputType"
+      :rows="fieldConfig?.isTextarea ? AirConfig.defaultTextareaMinRows : 0"
+      :prefix-icon="fieldConfig?.prefixIcon"
+      :suffix-icon="fieldConfig?.suffixIcon"
+      :autosize="fieldConfig?.autoSize ?
+        { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
+        : false
+      "
+      @keydown="inputKeyDown"
+      @change="inputEvent"
+      @blur="inputBlur"
+    >
+      <template
+        v-if="fieldConfig && fieldConfig.suffixText"
+        #append
+      >
+        <slot name="append">
+          {{ fieldConfig?.suffixText }}
+        </slot>
+      </template>
+      <template #suffix>
+        <el-icon
+          v-if="isClearButtonShow"
+          @click="clearEvent()"
+        >
+          <CircleClose />
+        </el-icon>
+      </template>
+    </el-input>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -601,22 +603,26 @@ function init() {
 init()
 </script>
 <style lang="scss">
-.air-input-cascader {
-  display: inline;
+.air-input {
   width: 100%;
-}
 
-.air-input-cascader-popper {
-  margin-top: 8px !important;
-
-  .el-cascader-menu__list {
+  .air-input-cascader {
+    display: inline;
     width: 100%;
   }
-}
 
-.air-input-number {
-  .el-input__inner {
-    text-align: left;
+  .air-input-cascader-popper {
+    margin-top: 8px !important;
+
+    .el-cascader-menu__list {
+      width: 100%;
+    }
+  }
+
+  .air-input-number {
+    .el-input__inner {
+      text-align: left;
+    }
   }
 }
 </style>
