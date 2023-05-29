@@ -30,29 +30,30 @@ export class AirRouter {
    * @param parentRouter 父级路由名称
    */
   private static addRouterAsync(menuList: IMenu[], parentRouter: string): void {
-    if (!AirConfig.router) {
-      AirNotification.error('请先向AirConfig注入当前路由对象', '配置错误')
-      return
-    }
     menuList.forEach((item) => {
-      if (!item.children || item.children.length === 0) {
-        if (AirConfig.router) {
-          if (!item.name || !item.path || !item.component) {
-            AirConsole.error('路由初始化失败，缺少参数')
-          } else {
-            AirConfig.router.addRoute(parentRouter, {
-              path: item.path,
-              name: item.id.toString(),
-              meta: {
-                name: item.name,
-              },
-              component: modules[`../../view${item.component}.vue`],
-            })
-          }
-        }
-      } else {
+      if (item.children && item.children.length > 0) {
         this.addRouterAsync(item.children, parentRouter)
+        return
       }
+      if (!AirConfig.router) {
+        AirNotification.error('请先向AirConfig注入当前路由对象', '配置错误')
+        return
+      }
+      if (!item.name || !item.path || !item.component) {
+        AirConsole.error('路由初始化失败，缺少参数')
+        return
+      }
+      if (AirConfig.router.hasRoute(item.id.toString())) {
+        return
+      }
+      AirConfig.router.addRoute(parentRouter, {
+        path: item.path,
+        name: item.id.toString(),
+        meta: {
+          name: item.name,
+        },
+        component: modules[`../../view${item.component}.vue`],
+      })
     })
   }
 
@@ -62,25 +63,27 @@ export class AirRouter {
    * @param menuList [可选]子菜单,好兄弟,你不用传。
    */
   private static reloadCacheMenuList(menuCacheKey: string, menuList?: IMenu[]): void {
-    if (AirConfig.router) {
-      if (!menuList && localStorage.getItem(menuCacheKey)) {
-        menuList = JSON.parse(localStorage.getItem(menuCacheKey) || '[]')
+    if (!AirConfig.router) {
+      return
+    }
+    if (!menuList && localStorage.getItem(menuCacheKey)) {
+      menuList = JSON.parse(localStorage.getItem(menuCacheKey) || '[]')
+    }
+    if (menuList === undefined) {
+      return
+    }
+    for (const item of menuList) {
+      if (item.children && item.children.length > 0) {
+        this.reloadCacheMenuList(menuCacheKey, item.children)
+        // eslint-disable-next-line no-continue
+        continue
       }
-      if (menuList === undefined) {
-        return
-      }
-      for (const item of menuList) {
-        if (item.children && item.children.length > 0) {
-          this.reloadCacheMenuList(menuCacheKey, item.children)
-        } else {
-          // eslint-disable-next-line no-restricted-globals
-          const locationPathName = location.pathname
-          if (item.path === locationPathName) {
-            localStorage.removeItem(menuCacheKey)
-            AirConfig.router.replace(locationPathName)
-            break
-          }
-        }
+      // eslint-disable-next-line no-restricted-globals
+      const locationPathName = location.pathname
+      if (item.path === locationPathName) {
+        localStorage.removeItem(menuCacheKey)
+        AirConfig.router.replace(locationPathName)
+        break
       }
     }
   }
