@@ -1,11 +1,11 @@
-import { IEntity } from './IEntity'
+import { AirEntity } from '../dto/AirEntity'
 
 /**
  * # 标准树结构
  * @author Hamm
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ITree<E extends ITree<E> = any> extends IEntity {
+export interface ITree<E extends ITree<E> = any> extends AirEntity {
     /**
      * # 树节点名称
      */

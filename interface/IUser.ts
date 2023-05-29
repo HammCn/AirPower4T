@@ -1,6 +1,6 @@
-import { IEntity } from './IEntity'
+import { AirEntity } from '../dto/AirEntity'
 
-export interface IUser extends IEntity {
+export interface IUser extends AirEntity {
     /**
      * # 用户昵称
      */
