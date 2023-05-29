@@ -3,12 +3,12 @@ import {
 } from 'vue-router'
 import { ClassConstructor } from 'class-transformer'
 import { AirDateTimeFormatter } from './enum/AirDateTimeFormatter'
-import { AirHttpStatus } from './enum/AirHttpStatus'
 import { INormalTreeProps } from './interface/INormalTreeProps'
 import { AirFileEntity } from './dto/AirFileEntity'
 import { IFile } from './interface/IFile'
 import { IUser } from './interface/IUser'
 import { AirUserEntity } from './dto/AirUserEntity'
+import { AirCode } from './enum/AirCode'
 
 /**
  * # AirPower 全局配置
@@ -146,12 +146,12 @@ export class AirConfig {
   /**
    * # 全局http请求返回成功状态码
    */
-  static defaultHttpSuccessCode = AirHttpStatus.OK
+  static defaultHttpSuccessCode = AirCode.SUCCESS
 
   /**
    * # 全局http请求返回登录状态码
    */
-  static defaultHttpUnauthorizedCode = AirHttpStatus.UNAUTHORIZED
+  static defaultHttpUnauthorizedCode = AirCode.UNAUTHORIZED
 
   /**
    * # 默认的格式化时间

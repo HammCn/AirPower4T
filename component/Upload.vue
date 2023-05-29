@@ -51,8 +51,8 @@ import { AirConfig } from '../AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
-import { AirHttpStatus } from '../enum/AirHttpStatus'
 import { IFile } from '../interface/IFile'
+import { AirCode } from '../enum/AirCode'
 
 const props = defineProps({
   /**
@@ -213,7 +213,7 @@ function uploadSuccess(result: Record<string, unknown>) {
     uploadError()
     return
   }
-  if (result.code === AirHttpStatus.OK) {
+  if (result.code === AirCode.SUCCESS) {
     AirNotification.success(props.uploadSuccess, '上传成功')
     if (props.onCustomSuccess) {
       props.onCustomSuccess(result.data)
