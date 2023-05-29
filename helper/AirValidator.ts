@@ -506,9 +506,9 @@ export class AirValidator {
 
   /**
    * # 通过指定错误信息来创建一个验证器
-   * @param message 验证失败的提示
+   * @param message [可选]验证失败的提示
    */
-  static show(message: string): AirValidator {
+  static show(message?: string): AirValidator {
     return new AirValidator().show(message)
   }
 
