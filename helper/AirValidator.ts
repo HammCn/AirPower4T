@@ -719,7 +719,7 @@ export class AirValidator {
         (formRules[fieldKey]).push(AirValidator.show(typeof config.isPhone === 'string' ? config.isPhone : `${fieldName}不是有效的联系电话`).ifNotPhone())
       }
       if (config.isEmail) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isEmail === 'string' ? config.isEmail : `${fieldName}不是有效的电话`).ifNotEmail())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isEmail === 'string' ? config.isEmail : `${fieldName}不是有效的邮箱地址`).ifNotEmail())
       }
       if (config.regExp) {
         (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不符合验证规则`).ifNotTest(config.regExp))
