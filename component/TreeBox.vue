@@ -8,7 +8,7 @@
         class="air-tree-box-panel"
         hide-footer
         :title="title"
-        :show-title="!hideTitle"
+        :show-title="!!title"
         :hide-icon="hideIcon"
       >
         <template #icon>
@@ -62,7 +62,7 @@ defineProps({
    */
   defaultExpandAll: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 
   /**
@@ -106,19 +106,11 @@ defineProps({
   },
 
   /**
-   * # 是否隐藏标题
-   */
-  hideTitle: {
-    type: Boolean,
-    default: false,
-  },
-
-  /**
    * # 标题
    */
   title: {
     type: String,
-    default: '请选择',
+    default: '',
   },
 
   /**
