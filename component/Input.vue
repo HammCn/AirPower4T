@@ -13,6 +13,7 @@
         :value-format="fieldConfig.dateValueFormatter"
         :type="fieldConfig.dateType"
         style="width:100%"
+        :readonly="readonly"
         @change="selectEvent"
         @visible-change="selectEvent"
         @keydown="inputKeyDown"
@@ -28,6 +29,7 @@
         :suffix-icon="fieldConfig?.suffixIcon"
         :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
         :value-format="fieldConfig.dateValueFormatter"
+        :readonly="readonly"
         @change="selectEvent"
         @visible-change="selectEvent"
         @keydown="inputKeyDown"
@@ -37,6 +39,7 @@
       <el-switch
         v-if="fieldConfig?.isSwitch"
         v-model="value"
+        :readonly="readonly"
         :style="{
           '--el-switch-on-color': getSwitchColor('on'),
           '--el-switch-off-color': getSwitchColor('off')
@@ -54,6 +57,7 @@
       <el-radio-group
         v-else-if="fieldConfig?.isRadioButton"
         v-model="value"
+        :readonly="readonly"
         @change="selectEvent"
       >
         <template v-if="list">
@@ -78,6 +82,7 @@
       <el-radio-group
         v-else-if="fieldConfig?.isRadio"
         v-model="value"
+        :readonly="readonly"
         @change="selectEvent"
       >
         <template v-if="list">
@@ -102,6 +107,7 @@
       <el-select
         v-else
         v-model="value"
+        :readonly="readonly"
         :placeholder="placeholderRef"
         :clearable="fieldConfig?.clearable"
         :disabled="disabled"
@@ -144,6 +150,7 @@
       v-model="value"
       class="air-input-cascader"
       :options="tree"
+      :readonly="readonly"
       popper-class="air-input-cascader-popper"
       :placeholder="placeholderRef"
       :clearable="fieldConfig?.clearable"
@@ -163,6 +170,7 @@
     <el-input
       v-else
       v-model="value"
+      :readonly="readonly"
       :placeholder="placeholderRef"
       :clearable="fieldConfig?.clearable"
       :disabled="disabled"
@@ -244,6 +252,14 @@ const props = defineProps({
    * # 是否禁用输入
    */
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * # 是否只读
+   */
+  readonly: {
     type: Boolean,
     default: false,
   },
