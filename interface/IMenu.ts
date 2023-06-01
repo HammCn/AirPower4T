@@ -2,7 +2,7 @@ import { ITree } from './ITree'
 
 /**
  * # 标准菜单结构
- * @author
+ * @author Hamm
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface IMenu<E extends IMenu<E> = any> extends ITree<E> {

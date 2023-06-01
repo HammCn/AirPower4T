@@ -12,9 +12,9 @@
   </el-link>
 </template>
 <script lang="ts" setup>
-import userClipboard from 'vue-clipboard3'
 import { ref } from 'vue'
 import { AirStore } from '../store/AirStore'
+import { AirClipboard } from '../helper/AirClipboard'
 
 const props = defineProps({
   /**
@@ -25,8 +25,6 @@ const props = defineProps({
     default: '',
   },
 })
-
-const { toClipboard } = userClipboard()
 
 /**
  * 复制的默认提示
@@ -50,7 +48,7 @@ async function copy() {
   if (!props.content) {
     return
   }
-  await toClipboard(props.content)
+  await AirClipboard.copy(props.content)
   copyTips.value = '成功复制到剪切板!'
   AirStore().tooltip = copyTips.value
   clearTimeout(timer)
