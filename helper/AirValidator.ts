@@ -713,13 +713,13 @@ export class AirValidator {
         (formRules[fieldKey]).push(AirValidator.show(typeof config.isTelPhone === 'string' ? config.isTelPhone : `${fieldName}不是有效的座机电话`).ifNotTelPhone())
       }
       if (config.isMobilePhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isMobilePhone === 'string' ? config.isMobilePhone : `${fieldName}不是有效的手机号码`).ifNotMobilePhone())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isMobilePhone === 'string' ? config.isMobilePhone : '不是有效的手机号码').ifNotMobilePhone())
       }
       if (config.isPhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isPhone === 'string' ? config.isPhone : `${fieldName}不是有效的联系电话`).ifNotPhone())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isPhone === 'string' ? config.isPhone : '不是有效的联系电话').ifNotPhone())
       }
       if (config.isEmail) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isEmail === 'string' ? config.isEmail : `${fieldName}不是有效的邮箱地址`).ifNotEmail())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.isEmail === 'string' ? config.isEmail : '不是有效的邮箱地址').ifNotEmail())
       }
       if (config.regExp) {
         (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不符合验证规则`).ifNotTest(config.regExp))
