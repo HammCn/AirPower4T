@@ -32,6 +32,41 @@ export abstract class AirAbstractService<E extends AirEntity> {
   protected loading!: Ref<boolean>
 
   /**
+   * # 分页查询API地址的URL
+   */
+  protected urlForGetPage = 'getPage'
+
+  /**
+   * # 不分页查询API地址的URL
+   */
+  protected urlForGetList = 'getList'
+
+  /**
+   * # 不分页树查询API地址的URL
+   */
+  protected urlForGetTreeList = 'getTreeList'
+
+  /**
+   * # 查询详情API地址的URL
+   */
+  protected urlForGetDetail = 'getDetail'
+
+  /**
+   * # 添加API地址的URL
+   */
+  protected urlForAdd = 'add'
+
+  /**
+   * # 修改API地址的URL
+   */
+  protected urlForUpdate = 'update'
+
+  /**
+   * # 删除API地址的URL
+   */
+  protected urlForDelete = 'delete'
+
+  /**
    * # 获取一个Service实例
    * @param loading [可选]Loading的Ref对象
    */
@@ -63,10 +98,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
-    if (request.filter) {
-      request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
-    }
-    const json = await this.api('getPage').post(request.toJson())
+    const json = await this.api(this.urlForGetPage).post(request.toJson())
     const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
     responsePage.list = AirClassTransformer.parseArray(responsePage.list, this.entityClass)
     return responsePage
@@ -77,10 +109,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
-    if (request.filter) {
-      request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
-    }
-    const json = await this.api('getList').post(request.toJson())
+    const json = await this.api(this.urlForGetList).post(request.toJson())
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -89,10 +118,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
-    if (request.filter) {
-      request.filter = AirClassTransformer.parse(request.filter, this.entityClass)
-    }
-    const json = await this.api('getTreeList').post(request.toJson())
+    const json = await this.api(this.urlForGetTreeList).post(request.toJson())
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -101,7 +127,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api('getDetail').post(new AirEntity(id))
+    const json = await this.api(this.urlForGetDetail).post(new AirEntity(id))
     return AirClassTransformer.parse(json, this.entityClass)
   }
 
@@ -112,7 +138,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param title [可选]新增成功的消息提示标题 默认 '新增成功'
    */
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
-    const json = await this.api('add').post(data.toJson())
+    const json = await this.api(this.urlForAdd).post(data.toJson())
     if (message) {
       AirNotification.success(message, title)
     }
@@ -126,7 +152,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param title [可选]修改成功的消息提示标题 默认 '修改成功'
    */
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
-    await this.api('update').post(data.toJson())
+    await this.api(this.urlForUpdate).post(data.toJson())
     if (message) {
       AirNotification.success(message, title)
     }
@@ -157,7 +183,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param title [可选]删除成功的消息提示标题 默认 '删除成功'
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
-    return this.api('delete').withOutError()
+    return this.api(this.urlForDelete).withOutError()
       .post(new AirEntity(id))
       .then(() => {
         if (message) {
@@ -204,7 +230,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param form 表单对象
    * @param moreRule [可选] 更多的验证规则
    */
-  static createValidateRules<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
+  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return AirValidator.createRules(form, (this as any), moreRule)
   }
