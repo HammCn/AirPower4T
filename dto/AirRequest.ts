@@ -29,9 +29,9 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
    * # 如传入filter的类 将自动初始化一个空filter
    * @param filterClass filter的类
    */
-  constructor(filterClass?: ClassConstructor<E>) {
+  constructor(filterClass: ClassConstructor<E>) {
     super()
-    if (filterClass && !this.filter) {
+    if (filterClass) {
       this.filter = AirClassTransformer.parse({}, filterClass)
     }
   }
