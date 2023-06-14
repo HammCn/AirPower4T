@@ -8,9 +8,9 @@ import { IMenu } from '../interface/IMenu'
  * 💡 如需扩展, 请自行实现 ```IMenu```
  * @author Hamm
  */
-export class AirMenuEntity extends AirEntity implements IMenu<AirMenuEntity> {
+export class AirMenuEntity extends AirEntity implements IMenu {
   @Type(() => AirMenuEntity)
-  @Expose() children: AirMenuEntity[] = []
+  @Expose() children: this[] = []
 
   @Expose() name!: string
 
