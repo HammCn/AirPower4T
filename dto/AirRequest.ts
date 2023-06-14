@@ -1,7 +1,8 @@
-import { Expose, Type } from 'class-transformer'
+import { ClassConstructor, Expose, Type } from 'class-transformer'
 import { AirSort } from './AirSort'
 import { AirModel } from '../model/AirModel'
 import { AirEntity } from './AirEntity'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 
 /**
  * # 请求类
@@ -23,4 +24,15 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
    */
   @Type(() => AirSort)
   @Expose() sort = new AirSort()
+
+  /**
+   * # 如传入filter的类 将自动初始化一个空filter
+   * @param filterClass filter的类
+   */
+  constructor(filterClass?: ClassConstructor<E>) {
+    super()
+    if (filterClass && !this.filter) {
+      this.filter = AirClassTransformer.parse({}, filterClass)
+    }
+  }
 }

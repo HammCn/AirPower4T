@@ -21,13 +21,4 @@ export class AirEntity extends AirModel {
       this.id = id
     }
   }
-
-  /**
-   * # 设置ID
-   * @param id ID
-   */
-  setId(id: number): this {
-    this.id = id
-    return this
-  }
 }

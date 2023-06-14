@@ -14,8 +14,6 @@ export class AirMenuEntity extends AirEntity implements IMenu {
 
   @Expose() name!: string
 
-  @Expose() parentId!: number
-
   /**
    * # 菜单URL
    */
