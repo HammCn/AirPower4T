@@ -105,39 +105,22 @@
               <!-- 读取挂载数据 -->
               <template v-else-if="item.payloadField">
                 <template v-if="item.isCopyField">
-                  <el-popover
-                    :width="400"
-                    trigger="click"
-                    :content="(scope as any).row[item.key] || item.emptyValue"
+                  <div
+                    class="air-table-column"
+                    :class="item.nowrap ? 'nowrap' : ''"
                   >
-                    <template #reference>
-                      <div
-                        class="air-table-column"
-                        :class="item.nowrap ? 'nowrap' : ''"
-                      >
-                        <ACopy :content="getPayloadRowData((scope as any).row, item)">
-                          {{ getPayloadRowData((scope as any).row, item) }}
-                        </ACopy>
-                      </div>
-                    </template>
-                  </el-popover>
+                    <ACopy :content="getPayloadRowData((scope as any).row, item)">
+                      {{ getPayloadRowData((scope as any).row, item) }}
+                    </ACopy>
+                  </div>
                 </template>
                 <template v-else>
-                  <el-popover
-                    :disabled="!item.nowrap"
-                    :width="400"
-                    trigger="click"
-                    :content="getPayloadRowData((scope as any).row, item) || item.emptyValue"
+                  <div
+                    class="air-table-column"
+                    :class="item.nowrap ? 'nowrap' : ''"
                   >
-                    <template #reference>
-                      <div
-                        class="air-table-column"
-                        :class="item.nowrap ? 'nowrap' : ''"
-                      >
-                        {{ getPayloadRowData((scope as any).row, item) }}
-                      </div>
-                    </template>
-                  </el-popover>
+                    {{ getPayloadRowData((scope as any).row, item) }}
+                  </div>
                 </template>
               </template>
               <!-- 通用字段 -->
@@ -155,21 +138,12 @@
                   </div>
                 </template>
                 <template v-else>
-                  <el-popover
-                    :disabled="!item.nowrap"
-                    :width="400"
-                    trigger="click"
-                    :content="(scope as any).row[item.key] || item.emptyValue"
+                  <div
+                    class="air-table-column"
+                    :class="item.nowrap ? 'nowrap' : ''"
                   >
-                    <template #reference>
-                      <div
-                        class="air-table-column"
-                        :class="item.nowrap ? 'nowrap' : ''"
-                      >
-                        {{ (scope as any).row[item.key] || item.emptyValue }}
-                      </div>
-                    </template>
-                  </el-popover>
+                    {{ (scope as any).row[item.key] || item.emptyValue }}
+                  </div>
                 </template>
               </template>
               <span
