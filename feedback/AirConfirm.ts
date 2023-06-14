@@ -79,7 +79,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 确认标题
    */
   show(content: string, title = '操作提醒'): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve) => {
       ElMessageBox.confirm(
         content,
         title,
@@ -89,7 +89,7 @@ export class AirConfirm extends AirAlert {
           resolve()
         })
         .catch(() => {
-          reject()
+          //
         })
     })
   }

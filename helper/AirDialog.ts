@@ -35,7 +35,7 @@ export class AirDialog {
         app = undefined
       }
     }
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (app) {
         return
       }
@@ -47,7 +47,6 @@ export class AirDialog {
         },
         onCancel: () => {
           unmount()
-          reject()
         },
         ...param,
       }
@@ -104,7 +103,7 @@ export class AirDialog {
    * @param exportParam [可选]导出request参数对象
    */
   static async createExportTask<R extends AirRequest>(url: string, exportParam?: R): Promise<unknown> {
-    const param = new AirExportModel(url, exportParam || new AirRequest())
+    const param = new AirExportModel(url, exportParam)
     return this.show(ExportView, param)
   }
 

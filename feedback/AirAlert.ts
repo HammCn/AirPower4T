@@ -242,7 +242,7 @@ export class AirAlert {
    *
    */
   private alert(content = '操作成功', title = '温馨提示'): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve) => {
       ElMessageBox.alert(
         content,
         title,
@@ -252,7 +252,7 @@ export class AirAlert {
           resolve()
         })
         .catch(() => {
-          reject()
+          // 没点确认
         })
     })
   }
