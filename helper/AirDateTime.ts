@@ -9,6 +9,18 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
  */
 export class AirDateTime {
   /**
+   * # 😜 睡会再起来干活
+   * @param milliSeconds 毫秒数
+   */
+  static async sleep(milliSeconds: number): Promise<void> {
+    return new Promise((success) => {
+      setTimeout(() => {
+        success()
+      }, milliSeconds)
+    })
+  }
+
+  /**
    * # 格式化到Unix秒时间戳(默认当前时间)
    * @param date [可选]Date对象/时间字符串
    */
