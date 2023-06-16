@@ -57,7 +57,7 @@ export class AirClassTransformer {
    * # 树实体转换到IRecord
    * @param tree 树
    */
-  static tree2Record<E extends ITree<E>>(tree: E): IRecord {
+  static tree2Record<E extends ITree>(tree: E): IRecord {
     let children: IRecord[] = []
     if (tree.children && tree.children.length > 0) {
       children = this.treeList2RecordList(tree.children)
@@ -73,7 +73,7 @@ export class AirClassTransformer {
    * # 树实体数组转换到IRecord数组
    * @param treeList
    */
-  static treeList2RecordList<E extends ITree<E>>(treeList: E[]): IRecord[] {
+  static treeList2RecordList<E extends ITree>(treeList: E[]): IRecord[] {
     const records: IRecord[] = []
     for (let i = 0; i < treeList.length; i += 1) {
       records.push(this.tree2Record(treeList[i]))
