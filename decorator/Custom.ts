@@ -119,12 +119,13 @@ const CLASS_NAME_PREFIX = '__class__name__'
  */
 export function ClassName(className: string) {
   return (target: any) => {
-    Object.defineProperty(target, CLASS_NAME_PREFIX, {
+    Object.defineProperty(target.prototype, CLASS_NAME_PREFIX, {
       enumerable: false,
       value: className,
       writable: false,
       configurable: false,
     })
+    return target
   }
 }
 
@@ -181,7 +182,7 @@ export function Alias(fieldName: string) {
   return (target: any, key: string) => {
     Object.defineProperty(target, ALIAS_PREFIX + key, {
       enumerable: false,
-      value: fieldName,
+      value: getFieldPrefix(target) + fieldName,
       writable: false,
       configurable: false,
     })
@@ -200,8 +201,33 @@ export function getAlias(target: any, fieldKey: string): string {
   }
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name === AirModel.name) {
-    return ''
+    return fieldKey
   }
   fieldName = getAlias(superClass, fieldKey)
   return fieldName
+}
+
+const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
+
+/**
+ * 为类标记一个属性别名前缀
+ * @param className 类的属性别名前缀
+ */
+export function FieldPrefix(prefix: string) {
+  return (target: any) => {
+    Object.defineProperty(target.prototype, CLASS_FIELD_ALIAS_PREFIX, {
+      enumerable: false,
+      value: prefix,
+      writable: false,
+      configurable: false,
+    })
+  }
+}
+
+/**
+ * 获取类的属性别名前缀
+ * @param target 目标类
+ */
+export function getFieldPrefix(target: any): string {
+  return target[CLASS_FIELD_ALIAS_PREFIX] || ''
 }
