@@ -1,0 +1,34 @@
+* {
+  font-family: Helvetica, "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑", Arial;
+}
+page {
+  background-color: #ffffff;
+}
+uni-app {
+  background-color: #ffffff;
+}
+uni-page-body {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+.weui-cells {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+}
+
+.weui-cells:before {
+  border-top: none !important;
+}
+
+.weui-cells:after {
+  border-bottom: none !important;
+}
+
+.weui-page {
+  padding: 10px;
+}
