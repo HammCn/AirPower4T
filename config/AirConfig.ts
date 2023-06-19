@@ -61,6 +61,21 @@ export class AirConfig {
   static appKeyHeader = 'appkey'
 
   /**
+   * Http返回状态码的字段
+   */
+  static httpCodeKey = 'code'
+
+  /**
+   * Http返回错误信息的字段
+   */
+  static httpMessageKey = 'message'
+
+  /**
+   * Http返回数据的字段
+   */
+  static httpDataKey = 'data'
+
+  /**
    * 默认时间格式
    */
   static defaultDateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm

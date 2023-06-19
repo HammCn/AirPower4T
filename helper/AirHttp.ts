@@ -94,27 +94,27 @@ export class AirHttp {
       option.success = (res) => {
         try {
           const json = JSON.parse(res.data)
-          switch (json.code) {
+          switch (json[AirConfig.httpCodeKey]) {
             case AirConfig.successCode:
               if (clazz) {
                 // eslint-disable-next-line new-cap
-                success(AirModel.toModel(new clazz(), json.data))
+                success(AirModel.toModel(new clazz(), json[AirConfig.httpDataKey]))
                 return
               }
-              success(AirFileEntity.fromJson(json.data) as T)
+              success(AirFileEntity.fromJson(json[AirConfig.httpDataKey]) as T)
               break
             case AirConfig.unAuthorizeCode:
               AirConfig.login()
               break
             default:
               if (this.errorCallback) {
-                fail(json.message)
+                fail(json[AirConfig.httpMessageKey])
                 return
               }
               wx.showModal({
                 title: '上传失败',
                 showCancel: false,
-                content: json.message as string || '上传文件失败, 请稍后再试',
+                content: json[AirConfig.httpMessageKey] as string || '上传文件失败, 请稍后再试',
               })
           }
         } catch (e) {
@@ -156,9 +156,9 @@ export class AirHttp {
             console.log(res.data)
             const json = res.data as Record<string, unknown>
             try {
-              switch (json.code) {
+              switch (json[AirConfig.httpCodeKey]) {
                 case AirConfig.successCode:
-                  success(json.data)
+                  success(json[AirConfig.httpDataKey])
                   break
                 case AirConfig.unAuthorizeCode:
                   if (this.errorCallback) {
@@ -175,7 +175,7 @@ export class AirHttp {
                   wx.showModal({
                     title: '操作失败',
                     showCancel: false,
-                    content: json.message as string || '服务器处理异常, 请稍后再试',
+                    content: json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试',
                   })
               }
             } catch (e) {
