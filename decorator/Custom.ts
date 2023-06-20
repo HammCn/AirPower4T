@@ -232,7 +232,7 @@ export function getFieldName(target: any, fieldKey: string): string {
 const FIELD_IGNORE_PREFIX = '__field_ignore_prefix__'
 
 /**
- * # 为类标记一个属性忽略类的别名前缀
+ * 为类标记一个属性忽略类的别名前缀
  */
 export function IgnorePrefix() {
   return (target: any, key: string) => {
