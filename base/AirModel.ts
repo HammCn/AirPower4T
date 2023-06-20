@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getAlias, getDefault, getFieldPrefix, getIsArray, getToJson, getToModel, getType,
+  getAlias, getDefault, getFieldPrefix, getIgnorePrefix, getIsArray, getToJson, getToModel, getType,
 } from '../decorator/Custom'
 
 /**
@@ -64,7 +64,8 @@ export abstract class AirModel {
     for (const key of keys) {
       const data = (this as any)[key]
       result[key] = data
-      const payloadAlias = getFieldPrefix(this) + getAlias(this, key)
+
+      const payloadAlias = (!getIgnorePrefix(this, key) ? getFieldPrefix(this) : '') + getAlias(this, key)
       if (typeof data === 'object') {
         if (data instanceof Array) {
           // 数组需要循环转换
@@ -133,7 +134,7 @@ export abstract class AirModel {
       // 默认转换类为字符串
       const clazz = getType(model, key)
       const payloadAlias = getAlias(model, key)
-      let data = json[getFieldPrefix(model) + (payloadAlias || key)]
+      let data = json[(!getIgnorePrefix(model, key) ? getFieldPrefix(model) : '') + (payloadAlias || key)]
       if (data === undefined) {
         // 没有值尝试获取默认值
         data = getDefault(model, key)
