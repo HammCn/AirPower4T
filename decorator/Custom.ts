@@ -236,7 +236,7 @@ const FIELD_IGNORE_PREFIX = '__field_ignore_prefix__'
  */
 export function IgnorePrefix() {
   return (target: any, key: string) => {
-    Object.defineProperty(target.prototype, FIELD_IGNORE_PREFIX + key, {
+    Object.defineProperty(target, FIELD_IGNORE_PREFIX + key, {
       enumerable: false,
       value: true,
       writable: false,
