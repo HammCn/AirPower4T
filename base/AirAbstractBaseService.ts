@@ -25,42 +25,42 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   /**
    * 登录提示信息
    */
-  private loading!: string;
+  private loading!: string
 
   /**
    * 分页查询API地址的URL
    */
-  protected urlForGetPage = 'getPage';
+  protected urlForGetPage = 'getPage'
 
   /**
    * 不分页查询API地址的URL
    */
-  protected urlForGetList = 'getList';
+  protected urlForGetList = 'getList'
 
   /**
    * 不分页树查询API地址的URL
    */
-  protected urlForGetTreeList = 'getTreeList';
+  protected urlForGetTreeList = 'getTreeList'
 
   /**
    * 查询详情API地址的URL
    */
-  protected urlForGetDetail = 'getDetail';
+  protected urlForGetDetail = 'getDetail'
 
   /**
    * 添加API地址的URL
    */
-  protected urlForAdd = 'add';
+  protected urlForAdd = 'add'
 
   /**
    * 修改API地址的URL
    */
-  protected urlForUpdate = 'update';
+  protected urlForUpdate = 'update'
 
   /**
    * 删除API地址的URL
    */
-  protected urlForDelete = 'delete';
+  protected urlForDelete = 'delete'
 
   api(url: string, baseUrl?: string) {
     return new AirHttp(url, baseUrl || this.baseUrl).setLoading(this.loading)
@@ -121,7 +121,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api(this.urlForGetDetail).post(new AirEntity(id))
+    const json = await this.api(this.urlForGetDetail).post(this.newEntityInstance(id))
     return AirClassTransformer.parse(json, this.entityClass)
   }
 
@@ -184,5 +184,18 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
       .catch((err: Error) => {
         AirAlert.show('删除数据失败', err.message)
       })
+  }
+
+  /**
+   * # 创建一个实体的实例
+   * @param id [可选]ID
+   */
+  private newEntityInstance(id?: number): E {
+    // eslint-disable-next-line new-cap
+    const entity = new this.entityClass()
+    if (id) {
+      entity.id = id
+    }
+    return entity
   }
 }
