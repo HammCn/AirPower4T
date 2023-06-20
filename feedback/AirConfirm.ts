@@ -52,8 +52,13 @@ export class AirConfirm extends AirAlert {
    *
    */
   private confirm(content = '', description: string | undefined = undefined): Promise<void> {
+<<<<<<< HEAD
     return new Promise<void>((resolve) => {
       uni.showModal({
+=======
+    return new Promise<void>((resolve, reject) => {
+      wx.showModal({
+>>>>>>> wechat
         title: content,
         content: description,
         confirmText: this.confirmText,
@@ -62,7 +67,9 @@ export class AirConfirm extends AirAlert {
         success: (res) => {
           if (res.confirm) {
             resolve()
+            return
           }
+          reject()
         },
       })
     })

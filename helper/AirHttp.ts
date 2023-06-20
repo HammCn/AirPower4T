@@ -2,6 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirModel } from '../base/AirModel'
 import { AirConfig } from '../config/AirConfig'
+import { AirAlert } from '../feedback/AirAlert'
+import { AirConfirm } from '../feedback/AirConfirm'
+import { AirLoading } from '../feedback/AirLoading'
 import { IFile } from '../interface/IFile'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
@@ -88,7 +91,7 @@ export class AirHttp {
    * @param option 上传配置
    * @param clazz 转换的类
    */
-  async upload<T extends IFile>(option: UniNamespace.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
+  async upload<T extends IFile>(option: WechatMiniprogram.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
     return new Promise((success, fail) => {
       option.header = this.header
       option.success = (res) => {
@@ -111,22 +114,14 @@ export class AirHttp {
                 fail(json[AirConfig.httpMessageKey])
                 return
               }
-              uni.showModal({
-                title: '上传失败',
-                showCancel: false,
-                content: json[AirConfig.httpMessageKey] as string || '上传文件失败, 请稍后再试',
-              })
+              AirAlert.show('上传失败', json[AirConfig.httpMessageKey] as string || '上传文件失败, 请稍后再试')
           }
         } catch (e) {
           if (this.errorCallback) {
             fail(e)
             return
           }
-          uni.showModal({
-            title: '上传失败',
-            showCancel: false,
-            content: '上传文件失败, 请稍后再试',
-          })
+          AirAlert.show('上传失败', '上传文件失败, 请稍后再试')
         }
       }
       uni.uploadFile(option)
@@ -141,10 +136,7 @@ export class AirHttp {
     return new Promise((success, fail) => {
       try {
         if (this.loading) {
-          uni.showLoading({
-            title: this.loading,
-            mask: true,
-          })
+          AirLoading.show(this.loading)
         }
         uni.request({
           url: AirConfig.apiUrl + this.url,
@@ -172,22 +164,14 @@ export class AirHttp {
                     fail(json)
                     return
                   }
-                  uni.showModal({
-                    title: '操作失败',
-                    showCancel: false,
-                    content: json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试',
-                  })
+                  AirAlert.show(json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试')
               }
             } catch (e) {
               if (this.errorCallback) {
                 fail(e)
                 return
               }
-              uni.showModal({
-                title: '操作失败',
-                showCancel: false,
-                content: '解析数据出现异常, 请联系管理员处理',
-              })
+              AirAlert.show('操作失败', '解析数据出现异常, 请联系管理员处理')
             }
           },
           fail: (res) => {
@@ -199,36 +183,24 @@ export class AirHttp {
             }
             // 尝试重试
             if (this.triedTimes <= AirConfig.retryTimesWhenNetworkError) {
-              uni.showModal({
-                title: '网络错误',
-                content: '请求网络出现异常, 是否重试?',
-                confirmText: '重试',
-                success: async (button) => {
-                  if (button.confirm) {
-                    try {
-                      const res = await this.send(json)
-                      success(res)
-                    } catch (e) {
-                      fail(e)
-                    }
-                    return
-                  }
-                  fail(res)
-                },
+              AirConfirm.create().setConfirmText('重试').show('网络错误', '请求网络出现异常, 是否重试?').then(async () => {
+                try {
+                  const res = await this.send(json)
+                  success(res)
+                } catch (e) {
+                  fail(e)
+                }
               })
+                .catch(() => fail(res))
             } else {
               this.triedTimes = 0
-              uni.showModal({
-                title: '网络错误',
-                showCancel: false,
-                content: '请求网络出现异常, 请检查你的网络信息或稍后再试',
-              })
+              AirAlert.show('网络错误', '请求网络出现异常, 请检查你的网络信息或稍后再试')
               fail(res)
             }
           },
           complete: () => {
             if (this.loading) {
-              uni.hideLoading()
+              AirLoading.hide()
             }
           },
         })
