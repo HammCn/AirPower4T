@@ -164,7 +164,7 @@ export abstract class AirModel {
             (model as any)[key] = !!data || getDefault(model, key)
             break
           default:
-            // eslint-disable-next-line new-cap
+          // eslint-disable-next-line new-cap
             (model as any)[key] = this.toModel(new clazz() as AirModel, data)
         }
       }

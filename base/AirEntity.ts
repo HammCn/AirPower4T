@@ -9,12 +9,11 @@ export class AirEntity extends AirModel {
   /**
    * 主键ID
    */
-  @Type(Number)
-  id!: number
+  @Type(Number) id!: number
 
   /**
    * 实例化一个实体
-   * @param id [可选] 主键ID
+   * @param id [可选] 主键IDgg
    */
   constructor(id?: number) {
     super()
