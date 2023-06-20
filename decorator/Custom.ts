@@ -229,6 +229,31 @@ export function getFieldName(target: any, fieldKey: string): string {
   return fieldName
 }
 
+const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
+
+/**
+ * 为类标记一个属性别名前缀
+ * @param className 类的属性别名前缀
+ */
+export function FieldPrefix(prefix: string) {
+  return (target: any) => {
+    Object.defineProperty(target.prototype, CLASS_FIELD_ALIAS_PREFIX, {
+      enumerable: false,
+      value: prefix,
+      writable: false,
+      configurable: false,
+    })
+  }
+}
+
+/**
+ * 获取类的属性别名前缀
+ * @param target 目标类
+ */
+export function getFieldPrefix(target: any): string {
+  return target[CLASS_FIELD_ALIAS_PREFIX] || ''
+}
+
 const ALIAS_PREFIX = '__alias_'
 
 /**
@@ -262,29 +287,4 @@ export function getAlias(target: any, fieldKey: string): string {
   }
   fieldName = getAlias(superClass, fieldKey)
   return fieldName
-}
-
-const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
-
-/**
- * 为类标记一个属性别名前缀
- * @param className 类的属性别名前缀
- */
-export function FieldPrefix(prefix: string) {
-  return (target: any) => {
-    Object.defineProperty(target.prototype, CLASS_FIELD_ALIAS_PREFIX, {
-      enumerable: false,
-      value: prefix,
-      writable: false,
-      configurable: false,
-    })
-  }
-}
-
-/**
- * 获取类的属性别名前缀
- * @param target 目标类
- */
-export function getFieldPrefix(target: any): string {
-  return target[CLASS_FIELD_ALIAS_PREFIX] || ''
 }
