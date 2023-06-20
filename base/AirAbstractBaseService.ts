@@ -121,7 +121,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api(this.urlForGetDetail).post(new AirEntity(id))
+    const json = await this.api(this.urlForGetDetail).post(this.newEntityInstance(id))
     return AirClassTransformer.parse(json, this.entityClass)
   }
 
@@ -184,5 +184,18 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
       .catch((err: Error) => {
         AirAlert.show('删除数据失败', err.message)
       })
+  }
+
+  /**
+   * # 创建一个实体的实例
+   * @param id [可选]ID
+   */
+  private newEntityInstance(id?: number): E {
+    // eslint-disable-next-line new-cap
+    const entity = new this.entityClass()
+    if (id) {
+      entity.id = id
+    }
+    return entity
   }
 }
