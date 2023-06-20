@@ -229,11 +229,36 @@ export function getFieldName(target: any, fieldKey: string): string {
   return fieldName
 }
 
+const FIELD_IGNORE_PREFIX = '__field_ignore_prefix__'
+
+/**
+ * # 为类标记一个属性忽略类的别名前缀
+ */
+export function IgnorePrefix() {
+  return (target: any, key: string) => {
+    Object.defineProperty(target.prototype, FIELD_IGNORE_PREFIX + key, {
+      enumerable: false,
+      value: true,
+      writable: false,
+      configurable: false,
+    })
+  }
+}
+
+/**
+ * 获取类的属性是否忽略别名前缀
+ * @param target 目标类
+ * @param fieldKey 属性名称
+ */
+export function getIgnorePrefix(target: any, fieldKey: string): string {
+  return target[FIELD_IGNORE_PREFIX + fieldKey] || false
+}
+
 const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
 
 /**
  * 为类标记一个属性别名前缀
- * @param className 类的属性别名前缀
+ * @param prefix 类的属性别名前缀
  */
 export function FieldPrefix(prefix: string) {
   return (target: any) => {
