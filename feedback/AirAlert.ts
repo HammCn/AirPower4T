@@ -4,76 +4,106 @@
  * @author Hamm
  */
 export class AirAlert {
-    /**
-     * 确认按钮文字
-     */
-    protected confirmText = '确认'
+  /**
+   * 确认按钮文字
+   */
+  protected confirmText = '确认'
 
-    /**
-     * 确认按钮颜色
-     */
-    protected confirmColor = ''
+  /**
+   * 取消按钮文字
+   */
+  protected cancelText = '取消'
 
-    /**
-     * 设置确认按钮文字
-     * @param confirmText 确认按钮文字
-     */
-    setConfirmText(confirmText: string): this {
-      this.confirmText = confirmText
-      return this
-    }
+  /**
+   * 确认按钮颜色
+   */
+  protected confirmColor = ''
 
-    /**
-     * 设置确认按钮文字
-     * @param confirmText 确认按钮文字
-     */
-    setConfirmColor(confirmColor: string): this {
-      this.confirmText = confirmColor
-      return this
-    }
+  /**
+   * 取消按钮颜色
+   */
+  protected cancelColor = ''
 
-    /**
-     * 显示弹窗消息提醒
-     * @param content [可选] 消息内容
-     * @param description [可选] 消息标题
-     */
-    show(content?: string, description?: string): Promise<void> {
-      return this.alert(content, description)
-    }
+  /**
+   * 设置确认按钮文字
+   * @param confirmText 确认按钮文字
+   */
+  setConfirmText(confirmText: string): this {
+    this.confirmText = confirmText
+    return this
+  }
 
-    /**
-     * 创建实例方法
-     */
-    static create(): AirAlert {
-      return new AirAlert()
-    }
+  /**
+   * 设置确认按钮文字
+   * @param confirmText 确认按钮文字
+   */
+  setConfirmColor(confirmColor: string): this {
+    this.confirmText = confirmColor
+    return this
+  }
 
-    /**
-     * 显示弹窗消息提醒
-     * @param content [可选] 消息内容
-     * @param description [可选] 消息描述
-     */
-    static show(content?: string, description?: string): Promise<void> {
-      return this.create().show(content, description)
-    }
+  /**
+   * 设置取消按钮文字
+   * @param cancelText 取消按钮文字
+   */
+  setCancelText(cancelText: string): this {
+    this.cancelText = cancelText
+    return this
+  }
 
-    /**
-     * 弹出提示
-     * @param content [可选] 消息内容
-     * @param description [可选] 消息描述
-     */
-    private alert(content = '操作成功', description: string | undefined = undefined): Promise<void> {
-      return new Promise<void>((resolve) => {
-        wx.showModal({
-          title: content,
-          content: description,
-          confirmText: this.confirmText,
-          confirmColor: this.confirmColor,
-          showCancel: false,
-          success: () => {
-            resolve()
-          },
-        })
+  /**
+   * 设置取消按钮颜色
+   * @param cancelColor 取消按钮颜色
+   */
+  setCancelColor(cancelColor: string): this {
+    this.cancelColor = cancelColor
+    return this
+  }
+
+  /**
+   * 显示弹窗消息提醒
+   * @param content [可选] 消息内容
+   * @param description [可选] 消息标题
+   */
+  show(content?: string, description?: string): Promise<void> {
+    return this.alert(content, description)
+  }
+
+  /**
+   * 创建实例方法
+   */
+  static create(): AirAlert {
+    return new AirAlert()
+  }
+
+  /**
+   * 显示弹窗消息提醒
+   * @param content [可选] 消息内容
+   * @param description [可选] 消息描述
+   */
+  static show(content?: string, description?: string): Promise<void> {
+    return this.create().show(content, description)
+  }
+
+  /**
+   * 弹出提示
+   * @param content [可选] 消息内容
+   * @param description [可选] 消息描述
+   */
+  private alert(content = '请先确认', description: string | undefined = undefined): Promise<void> {
+    return new Promise<void>((resolve) => {
+      wx.showModal({
+        title: content,
+        content: description,
+        confirmText: this.confirmText,
+        cancelText: this.cancelText,
+        confirmColor: this.confirmColor,
+        cancelColor: this.cancelColor,
+        showCancel: false,
+        success: () => {
+          resolve()
+        },
       })
-    }
+    })
+  }
 }
