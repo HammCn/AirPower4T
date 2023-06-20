@@ -113,9 +113,9 @@ export abstract class AirModel {
    * @param jsonArray JSON数组
    */
   static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: Record<string, unknown>[] = []): T[] {
-    const model: T = (Object.assign(new this()) as T)
     const arr: T[] = []
     for (let i = 0; i < jsonArray.length; i += 1) {
+      const model: T = (Object.assign(new this()) as T)
       arr.push(AirModel.toModel(model, jsonArray[i]))
     }
     return arr

@@ -138,6 +138,8 @@ export class AirHttp {
         if (this.loading) {
           AirLoading.show(this.loading)
         }
+        console.log('[HTTP HEADER]', this.header)
+        console.log('[HTTP BODY]', json)
         wx.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
