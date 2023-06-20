@@ -1,3 +1,4 @@
+import { Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
 
 /**
@@ -8,6 +9,7 @@ export class AirEntity extends AirModel {
   /**
    * 主键ID
    */
+  @Type(Number)
   id!: number
 
   /**
