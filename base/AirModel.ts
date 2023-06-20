@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getAlias, getDefault, getFieldPrefix, getIsArray, getType,
+  getAlias, getDefault, getFieldPrefix, getIsArray, getToJson, getToModel, getType,
 } from '../decorator/Custom'
 
 /**
@@ -84,6 +84,17 @@ export abstract class AirModel {
       if (payloadAlias !== key) {
         delete result[key]
       }
+      const func = getToJson(this, key)
+      if (func === null) {
+        // eslint-disable-next-line no-continue
+        continue
+      }
+      try {
+        result[payloadAlias || key] = func(result[payloadAlias || key])
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn('ToJson Function Error')
+      }
     }
     return result
   }
@@ -160,6 +171,17 @@ export abstract class AirModel {
 
       if (payloadAlias && payloadAlias !== key) {
         delete (model as any)[payloadAlias]
+      }
+      const func = getToModel(model, key)
+      if (func === null) {
+        // eslint-disable-next-line no-continue
+        continue
+      }
+      try {
+        (model as any)[key] = func((model as any)[key])
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn('ToModel Function Error')
       }
     }
     return model

@@ -33,13 +33,14 @@ export function EnumRecord(record: IRecord[]) {
 export function getEnumRecord(target: any, fieldKey: string): IRecord[] | null {
   return target[ENUM_RECORD_PREFIX + fieldKey] || null
 }
+
 const TYPE_PREFIX = '__class__'
 
 /**
  * 标记属性的类型进行强制转换
  * @param clazz 类型
  */
-export function Type<T extends AirModel>(clazz: ClassConstructor<T>) {
+export function Type(clazz: any) {
   return (target: any, key: string) => {
     Object.defineProperty(target, TYPE_PREFIX + key, {
       enumerable: false,
@@ -57,6 +58,62 @@ export function Type<T extends AirModel>(clazz: ClassConstructor<T>) {
  */
 export function getType(target: any, fieldKey: string): ClassConstructor<unknown> | null {
   return target[TYPE_PREFIX + fieldKey] || null
+}
+
+const TO_JSON_FUNCTION = '__to_json_function__'
+
+/**
+ * 自定义转换到JSON的方法
+ * @param func 方法
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function ToJson(func: Function) {
+  return (target: any, key: string) => {
+    Object.defineProperty(target, TO_JSON_FUNCTION + key, {
+      enumerable: false,
+      value: func,
+      writable: false,
+      configurable: false,
+    })
+  }
+}
+
+/**
+ * 获取自定义转换到JSON的方法
+ * @param target 目标类
+ * @param fieldKey 属性名
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function getToJson(target: any, fieldKey: string): Function | null {
+  return target[TO_JSON_FUNCTION + fieldKey] || null
+}
+
+const TO_MODEL_FUNCTION = '__to_model_function__'
+
+/**
+ * 自定义转换到MODEL的方法
+ * @param func 方法
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function ToModel(func: Function) {
+  return (target: any, key: string) => {
+    Object.defineProperty(target, TO_MODEL_FUNCTION + key, {
+      enumerable: false,
+      value: func,
+      writable: false,
+      configurable: false,
+    })
+  }
+}
+
+/**
+ * 获取自定义转换到MODEL的方法
+ * @param target 目标类
+ * @param fieldKey 属性名
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function getToModel(target: any, fieldKey: string): Function | null {
+  return target[TO_MODEL_FUNCTION + fieldKey] || null
 }
 
 const DEFAULT_VALUE_PREFIX = '__default__'
