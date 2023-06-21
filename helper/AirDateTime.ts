@@ -56,7 +56,6 @@ export class AirDateTime {
    * # 从秒时间戳格式化时间
    * @param timeStamp 秒时间戳
    * @param formateString [可选]格式化模板
-   * @see AirDateTimeFormatter
    */
   static formatFromSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp * 1000), formateString)
@@ -66,7 +65,6 @@ export class AirDateTime {
    * # 从毫秒时间戳格式化时间
    * @param timeStamp 毫秒时间戳
    * @param formateString [可选]格式化模板
-   * @see AirDateTimeFormatter
    */
   static formatFromMilliSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp), formateString)
@@ -76,7 +74,6 @@ export class AirDateTime {
    * # 从字符串或对象格式化时间
    * @param date Date对象或字符串
    * @param formateString [可选]格式化模板
-   * @see AirDateTimeFormatter
    */
   static formatFromDate(date: Date | string, formateString?: AirDateTimeFormatter | string): string {
     if (!formateString) {
