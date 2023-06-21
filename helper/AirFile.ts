@@ -5,7 +5,15 @@ import { AirConfig } from '../config/AirConfig'
  * @author Hamm
  */
 export class AirFile {
+  /**
+   * # 文件大小计算常量
+   */
   static readonly FILE_SIZE_CALCULATION_CONSTANT = 1024
+
+  /**
+   * # 文件单位列表
+   */
+  static readonly FILE_UNIT_LIST = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
   /**
    * # 字节数转可读文件大小
@@ -13,14 +21,13 @@ export class AirFile {
    * @param fractionDigits 小数位数
    */
   static getFileSizeFriendly(size: number, fractionDigits = 2): string {
-    const unitArr = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
     let res = ''
-    for (let i = 0; i < unitArr.length; i += 1) {
+    for (let i = 0; i < this.FILE_UNIT_LIST.length; i += 1) {
       if (size < this.FILE_SIZE_CALCULATION_CONSTANT ** (i + 1)) {
-        res = `${(size / (this.FILE_SIZE_CALCULATION_CONSTANT ** i)).toFixed(fractionDigits)}${unitArr[i]}`
+        res = `${(size / (this.FILE_SIZE_CALCULATION_CONSTANT ** i)).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
         break
       }
-      res = 'LARGE FILE'
+      res = 'LARGE'
     }
     return res
   }
