@@ -1,29 +1,29 @@
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 
 /**
- * 通知基类
+ * # 通知基类
  * @author Hamm
  */
 export class AirNotification {
   /**
-   * 通知内容
+   * # 通知内容
    */
   private message = '操作成功';
 
   /**
-   * 通知默认保留时长
+   * # 通知默认保留时长
    */
   private duration = 2000;
 
   /**
-   * 创建实例方法
+   * # 创建实例方法
    */
   static create(): AirNotification {
     return new AirNotification()
   }
 
   /**
-   * 设置消息
+   * # 设置消息
    * @param message 消息
    */
   setMessage(message?: string): this {
@@ -34,7 +34,7 @@ export class AirNotification {
   }
 
   /**
-   * 设置自动关闭时间
+   * # 设置自动关闭时间
    * @param duration 自动关闭时间
    */
   setDuration(duration: number): this {
@@ -43,8 +43,7 @@ export class AirNotification {
   }
 
   /**
-   * 成功通知
-   *
+   * # 成功通知
    * @param message [可选] 消息
    */
   async success(message?: string): Promise<void> {
@@ -52,8 +51,7 @@ export class AirNotification {
   }
 
   /**
-   * 成功通知
-   *
+   * # 成功通知
    * @param message [可选] 消息
    */
   static async success(message?: string): Promise<void> {
@@ -61,8 +59,7 @@ export class AirNotification {
   }
 
   /**
-   * 错误通知
-   *
+   * # 错误通知
    * @param message [可选] 消息
    */
   async error(message?: string): Promise<void> {
@@ -70,8 +67,7 @@ export class AirNotification {
   }
 
   /**
-   * 错误通知
-   *
+   * # 错误通知
    * @param message [可选] 消息
    */
   static async error(message?: string): Promise<void> {
@@ -79,8 +75,7 @@ export class AirNotification {
   }
 
   /**
-   * ⛔️ 显示通知 ⛔️
-   *
+   * # ⛔️ 显示通知 ⛔️
    * @param type 可选枚举通知类型
    */
   private async show(type: AirFeedbackType): Promise<void> {

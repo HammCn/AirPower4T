@@ -1,18 +1,18 @@
 import { AirAlert } from './AirAlert'
 
 /**
- * 确认弹窗类
+ * # 确认弹窗类
  * 可通过 ```.create()``` 方法创建自定义实例
  * @author Hamm
  */
 export class AirConfirm extends AirAlert {
   /**
-   * 取消按钮文字
+   * # 取消按钮文字
    */
   protected cancelText = '取消'
 
   /**
-   * 设置取消按钮文字
+   * # 设置取消按钮文字
    * @param confirmText 取消按钮文字
    */
   setCancelText(cancelText: string): this {
@@ -21,7 +21,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * 显示确认消息提醒
+   * # 显示确认消息提醒
    * @param content [可选] 消息内容
    * @param description [可选] 消息标题
    */
@@ -30,14 +30,14 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * 创建实例方法
+   * # 创建实例方法
    */
   static create(): AirConfirm {
     return new AirConfirm()
   }
 
   /**
-   * 显示确认消息提醒
+   * # 显示确认消息提醒
    * @param content [可选] 消息内容
    * @param description [可选] 消息描述
    */
@@ -46,10 +46,9 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * 弹出提示
+   * # 弹出提示
    * @param content [可选] 消息内容
    * @param description [可选] 消息描述
-   *
    */
   private confirm(content = '', description: string | undefined = undefined): Promise<void> {
     return new Promise<void>((resolve, reject) => {

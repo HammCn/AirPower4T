@@ -10,42 +10,42 @@ import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
- * 封装的网络请求类
+ * # 封装的网络请求类
  * @author Hamm
  */
 export class AirHttp {
   /**
-   * 访问的接口URL
+   * # 访问的接口URL
    */
   private url = ''
 
   /**
-   * 请求方式 默认POST
+   * # 请求方式 默认POST
    */
   private method: 'GET' | 'POST' = 'POST'
 
   /**
-   * Loading提示信息
+   * # Loading提示信息
    */
   private loading = ''
 
   /**
-   * 回调失败信息
+   * # 回调失败信息
    */
   private errorCallback = false
 
   /**
-   * 请求头
+   * # 请求头
    */
   private header: Record<string, unknown> = {}
 
   /**
-   * 操作重试次数
+   * # 操作重试次数
    */
   private triedTimes = 0
 
   /**
-   * 创建一个HTTP实例
+   * # 创建一个HTTP实例
    * @param url [可选] 请求的地址
    */
   constructor(url?: string, baseUrl?: string) {
@@ -60,7 +60,7 @@ export class AirHttp {
   }
 
   /**
-   * 编辑请求头
+   * # 编辑请求头
    * @param key KEY
    * @param value VALUE
    */
@@ -70,7 +70,7 @@ export class AirHttp {
   }
 
   /**
-   * 是否回调错误信息
+   * # 是否回调错误信息
    */
   callbackError(): this {
     this.errorCallback = true
@@ -78,7 +78,7 @@ export class AirHttp {
   }
 
   /**
-   * 是否显示加载中状态
+   * # 是否显示加载中状态
    * @param loading 加载文字
    */
   setLoading(loading: string): this {
@@ -87,7 +87,7 @@ export class AirHttp {
   }
 
   /**
-   * 上传文件
+   * # 上传文件
    * @param option 上传配置
    * @param clazz 转换的类
    */
@@ -129,7 +129,7 @@ export class AirHttp {
   }
 
   /**
-   * 发送请求
+   * # 发送请求
    * @param json JSON数据
    */
   async send(json: Record<string, unknown>): Promise<any> {
@@ -213,7 +213,7 @@ export class AirHttp {
   }
 
   /**
-   * 发送POST
+   * # 发送POST
    * @param model 发送的数据模型(数组)
    */
   async post<T extends AirModel>(model?: T | T[]): Promise<any> {

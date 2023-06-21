@@ -4,14 +4,14 @@ import {
 } from '../decorator/Custom'
 
 /**
- * AirModel 模型超类
+ * # AirModel 模型超类
  * @author Hamm
  */
 export abstract class AirModel {
   /**
-   * 用指定的数据对当前实例进行覆盖
+   * # 用指定的数据对当前实例进行覆盖
    * ---
-   * 💡 相同字段才会覆盖上去
+   * ### 💡 相同字段才会覆盖上去
    * @param obj 覆盖对象
    */
   recoverBy(obj: any): this {
@@ -19,16 +19,15 @@ export abstract class AirModel {
   }
 
   /**
-   * 将当前实例复制到一个新实例上
+   * # 将当前实例复制到一个新实例上
    */
   copy(): this {
     return AirModel.toModel(this, this.toJson())
   }
 
   /**
-   * 暴露部分类的字段
+   * # 暴露部分类的字段
    * @param fields 字段列表
-   * @returns
    */
   expose(...fields: string[]): this {
     const fieldList = Object.keys(this)
@@ -41,9 +40,8 @@ export abstract class AirModel {
   }
 
   /**
-   * 排除部分类的字段
+   * # 排除部分类的字段
    * @param fields 字段列表
-   * @returns
    */
   exclude(...fields: string[]): this {
     const fieldList = Object.keys(this)
@@ -56,7 +54,7 @@ export abstract class AirModel {
   }
 
   /**
-   * 转换到JSON
+   * # 转换到JSON
    */
   toJson(): Record<string, unknown> {
     const keys = Object.keys(this)
@@ -101,7 +99,7 @@ export abstract class AirModel {
   }
 
   /**
-   * 从JSON转换到当前类的对象
+   * # 从JSON转换到当前类的对象
    * @param json JSON
    */
   static fromJson<T extends AirModel>(this: new () => T, json: Record<string, unknown> = {}): T {
@@ -110,7 +108,7 @@ export abstract class AirModel {
   }
 
   /**
-   * 从JSON数组转换到当前类的对象数组
+   * # 从JSON数组转换到当前类的对象数组
    * @param jsonArray JSON数组
    */
   static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: Record<string, unknown>[] = []): T[] {
@@ -123,7 +121,7 @@ export abstract class AirModel {
   }
 
   /**
-   * 转换JSON为实体
+   * # 转换JSON为实体
    * @param model 实体
    * @param json JSON
    */

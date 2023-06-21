@@ -8,66 +8,71 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEntity } from './AirEntity'
 
 /**
- * 抽象服务超类
+ * # 抽象服务超类
  * @author Hamm
  */
 export abstract class AirAbstractBaseService<E extends AirEntity> {
   /**
-   * 接口请求的目录
+   * # 接口请求的目录
    */
   abstract baseUrl: string;
 
   /**
-   * 数据转换使用的类
+   * # 数据转换使用的类
    */
   abstract entityClass: ClassConstructor<E>;
 
   /**
-   * 登录提示信息
+   * # 登录提示信息
    */
   private loading!: string
 
   /**
-   * 分页查询API地址的URL
+   * # 分页查询API地址的URL
    */
   protected urlForGetPage = 'getPage'
 
   /**
-   * 不分页查询API地址的URL
+   * # 不分页查询API地址的URL
    */
   protected urlForGetList = 'getList'
 
   /**
-   * 不分页树查询API地址的URL
+   * # 不分页树查询API地址的URL
    */
   protected urlForGetTreeList = 'getTreeList'
 
   /**
-   * 查询详情API地址的URL
+   * # 查询详情API地址的URL
    */
   protected urlForGetDetail = 'getDetail'
 
   /**
-   * 添加API地址的URL
+   * # 添加API地址的URL
    */
   protected urlForAdd = 'add'
 
   /**
-   * 修改API地址的URL
+   * # 修改API地址的URL
    */
   protected urlForUpdate = 'update'
 
   /**
-   * 删除API地址的URL
+   * # 删除API地址的URL
    */
   protected urlForDelete = 'delete'
 
+  /**
+   * # 创建一个AirHttp实例
+   * @param url 请求的接口地址
+   * @param baseUrl [可选] 请求的接口目录
+   */
   api(url: string, baseUrl?: string) {
     return new AirHttp(url, baseUrl || this.baseUrl).setLoading(this.loading)
   }
 
   /**
-   * 创建一个Service实例
+   * # 创建一个Service实例
    * @param loading 显示加载状态
    */
   static create<T extends AirAbstractBaseService<AirEntity>>(
@@ -82,7 +87,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 查询分页数据列表
+   * # 查询分页数据列表
    * @param request 请求对象
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
@@ -99,7 +104,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 查询不分页数据列表
+   * # 查询不分页数据列表
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
@@ -108,7 +113,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 查询树结构数据数组
+   * # 查询树结构数据数组
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
@@ -117,7 +122,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 根据ID获取详情对象
+   * # 根据ID获取详情对象
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
@@ -126,7 +131,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 添加一条新的数据
+   * # 添加一条新的数据
    * @param data 保存的数据
    * @param message [可选]新增成功的消息提示内容
    */
@@ -139,7 +144,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 修改一条数据
+   * # 修改一条数据
    * @param data 修改的数据实体
    * @param message [可选]修改成功的消息提示内容
    */
@@ -151,9 +156,9 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 保存一条数据并返回主键ID
+   * # 保存一条数据并返回主键ID
    *
-   * ##💡 如包含ID 则更新 如不包含 则创建
+   * ## 💡 如包含ID 则更新 如不包含 则创建
    * ---
    *
    * @param data 保存的数据实体
@@ -168,14 +173,14 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
-   * 根据ID删除一条数据
+   * # 根据ID删除一条数据
    * @param id 删除的数据ID
    * @param message [可选]删除成功的消息提示内容
    */
   async delete(id: number, message?: string): Promise<void> {
     return this.api(this.urlForDelete)
       .callbackError()
-      .post(new AirEntity(id))
+      .post(this.newEntityInstance(id))
       .then(() => {
         if (message) {
           AirNotification.success(message)
