@@ -17,14 +17,12 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   /**
    * # 返回的页码信息
    */
-  @Type(AirPage)
-  page = new AirPage()
+  @Type(AirPage) page = new AirPage()
 
   /**
    * # 返回的排序信息
    */
-  @Type(AirSort)
-  sort = new AirSort()
+  @Type(AirSort) sort = new AirSort()
 
   /**
    * # 返回总条数

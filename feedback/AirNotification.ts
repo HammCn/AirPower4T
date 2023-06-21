@@ -8,12 +8,12 @@ export class AirNotification {
   /**
    * # 通知内容
    */
-  private message = '操作成功';
+  private message = '操作成功'
 
   /**
    * # 通知默认保留时长
    */
-  private duration = 2000;
+  private duration = 2000
 
   /**
    * # 创建实例方法

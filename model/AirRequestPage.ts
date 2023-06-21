@@ -11,6 +11,5 @@ export class AirRequestPage<E extends AirEntity> extends AirRequest<E> {
   /**
    * # 分页信息
    */
-  @Type(AirPage)
-  page = new AirPage()
+  @Type(AirPage) page = new AirPage()
 }
