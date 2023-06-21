@@ -15,12 +15,12 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   /**
    * # 接口请求的目录
    */
-  abstract baseUrl: string;
+  abstract baseUrl: string
 
   /**
    * # 数据转换使用的类
    */
-  abstract entityClass: ClassConstructor<E>;
+  abstract entityClass: ClassConstructor<E>
 
   /**
    * # 登录提示信息
