@@ -1,12 +1,12 @@
 import { AirModel } from '../base/AirModel'
 import { ClassConstructor } from '../type/ClassConstructor'
 /**
- * 类转换助手
+ * # 类转换助手
  * @author Hamm
  */
 export class AirClassTransformer {
   /**
-   * 转换JSON数据到指定类的对象
+   * # 转换JSON数据到指定类的对象
    * @param json JSON
    * @param clazz 目标类
    */
@@ -17,7 +17,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * 转换JSON数组数据到指定类的对象数组
+   * # 转换JSON数组数据到指定类的对象数组
    * @param jsonArray JSON数组
    * @param clazz 目标类
    */

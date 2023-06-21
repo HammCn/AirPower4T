@@ -1,12 +1,12 @@
 import { AirConfig } from '../config/AirConfig'
 
 /**
- * 文件助手类
+ * # 文件助手类
  * @author Hamm
  */
 export class AirFile {
   /**
-   * 字节数转可读文件大小
+   * # 字节数转可读文件大小
    * @param size 字节数
    * @param fractionDigits 小数位数
    */
@@ -25,7 +25,7 @@ export class AirFile {
   }
 
   /**
-   * 获取静态文件的绝对地址
+   * # 获取静态文件的绝对地址
    * @param url 地址
    */
   static getStaticFileUrl(url: string): string {

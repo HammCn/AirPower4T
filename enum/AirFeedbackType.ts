@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
 /**
- * 图标类型
+ * # 图标类型
  * @author Hamm
  */
 export enum AirFeedbackType {
   /**
-   * 成功
+   * # 成功
    */
   SUCCESS = 'success',
 
   /**
-   * Loading
+   * # Loading
    */
   LOADING = 'loading',
 
   /**
-   * 错误
+   * # 错误
    */
   ERROR = 'error',
 }

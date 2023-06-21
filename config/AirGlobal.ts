@@ -4,14 +4,14 @@ import { AirColor } from '../enum/AirColor'
 import { IRecord } from '../interface/IRecord'
 
 /**
- * 一些全局使用的扩展方法
+ * # 一些全局使用的扩展方法
  * @author Hamm
  */
 declare global {
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   interface Array<T> {
     /**
-     * 😡 获取```IRecord```用于显示的 ```Label```
+     * # 😡 获取```IRecord```用于显示的 ```Label```
      * @param key 参数值
      * @param defaultValue [可选]默认值
      */
@@ -19,7 +19,7 @@ declare global {
     getLabel(key: string | number | boolean, defaultLabel?: string): string;
 
     /**
-     * 😡 获取```IRecord```用于显示的 ```Color```
+     * # 😡 获取```IRecord```用于显示的 ```Color```
      * @param key 参数值
      * @param defaultColor [可选]默认值
      */

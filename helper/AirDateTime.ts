@@ -4,12 +4,12 @@ import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 
 /**
- * 时间日期时间戳格式化类
+ * # 时间日期时间戳格式化类
  * @author Hamm
  */
 export class AirDateTime {
   /**
-   * 😜 睡会再起来干活
+   * # 😜 睡会再起来干活
    * @param milliSeconds 毫秒数
    */
   static async sleep(milliSeconds: number): Promise<void> {
@@ -21,7 +21,7 @@ export class AirDateTime {
   }
 
   /**
-   * 格式化到Unix秒时间戳(默认当前时间)
+   * # 格式化到Unix秒时间戳(默认当前时间)
    * @param date [可选]Date对象/时间字符串
    */
   static getUnixTimeStamps(date?: Date | string): number {
@@ -32,7 +32,7 @@ export class AirDateTime {
   }
 
   /**
-   * 格式化到毫秒时间戳(默认当前时间)
+   * # 格式化到毫秒时间戳(默认当前时间)
    * @param date [可选]Date对象/时间字符串
    */
   static getMilliTimeStamps(date?: Date | string): number {
@@ -53,7 +53,7 @@ export class AirDateTime {
   }
 
   /**
-   * 从秒时间戳格式化时间
+   * # 从秒时间戳格式化时间
    * @param timeStamp 秒时间戳
    * @param formateString [可选]格式化模板
    * @see AirDateTimeFormatter
@@ -63,21 +63,21 @@ export class AirDateTime {
   }
 
   /**
-     * 从毫秒时间戳格式化时间
-     * @param timeStamp 毫秒时间戳
-     * @param formateString [可选]格式化模板
-     * @see AirDateTimeFormatter
-     */
+   * # 从毫秒时间戳格式化时间
+   * @param timeStamp 毫秒时间戳
+   * @param formateString [可选]格式化模板
+   * @see AirDateTimeFormatter
+   */
   static formatFromMilliSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp), formateString)
   }
 
   /**
-     * 从字符串或对象格式化时间
-     * @param date Date对象或字符串
-     * @param formateString [可选]格式化模板
-     * @see AirDateTimeFormatter
-     */
+   * # 从字符串或对象格式化时间
+   * @param date Date对象或字符串
+   * @param formateString [可选]格式化模板
+   * @see AirDateTimeFormatter
+   */
   static formatFromDate(date: Date | string, formateString?: AirDateTimeFormatter | string): string {
     if (!formateString) {
       formateString = AirConfig.defaultDateTimeFormatter
@@ -110,9 +110,9 @@ export class AirDateTime {
   }
 
   /**
-     * 格式化到友好字符串显示
-     * @param date Date对象或时间字符串
-     */
+   * # 格式化到友好字符串显示
+   * @param date Date对象或时间字符串
+   */
   static getFriendlyDateTime(date: Date | string | number): string {
     const nowTimeStamps: number = this.getUnixTimeStamps(new Date())
     let oldTimeStamp = 0
