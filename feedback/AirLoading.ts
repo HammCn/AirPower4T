@@ -14,7 +14,7 @@ export class AirLoading {
   /**
    * # Loading文字
    */
-  private message = ''
+  private message = '加载中'
 
   /**
    * # 加载目标
@@ -41,7 +41,6 @@ export class AirLoading {
    * @param domId [可选]DOMID 可选参数
    */
   constructor(domId?: string) {
-    this.message = '加载中'
     if (domId) {
       this.target = domId
     }

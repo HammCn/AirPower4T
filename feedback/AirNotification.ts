@@ -9,25 +9,17 @@ export class AirNotification {
   /**
    * # 通知标题
    */
-  private title = ''
+  private title = '系统提示'
 
   /**
    * # 通知内容
    */
-  private message = ''
+  private message = '你并没有传入具体的错误信息：）'
 
   /**
    * # 通知默认保留时长
    */
   private duration = 2000
-
-  /**
-   * # 初始化一个通知
-   */
-  constructor() {
-    this.title = '系统提示'
-    this.message = '你并没有传入具体的错误信息：）'
-  }
 
   /**
    * # 创建实例方法
