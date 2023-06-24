@@ -1,4 +1,3 @@
-import { isWxs } from '@dcloudio/uni-cli-shared'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 
 /**
