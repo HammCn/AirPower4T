@@ -1,3 +1,4 @@
+import { isWxs } from '@dcloudio/uni-cli-shared'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 
 /**
@@ -106,5 +107,12 @@ export class AirConfig {
    */
   static getAccessToken(): string {
     return wx.getStorageSync(this.authorizationHeaderKey) || ''
+  }
+
+  /**
+   * # 移除本地存储的身份令牌
+   */
+  static removeAccessToken(): void {
+    wx.removeStorageSync(this.authorizationHeaderKey)
   }
 }
