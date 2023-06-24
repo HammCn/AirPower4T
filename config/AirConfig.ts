@@ -109,6 +109,6 @@ export class AirConfig {
    * # 移除本地存储的身份令牌
    */
   static removeAccessToken(): void {
-    wx.removeStorageSync(this.authorizationHeaderKey)
+    uni.removeStorageSync(this.authorizationHeaderKey)
   }
 }
