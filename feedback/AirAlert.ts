@@ -38,7 +38,7 @@ export class AirAlert {
    * @param confirmText 确认按钮文字
    */
   setConfirmColor(confirmColor: string): this {
-    this.confirmText = confirmColor
+    this.confirmColor = confirmColor
     return this
   }
 
