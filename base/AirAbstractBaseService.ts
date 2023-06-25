@@ -1,25 +1,30 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Ref } from 'vue'
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirHttp } from '../helper/AirHttp'
+import { IValidateRule } from '../interface/IValidateRule'
+import { AirValidator } from '../helper/AirValidator'
+import { ClassConstructor } from '../type/ClassConstructor'
+import { AirEntity } from '../base/AirEntity'
+import { AirModel } from '../base/AirModel'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
-import { ClassConstructor } from '../type/ClassConstructor'
-import { AirEntity } from './AirEntity'
 
 /**
- * # 抽象服务超类
+ * # Service超类
  * @author Hamm
  */
-export abstract class AirAbstractBaseService<E extends AirEntity> {
+export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   /**
-   * # 接口请求的目录
+   * # API目录地址
    */
   abstract baseUrl: string
 
   /**
-   * # 数据转换使用的类
+   * # 为基类提供当前的实体类
    */
   abstract entityClass: ClassConstructor<E>
 
@@ -64,35 +69,31 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   protected urlForDelete = 'delete'
 
   /**
-   * # 创建一个AirHttp实例
-   * @param url 请求的接口地址
-   * @param baseUrl [可选] 请求的接口目录
+   * # 获取一个Service实例
+   * @param loading [可选]Loading的Ref对象
    */
-  api(url: string, baseUrl?: string) {
-    if (baseUrl) {
-      url = `${baseUrl}/${url}`
+  constructor(loading?: Ref<boolean>) {
+    super()
+    if (loading) {
+      this.loading = loading
+    }
+  }
+
+  /**
+   * # 发起一个API网络请求
+   * @param url 请求的API地址
+   * @param customBaseUrl [可选] API地址前缀,无需 ```/``` 结尾
+   */
+  api(url: string, customBaseUrl?: string): AirHttp {
+    if (customBaseUrl) {
+      url = `${customBaseUrl}/${url}`
     } else {
       url = `${this.baseUrl}/${url}`
     }
     if (this.loading) {
       return AirHttp.create(url).setLoading(this.loading)
     }
-    return AirHttp.create(url).setLoading(this.loading)
-  }
-
-  /**
-   * # 创建一个Service实例
-   * @param loading 显示加载状态
-   */
-  static create<T extends AirAbstractBaseService<AirEntity>>(
-    this: new () => T,
-    loading?: Ref<boolean>,
-  ): T {
-    const service = Object.assign(new this()) as T
-    if (loading) {
-      service.loading = loading
-    }
-    return service
+    return AirHttp.create(url)
   }
 
   /**
@@ -100,15 +101,9 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
-    const json = await this.api(this.urlForGetPage).post(request)
-    const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(
-      json,
-      AirResponsePage,
-    )
-    responsePage.list = AirClassTransformer.parseArray(
-      responsePage.list as Record<string, unknown>[],
-      this.entityClass,
-    )
+    const json = await this.api(this.urlForGetPage).post(request.toJson())
+    const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
+    responsePage.list = AirClassTransformer.parseArray(responsePage.list as Record<string, unknown>[], this.entityClass)
     return responsePage
   }
 
@@ -117,7 +112,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetList).post(request)
+    const json = await this.api(this.urlForGetList).post(request.toJson())
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -126,7 +121,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetTreeList).post(request)
+    const json = await this.api(this.urlForGetTreeList).post(request.toJson())
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -135,19 +130,20 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api(this.urlForGetDetail).post(this.newEntityInstance(id))
-    return AirClassTransformer.parse<E>(json, this.entityClass)
+    const json = await this.api(this.urlForGetDetail).post(new AirEntity(id))
+    return AirClassTransformer.parse(json, this.entityClass)
   }
 
   /**
    * # 添加一条新的数据
    * @param data 保存的数据
    * @param message [可选]新增成功的消息提示内容
+   * @param title [可选]新增成功的消息提示标题 默认 '新增成功'
    */
-  async add(data: E, message?: string): Promise<number> {
-    const json = await this.api(this.urlForAdd).post(data)
+  async add(data: E, message?: string, title = '添加成功'): Promise<number> {
+    const json = await this.api(this.urlForAdd).post(data.toJson())
     if (message) {
-      AirNotification.success(message)
+      AirNotification.success(message, title)
     }
     return AirClassTransformer.parse(json, this.entityClass).id
   }
@@ -156,60 +152,90 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * # 修改一条数据
    * @param data 修改的数据实体
    * @param message [可选]修改成功的消息提示内容
+   * @param title [可选]修改成功的消息提示标题 默认 '修改成功'
    */
-  async update(data: E, message?: string): Promise<void> {
-    await this.api(this.urlForUpdate).post(data)
+  async update(data: E, message?: string, title = '修改成功'): Promise<void> {
+    await this.api(this.urlForUpdate).post(data.toJson())
     if (message) {
-      AirNotification.success(message)
+      AirNotification.success(message, title)
     }
   }
 
   /**
    * # 保存一条数据并返回主键ID
    *
-   * ## 💡 如包含ID 则更新 如不包含 则创建
+   * ### 💡 如包含ID 则更新 如不包含 则创建
    * ---
    *
    * @param data 保存的数据实体
    * @param message [可选]保存成功的消息提示内容
+   * @param title [可选]保存成功的消息提示标题 默认 '保存成功'
    */
-  async save(data: E, message?: string): Promise<number> {
+  async save(data: E, message?: string, title = '保存成功'): Promise<number> {
     if (data.id) {
-      await this.update(data, message)
+      await this.update(data, message, title)
       return data.id
     }
-    return this.add(data, message)
+    return this.add(data, message, title)
   }
 
   /**
    * # 根据ID删除一条数据
    * @param id 删除的数据ID
    * @param message [可选]删除成功的消息提示内容
+   * @param title [可选]删除成功的消息提示标题 默认 '删除成功'
    */
-  async delete(id: number, message?: string): Promise<void> {
-    return this.api(this.urlForDelete)
-      .callbackError()
-      .post(this.newEntityInstance(id))
+  async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
+    return this.api(this.urlForDelete).callbackError()
+      .post(new AirEntity(id))
       .then(() => {
         if (message) {
-          AirNotification.success(message)
+          AirNotification.success(message, title)
         }
       })
       .catch((err: Error) => {
-        AirAlert.show('删除数据失败', err.message)
+        AirAlert.error(err.message, '删除失败')
       })
   }
 
   /**
-   * # 创建一个实体的实例
-   * @param id [可选]ID
+   * # 带Loading状态创建一个Service实例
+   * @param loading Loading的Ref对象
    */
-  private newEntityInstance(id?: number): E {
-    // eslint-disable-next-line new-cap
-    const entity = new this.entityClass()
-    if (id) {
-      entity.id = id
+  static loading<T>(this: new () => T, loading?: Ref<boolean>): T {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return Object.assign(new this(), loading) as T
+  }
+
+  /**
+   * # 指定的key字段的值是否已存在
+   * @param key Key
+   * @param value Value
+   * ---
+   * 如查到了数据, 则返回
+   */
+  async getOneBy(key: string, value: string) {
+    const entity = AirClassTransformer.newInstance(this.entityClass);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (entity as any)[key] = value
+    const airHttp = this.api('getOneBy').callbackError()
+    try {
+      const json = await airHttp.post(entity.toJson())
+      return AirClassTransformer.parse(json, this.entityClass)
+    } catch (e) {
+      throw new Error()
     }
-    return entity
+  }
+
+  /**
+   * # 创建验证器
+   * @param form 表单对象
+   * @param moreRule [可选] 更多的验证规则
+   */
+  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return AirValidator.createRules(form, this.newInstance(), moreRule)
   }
 }
