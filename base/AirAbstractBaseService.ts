@@ -2,6 +2,7 @@ import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirHttp } from '../helper/AirHttp'
+import { IJson } from '../interface/IJson'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { ClassConstructor } from '../type/ClassConstructor'
@@ -120,7 +121,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetList).post(request)
+    const json = await this.api(this.urlForGetList).post(request) as IJson[]
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -129,7 +130,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetTreeList).post(request)
+    const json = await this.api(this.urlForGetTreeList).post(request) as IJson[]
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
