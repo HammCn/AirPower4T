@@ -92,7 +92,7 @@ export class AirAlert {
    */
   private alert(content = '请先确认', description: string | undefined = undefined): Promise<void> {
     return new Promise<void>((resolve) => {
-      uni.showModal({
+      wx.showModal({
         title: content,
         content: description,
         confirmText: this.confirmText,

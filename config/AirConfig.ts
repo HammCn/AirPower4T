@@ -85,14 +85,14 @@ export class AirConfig {
    * @param accessToken 身份令牌
    */
   static saveAccessToken(accessToken: string): void {
-    uni.setStorageSync(this.authorizationHeaderKey, accessToken)
+    wx.setStorageSync(this.authorizationHeaderKey, accessToken)
   }
 
   /**
    * # 跳转登录的方法
    */
   static login = () => {
-    uni.redirectTo({
+    wx.redirectTo({
       url: '/view/login',
     })
   }
@@ -101,13 +101,13 @@ export class AirConfig {
    * # 获取身份令牌
    */
   static getAccessToken(): string {
-    return uni.getStorageSync(this.authorizationHeaderKey) || ''
+    return wx.getStorageSync(this.authorizationHeaderKey) || ''
   }
 
   /**
    * # 移除本地存储的身份令牌
    */
   static removeAccessToken(): void {
-    uni.removeStorageSync(this.authorizationHeaderKey)
+    wx.removeStorageSync(this.authorizationHeaderKey)
   }
 }

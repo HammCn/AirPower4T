@@ -124,7 +124,7 @@ export class AirHttp {
           AirAlert.show('上传失败', '上传文件失败, 请稍后再试')
         }
       }
-      uni.uploadFile(option)
+      wx.uploadFile(option)
     })
   }
 
@@ -140,7 +140,7 @@ export class AirHttp {
         }
         console.warn('[HTTP HEADER]', this.header)
         console.warn('[HTTP BODY]', json)
-        uni.request({
+        wx.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
           method: this.method,

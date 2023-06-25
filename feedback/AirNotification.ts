@@ -80,7 +80,7 @@ export class AirNotification {
    */
   private async show(type: AirFeedbackType): Promise<void> {
     return new Promise<void>((resolve) => {
-      uni.showToast({
+      wx.showToast({
         title: this.message,
         icon: type,
         duration: this.duration,

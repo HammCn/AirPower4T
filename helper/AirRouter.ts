@@ -18,7 +18,7 @@ export class AirRouter {
         url += `${key}=${param[key]}`
       }
     }
-    uni.navigateTo({
+    wx.navigateTo({
       url: `/view/${url}`,
     })
   }
@@ -28,7 +28,7 @@ export class AirRouter {
    * @param url 页面
    */
   static replace(url: string) {
-    uni.redirectTo({
+    wx.redirectTo({
       url: `/view/${url}`,
     })
   }
@@ -37,6 +37,6 @@ export class AirRouter {
    * # 返回上一页
    */
   static back() {
-    uni.navigateBack()
+    wx.navigateBack()
   }
 }

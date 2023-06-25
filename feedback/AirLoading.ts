@@ -8,7 +8,7 @@ export class AirLoading {
    * @param message [可选]Loading文案 弹出Loading
    */
   static show(message: string): void {
-    uni.showLoading({
+    wx.showLoading({
       title: message,
       mask: true,
     })
@@ -18,6 +18,6 @@ export class AirLoading {
    * # 关闭Loading
    */
   static hide(): void {
-    uni.hideLoading()
+    wx.hideLoading()
   }
 }
