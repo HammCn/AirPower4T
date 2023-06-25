@@ -270,7 +270,7 @@ export class AirModel {
    * @deprecated
    */
   getCustomClassName(): string {
-    return getClassName(this.constructor) || this.constructor.name
+    return getClassName(this) || this.constructor.name
   }
 
   /**

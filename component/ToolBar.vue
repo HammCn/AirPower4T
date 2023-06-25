@@ -481,7 +481,7 @@ const searchTitle = ref('更多筛选')
 /**
  * 查询对象
  */
-const request = ref(new AirRequestPage())
+const request = ref(new AirRequestPage(props.entity))
 
 /**
  * 新增按钮的标题
@@ -631,7 +631,7 @@ function searchKeyword() {
 function resetSearch() {
   filter.value = {}
   keyword.value = ''
-  request.value = new AirRequestPage()
+  request.value = new AirRequestPage(props.entity)
   request.value.exclude('filter')
   emits('onReset')
   emits('onSearch', request.value)
