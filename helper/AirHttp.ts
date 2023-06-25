@@ -6,6 +6,7 @@ import { AirAlert } from '../feedback/AirAlert'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirLoading } from '../feedback/AirLoading'
 import { IFile } from '../interface/IFile'
+import { IJson } from '../interface/IJson'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 
@@ -37,7 +38,7 @@ export class AirHttp {
   /**
    * # 请求头
    */
-  private header: Record<string, unknown> = {}
+  private header: IJson = {}
 
   /**
    * # 操作重试次数
@@ -132,7 +133,7 @@ export class AirHttp {
    * # 发送请求
    * @param json JSON数据
    */
-  async send(json: Record<string, unknown>): Promise<any> {
+  async send(json: IJson): Promise<any> {
     return new Promise((success, fail) => {
       try {
         if (this.loading) {
@@ -146,7 +147,7 @@ export class AirHttp {
           method: this.method,
           header: this.header,
           success: (res) => {
-            const json = res.data as Record<string, unknown>
+            const json = res.data as IJson
             try {
               switch (json[AirConfig.httpCodeKey]) {
                 case AirConfig.successCode:
@@ -219,7 +220,7 @@ export class AirHttp {
    * # 发送POST
    * @param model 发送的数据模型(数组)
    */
-  async post<T extends AirModel>(model?: T | T[]): Promise<any> {
+  async post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
     let json = {}
     if (model) {
       if (model instanceof Array) {

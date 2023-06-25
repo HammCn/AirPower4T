@@ -2,6 +2,7 @@ import { IRecord } from '../interface/IRecord'
 import { ITree } from '../interface/ITree'
 import { AirModel } from '../base/AirModel'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 转换类型助手
@@ -14,7 +15,7 @@ export class AirClassTransformer {
    * @param clazz 目标类
    */
   // eslint-disable-next-line class-methods-use-this
-  static parse<T extends AirModel>(json: Record<string, unknown>, clazz: ClassConstructor<T>): T {
+  static parse<T extends AirModel>(json: IJson, clazz: ClassConstructor<T>): T {
     // eslint-disable-next-line new-cap
     return AirModel.toModel(new clazz(), json)
   }
@@ -24,7 +25,7 @@ export class AirClassTransformer {
    * @param jsonArray JSON数组
    * @param clazz 目标类
    */
-  static parseArray<T extends AirModel>(jsonArray: Record<string, unknown>[], clazz: ClassConstructor<T>): T[] {
+  static parseArray<T extends AirModel>(jsonArray: IJson[], clazz: ClassConstructor<T>): T[] {
     return jsonArray.map((json) => this.parse(json, clazz))
   }
 
