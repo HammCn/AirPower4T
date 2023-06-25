@@ -1,8 +1,9 @@
-import { ClassConstructor, Expose, Type } from 'class-transformer'
-import { AirSort } from './AirSort'
-import { AirModel } from '../model/AirModel'
-import { AirEntity } from './AirEntity'
+import { AirEntity } from '../base/AirEntity'
+import { AirModel } from '../base/AirModel'
+import { Type } from '../decorator/Custom'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { ClassConstructor } from '../type/ClassConstructor'
+import { AirSort } from './AirSort'
 
 /**
  * # 请求类
@@ -12,18 +13,17 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   /**
    * # 查询信息
    */
-  @Expose() filter!: E
+  filter!: E
 
   /**
    * # 关键词搜索
    */
-  @Expose() keyword!: string
+  keyword!: string
 
   /**
    * # 排序信息
    */
-  @Type(() => AirSort)
-  @Expose() sort = new AirSort()
+  @Type(AirSort) sort = new AirSort()
 
   /**
    * # 如传入filter的类 将自动初始化一个空filter

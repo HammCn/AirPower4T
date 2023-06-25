@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ClassConstructor, plainToInstance } from 'class-transformer'
 import { IRecord } from '../interface/IRecord'
-import { AirModel } from '../model/AirModel'
 import { ITree } from '../interface/ITree'
+import { AirModel } from '../base/AirModel'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 转换类型助手
@@ -10,38 +9,23 @@ import { ITree } from '../interface/ITree'
  */
 export class AirClassTransformer {
   /**
-   * # 强制转换JSON原始对象到指定类的实例
-   *
-   * @param from 来源JSON对象
-   * @param to 目标类
+   * # 转换JSON数据到指定类的对象
+   * @param json JSON
+   * @param clazz 目标类
    */
-  static parse<M>(from: Record<string, any>, to: ClassConstructor<M>): M {
-    if (from instanceof Array) {
-      return this.toModel({}, to)
-    }
-    return this.toModel(from, to)
+  // eslint-disable-next-line class-methods-use-this
+  static parse<T extends AirModel>(json: Record<string, unknown>, clazz: ClassConstructor<T>): T {
+    // eslint-disable-next-line new-cap
+    return AirModel.toModel(new clazz(), json)
   }
 
   /**
-   * # 强制转换数据到指定的类型数组
-   *
-   * @param from 来源JSON对象数组
-   * @param to 目标类
+   * # 转换JSON数组数据到指定类的对象数组
+   * @param jsonArray JSON数组
+   * @param clazz 目标类
    */
-  static parseArray<M>(from: Array<Record<string, any>>, to: ClassConstructor<M>): M[] {
-    if (from instanceof Array) {
-      return from.map((item) => this.toModel(item, to))
-    }
-    return []
-  }
-
-  /**
-   * # 初始化一个指定类型的实例
-   *
-   * @param to 目标类
-   */
-  static newInstance<M>(to: ClassConstructor<M>): M {
-    return this.toModel({}, to)
+  static parseArray<T extends AirModel>(jsonArray: Record<string, unknown>[], clazz: ClassConstructor<T>): T[] {
+    return jsonArray.map((json) => this.parse(json, clazz))
   }
 
   /**
@@ -82,23 +66,11 @@ export class AirClassTransformer {
   }
 
   /**
-   * # 强制转换数据到指定的类型
+   * # 初始化一个指定类型的实例
    *
-   * @param from 来源JSON对象
    * @param to 目标类
    */
-  private static toModel<T>(from: Record<string, any>, to: ClassConstructor<T>): T {
-    return plainToInstance(to, from, {
-      // Expose/Exclude策略转换
-      excludeExtraneousValues: true,
-      // 自动隐式类型转换 貌似没什么用
-      enableImplicitConversion: true,
-      // 输出未匹配且含有默认值的字段
-      exposeDefaultValues: true,
-      // 输出undefined的字段
-      exposeUnsetFields: true,
-      // 关联对象自动转换
-      enableCircularCheck: true,
-    })
+  static newInstance<T extends AirModel>(clazz: ClassConstructor<T>): T {
+    return this.parse({}, clazz)
   }
 }

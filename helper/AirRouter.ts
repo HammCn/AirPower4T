@@ -1,4 +1,4 @@
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { IMenu } from '../interface/IMenu'
 import { AirConsole } from './AirConsole'

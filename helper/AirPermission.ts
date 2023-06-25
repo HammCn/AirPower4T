@@ -1,8 +1,8 @@
-import { ClassConstructor } from 'class-transformer'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { getEntityConfig } from '../decorator/EntityConfig'
-import { AirConfig } from '../AirConfig'
-import { AirEntity } from '../dto/AirEntity'
+import { AirConfig } from '../config/AirConfig'
+import { AirEntity } from '../base/AirEntity'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 权限标识处理类

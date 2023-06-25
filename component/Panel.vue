@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirStore } from '../store/AirStore'
 
 defineProps({

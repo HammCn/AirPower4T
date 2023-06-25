@@ -6,10 +6,10 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { AirExportModel } from '../model/AirExportModel'
 import { AUpload } from '../component'
 import ExportView from '../component/toolbar/Export.vue'
-import { AirEntity } from '../dto/AirEntity'
-import { AirRequest } from '../dto/AirRequest'
 import { IUploadConfig } from '../interface/IUploadConfig'
 import { IFile } from '../interface/IFile'
+import { AirRequest } from '../model/AirRequest'
+import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 弹窗助手类

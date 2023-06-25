@@ -29,8 +29,8 @@
         :headers="uploadHeader"
         :show-file-list="false"
         :before-upload="beforeUpload"
-        :on-error="uploadError"
-        :on-success="uploadSuccess"
+        :on-error="onUploadError"
+        :on-success="onUploadSuccess"
       />
     </div>
     <div
@@ -48,13 +48,14 @@
 import {
   ref, PropType, computed, watch,
 } from 'vue'
-import { ClassConstructor } from 'class-transformer'
+
 import { AirImageConfig } from '../config/AirImageConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { IFile } from '../interface/IFile'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 const emits = defineEmits(['onUpload', 'onRemove'])
 
@@ -185,7 +186,7 @@ function beforeUpload(file: File): boolean {
 /**
  * # 上传失败事件
  */
-function uploadError() {
+function onUploadError() {
   AirNotification.error('图片上传失败,请重新上传', '上传失败')
 }
 
@@ -194,13 +195,13 @@ function uploadError() {
  * @param response 成功响应
  * @param file 文件
  */
-function uploadSuccess(response: { data: { url: string } }) {
+function onUploadSuccess(response: { data: { url: string } }) {
   const entityData = AirClassTransformer.parse(response.data, props.entity)
   if (entityData && entityData.id && entityData.url) {
     imageUrl.value = AirFile.getStaticFileUrl(entityData.url)
     emits('onUpload', entityData)
   } else {
-    uploadError()
+    onUploadError()
   }
 }
 

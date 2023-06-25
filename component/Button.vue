@@ -40,10 +40,10 @@
 </template>
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
-import { AirConfig } from '../AirConfig'
 import { AirIcon } from '../enum/AirIcon'
 import { AirIconType } from '../type/AirType'
 import { AirStore } from '../store/AirStore'
+import { AirConfig } from '../config/AirConfig'
 
 defineEmits(['click', 'onClick'])
 

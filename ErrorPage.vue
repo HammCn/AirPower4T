@@ -34,7 +34,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { AirConfig } from './AirConfig'
+import { AirConfig } from './config/AirConfig'
 import { AirHttpStatus } from './enum/AirHttpStatus'
 import erroimg from './assets/img/img403.png'
 

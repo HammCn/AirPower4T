@@ -32,7 +32,7 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { AirConfig } from './AirConfig'
+import { AirConfig } from './config/AirConfig'
 import { AirAlert } from './feedback/AirAlert'
 import { AirStore } from './store/AirStore'
 

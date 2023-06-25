@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-unused-vars */
-import { ClassConstructor } from 'class-transformer'
+
 import { AirInputType } from '../enum/AirInputType'
 import { AirNotification } from '../feedback/AirNotification'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirClassTransformer } from './AirClassTransformer'
-import { AirEntity } from '../dto/AirEntity'
 import { AirAbstractService } from '../service/AirAbstractService'
+import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 表单验证工具
@@ -678,8 +678,7 @@ export class AirValidator {
    * @param service 接口服务对象
    * @param formRules [可选]表单验证规则
    */
-  static createRules<T extends AirEntity, S extends AirAbstractService<T>>(form: T, serviceClass: ClassConstructor<S>, formRules: IValidateRule = {}) {
-    const service = AirClassTransformer.newInstance(serviceClass)
+  static createRules<T extends AirEntity, S extends AirAbstractService<T>>(form: T, service: S, formRules: IValidateRule = {}) {
     const entity = AirClassTransformer.newInstance(service.entityClass)
     const formFieldList = entity.getFormFieldConfigList()
     for (let i = 0; i < formFieldList.length; i += 1) {

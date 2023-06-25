@@ -1,4 +1,4 @@
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirCode } from '../enum/AirCode'
 import { AirNotification } from './AirNotification'
 

@@ -1,4 +1,4 @@
-import { AirEntity } from '../dto/AirEntity'
+import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准树结构

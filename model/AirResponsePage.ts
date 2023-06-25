@@ -1,8 +1,8 @@
-import { Expose, Type } from 'class-transformer'
-import { AirModel } from '../model/AirModel'
-import { AirSort } from './AirSort'
-import { AirEntity } from './AirEntity'
+import { AirEntity } from '../base/AirEntity'
+import { AirModel } from '../base/AirModel'
+import { Type } from '../decorator/Custom'
 import { AirPage } from './AirPage'
+import { AirSort } from './AirSort'
 
 /**
  * # 响应分页类
@@ -12,27 +12,25 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   /**
    * # 返回的当前页数据列表
    */
-  @Expose() list: E[] = []
+  list: E[] = []
 
   /**
    * # 返回的页码信息
    */
-  @Type(() => AirPage)
-  @Expose() page = new AirPage()
+  @Type(AirPage) page = new AirPage()
 
   /**
    * # 返回的排序信息
    */
-  @Type(() => AirSort)
-  @Expose() sort = new AirSort()
+  @Type(AirSort) sort = new AirSort()
 
   /**
    * # 返回总条数
    */
-  @Expose() total = 0
+  total = 0
 
   /**
    * # 返回总页数
    */
-  @Expose() pageCount = 0
+  pageCount = 0
 }

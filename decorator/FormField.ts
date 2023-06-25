@@ -1,36 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * # 表单字段的注解
  * @author Hamm
  */
+import { AirModel } from '../base/AirModel'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
-import { AirModel } from '../model/AirModel'
-import { getFieldName } from './CustomName'
+import { getFieldName } from './Custom'
 
 /**
  * # 表单字段key
  */
-const formFieldMetaKey = Symbol('formFieldConfig')
+const formFieldMetaKey = '__form_field_'
 
 /**
  * # 表单字段列表key
  */
-const formFieldListMetaKey = Symbol('formFieldConfigList')
+const formFieldListMetaKey = '__form_field_list__'
 
 /**
  * # 标记该字段可用于表单配置
  * @param formFieldConfig [可选]配置项
  */
-export const FormField = <E extends AirModel>(formFieldConfig?: IFormFieldConfig) => (target: E, key: string) => {
+export const FormField = (formFieldConfig?: IFormFieldConfig) => (target: any, key: string) => {
   if (!formFieldConfig) {
     formFieldConfig = new AirFormFieldConfig()
   }
   formFieldConfig.key = key
-  const list = Reflect.getOwnMetadata(formFieldListMetaKey, target) || []
+  const list: string[] = target[formFieldListMetaKey] || []
   list.push(key)
-  Reflect.defineMetadata(formFieldListMetaKey, list, target)
-  Reflect.defineMetadata(formFieldMetaKey, formFieldConfig, target, key)
+
+  Object.defineProperty(target, formFieldListMetaKey, {
+    enumerable: false,
+    value: list,
+    writable: false,
+    configurable: false,
+  })
+  Object.defineProperty(target, `${formFieldMetaKey + key}`, {
+    enumerable: false,
+    value: formFieldConfig,
+    writable: false,
+    configurable: false,
+  })
 }
 
 /**
@@ -40,7 +52,7 @@ export const FormField = <E extends AirModel>(formFieldConfig?: IFormFieldConfig
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldConfig | null {
-  let formFieldConfig = Reflect.getMetadata(formFieldMetaKey, target, fieldKey)
+  let formFieldConfig = target[formFieldMetaKey + fieldKey]
 
   if (formFieldConfig === undefined) {
     // 没有查询到配置
@@ -64,8 +76,8 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
  * # 获取标记了表单配置的字段列表
  * @param target 目标对象
  */
-export function getCustomFormFieldNameList<E extends AirModel>(target: E): string[] {
-  let list: string[] = Reflect.getOwnMetadata(formFieldListMetaKey, target) || []
+export function getCustomFormFieldNameList(target: any): string[] {
+  let list: string[] = target[formFieldListMetaKey] || []
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name !== AirModel.name) {
     list = list.concat(getCustomFormFieldNameList(superClass))

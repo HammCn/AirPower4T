@@ -22,8 +22,8 @@
         :action="url"
         :headers="uploadHeader"
         :before-upload="uploadReady"
-        :on-success="uploadSuccess"
-        :on-error="uploadError"
+        :on-success="onUploadSuccess"
+        :on-error="onUploadError"
         :name="uploadName"
         :data="data"
       >
@@ -45,14 +45,15 @@
 
 <script lang="ts" setup>
 import { ref, PropType, computed } from 'vue'
-import { ClassConstructor } from 'class-transformer'
+
 import { ADialog } from '.'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
 import { IFile } from '../interface/IFile'
 import { AirCode } from '../enum/AirCode'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 const props = defineProps({
   /**
@@ -205,12 +206,20 @@ function uploadReady(file: { name: string; size: number; }): boolean {
 }
 
 /**
+ * # 上传失败
+ */
+function onUploadError() {
+  loading.value = false
+  AirNotification.error('上传文件失败, 请稍后再试', '上传失败')
+}
+
+/**
  * # 上传成功
  */
-function uploadSuccess(result: Record<string, unknown>) {
+function onUploadSuccess(result: Record<string, unknown>) {
   loading.value = false
   if (result.code === undefined || result.code === null) {
-    uploadError()
+    onUploadError()
     return
   }
   if (result.code === AirCode.SUCCESS) {
@@ -230,13 +239,6 @@ function uploadSuccess(result: Record<string, unknown>) {
   }
 }
 
-/**
- * # 上传失败
- */
-function uploadError() {
-  loading.value = false
-  AirNotification.error('上传文件失败, 请稍后再试', '上传失败')
-}
 </script>
 <style lang="scss">
 .upload-dialog {

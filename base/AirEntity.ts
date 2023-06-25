@@ -1,5 +1,5 @@
-import { Expose } from 'class-transformer'
-import { AirModel } from '../model/AirModel'
+import { Type } from '../decorator/Custom'
+import { AirModel } from './AirModel'
 
 /**
  * # 实体超类
@@ -9,7 +9,7 @@ export class AirEntity extends AirModel {
   /**
    * # 主键ID
    */
-  @Expose() id!: number
+  @Type(Number) id!: number
 
   /**
    * # 实例化一个实体

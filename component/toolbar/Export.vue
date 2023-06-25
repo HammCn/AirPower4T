@@ -80,7 +80,7 @@ const exportFilePath = ref('')
 async function startLoop(fileCode: string) {
   clearTimeout(loopTimer)
   try {
-    const downloadPath: string = await AirHttp.create('file/download').withOutError()
+    const downloadPath: string = await AirHttp.create('file/download').callbackError()
       .post({ fileCode })
     isLoading.value = false
     exportFilePath.value = AirFile.getStaticFileUrl(downloadPath)

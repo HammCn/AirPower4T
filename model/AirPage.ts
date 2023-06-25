@@ -1,5 +1,4 @@
-import { Expose } from 'class-transformer'
-import { AirModel } from '../model/AirModel'
+import { AirModel } from '../base/AirModel'
 
 /**
  * # 分页类
@@ -9,10 +8,10 @@ export class AirPage extends AirModel {
   /**
    * # 分页页数
    */
-  @Expose() pageNum = 1
+  pageNum = 1
 
   /**
    * # 每页数量
    */
-  @Expose() pageSize = 20
+  pageSize = 20
 }

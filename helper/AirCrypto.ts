@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js'
 import { Base64 } from 'js-base64'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 
 /**
  * # 加解密和散列摘要算法助手类

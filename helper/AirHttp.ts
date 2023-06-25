@@ -3,10 +3,10 @@ import axios, {
   AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, AxiosResponseHeaders, Method,
 } from 'axios'
 import { Ref } from 'vue'
-import { AirConfig } from '../AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirHttpContentType } from '../enum/AirHttpContentType'
 import { AirHttpMethod } from '../enum/AirHttpMethod'
+import { AirConfig } from '../config/AirConfig'
 
 /**
  * # 网络请求类
@@ -31,7 +31,15 @@ export class AirHttp {
   /**
    * # 是否隐藏自动错误提示
    */
-  private flagIgnoreError = false
+  private errorCallback = false
+
+  /**
+   * # 是否回调错误信息
+   */
+  callbackError(): this {
+    this.errorCallback = true
+    return this
+  }
 
   /**
    * # 配置一个Loading的Ref对象
@@ -120,26 +128,6 @@ export class AirHttp {
   }
 
   /**
-   * # 不自动处理错误
-   * ---
-   * ### 💡 请注意自行接管错误信息
-   */
-  withOutError(): this {
-    this.flagIgnoreError = true
-    return this
-  }
-
-  /**
-   * # 不提交认证的header信息
-   */
-  withOutToken(): this {
-    if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers[AirConfig.accessTokenKey]) {
-      delete this.axiosRequestConfig.headers[AirConfig.accessTokenKey]
-    }
-    return this
-  }
-
-  /**
    * # 发送请求
    *
    * @param body [可选]请求体
@@ -182,7 +170,7 @@ export class AirHttp {
           case AirConfig.defaultHttpUnauthorizedCode:
             // 需要登录
             if (AirConfig.router) {
-              if (this.flagIgnoreError) {
+              if (this.errorCallback) {
                 error(res.data)
               } else {
                 AirConfig.router.push('/login')
@@ -193,7 +181,7 @@ export class AirHttp {
             break
           default:
             // 其他业务错误
-            if (!this.flagIgnoreError) {
+            if (!this.errorCallback) {
               AirNotification.error(res.data[AirConfig.defaultHttpGlobalMessageKey] || AirConfig.errorMessage, AirConfig.errorTitle)
             }
             error(res.data)
@@ -203,7 +191,7 @@ export class AirHttp {
         if (this.loading) {
           this.loading.value = false
         }
-        if (!this.flagIgnoreError) {
+        if (!this.errorCallback) {
           AirNotification.error(AirConfig.errorMessage, AirConfig.errorTitle)
         }
         error(err)

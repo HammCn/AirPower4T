@@ -217,15 +217,16 @@
 import {
   PropType, Ref, ref, watch, computed,
 } from 'vue'
-import { ClassConstructor } from 'class-transformer'
-import { AirModel } from '../model/AirModel'
+
+import { AirModel } from '../base/AirModel'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { IRecord } from '../interface/IRecord'
 import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 

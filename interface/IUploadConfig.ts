@@ -1,4 +1,4 @@
-import { ClassConstructor } from 'class-transformer'
+import { ClassConstructor } from '../type/ClassConstructor'
 import { IFile } from './IFile'
 
 /**

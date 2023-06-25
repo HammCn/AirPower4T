@@ -13,7 +13,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTime } from '../helper/AirDateTime'
 import { AirStore } from '../store/AirStore'

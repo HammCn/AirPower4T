@@ -8,7 +8,7 @@ https://gitee.com/hamm/AirPowerDemo
 
 # ② 项目依赖
 
-AirPower目前依赖 ```Vue``` + ```TypeScript``` + ```Element Plus``` + ```class-transformer``` 等组件，其中还包含了一些第三方模块的依赖，具体可以参考项目的 ```package.json```。
+AirPower目前依赖 ```Vue``` + ```TypeScript``` + ```Element Plus```  等组件，其中还包含了一些第三方模块的依赖，具体可以参考项目的 ```package.json```。
 
 # ③ 模块说明
 
@@ -69,9 +69,6 @@ AirPower内置了以下一些模块：
 
     在相同或相似业务中，我们使用标准的强面向对象进行实现，基于继承、封装等特性进行代码的复用，通过泛型、接口等方式将相似的业务逻辑进行标准化约束，实现相似但又不完全相同的一些灵活业务的快速开发。
    
-- #### 数据和类的转换器
-
-    为了在后端因业务要求进行属性调整后前端不需要做大量的查找替换进行修复，我们引入了 ```class-transformer``` 这个第三方库进行数据转换，通过自由选择 ```Expose``` 字段和配置转换规则来实现仅在配置层即可解决字段属性变更的问题。详细请阅读关于数据转换的部分。
 
 # ⑤ 设计要点
   
@@ -143,30 +140,6 @@ AirPower内置了以下一些模块：
 
 - ### 2️⃣ 数据转换篇
 
-- #### class-transformer 简介
-
-    在日常的API接口对接过程中，接口中难免产生很多无用的属性，亦或者某些属性需要前端进行转换后才能使用，```AirPower``` 采用了 类 + ```class-transformer``` 库来完成前端和后端的接口数据处理。
-
-    ```class-transformer``` 是 ```TypeScript``` 下一个基于 ```装饰器``` + ```Reflect-metadata``` 实现的一个数据转换库，能根据实体属性上标记的相关装饰器规则进行 ```类到JSON```、```JSON到类``` 的转换，具体的相关操作文档可以查看 ```npm-class-transformer```
-
-- #### class-transformer的装饰器
-    ```typescript
-    //将userName属性暴露为 username 来处理后端和前端字段不统一的问题
-    @Expose({name:"username"}) userName!: string;
-    //标记属性不被来去转换 AirModel中配置必须Expose 所以这个一般很少使用
-    @Exclude() password
-    //标记属性必须被转为什么类型 支持简单类型 复杂类型
-    @Type(()=>String) password
-    //自定义转换规则 可在指定的转换方向上进行数据的转换 
-    //如时间戳转可视化时间等操作
-    @Transform(({value}) => {
-           // custom transform code here
-           return something;
-    },{ toClassOnly | toPlainOnly : boolean })
-    ```
-
-    当然, 我们将 ```class-transformer``` 和 ```Reflect-metadata``` 进行了一系列的封装, 请看下面的内容.
-
 - #### AirClassTransformer 转换助手类
 
     我们将上面的两个库进行了更适合我们的业务封装, 实现了 ```AirClassTransformer``` 一系列的装饰器和反射高级编程的功能.
@@ -183,8 +156,8 @@ AirPower内置了以下一些模块：
 
 - #### AirModel基础模型类
 
-    ```AirModel``` 是 ```AirPower``` 中通过 ```class-transformer``` 库 实现了 ```json到类``` 互相转换的一系列方法的一个数据模型基类。
-我们建议，所有与后端对接的数据类都必须根继承至 ```AirModel```, 比如 ```数据实体``` ```分页对象``` ```搜索对象``` 等等。然后你就可以通过 ```class-transformer``` 提供的相关装饰器对指定数据类进行字段的暴露、转换等操作。
+    ```AirModel``` 是 ```AirPower``` 中实现了 ```json到类``` 互相转换的一系列方法的一个数据模型基类。
+我们建议，所有与后端对接的数据类都必须根继承至 ```AirModel```, 比如 ```数据实体``` ```分页对象``` ```搜索对象``` 等等。
 
 - #### AirAbstractEntity 抽象实体基类
 

@@ -68,9 +68,9 @@
 
 <script lang="ts" setup="props">
 import { ref } from 'vue'
-import { AirConfig } from '../AirConfig'
-import { AirResponsePage } from '../dto/AirResponsePage'
-import { AirPage } from '../dto/AirPage'
+import { AirConfig } from '../config/AirConfig'
+import { AirResponsePage } from '../model/AirResponsePage'
+import { AirPage } from '../model/AirPage'
 
 const emits = defineEmits(['onChange', 'change'])
 

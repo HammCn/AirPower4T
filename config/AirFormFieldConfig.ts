@@ -1,4 +1,4 @@
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { IRecord } from '../interface/IRecord'

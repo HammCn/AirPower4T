@@ -279,8 +279,7 @@
 import {
   ref, PropType, watch, nextTick, computed,
 } from 'vue'
-import { ClassConstructor } from 'class-transformer'
-import { getClassName } from '../decorator/CustomName'
+
 import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
@@ -290,14 +289,16 @@ import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirTableInstance } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
-import { AirSort } from '../dto/AirSort'
+import { AirSort } from '../model/AirSort'
 import { ADateTime, ACopy, AButton } from '.'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
-import { AirEntity } from '../dto/AirEntity'
+import { AirEntity } from '../base/AirEntity'
 import { AirStore } from '../store/AirStore'
 import { ITree } from '../interface/ITree'
+import { getClassName } from '../decorator/Custom'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 

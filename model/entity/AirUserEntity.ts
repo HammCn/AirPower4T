@@ -1,6 +1,5 @@
-import { Expose } from 'class-transformer'
-import { AirEntity } from './AirEntity'
-import { IUser } from '../interface/IUser'
+import { IUser } from '../../interface/IUser'
+import { AirEntity } from '../../base/AirEntity'
 
 /**
  * # 内置用户实体
@@ -12,10 +11,10 @@ export class AirUserEntity extends AirEntity implements IUser {
   /**
    * # 用户昵称
    */
-  @Expose() nickname!: string
+  nickname!: string
 
   /**
    * # 用户头像
    */
-  @Expose() avatar!: string
+  avatar!: string
 }

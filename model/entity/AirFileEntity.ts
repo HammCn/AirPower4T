@@ -1,6 +1,5 @@
-import { Expose } from 'class-transformer'
-import { AirEntity } from './AirEntity'
-import { IFile } from '../interface/IFile'
+import { AirEntity } from '@/airpower/base/AirEntity'
+import { IFile } from '@/airpower/interface/IFile'
 
 /**
  * # 内置文件实体
@@ -13,5 +12,5 @@ export class AirFileEntity extends AirEntity implements IFile {
    * # 文件的相对路径
    * 可以调用 ```AirFile.getStaticFileUrl()``` 获取文件的真实地址
    */
-  @Expose() url!: string
+  url!: string
 }

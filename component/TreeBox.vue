@@ -50,7 +50,7 @@ import {
   PropType, Ref, ref, watch,
 } from 'vue'
 import { APanel } from '.'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { ITree } from '../interface/ITree'
 import { AirTreeInstance } from '../type/AirType'
 

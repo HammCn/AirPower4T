@@ -1,14 +1,15 @@
 import {
   RouteRecordRaw, Router, createRouter, createWebHistory,
 } from 'vue-router'
-import { ClassConstructor } from 'class-transformer'
-import { AirDateTimeFormatter } from './enum/AirDateTimeFormatter'
-import { INormalTreeProps } from './interface/INormalTreeProps'
-import { AirFileEntity } from './dto/AirFileEntity'
-import { IFile } from './interface/IFile'
-import { IUser } from './interface/IUser'
-import { AirUserEntity } from './dto/AirUserEntity'
-import { AirCode } from './enum/AirCode'
+
+import { AirCode } from '../enum/AirCode'
+import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { IFile } from '../interface/IFile'
+import { INormalTreeProps } from '../interface/INormalTreeProps'
+import { IUser } from '../interface/IUser'
+import { AirFileEntity } from '../model/entity/AirFileEntity'
+import { AirUserEntity } from '../model/entity/AirUserEntity'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # AirPower 全局配置

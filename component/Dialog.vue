@@ -88,7 +88,7 @@ import {
   watch, ref, nextTick, PropType, computed,
 } from 'vue'
 import { AButton } from '.'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'

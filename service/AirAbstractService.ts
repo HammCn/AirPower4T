@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ClassConstructor } from 'class-transformer'
+
 import { Ref } from 'vue'
-import { AirRequest } from '../dto/AirRequest'
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirHttp } from '../helper/AirHttp'
-import { AirEntity } from '../dto/AirEntity'
-import { AirResponsePage } from '../dto/AirResponsePage'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirValidator } from '../helper/AirValidator'
+import { ClassConstructor } from '../type/ClassConstructor'
+import { AirEntity } from '../base/AirEntity'
+import { AirModel } from '../base/AirModel'
+import { AirRequest } from '../model/AirRequest'
+import { AirResponsePage } from '../model/AirResponsePage'
 
 /**
  * # Service超类
  * @author Hamm
  */
-export abstract class AirAbstractService<E extends AirEntity> {
+export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   /**
    * # API目录地址
    */
@@ -71,6 +73,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param loading [可选]Loading的Ref对象
    */
   constructor(loading?: Ref<boolean>) {
+    super()
     if (loading) {
       this.loading = loading
     }
@@ -100,7 +103,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
     const json = await this.api(this.urlForGetPage).post(request.toJson())
     const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
-    responsePage.list = AirClassTransformer.parseArray(responsePage.list, this.entityClass)
+    responsePage.list = AirClassTransformer.parseArray(responsePage.list as Record<string, unknown>[], this.entityClass)
     return responsePage
   }
 
@@ -183,7 +186,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param title [可选]删除成功的消息提示标题 默认 '删除成功'
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
-    return this.api(this.urlForDelete).withOutError()
+    return this.api(this.urlForDelete).callbackError()
       .post(new AirEntity(id))
       .then(() => {
         if (message) {
@@ -216,7 +219,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
     const entity = AirClassTransformer.newInstance(this.entityClass);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (entity as any)[key] = value
-    const airHttp = this.api('getOneBy').withOutError()
+    const airHttp = this.api('getOneBy').callbackError()
     try {
       const json = await airHttp.post(entity.toJson())
       return AirClassTransformer.parse(json, this.entityClass)
@@ -231,7 +234,8 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * @param moreRule [可选] 更多的验证规则
    */
   static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return AirValidator.createRules(form, (this as any), moreRule)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return AirValidator.createRules(form, this.newInstance(), moreRule)
   }
 }

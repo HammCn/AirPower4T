@@ -1,5 +1,4 @@
-import { Expose } from 'class-transformer'
-import { AirModel } from '../model/AirModel'
+import { AirModel } from '../base/AirModel'
 import { AirSortType } from '../enum/AirSortType'
 
 /**
@@ -10,10 +9,10 @@ export class AirSort extends AirModel {
   /**
    * # 排序字段 默认 ```id```
    */
-  @Expose() field = 'id'
+  field = 'id'
 
   /**
    * # 排序方式 默认 ```desc```
    */
-  @Expose() direction = AirSortType.DESC
+  direction = AirSortType.DESC
 }

@@ -3,7 +3,7 @@
     <el-avatar
       class="air-user-head"
       :size="36"
-      :src="user.avatar"
+      :src="user.avatar || ''"
       @click="isDialogShow = true"
     />
     <div
@@ -47,10 +47,10 @@
 </template>
 <script lang="ts" setup>
 import { PropType, ref } from 'vue'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { IUser } from '../interface/IUser'
-import { AirUserEntity } from '../dto/AirUserEntity'
+import { AirUserEntity } from '../model/entity/AirUserEntity'
 
 defineProps({
   /**

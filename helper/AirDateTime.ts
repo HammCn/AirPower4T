@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 
 /**

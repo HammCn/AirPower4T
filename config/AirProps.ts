@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PropType } from 'vue'
-import { AirEntity } from '@/airpower/dto/AirEntity'
+import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 使用无参DialogProps配置
@@ -31,15 +31,6 @@ export function airProps() {
 }
 
 /**
- * # 使用ID的DialogProps配置
- * ---
- * ### 💡 传入的 ```param``` 参数为 ```Number``` 类型的ID
- */
-export function airPropsId() {
-  return airPropsParam<number>(0)
-}
-
-/**
  * # 使用实体的DialogProps配置
  * ---
  * ### 💡 [可选]泛型: Param的类型
@@ -55,6 +46,15 @@ export function airPropsParam<P>(value: P | null = null) {
       default: value,
     },
   })
+}
+
+/**
+ * # 使用ID的DialogProps配置
+ * ---
+ * ### 💡 传入的 ```param``` 参数为 ```Number``` 类型的ID
+ */
+export function airPropsId() {
+  return airPropsParam<number>(0)
 }
 
 /**

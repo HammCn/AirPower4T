@@ -15,7 +15,6 @@ export class AirRecord implements IRecord {
 
   disabled?: boolean = false
 
-  // eslint-disable-next-line no-use-before-define
   children?: this[]
 
   /**
@@ -33,7 +32,7 @@ export class AirRecord implements IRecord {
   }
 
   /**
-   * #  设置常量值
+   * # 设置常量值
    * @param key 常量值
    */
   setKey(key: string | number | boolean): this {
@@ -42,7 +41,7 @@ export class AirRecord implements IRecord {
   }
 
   /**
-    * #  设置常量描述
+    * # 设置常量描述
     * @param label 常量的描述
     */
   setLabel(label: any): this {
@@ -51,7 +50,7 @@ export class AirRecord implements IRecord {
   }
 
   /**
-   * #  设置枚举值是否被禁用
+   * # 设置枚举值是否被禁用
    * @param disabled [可选]是否禁用
    */
   setDisabled(disabled = true): this {
@@ -60,7 +59,7 @@ export class AirRecord implements IRecord {
   }
 
   /**
-   * #  设置子集
+   * # 设置子集
    * @param children 子集
    */
   setChildren(children: this[]): this {

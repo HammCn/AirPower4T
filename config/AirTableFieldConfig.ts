@@ -2,7 +2,7 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { IRecord } from '../interface/IRecord'
 import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
-import { AirConfig } from '../AirConfig'
+import { AirConfig } from '../config/AirConfig'
 
 /**
  * # 表格的字段配置实现类

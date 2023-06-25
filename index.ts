@@ -1,10 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 
-// 引入TypeScript反射库
-import 'reflect-metadata'
-import 'es6-shim'
-import './AirGlobal'
+import './config/AirGlobal'
 
 // 引入Vue createApp
 import { createApp } from 'vue'
@@ -31,7 +28,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 
 // AirConfig
-import { AirConfig } from './AirConfig'
+import { AirConfig } from './config/AirConfig'
 
 // Vue初始化
 const app = createApp(App)

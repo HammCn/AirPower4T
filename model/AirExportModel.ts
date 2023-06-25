@@ -1,4 +1,4 @@
-import { AirRequest } from '../dto/AirRequest'
+import { AirRequest } from './AirRequest'
 
 /**
  * # 导出的数据模型

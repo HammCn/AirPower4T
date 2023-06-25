@@ -21,7 +21,13 @@ export function EntityConfig(config?: IEntityConfig) {
     if (!config) {
       config = new AirEntityConfig()
     }
-    Reflect.defineMetadata(entityConfigMetaKey, config, target)
+
+    Object.defineProperty(target, entityConfigMetaKey, {
+      enumerable: false,
+      value: config,
+      writable: false,
+      configurable: false,
+    })
   }
 }
 
@@ -30,5 +36,5 @@ export function EntityConfig(config?: IEntityConfig) {
  * @param target 目标类
  */
 export function getEntityConfig(target: any): AirEntityConfig {
-  return Object.assign(new AirEntityConfig(), Reflect.getOwnMetadata(entityConfigMetaKey, target))
+  return Object.assign(new AirEntityConfig(), target[entityConfigMetaKey])
 }
