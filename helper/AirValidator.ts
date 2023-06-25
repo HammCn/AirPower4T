@@ -7,8 +7,8 @@ import { AirInputType } from '../enum/AirInputType'
 import { AirNotification } from '../feedback/AirNotification'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirClassTransformer } from './AirClassTransformer'
-import { AirAbstractService } from '../service/AirAbstractService'
 import { AirEntity } from '../base/AirEntity'
+import { AirAbstractService } from '../base/AirAbstractBaseService'
 
 /**
  * # 表单验证工具
@@ -732,7 +732,7 @@ export class AirValidator {
               return
             }
             try {
-              const exist = await service.getOneBy(fieldKey, value)
+              const exist = await service.getBy(fieldKey, value)
               if (!exist) {
                 callback()
                 return
