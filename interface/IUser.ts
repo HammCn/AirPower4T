@@ -5,13 +5,13 @@ import { AirEntity } from '../base/AirEntity'
  * @author Hamm
  */
 export interface IUser extends AirEntity {
-    /**
-     * # 用户昵称
-     */
-    nickname: string
+  /**
+   * # 用户昵称
+   */
+  nickname: string
 
-    /**
-     * # 用户头像
-     */
-    avatar: string
+  /**
+   * # 用户头像
+   */
+  avatar: string
 }
