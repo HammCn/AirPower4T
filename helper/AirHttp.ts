@@ -91,7 +91,7 @@ export class AirHttp {
    * @param option 上传配置
    * @param clazz 转换的类
    */
-  async upload<T extends IFile>(option: WechatMiniprogram.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
+  async upload<T extends IFile>(option: UniNamespace.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
     return new Promise((success, fail) => {
       option.header = this.header
       option.success = (res) => {
