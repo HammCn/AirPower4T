@@ -72,6 +72,18 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
   }
 
   /**
+   * # 通过某个字段查询一条数据
+   * @param key 字段名(别名前)
+   * @param value 字段的值
+   */
+  async getBy(key: string, value: string): Promise<E> {
+    const postData = this.newEntityInstance();
+    (postData as any)[key] = value
+    const json = await this.api('getBy').post(postData)
+    return AirClassTransformer.parse(json, this.entityClass)
+  }
+
+  /**
    * # 创建一个Service实例
    * @param loading 显示加载状态
    */
