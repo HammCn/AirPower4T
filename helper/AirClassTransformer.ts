@@ -38,7 +38,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * # 树实体转换到IRecord
+   * # 树实体转换到IRecord字典
    * @param tree 树
    */
   static tree2Record<E extends ITree>(tree: E): IRecord {
@@ -54,7 +54,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * # 树实体数组转换到IRecord数组
+   * # 树实体数组转换到IRecord字典数组
    * @param treeList
    */
   static treeList2RecordList<E extends ITree>(treeList: E[]): IRecord[] {
