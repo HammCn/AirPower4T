@@ -91,7 +91,7 @@ export class AirHttp {
    * @param option 上传配置
    * @param clazz 转换的类
    */
-  async upload<T extends IFile>(option: WechatMiniprogram.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
+  async upload<T extends IFile>(option: UniNamespace.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
     return new Promise((success, fail) => {
       option.header = this.header
       option.success = (res) => {
@@ -124,7 +124,7 @@ export class AirHttp {
           AirAlert.show('上传失败', '上传文件失败, 请稍后再试')
         }
       }
-      wx.uploadFile(option)
+      uni.uploadFile(option)
     })
   }
 
@@ -140,7 +140,7 @@ export class AirHttp {
         }
         console.warn('[HTTP HEADER]', this.header)
         console.warn('[HTTP BODY]', json)
-        wx.request({
+        uni.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
           method: this.method,
