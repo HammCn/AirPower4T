@@ -6,17 +6,17 @@ export class AirRand {
   /**
    * # 数字集合
    */
-  private static numberString = '0123456789'
+  private static readonly STRING_OF_NUMBER = '0123456789'
 
   /**
    * # 小写字母集合
    */
-  private static lowerCharString = 'abcdefghijklmnopqrstuvwxyz'
+  private static readonly STRING_OF_LOWER_CHAR = 'abcdefghijklmnopqrstuvwxyz'
 
   /**
    * # 大写字母集合
    */
-  private static upperCharString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  private static readonly STRING_OF_UPPER_CHAR = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
   /**
    * # 指定范围内获取随机整数
@@ -34,7 +34,7 @@ export class AirRand {
   static getRandNumberString(length = 6): string {
     let str = ''
     for (let i = 0; i < length; i += 1) {
-      str += this.numberString[parseInt((Math.random() * this.numberString.length).toString())]
+      str += this.STRING_OF_NUMBER[parseInt((Math.random() * this.STRING_OF_NUMBER.length).toString())]
     }
     return str
   }
@@ -47,7 +47,7 @@ export class AirRand {
   static getRandCharString(length = 32, isUpper = false): string {
     let str = ''
     for (let i = 0; i < length; i += 1) {
-      str += this.lowerCharString[parseInt((Math.random() * this.lowerCharString.length).toString())]
+      str += this.STRING_OF_LOWER_CHAR[parseInt((Math.random() * this.STRING_OF_LOWER_CHAR.length).toString())]
     }
     return isUpper ? str.toLocaleUpperCase() : str
   }
@@ -58,7 +58,7 @@ export class AirRand {
    */
   static getRandMixedCharString(length = 32): string {
     let str = ''
-    const strStorage = this.lowerCharString + this.upperCharString
+    const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_UPPER_CHAR
     for (let i = 0; i < length; i += 1) {
       str += strStorage[parseInt((Math.random() * strStorage.length).toString())]
     }
@@ -72,7 +72,7 @@ export class AirRand {
    */
   static getRandNumberAndCharString(length = 32, isUpper = false): string {
     let str = ''
-    const strStorage = this.lowerCharString + this.numberString
+    const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_NUMBER
     for (let i = 0; i < length; i += 1) {
       str += strStorage[parseInt((Math.random() * strStorage.length).toString())]
     }
@@ -85,7 +85,7 @@ export class AirRand {
    */
   static getRandNumberAndMixedCharString(length = 32): string {
     let str = ''
-    const strStorage = this.lowerCharString + this.numberString + this.upperCharString
+    const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_NUMBER + this.STRING_OF_UPPER_CHAR
     for (let i = 0; i < length; i += 1) {
       str += strStorage[parseInt((Math.random() * strStorage.length).toString())]
     }
