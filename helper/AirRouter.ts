@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
 
+import { IJson } from "../interface/IJson"
+
 /**
  * # 路由助手
  * @author Hamm
@@ -10,7 +12,7 @@ export class AirRouter {
    * @param url 页面
    * @param param [可选]JSON参数
    */
-  static go(url: string, param?: Record<string, unknown>) {
+  static go(url: string, param?: IJson) {
     if (param) {
       url += '?'
       // eslint-disable-next-line guard-for-in

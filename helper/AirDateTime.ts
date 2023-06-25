@@ -2,6 +2,7 @@
 /* eslint-disable camelcase */
 import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 时间日期时间戳格式化类
@@ -90,7 +91,7 @@ export class AirDateTime {
         break
       default:
     }
-    const dict: Record<string, string | number> = {
+    const dict: IJson = {
       YYYY: date.getFullYear(),
       M: date.getMonth() + 1,
       D: date.getDate(),
