@@ -150,7 +150,7 @@ export class AirHttp {
             try {
               switch (json[AirConfig.httpCodeKey]) {
                 case AirConfig.successCode:
-                  console.warn('[HTTP DATA]', res.data.data)
+                  console.warn('[HTTP DATA]', json[AirConfig.httpDataKey])
                   success(json[AirConfig.httpDataKey])
                   break
                 case AirConfig.unAuthorizeCode:
