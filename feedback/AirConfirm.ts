@@ -1,5 +1,5 @@
 import { ElMessageBox } from 'element-plus'
-import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
+import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirAlert } from './AirAlert'
 
 /**
@@ -39,7 +39,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 确认标题
    */
   success(content: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.SUCCESS
+    this.icon = AirFeedbackType.SUCCESS
     return this.show(content, title)
   }
 
@@ -49,7 +49,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 确认标题
    */
   warning(content: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.WARNING
+    this.icon = AirFeedbackType.WARNING
     return this.show(content, title)
   }
 
@@ -59,7 +59,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 确认标题
    */
   error(content: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.ERROR
+    this.icon = AirFeedbackType.ERROR
     return this.show(content, title)
   }
 
@@ -69,7 +69,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 确认标题
    */
   info(content: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.INFO
+    this.icon = AirFeedbackType.INFO
     return this.show(content, title)
   }
 

@@ -11,11 +11,6 @@ export enum AirDateTimeFormatter {
   YYYY_MM_DD_HH_mm_ss = 'YYYY-MM-DD HH:mm:ss',
 
   /**
-   * # e.g. ```2022-02-02 22:22```
-   */
-  YYYY_MM_DD_HH_mm = 'YYYY-MM-DD HH:mm',
-
-  /**
    * # e.g. ```15061231312312```
    * 毫秒时间戳
    */

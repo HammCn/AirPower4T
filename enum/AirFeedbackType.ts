@@ -3,7 +3,7 @@
  * # 图标类型
  * @author Hamm
  */
-export enum AirFeedbackIcon {
+export enum AirFeedbackType {
   /**
    * # 标准成功图标
    */

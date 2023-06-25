@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { ElMessageBox, ElMessageBoxOptions } from 'element-plus'
 import { CSSProperties } from 'vue'
-import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
+import { AirFeedbackType } from '../enum/AirFeedbackType'
 
 /**
  * # 消息弹窗类
@@ -22,7 +22,7 @@ export class AirAlert {
   /**
    * # 可选的确认图标类型
    */
-  protected icon = AirFeedbackIcon.NONE
+  protected icon = AirFeedbackType.NONE
 
   /**
    * # 是否启用HTML富文本
@@ -140,7 +140,7 @@ export class AirAlert {
    * @param title [可选] 消息标题
    */
   success(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.SUCCESS
+    this.icon = AirFeedbackType.SUCCESS
     return this.alert(content, title)
   }
 
@@ -150,7 +150,7 @@ export class AirAlert {
    * @param title [可选] 消息标题
    */
   warning(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.WARNING
+    this.icon = AirFeedbackType.WARNING
     return this.alert(content, title)
   }
 
@@ -160,7 +160,7 @@ export class AirAlert {
    * @param title [可选] 消息标题
    */
   show(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.NONE
+    this.icon = AirFeedbackType.NONE
     return this.alert(content, title)
   }
 
@@ -170,7 +170,7 @@ export class AirAlert {
    * @param title [可选] 消息标题
    */
   error(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.ERROR
+    this.icon = AirFeedbackType.ERROR
     return this.alert(content, title)
   }
 
@@ -272,7 +272,7 @@ export class AirAlert {
       showConfirmButton: this.isConfirmButtonShow,
       confirmButtonText: this.confirmText,
       cancelButtonText: this.cancelText,
-      type: this.confirmButtonClass ? AirFeedbackIcon.NONE : this.icon,
+      type: this.confirmButtonClass ? AirFeedbackType.NONE : this.icon,
       draggable: true,
       dangerouslyUseHTMLString: this.isHtmlEnabled,
       customClass: this.isHtmlEnabled ? 'rich-text' : '',

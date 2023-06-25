@@ -1,5 +1,5 @@
 import { ElNotification } from 'element-plus'
-import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
+import { AirFeedbackType } from '../enum/AirFeedbackType'
 
 /**
  * # 通知基类
@@ -64,7 +64,7 @@ export class AirNotification {
    */
   async warning(message?: string, title?: string): Promise<boolean> {
     this.setTitleAndMessage(title, message)
-    return this.show(AirFeedbackIcon.WARNING)
+    return this.show(AirFeedbackType.WARNING)
   }
 
   /**
@@ -86,7 +86,7 @@ export class AirNotification {
    * @param title [可选] 标题
    */
   async success(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message).show(AirFeedbackIcon.SUCCESS)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.SUCCESS)
   }
 
   /**
@@ -108,7 +108,7 @@ export class AirNotification {
    * @param title [可选] 标题
    */
   async info(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message).show(AirFeedbackIcon.INFO)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.INFO)
   }
 
   /**
@@ -130,7 +130,7 @@ export class AirNotification {
    * @param title [可选] 标题
    */
   async error(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message).show(AirFeedbackIcon.ERROR)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.ERROR)
   }
 
   /**
@@ -169,7 +169,7 @@ export class AirNotification {
    * @see error()
    * @see info()
    */
-  private async show(type: AirFeedbackIcon): Promise<boolean> {
+  private async show(type: AirFeedbackType): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       ElNotification({
         title: this.title,
