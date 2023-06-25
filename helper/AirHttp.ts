@@ -138,23 +138,23 @@ export class AirHttp {
         if (this.loading) {
           AirLoading.show(this.loading)
         }
-        console.log('[HTTP HEADER]', this.header)
-        console.log('[HTTP BODY]', json)
+        console.warn('[HTTP HEADER]', this.header)
+        console.warn('[HTTP BODY]', json)
         wx.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
           method: this.method,
           header: this.header,
           success: (res) => {
-            console.warn('[HTTP DATA]')
-            console.log(res.data)
             const json = res.data as Record<string, unknown>
             try {
               switch (json[AirConfig.httpCodeKey]) {
                 case AirConfig.successCode:
+                  console.warn('[HTTP DATA]', res.data.data)
                   success(json[AirConfig.httpDataKey])
                   break
                 case AirConfig.unAuthorizeCode:
+                  console.warn('[HTTP LOGIN]', res.data)
                   if (this.errorCallback) {
                     fail(json)
                     return
@@ -162,6 +162,7 @@ export class AirHttp {
                   AirConfig.login()
                   break
                 default:
+                  console.warn('[HTTP ERROR]', res.data)
                   if (this.errorCallback) {
                     fail(json)
                     return
@@ -169,6 +170,7 @@ export class AirHttp {
                   AirAlert.show(json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试')
               }
             } catch (e) {
+              console.warn('[HTTP ERROR]', res.data, e)
               if (this.errorCallback) {
                 fail(e)
                 return
@@ -177,6 +179,7 @@ export class AirHttp {
             }
           },
           fail: (res) => {
+            console.warn('[HTTP ERROR]', res)
             this.triedTimes += 1
             console.warn(res)
             if (this.errorCallback) {
