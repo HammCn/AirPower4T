@@ -95,7 +95,7 @@ export class AirModel {
         continue
       }
       try {
-        result[payloadAlias || key] = func(result[payloadAlias || key])
+        result[payloadAlias || key] = func(result)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn('ToJson Function Error')
@@ -183,7 +183,7 @@ export class AirModel {
         continue
       }
       try {
-        (model as any)[key] = func((model as any)[key])
+        (model as any)[key] = func((json as any))
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn('ToModel Function Error')
