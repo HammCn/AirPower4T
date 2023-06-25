@@ -130,7 +130,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api(this.urlForGetDetail).post(new AirEntity(id))
+    const json = await this.api(this.urlForGetDetail).post(this.newEntityInstance(id))
     return AirClassTransformer.parse(json, this.entityClass)
   }
 
@@ -187,7 +187,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
     return this.api(this.urlForDelete).callbackError()
-      .post(new AirEntity(id))
+      .post(this.newEntityInstance(id))
       .then(() => {
         if (message) {
           AirNotification.success(message, title)
@@ -199,33 +199,26 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   }
 
   /**
-   * # 带Loading状态创建一个Service实例
-   * @param loading Loading的Ref对象
+   * # 创建一个Service实例
+   * @param loading [可选]Loading的Ref对象
    */
-  static loading<T>(this: new () => T, loading?: Ref<boolean>): T {
+  static create<T>(this: new () => T, loading?: Ref<boolean>): T {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return Object.assign(new this(), loading) as T
   }
 
   /**
-   * # 指定的key字段的值是否已存在
-   * @param key Key
-   * @param value Value
-   * ---
-   * 如查到了数据, 则返回
+   * # 创建一个实体的实例
+   * @param id [可选]ID
    */
-  async getOneBy(key: string, value: string) {
-    const entity = AirClassTransformer.newInstance(this.entityClass);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (entity as any)[key] = value
-    const airHttp = this.api('getOneBy').callbackError()
-    try {
-      const json = await airHttp.post(entity.toJson())
-      return AirClassTransformer.parse(json, this.entityClass)
-    } catch (e) {
-      throw new Error()
+  private newEntityInstance(id?: number): E {
+    // eslint-disable-next-line new-cap
+    const entity = new this.entityClass()
+    if (id) {
+      entity.id = id
     }
+    return entity
   }
 
   /**
