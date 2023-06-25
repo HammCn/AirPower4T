@@ -110,7 +110,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
       AirResponsePage,
     )
     responsePage.list = AirClassTransformer.parseArray(
-      responsePage.list as Record<string, unknown>[],
+      responsePage.list as IJson[],
       this.entityClass,
     )
     return responsePage
