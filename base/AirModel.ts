@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getAlias, getDefault, getFieldPrefix, getIgnorePrefix, getIsArray, getToJson, getToModel, getType,
+  getAlias, getClassName, getDefault, getFieldName, getFieldPrefix, getIgnorePrefix, getIsArray, getToJson, getToModel, getType,
 } from '../decorator/Custom'
 
 /**
  * # AirModel 模型超类
  * @author Hamm
  */
-export abstract class AirModel {
+export class AirModel {
   /**
    * # 用指定的数据对当前实例进行覆盖
    * ---
@@ -89,7 +89,7 @@ export abstract class AirModel {
         continue
       }
       try {
-        result[payloadAlias || key] = func(result[payloadAlias || key])
+        result[payloadAlias || key] = func(result)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn('ToJson Function Error')
@@ -163,7 +163,7 @@ export abstract class AirModel {
             (model as any)[key] = !!data || getDefault(model, key)
             break
           default:
-          // eslint-disable-next-line new-cap
+            // eslint-disable-next-line new-cap
             (model as any)[key] = this.toModel(new clazz() as AirModel, data)
         }
       }
@@ -177,12 +177,57 @@ export abstract class AirModel {
         continue
       }
       try {
-        (model as any)[key] = func((model as any)[key])
+        (model as any)[key] = func((json as any))
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn('ToModel Function Error')
       }
     }
     return model
+  }
+
+  /**
+   * # 创建一个当前类的实例
+   */
+  // eslint-disable-next-line no-unused-vars
+  static newInstance<T>(this: new () => T): T {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return Object.assign(new this(), null) as T
+  }
+
+  /**
+   * # 获取类的可阅读名字
+   * 可使用 @ClassName 装饰器修饰 如无修饰 则直接返回类名
+   */
+  static getCustomClassName() {
+    return this.newInstance().getCustomClassName()
+  }
+
+  /**
+   * # 获取属性的可阅读名字
+   * @param fieldKey 属性名
+   * 可使用 @FieldName 装饰器修饰 如无修饰 则直接返回属性名
+   */
+  static getCustomFieldName(fieldKey: string): string {
+    return this.newInstance().getCustomFieldName(fieldKey)
+  }
+
+  //! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
+
+  /**
+   * # 请直接调用静态方法获取
+   * @deprecated
+   */
+  getCustomClassName(): string {
+    return getClassName(this) || this.constructor.name
+  }
+
+  /**
+   * # 请直接调用静态方法获取
+   * @deprecated
+   */
+  getCustomFieldName(fieldKey: string): string {
+    return getFieldName(this, fieldKey)
   }
 }

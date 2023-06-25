@@ -1,0 +1,162 @@
+/*动画样式库*/
+
+.body-enter-active {
+    animation: body-in 0.3s;
+}
+
+.body-leave-active {
+    animation: body-out 0.3s;
+}
+
+@keyframes body-in {
+    0% {
+        transform: scale(0.1, 0.1);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+@keyframes body-out {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+
+    100% {
+        left: -100%;
+        opacity: 0;
+    }
+}
+
+/* 弹窗动画开始 */
+.dialog-enter-active {
+    animation: dialog-in 0.3s;
+}
+
+.dialog-leave-active {
+    animation: dialog-out 0.3s;
+}
+
+@keyframes dialog-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+    }
+
+    61.8% {
+        opacity: 1;
+        transform: scale(1.01, 1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes dialog-out {
+    0% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+
+    30% {
+        opacity: 0.8;
+        transform: scale(1.05, 1.05);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+    }
+}
+
+@keyframes shake-in {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1.01, 1.01);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+/* 弹窗动画结束 */
+
+/* 高级搜索动画开始 */
+.search-enter-active {
+    animation: search-in 0.3s;
+    transform-origin: 500px 20px;
+}
+
+.search-leave-active {
+    animation: search-out 0.3s;
+    transform-origin: 500px 20px;
+}
+
+@keyframes search-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.1, 0.1);
+    }
+
+    70% {
+        opacity: 0.9;
+        transform: scale(1.05, 1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes search-out {
+    0% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+
+    30% {
+        opacity: 0.9;
+        transform: scale(1.05, 1.05);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.1, 0.1);
+    }
+}
+
+@keyframes jump-in {
+    0% {
+        transform: translateY(2px);
+    }
+
+    70% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 高级搜索动画结束  */
+
+@keyframes tooltip-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

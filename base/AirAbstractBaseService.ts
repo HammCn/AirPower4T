@@ -127,7 +127,7 @@ export abstract class AirAbstractBaseService<E extends AirEntity> {
    */
   async getDetail(id: number): Promise<E> {
     const json = await this.api(this.urlForGetDetail).post(this.newEntityInstance(id))
-    return AirClassTransformer.parse(json, this.entityClass)
+    return AirClassTransformer.parse<E>(json, this.entityClass)
   }
 
   /**

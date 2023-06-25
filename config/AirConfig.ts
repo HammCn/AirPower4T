@@ -6,7 +6,7 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
  */
 export class AirConfig {
   /**
-   * # AirPower版本
+   * # 当前版本号
    */
   static readonly version = 'v1.0.0'
 
