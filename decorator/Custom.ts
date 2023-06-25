@@ -3,7 +3,6 @@
  * # 自定义类和属性名注解
  * @author Hamm
  */
-
 import { AirModel } from '../base/AirModel'
 import { IRecord } from '../interface/IRecord'
 import { ClassConstructor } from '../type/ClassConstructor'

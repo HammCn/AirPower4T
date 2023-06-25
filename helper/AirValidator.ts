@@ -12,16 +12,6 @@ import { AirAbstractService } from '../base/AirAbstractBaseService'
 
 /**
  * # 表单验证工具
- *
- * ```typescript
- * // 创建验证器示例代码
- * AirValidator.createRules({
- *    nickname:[
- *      AirValidator.show("昵称必须为中文").ifNotChinese(),
- *      AirValidator.show("昵称必须填写").ifEmpty()
- *    ]
- * })
- * ```
  * @author Hamm
  * */
 export class AirValidator {

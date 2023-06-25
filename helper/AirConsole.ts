@@ -1,5 +1,5 @@
 /**
- * #  控制台输出助手
+ * # 控制台输出助手
  * @author Hamm
  */
 export class AirConsole {
