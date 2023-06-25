@@ -82,7 +82,8 @@ export class AirRouter {
       const locationPathName = location.pathname
       if (item.path === locationPathName) {
         localStorage.removeItem(menuCacheKey)
-        AirConfig.router.replace(locationPathName)
+        // eslint-disable-next-line no-restricted-globals
+        AirConfig.router.replace(locationPathName + location.search)
         break
       }
     }
