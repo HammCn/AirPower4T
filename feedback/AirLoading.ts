@@ -1,4 +1,5 @@
 import { ElLoading } from 'element-plus'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 通知基类
@@ -97,7 +98,7 @@ export class AirLoading {
     if (message) {
       this.setMessage(message)
     }
-    const options: Record<string, unknown> = {
+    const options: IJson = {
       background: this.background,
       lock: this.isLock,
       text: this.message,

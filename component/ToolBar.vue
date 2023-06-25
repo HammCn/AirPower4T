@@ -150,6 +150,7 @@ import { AirRequestPage } from '../model/AirRequestPage'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { AirAbstractService } from '../base/AirAbstractBaseService'
+import { IJson } from '../interface/IJson'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 
@@ -490,7 +491,7 @@ const searchFieldList = computed(() => {
 /**
  * 查询用的临时JSON
  */
-const filter = ref({} as Record<string, unknown>)
+const filter = ref({} as IJson)
 
 /**
  * 查询用的关键词

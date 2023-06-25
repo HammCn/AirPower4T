@@ -7,6 +7,8 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirHttpContentType } from '../enum/AirHttpContentType'
 import { AirHttpMethod } from '../enum/AirHttpMethod'
 import { AirConfig } from '../config/AirConfig'
+import { AirModel } from '../base/AirModel'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 网络请求类
@@ -89,7 +91,7 @@ export class AirHttp {
    * # 设置请求头
    * @param header 请求头
    */
-  setHttpHeader(header: Record<string, string>): this {
+  setHttpHeader(header: IJson): this {
     if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers['content-type']) {
       header = { ...header, 'content-type': this.axiosRequestConfig.headers['content-type'] }
     }
@@ -200,19 +202,27 @@ export class AirHttp {
   }
 
   /**
-   * # 发送POST请求
-   * @param body [可选]POST的数据
+   * # 发送POST
+   * @param model 发送的数据模型(数组)
    */
-  post(body?: any): Promise<any> {
+  post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
+    let json = {}
+    if (model) {
+      if (model instanceof Array) {
+        json = model.map((item) => item.toJson())
+      } else {
+        json = model.toJson()
+      }
+    }
     this.setHttpMethod(AirHttpMethod.POST)
-    return this.send(body)
+    return this.send(json)
   }
 
   /**
    * # 发送GET请求 只支持简单一维数据
    * @param params [可选]可携带的参数
    */
-  get(params?: Record<string, any>): Promise<any> {
+  get(params?: IJson): Promise<any> {
     if (params) {
       const queryArray = []
       // eslint-disable-next-line guard-for-in

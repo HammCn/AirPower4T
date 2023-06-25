@@ -12,6 +12,7 @@ import { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
+import { IJson } from '../interface/IJson'
 
 /**
  * # Service超类
@@ -101,9 +102,9 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * @param request 请求对象
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
-    const json = await this.api(this.urlForGetPage).post(request.toJson())
+    const json = await this.api(this.urlForGetPage).post(request)
     const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
-    responsePage.list = AirClassTransformer.parseArray(responsePage.list as Record<string, unknown>[], this.entityClass)
+    responsePage.list = AirClassTransformer.parseArray(responsePage.list as IJson[], this.entityClass)
     return responsePage
   }
 
@@ -112,7 +113,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetList).post(request.toJson())
+    const json = await this.api(this.urlForGetList).post(request) as IJson[]
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -121,7 +122,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetTreeList).post(request.toJson())
+    const json = await this.api(this.urlForGetTreeList).post(request) as IJson[]
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -141,7 +142,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * @param title [可选]新增成功的消息提示标题 默认 '新增成功'
    */
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
-    const json = await this.api(this.urlForAdd).post(data.toJson())
+    const json = await this.api(this.urlForAdd).post(data)
     if (message) {
       AirNotification.success(message, title)
     }
@@ -155,7 +156,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * @param title [可选]修改成功的消息提示标题 默认 '修改成功'
    */
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
-    await this.api(this.urlForUpdate).post(data.toJson())
+    await this.api(this.urlForUpdate).post(data)
     if (message) {
       AirNotification.success(message, title)
     }
@@ -206,7 +207,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   async getBy(key: string, value: string): Promise<E> {
     const postData = this.newEntityInstance();
     (postData as any)[key] = value
-    const json = await this.api('getBy').post(postData.toJson())
+    const json = await this.api('getBy').post(postData)
     return AirClassTransformer.parse(json, this.entityClass)
   }
 

@@ -227,6 +227,7 @@ import { IRecord } from '../interface/IRecord'
 import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { IJson } from '../interface/IJson'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
@@ -349,7 +350,7 @@ const placeholderRef = ref(props.placeholder)
 /**
  * 绑定的数据
  */
-const value: Ref<string | number | boolean | Array<unknown> | Record<string, unknown> | undefined> = ref(props.modelValue)
+const value: Ref<string | number | boolean | Array<unknown> | IJson | undefined> = ref(props.modelValue)
 
 /**
  * 字段的表单配置信息

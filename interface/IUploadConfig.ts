@@ -1,5 +1,6 @@
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IFile } from './IFile'
+import { IJson } from './IJson'
 
 /**
  * # 上传配置项
@@ -61,7 +62,7 @@ export interface IUploadConfig {
 
   /**
    * # 上传文件时同时传输的body数据
-   * 如为实体对象, 请自行 ```.toSourceObject()```
+   * 如为实体对象, 请自行 ```.toJson()```
    */
-  data?: Record<string, unknown>
+  data?: IJson
 }

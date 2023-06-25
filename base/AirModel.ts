@@ -9,6 +9,7 @@ import { getFormFieldConfig, getCustomFormFieldList } from '../decorator/FormFie
 import { getCustomSearchFieldList } from '../decorator/SearchField'
 import { getCustomTableFieldList } from '../decorator/TableField'
 import { AirNotification } from '../feedback/AirNotification'
+import { IJson } from '../interface/IJson'
 
 /**
  * # AirModel 模型超类
@@ -63,9 +64,9 @@ export class AirModel {
   /**
    * # 转换到JSON
    */
-  toJson(): Record<string, unknown> {
+  toJson(): IJson {
     const keys = Object.keys(this)
-    const result: Record<string, unknown> = {}
+    const result: IJson = {}
     for (const key of keys) {
       const data = (this as any)[key]
       result[key] = data
@@ -74,7 +75,7 @@ export class AirModel {
       if (typeof data === 'object') {
         if (data instanceof Array) {
           // 数组需要循环转换
-          const arr: Record<string, unknown>[] = []
+          const arr: IJson[] = []
           for (let i = 0; i < data.length; i += 1) {
             arr[i] = (data[i] as AirModel).toJson()
           }
@@ -110,7 +111,7 @@ export class AirModel {
    * # 从JSON转换到当前类的对象
    * @param json JSON
    */
-  static fromJson<T extends AirModel>(this: new () => T, json: Record<string, unknown> = {}): T {
+  static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
     const model: T = (Object.assign(new this()) as T)
     return AirModel.toModel<T>(model, json)
   }
@@ -119,7 +120,7 @@ export class AirModel {
    * # 从JSON数组转换到当前类的对象数组
    * @param jsonArray JSON数组
    */
-  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: Record<string, unknown>[] = []): T[] {
+  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson[] = []): T[] {
     const arr: T[] = []
     for (let i = 0; i < jsonArray.length; i += 1) {
       const model: T = (Object.assign(new this()) as T)
@@ -134,7 +135,7 @@ export class AirModel {
    * @param json JSON
    */
   // eslint-disable-next-line
-  static toModel<T extends AirModel>(model: T, json: Record<string, any> = {}): T {
+  static toModel<T extends AirModel>(model: T, json: IJson = {}): T {
     const keys = Object.keys(model)
     for (const key of keys) {
       // 默认转换类为字符串

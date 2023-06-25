@@ -3,4 +3,4 @@
  * @author Hamm
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IPayload = Record<string, any>
+export type IJson<V = any> = Record<string, V>

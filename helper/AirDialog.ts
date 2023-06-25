@@ -10,6 +10,7 @@ import { IUploadConfig } from '../interface/IUploadConfig'
 import { IFile } from '../interface/IFile'
 import { AirRequest } from '../model/AirRequest'
 import { AirEntity } from '../base/AirEntity'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 弹窗助手类
@@ -21,7 +22,7 @@ export class AirDialog {
   * @param view 使用的视图组件 传入一个import的vue
   * @param param 弹窗参数 将传入到合并到props上
   */
-  static async build<RES>(view: Component, param: Record<string, unknown>): Promise<RES> {
+  static async build<RES>(view: Component, param: IJson): Promise<RES> {
     const parentNode = document.createElement('div')
     const domId = `dialog_${Math.random()}`
     parentNode.setAttribute('id', domId)

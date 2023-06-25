@@ -56,6 +56,7 @@ import { AirFile } from '../helper/AirFile'
 import { AirConfig } from '../config/AirConfig'
 import { IFile } from '../interface/IFile'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { IJson } from '../interface/IJson'
 
 const emits = defineEmits(['onUpload', 'onRemove'])
 
@@ -154,7 +155,7 @@ watch(props, () => {
 /**
  * # 上传文件的头
  */
-const uploadHeader = ref({} as Record<string, unknown>)
+const uploadHeader = ref({} as IJson)
 uploadHeader.value[AirConfig.accessTokenKey] = localStorage.getItem(AirConfig.accessTokenKey)
 
 /**

@@ -3,6 +3,7 @@
 import { AirConfig } from './AirConfig'
 import { AirColor } from '../enum/AirColor'
 import { IRecord } from '../interface/IRecord'
+import { IJson } from '../interface/IJson';
 
 /**
  * # 一些全局使用的扩展方法
@@ -48,7 +49,7 @@ Array.prototype.getColor = function (this: IRecord[], key: string | number | boo
 Window.prototype.airConfig = () => {
   // eslint-disable-next-line no-console
   console.clear()
-  const airConfig: Record<string, any> = {}
+  const airConfig: IJson = {}
   Object.keys(AirConfig).forEach((item) => {
     airConfig[item] = (AirConfig as any)[item]
   })

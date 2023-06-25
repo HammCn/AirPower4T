@@ -54,6 +54,7 @@ import { AirFile } from '../helper/AirFile'
 import { IFile } from '../interface/IFile'
 import { AirCode } from '../enum/AirCode'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { IJson } from '../interface/IJson'
 
 const props = defineProps({
   /**
@@ -158,7 +159,7 @@ const props = defineProps({
    * # 上传文件同时发送的数据
    */
   data: {
-    type: Object as PropType<Record<string, unknown>>,
+    type: Object as PropType<IJson>,
     default: () => null,
   },
 })
@@ -178,7 +179,7 @@ const url = computed(() => props.uploadUrl || AirConfig.defaultUploadUrl)
  */
 const uploadHeader = ref({
   Authorization: AirConfig.getAccessToken(),
-} as Record<string, unknown>)
+} as IJson)
 
 /**
  * # 上传验证
@@ -216,7 +217,7 @@ function onUploadError() {
 /**
  * # 上传成功
  */
-function onUploadSuccess(result: Record<string, unknown>) {
+function onUploadSuccess(result: IJson) {
   loading.value = false
   if (result.code === undefined || result.code === null) {
     onUploadError()
@@ -229,7 +230,7 @@ function onUploadSuccess(result: Record<string, unknown>) {
       props.onConfirm(null)
     } else {
       const entity = AirClassTransformer.parse(
-        result.data as Record<string, unknown>,
+        result.data as IJson,
         props.entity,
       )
       props.onConfirm(entity)
