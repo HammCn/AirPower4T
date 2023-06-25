@@ -52,7 +52,7 @@ export class AirConfirm extends AirAlert {
    */
   private confirm(content = '', description: string | undefined = undefined): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      wx.showModal({
+      uni.showModal({
         title: content,
         content: description,
         confirmText: this.confirmText,
