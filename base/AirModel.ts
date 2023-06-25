@@ -221,7 +221,7 @@ export class AirModel {
 
   /**
    *
-   * # 😋获取表单配置的Label
+   * # 获取表单配置的Label
    *
    * 依次读取 ```表单配置的label``` > ```@FieldName``` > ```fieldKey```
    * @param fieldKey 字段名
