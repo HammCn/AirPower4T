@@ -8,6 +8,7 @@ import {
 import { getFormFieldConfig, getCustomFormFieldList } from '../decorator/FormField'
 import { getCustomSearchFieldList } from '../decorator/SearchField'
 import { getCustomTableFieldList } from '../decorator/TableField'
+import { AirNotification } from '../feedback/AirNotification'
 
 /**
  * # AirModel 模型超类
@@ -97,6 +98,7 @@ export class AirModel {
       try {
         result[payloadAlias || key] = func(result)
       } catch (e) {
+        AirNotification.error('转换数据失败')
         // eslint-disable-next-line no-console
         console.warn('ToJson Function Error')
       }
@@ -185,6 +187,7 @@ export class AirModel {
       try {
         (model as any)[key] = func((json as any))
       } catch (e) {
+        AirNotification.error('转换数据失败')
         // eslint-disable-next-line no-console
         console.warn('ToModel Function Error')
       }

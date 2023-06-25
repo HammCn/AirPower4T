@@ -777,7 +777,7 @@ async function handleDelete(item: AirEntity) {
     let content = '是否确认删除当前选中的数据？'
     // 如果实体传入 则尝试自动获取
 
-    const entityName = getClassName(props.entity)
+    const entityName = getClassName(props.entity.prototype)
     title = '删除提醒'
     content = `是否确认删除当前选中的${entityName}？`
 
