@@ -10,7 +10,7 @@ import { IEntityConfig } from '../interface/IEntityConfig'
 /**
  * # 搜索配置key
  */
-const entityConfigMetaKey = Symbol('entityConfig')
+const entityConfigMetaKey = '__entity_config__'
 
 /**
  * # 为类标记一个配置
@@ -22,7 +22,7 @@ export function EntityConfig(config?: IEntityConfig) {
       config = new AirEntityConfig()
     }
 
-    Object.defineProperty(target, entityConfigMetaKey, {
+    Object.defineProperty(target.prototype, entityConfigMetaKey, {
       enumerable: false,
       value: config,
       writable: false,
@@ -36,5 +36,5 @@ export function EntityConfig(config?: IEntityConfig) {
  * @param target 目标类
  */
 export function getEntityConfig(target: any): AirEntityConfig {
-  return Object.assign(new AirEntityConfig(), target[entityConfigMetaKey])
+  return Object.assign(new AirEntityConfig(), target[entityConfigMetaKey] || target.prototype[entityConfigMetaKey])
 }
