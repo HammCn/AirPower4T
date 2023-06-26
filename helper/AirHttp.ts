@@ -94,7 +94,16 @@ export class AirHttp {
    */
   async upload<T extends IFile>(option: WechatMiniprogram.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
     return new Promise((success, fail) => {
+      if (this.loading) {
+        AirLoading.show(this.loading)
+      }
       option.header = this.header
+      option.url = option.url || (AirConfig.apiUrl + this.url)
+      option.complete = () => {
+        if (this.loading) {
+          AirLoading.hide()
+        }
+      }
       option.success = (res) => {
         try {
           const json = JSON.parse(res.data)
