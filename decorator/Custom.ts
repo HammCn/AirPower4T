@@ -29,8 +29,8 @@ export function EnumRecord(record: IRecord[]) {
  * @param target 目标类
  * @param fieldKey 属性名
  */
-export function getEnumRecord(target: any, fieldKey: string): IRecord[] | null {
-  return target[ENUM_RECORD_PREFIX + fieldKey] || null
+export function getEnumRecord(target: any, fieldKey: string): IRecord[] | undefined {
+  return target[ENUM_RECORD_PREFIX + fieldKey]
 }
 
 const TYPE_PREFIX = '__class_'
@@ -56,7 +56,7 @@ export function Type(clazz: any) {
  * @param fieldKey 属性名
  */
 export function getType(target: any, fieldKey: string): ClassConstructor<unknown> | null {
-  return target[TYPE_PREFIX + fieldKey] || null
+  return target[TYPE_PREFIX + fieldKey]
 }
 
 const TO_JSON_FUNCTION = '__to_json_function_'
@@ -138,7 +138,7 @@ export function Default(value: any) {
  * @param fieldKey 属性名
  */
 export function getDefault(target: any, fieldKey: string): any {
-  return target[DEFAULT_VALUE_PREFIX + fieldKey] || undefined
+  return target[DEFAULT_VALUE_PREFIX + fieldKey]
 }
 
 const IS_ARRAY_PREFIX = '__is_array_'
