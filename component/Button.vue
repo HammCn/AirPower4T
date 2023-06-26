@@ -1,16 +1,12 @@
 <template>
   <el-link
     v-if="iconButton"
+    v-tip="permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip"
     :class="customClass"
     :type="danger ? 'danger' : 'default'"
     :underline="false"
     :disabled="isDisabled"
     @click="$emit('onClick'); $emit('click')"
-    @mouseover="(e: any) => {
-      AirStore().tooltipRef = e.currentTarget;
-      AirStore().tooltip = permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip
-    }
-    "
   >
     <i
       class="airpower"
@@ -19,15 +15,11 @@
   </el-link>
   <el-button
     v-else
+    v-tip="permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip"
     :class="customClass"
     :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
     :disabled="isDisabled"
     @click=" $emit('onClick'); $emit('click')"
-    @mouseover="(e: any) => {
-      AirStore().tooltipRef = e.currentTarget;
-      AirStore().tooltip = permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip
-    }
-    "
   >
     <i
       v-if="showIcon"
@@ -42,7 +34,6 @@
 import { computed, PropType } from 'vue'
 import { AirIcon } from '../enum/AirIcon'
 import { AirIconType } from '../type/AirType'
-import { AirStore } from '../store/AirStore'
 import { AirConfig } from '../config/AirConfig'
 
 defineEmits(['click', 'onClick'])

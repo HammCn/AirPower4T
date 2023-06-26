@@ -15,5 +15,18 @@ export const AirStore = defineStore('AirStore', {
      * # 全局的ToolTip内容
      */
     tooltip: '',
+
+    /**
+     * # 操作键被按下
+     * ---
+     * # ⌘ - ```macOS```
+     * # Alt - ```Windows```
+     */
+    controllKeyDown: false,
+
+    /**
+     * # ESC被按下
+     */
+    escKeyDown: false,
   }),
 })

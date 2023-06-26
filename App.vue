@@ -31,7 +31,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { AirConfig } from './config/AirConfig'
 import { AirAlert } from './feedback/AirAlert'
 import { AirStore } from './store/AirStore'
@@ -52,6 +52,16 @@ const airpowerInit = () => {
   }
 }
 airpowerInit()
+
+
+let tooltipTimer: number
+
+watch(() => AirStore().tooltipRef, () => {
+  clearTimeout(tooltipTimer)
+  tooltipTimer = setTimeout(() => {
+    isShowTooltip.value = false
+  }, 2000)
+})
 </script>
 <style scoped lang="scss">
 .airpower {

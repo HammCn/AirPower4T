@@ -169,6 +169,11 @@ export class AirConfig {
   static permissionList: string[] = []
 
   /**
+   * # ESC是否可关闭掉所有的弹窗
+   */
+  static escToCloseAllDialog = true
+
+  /**
    * # 弹窗是否默认显示全屏按钮(默认true)
    * 此项仅为默认, 如手动传入, 此项将无效
    */

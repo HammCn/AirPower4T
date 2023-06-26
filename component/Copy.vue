@@ -1,11 +1,7 @@
 <template>
   <el-link
+    v-tip="copyTips"
     :underline="false"
-    @mouseover="(e: any) => {
-      AirStore().tooltipRef = e.currentTarget;
-      AirStore().tooltip = copyTips
-    }
-    "
     @click="copy"
   >
     <slot>{{ content || "-" }}</slot>

@@ -29,6 +29,7 @@ import App from './App.vue'
 
 // AirConfig
 import { AirConfig } from './config/AirConfig'
+import { AirStore } from './store/AirStore'
 
 // Vue初始化
 const app = createApp(App)
@@ -71,3 +72,14 @@ console.groupEnd()
 if (!import.meta.env.DEV) {
   console.groupCollapsed('%cConsole', 'font-size:12px;color:#333;font-weight:300;')
 }
+
+app.directive('tip', {
+  mounted(el, binding) {
+    el.addEventListener('mouseover', () => {
+      if (binding.value) {
+        AirStore().tooltipRef = el
+        AirStore().tooltip = binding.value
+      }
+    })
+  },
+})

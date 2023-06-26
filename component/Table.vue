@@ -170,12 +170,8 @@
             >操作</span>
             <template v-if="isFieldSelectorEnabled">
               <el-icon
+                v-tip="'配置列字段'"
                 class="air-field-select-icon"
-                @mouseover="(e: any) => {
-                  AirStore().tooltipRef = e.currentTarget;
-                  AirStore().tooltip = '配置列字段'
-                }
-                "
                 @click="isFieldSelectorShow = true"
               >
                 <Setting />
@@ -244,6 +240,12 @@
         <div>{{ emptyText || entityConfig.tableEmptyText || '暂无数据' }}</div>
       </template>
     </el-table>
+    <div
+      v-if="showCover"
+      class="cover"
+    >
+      按住 Alt 或 ⌘ 可直接删除数据
+    </div>
     <div class="air-field-selector">
       <div
         v-if="isFieldSelectorShow"
@@ -295,10 +297,10 @@ import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
 import { AirEntity } from '../base/AirEntity'
-import { AirStore } from '../store/AirStore'
 import { ITree } from '../interface/ITree'
 import { getClassName } from '../decorator/Custom'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirStore } from '../store/AirStore'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
@@ -538,6 +540,24 @@ const props = defineProps({
   },
 })
 
+const showCover = ref(false)
+
+/**
+ * # 显示按下快捷键的提醒
+ */
+watch(() => AirStore().controllKeyDown, () => {
+  showCover.value = false
+  if (
+    AirStore().controllKeyDown
+    && !props.customDelete
+    && !props.hideDelete
+    && props.dataList
+    && props.dataList.length > 0
+  ) {
+    showCover.value = true
+  }
+})
+
 /**
  * # 显示字段选择器
  */
@@ -773,23 +793,25 @@ async function handleDelete(item: AirEntity) {
     return
   }
   try {
-    let title = '删除提醒'
-    let content = '是否确认删除当前选中的数据？'
-    // 如果实体传入 则尝试自动获取
+    if (!AirStore().controllKeyDown) {
+      let title = '删除提醒'
+      let content = '是否确认删除当前选中的数据？'
+      // 如果实体传入 则尝试自动获取
 
-    const entityName = getClassName(props.entity.prototype)
-    title = '删除提醒'
-    content = `是否确认删除当前选中的${entityName}？`
+      const entityName = getClassName(props.entity.prototype)
+      title = '删除提醒'
+      content = `是否确认删除当前选中的${entityName}？`
 
-    // 如果传入配置项 则覆盖实体标注的内容
-    if (props.deleteTitle) {
-      title = props.deleteTitle
+      // 如果传入配置项 则覆盖实体标注的内容
+      if (props.deleteTitle) {
+        title = props.deleteTitle
+      }
+      if (props.deleteContent) {
+        content = props.deleteContent
+      }
+      await AirConfirm.create().dangerButton().enableEscClose().setConfirmText('确认删除')
+        .show(content, title)
     }
-    if (props.deleteContent) {
-      content = props.deleteContent
-    }
-    await AirConfirm.create().dangerButton().enableEscClose().setConfirmText('确认删除')
-      .show(content, title)
     emits('onDelete', item)
   } catch (e) {
     // 取消删除
@@ -874,6 +896,24 @@ init()
   flex: 1;
   min-height: 300px;
   position: relative;
+
+  .cover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 11;
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    overflow: hidden;
+    color: rgba($color: #f00, $alpha: 0.1);
+  }
 
   .air-field-selector {
     z-index: 100;

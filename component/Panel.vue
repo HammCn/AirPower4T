@@ -25,12 +25,8 @@
         <slot name="headerRight" />
         <div
           v-if="fullable"
+          v-tip="'全屏/退出全屏'"
           class="panel-full"
-          @mouseover="(e: any) => {
-            AirStore().tooltipRef = e.currentTarget;
-            AirStore().tooltip = '全屏/退出全屏'
-          }
-          "
           @click="isFullScreen = !isFullScreen"
         >
           <el-icon>
@@ -59,7 +55,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
-import { AirStore } from '../store/AirStore'
 
 defineProps({
   /**

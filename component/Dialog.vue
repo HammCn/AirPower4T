@@ -93,6 +93,7 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
 import { AirRand } from '../helper/AirRand'
+import { AirStore } from '../store/AirStore'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
@@ -327,6 +328,12 @@ const isFullScreen = ref(props.fullable && props.fullScreen)
  */
 watch(isFullScreen, () => {
   emits('onFull', isFullScreen.value)
+})
+
+watch(() => AirStore().escKeyDown, () => {
+  if (AirStore().escKeyDown && AirConfig.escToCloseAllDialog) {
+    emits('onCancel')
+  }
 })
 
 /**
