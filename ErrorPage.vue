@@ -7,23 +7,17 @@
       v-if="errorCode !== AirHttpStatus.OK"
       class="box"
     >
-      <div class="left">
-        <div class="code">
-          {{ errorCode }}
-        </div>
-        <div class="title">
-          {{ errorTitle }}
-        </div>
-        <div class="description">
-          {{ errorDesc }}
-        </div>
+      <div class="code">
+        {{ errorCode }}
       </div>
-      <div class="right">
-        <el-image :src="erroimg" />
+      <div class="title">
+        {{ errorTitle }}
+      </div>
+      <div class="description">
+        {{ errorDesc }}
       </div>
     </div>
     <div
-      v-if="AirConfig.isTimeout"
       class="percent"
     >
       <div />
@@ -36,7 +30,6 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { AirConfig } from './config/AirConfig'
 import { AirHttpStatus } from './enum/AirHttpStatus'
-import erroimg from './assets/img/img403.png'
 
 const isLoading = ref(true)
 const isError = ref(false)
@@ -81,9 +74,9 @@ watch(errorCode, () => {
     isLoading.value = false
     isError.value = true
     setTimeout(() => {
-    // eslint-disable-next-line no-restricted-globals
+      // eslint-disable-next-line no-restricted-globals
       location.replace('/')
-    }, 3000)
+    }, 5000)
   }
 })
 
@@ -144,58 +137,32 @@ watch(() => route, () => {
   }
 
   .box {
-    animation: air-error-page-animation 30s infinite;
     width: 1200px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 100px;
 
-    .left {
-      width: 600px;
-
-      .code {
-        color: var(--el-color-primary);
-        font-size: 100px;
-      }
-
-      .title {
-        font-size: 24px;
-        color: #333;
-        margin-top: 20px;
-      }
-
-      .description {
-        font-size: 16px;
-        color: #ccc;
-        margin-top: 10px;
-      }
+    .code {
+      color: var(--el-color-primary);
+      font-size: 200px;
+      font-weight: bold;
     }
 
-    .right {
-      margin-left: 50px;
-
-      .el-image {
-        width: 666px;
-      }
+    .title {
+      font-size: 24px;
+      color: #333;
     }
+
+    .description {
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 10px;
+    }
+
   }
 
-}
-
-@keyframes air-error-page-animation {
-  0% {
-    transform: rotateY(-3deg) rotateX(-3deg) scale(1) translateZ(0px);
-  }
-
-  50% {
-    transform: rotateY(3deg) rotateX(3deg) scale(.95) translateZ(-50px);
-  }
-
-  100% {
-    transform: rotateY(-3deg) rotateX(-3deg) scale(1) translateZ(0px);
-  }
 }
 
 @keyframes air-error-page-percent-animation {
