@@ -7,7 +7,7 @@ import { AirModel } from '../base/AirModel'
 import { IRecord } from '../interface/IRecord'
 import { ClassConstructor } from '../type/ClassConstructor'
 
-const ENUM_RECORD_PREFIX = '__enum_record__'
+const ENUM_RECORD_PREFIX = '__enum_record_'
 
 /**
  * # 标记属性的枚举字典
@@ -25,7 +25,7 @@ export function EnumRecord(record: IRecord[]) {
 }
 
 /**
- * # 获取类的属性枚举字典
+ * # 获取属性枚举字典
  * @param target 目标类
  * @param fieldKey 属性名
  */
@@ -33,10 +33,10 @@ export function getEnumRecord(target: any, fieldKey: string): IRecord[] | null {
   return target[ENUM_RECORD_PREFIX + fieldKey] || null
 }
 
-const TYPE_PREFIX = '__class__'
+const TYPE_PREFIX = '__class_'
 
 /**
- * # 标记属性的类型进行强制转换
+ * # 标记属性强制转换类
  * @param clazz 类型
  */
 export function Type(clazz: any) {
@@ -51,7 +51,7 @@ export function Type(clazz: any) {
 }
 
 /**
- * # 获取类的属性可读名称
+ * # 获取属性强制转换类
  * @param target 目标类
  * @param fieldKey 属性名
  */
@@ -59,7 +59,7 @@ export function getType(target: any, fieldKey: string): ClassConstructor<unknown
   return target[TYPE_PREFIX + fieldKey] || null
 }
 
-const TO_JSON_FUNCTION = '__to_json_function__'
+const TO_JSON_FUNCTION = '__to_json_function_'
 
 /**
  * # 自定义转换到JSON的方法
@@ -87,10 +87,10 @@ export function getToJson(target: any, fieldKey: string): Function | null {
   return target[TO_JSON_FUNCTION + fieldKey] || null
 }
 
-const TO_MODEL_FUNCTION = '__to_model_function__'
+const TO_MODEL_FUNCTION = '__to_model_function_'
 
 /**
- * # 自定义转换到MODEL的方法
+ * # 自定义转换到Model的方法
  * @param func 方法
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -106,7 +106,7 @@ export function ToModel(func: Function) {
 }
 
 /**
- * # 获取自定义转换到MODEL的方法
+ * # 获取自定义转换到Model的方法
  * @param target 目标类
  * @param fieldKey 属性名
  */
@@ -115,7 +115,7 @@ export function getToModel(target: any, fieldKey: string): Function | null {
   return target[TO_MODEL_FUNCTION + fieldKey] || null
 }
 
-const DEFAULT_VALUE_PREFIX = '__default__'
+const DEFAULT_VALUE_PREFIX = '__default_value_'
 
 /**
  * # 标记属性的默认值
@@ -141,10 +141,10 @@ export function getDefault(target: any, fieldKey: string): any {
   return target[DEFAULT_VALUE_PREFIX + fieldKey] || undefined
 }
 
-const IS_ARRAY_PREFIX = '__array__'
+const IS_ARRAY_PREFIX = '__is_array_'
 
 /**
- * # 标记属性的类型是数组
+ * # 标记属性是数组
  * @param clazz 类型
  */
 export function IsArray() {
@@ -159,7 +159,7 @@ export function IsArray() {
 }
 
 /**
- * # 获取类的属性是否数组
+ * # 获取属性是否数组
  * @param target 目标类
  * @param fieldKey 属性名
  */
@@ -167,10 +167,10 @@ export function getIsArray(target: any, fieldKey: string): boolean {
   return !!target[IS_ARRAY_PREFIX + fieldKey] || false
 }
 
-const CLASS_NAME_PREFIX = '__class__name__'
+const CLASS_NAME_PREFIX = '__class_name__'
 
 /**
- * # 为类标记一个可读名称
+ * # 为类标记可读名称
  * @param className 类的可读名称
  */
 export function ClassName(className: string) {
@@ -186,17 +186,17 @@ export function ClassName(className: string) {
 }
 
 /**
- * # 获取类的属性可读名称
+ * # 获取类的可读名称
  * @param target 目标类
  */
 export function getClassName(target: any): string {
-  return target[CLASS_NAME_PREFIX] || target.name
+  return target[CLASS_NAME_PREFIX] || target.prototype[CLASS_NAME_PREFIX] || target.name
 }
 
 const FIELD_NAME_PREFIX = '__field_name_'
 
 /**
- * # 为属性标记一个可读名称
+ * # 为属性标记可读名称
  * @param fieldName 属性的可读名称
  */
 export function FieldName(fieldName: string) {
@@ -211,7 +211,7 @@ export function FieldName(fieldName: string) {
 }
 
 /**
- * # 获取对象的属性可读名称
+ * # 获取属性可读名称
  * @param target 目标对象
  * @param fieldKey 属性名
  */
@@ -228,10 +228,10 @@ export function getFieldName(target: any, fieldKey: string): string {
   return fieldName
 }
 
-const FIELD_IGNORE_PREFIX = '__field_ignore_prefix__'
+const FIELD_IGNORE_PREFIX = '__field_ignore_prefix_'
 
 /**
- * # 为类标记一个属性忽略类的别名前缀
+ * # 标记属性忽略类的别名前缀
  */
 export function IgnorePrefix() {
   return (target: any, key: string) => {
@@ -245,7 +245,7 @@ export function IgnorePrefix() {
 }
 
 /**
- * # 获取类的属性是否忽略别名前缀
+ * # 获取属性是否忽略别名前缀
  * @param target 目标类
  * @param fieldKey 属性名称
  */
@@ -256,7 +256,7 @@ export function getIgnorePrefix(target: any, fieldKey: string): string {
 const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
 
 /**
- * # 为类标记一个属性别名前缀
+ * # 标记属性别名前缀
  * @param prefix 类的属性别名前缀
  */
 export function FieldPrefix(prefix: string) {
@@ -271,7 +271,7 @@ export function FieldPrefix(prefix: string) {
 }
 
 /**
- * # 获取类的属性别名前缀
+ * # 获取属性别名前缀
  * @param target 目标类
  */
 export function getFieldPrefix(target: any): string {
@@ -281,14 +281,14 @@ export function getFieldPrefix(target: any): string {
 const ALIAS_PREFIX = '__alias_'
 
 /**
- * # 为属性标记一个转换别名
- * @param fieldName 属性的转换别名
+ * # 为标记属性的转换别名
+ * @param alias 属性的转换别名
  */
-export function Alias(fieldName: string) {
+export function Alias(alias: string) {
   return (target: any, key: string) => {
     Object.defineProperty(target, ALIAS_PREFIX + key, {
       enumerable: false,
-      value: getFieldPrefix(target) + fieldName,
+      value: getFieldPrefix(target) + alias,
       writable: false,
       configurable: false,
     })
