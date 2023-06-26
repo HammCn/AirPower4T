@@ -7,6 +7,10 @@
       @mousemove="dialogMouseMoveEvent"
       @click.self="dialogBgClicked"
     >
+      <button
+        :id="'hidden-button-' + randId"
+        class="hidden-button"
+      />
       <div
         :id="randId"
         class="main"
@@ -85,7 +89,7 @@
 
 <script lang="ts" setup>
 import {
-  watch, ref, nextTick, PropType, computed,
+  watch, ref, nextTick, PropType, computed, onMounted,
 } from 'vue'
 import { AButton } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -324,6 +328,13 @@ let trueHeight = 0
 const isFullScreen = ref(props.fullable && props.fullScreen)
 
 /**
+ * 强制焦点丢失
+ */
+onMounted(() => {
+  document.getElementById(`hidden-button-${randId.value}`)?.focus()
+})
+
+/**
  * 抛出全屏切换的事件
  */
 watch(isFullScreen, () => {
@@ -482,6 +493,14 @@ async function confirmEvent() {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .hidden-button {
+    width: 0;
+    height: 0;
+    outline: none;
+    border: none;
+    opacity: 0;
+  }
 
   .main {
     animation: dialog-in 0.5s;
