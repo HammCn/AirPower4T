@@ -88,20 +88,23 @@ export class AirModel {
         result[payloadAlias || key] = data
       }
 
-      if (payloadAlias !== key) {
-        delete result[key]
-      }
       const func = getToJson(this, key)
       if (func === null) {
+        if (payloadAlias !== key) {
+          delete result[key]
+        }
         // eslint-disable-next-line no-continue
         continue
       }
       try {
-        result[payloadAlias || key] = func(result)
+        result[payloadAlias || key] = func(this)
       } catch (e) {
         AirNotification.error('转换数据失败')
         // eslint-disable-next-line no-console
         console.warn('ToJson Function Error')
+      }
+      if (payloadAlias !== key) {
+        delete result[key]
       }
     }
     return result
@@ -120,11 +123,16 @@ export class AirModel {
    * # 从JSON数组转换到当前类的对象数组
    * @param jsonArray JSON数组
    */
-  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson[] = []): T[] {
+  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
     const arr: T[] = []
-    for (let i = 0; i < jsonArray.length; i += 1) {
+    if (jsonArray instanceof Array) {
+      for (let i = 0; i < jsonArray.length; i += 1) {
+        const model: T = (Object.assign(new this()) as T)
+        arr.push(AirModel.toModel(model, jsonArray[i]))
+      }
+    } else {
       const model: T = (Object.assign(new this()) as T)
-      arr.push(AirModel.toModel(model, jsonArray[i]))
+      arr.push(AirModel.toModel(model, jsonArray))
     }
     return arr
   }
@@ -177,9 +185,6 @@ export class AirModel {
         }
       }
 
-      if (payloadAlias && payloadAlias !== key) {
-        delete (model as any)[payloadAlias]
-      }
       const func = getToModel(model, key)
       if (func === null) {
         // eslint-disable-next-line no-continue
@@ -191,6 +196,14 @@ export class AirModel {
         AirNotification.error('转换数据失败')
         // eslint-disable-next-line no-console
         console.warn('ToModel Function Error')
+      }
+    }
+    // 最后删除无用的数据
+    for (const key of keys) {
+      const payloadAlias = getAlias(model, key)
+
+      if (payloadAlias && payloadAlias !== key) {
+        delete (model as any)[payloadAlias]
       }
     }
     return model
