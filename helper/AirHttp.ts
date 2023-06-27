@@ -111,7 +111,7 @@ export class AirHttp {
             case AirConfig.successCode:
               if (clazz) {
                 // eslint-disable-next-line new-cap
-                success(AirModel.toModel(new clazz(), json[AirConfig.httpDataKey]))
+                success(AirModel.parse(new clazz(), json[AirConfig.httpDataKey]))
                 return
               }
               success(AirFileEntity.fromJson(json[AirConfig.httpDataKey]) as T)
