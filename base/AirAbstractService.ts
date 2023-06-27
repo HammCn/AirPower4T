@@ -16,6 +16,7 @@ import { IJson } from '../interface/IJson'
 
 /**
  * # Service超类
+ * @param E 泛型实体类 ```AirEntity``` 的子类
  * @author Hamm
  */
 export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
