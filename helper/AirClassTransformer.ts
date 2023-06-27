@@ -17,7 +17,7 @@ export class AirClassTransformer {
   // eslint-disable-next-line class-methods-use-this
   static parse<T extends AirModel>(json: IJson, clazz: ClassConstructor<T>): T {
     // eslint-disable-next-line new-cap
-    return AirModel.toModel(new clazz(), json)
+    return AirModel.parse(new clazz(), json)
   }
 
   /**
