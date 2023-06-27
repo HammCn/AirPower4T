@@ -114,22 +114,25 @@ export class AirModel {
    * # 从JSON转换到当前类的对象
    * @param json JSON
    */
-  static fromJson<T extends AirModel>(json: IJson = {}): T {
-    return AirModel.parse(this.newInstance(), json)
+  static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
+    const instance: T = (Object.assign(new this()) as T)
+    return AirModel.parse<T>(instance, json)
   }
 
   /**
    * # 从JSON数组转换到当前类的对象数组
    * @param jsonArray JSON数组
    */
-  static fromJsonArray<T extends AirModel>(jsonArray: IJson | IJson[] = []): T[] {
+  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
     const arr: T[] = []
     if (jsonArray instanceof Array) {
       for (let i = 0; i < jsonArray.length; i += 1) {
-        arr.push(AirModel.parse(this.newInstance(), jsonArray[i]))
+        const instance: T = (Object.assign(new this()) as T)
+        arr.push(AirModel.parse(instance, jsonArray[i]))
       }
     } else {
-      arr.push(AirModel.parse(this.newInstance(), jsonArray))
+      const instance: T = (Object.assign(new this()) as T)
+      arr.push(AirModel.parse(instance, jsonArray))
     }
     return arr
   }
