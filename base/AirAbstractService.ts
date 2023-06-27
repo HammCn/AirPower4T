@@ -90,7 +90,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
    * # 创建一个Service实例
    * @param loading 显示加载状态
    */
-  static create<T extends AirAbstractBaseService<AirEntity>>(
+  static create<T extends AirAbstractService<AirEntity>>(
     this: new () => T,
     loading?: string,
   ): T {
