@@ -115,8 +115,7 @@ export class AirModel {
    * @param json JSON
    */
   static fromJson<T extends AirModel>(json: IJson = {}): T {
-    const model: T = this.newInstance()
-    return AirModel.parse(model, json)
+    return AirModel.parse(this.newInstance(), json)
   }
 
   /**
@@ -127,12 +126,10 @@ export class AirModel {
     const arr: T[] = []
     if (jsonArray instanceof Array) {
       for (let i = 0; i < jsonArray.length; i += 1) {
-        const model: T = this.newInstance()
-        arr.push(AirModel.parse(model, jsonArray[i]))
+        arr.push(AirModel.parse(this.newInstance(), jsonArray[i]))
       }
     } else {
-      const model: T = this.newInstance()
-      arr.push(AirModel.parse(model, jsonArray))
+      arr.push(AirModel.parse(this.newInstance(), jsonArray))
     }
     return arr
   }
