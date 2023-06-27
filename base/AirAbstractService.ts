@@ -216,10 +216,10 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
    * # 创建一个Service实例
    * @param loading [可选]Loading的Ref对象
    */
-  static create<T>(this: new () => T, loading?: Ref<boolean>): T {
+  static create<S extends AirAbstractService<AirEntity>>(this: new () => S, loading?: Ref<boolean>): S {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return Object.assign(new this(), loading) as T
+    return Object.assign(new this(), loading) as S
   }
 
   /**
