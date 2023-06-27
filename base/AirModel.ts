@@ -8,7 +8,6 @@ import {
 import { getFormFieldConfig, getCustomFormFieldList } from '../decorator/FormField'
 import { getCustomSearchFieldList } from '../decorator/SearchField'
 import { getCustomTableFieldList } from '../decorator/TableField'
-import { AirNotification } from '../feedback/AirNotification'
 import { IJson } from '../interface/IJson'
 
 /**
@@ -30,7 +29,9 @@ export class AirModel {
    * # 将当前实例复制到一个新实例上
    */
   copy(): this {
-    return AirModel.toModel(this, this.toJson())
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return AirModel.toModel(new this.constructor(), this.toJson())
   }
 
   /**
@@ -99,7 +100,6 @@ export class AirModel {
       try {
         result[payloadAlias || key] = func(this)
       } catch (e) {
-        AirNotification.error('转换数据失败')
         // eslint-disable-next-line no-console
         console.warn('ToJson Function Error')
       }
@@ -193,7 +193,6 @@ export class AirModel {
       try {
         (model as any)[key] = func((json as any))
       } catch (e) {
-        AirNotification.error('转换数据失败')
         // eslint-disable-next-line no-console
         console.warn('ToModel Function Error')
       }
