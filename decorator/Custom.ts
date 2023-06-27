@@ -128,12 +128,15 @@ function setDefaultValue(target: any, key: string, value: any) {
     enumerable: false,
     value,
     writable: false,
-    configurable: false,
+    configurable: true,
   })
 }
 
 /**
  * # 标记属性的默认值
+ * ---
+ * ### 💡 如标记了 ```@IsArray()``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
+ *
  * @param value 默认值
  */
 export function Default(value: any) {
@@ -159,13 +162,13 @@ const IS_ARRAY_PREFIX = '__is_array_'
  */
 export function IsArray() {
   return (target: any, key: string) => {
+    setDefaultValue(target, key, [])
     Object.defineProperty(target, IS_ARRAY_PREFIX + key, {
       enumerable: false,
       value: true,
       writable: false,
       configurable: false,
     })
-    setDefaultValue(target, key, [])
   }
 }
 
