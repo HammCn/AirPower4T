@@ -25,7 +25,7 @@ export class AirModel {
   copy(): this {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return AirModel.toModel(new this.constructor(), this.toJson())
+    return AirModel.parse(new this.constructor(), this.toJson())
   }
 
   /**
@@ -108,84 +108,81 @@ export class AirModel {
    * # 从JSON转换到当前类的对象
    * @param json JSON
    */
-  static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
-    const model: T = (Object.assign(new this()) as T)
-    return AirModel.toModel<T>(model, json)
+  static fromJson<T extends AirModel>(json: IJson = {}): T {
+    return AirModel.parse(this.newInstance(), json)
   }
 
   /**
    * # 从JSON数组转换到当前类的对象数组
    * @param jsonArray JSON数组
    */
-  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
+  static fromJsonArray<T extends AirModel>(jsonArray: IJson | IJson[] = []): T[] {
     const arr: T[] = []
     if (jsonArray instanceof Array) {
       for (let i = 0; i < jsonArray.length; i += 1) {
-        const model: T = (Object.assign(new this()) as T)
-        arr.push(AirModel.toModel(model, jsonArray[i]))
+        arr.push(AirModel.parse(this.newInstance(), jsonArray[i]))
       }
     } else {
-      const model: T = (Object.assign(new this()) as T)
-      arr.push(AirModel.toModel(model, jsonArray))
+      arr.push(AirModel.parse(this.newInstance(), jsonArray))
     }
     return arr
   }
 
   /**
    * # 转换JSON为实体
-   * @param model 实体
+   * @param instance 实体
    * @param json JSON
    */
   // eslint-disable-next-line
-  static toModel<T extends AirModel>(model: T, json: IJson = {}): T {
-    const keys = Object.keys(model)
+  static parse<T extends AirModel>(instance: T, json: IJson = {}): T {
+    const keys = Object.keys(instance)
     for (const key of keys) {
       // 默认转换类为字符串
-      const clazz = getType(model, key)
-      const payloadAlias = getAlias(model, key)
-      let data = json[(!getIgnorePrefix(model, key) ? getFieldPrefix(model) : '') + (payloadAlias || key)]
+      const clazz = getType(instance, key)
+      const payloadAlias = getAlias(instance, key)
+      let data = json[(!getIgnorePrefix(instance, key) ? getFieldPrefix(instance) : '') + (payloadAlias || key)]
       if (data === undefined) {
         // 没有值尝试获取默认值
-        data = getDefault(model, key)
+        data = getDefault(instance, key)
       }
-      (model as any)[key] = data
+      (instance as any)[key] = data
 
-      if (getIsArray(model, key)) {
+      if (getIsArray(instance, key)) {
         const arr: any = []
         if (typeof data === 'object' && data instanceof Array) {
           for (let i = 0; i < data.length; i += 1) {
             // 如果标记了类 需要递归处理
             if (clazz) {
               // eslint-disable-next-line new-cap
-              arr[i] = this.toModel(new clazz() as AirModel, data[i])
+              arr[i] = this.parse(new clazz() as AirModel, data[i])
             }
           }
         }
-        (model as any)[key] = arr
+        (instance as any)[key] = arr
       } else if (clazz) {
         switch (clazz.name) {
           case 'String':
-            (model as any)[key] = data ? data.toString() : getDefault(model, key)
+            (instance as any)[key] = data ? data.toString() : getDefault(instance, key)
             break
           case 'Number':
-            (model as any)[key] = Number.isNaN(parseFloat(data)) ? getDefault(model, key) : parseFloat(data)
+            (instance as any)[key] = Number.isNaN(parseFloat(data)) ? getDefault(instance, key) : parseFloat(data)
             break
           case 'Boolean':
-            (model as any)[key] = !!data || getDefault(model, key)
+            (instance as any)[key] = !!data || getDefault(instance, key)
             break
           default:
             // eslint-disable-next-line new-cap
-            (model as any)[key] = this.toModel(new clazz() as AirModel, data)
+            (instance as any)[key] = this.parse(new clazz() as AirModel, data)
         }
       }
 
-      const func = getToModel(model, key)
+      const func = getToModel(instance, key)
       if (func === null) {
         // eslint-disable-next-line no-continue
         continue
       }
       try {
-        (model as any)[key] = func((json as any))
+        (instance as any)[key] = func((json as any))
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn('ToModel Function Error')
@@ -193,20 +190,20 @@ export class AirModel {
     }
     // 最后删除无用的数据
     for (const key of keys) {
-      const payloadAlias = getAlias(model, key)
+      const payloadAlias = getAlias(instance, key)
 
       if (payloadAlias && payloadAlias !== key) {
-        delete (model as any)[payloadAlias]
+        delete (instance as any)[payloadAlias]
       }
     }
-    return model
+    return instance
   }
 
   /**
    * # 创建一个当前类的实例
    */
   // eslint-disable-next-line no-unused-vars
-  static newInstance<T>(this: new () => T): T {
+  static newInstance<T extends AirModel>(): T {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return Object.assign(new this(), null) as T
