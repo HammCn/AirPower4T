@@ -10,10 +10,11 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEntity } from './AirEntity'
 
 /**
- * # 抽象服务超类
+ * # Service超类
+ * @param E 泛型实体类 ```AirEntity``` 的子类
  * @author Hamm
  */
-export abstract class AirAbstractBaseService<E extends AirEntity> {
+export abstract class AirAbstractService<E extends AirEntity> {
   /**
    * # 接口请求的目录
    */
