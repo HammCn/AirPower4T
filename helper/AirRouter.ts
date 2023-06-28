@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { IJson } from "../interface/IJson"
+import { IJson } from '../interface/IJson'
 
 /**
  * # 路由助手
