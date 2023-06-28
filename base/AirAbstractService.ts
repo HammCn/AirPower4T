@@ -16,52 +16,56 @@ import { AirEntity } from './AirEntity'
  */
 export abstract class AirAbstractService<E extends AirEntity> {
   /**
-   * # 接口请求的目录
+   * # API目录地址
+   * ---
+   * ### 💡 一般对应后端的分组/控制器/目录等
    */
   abstract baseUrl: string
 
   /**
-   * # 数据转换使用的类
+   * # 为基类提供当前的实体类
+   * ---
+   * ### 💡 请求时会通过这个类进行数据转换
    */
   abstract entityClass: ClassConstructor<E>
 
   /**
-   * # 登录提示信息
+   * # Loading提示信息
    */
   private loading!: string
 
   /**
-   * # 分页查询API地址的URL
+   * # 分页查询API地址的默认URL
    */
   protected urlForGetPage = 'getPage'
 
   /**
-   * # 不分页查询API地址的URL
+   * # 不分页查询API地址的默认URL
    */
   protected urlForGetList = 'getList'
 
   /**
-   * # 不分页树查询API地址的URL
+   * # 不分页树查询API地址的默认URL
    */
   protected urlForGetTreeList = 'getTreeList'
 
   /**
-   * # 查询详情API地址的URL
+   * # 查询详情API地址的默认URL
    */
   protected urlForGetDetail = 'getDetail'
 
   /**
-   * # 添加API地址的URL
+   * # 添加API地址的默认URL
    */
   protected urlForAdd = 'add'
 
   /**
-   * # 修改API地址的URL
+   * # 修改API地址的默认URL
    */
   protected urlForUpdate = 'update'
 
   /**
-   * # 删除API地址的URL
+   * # 删除API地址的默认URL
    */
   protected urlForDelete = 'delete'
 
