@@ -8,7 +8,7 @@ import { AirNotification } from '../feedback/AirNotification'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
-import { AirAbstractService } from '../base/AirAbstractBaseService'
+import { AirAbstractService } from '../base/AirAbstractService'
 
 /**
  * # 表单验证工具

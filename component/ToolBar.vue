@@ -249,7 +249,7 @@ import { getClassName } from '../decorator/Custom'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
-import { AirAbstractService } from '../base/AirAbstractBaseService'
+import { AirAbstractService } from '../base/AirAbstractService'
 import { IJson } from '../interface/IJson'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
