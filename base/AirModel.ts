@@ -92,7 +92,7 @@ export class AirModel {
       }
 
       const func = getToJson(this, key)
-      if (func === null) {
+      if (func === undefined) {
         if (payloadAlias !== key) {
           delete result[key]
         }
@@ -194,7 +194,7 @@ export class AirModel {
       }
 
       const func = getToModel(instance, key)
-      if (func === null) {
+      if (func === undefined) {
         // eslint-disable-next-line no-continue
         continue
       }
