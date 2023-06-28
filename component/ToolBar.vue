@@ -169,6 +169,24 @@
                             />
                           </template>
                         </el-select>
+
+                        <el-select
+                          v-else-if="getEnumRecord(entityInstance, item.key)"
+                          v-model="filter[item.key]"
+                          :placeholder="'请选择' + item.label + '...'"
+                          clearable
+                          :filterable="item.filterable"
+                          @clear=" filter[item.key] = undefined"
+                        >
+                          <template v-for=" enumItem of getEnumRecord(entityInstance, item.key) ">
+                            <el-option
+                              v-if="!enumItem.disabled"
+                              :key="(enumItem.key as string)"
+                              :value="enumItem.key"
+                              :label="enumItem.label"
+                            />
+                          </template>
+                        </el-select>
                         <el-input-number
                           v-else-if="item.dataType === AirSearchDataType.NUMBER"
                           v-model.number="filter[item.key]"
@@ -248,6 +266,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { AirAbstractService } from '../base/AirAbstractService'
 import { IJson } from '../interface/IJson'
+import { getEnumRecord } from '../decorator/Custom'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 

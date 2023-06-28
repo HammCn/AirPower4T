@@ -35,7 +35,7 @@
         @keydown="inputKeyDown"
       />
     </template>
-    <template v-else-if="fieldConfig && fieldConfig.enumRecord || list">
+    <template v-else-if="enumRecord || (fieldConfig && fieldConfig.enumRecord) || list">
       <el-switch
         v-if="fieldConfig?.isSwitch"
         v-model="value"
@@ -44,11 +44,11 @@
           '--el-switch-on-color': getSwitchColor('on'),
           '--el-switch-off-color': getSwitchColor('off')
         }"
-        :active-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
+        :active-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.enumRecord || enumRecord)?.find(
           item => item.key === true
         )?.label
           || ''"
-        :inactive-text="!fieldConfig.hideSwitchLabel && fieldConfig?.enumRecord?.find(
+        :inactive-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.enumRecord || enumRecord)?.find(
           item => item.key === false
         )?.label
           || ''"
@@ -71,7 +71,7 @@
         </template>
         <template v-else>
           <el-radio-button
-            v-for="item in fieldConfig.enumRecord"
+            v-for="item in (fieldConfig.enumRecord || enumRecord)"
             :key="item.key"
             :label="item.key"
           >
@@ -96,7 +96,7 @@
         </template>
         <template v-else>
           <el-radio
-            v-for="item in fieldConfig.enumRecord"
+            v-for="item in (fieldConfig.enumRecord || enumRecord)"
             :key="item.key"
             :label="item.key"
           >
@@ -127,6 +127,15 @@
         <template v-if="list">
           <el-option
             v-for="item in list"
+            :key="(item.key as string)"
+            :label="item.label"
+            :value="item.key"
+            :disabled="item.disabled"
+          />
+        </template>
+        <template v-else-if="enumRecord">
+          <el-option
+            v-for="item in enumRecord"
             :key="(item.key as string)"
             :label="item.label"
             :value="item.key"
@@ -228,6 +237,9 @@ import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { AirEntity } from '../base/AirEntity'
+import { getEnumRecord } from '../decorator/Custom'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
@@ -338,6 +350,16 @@ const props = defineProps({
 })
 
 /**
+ * # 实体的实例
+ */
+const entityInstance = computed(() => {
+  if (props.entity) {
+    return AirClassTransformer.parse({}, props.entity)
+  }
+  return new AirEntity()
+})
+
+/**
  * 是否显示清空按钮
  */
 const isClearButtonShow = ref(props.showClear)
@@ -356,6 +378,21 @@ const value: Ref<string | number | boolean | Array<unknown> | IJson | undefined>
  * 字段的表单配置信息
  */
 const fieldConfig: Ref<AirFormFieldConfig | null> = ref(null)
+
+/**
+ * # 字段名称
+ */
+const fieldName = ref('')
+
+/**
+ * 枚举数据
+ */
+const enumRecord = computed(() => {
+  if (props.entity && fieldName.value) {
+    return getEnumRecord(entityInstance.value, fieldName.value)
+  }
+  return undefined
+})
 
 /**
  * 值变化同步
@@ -403,7 +440,14 @@ function getSwitchColor(status: 'on' | 'off') {
   if (fieldConfig.value?.disableSwitchColor) {
     return ''
   }
-  return fieldConfig.value?.enumRecord?.find((item) => item.key === (status === 'on'))?.color || ''
+  if (fieldConfig.value?.enumRecord) {
+    return fieldConfig.value?.enumRecord.find((item) => item.key === (status === 'on'))?.color || ''
+  }
+
+  if (enumRecord.value) {
+    return enumRecord.value.find((item) => item.key === (status === 'on'))?.color || ''
+  }
+  return ''
 }
 
 /**
@@ -568,7 +612,6 @@ watch(value, () => {
  * 初始化
  */
 function init() {
-  const fieldName = ref('')
   if (props.modifier) {
     // 如传入了自定义的modifier 则优先使用
     fieldName.value = props.modifier
@@ -581,19 +624,18 @@ function init() {
 
   // 初始化配置信息
   if (props.entity && fieldName.value) {
-    fieldConfig.value = (props.entity.prototype as AirModel)
-      .getCustomFormFieldConfig(fieldName.value)
+    fieldConfig.value = entityInstance.value.getCustomFormFieldConfig(fieldName.value)
 
     if (!placeholderRef.value) {
       const field = fieldConfig.value?.label
-        || (props.entity.prototype as AirModel).getCustomFieldName(fieldName.value)
+        || entityInstance.value.getCustomFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
       if (fieldConfig.value) {
         // 装饰了FormField
         if (
-          fieldConfig.value.enumRecord
+          enumRecord.value || fieldConfig.value.enumRecord
           || props.list
           || props.tree
           || fieldConfig.value.dateType !== undefined

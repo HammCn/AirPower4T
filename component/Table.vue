@@ -61,7 +61,7 @@
             >
               <!-- 自动读取枚举 -->
               <div
-                v-if="item.enumRecord"
+                v-if="item.enumRecord || getEnumRecord(entityInstance, item.key)"
                 class="status"
               >
                 <!-- 显示状态灯 -->
@@ -70,10 +70,12 @@
                   class="light"
                   :style="{
                     backgroundColor:
-                      item.enumRecord.getColor((scope as any).row[item.key], AirColor.NORMAL)
+                      (item.enumRecord || getEnumRecord(entityInstance, item.key) || []).getColor((scope as any).row[item.key], AirColor.NORMAL)
                   }"
                 />
-                {{ item.enumRecord.getLabel((scope as any).row[item.key], item.emptyValue) }}
+                {{ (item.enumRecord || getEnumRecord(entityInstance, item.key) || []).getLabel((scope as
+                                                                                                 any).row[item.key],
+                                                                                               item.emptyValue) }}
               </div>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
@@ -300,6 +302,7 @@ import { ITree } from '../interface/ITree'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { getEnumRecord } from '../decorator/Custom'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
