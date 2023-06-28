@@ -6,42 +6,61 @@
  */
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
+import { IJson } from '../interface/IJson'
 import { getFieldName } from './Custom'
 
 /**
  * # 表单字段key
  */
-const formFieldMetaKey = '__form_field_'
+const FIELD_CONFIG_KEY = '__form_field_'
 
 /**
  * # 表单字段列表key
  */
-const formFieldListMetaKey = '__form_field_list__'
+const FIELD_CONFIG_LIST_KEY = '__form_field_list__'
 
 /**
  * # 标记该字段可用于表单配置
- * @param formFieldConfig [可选]配置项
+ * @param fieldConfig [可选]配置项
  */
-export const FormField = (formFieldConfig?: IFormFieldConfig) => (target: any, key: string) => {
-  if (!formFieldConfig) {
-    formFieldConfig = new AirFormFieldConfig()
+export const FormField = (fieldConfig?: IFormFieldConfig) => (target: any, key: string) => {
+  if (!fieldConfig) {
+    fieldConfig = new AirFormFieldConfig()
   }
-  formFieldConfig.key = key
-  const list: string[] = target[formFieldListMetaKey] || []
+  fieldConfig.key = key
+  const list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   list.push(key)
 
-  Object.defineProperty(target, formFieldListMetaKey, {
+  Object.defineProperty(target, FIELD_CONFIG_LIST_KEY, {
     enumerable: false,
     value: list,
     writable: false,
     configurable: false,
   })
-  Object.defineProperty(target, `${formFieldMetaKey + key}`, {
+  Object.defineProperty(target, `${FIELD_CONFIG_KEY + key}`, {
     enumerable: false,
-    value: formFieldConfig,
+    value: fieldConfig,
     writable: false,
     configurable: false,
   })
+}
+
+/**
+ * # 递归获取配置项的值
+ * @param target 目标类
+ * @param fieldKey 字段
+ * @param configKey 配置key
+ */
+function getFieldConfigValue(target: any, fieldKey: string, configKey: string) {
+  const fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
+  if (fieldConfig && fieldConfig[configKey] !== undefined) {
+    return fieldConfig[configKey]
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getFieldConfigValue(superClass, fieldKey, configKey)
 }
 
 /**
@@ -51,24 +70,28 @@ export const FormField = (formFieldConfig?: IFormFieldConfig) => (target: any, k
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldConfig | null {
-  let formFieldConfig = target[formFieldMetaKey + fieldKey]
+  let fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
 
-  if (formFieldConfig === undefined) {
+  if (fieldConfig === undefined) {
     // 没有查询到配置
     const superClass = Object.getPrototypeOf(target)
     if (superClass.name === 'AirModel') {
       return null
     }
-    formFieldConfig = getFormFieldConfig(superClass, fieldKey)
+    fieldConfig = getFormFieldConfig(superClass, fieldKey)
   }
-  if (!formFieldConfig) {
+  if (!fieldConfig) {
     // 一直遍历到AirModel都没找到
     return null
   }
-  if (!formFieldConfig.label || formFieldConfig.label === formFieldConfig.key) {
-    formFieldConfig.label = getFieldName(target, fieldKey)
+  if (!fieldConfig.label || fieldConfig.label === fieldConfig.key) {
+    fieldConfig.label = getFieldName(target, fieldKey)
   }
-  return Object.assign(new AirFormFieldConfig(), formFieldConfig)
+
+  Object.keys(new AirFormFieldConfig()).forEach((key) => {
+    fieldConfig[key] = getFieldConfigValue(target, fieldKey, key)
+  })
+  return Object.assign(new AirFormFieldConfig(), fieldConfig)
 }
 
 /**
@@ -76,7 +99,7 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
  * @param target 目标对象
  */
 export function getCustomFormFieldNameList(target: any): string[] {
-  let list: string[] = target[formFieldListMetaKey] || []
+  let list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name !== 'AirModel') {
     list = list.concat(getCustomFormFieldNameList(superClass))
@@ -95,15 +118,20 @@ export function getCustomFormFieldList(target: any, fieldNameList: string[]) {
     fieldNameList = getCustomFormFieldNameList(target)
   }
   const keyList = []
-  const list: AirFormFieldConfig[] = []
+  const fieldConfigList: AirFormFieldConfig[] = []
   for (const fieldName of fieldNameList) {
     if (keyList.indexOf(fieldName) < 0) {
       const config = getFormFieldConfig(target, fieldName)
       if (config) {
         keyList.push(config.key)
-        list.push(config)
+        const defaultConfig = new AirFormFieldConfig()
+        const result: IJson = {}
+        Object.keys({ ...defaultConfig, ...config }).forEach((key) => {
+          result[key] = (config as IJson)[key] || (defaultConfig as IJson)[key]
+        })
+        fieldConfigList.push(result as AirFormFieldConfig)
       }
     }
   }
-  return list
+  return fieldConfigList.sort((a, b) => b.orderNumber - a.orderNumber)
 }

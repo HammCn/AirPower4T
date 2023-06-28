@@ -326,9 +326,7 @@ export class AirModel {
    * @deprecated
    */
   getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
-    const configList = getCustomTableFieldList(this, fieldNameList)
-    configList.sort((a, b) => b.orderNumber - a.orderNumber)
-    return configList
+    return getCustomTableFieldList(this, fieldNameList)
   }
 
   /**
@@ -336,9 +334,7 @@ export class AirModel {
    * @deprecated
    */
   getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
-    const configList = getCustomFormFieldList(this, fieldNameList)
-    configList.sort((a, b) => b.orderNumber - a.orderNumber)
-    return configList
+    return getCustomFormFieldList(this, fieldNameList)
   }
 
   /**

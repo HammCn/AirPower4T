@@ -5,42 +5,61 @@
  * @author Hamm
  */
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
+import { IJson } from '../interface/IJson'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
 import { getFieldName } from './Custom'
 
 /**
  * # 表格字段key
  */
-const tableFieldMetaKey = '__table_field_'
+const FIELD_CONFIG_KEY = '__table_field_'
 
 /**
  * # 表格字段列表key
  */
-const tableFieldListMetaKey = '__table_field_list__'
+const FIELD_CONFIG_LIST_KEY = '__table_field_list__'
 
 /**
  * # 为属性标记是表格字段
- * @param tableFieldConfig [可选]表格列的配置
+ * @param fieldConfig [可选]表格列的配置
  */
-export const TableField = (tableFieldConfig?: ITableFieldConfig) => (target: any, key: string) => {
-  if (!tableFieldConfig) {
-    tableFieldConfig = new AirTableFieldConfig()
+export const TableField = (fieldConfig?: ITableFieldConfig) => (target: any, key: string) => {
+  if (!fieldConfig) {
+    fieldConfig = {}
   }
-  tableFieldConfig.key = key
-  const list: string[] = target[tableFieldListMetaKey] || []
+  fieldConfig.key = key
+  const list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   list.push(key)
-  Object.defineProperty(target, tableFieldListMetaKey, {
+  Object.defineProperty(target, FIELD_CONFIG_LIST_KEY, {
     enumerable: false,
     value: list,
     writable: false,
     configurable: false,
   })
-  Object.defineProperty(target, `${tableFieldMetaKey + key}`, {
+  Object.defineProperty(target, `${FIELD_CONFIG_KEY + key}`, {
     enumerable: false,
-    value: tableFieldConfig,
+    value: fieldConfig,
     writable: false,
     configurable: false,
   })
+}
+
+/**
+ * # 递归获取配置项的值
+ * @param target 目标类
+ * @param fieldKey 字段
+ * @param configKey 配置key
+ */
+function getFieldConfigValue(target: any, fieldKey: string, configKey: string) {
+  const fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
+  if (fieldConfig && fieldConfig[configKey] !== undefined) {
+    return fieldConfig[configKey]
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getFieldConfigValue(superClass, fieldKey, configKey)
 }
 
 /**
@@ -50,24 +69,27 @@ export const TableField = (tableFieldConfig?: ITableFieldConfig) => (target: any
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getTableFieldConfig(target: any, fieldKey: string): AirTableFieldConfig | null {
-  let tableFieldConfig = target[tableFieldMetaKey + fieldKey]
-  if (!tableFieldConfig) {
+  let fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
+  if (!fieldConfig) {
     // 没有查询到配置
     const superClass = Object.getPrototypeOf(target)
     if (superClass.constructor.name === 'AirModel') {
       return null
     }
-    tableFieldConfig = getTableFieldConfig(superClass, fieldKey)
+    fieldConfig = getTableFieldConfig(superClass, fieldKey)
   }
-  if (!tableFieldConfig) {
+  if (!fieldConfig) {
     // 一直遍历到AirModel都没找到
     return null
   }
-  if (!tableFieldConfig.label || tableFieldConfig.label === tableFieldConfig.key) {
-    tableFieldConfig.label = getFieldName(target, fieldKey)
+  if (!fieldConfig.label || fieldConfig.label === fieldConfig.key) {
+    fieldConfig.label = getFieldName(target, fieldKey)
   }
+  Object.keys(new AirTableFieldConfig()).forEach((key) => {
+    fieldConfig[key] = getFieldConfigValue(target, fieldKey, key)
+  })
 
-  return Object.assign(new AirTableFieldConfig(), tableFieldConfig)
+  return fieldConfig
 }
 
 /**
@@ -75,7 +97,7 @@ export function getTableFieldConfig(target: any, fieldKey: string): AirTableFiel
  * @param target 目标对象
  */
 export function getCustomTableFieldNameList(target: any): string[] {
-  let list: string[] = target[tableFieldListMetaKey] || []
+  let list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name !== 'AirModel') {
     list = list.concat(getCustomTableFieldNameList(superClass))
@@ -89,7 +111,7 @@ export function getCustomTableFieldNameList(target: any): string[] {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getCustomTableFieldList(target: any, fieldNameList: string[]) {
-  const tableFieldConfigList: AirTableFieldConfig[] = []
+  const fieldConfigList: AirTableFieldConfig[] = []
   const keyList = []
   if (fieldNameList.length === 0) {
     fieldNameList = getCustomTableFieldNameList(target)
@@ -99,9 +121,14 @@ export function getCustomTableFieldList(target: any, fieldNameList: string[]) {
       const config = getTableFieldConfig(target, fieldName)
       if (config) {
         keyList.push(config.key)
-        tableFieldConfigList.push(config)
+        const defaultConfig = new AirTableFieldConfig()
+        const result: IJson = {}
+        Object.keys({ ...defaultConfig, ...config }).forEach((key) => {
+          result[key] = (config as IJson)[key] || (defaultConfig as IJson)[key]
+        })
+        fieldConfigList.push(result as AirTableFieldConfig)
       }
     }
   }
-  return tableFieldConfigList
+  return fieldConfigList.sort((a, b) => b.orderNumber - a.orderNumber)
 }
