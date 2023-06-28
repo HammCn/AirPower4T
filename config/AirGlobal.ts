@@ -65,8 +65,6 @@ document.onkeydown = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
     AirStore().escKeyDown = true
   }
-  // eslint-disable-next-line no-console
-  console.log(e.key)
 }
 
 document.onkeyup = (e: KeyboardEvent) => {
