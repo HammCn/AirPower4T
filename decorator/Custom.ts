@@ -3,7 +3,6 @@
  * # 自定义类和属性名注解
  * @author Hamm
  */
-import { AirModel } from '../base/AirModel'
 import { IRecord } from '../interface/IRecord'
 import { ClassConstructor } from '../type/ClassConstructor'
 
@@ -30,7 +29,15 @@ export function EnumRecord(record: IRecord[]) {
  * @param fieldKey 属性名
  */
 export function getEnumRecord(target: any, fieldKey: string): IRecord[] | undefined {
-  return target[ENUM_RECORD_PREFIX + fieldKey]
+  const config = target[ENUM_RECORD_PREFIX + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getEnumRecord(superClass, fieldKey)
 }
 
 const TYPE_PREFIX = '__class_'
@@ -55,8 +62,16 @@ export function Type(clazz: any) {
  * @param target 目标类
  * @param fieldKey 属性名
  */
-export function getType(target: any, fieldKey: string): ClassConstructor<unknown> | null {
-  return target[TYPE_PREFIX + fieldKey]
+export function getType(target: any, fieldKey: string): ClassConstructor<unknown> | undefined {
+  const config = target[TYPE_PREFIX + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getType(superClass, fieldKey)
 }
 
 const TO_JSON_FUNCTION = '__to_json_function_'
@@ -83,8 +98,16 @@ export function ToJson(func: Function) {
  * @param fieldKey 属性名
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function getToJson(target: any, fieldKey: string): Function | null {
-  return target[TO_JSON_FUNCTION + fieldKey] || null
+export function getToJson(target: any, fieldKey: string): Function | undefined {
+  const config = target[TO_JSON_FUNCTION + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getToJson(superClass, fieldKey)
 }
 
 const TO_MODEL_FUNCTION = '__to_model_function_'
@@ -111,8 +134,16 @@ export function ToModel(func: Function) {
  * @param fieldKey 属性名
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function getToModel(target: any, fieldKey: string): Function | null {
-  return target[TO_MODEL_FUNCTION + fieldKey] || null
+export function getToModel(target: any, fieldKey: string): Function | undefined {
+  const config = target[TO_MODEL_FUNCTION + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getToModel(superClass, fieldKey)
 }
 
 const DEFAULT_VALUE_PREFIX = '__default_value_'
@@ -151,7 +182,15 @@ export function Default(value: any) {
  * @param fieldKey 属性名
  */
 export function getDefault(target: any, fieldKey: string): any {
-  return target[DEFAULT_VALUE_PREFIX + fieldKey]
+  const config = target[DEFAULT_VALUE_PREFIX + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getDefault(superClass, fieldKey)
 }
 
 const IS_ARRAY_PREFIX = '__is_array_'
@@ -178,7 +217,15 @@ export function IsArray() {
  * @param fieldKey 属性名
  */
 export function getIsArray(target: any, fieldKey: string): boolean {
-  return !!target[IS_ARRAY_PREFIX + fieldKey] || false
+  const config = target[IS_ARRAY_PREFIX + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return false
+  }
+  return getIsArray(superClass, fieldKey)
 }
 
 const CLASS_NAME_PREFIX = '__class_name__'
@@ -204,7 +251,16 @@ export function ClassName(className: string) {
  * @param target 目标类
  */
 export function getClassName(target: any): string {
-  return target[CLASS_NAME_PREFIX] || target.prototype[CLASS_NAME_PREFIX] || target.name
+  const className = target[CLASS_NAME_PREFIX]
+  if (className) {
+    return className
+  }
+
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return ''
+  }
+  return getClassName(superClass)
 }
 
 const FIELD_NAME_PREFIX = '__field_name_'
@@ -230,16 +286,15 @@ export function FieldName(fieldName: string) {
  * @param fieldKey 属性名
  */
 export function getFieldName(target: any, fieldKey: string): string {
-  let fieldName = target[FIELD_NAME_PREFIX + fieldKey]
+  const fieldName = target[FIELD_NAME_PREFIX + fieldKey]
   if (fieldName) {
     return fieldName
   }
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AirModel.name) {
+  if (superClass.constructor.name === 'AirModel') {
     return fieldKey
   }
-  fieldName = getFieldName(superClass, fieldKey)
-  return fieldName
+  return getFieldName(superClass, fieldKey)
 }
 
 const FIELD_IGNORE_PREFIX = '__field_ignore_prefix_'
@@ -263,8 +318,16 @@ export function IgnorePrefix() {
  * @param target 目标类
  * @param fieldKey 属性名称
  */
-export function getIgnorePrefix(target: any, fieldKey: string): string {
-  return target[FIELD_IGNORE_PREFIX + fieldKey] || false
+export function getIgnorePrefix(target: any, fieldKey: string): boolean {
+  const config = target[FIELD_IGNORE_PREFIX + fieldKey]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return false
+  }
+  return getIgnorePrefix(superClass, fieldKey)
 }
 
 const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
@@ -289,7 +352,15 @@ export function FieldPrefix(prefix: string) {
  * @param target 目标类
  */
 export function getFieldPrefix(target: any): string {
-  return target[CLASS_FIELD_ALIAS_PREFIX] || ''
+  const config = target[CLASS_FIELD_ALIAS_PREFIX]
+  if (config !== undefined) {
+    return config
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return ''
+  }
+  return getFieldPrefix(superClass)
 }
 
 const ALIAS_PREFIX = '__alias_'
@@ -315,14 +386,13 @@ export function Alias(alias: string) {
  * @param fieldKey 属性名
  */
 export function getAlias(target: any, fieldKey: string): string {
-  let fieldName = target[ALIAS_PREFIX + fieldKey]
+  const fieldName = target[ALIAS_PREFIX + fieldKey]
   if (fieldName) {
     return fieldName
   }
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AirModel.name) {
+  if (superClass.constructor.name === 'AirModel') {
     return fieldKey
   }
-  fieldName = getAlias(superClass, fieldKey)
-  return fieldName
+  return getAlias(superClass, fieldKey)
 }
