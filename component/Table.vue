@@ -286,7 +286,6 @@ import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { ITreeProps } from '../interface/ITreeProps'
-import { AirEntityConfig } from '../config/AirEntityConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirTableInstance } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
@@ -298,9 +297,9 @@ import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
 import { AirEntity } from '../base/AirEntity'
 import { ITree } from '../interface/ITree'
-import { getClassName } from '../decorator/Custom'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirStore } from '../store/AirStore'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
@@ -540,6 +539,21 @@ const props = defineProps({
   },
 })
 
+/**
+ * # Entity的实例
+ */
+const entityInstance = computed(() => {
+  if (props.entity) {
+    try {
+      return AirClassTransformer.newInstance(props.entity)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('ATable创建实例失败', e)
+    }
+  }
+  return new AirEntity()
+})
+
 const showCover = ref(false)
 
 /**
@@ -571,13 +585,13 @@ const selectedFieldList = ref([] as string[])
 /**
  * 内部使用的配置
  */
-let entityConfig: AirEntityConfig = new AirEntityConfig()
+const entityConfig = computed(() => getEntityConfig(entityInstance.value))
 
 /**
  * 字段选择器是否启用
  */
 const isFieldSelectorEnabled = computed(() => {
-  if (entityConfig.hideFieldSelector) {
+  if (entityConfig.value.hideFieldSelector) {
     // 全局标记了隐藏
     return false
   }
@@ -594,9 +608,7 @@ const allFieldList = computed(() => {
     // 过滤没有隐藏且没有移除的列
     return props.fieldList.filter((item) => !item.removed)
   }
-  return (props.entity.prototype as AirEntity)
-    .getTableFieldConfigList()
-    .filter((item) => !item.removed) || []
+  return entityInstance.value.getTableFieldConfigList().filter((item) => !item.removed) || []
 })
 
 /**
@@ -608,7 +620,7 @@ function updateSelectedFieldList() {
     (item) => !item.removed && !item.hide,
   ).map((item) => item.key)
 
-  const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appId}_${props.entity.name}`) || '[]')
+  const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appId}_${entityInstance.value.constructor.name}`) || '[]')
   if (fieldListCache.length > 0 && !props.hideFieldSelector) {
     selectedFieldList.value = fieldListCache
   }
@@ -633,12 +645,11 @@ function fieldSelectChanged(status: boolean, config: AirTableFieldConfig) {
     selectedFieldList.value.push(config.key)
   }
 
-  localStorage.setItem(`field_list_of_${AirConfig.appId}_${props.entity.name}`, JSON.stringify(selectedFieldList.value))
+  localStorage.setItem(`field_list_of_${AirConfig.appId}_${entityInstance.value.constructor.name}`, JSON.stringify(selectedFieldList.value))
 }
 
 // 初始化
 function init() {
-  entityConfig = getEntityConfig(props.entity)
   // 初始更新
   updateSelectedFieldList()
 }
@@ -798,7 +809,7 @@ async function handleDelete(item: AirEntity) {
       let content = '是否确认删除当前选中的数据？'
       // 如果实体传入 则尝试自动获取
 
-      const entityName = getClassName(props.entity.prototype)
+      const entityName = entityInstance.value.getCustomClassName()
       title = '删除提醒'
       content = `是否确认删除当前选中的${entityName}？`
 

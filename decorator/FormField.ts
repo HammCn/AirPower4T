@@ -4,7 +4,6 @@
  * # 表单字段的注解
  * @author Hamm
  */
-import { AirModel } from '../base/AirModel'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
 import { getFieldName } from './Custom'
@@ -57,7 +56,7 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
   if (formFieldConfig === undefined) {
     // 没有查询到配置
     const superClass = Object.getPrototypeOf(target)
-    if (superClass.name === AirModel.name) {
+    if (superClass.name === 'AirModel') {
       return null
     }
     formFieldConfig = getFormFieldConfig(superClass, fieldKey)
@@ -79,7 +78,7 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
 export function getCustomFormFieldNameList(target: any): string[] {
   let list: string[] = target[formFieldListMetaKey] || []
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name !== AirModel.name) {
+  if (superClass.constructor.name !== 'AirModel') {
     list = list.concat(getCustomFormFieldNameList(superClass))
   }
   return list

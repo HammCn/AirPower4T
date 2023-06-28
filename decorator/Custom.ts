@@ -3,7 +3,6 @@
  * # 自定义类和属性名注解
  * @author Hamm
  */
-import { AirModel } from '../base/AirModel'
 import { IRecord } from '../interface/IRecord'
 import { ClassConstructor } from '../type/ClassConstructor'
 
@@ -204,7 +203,16 @@ export function ClassName(className: string) {
  * @param target 目标类
  */
 export function getClassName(target: any): string {
-  return target[CLASS_NAME_PREFIX] || target.prototype[CLASS_NAME_PREFIX] || target.name
+  const className = target[CLASS_NAME_PREFIX]
+  if (className) {
+    return className
+  }
+
+  const superClass = Object.getPrototypeOf(target)
+  if (superClass.constructor.name === 'AirModel') {
+    return ''
+  }
+  return getClassName(superClass)
 }
 
 const FIELD_NAME_PREFIX = '__field_name_'
@@ -235,7 +243,7 @@ export function getFieldName(target: any, fieldKey: string): string {
     return fieldName
   }
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AirModel.name) {
+  if (superClass.constructor.name === 'AirModel') {
     return fieldKey
   }
   fieldName = getFieldName(superClass, fieldKey)
@@ -320,7 +328,7 @@ export function getAlias(target: any, fieldKey: string): string {
     return fieldName
   }
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AirModel.name) {
+  if (superClass.constructor.name === 'AirModel') {
     return fieldKey
   }
   fieldName = getAlias(superClass, fieldKey)

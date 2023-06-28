@@ -22,51 +22,57 @@ import { IJson } from '../interface/IJson'
 export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   /**
    * # API目录地址
+   * ---
+   * ### 💡 一般对应后端的分组/控制器/目录等
    */
   abstract baseUrl: string
 
   /**
    * # 为基类提供当前的实体类
+   * ---
+   * ### 💡 请求时会通过这个类进行数据转换
    */
   abstract entityClass: ClassConstructor<E>
 
   /**
    * # Loading的ref对象
+   * ---
+   * ### 💡 你可以将这个传入的对象绑定到你需要Loading的DOM上
    */
   protected loading!: Ref<boolean>
 
   /**
-   * # 分页查询API地址的URL
+   * # 分页查询API地址的默认URL
    */
   protected urlForGetPage = 'getPage'
 
   /**
-   * # 不分页查询API地址的URL
+   * # 不分页查询API地址的默认URL
    */
   protected urlForGetList = 'getList'
 
   /**
-   * # 不分页树查询API地址的URL
+   * # 不分页树查询API地址的默认URL
    */
   protected urlForGetTreeList = 'getTreeList'
 
   /**
-   * # 查询详情API地址的URL
+   * # 查询详情API地址的默认URL
    */
   protected urlForGetDetail = 'getDetail'
 
   /**
-   * # 添加API地址的URL
+   * # 添加API地址的默认URL
    */
   protected urlForAdd = 'add'
 
   /**
-   * # 修改API地址的URL
+   * # 修改API地址的默认URL
    */
   protected urlForUpdate = 'update'
 
   /**
-   * # 删除API地址的URL
+   * # 删除API地址的默认URL
    */
   protected urlForDelete = 'delete'
 

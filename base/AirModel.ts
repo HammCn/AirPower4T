@@ -21,7 +21,7 @@ export class AirModel {
    * ### 💡 相同字段才会覆盖上去
    * @param obj 覆盖对象
    */
-  recoverBy(obj: any): this {
+  recoverBy(obj: IJson | AirModel): this {
     return Object.assign(this, obj)
   }
 
@@ -64,6 +64,8 @@ export class AirModel {
 
   /**
    * # 转换到JSON
+   * ---
+   * ### 💡 会自动进行数据别名转换
    */
   toJson(): IJson {
     const keys = Object.keys(this)
@@ -112,6 +114,8 @@ export class AirModel {
 
   /**
    * # 从JSON转换到当前类的对象
+   * ---
+   * ### 💡 会自动进行数据别名转换
    * @param json JSON
    */
   static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
@@ -121,6 +125,8 @@ export class AirModel {
 
   /**
    * # 从JSON数组转换到当前类的对象数组
+   * ---
+   * ### 💡 会自动进行数据别名转换
    * @param jsonArray JSON数组
    */
   static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
@@ -139,6 +145,8 @@ export class AirModel {
 
   /**
    * # 转换JSON为实体
+   * ---
+   * ### 💡 会自动进行数据别名转换
    * @param instance 实体
    * @param json JSON
    */

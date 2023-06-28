@@ -31,17 +31,22 @@ export class AirConfig {
 
   /**
    * # AppID
-   * 用于处理一些唯一场景做项目区分
+   * ---
+   * ### 💡 用于处理一些唯一场景做项目区分
    */
   static appId = 'airpower'
 
   /**
    * # 项目名称
+   * ---
+   * ### 💡 会显示在浏览器标题上
    */
   static product = '你的项目名称'
 
   /**
    * # 😠超时时间 毫秒
+   * ---
+   * ### 💡 超时后请求会自动断开并抛出异常
    */
   static timeout = 5000
 
@@ -72,7 +77,8 @@ export class AirConfig {
 
   /**
    * # AccessToken对应的Key
-   * 缓存的名称和Api传输的Header都叫这个名字
+   * ---
+   * ### 💡 缓存的名称和Api传输的Header都叫这个名字
    */
   static accessTokenKey = 'Authorization'
 
@@ -156,7 +162,8 @@ export class AirConfig {
 
   /**
    * # 默认的格式化时间
-   * 如设置,则未格式化方式的地方将默认使用此方式
+   * ---
+   * ### 💡 如设置,则手动未格式化方式的地方将默认使用此方式
    * ```
    * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
    * ```
@@ -175,55 +182,64 @@ export class AirConfig {
 
   /**
    * # 弹窗是否默认显示全屏按钮(默认true)
-   * 此项仅为默认, 如手动传入, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如手动传入, 此项将无效
    */
   static defaultDialogFullable = true
 
   /**
    * # 弹窗是否默认隐藏取消按钮(默认false)
-   * 此项仅为默认, 如手动传入, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如手动传入, 此项将无效
    */
   static defaultDialogHideCancel = true
 
   /**
    * # 普通文本输入是否默认显示长度限制标签(默认false)
-   * 此项仅为默认, 如在装饰器中配置, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如在装饰器中配置, 此项将无效
    */
   static defaultInputShowLimit = false
 
   /**
    * # TextArea是否默认显示长度限制标签(默认true)
-   * 此项仅为默认, 如在装饰器中配置, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如在装饰器中配置, 此项将无效
    */
   static defaultTextAreaShowLimit = true
 
   /**
    * # 是否默认隐藏高级搜索(默认false)
-   * 此项仅为默认, 如手动传入, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如手动传入, 此项将无效
    */
   static defaultHideAdvanceSearch = false
 
   /**
    * # 普通关键词搜索的提示文本
-   * 此项仅为默认, 如手动传入, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如手动传入, 此项将无效
    */
   static defaultKeywordSearchPlaceholder = '请输入关键词搜索...'
 
   /**
    * # 分页组件默认使用的页码列表
-   * 此项仅为默认, 如手动传入, 此项将无效
+   * ---
+   * ### 💡 此项仅为默认, 如手动传入, 此项将无效
    */
   static defaultPageSizes = [20, 30, 50]
 
   /**
    * # 默认的表格空数据兜底字符串
-   * \@TableField 装饰器中可以单独配置 ```emptyValue```,
+   * ---
+   * ### 💡 ```@TableField``` 装饰器中可以单独配置 ```emptyValue```,
    */
   static defaultTableEmptyValue = '-'
 
   /**
    * # 默认的表格数组显示分割字符
-   * \@TableField 装饰器中可以单独配置 ```arraySplitor```,
+   * ---
+   * ### 💡 ```@TableField``` 装饰器中可以单独配置 ```arraySplitor```,
    */
   static defaultArraySplitor = ','
 
@@ -236,7 +252,7 @@ export class AirConfig {
    * # 默认的导入数据的URL
    *
    * ---
-   * #### 😈 请注意 不包含 ```baseUrl``` 和 ```apiRoot```
+   * ### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
    *
    * ---
    * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultImportUrl```
@@ -247,7 +263,7 @@ export class AirConfig {
    * # 默认下载导入模板的URL
    *
    * ---
-   * #### 😈 请注意 不包含 ```baseUrl``` 和 ```apiRoot```
+   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
    *
    * ---
    * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultTemplateUrl```
@@ -258,7 +274,7 @@ export class AirConfig {
    * # 默认同步导出URL
    *
    * ---
-   * #### 😈 请注意 不包含 ```baseUrl``` 和 ```apiRoot```
+   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
    *
    * ---
    * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultExportSyncUrl```
@@ -269,7 +285,7 @@ export class AirConfig {
    * # 默认异步导出URL
    *
    * ---
-   * #### 😈 请注意 不包含 ```baseUrl``` 和 ```apiRoot```
+   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
    *
    * ---
    * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultExportAsyncUrl```
@@ -322,7 +338,7 @@ export class AirConfig {
   }
 
   /**
-   * # 创建路径
+   * # 创建Vue路由实例
    * @param routes 路由配置文件
    * @param ignoreGuard 不使用守卫
    */
@@ -368,9 +384,8 @@ export class AirConfig {
 
   /**
    * # 弹窗遮罩层是否可以关闭
-   *
    * ---
-   * 默认不允许遮罩层关闭 设置为 ```true``` 即允许遮罩层关闭
+   * ### 💡 默认不允许遮罩层关闭 设置为 ```true``` 即允许遮罩层关闭
    */
   static dialogHoverCloseEnabled = false
 }

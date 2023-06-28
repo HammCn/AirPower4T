@@ -11,6 +11,7 @@ import { IFile } from '../interface/IFile'
 import { AirRequest } from '../model/AirRequest'
 import { AirEntity } from '../base/AirEntity'
 import { IJson } from '../interface/IJson'
+import { AirStore } from '../store/AirStore'
 
 /**
  * # 弹窗助手类
@@ -55,6 +56,18 @@ export class AirDialog {
        * 创建App实例
        */
       app = createApp(view, dialogParam)
+
+      app.directive('tip', {
+        mounted(el, binding) {
+          el.addEventListener('mouseover', () => {
+            if (binding.value) {
+              AirStore().tooltipRef = el
+              AirStore().tooltip = binding.value
+            }
+          })
+        },
+      })
+
       app.use(ElementPlus, { locale: zhCn })
 
       // 注册全局组件

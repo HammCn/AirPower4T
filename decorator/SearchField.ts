@@ -6,7 +6,6 @@
  */
 import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirModel } from '../base/AirModel'
 import { getFieldName } from './Custom'
 
 /**
@@ -55,7 +54,7 @@ export function getSearchFieldConfig(target: any, fieldKey: string): AirSearchFi
   let searchFieldConfig = target[searchFieldMetaKey + fieldKey]
   if (searchFieldConfig === undefined) {
     const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name === AirModel.name) {
+    if (superClass.constructor.name === 'AirModel') {
       return null
     }
     searchFieldConfig = getSearchFieldConfig(superClass, fieldKey)
@@ -76,7 +75,7 @@ export function getSearchFieldConfig(target: any, fieldKey: string): AirSearchFi
 export function getCustomSearchFieldNameList(target: any): string[] {
   let list: string[] = target[searchFieldListMetaKey] || []
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name !== AirModel.name) {
+  if (superClass.constructor.name !== 'AirModel') {
     list = list.concat(getCustomSearchFieldNameList(superClass))
   }
   return list

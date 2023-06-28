@@ -4,6 +4,7 @@
  * # 搜索配置的注解
  * @author Hamm
  */
+import { AirEntity } from '../base/AirEntity'
 import { AirEntityConfig } from '../config/AirEntityConfig'
 import { IEntityConfig } from '../interface/IEntityConfig'
 
@@ -17,7 +18,7 @@ const entityConfigMetaKey = '__entity_config__'
  * @param config [可选]类的配置
  */
 export function EntityConfig(config?: IEntityConfig) {
-  return (target: any) => {
+  return (target: typeof AirEntity) => {
     if (!config) {
       config = new AirEntityConfig()
     }
@@ -32,9 +33,42 @@ export function EntityConfig(config?: IEntityConfig) {
 }
 
 /**
+ * # 递归获取配置的值
+ * @param target 目标类
+ * @param key 配置key
+ */
+function getEntityConfigValue(target: any, key: string) {
+  const entityConfig = target[entityConfigMetaKey]
+  if (entityConfig && entityConfig[key] !== undefined) {
+    return entityConfig[key]
+  }
+  const superClass = Object.getPrototypeOf(target)
+  if (!superClass || superClass.constructor.name === 'AirModel') {
+    return undefined
+  }
+  return getEntityConfigValue(superClass, key)
+}
+
+/**
  * # 获取类的配置
  * @param target 目标类
  */
 export function getEntityConfig(target: any): AirEntityConfig {
-  return Object.assign(new AirEntityConfig(), target[entityConfigMetaKey] || target.prototype[entityConfigMetaKey])
+  const entityConfig = target[entityConfigMetaKey]
+  if (!entityConfig) {
+    const superClass = Object.getPrototypeOf(target)
+    if (!superClass || superClass.constructor.name === 'AirModel') {
+      return {} as AirEntityConfig
+    }
+    return getEntityConfig(superClass)
+  }
+  const keys = Object.keys(new AirEntityConfig())
+  for (const key of keys) {
+    if ((entityConfig as any)[key] !== undefined) {
+      // eslint-disable-next-line no-continue
+      continue
+    }
+    (entityConfig as any)[key] = getEntityConfigValue(target, key)
+  }
+  return entityConfig
 }

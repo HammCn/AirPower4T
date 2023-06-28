@@ -4,7 +4,6 @@
  * # 表格字段的注解
  * @author Hamm
  */
-import { AirModel } from '../base/AirModel'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
 import { getFieldName } from './Custom'
@@ -55,7 +54,7 @@ export function getTableFieldConfig(target: any, fieldKey: string): AirTableFiel
   if (!tableFieldConfig) {
     // 没有查询到配置
     const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name === AirModel.name) {
+    if (superClass.constructor.name === 'AirModel') {
       return null
     }
     tableFieldConfig = getTableFieldConfig(superClass, fieldKey)
@@ -78,7 +77,7 @@ export function getTableFieldConfig(target: any, fieldKey: string): AirTableFiel
 export function getCustomTableFieldNameList(target: any): string[] {
   let list: string[] = target[tableFieldListMetaKey] || []
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name !== AirModel.name) {
+  if (superClass.constructor.name !== 'AirModel') {
     list = list.concat(getCustomTableFieldNameList(superClass))
   }
   return list

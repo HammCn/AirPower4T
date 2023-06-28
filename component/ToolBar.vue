@@ -230,7 +230,6 @@ import {
 } from 'vue'
 
 import { AButton } from '../component'
-import { AirEntityConfig } from '../config/AirEntityConfig'
 import { AirDialog } from '../helper/AirDialog'
 import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
@@ -244,8 +243,6 @@ import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
 import { IFile } from '../interface/IFile'
 import { AirEntity } from '../base/AirEntity'
-import { AirModel } from '../base/AirModel'
-import { getClassName } from '../decorator/Custom'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
@@ -450,6 +447,21 @@ const props = defineProps({
 })
 
 /**
+ * # Entity的实例
+ */
+const entityInstance = computed(() => {
+  if (props.entity) {
+    try {
+      return AirClassTransformer.newInstance(props.entity)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('AToolBar创建实体的实例失败')
+    }
+  }
+  return new AirEntity()
+})
+
+/**
  * 表单
  */
 const formRef = ref<AirFormInstance>()
@@ -467,7 +479,7 @@ const searchAnimation = ref('')
 /**
  * 内部使用的配置
  */
-let entityConfig: AirEntityConfig = new AirEntityConfig()
+const entityConfig = computed(() => getEntityConfig(entityInstance.value))
 
 /**
  * 高级搜索按钮标题
@@ -482,7 +494,8 @@ const request = ref(new AirRequestPage(props.entity))
 /**
  * 新增按钮的标题
  */
-const addTitle = computed(() => entityConfig.addTitle || (`新增${getClassName(props.entity)}`))
+// eslint-disable-next-line new-cap
+const addTitle = computed(() => entityConfig.value.addTitle || (`新增${entityInstance.value.getCustomClassName()}`))
 
 /**
  * 关键词搜索提示文字
@@ -491,7 +504,7 @@ const keywordSearchPlaceholder = computed(() => {
   if (props.searchPlaceholder) {
     return props.searchPlaceholder
   }
-  return entityConfig.keywordSearchPlaceholder
+  return entityConfig.value.keywordSearchPlaceholder
     || props.searchPlaceholder
     || AirConfig.defaultKeywordSearchPlaceholder
 })
@@ -500,7 +513,7 @@ const keywordSearchPlaceholder = computed(() => {
  * 是否显示关键词搜索
  */
 const isKeywordSearchEnabled = computed(() => {
-  if (entityConfig.hideKeywordSearch) {
+  if (entityConfig.value.hideKeywordSearch) {
     // entityConfig设置隐藏 则全局隐藏
     return false
   }
@@ -512,7 +525,7 @@ const isKeywordSearchEnabled = computed(() => {
  * 是否显示高级搜索
  */
 const isAdvanceSearchEnabled = computed(() => {
-  if (entityConfig.hideAdvanceSearch) {
+  if (entityConfig.value.hideAdvanceSearch) {
     // entityConfig设置隐藏 则全局隐藏
     return false
   }
@@ -585,7 +598,7 @@ const searchFieldList = computed(() => {
   if (props.searchParams.length > 0) {
     return props.searchParams
   }
-  return (props.entity.prototype as AirModel).getSearchFieldConfigList()
+  return entityInstance.value.getSearchFieldConfigList()
 })
 
 /**
@@ -693,11 +706,6 @@ function hideAdvanceSearchDialog() {
  */
 defineExpose({ resetSearch })
 
-function init() {
-  entityConfig = getEntityConfig(props.entity)
-}
-
-init()
 </script>
 
 <style lang="scss">
