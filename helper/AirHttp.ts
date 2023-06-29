@@ -28,7 +28,7 @@ export class AirHttp {
   /**
    * # 当前请求路径
    */
-  private httpUrl = ''
+  private url = ''
 
   /**
    * # 是否隐藏自动错误提示
@@ -49,10 +49,16 @@ export class AirHttp {
   private loading!: Ref<boolean>
 
   /**
-   * # 初始化一个AirHttp客户端
-   * @param url 请求URL
+   * # 创建一个HTTP实例
+   * @param url [可选] 请求的地址
    */
-  constructor(url: string) {
+  constructor(url?: string, baseUrl?: string) {
+    if (url) {
+      this.url = url
+    }
+    if (baseUrl) {
+      this.url = `${baseUrl}/${this.url}`
+    }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
     this.axiosRequestConfig.baseURL = AirConfig.apiUrl
@@ -65,7 +71,7 @@ export class AirHttp {
       this.axiosRequestConfig.headers[AirConfig.authorizationHeaderKey] = accessToken
     }
     if (url) {
-      this.httpUrl = url
+      this.url = url
     }
   }
 
@@ -145,19 +151,19 @@ export class AirHttp {
     }
     switch (this.axiosRequestConfig.method) {
       case AirHttpMethod.POST:
-        this.axiosResponse = axios.post(this.httpUrl, body, this.axiosRequestConfig)
+        this.axiosResponse = axios.post(this.url, body, this.axiosRequestConfig)
         break
       case AirHttpMethod.PUT:
-        this.axiosResponse = axios.put(this.httpUrl, body, this.axiosRequestConfig)
+        this.axiosResponse = axios.put(this.url, body, this.axiosRequestConfig)
         break
       case AirHttpMethod.PATCH:
-        this.axiosResponse = axios.patch(this.httpUrl, body, this.axiosRequestConfig)
+        this.axiosResponse = axios.patch(this.url, body, this.axiosRequestConfig)
         break
       case AirHttpMethod.DELETE:
-        this.axiosResponse = axios.delete(this.httpUrl, this.axiosRequestConfig)
+        this.axiosResponse = axios.delete(this.url, this.axiosRequestConfig)
         break
       default:
-        this.axiosResponse = axios.get(this.httpUrl, this.axiosRequestConfig)
+        this.axiosResponse = axios.get(this.url, this.axiosRequestConfig)
     }
     return new Promise((data, error) => {
       this.axiosResponse.then((res) => {
@@ -229,10 +235,10 @@ export class AirHttp {
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
       }
-      if (this.httpUrl.includes('?')) {
-        this.httpUrl += `&${queryArray.join('&')}`
+      if (this.url.includes('?')) {
+        this.url += `&${queryArray.join('&')}`
       } else {
-        this.httpUrl += `?${queryArray.join('&')}`
+        this.url += `?${queryArray.join('&')}`
       }
     }
     this.setHttpMethod(AirHttpMethod.GET)

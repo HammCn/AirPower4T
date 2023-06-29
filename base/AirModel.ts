@@ -11,7 +11,7 @@ import { getCustomSearchFieldList } from '../decorator/SearchField'
 import { getCustomTableFieldList } from '../decorator/TableField'
 
 /**
- * # AirModel 模型超类
+ * # 模型超类
  * @author Hamm
  */
 export class AirModel {

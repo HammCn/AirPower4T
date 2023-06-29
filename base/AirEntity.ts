@@ -1,4 +1,4 @@
-import { Type } from '../decorator/Custom'
+import { FieldName, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
 
 /**
@@ -9,7 +9,9 @@ export class AirEntity extends AirModel {
   /**
    * # 主键ID
    */
-  @Type(Number) id!: number
+  @Type(Number)
+  @FieldName('ID')
+    id!: number
 
   /**
    * # 实例化一个实体

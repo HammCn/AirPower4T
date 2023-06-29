@@ -15,7 +15,7 @@ import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 
 /**
- * # Service超类
+ * # API服务超类
  * @param E 泛型实体类 ```AirEntity``` 的子类
  * @author Hamm
  */
@@ -77,7 +77,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   protected urlForDelete = 'delete'
 
   /**
-   * # 获取一个Service实例
+   * # 获取一个API服务实例
    * @param loading [可选]Loading的Ref对象
    */
   constructor(loading?: Ref<boolean>) {
@@ -88,13 +88,13 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   }
 
   /**
-   * # 发起一个API网络请求
-   * @param url 请求的API地址
-   * @param customBaseUrl [可选] API地址前缀,无需 ```/``` 结尾
+   * # 创建一个AirHttp实例
+   * @param url 请求的接口地址
+   * @param baseUrl [可选] 请求的接口目录
    */
-  api(url: string, customBaseUrl?: string): AirHttp {
-    if (customBaseUrl) {
-      url = `${customBaseUrl}/${url}`
+  api(url: string, baseUrl?: string): AirHttp {
+    if (baseUrl) {
+      url = `${baseUrl}/${url}`
     } else {
       url = `${this.baseUrl}/${url}`
     }
@@ -219,7 +219,7 @@ export abstract class AirAbstractService<E extends AirEntity> extends AirModel {
   }
 
   /**
-   * # 创建一个Service实例
+   * # 静态创建一个API服务实例
    * @param loading [可选]Loading的Ref对象
    */
   static create<S extends AirAbstractService<AirEntity>>(this: new () => S, loading?: Ref<boolean>): S {
