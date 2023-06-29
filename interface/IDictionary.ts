@@ -2,17 +2,17 @@
 import { AirColor } from '../enum/AirColor'
 
 /**
- * # 标准字典 用于全局固定枚举常量的声明
+ * # 标准字典 用于全局固定枚举字典的声明
  * @author Hamm
  */
 export interface IDictionary {
   /**
-   * # 常量的值
+   * # 字典的值
    */
   key: number | string | boolean,
 
   /**
-   * # 常量的显示标题
+   * # 字典的显示标题
    */
   label: any
 
