@@ -207,8 +207,8 @@ export abstract class AirAbstractService<E extends AirEntity> {
   }
 
   /**
-   * # 创建一个Service实例
-   * @param loading [可选]Loading的Ref对象
+   * # 静态创建一个API服务实例
+   * @param loading [可选]Loading的提示文案
    */
   static create<S extends AirAbstractService<AirEntity>>(this: new () => S, loading?: string): S {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
