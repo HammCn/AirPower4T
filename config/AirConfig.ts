@@ -2,8 +2,8 @@ import {
   RouteRecordRaw, Router, createRouter, createWebHistory,
 } from 'vue-router'
 
-import { AirCode } from '../enum/AirCode'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { AirCode } from '../enum/AirCode'
 import { IFile } from '../interface/IFile'
 import { INormalTreeProps } from '../interface/INormalTreeProps'
 import { IUser } from '../interface/IUser'
@@ -25,16 +25,16 @@ export class AirConfig {
   static readonly version = 'v1.0.0'
 
   /**
-   * # AES加解密使用的key
-   */
-  static cryptoKey = 'abcdef0123456789'
-
-  /**
    * # AppID
    * ---
    * ### 💡 用于处理一些唯一场景做项目区分
    */
-  static appId = 'airpower'
+  static appKey = 'airpower'
+
+  /**
+   * # AppKey Header
+   */
+  static appKeyHeader = 'appkey'
 
   /**
    * # 项目名称
@@ -58,12 +58,86 @@ export class AirConfig {
   /**
    * # 接口根地址
    */
-  static apiRootUrl = import.meta.env.VITE_APP_API_URL || '/api/'
+  static apiUrl = import.meta.env.VITE_APP_API_URL || '/api/'
 
   /**
    * # 静态资源根路径
    */
   static staticUrl = import.meta.env.VITE_APP_STATIC_URL || '/static/'
+
+  /**
+   * # 默认的文件上传地址
+   */
+  static uploadUrl = `${AirConfig.apiUrl}attach/upload`
+
+  /**
+   * # 上传文件默认字段名称
+   */
+  static uploadFileName = 'file'
+
+  /**
+   * # AccessToken对应的Key
+   * ---
+   * ### 💡 缓存的名称和Api传输的Header都叫这个名字
+   */
+  static authorizationHeaderKey = 'Authorization'
+
+  /**
+   * # Http返回状态码的字段
+   */
+  static httpCodeKey = 'code'
+
+  /**
+   * # Http返回错误信息的字段
+   */
+  static httpMessageKey = 'message'
+
+  /**
+   * # Http返回数据的字段
+   */
+  static httpDataKey = 'data'
+
+  /**
+   * # 全局http请求返回成功状态码
+   */
+  static successCode: AirCode | number = AirCode.SUCCESS
+
+  /**
+   * # 全局http请求返回登录状态码
+   */
+  static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
+
+  /**
+   * # 默认的格式化时间
+   * ---
+   * ### 💡 如设置,则手动未格式化方式的地方将默认使用此方式
+   * ```
+   * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
+   * ```
+   */
+  static defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
+
+  /**
+   * # 保存身份令牌
+   * @param accessToken 身份令牌
+   */
+  static saveAccessToken(accessToken: string): void {
+    localStorage.setItem(this.authorizationHeaderKey, accessToken)
+  }
+
+  /**
+   * # 获取身份令牌
+   */
+  static getAccessToken(): string {
+    return localStorage.getItem(this.authorizationHeaderKey) || ''
+  }
+
+  /**
+   * # 移除本地存储的身份令牌
+   */
+  static removeAccessToken(): void {
+    localStorage.removeItem(this.authorizationHeaderKey)
+  }
 
   /**
    * # 标准错误提示标题
@@ -74,13 +148,6 @@ export class AirConfig {
    * # 标准错误提示内容
    */
   static errorMessage = '系统发生了一些错误，请稍候再试 :)'
-
-  /**
-   * # AccessToken对应的Key
-   * ---
-   * ### 💡 缓存的名称和Api传输的Header都叫这个名字
-   */
-  static accessTokenKey = 'Authorization'
 
   /**
    * # 最近访问的路径
@@ -134,41 +201,6 @@ export class AirConfig {
    * # 文本域的最大行数
    */
   static defaultTextareaMaxRows = 6
-
-  /**
-   * # 全局http请求返回code的key
-   */
-  static defaultHttpGlobalCodeKey = 'code'
-
-  /**
-   * # 全局http请求返回message的key
-   */
-  static defaultHttpGlobalMessageKey = 'message'
-
-  /**
-   * # 全局http请求返回data的key
-   */
-  static defaultHttpGlobalDataKey = 'data'
-
-  /**
-   * # 全局http请求返回成功状态码
-   */
-  static defaultHttpSuccessCode: AirCode | number = AirCode.SUCCESS
-
-  /**
-   * # 全局http请求返回登录状态码
-   */
-  static defaultHttpUnauthorizedCode: AirCode | number = AirCode.UNAUTHORIZED
-
-  /**
-   * # 默认的格式化时间
-   * ---
-   * ### 💡 如设置,则手动未格式化方式的地方将默认使用此方式
-   * ```
-   * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
-   * ```
-   */
-  static defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
 
   /**
    * # 权限列表
@@ -244,11 +276,6 @@ export class AirConfig {
   static defaultArraySplitor = ','
 
   /**
-   * # 默认的文件上传地址
-   */
-  static defaultUploadUrl = `${AirConfig.apiRootUrl}attach/upload`
-
-  /**
    * # 默认的导入数据的URL
    *
    * ---
@@ -305,28 +332,6 @@ export class AirConfig {
    */
   static getLastPath(): string {
     return localStorage.getItem(this.lastPathKey) || ''
-  }
-
-  /**
-   * # 获取AccessToken
-   */
-  static getAccessToken(): string {
-    return localStorage.getItem(this.accessTokenKey) || ''
-  }
-
-  /**
-   * # 存储AccessToken
-   * @param accessToken AccessToken
-   */
-  static saveAccessToken(accessToken: string): void {
-    localStorage.setItem(this.accessTokenKey, accessToken)
-  }
-
-  /**
-   * # 移除本地存储的AccessToken
-   */
-  static removeAccessToken(): void {
-    localStorage.removeItem(this.accessTokenKey)
   }
 
   /**
@@ -388,4 +393,9 @@ export class AirConfig {
    * ### 💡 默认不允许遮罩层关闭 设置为 ```true``` 即允许遮罩层关闭
    */
   static dialogHoverCloseEnabled = false
+
+  /**
+   * # AES加解密使用的key
+   */
+  static cryptoKey = 'abcdef0123456789'
 }

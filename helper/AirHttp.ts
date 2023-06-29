@@ -55,14 +55,14 @@ export class AirHttp {
   constructor(url: string) {
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL = AirConfig.apiRootUrl
+    this.axiosRequestConfig.baseURL = AirConfig.apiUrl
     this.axiosRequestConfig.timeout = AirConfig.timeout
     this.axiosRequestConfig.headers = {
       'content-type': AirHttpContentType.JSON,
     }
     const accessToken = AirConfig.getAccessToken()
     if (accessToken) {
-      this.axiosRequestConfig.headers[AirConfig.accessTokenKey] = accessToken
+      this.axiosRequestConfig.headers[AirConfig.authorizationHeaderKey] = accessToken
     }
     if (url) {
       this.httpUrl = url
@@ -164,12 +164,12 @@ export class AirHttp {
         if (this.loading) {
           this.loading.value = false
         }
-        switch (res.data[AirConfig.defaultHttpGlobalCodeKey]) {
-          case AirConfig.defaultHttpSuccessCode:
+        switch (res.data[AirConfig.httpCodeKey]) {
+          case AirConfig.successCode:
             // 成功
-            data(res.data[AirConfig.defaultHttpGlobalDataKey])
+            data(res.data[AirConfig.httpDataKey])
             break
-          case AirConfig.defaultHttpUnauthorizedCode:
+          case AirConfig.unAuthorizeCode:
             // 需要登录
             if (AirConfig.router) {
               if (this.errorCallback) {
@@ -184,7 +184,7 @@ export class AirHttp {
           default:
             // 其他业务错误
             if (!this.errorCallback) {
-              AirNotification.error(res.data[AirConfig.defaultHttpGlobalMessageKey] || AirConfig.errorMessage, AirConfig.errorTitle)
+              AirNotification.error(res.data[AirConfig.httpMessageKey] || AirConfig.errorMessage, AirConfig.errorTitle)
             }
             error(res.data)
         }

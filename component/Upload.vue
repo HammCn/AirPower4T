@@ -118,7 +118,7 @@ const props = defineProps({
    */
   uploadName: {
     type: String,
-    default: 'file',
+    default: AirConfig.uploadFileName,
   },
 
   /**
@@ -172,7 +172,7 @@ const loading = ref(false)
 /**
  * # 上传的URL
  */
-const url = computed(() => props.uploadUrl || AirConfig.defaultUploadUrl)
+const url = computed(() => props.uploadUrl || AirConfig.uploadUrl)
 
 /**
  * # 上传的header

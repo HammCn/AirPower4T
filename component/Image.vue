@@ -131,7 +131,7 @@ const props = defineProps({
 /**
  * # 真实上传地址
  */
-const uploadUrl = computed(() => props.uploadUrl || AirConfig.defaultUploadUrl)
+const uploadUrl = computed(() => props.uploadUrl || AirConfig.uploadUrl)
 
 /**
  * # 显示的文件地址
@@ -156,7 +156,7 @@ watch(props, () => {
  * # 上传文件的头
  */
 const uploadHeader = ref({} as IJson)
-uploadHeader.value[AirConfig.accessTokenKey] = localStorage.getItem(AirConfig.accessTokenKey)
+uploadHeader.value[AirConfig.authorizationHeaderKey] = localStorage.getItem(AirConfig.authorizationHeaderKey)
 
 /**
  * # 移除图像事件

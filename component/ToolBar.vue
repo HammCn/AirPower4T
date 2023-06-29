@@ -587,7 +587,7 @@ function exportIt() {
     AirDialog.createExportTask(url, request.value)
     return
   }
-  window.open(AirConfig.apiRootUrl + getUrlWithAccessToken(url))
+  window.open(AirConfig.apiUrl + getUrlWithAccessToken(url))
 }
 
 /**
@@ -604,7 +604,7 @@ function downloadTemplate() {
     const service = AirClassTransformer.newInstance(props.service)
     url = `${service.baseUrl}/${AirConfig.defaultTemplateUrl}`
   }
-  window.open(AirConfig.apiRootUrl + getUrlWithAccessToken(url))
+  window.open(AirConfig.apiUrl + getUrlWithAccessToken(url))
   return true
 }
 
@@ -681,7 +681,7 @@ async function importIt() {
   }
   await AirDialog.showUpload(
     {
-      uploadUrl: AirConfig.apiRootUrl + url,
+      uploadUrl: AirConfig.apiUrl + url,
       exts: ['xls', 'xlsx'],
       title: props.importTitle || '导入数据',
       uploadSuccess: '数据导入成功',
