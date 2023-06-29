@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars,func-names,no-extend-native,no-unused-vars */
-import { AirConfig } from './AirConfig'
 import { AirColor } from '../enum/AirColor'
 import { IRecord } from '../interface/IRecord'
+import { AirConfig } from './AirConfig'
 import { IJson } from '../interface/IJson'
 import { AirStore } from '../store/AirStore'
 

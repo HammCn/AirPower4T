@@ -65,20 +65,20 @@ export class AirAlert {
   protected confirmButtonClass = ''
 
   /**
-   * # 将确认按钮设置为危险颜色
-   * ### 💡 请注意,设置了危险按钮后, 所有的图标都将失效
-   */
-  dangerButton(): this {
-    this.confirmButtonClass = 'danger'
-    return this
-  }
-
-  /**
    * # 设置确认按钮文字
    * @param confirmText 确认按钮文字
    */
   setConfirmText(confirmText: string): this {
     this.confirmText = confirmText
+    return this
+  }
+
+  /**
+   * # 将确认按钮设置为危险颜色
+   * ### 💡 请注意,设置了危险按钮后, 所有的图标都将失效
+   */
+  dangerButton(): this {
+    this.confirmButtonClass = 'danger'
     return this
   }
 

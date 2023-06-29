@@ -11,7 +11,7 @@ import { IEntityConfig } from '../interface/IEntityConfig'
 /**
  * # 搜索配置key
  */
-const entityConfigMetaKey = '__entity_config__'
+const ENTITY_CONFIG_KEY = '__entity_config__'
 
 /**
  * # 为类标记一个配置
@@ -23,7 +23,7 @@ export function EntityConfig(config?: IEntityConfig) {
       config = new AirEntityConfig()
     }
 
-    Object.defineProperty(target.prototype, entityConfigMetaKey, {
+    Object.defineProperty(target.prototype, ENTITY_CONFIG_KEY, {
       enumerable: false,
       value: config,
       writable: false,
@@ -38,7 +38,7 @@ export function EntityConfig(config?: IEntityConfig) {
  * @param key 配置key
  */
 function getEntityConfigValue(target: any, key: string) {
-  const entityConfig = target[entityConfigMetaKey]
+  const entityConfig = target[ENTITY_CONFIG_KEY]
   if (entityConfig && entityConfig[key] !== undefined) {
     return entityConfig[key]
   }
@@ -54,7 +54,7 @@ function getEntityConfigValue(target: any, key: string) {
  * @param target 目标类
  */
 export function getEntityConfig(target: any): AirEntityConfig {
-  const entityConfig = target[entityConfigMetaKey]
+  const entityConfig = target[ENTITY_CONFIG_KEY]
   if (!entityConfig) {
     const superClass = Object.getPrototypeOf(target)
     if (!superClass || superClass.constructor.name === 'AirModel') {
