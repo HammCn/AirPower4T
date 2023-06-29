@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IRecord } from '../interface/IRecord'
 import { AirColor } from '../enum/AirColor'
+import { AirModel } from '../base/AirModel'
+import { AirRecordArray } from './AirRecordArray'
 
 /**
  * # 标准记录集实现类
  * @author Hamm
  */
-export class AirRecord implements IRecord {
+export class AirRecord extends AirModel implements IRecord {
   key!: number | string | boolean
 
   label!: any
@@ -18,11 +20,25 @@ export class AirRecord implements IRecord {
   children?: this[]
 
   /**
+   * # 创建记录集字典
+   * @param list 字典数组
+   */
+  static create<F extends IRecord = IRecord, T extends AirRecord = AirRecord>(this: new () => T, list: F[]): AirRecordArray<T> {
+    const recordArray = new AirRecordArray<T>()
+    list.map((json: IRecord) => {
+      const instance: T = (Object.assign(new this()) as T)
+      return instance.recoverBy(json)
+    }).forEach((item: T) => recordArray.push(item))
+    return recordArray
+  }
+
+  /**
    * # 实例化一个标准记录集选项
    * @param key [可选] 记录的key
    * @param label [可选] 记录的Label
    */
   constructor(key?: number | string | boolean, label?: any) {
+    super()
     if (key) {
       this.key = key
     }
