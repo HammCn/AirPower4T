@@ -5,6 +5,7 @@ import { IRecord } from '../interface/IRecord'
 import { AirFieldConfig } from './AirFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
+import { AirRecordArray } from '../model/AirRecordArray'
 
 /**
  * # 表单字段配置实现类
@@ -55,7 +56,7 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   showLimit?: boolean
 
-  enumRecord?: IRecord[]
+  enumRecord?: AirRecordArray<IRecord>
 
   checkStrictly = true
 

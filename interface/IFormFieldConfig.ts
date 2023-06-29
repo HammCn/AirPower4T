@@ -1,6 +1,7 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { AirTrim } from '../enum/AirTrim'
+import { AirRecordArray } from '../model/AirRecordArray'
 import { IFieldConfig } from './IFieldConfig'
 import { IRecord } from './IRecord'
 
@@ -160,7 +161,7 @@ export interface IFormFieldConfig extends IFieldConfig {
    *
    * 如 ```AInput``` 传入了自定义的数据 ```list``` 或 ```tree```, 则此项失效
    */
-  enumRecord?: IRecord[];
+  enumRecord?: AirRecordArray<IRecord>;
 
   /**
    * # 返回全路径的值

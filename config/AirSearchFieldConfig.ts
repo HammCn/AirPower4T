@@ -3,6 +3,7 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
 import { IRecord } from '../interface/IRecord'
+import { AirRecordArray } from '../model/AirRecordArray'
 
 /**
  * # 查询字段配置实现类
@@ -13,7 +14,7 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
 
   orderNumber = 1
 
-  enumRecord?: IRecord[]
+  enumRecord?: AirRecordArray<IRecord>
 
   between = false
 

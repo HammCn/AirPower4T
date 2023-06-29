@@ -70,12 +70,13 @@
                   class="light"
                   :style="{
                     backgroundColor:
-                      (item.enumRecord || getEnumRecord(entityInstance, item.key) || []).getColor((scope as any).row[item.key], AirColor.NORMAL)
+                      (item.enumRecord || getEnumRecord(entityInstance, item.key) || new AirRecordArray())
+                        .getColor((scope as any).row[item.key], AirColor.NORMAL)
                   }"
                 />
-                {{ (item.enumRecord || getEnumRecord(entityInstance, item.key) || []).getLabel((scope as
-                                                                                                 any).row[item.key],
-                                                                                               item.emptyValue) }}
+                {{
+                  (item.enumRecord || getEnumRecord(entityInstance, item.key) || new AirRecordArray())
+                    .getLabel((scope as any).row[item.key], item.emptyValue) }}
               </div>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
@@ -303,6 +304,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getEnumRecord } from '../decorator/Custom'
+import { AirRecordArray } from '../model/AirRecordArray'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
@@ -623,7 +625,7 @@ function updateSelectedFieldList() {
     (item) => !item.removed && !item.hide,
   ).map((item) => item.key)
 
-  const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appId}_${entityInstance.value.constructor.name}`) || '[]')
+  const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}`) || '[]')
   if (fieldListCache.length > 0 && !props.hideFieldSelector) {
     selectedFieldList.value = fieldListCache
   }
@@ -648,7 +650,7 @@ function fieldSelectChanged(status: boolean, config: AirTableFieldConfig) {
     selectedFieldList.value.push(config.key)
   }
 
-  localStorage.setItem(`field_list_of_${AirConfig.appId}_${entityInstance.value.constructor.name}`, JSON.stringify(selectedFieldList.value))
+  localStorage.setItem(`field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}`, JSON.stringify(selectedFieldList.value))
 }
 
 // 初始化

@@ -3,6 +3,7 @@ import { IRecord } from '../interface/IRecord'
 import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
+import { AirRecordArray } from '../model/AirRecordArray'
 
 /**
  * # 表格的字段配置实现类
@@ -21,7 +22,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   orderNumber = 1
 
-  enumRecord?: IRecord[]
+  enumRecord?: AirRecordArray<IRecord>
 
   dateTimeFormatter?: AirDateTimeFormatter | string
 

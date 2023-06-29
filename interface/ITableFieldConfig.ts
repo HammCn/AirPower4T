@@ -1,4 +1,5 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { AirRecordArray } from '../model/AirRecordArray'
 import { IFieldConfig } from './IFieldConfig'
 import { IRecord } from './IRecord'
 
@@ -42,7 +43,7 @@ export interface ITableFieldConfig extends IFieldConfig {
   /**
    * # 枚举数据集
    */
-  enumRecord?: IRecord[];
+  enumRecord?: AirRecordArray<IRecord>;
 
   /**
    * # 如是日期 可传入转换规则
