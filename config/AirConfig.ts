@@ -1,4 +1,5 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { AirCode } from '../enum/AirCode'
 
 /**
  * # AirPower全局配置
@@ -11,9 +12,30 @@ export class AirConfig {
   static readonly version = 'v1.0.0'
 
   /**
-   * # 应用Key
+   * # AppID
+   * ---
+   * ### 💡 用于处理一些唯一场景做项目区分
    */
-  static appKey = ''
+  static appKey = 'airpower'
+
+  /**
+   * # AppKey Header
+   */
+  static appKeyHeader = 'appkey'
+
+  /**
+   * # 项目名称
+   * ---
+   * ### 💡 会显示在浏览器标题上
+   */
+  static product = '你的项目名称'
+
+  /**
+   * # 😠超时时间 毫秒
+   * ---
+   * ### 💡 超时后请求会自动断开并抛出异常
+   */
+  static timeout = 5000
 
   /**
    * # API请求根地址(带/)
@@ -28,10 +50,10 @@ export class AirConfig {
   /**
    * # 上传地址
    */
-  static uploadUrl = 'attach/upload'
+  static uploadUrl = `${AirConfig.apiUrl}attach/upload`
 
   /**
-   * # 上传文件默认
+   * # 上传文件默认字段名称
    */
   static uploadFileName = 'file'
 
@@ -41,24 +63,11 @@ export class AirConfig {
   static retryTimesWhenNetworkError = 3
 
   /**
-   * # 接口请求成功的状态码
-   */
-  static successCode = 200
-
-  /**
-   * # 需要登录的状态码
-   */
-  static unAuthorizeCode = 401
-
-  /**
-   * # http请求身份令牌的header的key值
+   * # AccessToken对应的Key
+   * ---
+   * ### 💡 缓存的名称和Api传输的Header都叫这个名字
    */
   static authorizationHeaderKey = 'authorization'
-
-  /**
-   * # AppKey Header
-   */
-  static appKeyHeader = 'appkey'
 
   /**
    * # Http返回状态码的字段
@@ -76,7 +85,22 @@ export class AirConfig {
   static httpDataKey = 'data'
 
   /**
-   * # 默认时间格式
+   * # 接口请求成功的状态码
+   */
+  static successCode: AirCode | number = AirCode.SUCCESS
+
+  /**
+   * # 需要登录的状态码
+   */
+  static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
+
+  /**
+   * # 默认的格式化时间
+   * ---
+   * ### 💡 如设置,则手动未格式化方式的地方将默认使用此方式
+   * ```
+   * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
+   * ```
    */
   static defaultDateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
 
@@ -86,15 +110,6 @@ export class AirConfig {
    */
   static saveAccessToken(accessToken: string): void {
     wx.setStorageSync(this.authorizationHeaderKey, accessToken)
-  }
-
-  /**
-   * # 跳转登录的方法
-   */
-  static login = () => {
-    wx.redirectTo({
-      url: '/view/login',
-    })
   }
 
   /**
@@ -109,5 +124,14 @@ export class AirConfig {
    */
   static removeAccessToken(): void {
     wx.removeStorageSync(this.authorizationHeaderKey)
+  }
+
+  /**
+   * # 跳转登录的方法
+   */
+  static login = () => {
+    wx.redirectTo({
+      url: '/view/login',
+    })
   }
 }

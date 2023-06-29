@@ -1,5 +1,5 @@
-/* eslint-disable no-extend-native */
-/* eslint-disable func-names */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars,func-names,no-extend-native,no-unused-vars */
 import { AirColor } from '../enum/AirColor'
 import { IRecord } from '../interface/IRecord'
 
@@ -8,22 +8,22 @@ import { IRecord } from '../interface/IRecord'
  * @author Hamm
  */
 declare global {
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  interface Window {
+    airConfig(): void
+  }
   interface Array<T> {
     /**
-     * # 😡 获取```IRecord```用于显示的 ```Label```
+     * # 获取```IRecord```用于显示的 ```Label```
      * @param key 参数值
      * @param defaultValue [可选]默认值
      */
-    // eslint-disable-next-line no-unused-vars
     getLabel(key: string | number | boolean, defaultLabel?: string): string;
 
     /**
-     * # 😡 获取```IRecord```用于显示的 ```Color```
+     * # 获取```IRecord```用于显示的 ```Color```
      * @param key 参数值
      * @param defaultColor [可选]默认值
      */
-    // eslint-disable-next-line no-unused-vars
     getColor(key: string | number | boolean, defaultColor?: string): string;
   }
 }

@@ -237,10 +237,9 @@ export class AirModel {
     return this.newInstance().getCustomFieldName(fieldKey)
   }
 
-  //! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
-
   /**
    * # 请直接调用静态方法获取
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    * @deprecated
    */
   getCustomClassName(): string {
@@ -250,6 +249,7 @@ export class AirModel {
   /**
    * # 请直接调用静态方法获取
    * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getCustomFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)

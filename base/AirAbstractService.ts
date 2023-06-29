@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirHttp } from '../helper/AirHttp'
-import { IJson } from '../interface/IJson'
-import { AirRequest } from '../model/AirRequest'
-import { AirResponsePage } from '../model/AirResponsePage'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEntity } from './AirEntity'
+import { AirRequest } from '../model/AirRequest'
+import { AirResponsePage } from '../model/AirResponsePage'
+import { IJson } from '../interface/IJson'
 
 /**
  * # Service超类
@@ -70,39 +71,22 @@ export abstract class AirAbstractService<E extends AirEntity> {
   protected urlForDelete = 'delete'
 
   /**
+   * # 获取一个Service实例
+   * @param loading [可选]Loading的Ref对象
+   */
+  constructor(loading?: string) {
+    if (loading) {
+      this.loading = loading
+    }
+  }
+
+  /**
    * # 创建一个AirHttp实例
    * @param url 请求的接口地址
    * @param baseUrl [可选] 请求的接口目录
    */
   api(url: string, baseUrl?: string) {
     return new AirHttp(url, baseUrl || this.baseUrl).setLoading(this.loading)
-  }
-
-  /**
-   * # 通过某个字段查询一条数据
-   * @param key 字段名(别名前)
-   * @param value 字段的值
-   */
-  async getBy(key: string, value: string): Promise<E> {
-    const postData = this.newEntityInstance();
-    (postData as any)[key] = value
-    const json = await this.api('getBy').post(postData)
-    return AirClassTransformer.parse(json, this.entityClass)
-  }
-
-  /**
-   * # 创建一个Service实例
-   * @param loading 显示加载状态
-   */
-  static create<T extends AirAbstractService<AirEntity>>(
-    this: new () => T,
-    loading?: string,
-  ): T {
-    const service = Object.assign(new this()) as T
-    if (loading) {
-      service.loading = loading
-    }
-    return service
   }
 
   /**
@@ -208,6 +192,28 @@ export abstract class AirAbstractService<E extends AirEntity> {
       .catch((err: Error) => {
         AirAlert.show('删除数据失败', err.message)
       })
+  }
+
+  /**
+   * # 通过某个字段查询一条数据
+   * @param key 字段名(别名前)
+   * @param value 字段的值
+   */
+  async getBy(key: string, value: string): Promise<E> {
+    const postData = this.newEntityInstance();
+    (postData as any)[key] = value
+    const json = await this.api('getBy').post(postData)
+    return AirClassTransformer.parse(json, this.entityClass)
+  }
+
+  /**
+   * # 创建一个Service实例
+   * @param loading [可选]Loading的Ref对象
+   */
+  static create<S extends AirAbstractService<AirEntity>>(this: new () => S, loading?: string): S {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return Object.assign(new this(), loading) as S
   }
 
   /**
