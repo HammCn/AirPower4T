@@ -3,7 +3,7 @@ import { IRecord } from '../interface/IRecord'
 import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { AirRecordArray } from '../model/extend/AirRecordArray'
 
 /**
  * # 表格的字段配置实现类

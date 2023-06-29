@@ -3,7 +3,7 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
 import { IRecord } from '../interface/IRecord'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { AirRecordArray } from '../model/extend/AirRecordArray'
 
 /**
  * # 查询字段配置实现类

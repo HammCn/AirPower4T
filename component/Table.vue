@@ -304,7 +304,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getEnumRecord } from '../decorator/Custom'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { AirRecordArray } from '../model/extend/AirRecordArray'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 

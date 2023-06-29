@@ -5,7 +5,7 @@ import { IRecord } from '../interface/IRecord'
 import { AirFieldConfig } from './AirFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { AirRecordArray } from '../model/extend/AirRecordArray'
 
 /**
  * # 表单字段配置实现类
