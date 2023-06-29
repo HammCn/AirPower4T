@@ -19,13 +19,14 @@ export interface IDictionary {
   /**
    * # 标准 **AirColor** 颜色或自定义颜色
    * ---
-   * ### 🎉 支持 ```AirColor``` 标准色 / 十六进制 / HTML标准色
+   * ### 💡 支持 ```AirColor``` 标准色 / 十六进制 / HTML标准色
    */
   color?: AirColor | string
 
   /**
    * # 是否被禁用
-   * 如禁用, 下拉选项中将显示但无法选中
+   * ---
+   * ### 💡  如禁用, 下拉选项中将显示但无法选中
    */
   disabled?: boolean
 
