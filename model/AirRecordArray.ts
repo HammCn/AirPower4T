@@ -13,7 +13,7 @@ export class AirRecordArray<T extends IRecord> extends Array<T> {
    * @param key Key
    * @param defaultLabel 默认Label
    */
-  getLabel(key: any, defaultLabel = '-') {
+  getLabel(key: boolean | number | string, defaultLabel = '-'): string {
     return this.find((item) => item.key === key)?.label || defaultLabel
   }
 
@@ -22,7 +22,7 @@ export class AirRecordArray<T extends IRecord> extends Array<T> {
    * @param key Key
    * @param defaultColor 默认Color
    */
-  getColor(key: any, defaultColor: AirColor | string = AirColor.NORMAL) {
+  getColor(key: boolean | number | string, defaultColor: AirColor | string = AirColor.NORMAL): AirColor | string {
     return this.find((item) => item.key === key)?.color || defaultColor
   }
 }
