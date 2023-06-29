@@ -16,6 +16,16 @@ import { IJson } from '../interface/IJson'
  */
 export class AirHttp {
   /**
+   * # 访问的接口URL
+   */
+  private url = ''
+
+  /**
+   * # 配置一个Loading的Ref对象
+   */
+  private loading!: Ref<boolean>
+
+  /**
    * # 基础返回对象
    */
   private axiosResponse!: Promise<AxiosResponse<any, any>>
@@ -24,11 +34,6 @@ export class AirHttp {
    * # 基础请求配置
    */
   private axiosRequestConfig: AxiosRequestConfig = {}
-
-  /**
-   * # 当前请求路径
-   */
-  private url = ''
 
   /**
    * # 是否隐藏自动错误提示
@@ -42,11 +47,6 @@ export class AirHttp {
     this.errorCallback = true
     return this
   }
-
-  /**
-   * # 配置一个Loading的Ref对象
-   */
-  private loading!: Ref<boolean>
 
   /**
    * # 创建一个HTTP实例
