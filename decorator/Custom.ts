@@ -4,8 +4,7 @@
  * @author Hamm
  */
 import { IRecord } from '../interface/IRecord'
-import { AirRecord } from '../model/AirRecord'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { AirRecordArray } from '../model/extend/AirRecordArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 const ENUM_RECORD_PREFIX = '__enum_record_'
@@ -18,7 +17,7 @@ export function EnumRecord(record: AirRecordArray<IRecord>) {
   return (target: any, key: string) => {
     Object.defineProperty(target, ENUM_RECORD_PREFIX + key, {
       enumerable: false,
-      value: AirRecord.create(record),
+      value: AirRecordArray.create(record),
       writable: false,
       configurable: false,
     })
