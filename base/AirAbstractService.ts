@@ -11,7 +11,7 @@ import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 
 /**
- * # Service超类
+ * # API服务超类
  * @param E 泛型实体类 ```AirEntity``` 的子类
  * @author Hamm
  */
@@ -71,7 +71,7 @@ export abstract class AirAbstractService<E extends AirEntity> {
   protected urlForDelete = 'delete'
 
   /**
-   * # 获取一个Service实例
+   * # 获取一个API服务实例
    * @param loading [可选]Loading的Ref对象
    */
   constructor(loading?: string) {

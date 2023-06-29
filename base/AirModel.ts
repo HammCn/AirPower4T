@@ -5,7 +5,7 @@ import {
 import { IJson } from '../interface/IJson'
 
 /**
- * # AirModel 模型超类
+ * # 模型超类
  * @author Hamm
  */
 export class AirModel {
