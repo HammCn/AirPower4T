@@ -21,7 +21,7 @@ export class AirHttp {
   private url = ''
 
   /**
-   * # 配置一个Loading的Ref对象
+   * # Loading
    */
   private loading!: Ref<boolean>
 
