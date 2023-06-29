@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IRecord } from '../interface/IRecord'
+import { IDictionary } from '../interface/IDictionary'
 import { AirColor } from '../enum/AirColor'
 import { AirModel } from '../base/AirModel'
 
 /**
- * # 标准记录集实现类
+ * # 标准字典实现类
  * @author Hamm
  */
-export class AirRecord extends AirModel implements IRecord {
+export class AirDictionary extends AirModel implements IDictionary {
   key!: number | string | boolean
 
   label!: any
@@ -19,7 +19,7 @@ export class AirRecord extends AirModel implements IRecord {
   children?: this[]
 
   /**
-   * # 实例化一个标准记录集选项
+   * # 实例化一个标准字典选项
    * @param key [可选] 记录的key
    * @param label [可选] 记录的Label
    */
