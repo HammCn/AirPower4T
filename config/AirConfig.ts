@@ -58,11 +58,6 @@ export class AirConfig {
   static uploadFileName = 'file'
 
   /**
-   * # 网络请求失败最大重试次数
-   */
-  static retryTimesWhenNetworkError = 3
-
-  /**
    * # AccessToken对应的Key
    * ---
    * ### 💡 缓存的名称和Api传输的Header都叫这个名字
@@ -125,6 +120,11 @@ export class AirConfig {
   static removeAccessToken(): void {
     wx.removeStorageSync(this.authorizationHeaderKey)
   }
+
+  /**
+   * # 网络请求失败最大重试次数
+   */
+  static retryTimesWhenNetworkError = 3
 
   /**
    * # 跳转登录的方法

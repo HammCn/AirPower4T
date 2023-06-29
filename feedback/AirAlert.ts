@@ -28,15 +28,6 @@ export class AirAlert {
    * # 设置确认按钮文字
    * @param confirmText 确认按钮文字
    */
-  setConfirmText(confirmText: string): this {
-    this.confirmText = confirmText
-    return this
-  }
-
-  /**
-   * # 设置确认按钮文字
-   * @param confirmText 确认按钮文字
-   */
   setConfirmColor(confirmColor: string): this {
     this.confirmColor = confirmColor
     return this

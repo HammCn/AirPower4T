@@ -239,8 +239,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getCustomClassName(): string {
     return getClassName(this) || this.constructor.name
