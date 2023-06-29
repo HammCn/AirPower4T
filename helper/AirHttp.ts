@@ -21,14 +21,14 @@ export class AirHttp {
   private url = ''
 
   /**
+   * # Loading
+   */
+  private loading = ''
+
+  /**
    * # 请求方式 默认POST
    */
   private method: 'GET' | 'POST' = 'POST'
-
-  /**
-   * # Loading提示信息
-   */
-  private loading = ''
 
   /**
    * # 回调失败信息
