@@ -26,7 +26,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   dateTimeFormatter?: AirDateTimeFormatter | string
 
-  showStatus = false
+  showColor = false
 
   sortable: boolean | 'custom' = false
 

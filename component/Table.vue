@@ -66,7 +66,7 @@
               >
                 <!-- 显示状态灯 -->
                 <span
-                  v-if="item.showStatus"
+                  v-if="item.showColor"
                   class="light"
                   :style="{
                     backgroundColor:

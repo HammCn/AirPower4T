@@ -10,8 +10,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
  */
 export interface ISearchFieldConfig extends IFieldConfig {
   /**
-   * # 是否隐藏搜索
-   * 默认 ```false```
+   * # 隐藏搜索
    */
   hide?: boolean;
   /**
@@ -20,19 +19,23 @@ export interface ISearchFieldConfig extends IFieldConfig {
   orderNumber?: number;
 
   /**
-   * # 枚举数据集
+   * # 枚举字典
+   * ---
+   * ### 💡 可配置 ```filterable``` 等参数
    */
   dictionary?: AirDictionaryArray<IDictionary>;
 
   /**
-   * # 是否可筛选
-   * 默认 ```true```
+   * # 可筛选
+   * ---
+   * ### 💡 仅枚举字典下拉选择时有效
    */
   filterable?: boolean;
 
   /**
-   * # 是否是区间控件
-   * 如设置 ```true``` , 可配置 ```betweenType``` , ```betweenMin``` , ```betweenMax``` 等参数
+   * # 区间控件
+   * ---
+   * ### 💡 可配置 ```betweenType``` , ```betweenMin``` , ```betweenMax``` 等参数
    */
   between?: boolean;
 

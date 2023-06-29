@@ -14,13 +14,12 @@ import { ClassConstructor } from '../type/ClassConstructor'
 /**
  * # AirPower 全局配置
  * ---
- *
  * ### 💡 可自行在 ```main.ts``` 中覆盖此类中的配置
  * @author Hamm
  */
 export class AirConfig {
   /**
-   * # 当前版本号
+   * # AirPower版本号
    */
   static readonly version = 'v1.0.0'
 
@@ -41,7 +40,7 @@ export class AirConfig {
    * ---
    * ### 💡 会显示在浏览器标题上
    */
-  static product = '你的项目名称'
+  static product = ''
 
   /**
    * # 😠超时时间 毫秒
@@ -51,17 +50,21 @@ export class AirConfig {
   static timeout = 5000
 
   /**
-   * # Vue 路由
+   * # Vue 路由对象
    */
   static router: Router
 
   /**
    * # 接口根地址
+   * ---
+   * ### 💡 以 ```/``` 结尾
    */
   static apiUrl = import.meta.env.VITE_APP_API_URL || '/api/'
 
   /**
    * # 静态资源根路径
+   * ---
+   * ### 💡 以 ```/``` 结尾
    */
   static staticUrl = import.meta.env.VITE_APP_STATIC_URL || '/static/'
 
@@ -78,7 +81,7 @@ export class AirConfig {
   /**
    * # AccessToken对应的Key
    * ---
-   * ### 💡 缓存的名称和Api传输的Header都叫这个名字
+   * ### 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
    */
   static authorizationHeaderKey = 'Authorization'
 
@@ -98,19 +101,19 @@ export class AirConfig {
   static httpDataKey = 'data'
 
   /**
-   * # 全局http请求返回成功状态码
+   * # 全局http请求返回 成功状态码
    */
   static successCode: AirCode | number = AirCode.SUCCESS
 
   /**
-   * # 全局http请求返回登录状态码
+   * # 全局http请求返回 登录状态码
    */
   static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
 
   /**
    * # 默认的格式化时间
    * ---
-   * ### 💡 如设置,则手动未格式化方式的地方将默认使用此方式
+   * ### 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
    * ```
    * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
    * ```
