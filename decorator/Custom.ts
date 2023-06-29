@@ -4,6 +4,8 @@
  * @author Hamm
  */
 import { IRecord } from '../interface/IRecord'
+import { AirRecord } from '../model/AirRecord'
+import { AirRecordArray } from '../model/AirRecordArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 const ENUM_RECORD_PREFIX = '__enum_record_'
@@ -12,11 +14,11 @@ const ENUM_RECORD_PREFIX = '__enum_record_'
  * # 标记属性的枚举字典
  * @param clazz 类型
  */
-export function EnumRecord(record: IRecord[]) {
+export function EnumRecord(record: AirRecordArray<IRecord>) {
   return (target: any, key: string) => {
     Object.defineProperty(target, ENUM_RECORD_PREFIX + key, {
       enumerable: false,
-      value: record,
+      value: AirRecord.create(record),
       writable: false,
       configurable: false,
     })
@@ -28,7 +30,7 @@ export function EnumRecord(record: IRecord[]) {
  * @param target 目标类
  * @param fieldKey 属性名
  */
-export function getEnumRecord(target: any, fieldKey: string): IRecord[] | undefined {
+export function getEnumRecord(target: any, fieldKey: string): AirRecordArray<IRecord> | undefined {
   const config = target[ENUM_RECORD_PREFIX + fieldKey]
   if (config !== undefined) {
     return config
