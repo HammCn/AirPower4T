@@ -258,7 +258,7 @@ export class AirAlert {
   }
 
   /**
-   * #  获取配置
+   * # 获取配置
    */
   protected getConfig(): ElMessageBoxOptions {
     const customStyle: CSSProperties = {}
