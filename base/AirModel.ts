@@ -29,9 +29,9 @@ export class AirModel {
    * # 将当前实例复制到一个新实例上
    */
   copy(): this {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return AirModel.parse(new this.constructor(), this.toJson())
+    const newModel = Object.create(Object.getPrototypeOf(this))
+    Object.assign(newModel, this)
+    return newModel
   }
 
   /**
