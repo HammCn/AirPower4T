@@ -244,6 +244,24 @@ export class AirModel {
   }
 
   /**
+   * # 请直接调用静态方法获取
+   * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
+   */
+  getCustomClassName(): string {
+    return getClassName(this) || this.constructor.name
+  }
+
+  /**
+   * # 请直接调用静态方法获取
+   * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
+   */
+  getCustomFieldName(fieldKey: string): string {
+    return getFieldName(this, fieldKey)
+  }
+
+  /**
    *
    * # 获取表单配置的Label
    *
@@ -287,27 +305,10 @@ export class AirModel {
     return this.newInstance().getCustomFormFieldConfig(fieldKey)
   }
 
-  //! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
-
   /**
    * # 请直接调用静态方法获取
    * @deprecated
-   */
-  getCustomClassName(): string {
-    return getClassName(this) || this.constructor.name
-  }
-
-  /**
-   * # 请直接调用静态方法获取
-   * @deprecated
-   */
-  getCustomFieldName(fieldKey: string): string {
-    return getFieldName(this, fieldKey)
-  }
-
-  /**
-   * # 请直接调用静态方法获取
-   * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
     return getFormFieldConfig(this, fieldKey)
@@ -316,6 +317,7 @@ export class AirModel {
   /**
    * # 请直接调用静态方法获取
    * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getFormFieldLabel(fieldKey: string): string {
     return this.getCustomFormFieldConfig(fieldKey)?.label || this.getCustomFieldName(fieldKey)
@@ -324,6 +326,7 @@ export class AirModel {
   /**
    * # 请直接调用静态方法获取
    * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
     return getCustomTableFieldList(this, fieldNameList)
@@ -332,6 +335,7 @@ export class AirModel {
   /**
    * # 请直接调用静态方法获取
    * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
     return getCustomFormFieldList(this, fieldNameList)
@@ -340,6 +344,7 @@ export class AirModel {
   /**
    * # 请直接调用静态方法获取
    * @deprecated
+   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getSearchFieldConfigList(fieldNameList: string[] = []): AirSearchFieldConfig[] {
     const configList = getCustomSearchFieldList(this, fieldNameList)
