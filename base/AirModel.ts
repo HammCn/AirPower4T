@@ -150,12 +150,11 @@ export class AirModel {
    * @param instance 实体
    * @param json JSON
    */
-  // eslint-disable-next-line
   static parse<T extends AirModel>(instance: T, json: IJson = {}): T {
     const keys = Object.keys(instance)
     for (const key of keys) {
-      // 默认转换类为字符串
-      const clazz = getType(instance, key)
+      /** # 💡 装饰器为属性配置的强制转换类 */
+      const FieldTypeClass = getType(instance, key)
       const payloadAlias = getAlias(instance, key)
       let data = json[(!getIgnorePrefix(instance, key) ? getFieldPrefix(instance) : '') + (payloadAlias || key)]
       if (data === undefined) {
@@ -169,15 +168,14 @@ export class AirModel {
         if (typeof data === 'object' && data instanceof Array) {
           for (let i = 0; i < data.length; i += 1) {
             // 如果标记了类 需要递归处理
-            if (clazz) {
-              // eslint-disable-next-line new-cap
-              arr[i] = this.parse(new clazz() as AirModel, data[i])
+            if (FieldTypeClass) {
+              arr[i] = this.parse(new FieldTypeClass() as AirModel, data[i])
             }
           }
         }
         (instance as any)[key] = arr
-      } else if (clazz) {
-        switch (clazz.name) {
+      } else if (FieldTypeClass) {
+        switch (FieldTypeClass.name) {
           case 'String':
             (instance as any)[key] = data ? data.toString() : getDefault(instance, key)
             break
@@ -188,8 +186,7 @@ export class AirModel {
             (instance as any)[key] = !!data || getDefault(instance, key)
             break
           default:
-            // eslint-disable-next-line new-cap
-            (instance as any)[key] = this.parse(new clazz() as AirModel, data)
+            (instance as any)[key] = this.parse(new FieldTypeClass() as AirModel, data)
         }
       }
 
@@ -245,8 +242,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getCustomClassName(): string {
     return getClassName(this) || this.constructor.name
@@ -254,8 +251,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getCustomFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)
@@ -307,8 +304,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
     return getFormFieldConfig(this, fieldKey)
@@ -316,8 +313,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getFormFieldLabel(fieldKey: string): string {
     return this.getCustomFormFieldConfig(fieldKey)?.label || this.getCustomFieldName(fieldKey)
@@ -325,8 +322,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
     return getCustomTableFieldList(this, fieldNameList)
@@ -334,8 +331,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
     return getCustomFormFieldList(this, fieldNameList)
@@ -343,8 +340,8 @@ export class AirModel {
 
   /**
    * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
    * @deprecated
-   * ! 保留方法 内置组件中使用 项目中请直接使用上述的静态方法
    */
   getSearchFieldConfigList(fieldNameList: string[] = []): AirSearchFieldConfig[] {
     const configList = getCustomSearchFieldList(this, fieldNameList)

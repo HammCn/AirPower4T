@@ -16,7 +16,7 @@ export enum AirHttpContentType {
 
   /**
    * # 带文件的POST提交
-   * 不建议使用,请直接使用 ```AirDialog.showUpload``` 上传
+   * ! 不建议使用,请直接使用 ```AirDialog.showUpload``` 上传
    * @deprecated
    */
   MULTIPART_FORM_DATA = 'multipart/form-data',
