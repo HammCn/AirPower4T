@@ -228,7 +228,7 @@ export function getIsArray(target: any, fieldKey: string): boolean {
   return getIsArray(superClass, fieldKey)
 }
 
-const CLASS_NAME_PREFIX = '__class_name__'
+const CLASS_NAME_KEY = '__class_name__'
 
 /**
  * # 为类标记可读名称
@@ -236,7 +236,7 @@ const CLASS_NAME_PREFIX = '__class_name__'
  */
 export function ClassName(className: string) {
   return (target: any) => {
-    Object.defineProperty(target.prototype, CLASS_NAME_PREFIX, {
+    Object.defineProperty(target.prototype, CLASS_NAME_KEY, {
       enumerable: false,
       value: className,
       writable: false,
@@ -251,7 +251,7 @@ export function ClassName(className: string) {
  * @param target 目标类
  */
 export function getClassName(target: any): string {
-  const className = target[CLASS_NAME_PREFIX]
+  const className = target[CLASS_NAME_KEY]
   if (className) {
     return className
   }
@@ -330,7 +330,7 @@ export function getIgnorePrefix(target: any, fieldKey: string): boolean {
   return getIgnorePrefix(superClass, fieldKey)
 }
 
-const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
+const CLASS_FIELD_ALIAS_PREFIX_KEY = '__class_field_alias_prefix__'
 
 /**
  * # 标记属性别名前缀
@@ -338,7 +338,7 @@ const CLASS_FIELD_ALIAS_PREFIX = '__class_field_alias_prefix__'
  */
 export function FieldPrefix(prefix: string) {
   return (target: any) => {
-    Object.defineProperty(target.prototype, CLASS_FIELD_ALIAS_PREFIX, {
+    Object.defineProperty(target.prototype, CLASS_FIELD_ALIAS_PREFIX_KEY, {
       enumerable: false,
       value: prefix,
       writable: false,
@@ -352,7 +352,7 @@ export function FieldPrefix(prefix: string) {
  * @param target 目标类
  */
 export function getFieldPrefix(target: any): string {
-  const config = target[CLASS_FIELD_ALIAS_PREFIX]
+  const config = target[CLASS_FIELD_ALIAS_PREFIX_KEY]
   if (config !== undefined) {
     return config
   }
