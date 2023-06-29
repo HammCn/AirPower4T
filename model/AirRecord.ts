@@ -2,7 +2,6 @@
 import { IRecord } from '../interface/IRecord'
 import { AirColor } from '../enum/AirColor'
 import { AirModel } from '../base/AirModel'
-import { AirRecordArray } from './AirRecordArray'
 
 /**
  * # 标准记录集实现类
@@ -18,19 +17,6 @@ export class AirRecord extends AirModel implements IRecord {
   disabled?: boolean = false
 
   children?: this[]
-
-  /**
-   * # 创建记录集字典
-   * @param list 字典数组
-   */
-  static create<F extends IRecord = IRecord, T extends AirRecord = AirRecord>(this: new () => T, list: F[]): AirRecordArray<T> {
-    const recordArray = new AirRecordArray<T>()
-    list.map((json: IRecord) => {
-      const instance: T = (Object.assign(new this()) as T)
-      return instance.recoverBy(json)
-    }).forEach((item: T) => recordArray.push(item))
-    return recordArray
-  }
 
   /**
    * # 实例化一个标准记录集选项
