@@ -279,10 +279,10 @@ export class AirConfig {
    * # 默认的导入数据的URL
    *
    * ---
-   * ### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
+   * ### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
-   * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultImportUrl```
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```defaultImportUrl```
    */
   static defaultImportUrl = 'importData'
 
@@ -290,10 +290,10 @@ export class AirConfig {
    * # 默认下载导入模板的URL
    *
    * ---
-   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
+   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
-   * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultTemplateUrl```
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```defaultTemplateUrl```
    */
   static defaultTemplateUrl = 'downloadTemplate'
 
@@ -301,10 +301,10 @@ export class AirConfig {
    * # 默认同步导出URL
    *
    * ---
-   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
+   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
-   * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultExportSyncUrl```
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```defaultExportSyncUrl```
    */
   static defaultExportSyncUrl = 'exportSync'
 
@@ -312,10 +312,10 @@ export class AirConfig {
    * # 默认异步导出URL
    *
    * ---
-   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiRoot```
+   * #### 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
-   * 将自动拼接 ```apiRoot``` + ```baseUrl``` + ```defaultExportAsyncUrl```
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```defaultExportAsyncUrl```
    */
   static defaultExportAsyncUrl = 'export'
 
