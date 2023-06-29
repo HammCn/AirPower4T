@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import {
   getAlias, getClassName, getDefault, getFieldName, getFieldPrefix, getIgnorePrefix, getIsArray, getToJson, getToModel, getType,
 } from '../decorator/Custom'
+import { IJson } from '../interface/IJson'
+import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
+import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
+import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { getFormFieldConfig, getCustomFormFieldList } from '../decorator/FormField'
 import { getCustomSearchFieldList } from '../decorator/SearchField'
 import { getCustomTableFieldList } from '../decorator/TableField'
-import { IJson } from '../interface/IJson'
 
 /**
  * # AirModel 模型超类
