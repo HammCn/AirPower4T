@@ -35,7 +35,7 @@
         @keydown="inputKeyDown"
       />
     </template>
-    <template v-else-if="enumRecord || (fieldConfig && fieldConfig.enumRecord) || list">
+    <template v-else-if="dictionary || (fieldConfig && fieldConfig.dictionary) || list">
       <el-switch
         v-if="fieldConfig?.isSwitch"
         v-model="value"
@@ -44,11 +44,11 @@
           '--el-switch-on-color': getSwitchColor('on'),
           '--el-switch-off-color': getSwitchColor('off')
         }"
-        :active-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.enumRecord || enumRecord)?.find(
+        :active-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.dictionary || dictionary)?.find(
           item => item.key === true
         )?.label
           || ''"
-        :inactive-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.enumRecord || enumRecord)?.find(
+        :inactive-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.dictionary || dictionary)?.find(
           item => item.key === false
         )?.label
           || ''"
@@ -71,7 +71,7 @@
         </template>
         <template v-else>
           <el-radio-button
-            v-for="item in (fieldConfig.enumRecord || enumRecord)"
+            v-for="item in (fieldConfig.dictionary || dictionary)"
             :key="item.key"
             :label="item.key"
           >
@@ -96,7 +96,7 @@
         </template>
         <template v-else>
           <el-radio
-            v-for="item in (fieldConfig.enumRecord || enumRecord)"
+            v-for="item in (fieldConfig.dictionary || dictionary)"
             :key="item.key"
             :label="item.key"
           >
@@ -133,9 +133,9 @@
             :disabled="item.disabled"
           />
         </template>
-        <template v-else-if="enumRecord">
+        <template v-else-if="dictionary">
           <el-option
-            v-for="item in enumRecord"
+            v-for="item in dictionary"
             :key="(item.key as string)"
             :label="item.label"
             :value="item.key"
@@ -144,7 +144,7 @@
         </template>
         <template v-else-if="fieldConfig">
           <el-option
-            v-for="item in fieldConfig.enumRecord"
+            v-for="item in fieldConfig.dictionary"
             :key="(item.key as string)"
             :label="item.label"
             :value="item.key"
@@ -232,14 +232,14 @@ import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
-import { IRecord } from '../interface/IRecord'
+import { IDictionary } from '../interface/IDictionary'
 import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
-import { getEnumRecord } from '../decorator/Custom'
+import { getDictionary } from '../decorator/Custom'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
@@ -317,7 +317,7 @@ const props = defineProps({
    * 优先级: ```AInput```传入 > ```@FormField```
    */
   list: {
-    type: Object as unknown as PropType<IRecord[]>,
+    type: Object as unknown as PropType<IDictionary[]>,
     default: undefined,
   },
 
@@ -326,7 +326,7 @@ const props = defineProps({
    * 优先级: ```AInput```传入 > ```@FormField```
    */
   tree: {
-    type: Object as unknown as PropType<IRecord[]>,
+    type: Object as unknown as PropType<IDictionary[]>,
     default: undefined,
   },
 
@@ -387,9 +387,9 @@ const fieldName = ref('')
 /**
  * 枚举数据
  */
-const enumRecord = computed(() => {
+const dictionary = computed(() => {
   if (props.entity && fieldName.value) {
-    return getEnumRecord(entityInstance.value, fieldName.value)
+    return getDictionary(entityInstance.value, fieldName.value)
   }
   return undefined
 })
@@ -440,12 +440,12 @@ function getSwitchColor(status: 'on' | 'off') {
   if (fieldConfig.value?.disableSwitchColor) {
     return ''
   }
-  if (fieldConfig.value?.enumRecord) {
-    return fieldConfig.value?.enumRecord.find((item) => item.key === (status === 'on'))?.color || ''
+  if (fieldConfig.value?.dictionary) {
+    return fieldConfig.value?.dictionary.find((item) => item.key === (status === 'on'))?.color || ''
   }
 
-  if (enumRecord.value) {
-    return enumRecord.value.find((item) => item.key === (status === 'on'))?.color || ''
+  if (dictionary.value) {
+    return dictionary.value.find((item) => item.key === (status === 'on'))?.color || ''
   }
   return ''
 }
@@ -635,7 +635,7 @@ function init() {
       if (fieldConfig.value) {
         // 装饰了FormField
         if (
-          enumRecord.value || fieldConfig.value.enumRecord
+          dictionary.value || fieldConfig.value.dictionary
           || props.list
           || props.tree
           || fieldConfig.value.dateType !== undefined

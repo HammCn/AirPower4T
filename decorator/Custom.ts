@@ -3,21 +3,21 @@
  * # 自定义类和属性名注解
  * @author Hamm
  */
-import { IRecord } from '../interface/IRecord'
-import { AirRecordArray } from '../model/extend/AirRecordArray'
+import { IDictionary } from '../interface/IDictionary'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 
-const ENUM_RECORD_PREFIX = '__enum_record_'
+const DICTIONARY_PREFIX = '__dictionary_'
 
 /**
  * # 标记属性的枚举字典
  * @param clazz 类型
  */
-export function EnumRecord(record: AirRecordArray<IRecord>) {
+export function Dictionary(dictionary: AirDictionaryArray<IDictionary>) {
   return (target: any, key: string) => {
-    Object.defineProperty(target, ENUM_RECORD_PREFIX + key, {
+    Object.defineProperty(target, DICTIONARY_PREFIX + key, {
       enumerable: false,
-      value: AirRecordArray.create(record),
+      value: AirDictionaryArray.create(dictionary),
       writable: false,
       configurable: false,
     })
@@ -29,8 +29,8 @@ export function EnumRecord(record: AirRecordArray<IRecord>) {
  * @param target 目标类
  * @param fieldKey 属性名
  */
-export function getEnumRecord(target: any, fieldKey: string): AirRecordArray<IRecord> | undefined {
-  const config = target[ENUM_RECORD_PREFIX + fieldKey]
+export function getDictionary(target: any, fieldKey: string): AirDictionaryArray<IDictionary> | undefined {
+  const config = target[DICTIONARY_PREFIX + fieldKey]
   if (config !== undefined) {
     return config
   }
@@ -38,7 +38,7 @@ export function getEnumRecord(target: any, fieldKey: string): AirRecordArray<IRe
   if (superClass.constructor.name === 'AirModel') {
     return undefined
   }
-  return getEnumRecord(superClass, fieldKey)
+  return getDictionary(superClass, fieldKey)
 }
 
 const TYPE_PREFIX = '__class_'

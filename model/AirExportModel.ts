@@ -1,10 +1,11 @@
+import { AirModel } from '../base/AirModel'
 import { AirRequest } from './AirRequest'
 
 /**
  * # 导出的数据模型
  * @author Hamm
  */
-export class AirExportModel<R extends AirRequest = AirRequest> {
+export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel {
   /**
    * # 导出请求的API地址
    */
@@ -16,11 +17,18 @@ export class AirExportModel<R extends AirRequest = AirRequest> {
   param!: R
 
   /**
+   * # 下载导出文件的临时令牌
+   * ! 传参用
+   */
+  fileCode!: string
+
+  /**
    * # 实例化一个导出模型
    * @param url [可选] 导出URL地址
    * @param param [可选] 导出的查询参数
    */
   constructor(url?: string, param?: R) {
+    super()
     if (url) {
       this.url = url
     }

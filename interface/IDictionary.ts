@@ -2,10 +2,10 @@
 import { AirColor } from '../enum/AirColor'
 
 /**
- * # 标准记录集 用于全局固定枚举常量的声明
+ * # 标准字典 用于全局固定枚举常量的声明
  * @author Hamm
  */
-export interface IRecord {
+export interface IDictionary {
   /**
    * # 常量的值
    */
@@ -30,7 +30,7 @@ export interface IRecord {
   disabled?: boolean
 
   /**
-   * # 子记录集
+   * # 子字典
    */
   children?: this[]
 }

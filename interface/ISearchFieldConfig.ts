@@ -1,8 +1,8 @@
 import { AirBetweenType } from '../enum/AirBetweenType'
 import { IFieldConfig } from './IFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
-import { IRecord } from '../interface/IRecord'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { IDictionary } from '../interface/IDictionary'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
  * # 表格的字段配置接口
@@ -22,7 +22,7 @@ export interface ISearchFieldConfig extends IFieldConfig {
   /**
    * # 枚举数据集
    */
-  enumRecord?: AirRecordArray<IRecord>;
+  dictionary?: AirDictionaryArray<IDictionary>;
 
   /**
    * # 是否可筛选

@@ -1,11 +1,11 @@
 import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
-import { IRecord } from '../interface/IRecord'
+import { IDictionary } from '../interface/IDictionary'
 import { AirFieldConfig } from './AirFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
-import { AirRecordArray } from '../model/extend/AirRecordArray'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
  * # 表单字段配置实现类
@@ -56,7 +56,7 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   showLimit?: boolean
 
-  enumRecord?: AirRecordArray<IRecord>
+  dictionary?: AirDictionaryArray<IDictionary>
 
   checkStrictly = true
 

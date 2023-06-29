@@ -153,14 +153,14 @@
                         </template>
 
                         <el-select
-                          v-else-if="item.enumRecord && item.enumRecord.length > 0"
+                          v-else-if="item.dictionary && item.dictionary.length > 0"
                           v-model="filter[item.key]"
                           :placeholder="'请选择' + item.label + '...'"
                           clearable
                           :filterable="item.filterable"
                           @clear=" filter[item.key] = undefined"
                         >
-                          <template v-for=" enumItem of item.enumRecord ">
+                          <template v-for=" enumItem of item.dictionary ">
                             <el-option
                               v-if="!enumItem.disabled"
                               :key="(enumItem.key as string)"
@@ -171,14 +171,14 @@
                         </el-select>
 
                         <el-select
-                          v-else-if="getEnumRecord(entityInstance, item.key)"
+                          v-else-if="getDictionary(entityInstance, item.key)"
                           v-model="filter[item.key]"
                           :placeholder="'请选择' + item.label + '...'"
                           clearable
                           :filterable="item.filterable"
                           @clear=" filter[item.key] = undefined"
                         >
-                          <template v-for=" enumItem of getEnumRecord(entityInstance, item.key) ">
+                          <template v-for=" enumItem of getDictionary(entityInstance, item.key) ">
                             <el-option
                               v-if="!enumItem.disabled"
                               :key="(enumItem.key as string)"
@@ -266,7 +266,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { AirAbstractService } from '../base/AirAbstractService'
 import { IJson } from '../interface/IJson'
-import { getEnumRecord } from '../decorator/Custom'
+import { getDictionary } from '../decorator/Custom'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 

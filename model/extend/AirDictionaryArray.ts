@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { AirColor } from '../../enum/AirColor'
-import { IRecord } from '../../interface/IRecord'
-import { AirRecord } from '../AirRecord'
+import { IDictionary } from '../../interface/IDictionary'
+import { AirDictionary } from '../AirDictionary'
 
 /**
- * # 字典记录集数组
+ * # 字典数组
  * @author Hamm
  */
-export class AirRecordArray<T extends IRecord> extends Array<T> {
+export class AirDictionaryArray<T extends IDictionary> extends Array<T> {
   /**
-   * # 获取字典记录集指定Key的Label
+   * # 获取字典指定Key的Label
    * @param key Key
    * @param defaultLabel 默认Label
    */
@@ -19,7 +19,7 @@ export class AirRecordArray<T extends IRecord> extends Array<T> {
   }
 
   /**
-   * # 获取字典记录集指定Key的Color
+   * # 获取字典指定Key的Color
    * @param key Key
    * @param defaultColor 默认Color
    */
@@ -48,28 +48,28 @@ export class AirRecordArray<T extends IRecord> extends Array<T> {
   }
 
   /**
-   * # 创建可扩展的记录集字典
+   * # 创建可扩展的字典
    * @param list 字典数组
    */
-  static createCustom<T extends IRecord>(list: T[]): AirRecordArray<T> {
-    const recordArray = new AirRecordArray<T>()
+  static createCustom<T extends IDictionary>(list: T[]): AirDictionaryArray<T> {
+    const dictionary = new AirDictionaryArray<T>()
     list.forEach((json: T) => {
-      const item = { ...new AirRecord(), ...json }
-      recordArray.push(item)
+      const item = { ...new AirDictionary(), ...json }
+      dictionary.push(item)
     })
-    return recordArray
+    return dictionary
   }
 
   /**
-   * # 创建记录集字典
+   * # 创建字典
    * @param list 字典数组
    */
-  static create(list: IRecord[]): AirRecordArray<IRecord> {
-    const recordArray = new AirRecordArray<IRecord>()
+  static create(list: IDictionary[]): AirDictionaryArray<IDictionary> {
+    const dictionary = new AirDictionaryArray<IDictionary>()
     list.forEach((json) => {
-      const item = { ...new AirRecord(), ...json }
-      recordArray.push(item)
+      const item = { ...new AirDictionary(), ...json }
+      dictionary.push(item)
     })
-    return recordArray
+    return dictionary
   }
 }

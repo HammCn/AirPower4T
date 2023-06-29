@@ -61,7 +61,7 @@
             >
               <!-- 自动读取枚举 -->
               <div
-                v-if="item.enumRecord || getEnumRecord(entityInstance, item.key)"
+                v-if="item.dictionary || getDictionary(entityInstance, item.key)"
                 class="status"
               >
                 <!-- 显示状态灯 -->
@@ -70,12 +70,12 @@
                   class="light"
                   :style="{
                     backgroundColor:
-                      (item.enumRecord || getEnumRecord(entityInstance, item.key) || new AirRecordArray())
+                      (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
                         .getColor((scope as any).row[item.key], AirColor.NORMAL)
                   }"
                 />
                 {{
-                  (item.enumRecord || getEnumRecord(entityInstance, item.key) || new AirRecordArray())
+                  (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
                     .getLabel((scope as any).row[item.key], item.emptyValue) }}
               </div>
               <!-- 自动时间日期格式化 -->
@@ -303,8 +303,8 @@ import { ITree } from '../interface/ITree'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { getEnumRecord } from '../decorator/Custom'
-import { AirRecordArray } from '../model/extend/AirRecordArray'
+import { getDictionary } from '../decorator/Custom'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 

@@ -1,7 +1,7 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirRecordArray } from '../model/AirRecordArray'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
-import { IRecord } from './IRecord'
+import { IDictionary } from './IDictionary'
 
 /**
  * # 表格的字段配置接口
@@ -43,7 +43,7 @@ export interface ITableFieldConfig extends IFieldConfig {
   /**
    * # 枚举数据集
    */
-  enumRecord?: AirRecordArray<IRecord>;
+  dictionary?: AirDictionaryArray<IDictionary>;
 
   /**
    * # 如是日期 可传入转换规则
@@ -52,7 +52,7 @@ export interface ITableFieldConfig extends IFieldConfig {
 
   /**
    * # 是否显示状态灯 默认显示
-   * 如果显示 请确保传入的 ```enumRecord``` 配置了color
+   * 如果显示 请确保传入的 ```dictionary``` 配置了color
    */
   showStatus?: boolean;
 

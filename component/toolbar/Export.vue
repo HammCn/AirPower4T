@@ -80,8 +80,10 @@ const exportFilePath = ref('')
 async function startLoop(fileCode: string) {
   clearTimeout(loopTimer)
   try {
-    const downloadPath: string = await AirHttp.create('file/download').callbackError()
-      .post({ fileCode })
+    const exportModel = new AirExportModel()
+    exportModel.fileCode = fileCode
+    const downloadPath = await AirHttp.create('file/download').callbackError()
+      .post(exportModel) as unknown as string
     isLoading.value = false
     exportFilePath.value = AirFile.getStaticFileUrl(downloadPath)
   } catch (e) {
@@ -109,7 +111,7 @@ async function createExportTask() {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
     const json = props.param.param.toJson()
     json.page = undefined
-    const fileCode: string = await AirHttp.create(props.param.url).post(json)
+    const fileCode: string = await AirHttp.create(props.param.url).post(json) as unknown as string
     // 轮询任务结果
     startLoop(fileCode)
   } catch (e) {
