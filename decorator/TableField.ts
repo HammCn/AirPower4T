@@ -68,7 +68,7 @@ function getFieldConfigValue(target: any, fieldKey: string, configKey: string) {
  * @param fieldKey 属性名
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getTableFieldConfig(target: any, fieldKey: string): AirTableFieldConfig | null {
+export function getTableConfig(target: any, fieldKey: string): AirTableFieldConfig | null {
   let fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
   if (!fieldConfig) {
     // 没有查询到配置
@@ -76,7 +76,7 @@ export function getTableFieldConfig(target: any, fieldKey: string): AirTableFiel
     if (superClass.constructor.name === 'AirModel') {
       return null
     }
-    fieldConfig = getTableFieldConfig(superClass, fieldKey)
+    fieldConfig = getTableConfig(superClass, fieldKey)
   }
   if (!fieldConfig) {
     // 一直遍历到AirModel都没找到
@@ -96,11 +96,11 @@ export function getTableFieldConfig(target: any, fieldKey: string): AirTableFiel
  * # 获取标记了表格配置的字段列表
  * @param target 目标对象
  */
-export function getCustomTableFieldNameList(target: any): string[] {
+export function getTableFieldList(target: any): string[] {
   let list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name !== 'AirModel') {
-    list = list.concat(getCustomTableFieldNameList(superClass))
+    list = list.concat(getTableFieldList(superClass))
   }
   return list
 }
@@ -110,15 +110,15 @@ export function getCustomTableFieldNameList(target: any): string[] {
  * @param fieldNameList 字段列表
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getCustomTableFieldList(target: any, fieldNameList: string[]) {
+export function getTableConfigList(target: any, fieldNameList: string[]) {
   const fieldConfigList: AirTableFieldConfig[] = []
   const keyList = []
   if (fieldNameList.length === 0) {
-    fieldNameList = getCustomTableFieldNameList(target)
+    fieldNameList = getTableFieldList(target)
   }
   for (const fieldName of fieldNameList) {
     if (keyList.indexOf(fieldName) < 0) {
-      const config = getTableFieldConfig(target, fieldName)
+      const config = getTableConfig(target, fieldName)
       if (config) {
         keyList.push(config.key)
         const defaultConfig = new AirTableFieldConfig()

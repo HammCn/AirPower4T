@@ -674,7 +674,7 @@ export class AirValidator {
     for (let i = 0; i < formFieldList.length; i += 1) {
       const config = formFieldList[i]
       const fieldKey = config.key
-      const fieldName = entity.getCustomFieldName(fieldKey)
+      const fieldName = entity.getFieldName(fieldKey)
       if (!formRules[fieldKey]) {
         formRules[fieldKey] = []
       }

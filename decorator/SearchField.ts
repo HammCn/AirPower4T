@@ -69,14 +69,14 @@ function getFieldConfigValue(target: any, fieldKey: string, configKey: string) {
  * @param fieldKey 属性名
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getSearchFieldConfig(target: any, fieldKey: string): AirSearchFieldConfig | null {
+export function getSearchConfig(target: any, fieldKey: string): AirSearchFieldConfig | null {
   let fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
   if (fieldConfig === undefined) {
     const superClass = Object.getPrototypeOf(target)
     if (superClass.constructor.name === 'AirModel') {
       return null
     }
-    fieldConfig = getSearchFieldConfig(superClass, fieldKey)
+    fieldConfig = getSearchConfig(superClass, fieldKey)
   }
   if (!fieldConfig) {
     // 一直遍历到AirModel都没找到
@@ -95,11 +95,11 @@ export function getSearchFieldConfig(target: any, fieldKey: string): AirSearchFi
  * # 获取标记了搜索配置的字段列表
  * @param target 目标对象
  */
-export function getCustomSearchFieldNameList(target: any): string[] {
+export function getSearchFieldList(target: any): string[] {
   let list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name !== 'AirModel') {
-    list = list.concat(getCustomSearchFieldNameList(superClass))
+    list = list.concat(getSearchFieldList(superClass))
   }
   return list
 }
@@ -108,15 +108,15 @@ export function getCustomSearchFieldNameList(target: any): string[] {
  * @param target 目标类或对象
  * @param fieldNameList 选择字段列表
  */
-export function getCustomSearchFieldList(target: any, fieldNameList: string[]) {
+export function getSearchConfigList(target: any, fieldNameList: string[]) {
   const fieldConfigList: AirSearchFieldConfig[] = []
   const keyList = []
   if (fieldNameList.length === 0) {
-    fieldNameList = getCustomSearchFieldNameList(target)
+    fieldNameList = getSearchFieldList(target)
   }
   for (const fieldName of fieldNameList) {
     if (keyList.indexOf(fieldName) < 0) {
-      const config = getSearchFieldConfig(target, fieldName)
+      const config = getSearchConfig(target, fieldName)
       if (config) {
         keyList.push(config.key)
         const defaultConfig = new AirSearchFieldConfig()

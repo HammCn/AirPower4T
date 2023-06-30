@@ -69,7 +69,7 @@ function getFieldConfigValue(target: any, fieldKey: string, configKey: string) {
  * @param fieldKey 属性名
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldConfig | null {
+export function getFormConfig(target: any, fieldKey: string): AirFormFieldConfig | null {
   let fieldConfig = target[FIELD_CONFIG_KEY + fieldKey]
 
   if (fieldConfig === undefined) {
@@ -78,7 +78,7 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
     if (superClass.name === 'AirModel') {
       return null
     }
-    fieldConfig = getFormFieldConfig(superClass, fieldKey)
+    fieldConfig = getFormConfig(superClass, fieldKey)
   }
   if (!fieldConfig) {
     // 一直遍历到AirModel都没找到
@@ -98,11 +98,11 @@ export function getFormFieldConfig(target: any, fieldKey: string): AirFormFieldC
  * # 获取标记了表单配置的字段列表
  * @param target 目标对象
  */
-export function getCustomFormFieldNameList(target: any): string[] {
+export function getFormFieldList(target: any): string[] {
   let list: string[] = target[FIELD_CONFIG_LIST_KEY] || []
   const superClass = Object.getPrototypeOf(target)
   if (superClass.constructor.name !== 'AirModel') {
-    list = list.concat(getCustomFormFieldNameList(superClass))
+    list = list.concat(getFormFieldList(superClass))
   }
   return list
 }
@@ -113,15 +113,15 @@ export function getCustomFormFieldNameList(target: any): string[] {
  * @param fieldNameList 选择字段列表
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getCustomFormFieldList(target: any, fieldNameList: string[]) {
+export function getFormConfigList(target: any, fieldNameList: string[]) {
   if (fieldNameList.length === 0) {
-    fieldNameList = getCustomFormFieldNameList(target)
+    fieldNameList = getFormFieldList(target)
   }
   const keyList = []
   const fieldConfigList: AirFormFieldConfig[] = []
   for (const fieldName of fieldNameList) {
     if (keyList.indexOf(fieldName) < 0) {
-      const config = getFormFieldConfig(target, fieldName)
+      const config = getFormConfig(target, fieldName)
       if (config) {
         keyList.push(config.key)
         const defaultConfig = new AirFormFieldConfig()

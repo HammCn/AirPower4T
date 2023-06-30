@@ -628,7 +628,7 @@ function init() {
 
     if (!placeholderRef.value) {
       const field = fieldConfig.value?.label
-        || entityInstance.value.getCustomFieldName(fieldName.value)
+        || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 

@@ -6,9 +6,9 @@ import { IJson } from '../interface/IJson'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { getFormFieldConfig, getCustomFormFieldList } from '../decorator/FormField'
-import { getCustomSearchFieldList } from '../decorator/SearchField'
-import { getCustomTableFieldList } from '../decorator/TableField'
+import { getFormConfig, getFormConfigList } from '../decorator/FormField'
+import { getSearchConfigList } from '../decorator/SearchField'
+import { getTableConfigList } from '../decorator/TableField'
 
 /**
  * # 模型超类
@@ -227,8 +227,8 @@ export class AirModel {
    * # 获取类的可阅读名字
    * 可使用 @ClassName 装饰器修饰 如无修饰 则直接返回类名
    */
-  static getCustomClassName() {
-    return this.newInstance().getCustomClassName()
+  static getClassName() {
+    return this.newInstance().getClassName()
   }
 
   /**
@@ -236,8 +236,8 @@ export class AirModel {
    * @param fieldKey 属性名
    * 可使用 @FieldName 装饰器修饰 如无修饰 则直接返回属性名
    */
-  static getCustomFieldName(fieldKey: string): string {
-    return this.newInstance().getCustomFieldName(fieldKey)
+  static getFieldName(fieldKey: string): string {
+    return this.newInstance().getFieldName(fieldKey)
   }
 
   /**
@@ -245,7 +245,7 @@ export class AirModel {
    * ! 内部使用的保留方法
    * @deprecated
    */
-  getCustomClassName(): string {
+  getClassName(): string {
     return getClassName(this) || this.constructor.name
   }
 
@@ -254,7 +254,7 @@ export class AirModel {
    * ! 内部使用的保留方法
    * @deprecated
    */
-  getCustomFieldName(fieldKey: string): string {
+  getFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)
   }
 
@@ -308,7 +308,7 @@ export class AirModel {
    * @deprecated
    */
   getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
-    return getFormFieldConfig(this, fieldKey)
+    return getFormConfig(this, fieldKey)
   }
 
   /**
@@ -317,7 +317,7 @@ export class AirModel {
    * @deprecated
    */
   getFormFieldLabel(fieldKey: string): string {
-    return this.getCustomFormFieldConfig(fieldKey)?.label || this.getCustomFieldName(fieldKey)
+    return this.getCustomFormFieldConfig(fieldKey)?.label || this.getFieldName(fieldKey)
   }
 
   /**
@@ -326,7 +326,7 @@ export class AirModel {
    * @deprecated
    */
   getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
-    return getCustomTableFieldList(this, fieldNameList)
+    return getTableConfigList(this, fieldNameList)
   }
 
   /**
@@ -335,7 +335,7 @@ export class AirModel {
    * @deprecated
    */
   getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
-    return getCustomFormFieldList(this, fieldNameList)
+    return getFormConfigList(this, fieldNameList)
   }
 
   /**
@@ -344,7 +344,7 @@ export class AirModel {
    * @deprecated
    */
   getSearchFieldConfigList(fieldNameList: string[] = []): AirSearchFieldConfig[] {
-    const configList = getCustomSearchFieldList(this, fieldNameList)
+    const configList = getSearchConfigList(this, fieldNameList)
     configList.sort((a, b) => b.orderNumber - a.orderNumber || 1)
     const queryParams: AirSearchFieldConfig[] = []
     for (const config of configList) {

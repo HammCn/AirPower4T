@@ -514,7 +514,7 @@ const request = ref(new AirRequestPage(props.entity))
  * 新增按钮的标题
  */
 // eslint-disable-next-line new-cap
-const addTitle = computed(() => entityConfig.value.addTitle || (`新增${entityInstance.value.getCustomClassName()}`))
+const addTitle = computed(() => entityConfig.value.addTitle || (`新增${entityInstance.value.getClassName()}`))
 
 /**
  * 关键词搜索提示文字
