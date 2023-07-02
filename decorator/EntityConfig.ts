@@ -4,7 +4,6 @@
  * # 实体的配置项注解
  * @author Hamm
  */
-import { AirEntity } from '../base/AirEntity'
 import { AirEntityConfig } from '../config/AirEntityConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IEntityConfig } from '../interface/IEntityConfig'
@@ -19,7 +18,7 @@ const ENTITY_CONFIG_KEY = 'EntityConfig'
  * @param config [可选]配置
  */
 export function EntityConfig(config: IEntityConfig) {
-  return (target: typeof AirEntity) => AirDecorator.setClassConfig(target, ENTITY_CONFIG_KEY, config)
+  return (target: any) => AirDecorator.setClassConfig(target, ENTITY_CONFIG_KEY, config)
 }
 
 /**

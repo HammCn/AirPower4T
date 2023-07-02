@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirConfig } from './AirConfig'
 import { IJson } from '../interface/IJson'
 import { AirStore } from '../store/AirStore'

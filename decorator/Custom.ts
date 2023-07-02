@@ -39,23 +39,16 @@ const TYPE_KEY = 'Type'
  * @param clazz 类型
  */
 export function Type(clazz: any): Function {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, `${TYPE_KEY}[${key}]`, {
-      enumerable: false,
-      value: clazz,
-      writable: false,
-      configurable: false,
-    })
-  }
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TYPE_KEY, clazz)
 }
 
 /**
  * # 获取属性强制转换类
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getType(target: any, fieldKey: string): ClassConstructor<unknown> | undefined {
-  return AirDecorator.getFieldConfig(target, fieldKey, TYPE_KEY) || undefined
+export function getType(target: any, key: string): ClassConstructor<unknown> | undefined {
+  return AirDecorator.getFieldConfig(target, key, TYPE_KEY) || undefined
 }
 
 const TO_JSON_KEY = 'ToJson'
@@ -90,10 +83,10 @@ export function ToModel(func: Function): Function {
 /**
  * # 获取自定义转换到Model的方法
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getToModel(target: any, fieldKey: string): Function | undefined {
-  return AirDecorator.getFieldConfig(target, fieldKey, TO_MODEL_KEY)
+export function getToModel(target: any, key: string): Function | undefined {
+  return AirDecorator.getFieldConfig(target, key, TO_MODEL_KEY)
 }
 
 const DEFAULT_KEY = 'Default'
@@ -186,10 +179,10 @@ export function IgnorePrefix(): Function {
 /**
  * # 获取属性是否忽略别名前缀
  * @param target 目标类
- * @param fieldKey 属性名称
+ * @param key 属性名称
  */
-export function getIgnorePrefix(target: any, fieldKey: string): boolean {
-  return AirDecorator.getFieldConfig(target, fieldKey, FIELD_IGNORE_KEY) || false
+export function getIgnorePrefix(target: any, key: string): boolean {
+  return AirDecorator.getFieldConfig(target, key, FIELD_IGNORE_KEY) || false
 }
 
 const FIELD_PREFIX_KEY = 'FieldPrefix'

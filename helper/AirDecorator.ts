@@ -15,7 +15,7 @@ export class AirDecorator {
       enumerable: false,
       value: classConfig,
       writable: false,
-      configurable: false,
+      configurable: true,
     })
   }
 
@@ -25,7 +25,7 @@ export class AirDecorator {
    * @param key 配置key
    * @param classConfigKey 配置项的Key
    */
-  static getClassConfigValue(target: any, key: string, classConfigKey: string): any {
+  private static getClassConfigValue(target: any, key: string, classConfigKey: string): any {
     const entityConfig = target[classConfigKey]
     if (entityConfig && entityConfig[key] !== undefined) {
       return entityConfig[key]
@@ -41,6 +41,7 @@ export class AirDecorator {
    * # 递归获取指定类的配置项
    * @param target 目标类
    * @param classConfigKey 配置项的Key
+   * @param defaultValue [可选]类装饰器请传入配置项实例
    */
   static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined): any {
     const classConfig = target[classConfigKey]
@@ -58,7 +59,7 @@ export class AirDecorator {
       const keys = Object.keys(defaultValue)
       for (const key of keys) {
         if ((classConfig as any)[key] !== undefined) {
-        // eslint-disable-next-line no-continue
+          // eslint-disable-next-line no-continue
           continue
         }
         (classConfig as any)[key] = this.getClassConfigValue(target, key, classConfigKey)
