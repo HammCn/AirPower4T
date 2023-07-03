@@ -68,7 +68,10 @@ export class AirModel {
       const data = (this as any)[key]
       result[key] = data
 
-      const payloadAlias = (!getIgnorePrefix(this, key) ? getFieldPrefix(this) : '') + getAlias(this, key)
+      let payloadAlias = getAlias(this, key) || key
+      if (!getIgnorePrefix(this, key) && getFieldPrefix(this)) {
+        payloadAlias = getFieldPrefix(this) + payloadAlias
+      }
       if (typeof data === 'object') {
         if (data instanceof Array) {
           // 数组需要循环转换
@@ -84,7 +87,6 @@ export class AirModel {
       } else {
         result[payloadAlias || key] = data
       }
-
       const func = getToJson(this, key)
       if (func === undefined) {
         if (payloadAlias !== key) {
@@ -97,7 +99,7 @@ export class AirModel {
         result[payloadAlias || key] = func(this)
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.warn('ToJson Function Error')
+        console.warn('ToJson Function Error', e)
       }
       if (payloadAlias !== key) {
         delete result[key]
@@ -150,7 +152,12 @@ export class AirModel {
       /** # 💡 装饰器为属性配置的强制转换类 */
       const FieldTypeClass = getType(instance, key)
       const payloadAlias = getAlias(instance, key)
-      let data = json[(!getIgnorePrefix(instance, key) ? getFieldPrefix(instance) : '') + (payloadAlias || key)]
+      let data = json[
+        (!getIgnorePrefix(instance, key)
+          ? getFieldPrefix(instance)
+          : ''
+        )
+        + (payloadAlias || key)]
       if (data === undefined) {
         // 没有值尝试获取默认值
         data = getDefault(instance, key)
@@ -171,10 +178,10 @@ export class AirModel {
       } else if (FieldTypeClass) {
         switch (FieldTypeClass.name) {
           case 'String':
-            (instance as any)[key] = data ? data.toString() : getDefault(instance, key)
+            (instance as any)[key] = (data ? data.toString() : getDefault(instance, key))
             break
           case 'Number':
-            (instance as any)[key] = Number.isNaN(parseFloat(data)) ? getDefault(instance, key) : parseFloat(data)
+            (instance as any)[key] = (Number.isNaN(parseFloat(data)) ? getDefault(instance, key) : parseFloat(data))
             break
           case 'Boolean':
             (instance as any)[key] = !!data || getDefault(instance, key)
@@ -193,7 +200,7 @@ export class AirModel {
         (instance as any)[key] = func((json as any))
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.warn('ToModel Function Error')
+        console.warn('ToModel Function Error', e)
       }
     }
     // 最后删除无用的数据
@@ -221,8 +228,8 @@ export class AirModel {
    * # 获取类的可阅读名字
    * 可使用 @ClassName 装饰器修饰 如无修饰 则直接返回类名
    */
-  static getCustomClassName() {
-    return this.newInstance().getCustomClassName()
+  static getClassName() {
+    return this.newInstance().getClassName()
   }
 
   /**
@@ -230,8 +237,8 @@ export class AirModel {
    * @param fieldKey 属性名
    * 可使用 @FieldName 装饰器修饰 如无修饰 则直接返回属性名
    */
-  static getCustomFieldName(fieldKey: string): string {
-    return this.newInstance().getCustomFieldName(fieldKey)
+  static getFieldName(fieldKey: string): string {
+    return this.newInstance().getFieldName(fieldKey)
   }
 
   /**
@@ -239,7 +246,7 @@ export class AirModel {
    * ! 内部使用的保留方法
    * @deprecated
    */
-  getCustomClassName(): string {
+  getClassName(): string {
     return getClassName(this) || this.constructor.name
   }
 
@@ -248,7 +255,7 @@ export class AirModel {
    * ! 内部使用的保留方法
    * @deprecated
    */
-  getCustomFieldName(fieldKey: string): string {
+  getFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)
   }
 }

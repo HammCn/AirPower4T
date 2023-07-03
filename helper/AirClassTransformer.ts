@@ -8,6 +8,17 @@ import { IJson } from '../interface/IJson'
  */
 export class AirClassTransformer {
   /**
+   * # 复制一个新的JSON对象
+   * @param json JSON
+   */
+  static copyJson<T extends IJson>(json: T): T {
+    if (!json) {
+      return json
+    }
+    return JSON.parse(JSON.stringify(json))
+  }
+
+  /**
    * # 转换JSON数据到指定类的对象
    * @param json JSON
    * @param clazz 目标类

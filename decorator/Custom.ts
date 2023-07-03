@@ -1,168 +1,95 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * # 自定义类和属性名注解
  * @author Hamm
  */
+import { AirDecorator } from '../helper/AirDecorator'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 
-const DICTIONARY_PREFIX = '__dictionary_'
+const DICTIONARY_KEY = 'Dictionary'
 
 /**
  * # 标记属性的枚举字典
  * @param clazz 类型
  */
-export function Dictionary(dictionary: AirDictionaryArray<IDictionary>) {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, DICTIONARY_PREFIX + key, {
-      enumerable: false,
-      value: AirDictionaryArray.create(dictionary),
-      writable: false,
-      configurable: false,
-    })
-  }
+export function Dictionary(dictionary: AirDictionaryArray<IDictionary>): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
 }
 
 /**
  * # 获取属性枚举字典
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getDictionary(target: any, fieldKey: string): AirDictionaryArray<IDictionary> | undefined {
-  const config = target[DICTIONARY_PREFIX + fieldKey]
-  if (config !== undefined) {
-    return config
+export function getDictionary(target: any, key: string): AirDictionaryArray<IDictionary> | undefined {
+  const config = AirDecorator.getFieldConfig(target, key, DICTIONARY_KEY)
+  if (config) {
+    return AirDictionaryArray.create(config)
   }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return undefined
-  }
-  return getDictionary(superClass, fieldKey)
+  return undefined
 }
 
-const TYPE_PREFIX = '__class_'
+const TYPE_KEY = 'Type'
 
 /**
  * # 标记属性强制转换类
  * @param clazz 类型
  */
-export function Type(clazz: any) {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, TYPE_PREFIX + key, {
-      enumerable: false,
-      value: clazz,
-      writable: false,
-      configurable: false,
-    })
-  }
+export function Type(clazz: any): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TYPE_KEY, clazz)
 }
 
 /**
  * # 获取属性强制转换类
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getType(target: any, fieldKey: string): ClassConstructor<unknown> | undefined {
-  const config = target[TYPE_PREFIX + fieldKey]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return undefined
-  }
-  return getType(superClass, fieldKey)
+export function getType(target: any, key: string): ClassConstructor<unknown> | undefined {
+  return AirDecorator.getFieldConfig(target, key, TYPE_KEY) || undefined
 }
 
-const TO_JSON_FUNCTION = '__to_json_function_'
+const TO_JSON_KEY = 'ToJson'
 
 /**
  * # 自定义转换到JSON的方法
  * @param func 方法
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function ToJson(func: Function) {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, TO_JSON_FUNCTION + key, {
-      enumerable: false,
-      value: func,
-      writable: false,
-      configurable: false,
-    })
-  }
+export function ToJson(func: Function): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TO_JSON_KEY, func)
 }
 
 /**
  * # 获取自定义转换到JSON的方法
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function getToJson(target: any, fieldKey: string): Function | undefined {
-  const config = target[TO_JSON_FUNCTION + fieldKey]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return undefined
-  }
-  return getToJson(superClass, fieldKey)
+export function getToJson(target: any, key: string): Function | undefined {
+  return AirDecorator.getFieldConfig(target, key, TO_JSON_KEY)
 }
 
-const TO_MODEL_FUNCTION = '__to_model_function_'
+const TO_MODEL_KEY = 'ToModel'
 
 /**
  * # 自定义转换到Model的方法
  * @param func 方法
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function ToModel(func: Function) {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, TO_MODEL_FUNCTION + key, {
-      enumerable: false,
-      value: func,
-      writable: false,
-      configurable: false,
-    })
-  }
+export function ToModel(func: Function): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TO_MODEL_KEY, func)
 }
 
 /**
  * # 获取自定义转换到Model的方法
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function getToModel(target: any, fieldKey: string): Function | undefined {
-  const config = target[TO_MODEL_FUNCTION + fieldKey]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return undefined
-  }
-  return getToModel(superClass, fieldKey)
+export function getToModel(target: any, key: string): Function | undefined {
+  return AirDecorator.getFieldConfig(target, key, TO_MODEL_KEY)
 }
 
-const DEFAULT_VALUE_PREFIX = '__default_value_'
-
-/**
- * # 设置默认值
- * @param target 目标类
- * @param key 目标属性
- * @param value 默认值
- */
-function setDefaultValue(target: any, key: string, value: any) {
-  Object.defineProperty(target, DEFAULT_VALUE_PREFIX + key, {
-    enumerable: false,
-    value,
-    writable: false,
-    configurable: true,
-  })
-}
+const DEFAULT_KEY = 'Default'
 
 /**
  * # 标记属性的默认值
@@ -171,80 +98,46 @@ function setDefaultValue(target: any, key: string, value: any) {
  *
  * @param value 默认值
  */
-export function Default(value: any) {
-  return (target: any, key: string) => {
-    setDefaultValue(target, key, value)
-  }
+export function Default(value: any): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DEFAULT_KEY, value)
 }
 
 /**
  * # 获取类的属性默认值
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getDefault(target: any, fieldKey: string): any {
-  const config = target[DEFAULT_VALUE_PREFIX + fieldKey]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return undefined
-  }
-  return getDefault(superClass, fieldKey)
+export function getDefault(target: any, key: string): any {
+  return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
 }
 
-const IS_ARRAY_PREFIX = '__is_array_'
+const IS_ARRAY_KEY = 'IsArray'
 
 /**
  * # 标记属性是数组
  * @param clazz 类型
  */
-export function IsArray() {
-  return (target: any, key: string) => {
-    setDefaultValue(target, key, [])
-    Object.defineProperty(target, IS_ARRAY_PREFIX + key, {
-      enumerable: false,
-      value: true,
-      writable: false,
-      configurable: false,
-    })
-  }
+export function IsArray(): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
 }
 
 /**
  * # 获取属性是否数组
  * @param target 目标类
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getIsArray(target: any, fieldKey: string): boolean {
-  const config = target[IS_ARRAY_PREFIX + fieldKey]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return false
-  }
-  return getIsArray(superClass, fieldKey)
+export function getIsArray(target: any, key: string): boolean {
+  return AirDecorator.getFieldConfig(target, key, IS_ARRAY_KEY)
 }
 
-const CLASS_NAME_KEY = '__class_name__'
+const CLASS_NAME_KEY = 'ClassName'
 
 /**
  * # 为类标记可读名称
  * @param className 类的可读名称
  */
-export function ClassName(className: string) {
-  return (target: any) => {
-    Object.defineProperty(target.prototype, CLASS_NAME_KEY, {
-      enumerable: false,
-      value: className,
-      writable: false,
-      configurable: false,
-    })
-    return target
-  }
+export function ClassName(className: string): Function {
+  return (target: any) => AirDecorator.setClassConfig(target, CLASS_NAME_KEY, className)
 }
 
 /**
@@ -252,100 +145,54 @@ export function ClassName(className: string) {
  * @param target 目标类
  */
 export function getClassName(target: any): string {
-  const className = target[CLASS_NAME_KEY]
-  if (className) {
-    return className
-  }
-
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return ''
-  }
-  return getClassName(superClass)
+  return AirDecorator.getClassConfig(target, CLASS_NAME_KEY)
 }
 
-const FIELD_NAME_PREFIX = '__field_name_'
+const FIELD_NAME_KEY = 'FieldName'
 
 /**
  * # 为属性标记可读名称
  * @param fieldName 属性的可读名称
  */
-export function FieldName(fieldName: string) {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, FIELD_NAME_PREFIX + key, {
-      enumerable: false,
-      value: fieldName,
-      writable: false,
-      configurable: false,
-    })
-  }
+export function FieldName(fieldName: string): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_NAME_KEY, fieldName)
 }
 
 /**
  * # 获取属性可读名称
  * @param target 目标对象
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getFieldName(target: any, fieldKey: string): string {
-  const fieldName = target[FIELD_NAME_PREFIX + fieldKey]
-  if (fieldName) {
-    return fieldName
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return fieldKey
-  }
-  return getFieldName(superClass, fieldKey)
+export function getFieldName(target: any, key: string): string {
+  return AirDecorator.getFieldConfig(target, key, FIELD_NAME_KEY) || key
 }
 
-const FIELD_IGNORE_PREFIX = '__field_ignore_prefix_'
+const FIELD_IGNORE_KEY = 'IgnorePrefix'
 
 /**
  * # 标记属性忽略类的别名前缀
  */
-export function IgnorePrefix() {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, FIELD_IGNORE_PREFIX + key, {
-      enumerable: false,
-      value: true,
-      writable: false,
-      configurable: false,
-    })
-  }
+export function IgnorePrefix(): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_IGNORE_KEY, true)
 }
 
 /**
  * # 获取属性是否忽略别名前缀
  * @param target 目标类
- * @param fieldKey 属性名称
+ * @param key 属性名称
  */
-export function getIgnorePrefix(target: any, fieldKey: string): boolean {
-  const config = target[FIELD_IGNORE_PREFIX + fieldKey]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return false
-  }
-  return getIgnorePrefix(superClass, fieldKey)
+export function getIgnorePrefix(target: any, key: string): boolean {
+  return AirDecorator.getFieldConfig(target, key, FIELD_IGNORE_KEY) || false
 }
 
-const CLASS_FIELD_ALIAS_PREFIX_KEY = '__class_field_alias_prefix__'
+const FIELD_PREFIX_KEY = 'FieldPrefix'
 
 /**
  * # 标记属性别名前缀
  * @param prefix 类的属性别名前缀
  */
 export function FieldPrefix(prefix: string) {
-  return (target: any) => {
-    Object.defineProperty(target.prototype, CLASS_FIELD_ALIAS_PREFIX_KEY, {
-      enumerable: false,
-      value: prefix,
-      writable: false,
-      configurable: false,
-    })
-  }
+  return (target: any) => AirDecorator.setClassConfig(target, FIELD_PREFIX_KEY, prefix)
 }
 
 /**
@@ -353,47 +200,24 @@ export function FieldPrefix(prefix: string) {
  * @param target 目标类
  */
 export function getFieldPrefix(target: any): string {
-  const config = target[CLASS_FIELD_ALIAS_PREFIX_KEY]
-  if (config !== undefined) {
-    return config
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return ''
-  }
-  return getFieldPrefix(superClass)
+  return AirDecorator.getClassConfig(target, FIELD_PREFIX_KEY) || ''
 }
 
-const ALIAS_PREFIX = '__alias_'
+const ALIAS_KEY = 'Alias'
 
 /**
  * # 为标记属性的转换别名
  * @param alias 属性的转换别名
  */
 export function Alias(alias: string) {
-  return (target: any, key: string) => {
-    Object.defineProperty(target, ALIAS_PREFIX + key, {
-      enumerable: false,
-      value: getFieldPrefix(target) + alias,
-      writable: false,
-      configurable: false,
-    })
-  }
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, ALIAS_KEY, getFieldPrefix(target) + alias)
 }
 
 /**
  * # 获取对象的属性转换别名
  * @param target 目标对象
- * @param fieldKey 属性名
+ * @param key 属性名
  */
-export function getAlias(target: any, fieldKey: string): string {
-  const fieldName = target[ALIAS_PREFIX + fieldKey]
-  if (fieldName) {
-    return fieldName
-  }
-  const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === 'AirModel') {
-    return fieldKey
-  }
-  return getAlias(superClass, fieldKey)
+export function getAlias(target: any, key: string): string {
+  return AirDecorator.getFieldConfig(target, key, ALIAS_KEY) || ''
 }
