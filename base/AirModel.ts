@@ -79,7 +79,7 @@ export class AirModel {
         payloadAlias = getFieldPrefix(this) + payloadAlias
       }
       if (typeof data === 'object') {
-        if (data instanceof Array) {
+        if (Array.isArray(data)) {
           // 数组需要循环转换
           const arr: IJson[] = []
           for (let i = 0; i < data.length; i += 1) {
@@ -133,7 +133,7 @@ export class AirModel {
    */
   static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
     const arr: T[] = []
-    if (jsonArray instanceof Array) {
+    if (Array.isArray(jsonArray)) {
       for (let i = 0; i < jsonArray.length; i += 1) {
         const instance: T = (Object.assign(new this()) as T)
         arr.push(AirModel.parse(instance, jsonArray[i]))
@@ -172,7 +172,7 @@ export class AirModel {
 
       if (getIsArray(instance, key)) {
         const arr: any = []
-        if (typeof data === 'object' && data instanceof Array) {
+        if (typeof data === 'object' && Array.isArray(data)) {
           for (let i = 0; i < data.length; i += 1) {
             // 如果标记了类 需要递归处理
             if (FieldTypeClass) {

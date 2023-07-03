@@ -214,7 +214,7 @@ export class AirHttp {
   post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
     let json = {}
     if (model) {
-      if (model instanceof Array) {
+      if (Array.isArray(model)) {
         json = model.map((item) => item.toJson())
       } else {
         json = model.toJson()
