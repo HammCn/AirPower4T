@@ -11,7 +11,7 @@ export class AirDecorator {
    * @param classConfig 配置的参数
    */
   static setClassConfig(target: any, classConfigKey: string, classConfig: any) {
-    Object.defineProperty(target.prototype, classConfigKey, {
+    Reflect.defineProperty(target.prototype, classConfigKey, {
       enumerable: false,
       value: classConfig,
       writable: false,
@@ -26,7 +26,7 @@ export class AirDecorator {
    * @param classConfigKey 配置项的Key
    */
   private static getClassConfigValue(target: any, key: string, classConfigKey: string): any {
-    const entityConfig = target[classConfigKey]
+    const entityConfig = Reflect.get(target, classConfigKey)
     if (entityConfig && entityConfig[key] !== undefined) {
       return entityConfig[key]
     }
@@ -44,7 +44,7 @@ export class AirDecorator {
    * @param defaultValue [可选]类装饰器请传入配置项实例
    */
   static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined): any {
-    const classConfig = target[classConfigKey]
+    const classConfig = Reflect.get(target, classConfigKey)
     if (!classConfig) {
       const superClass = Object.getPrototypeOf(target)
       if (!superClass || superClass.constructor.name === 'AirModel') {
@@ -80,7 +80,7 @@ export class AirDecorator {
     if (fieldListKey) {
       this.setFieldDecoration(target, key, fieldListKey)
     }
-    Object.defineProperty(target, `${`${fieldConfigKey}[${key}]`}`, {
+    Reflect.defineProperty(target, `${`${fieldConfigKey}[${key}]`}`, {
       enumerable: false,
       value: fieldConfig,
       writable: false,
@@ -95,13 +95,13 @@ export class AirDecorator {
    * @param fieldListKey 类配置项列表索引值
    */
   private static setFieldDecoration(target: any, key: string, fieldListKey: string) {
-    const list: string[] = target[fieldListKey] || []
+    const list: string[] = Reflect.get(target, fieldListKey) || []
     list.push(key)
-    Object.defineProperty(target, fieldListKey, {
+    Reflect.defineProperty(target, fieldListKey, {
       enumerable: false,
       value: list,
       writable: false,
-      configurable: false,
+      configurable: true,
     })
   }
 
@@ -112,7 +112,7 @@ export class AirDecorator {
    * @param fieldConfigKey FieldConfigKey
    */
   static getFieldConfig(target: any, key: string, fieldConfigKey: string): any {
-    let fieldConfig = target[`${`${fieldConfigKey}[${key}]`}`]
+    let fieldConfig = Reflect.get(target, `${`${fieldConfigKey}[${key}]`}`)
     if (typeof fieldConfig === 'object') {
       fieldConfig = AirClassTransformer.copyJson(fieldConfig)
     }
@@ -134,7 +134,7 @@ export class AirDecorator {
    * @param list [递归参数]无需传入
    */
   static getFieldList(target: any, fieldConfigKey: string, list: string[] = []): string[] {
-    const fieldList: string[] = target[fieldConfigKey] || []
+    const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
     fieldList.forEach((item) => list.includes(item) || list.push(item))
     const superClass = Object.getPrototypeOf(target)
     if (superClass.constructor.name !== 'AirModel') {
@@ -182,7 +182,7 @@ export class AirDecorator {
    * @param configKey 配置Key
    */
   static getFieldConfigValue(target: any, fieldConfigKey: string, key: string, configKey: string): any {
-    const fieldConfig = AirClassTransformer.copyJson(target[`${`${fieldConfigKey}[${key}]`}`])
+    const fieldConfig = AirClassTransformer.copyJson(Reflect.get(target, `${`${fieldConfigKey}[${key}]`}`))
     if (fieldConfig && fieldConfig[configKey] !== undefined) {
       return fieldConfig[configKey]
     }
