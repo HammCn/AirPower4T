@@ -30,7 +30,7 @@ export class AirDecorator {
     if (entityConfig && entityConfig[key] !== undefined) {
       return entityConfig[key]
     }
-    const superClass = Object.getPrototypeOf(target)
+    const superClass = Reflect.getPrototypeOf(target)
     if (!superClass || superClass.constructor.name === 'AirModel') {
       return undefined
     }
@@ -46,7 +46,7 @@ export class AirDecorator {
   static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined): any {
     const classConfig = Reflect.get(target, classConfigKey)
     if (!classConfig) {
-      const superClass = Object.getPrototypeOf(target)
+      const superClass = Reflect.getPrototypeOf(target)
       if (!superClass || superClass.constructor.name === 'AirModel') {
         if (typeof defaultValue === 'object') {
           return {}
@@ -120,8 +120,8 @@ export class AirDecorator {
       return fieldConfig
     }
     // 没有查询到配置
-    const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name === 'AirModel') {
+    const superClass = Reflect.getPrototypeOf(target)
+    if (!superClass || superClass.constructor.name === 'AirModel') {
       return undefined
     }
     return this.getFieldConfig(superClass, key, fieldConfigKey)
@@ -136,11 +136,11 @@ export class AirDecorator {
   static getFieldList(target: any, fieldConfigKey: string, list: string[] = []): string[] {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
     fieldList.forEach((item) => list.includes(item) || list.push(item))
-    const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name !== 'AirModel') {
-      return this.getFieldList(superClass, fieldConfigKey, list)
+    const superClass = Reflect.getPrototypeOf(target)
+    if (!superClass || superClass.constructor.name === 'AirModel') {
+      return list
     }
-    return list
+    return this.getFieldList(superClass, fieldConfigKey, list)
   }
 
   /**
@@ -187,7 +187,7 @@ export class AirDecorator {
       return fieldConfig[configKey]
     }
     const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name === 'AirModel') {
+    if (!superClass || superClass.constructor.name === 'AirModel') {
       return undefined
     }
     return this.getFieldConfigValue(superClass, fieldConfig, key, configKey)
