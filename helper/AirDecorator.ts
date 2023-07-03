@@ -4,6 +4,10 @@ import { IJson } from '../interface/IJson'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
 
+/**
+ * # 装饰器助手类
+ * @author Hamm
+ */
 export class AirDecorator {
   /**
    * # 设置一个类配置项
