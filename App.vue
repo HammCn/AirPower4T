@@ -53,7 +53,6 @@ const airpowerInit = () => {
 }
 airpowerInit()
 
-
 let tooltipTimer: number
 
 watch(() => AirStore().tooltipRef, () => {
