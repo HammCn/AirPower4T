@@ -10,7 +10,7 @@ import { AirClassTransformer } from './AirClassTransformer'
  */
 export class AirDecorator {
   /**
-   * # 设置一个类配置项
+   * # 设置一个类配置项 
    * @param classConfigKey 配置项索引键值
    * @param classConfig 配置的参数
    */
