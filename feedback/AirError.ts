@@ -26,7 +26,7 @@ export class AirError {
     switch (typeof error) {
       case 'object':
         this.code = error?.code || AirCode.ERROR
-        this.message = error.msg || ((error as Error).message === 'Network Error' ? '请求失败,请检查你的网络连接' : '系统错误,请查看控制台错误信息')
+        this.message = (error as Error).message || '系统错误,请查看控制台错误信息'
         break
       case 'string':
         this.message = error
