@@ -10,17 +10,27 @@ import { AirClassTransformer } from './AirClassTransformer'
  */
 export class AirDecorator {
   /**
+   * # 反射添加属性
+   * @param target 目标类
+   * @param key 配置key
+   * @param value 配置值
+   */
+  private static setProperty(target: any, key: string, value: any) {
+    Reflect.defineProperty(target, key, {
+      enumerable: false,
+      value,
+      writable: false,
+      configurable: true,
+    })
+  }
+
+  /**
    * # 设置一个类配置项
    * @param classConfigKey 配置项索引键值
    * @param classConfig 配置的参数
    */
   static setClassConfig(target: any, classConfigKey: string, classConfig: any) {
-    Reflect.defineProperty(target.prototype, classConfigKey, {
-      enumerable: false,
-      value: classConfig,
-      writable: false,
-      configurable: true,
-    })
+    this.setProperty(target.prototype, classConfigKey, classConfig)
   }
 
   /**
@@ -84,12 +94,7 @@ export class AirDecorator {
     if (fieldListKey) {
       this.setFieldDecoration(target, key, fieldListKey)
     }
-    Reflect.defineProperty(target, `${`${fieldConfigKey}[${key}]`}`, {
-      enumerable: false,
-      value: fieldConfig,
-      writable: false,
-      configurable: true,
-    })
+    this.setProperty(target, `${`${fieldConfigKey}[${key}]`}`, fieldConfig)
   }
 
   /**
@@ -101,12 +106,7 @@ export class AirDecorator {
   private static setFieldDecoration(target: any, key: string, fieldListKey: string) {
     const list: string[] = Reflect.get(target, fieldListKey) || []
     list.push(key)
-    Reflect.defineProperty(target, fieldListKey, {
-      enumerable: false,
-      value: list,
-      writable: false,
-      configurable: true,
-    })
+    this.setProperty(target, fieldListKey, list)
   }
 
   /**
