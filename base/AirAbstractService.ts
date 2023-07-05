@@ -212,7 +212,11 @@ export abstract class AirAbstractService<E extends AirEntity> {
   static create<S extends AirAbstractService<AirEntity>>(this: new () => S, loading?: string): S {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return Object.assign(new this(), loading) as S
+    const service = Object.assign(new this()) as S
+    if (loading) {
+      service.loading = loading
+    }
+    return service
   }
 
   /**
