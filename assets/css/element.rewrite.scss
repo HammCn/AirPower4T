@@ -214,3 +214,7 @@
 .el-input-number {
   width: 100%;
 }
+
+.el-check-tag[disabled="true"] {
+  cursor: not-allowed;
+}

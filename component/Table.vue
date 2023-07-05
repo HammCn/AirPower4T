@@ -268,6 +268,7 @@
               v-for="item in allFieldList"
               :key="item.key"
               :disabled="item.forceShow"
+              :class="item.forceShow?'disabled':''"
               :checked="!!selectedFieldList.find(i => i === item.key)"
               @change="fieldSelectChanged($event, item)"
             >
