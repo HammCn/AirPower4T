@@ -11,20 +11,20 @@ import { ClassConstructor } from '../type/ClassConstructor'
 export class AirPermission {
   /**
    * # 获取指定实体类在某个场景的权限标识字符串
-   * @param clazz 实体类
+   * @param EntityClass 实体类
    * @param action 权限场景
    */
-  static getPermission(clazz: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
-    if (!clazz) {
+  static getPermission(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
+    if (!EntityClass) {
       return ''
     }
-    const entityConfig = getEntityConfig(clazz)
+    const entityConfig = getEntityConfig(EntityClass)
     if (!entityConfig) {
       return ''
     }
     if (AirConfig.autoPermission) {
       // 自动处理权限 但 没有配置前缀 从类中获取权限前缀
-      entityConfig.permissionPrefix = clazz.name.replace('Entity', ':').toLocaleLowerCase()
+      entityConfig.permissionPrefix = EntityClass.name.replace('Entity', ':').toLocaleLowerCase()
     } else {
       // 如不自动配置权限, 则将权限前缀清空
       entityConfig.permissionPrefix = ''

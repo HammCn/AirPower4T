@@ -13,7 +13,7 @@ const DICTIONARY_KEY = 'Dictionary'
 
 /**
  * # 标记属性的枚举字典
- * @param clazz 类型
+ * @param dictionary 字典数组
  */
 export function Dictionary(dictionary: AirDictionaryArray<IDictionary>): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
@@ -36,10 +36,10 @@ const TYPE_KEY = 'Type'
 
 /**
  * # 标记属性强制转换类
- * @param clazz 类型
+ * @param Clazz 类型
  */
-export function Type(clazz: any): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TYPE_KEY, clazz)
+export function Type(Clazz: any): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TYPE_KEY, Clazz)
 }
 
 /**
@@ -115,7 +115,6 @@ const IS_ARRAY_KEY = 'IsArray'
 
 /**
  * # 标记属性是数组
- * @param clazz 类型
  */
 export function IsArray(): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
