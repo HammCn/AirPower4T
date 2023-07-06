@@ -184,7 +184,7 @@ export class AirModel {
             (instance as any)[key] = (Number.isNaN(parseFloat(data)) ? getDefault(instance, key) : parseFloat(data))
             break
           case 'Boolean':
-            (instance as any)[key] = !!data || getDefault(instance, key)
+            (instance as any)[key] = !!(data ?? getDefault(instance, key))
             break
           default:
             (instance as any)[key] = this.parse(new FieldTypeClass() as AirModel, data)

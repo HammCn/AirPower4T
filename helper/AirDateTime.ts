@@ -115,7 +115,7 @@ export class AirDateTime {
     const nowTimeStamps: number = this.getUnixTimeStamps(new Date())
     let oldTimeStamp = 0
     if (typeof date === 'number') {
-      oldTimeStamp = parseInt((date / 1000).toString())
+      oldTimeStamp = parseInt((date / 1000).toString(), 10)
     } else {
       oldTimeStamp = this.getUnixTimeStamps(date)
     }
