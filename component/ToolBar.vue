@@ -264,9 +264,9 @@ import { AirEntity } from '../base/AirEntity'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
-import { AirAbstractService } from '../base/AirAbstractService'
 import { IJson } from '../interface/IJson'
 import { getDictionary } from '../decorator/Custom'
+import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 
@@ -451,7 +451,7 @@ const props = defineProps({
    * ```
    */
   service: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractService<AirEntity>>>,
+    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntityService<AirEntity>>>,
     default: null,
   },
 
