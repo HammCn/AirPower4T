@@ -2,8 +2,6 @@
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { IValidateRule } from '../interface/IValidateRule'
-import { AirValidator } from '../helper/AirValidator'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequest } from '../model/AirRequest'
@@ -62,6 +60,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    */
   protected urlForDelete = 'delete'
 
+
   /**
    * # 查询分页数据列表
    * @param request 请求对象
@@ -106,10 +105,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param message [可选]新增成功的消息提示内容
    * @param title [可选]新增成功的消息提示标题 默认 '新增成功'
    */
-  async add(data: E, message?: string, title = '添加成功'): Promise<number> {
+  async add(data: E, message?: string): Promise<number> {
     const json = await this.api(this.urlForAdd).post(data)
     if (message) {
-      AirNotification.success(message, title)
+      AirNotification.success(message)
     }
     return AirClassTransformer.parse(json, this.entityClass).id
   }
@@ -120,10 +119,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param message [可选]修改成功的消息提示内容
    * @param title [可选]修改成功的消息提示标题 默认 '修改成功'
    */
-  async update(data: E, message?: string, title = '修改成功'): Promise<void> {
+  async update(data: E, message?: string): Promise<void> {
     await this.api(this.urlForUpdate).post(data)
     if (message) {
-      AirNotification.success(message, title)
+      AirNotification.success(message)
     }
   }
 
@@ -135,32 +134,30 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    *
    * @param data 保存的数据实体
    * @param message [可选]保存成功的消息提示内容
-   * @param title [可选]保存成功的消息提示标题 默认 '保存成功'
    */
-  async save(data: E, message?: string, title = '保存成功'): Promise<number> {
+  async save(data: E, message?: string): Promise<number> {
     if (data.id) {
-      await this.update(data, message, title)
+      await this.update(data, message)
       return data.id
     }
-    return this.add(data, message, title)
+    return this.add(data, message)
   }
 
   /**
    * # 根据ID删除一条数据
    * @param id 删除的数据ID
-   * @param message [可选]删除成功的消息提示内容
-   * @param title [可选]删除成功的消息提示标题 默认 '删除成功'
+   * @param message [可选]删除成功的消息提示内容 默认 '删除成功'
    */
-  async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
+  async delete(id: number, message = '删除成功'): Promise<void> {
     return this.api(this.urlForDelete).callbackError()
       .post(this.newEntityInstance(id))
       .then(() => {
         if (message) {
-          AirNotification.success(message, title)
+          AirNotification.success(message)
         }
       })
       .catch((err: Error) => {
-        AirAlert.error(err.message, '删除失败')
+        AirAlert.show(err.message, '删除失败')
       })
   }
 
@@ -187,16 +184,5 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       entity.id = id
     }
     return entity
-  }
-
-  /**
-   * # 创建验证器
-   * @param form 表单对象
-   * @param moreRule [可选] 更多的验证规则
-   */
-  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return AirValidator.createRules(form, this.newInstance(), moreRule)
   }
 }
