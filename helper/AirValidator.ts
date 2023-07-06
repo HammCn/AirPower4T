@@ -16,6 +16,11 @@ import { AirAbstractService } from '../base/AirAbstractService'
  * */
 export class AirValidator {
   /**
+   * # 默认的进制
+   */
+  private static readonly DEFAULT_RADIX = 10
+
+  /**
    * # 类型 默认string
    * 可通过 ```toString``` ```toNumber``` ```toArray```设置
    */
@@ -601,22 +606,22 @@ export class AirValidator {
     }
     switch (str.length) {
       case 18:
-        const year = parseInt(str.substring(6), 10)
+        const year = parseInt(str.substring(6), this.DEFAULT_RADIX)
         if (year > new Date().getFullYear() || year < 1900) {
           return false
         }
-        const month = parseInt(str.substring(10, 12))
+        const month = parseInt(str.substring(10, 12), this.DEFAULT_RADIX)
         if (month > 12 || month < 1) {
           return false
         }
-        const day = parseInt(str.substring(12, 14))
+        const day = parseInt(str.substring(12, 14), this.DEFAULT_RADIX)
         if (day > 31 || month < 1) {
           return false
         }
         const arr: Array<Array<unknown>> = [[7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2], [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2]]
         let sum = 0
         for (let i = 0; i < 17; i += 1) {
-          sum += parseInt(str[i]) * (arr[0][i] as number)
+          sum += parseInt(str[i], this.DEFAULT_RADIX) * (arr[0][i] as number)
         }
         // eslint-disable-next-line eqeqeq
         if (arr[1][(sum % 11)] == str[17]) {
