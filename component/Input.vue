@@ -188,7 +188,7 @@
           AirConfig.maxTextLength)
       "
       :max="fieldConfig?.max"
-      :min="fieldConfig?.min || 0"
+      :min="fieldConfig?.min ?? 0"
       :show-word-limit="getShowWordLimit()"
       :type="getInputType"
       :rows="fieldConfig?.isTextarea ? AirConfig.defaultTextareaMinRows : 0"
@@ -499,8 +499,8 @@ function inputEvent() {
   if (fieldConfig.value?.isNumber) {
     // 数字输入
     let tempValue = value.value as number | string | undefined
-    const max = fieldConfig.value.max || AirConfig.maxNumber
-    const min = fieldConfig.value.min || AirConfig.minNumber
+    const max = fieldConfig.value.max ?? AirConfig.maxNumber
+    const min = fieldConfig.value.min ?? AirConfig.minNumber
     if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidator.isNumber(tempValue.toString())) {
       tempValue = parseFloat(tempValue.toString())
       // 按最大值最小值做边界处理
@@ -508,7 +508,7 @@ function inputEvent() {
       tempValue = Math.min(tempValue, max)
       tempValue = parseFloat(
         tempValue.toFixed(
-          fieldConfig.value.precision || AirConfig.defaultPrecision,
+          fieldConfig.value.precision ?? AirConfig.defaultPrecision,
         ),
       )
       value.value = tempValue

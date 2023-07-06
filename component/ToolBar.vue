@@ -147,8 +147,8 @@
                             v-if="item.betweenType === AirBetweenType.NUMBER"
                             v-model="filter[item.key]"
                             range
-                            :min="item.betweenMin || 0"
-                            :max="item.betweenMax || 100"
+                            :min="item.betweenMin ?? 0"
+                            :max="item.betweenMax ?? 100"
                           />
                         </template>
 
