@@ -167,7 +167,7 @@ export class AirDecorator {
         const result: IJson = {}
         Object.keys({ ...defaultConfig, config }).forEach((configKey) => {
           if (configKey !== 'key') {
-            result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) || (defaultConfig as IJson)[configKey]
+            result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) ?? (defaultConfig as IJson)[configKey]
           }
         })
         result.key = config.key
