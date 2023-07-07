@@ -500,6 +500,9 @@ async function confirmEvent() {
     outline: none;
     border: none;
     opacity: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
   }
 
   .main {
