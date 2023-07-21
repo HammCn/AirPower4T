@@ -222,7 +222,7 @@
                 v-if="!hideDelete"
                 icon-button
                 type="DELETE"
-                danger
+                :danger="isForceDelete"
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :tooltip="isDeleteDisabled((scope as any).row) ? '禁止删除' : '删除'"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
@@ -243,12 +243,6 @@
         <div>{{ emptyText || entityConfig.tableEmptyText || '暂无数据' }}</div>
       </template>
     </el-table>
-    <div
-      v-if="showCover"
-      class="cover"
-    >
-      按住 Alt 或 ⌘ 可直接删除数据
-    </div>
     <div class="air-field-selector">
       <div
         v-if="isFieldSelectorShow"
@@ -560,13 +554,16 @@ const entityInstance = computed(() => {
   return new AirEntity()
 })
 
-const showCover = ref(false)
+/**
+ * # 无需二次确认 强制删除
+ */
+const isForceDelete = ref(false)
 
 /**
  * # 显示按下快捷键的提醒
  */
 watch(() => AirStore().controllKeyDown, () => {
-  showCover.value = false
+  isForceDelete.value = false
   if (
     AirStore().controllKeyDown
     && !props.customDelete
@@ -574,7 +571,7 @@ watch(() => AirStore().controllKeyDown, () => {
     && props.dataList
     && props.dataList.length > 0
   ) {
-    showCover.value = true
+    isForceDelete.value = true
   }
 })
 
@@ -918,24 +915,6 @@ init()
   flex: 1;
   min-height: 300px;
   position: relative;
-
-  .cover {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 11;
-    pointer-events: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    overflow: hidden;
-    color: rgba($color: #f00, $alpha: 0.1);
-  }
 
   .air-field-selector {
     z-index: 100;
