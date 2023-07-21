@@ -194,6 +194,6 @@ export class AirDecorator {
     if (!superClass || superClass.constructor.name === 'AirModel') {
       return undefined
     }
-    return this.getFieldConfigValue(superClass, fieldConfig, key, configKey)
+    return this.getFieldConfigValue(superClass, fieldConfigKey, key, configKey)
   }
 }
