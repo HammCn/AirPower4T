@@ -19,9 +19,6 @@
         </router-link>
       </div>
     </div>
-    <div class="percent">
-      <div />
-    </div>
   </div>
 </template>
 
@@ -112,25 +109,6 @@ watch(() => route, () => {
   justify-content: center;
   align-items: center;
   background-color: white;
-  perspective: 800px;
-
-  .percent {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 3px;
-    font-size: 0px;
-
-    >div {
-      width: 0%;
-      height: 100%;
-      background-color: var(--el-color-primary);
-      display: inline-block;
-      z-index: 10;
-      animation: air-error-page-percent-animation 5s;
-    }
-  }
 
   .box {
     width: 1200px;
@@ -166,18 +144,6 @@ watch(() => route, () => {
         font-weight: bold;
       }
     }
-
-  }
-
-}
-
-@keyframes air-error-page-percent-animation {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 100%;
   }
 }
 </style>
