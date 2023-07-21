@@ -614,7 +614,12 @@ const allFieldList = computed(() => {
     // 过滤没有隐藏且没有移除的列
     return props.fieldList.filter((item) => !item.removed)
   }
-  return entityInstance.value.getTableFieldConfigList().filter((item) => !item.removed) || []
+  return (entityInstance.value.getTableFieldConfigList().filter((item) => !item.removed) || []).map((item) => {
+    if (item.dictionary) {
+      item.dictionary = AirDictionaryArray.create(item.dictionary)
+    }
+    return item
+  })
 })
 
 /**
