@@ -48,7 +48,7 @@ import { AirFile } from '@/airpower/helper/AirFile'
 import { AirHttp } from '@/airpower/helper/AirHttp'
 import { airPropsParam } from '@/airpower/config/AirProps'
 
-const props = defineProps(airPropsParam<AirExportModel>(new AirExportModel()))
+const props = defineProps(airPropsParam(new AirExportModel()))
 
 /**
  * 加载状态
