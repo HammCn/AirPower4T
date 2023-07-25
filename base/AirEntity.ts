@@ -10,8 +10,7 @@ export class AirEntity extends AirModel {
    * # 主键ID
    */
   @Type(Number)
-  @FieldName('ID')
-    id!: number
+  @FieldName('ID') id!: number
 
   /**
    * # 实例化一个实体
