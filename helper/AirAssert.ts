@@ -3,7 +3,7 @@ import { AirNotification } from '../feedback/AirNotification'
 
 export class AirAssert {
   /**
-   *
+   * # 断言条件成立时抛出异常
    * @param condition 条件
    * @param message 错误信息
    * @param title [可选]错误标题
