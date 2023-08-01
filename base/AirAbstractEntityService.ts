@@ -166,11 +166,15 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param key 字段名(别名前)
    * @param value 字段的值
    */
-  async getBy(key: string, value: string): Promise<E> {
+  async getBy(key: string, value: string): Promise<E | null> {
     const postData = this.newEntityInstance();
     (postData as any)[key] = value
-    const json = await this.api('getBy').post(postData)
-    return AirClassTransformer.parse(json, this.entityClass)
+    try {
+      const json = await this.api('getBy').callbackError().post(postData)
+      return AirClassTransformer.parse(json, this.entityClass)
+    } catch (e) {
+      return null
+    }
   }
 
   /**
