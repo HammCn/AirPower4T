@@ -92,7 +92,7 @@ export function getToModel(target: any, key: string): Function | undefined {
 const DEFAULT_KEY = 'Default'
 
 /**
- * # 标记属性的默认值
+ * # 标记JSON转换到模型时属性的默认值
  * ---
  * ### 💡 如标记了 ```@IsArray()``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
  *
