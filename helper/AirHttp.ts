@@ -41,6 +41,20 @@ export class AirHttp {
   private errorCallback = false
 
   /**
+   * # 请求超时毫秒数
+   */
+  private timeout = AirConfig.timeout
+
+  /**
+   * # 设置请求超时时间
+   * @param timeout 超时毫秒数
+   */
+  setTimeout(timeout: number) {
+    this.timeout = timeout
+    return this
+  }
+
+  /**
    * # 是否回调错误信息
    */
   callbackError(): this {
@@ -62,7 +76,7 @@ export class AirHttp {
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
     this.axiosRequestConfig.baseURL = AirConfig.apiUrl
-    this.axiosRequestConfig.timeout = AirConfig.timeout
+    this.axiosRequestConfig.timeout = this.timeout
     this.axiosRequestConfig.headers = {
       'content-type': AirHttpContentType.JSON,
     }
