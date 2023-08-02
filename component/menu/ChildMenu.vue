@@ -3,7 +3,7 @@
     v-for="menu in menuList"
     :key="menu.id"
   >
-    <template v-if="!menu.isHide">
+    <template v-if="!menu.isDisabled">
       <el-sub-menu
         v-if="menu.children && menu.children.length > 0"
         :id="menu.id"

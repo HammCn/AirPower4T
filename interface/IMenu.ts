@@ -21,7 +21,7 @@ export interface IMenu extends ITree {
   component: string
 
   /**
-   * # 菜单是否隐藏
+   * # 菜单是否禁用
    */
-  isHide: boolean
+  isDisabled: boolean
 }
