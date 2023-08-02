@@ -39,7 +39,7 @@ export class AirRouter {
         AirNotification.error('请先向AirConfig注入当前路由对象', '配置错误')
         return
       }
-      if (!item.name || !item.path || !item.component) {
+      if (!item.name || (!item.path && !item.component)) {
         AirConsole.error('路由初始化失败，缺少参数')
         return
       }
@@ -52,7 +52,7 @@ export class AirRouter {
         meta: {
           name: item.name,
         },
-        component: modules[`../../view${item.component}.vue`],
+        component: modules[`../../view${item.component || item.path}.vue`],
       })
     })
   }

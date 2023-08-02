@@ -3,6 +3,7 @@
     class="air-menu-tree"
     :default-active="defaultMenu"
     :router="true"
+    unique-opened
   >
     <ChildMenu :menu-list="menuList" />
   </el-menu>
