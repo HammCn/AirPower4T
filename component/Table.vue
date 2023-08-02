@@ -10,6 +10,7 @@
       v-if="allFieldList"
       :id="tableId"
       ref="airTableRef"
+      flexible
       class="air-table"
       :row-key="(row: any) => row.id"
       :lazy="lazy"
@@ -18,7 +19,6 @@
       :tree-props="treeProps"
       :data="dataList"
       height="100%"
-      intent="32"
       @select="selectChanged"
       @select-all="selectChanged"
       @sort-change="sortChanged"
