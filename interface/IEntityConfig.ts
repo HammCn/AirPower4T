@@ -25,7 +25,7 @@ export interface IEntityConfig {
   hideAdvanceSearch?: boolean;
 
   /**
-   * # 新增按钮的标题
+   * # 添加按钮的标题
    * ---
    * ### 💡 如 ```AToolBar``` 传入 ```addTitle``` , 则此项失效
    */

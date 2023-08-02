@@ -272,7 +272,7 @@ const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 
 const props = defineProps({
   /**
-   * # 左侧新增按钮的权限标识
+   * # 左侧添加按钮的权限标识
    * 如不传入 则默认使用 ```EntityConfig``` 的 ```addPermission``` 配置
    */
   addPermission: {
@@ -350,7 +350,7 @@ const props = defineProps({
   },
 
   /**
-   * # 隐藏新增按钮
+   * # 隐藏添加按钮
    */
   hideAdd: {
     type: Boolean,
@@ -511,9 +511,9 @@ const searchTitle = ref('更多筛选')
 const request = ref(new AirRequestPage(props.entity))
 
 /**
- * 新增按钮的标题
+ * 添加按钮的标题
  */
-const addTitle = computed(() => entityConfig.value.addTitle || (`新增${entityInstance.value.getClassName()}`))
+const addTitle = computed(() => entityConfig.value.addTitle || (`添加${entityInstance.value.getClassName()}`))
 
 /**
  * 关键词搜索提示文字

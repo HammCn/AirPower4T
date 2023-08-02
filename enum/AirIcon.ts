@@ -25,7 +25,7 @@ export enum AirIcon {
   DETAIL = 'icon-commonicon_chakanxiangqing',
 
   /**
-   * # 新增
+   * # 添加
    */
   ADD = 'icon-commonicon_xinzeng',
 

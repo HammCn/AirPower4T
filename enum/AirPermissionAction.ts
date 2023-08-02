@@ -5,7 +5,7 @@
  */
 export enum AirPermissionAction {
   /**
-   * # 新增
+   * # 添加
    */
   ADD = 'add',
   /**
