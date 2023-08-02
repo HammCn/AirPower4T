@@ -35,4 +35,13 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
       this.filter = AirClassTransformer.parse({}, filterClass)
     }
   }
+
+  /**
+   * # 设置排序对象
+   * @param sort 排序对象
+   */
+  setSort(sort: AirSort): this {
+    this.sort = sort
+    return this
+  }
 }
