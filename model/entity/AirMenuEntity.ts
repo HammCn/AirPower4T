@@ -33,7 +33,7 @@ export class AirMenuEntity extends AirEntity implements IMenu {
   /**
    * # 菜单是否隐藏
    */
-  @Type(Boolean) isHide = false
+  @Type(Boolean) isDisabled = false
 
   /**
    * # 设置菜单名称
