@@ -18,13 +18,13 @@ export class AirPermission {
     if (!EntityClass) {
       return ''
     }
-    const entityConfig = getEntityConfig(EntityClass)
+    const entityConfig = getEntityConfig(new EntityClass())
     if (!entityConfig) {
       return ''
     }
     if (AirConfig.autoPermission) {
       // 自动处理权限 但 没有配置前缀 从类中获取权限前缀
-      entityConfig.permissionPrefix = EntityClass.name.replace('Entity', ':').toLocaleLowerCase()
+      entityConfig.permissionPrefix = EntityClass.name.replace('Entity', '_')
     } else {
       // 如不自动配置权限, 则将权限前缀清空
       entityConfig.permissionPrefix = ''
