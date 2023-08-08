@@ -158,6 +158,11 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
      * # 返回的单页数据列表
      */
     list,
+
+    /**
+     * # 选中的数据列表
+     */
+    selectList,
   }
 }
 /**
