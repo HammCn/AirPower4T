@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { computed, ref } from 'vue'
+import { Ref, computed, ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { AirResponsePage } from '../model/AirResponsePage'
@@ -23,11 +22,11 @@ export function useAirSelector<E extends AirEntity>(props: any, entityClass: Cla
 
   const selected = ref(props.selectList)
 
-  const request = ref(new AirRequestPage<E>(entityClass))
+  const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
 
-  const response = ref(new AirResponsePage<E>())
+  const response = ref(new AirResponsePage<E>()) as Ref<AirResponsePage<E>>
 
-  const list = ref([] as E[])
+  const list = ref([] as E[]) as Ref<E[]>
 
   const entity = AirClassTransformer.newInstance(entityClass)
   const service = AirClassTransformer.newInstance(serviceClass)
@@ -46,18 +45,14 @@ export function useAirSelector<E extends AirEntity>(props: any, entityClass: Cla
       }
     }
     if (!option.unPaginate) {
-      // @ts-ignore
       response.value = await service.getPage(req)
-      // @ts-ignore
-      list.value = response.value
+      list.value = response.value.list
     } else {
-      // @ts-ignore
       list.value = await service.getList(req)
     }
   }
 
   async function onSearch(req: AirRequestPage<E>) {
-    // @ts-ignore
     request.value = req
     onGetList()
   }

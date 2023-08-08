@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirDialog } from '../helper/AirDialog'
 import { AirRequestPage } from '../model/AirRequestPage'
@@ -22,11 +21,11 @@ import { ITree } from '../interface/ITree'
 export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}) {
   const isLoading = ref(false)
 
-  const request = ref(new AirRequestPage<E>(entityClass))
+  const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
 
-  const response = ref(new AirResponsePage<E>())
+  const response = ref(new AirResponsePage<E>()) as Ref<AirResponsePage<E>>
 
-  const list = ref([] as E[])
+  const list = ref([] as E[]) as Ref<E[]>
 
   const entity = AirClassTransformer.newInstance(entityClass)
 
@@ -42,18 +41,14 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
       }
     }
     if (!option.unPaginate) {
-    // @ts-ignore
       response.value = await service.getPage(req)
-      // @ts-ignore
-      list.value = response.value
+      list.value = response.value.list
     } else {
-      // @ts-ignore
       list.value = await service.getList(req)
     }
   }
 
   async function onSearch(req: AirRequestPage<E>) {
-    // @ts-ignore
     request.value = req
     onGetList()
   }
@@ -85,6 +80,12 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
     request.value.sort = sort
     request.value.page = new AirPage()
     onGetList()
+  }
+
+  const selectList = ref([] as E[]) as Ref<E[]>
+
+  async function onSelected(list: E[]) {
+    selectList.value = list
   }
 
   async function onPageChanged(page: AirPage) {
@@ -124,6 +125,11 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
      * # 排序变更事件
      */
     onSortChanged,
+
+    /**
+     * # 多选事件
+     */
+    onSelected,
 
     /**
      * # 推荐使用 onSearch
