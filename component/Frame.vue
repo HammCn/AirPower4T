@@ -3,7 +3,7 @@
     <div class="air-header">
       <div class="air-logo">
         <slot name="logo">
-          <span>Your logo here</span>
+          <span>AirPower4T</span>
         </slot>
       </div>
       <div class="air-navigator">
@@ -27,7 +27,7 @@
         </div>
         <div class="air-copyright">
           <slot name="copyright">
-            Powered by AirPower
+            Powered by Hamm.cn
           </slot>
         </div>
       </div>
@@ -166,7 +166,7 @@ defineProps({
       }
 
       .air-copyright {
-        font-size: 14px;
+        font-size: 12px;
         color: #999;
         display: flex;
         flex-direction: column;
