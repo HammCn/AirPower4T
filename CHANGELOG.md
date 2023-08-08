@@ -4,9 +4,9 @@
 
 ### 🎉 Features:
 
-- feat(useAirEditor): 支持了一个通用编辑表单内置的```useAirEditor```Hook #3b35c32
-- feat(useAirTable): 支持了一个通用表格内置的```useAirTable```Hook #b2428bb
-- feat(useAirSelector): 支持了一个通用选择器内置的```useAirSelector```Hook #b2428bb
+- feat(useAirEditor): 支持了一个通用编辑表单内置的```useAirEditor```Hook
+- feat(useAirTable): 支持了一个通用表格内置的```useAirTable```Hook
+- feat(useAirSelector): 支持了一个通用选择器内置的```useAirSelector```Hook
 
 ## v1.0.0
 
