@@ -203,4 +203,16 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     // @ts-ignore
     return AirValidator.createRules(form, this.newInstance(), moreRule)
   }
+
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  /**
+   * ! 内部使用 请勿调用
+   * @deprecated
+   */
+  createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return AirValidator.createRules(form, this, moreRule)
+  }
 }
