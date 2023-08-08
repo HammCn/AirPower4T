@@ -10,7 +10,7 @@
         :prefix-icon="fieldConfig?.prefixIcon"
         :suffix-icon="fieldConfig?.suffixIcon"
         :format="fieldConfig.dateShowFormatter || getShowFormatter"
-        :value-format="fieldConfig.dateValueFormatter"
+        :value-format="fieldConfig.dateFormatter"
         :type="fieldConfig.dateType"
         style="width:100%"
         :readonly="readonly"
@@ -28,7 +28,7 @@
         :prefix-icon="fieldConfig?.prefixIcon"
         :suffix-icon="fieldConfig?.suffixIcon"
         :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
-        :value-format="fieldConfig.dateValueFormatter"
+        :value-format="fieldConfig.dateFormatter"
         :readonly="readonly"
         @change="selectEvent"
         @visible-change="selectEvent"
@@ -37,7 +37,7 @@
     </template>
     <template v-else-if="dictionary || (fieldConfig && fieldConfig.dictionary) || list">
       <el-switch
-        v-if="fieldConfig?.isSwitch"
+        v-if="fieldConfig?.switch"
         v-model="value"
         :readonly="readonly"
         :style="{
@@ -55,7 +55,7 @@
         @change="selectEvent"
       />
       <el-radio-group
-        v-else-if="fieldConfig?.isRadioButton"
+        v-else-if="fieldConfig?.radioButton"
         v-model="value"
         :readonly="readonly"
         @change="selectEvent"
@@ -80,7 +80,7 @@
         </template>
       </el-radio-group>
       <el-radio-group
-        v-else-if="fieldConfig?.isRadio"
+        v-else-if="fieldConfig?.radio"
         v-model="value"
         :readonly="readonly"
         @change="selectEvent"
@@ -183,7 +183,7 @@
       :placeholder="placeholderRef"
       :clearable="fieldConfig?.clearable"
       :disabled="disabled"
-      :maxlength="fieldConfig?.maxLength || (fieldConfig?.isTextarea
+      :maxlength="fieldConfig?.maxLength || (fieldConfig?.textarea
         ? AirConfig.maxTextAreaLength :
           AirConfig.maxTextLength)
       "
@@ -191,7 +191,7 @@
       :min="fieldConfig?.min ?? 0"
       :show-word-limit="getShowWordLimit()"
       :type="getInputType"
-      :rows="fieldConfig?.isTextarea ? AirConfig.defaultTextareaMinRows : 0"
+      :rows="fieldConfig?.textarea ? AirConfig.textareaMinRows : 0"
       :prefix-icon="fieldConfig?.prefixIcon"
       :suffix-icon="fieldConfig?.suffixIcon"
       :autosize="fieldConfig?.autoSize ?
@@ -429,7 +429,7 @@ const getShowFormatter = computed(() => {
       default:
     }
   }
-  return AirConfig.defaultDateTimeFormatter
+  return AirConfig.dateTimeFormatter
 })
 
 /**
@@ -463,22 +463,22 @@ function getShowWordLimit() {
     return fieldConfig.value.showLimit
   }
   // 配置了装饰器 但没配置属性 读取默认值
-  return fieldConfig.value.isTextarea
-    ? AirConfig.defaultTextAreaShowLimit
-    : AirConfig.defaultInputShowLimit
+  return fieldConfig.value.textarea
+    ? AirConfig.showLengthLimitTextarea
+    : AirConfig.showLengthLimitInput
 }
 
 /**
  * 获取输入类型的字符串
  */
 const getInputType = computed(() => {
-  if (fieldConfig.value?.isTextarea) {
+  if (fieldConfig.value?.textarea) {
     return 'textarea'
   }
-  if (fieldConfig.value?.isPassword) {
+  if (fieldConfig.value?.password) {
     return 'password'
   }
-  if (fieldConfig.value?.isNumber) {
+  if (fieldConfig.value?.number) {
     return 'number'
   }
   return 'text'
@@ -496,7 +496,7 @@ watch(props, (newProps) => {
  * 输入事件
  */
 function inputEvent() {
-  if (fieldConfig.value?.isNumber) {
+  if (fieldConfig.value?.number) {
     // 数字输入
     let tempValue = value.value as number | string | undefined
     const max = fieldConfig.value.max ?? AirConfig.maxNumber
@@ -508,7 +508,7 @@ function inputEvent() {
       tempValue = Math.min(tempValue, max)
       tempValue = parseFloat(
         tempValue.toFixed(
-          fieldConfig.value.precision ?? AirConfig.defaultPrecision,
+          fieldConfig.value.precision ?? AirConfig.numberPrecision,
         ),
       )
       value.value = tempValue
@@ -564,7 +564,7 @@ function emitValue() {
 function inputKeyDown(event: KeyboardEvent) {
   switch (event.code) {
     case 'KeyE':
-      if (fieldConfig.value?.isNumber) {
+      if (fieldConfig.value?.number) {
         // 数字类型输入不允许输入科学计数的e
         event.preventDefault()
       }

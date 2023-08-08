@@ -148,11 +148,11 @@ const props = defineProps({
   /**
    * # 接收文件的实体类
    * ---
-   * #### 💡 可通过 ```AirConfig.defaultFileEntity``` 配置, 默认为 ```AirFileEntity```
+   * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<IFile>>,
-    default: AirConfig.defaultFileEntity,
+    default: AirConfig.fileEntityClass,
   },
 
   /**

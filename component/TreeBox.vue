@@ -28,7 +28,7 @@
           ref="treeRef"
           v-loading="isTreeLoading"
           :data="treeData"
-          :props="AirConfig.defaultTreeProps"
+          :props="AirConfig.treeProps"
           :default-expand-all="defaultExpandAll"
           highlight-current
           :current-node-key="currentData ? currentData.id : 0"

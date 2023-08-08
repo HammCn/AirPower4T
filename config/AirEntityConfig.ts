@@ -5,11 +5,11 @@ import { IEntityConfig } from '../interface/IEntityConfig'
  * @author Hamm
  */
 export class AirEntityConfig implements IEntityConfig {
-  hideKeywordSearch = false
+  showSearch?: boolean
 
-  keywordSearchPlaceholder?: string
+  searchPlaceholder?: string
 
-  hideAdvanceSearch = false
+  showFilter?: boolean
 
   addTitle?: string
 

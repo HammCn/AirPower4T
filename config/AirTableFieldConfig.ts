@@ -38,21 +38,21 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   payloadField?: string
 
-  isFriendlyDateTime = false
+  friendlyDateTime = false
 
-  isCopyField = false
+  copyField = false
 
-  isImage = false
+  image = false
 
   imageWidth = 60
 
   imageHeight = 60
 
-  emptyValue = AirConfig.defaultTableEmptyValue
+  emptyValue = AirConfig.tableEmptyValue
 
   payloadArray = false
 
-  arraySplitor = AirConfig.defaultArraySplitor
+  arraySplitor = AirConfig.arraySplitor
 
   nowrap = true
 }

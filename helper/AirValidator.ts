@@ -683,16 +683,16 @@ export class AirValidator {
       if (!formRules[fieldKey]) {
         formRules[fieldKey] = []
       }
-      if (config.isRequiredString) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isRequiredString === 'string' ? config.isRequiredString : `${fieldName}为必填项`).ifEmpty())
+      if (config.requiredString) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredString === 'string' ? config.requiredString : `${fieldName}为必填项`).ifEmpty())
       }
-      if (config.isRequiredNumber) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isRequiredNumber === 'string' ? config.isRequiredNumber : `${fieldName}为必填项`).toNumber().ifEmpty())
+      if (config.requiredNumber) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredNumber === 'string' ? config.requiredNumber : `${fieldName}为必填项`).toNumber().ifEmpty())
       }
       if (config.minLength) {
         (formRules[fieldKey]).push(AirValidator.show(`${fieldName}长度至少${config.minLength}位`).ifLengthLessThan(config.minLength))
       }
-      if (config.isNumber) {
+      if (config.number) {
         if (config.min) {
           (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不能小于${config.min}`).ifLessThan(config.min))
         }
@@ -700,25 +700,25 @@ export class AirValidator {
           (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不能超过${config.max}`).ifGreaterThan(config.max))
         }
       }
-      if (config.isChinese) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isChinese === 'string' ? config.isChinese : `${fieldName}只允许输入中文汉字`).ifNotChinese())
+      if (config.chinese) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.chinese === 'string' ? config.chinese : `${fieldName}只允许输入中文汉字`).ifNotChinese())
       }
-      if (config.isTelPhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isTelPhone === 'string' ? config.isTelPhone : `${fieldName}不是有效的座机电话`).ifNotTelPhone())
+      if (config.telPhone) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.telPhone === 'string' ? config.telPhone : `${fieldName}不是有效的座机电话`).ifNotTelPhone())
       }
-      if (config.isMobilePhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isMobilePhone === 'string' ? config.isMobilePhone : '不是有效的手机号码').ifNotMobilePhone())
+      if (config.mobilePhone) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.mobilePhone === 'string' ? config.mobilePhone : '不是有效的手机号码').ifNotMobilePhone())
       }
-      if (config.isPhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isPhone === 'string' ? config.isPhone : '不是有效的联系电话').ifNotPhone())
+      if (config.phone) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.phone === 'string' ? config.phone : '不是有效的联系电话').ifNotPhone())
       }
-      if (config.isEmail) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.isEmail === 'string' ? config.isEmail : '不是有效的邮箱地址').ifNotEmail())
+      if (config.email) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.email === 'string' ? config.email : '不是有效的邮箱地址').ifNotEmail())
       }
       if (config.regExp) {
         (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不符合验证规则`).ifNotTest(config.regExp))
       }
-      if (config.isUnique) {
+      if (config.unique) {
         (formRules[fieldKey]).push(
           // eslint-disable-next-line @typescript-eslint/ban-types, no-loop-func
           AirValidator.show('').whenBlur().setCustomValidator(async (_: unknown, value: string, callback: Function) => {
@@ -738,7 +738,7 @@ export class AirValidator {
                 callback()
                 return
               }
-              callback(typeof config.isUnique === 'string' ? config.isUnique : '该条记录已存在, 请重新输入')
+              callback(typeof config.unique === 'string' ? config.unique : '该条记录已存在, 请重新输入')
             } catch (e) {
               callback()
             }

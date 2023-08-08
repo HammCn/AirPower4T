@@ -5,7 +5,7 @@
       v-model:page-size="page.pageSize"
       class="air-page-bar"
       background
-      :page-sizes="AirConfig.defaultPageSizes"
+      :page-sizes="AirConfig.pageSizes"
       layout=" prev, next"
       :total="response.total"
       small
@@ -34,7 +34,7 @@
               size="small"
             >
               <el-radio-button
-                v-for="item in AirConfig.defaultPageSizes"
+                v-for="item in AirConfig.pageSizes"
                 :key="item"
                 :label="item"
                 @click="sizeChanged(item)"

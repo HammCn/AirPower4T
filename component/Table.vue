@@ -83,11 +83,11 @@
                 <ADateTime
                   :time="(scope as any).row[item.key]"
                   :formatter="item.dateTimeFormatter"
-                  :is-friendly="item.isFriendlyDateTime"
+                  :is-friendly="item.friendlyDateTime"
                 />
               </template>
               <!-- 图片字段 -->
-              <template v-else-if="item.isImage">
+              <template v-else-if="item.image">
                 <el-image
                   style="background-color:#f3f6f9"
                   :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px' }"
@@ -107,7 +107,7 @@
               </template>
               <!-- 读取挂载数据 -->
               <template v-else-if="item.payloadField">
-                <template v-if="item.isCopyField">
+                <template v-if="item.copyField">
                   <div
                     class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
@@ -128,7 +128,7 @@
               </template>
               <!-- 通用字段 -->
               <template v-else>
-                <template v-if="item.isCopyField">
+                <template v-if="item.copyField">
                   <div
                     class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"

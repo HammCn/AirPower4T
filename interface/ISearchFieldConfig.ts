@@ -21,21 +21,21 @@ export interface ISearchFieldConfig extends IFieldConfig {
   /**
    * # 枚举字典
    * ---
-   * ### 💡 可配置 ```filterable``` 等参数
+   * 💡 可配置 ```filterable``` 等参数
    */
   dictionary?: AirDictionaryArray<IDictionary>;
 
   /**
    * # 可筛选
    * ---
-   * ### 💡 仅枚举字典下拉选择时有效
+   * 💡 仅枚举字典下拉选择时有效
    */
   filterable?: boolean;
 
   /**
    * # 区间控件
    * ---
-   * ### 💡 可配置 ```betweenType``` , ```betweenMin``` , ```betweenMax``` 等参数
+   * 💡 可配置 ```betweenType``` , ```betweenMin``` , ```betweenMax``` 等参数
    */
   between?: boolean;
 

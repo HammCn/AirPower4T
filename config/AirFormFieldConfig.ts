@@ -12,7 +12,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
  * @author Hamm
  */
 export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConfig {
-  dateValueFormatter = AirDateTimeFormatter.TIMESTAMP
+  dateFormatter = AirDateTimeFormatter.TIMESTAMP
 
   dateShowFormatter?: AirDateTimeFormatter
 
@@ -28,15 +28,15 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   placeholder?: string
 
-  isTextarea?: boolean
+  textarea?: boolean
 
-  isNumber?: boolean
+  number?: boolean
 
   orderNumber = 1
 
-  precision: number = AirConfig.defaultPrecision
+  precision: number = AirConfig.numberPrecision
 
-  isPassword?: boolean
+  password?: boolean
 
   prefixIcon?: string
 
@@ -66,17 +66,17 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   autoSize = true
 
-  minRows = AirConfig.defaultTextareaMinRows
+  minRows = AirConfig.textareaMinRows
 
-  maxRows = AirConfig.defaultTextareaMaxRows
+  maxRows = AirConfig.textareaMaxRows
 
-  isSwitch = false
+  switch = false
 
   hideSwitchLabel = false
 
-  isRadio = false
+  radio = false
 
-  isRadioButton = false
+  radioButton = false
 
   defaultValue?: string | number | boolean
 
@@ -84,21 +84,21 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   trim = AirTrim.NONE
 
-  isUnique = false
+  unique = false
 
-  isChinese = false
+  chinese = false
 
-  isMobilePhone = false
+  mobilePhone = false
 
-  isRequiredString = false
+  requiredString = false
 
-  isRequiredNumber = false
+  requiredNumber = false
 
-  isTelPhone = false
+  telPhone = false
 
-  isPhone = false
+  phone = false
 
-  isEmail = false
+  email = false
 
   regExp = undefined
 }

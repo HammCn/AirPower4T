@@ -78,7 +78,7 @@ export class AirDateTime {
    */
   static formatFromDate(date: Date | string, formateString?: AirDateTimeFormatter | string): string {
     if (!formateString) {
-      formateString = AirConfig.defaultDateTimeFormatter
+      formateString = AirConfig.dateTimeFormatter
     }
     switch (typeof date) {
       case 'string':

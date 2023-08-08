@@ -2,55 +2,53 @@
   <div class="air-tool-bar">
     <div class="air-tool-bar--left">
       <slot name="beforeButton" />
-      <slot name="customButton">
-        <AButton
-          v-if="props.entity && !hideAdd"
-          :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD)"
-          primary
-          type="ADD"
-          @click="emits('onAdd')"
-        >
-          {{ addTitle }}
-        </AButton>
-      </slot>
+      <AButton
+        v-if="props.entity && !hideAdd"
+        :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD)"
+        primary
+        type="ADD"
+        @click="emits('onAdd')"
+      >
+        {{ addTitle }}
+      </AButton>
       <AButton
         v-if="showImport"
         :permission="importPermission || AirPermission.getPermission(entity, AirPermissionAction.IMPORT)"
         type="IMPORT"
-        @click="importIt()"
+        @click="onImport()"
       >
         导入
       </AButton>
+      <slot name="afterButton" />
     </div>
     <div class="air-tool-bar--right">
       <slot name="beforeSearch" />
-      <template v-if="isKeywordSearchEnabled">
+      <template v-if="isSearchEnabled">
         <el-input
           v-model="keyword"
           v-tip="searchPlaceholder"
-          :placeholder="keywordSearchPlaceholder"
+          :placeholder="placeholderForSearch"
           class="keyword"
-          @keydown.enter="searchKeyword"
+          @keydown.enter="onSearch"
         >
           <template #suffix>
             <el-icon
               v-if="keyword"
               style="margin-right:6px;"
-              @click="keyword = ''; searchKeyword()"
+              @click="keyword = ''; onSearch()"
             >
               <CircleClose />
             </el-icon>
             <el-icon
               style="vertical-align: middle"
-              @click="searchKeyword"
+              @click="onSearch"
             >
               <Search />
             </el-icon>
           </template>
         </el-input>
       </template>
-      <slot name="customSearch" />
-      <template v-if="isAdvanceSearchEnabled">
+      <template v-if="isFilterEnabled">
         <div class="advance-search">
           <el-button
             :class="searchAnimation"
@@ -62,7 +60,7 @@
             v-if="showDialog"
             class="advance-search-bg"
             :title="'点击关闭' + searchTitle"
-            @click="hideAdvanceSearchDialog"
+            @click="hideFilterDialog"
           />
           <transition name="search">
             <div
@@ -75,7 +73,7 @@
                 </div>
                 <div
                   class="advance-search-title-close"
-                  @click="hideAdvanceSearchDialog"
+                  @click="hideFilterDialog"
                 >
                   <i class="airpower icon-commonicon_guanbi" />
                 </div>
@@ -210,14 +208,14 @@
               <div class="advance-search-footer">
                 <el-button
                   type="primary"
-                  @click="advanceSearch"
+                  @click="onFilterConfirm"
                 >
                   确定筛选
                 </el-button>
                 <el-button
                   @click="
-                    resetSearch();
-                    hideAdvanceSearchDialog()
+                    onResetSearch();
+                    hideFilterDialog()
                   "
                 >
                   重置筛选
@@ -227,17 +225,16 @@
           </transition>
         </div>
       </template>
-
       <AButton
         v-if="showExport"
         :permission="exportPermission || AirPermission.getPermission(entity, AirPermissionAction.EXPORT)"
         type="EXPORT"
         custom-class="export-button"
-        @click=" exportIt()"
+        @click=" onExport()"
       >
         导出
       </AButton>
-      <slot name="toolbarExtend" />
+      <slot name="afterSearch" />
     </div>
   </div>
 </template>
@@ -273,7 +270,8 @@ const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 const props = defineProps({
   /**
    * # 左侧添加按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```addPermission``` 配置
+   * ---
+   * 则默认使用 ```EntityConfig``` 的 ```addPermission``` 配置
    */
   addPermission: {
     type: String,
@@ -282,7 +280,8 @@ const props = defineProps({
 
   /**
    * # 右侧导出按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```exportPermission``` 配置
+   * ---
+   * 则默认使用 ```EntityConfig``` 的 ```exportPermission``` 配置
    */
   exportPermission: {
     type: String,
@@ -291,7 +290,8 @@ const props = defineProps({
 
   /**
    * # 左侧导入按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```importPermission``` 配置
+   * ---
+   * 则默认使用 ```EntityConfig``` 的 ```importPermission``` 配置
    */
   importPermission: {
     type: String,
@@ -300,11 +300,12 @@ const props = defineProps({
 
   /**
    * # 搜索的对象
-   * 如传入 则覆盖 search-entity 自动生成的条件
+   * ---
+   * 则覆盖自动生成的条件
    */
   searchParams: {
     type: Array as unknown as PropType<AirSearchFieldConfig[]>,
-    default: () => [],
+    default: undefined,
   },
 
   /**
@@ -316,15 +317,7 @@ const props = defineProps({
   },
 
   /**
-   * # 选择框宽度
-   */
-  labelWidth: {
-    type: String,
-    default: '150px',
-  },
-
-  /**
-   * # 返回的搜索实体类型
+   * # 实体类
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<AirEntity>>,
@@ -332,21 +325,23 @@ const props = defineProps({
   },
 
   /**
-   * # 隐藏关键词搜索
-   * 如 ```EntityConfig``` 中 ```hideKeywordSearch``` 设置为 ```true``` , 则此项无效
+   * # 是否显示搜索框
+   * ---
+   * 💡 优先级: Entity配置 > 组件传入
    */
-  hideSearch: {
+  showSearch: {
     type: Boolean,
-    default: false,
+    default: undefined,
   },
 
   /**
-   * # 隐藏高级搜索功能
-   * 如 ```EntityConfig``` 中 ```hideAdvanceSearch``` 设置为 ```true``` , 则此项无效
+   * # 是否显示更多筛选器
+   * ---
+   * 💡 优先级: 组件传入 > EntityConfig配置
    */
-  hideAdvanceSearch: {
+  showFilter: {
     type: Boolean,
-    default: AirConfig.defaultHideAdvanceSearch,
+    default: undefined,
   },
 
   /**
@@ -354,7 +349,7 @@ const props = defineProps({
    */
   hideAdd: {
     type: Boolean,
-    default: false,
+    default: undefined,
   },
 
   /**
@@ -376,7 +371,8 @@ const props = defineProps({
 
   /**
    * # 是否显示导出按钮
-   * 如传入 则需要再传入 ```:service``` 或 ```:export-url```
+   * ---
+   * 💡 如传入 则需要再传入 ```:service``` 或 ```:export-url```
    */
   showExport: {
     type: Boolean,
@@ -384,12 +380,9 @@ const props = defineProps({
   },
 
   /**
-   * # 🎉🎉🎉异步下载
-   * 后期可能会默认此项为 ```true```
-   *
-   * 🎉 使用异步弹窗下载 如不配置或者 ```false``` 则传统直接下载
-   *
-   * 建议数据量大的导出功能都使用这个方法
+   * # 异步导出
+   * ---
+   * 💡 建议数据量大的导出功能都使用这个方法
    */
   exportAsync: {
     type: Boolean,
@@ -397,8 +390,9 @@ const props = defineProps({
   },
 
   /**
-   * # 导入接口地址 如传入则优先使用
-   * 默认按传入的service自动生成
+   * # 导入接口地址
+   * ---
+   * 💡 默认按传入的service自动生成
    */
   importUrl: {
     type: String,
@@ -406,8 +400,9 @@ const props = defineProps({
   },
 
   /**
-   * # 导入模板下载地址 如传入则优先使用
-   * 默认按传入的service自动生成
+   * # 导入模板下载地址
+   * ---
+   * 💡 默认按传入的service自动生成
    */
   importTemplateUrl: {
     type: String,
@@ -415,8 +410,9 @@ const props = defineProps({
   },
 
   /**
-   * # 导入上传的标题 如传入则优先使用
-   * 默认按传入的service自动生成
+   * # 导入上传的标题
+   * ---
+   * 💡 默认按传入的service自动生成
    */
   importTitle: {
     type: String,
@@ -425,9 +421,9 @@ const props = defineProps({
 
   /**
    * # 是否显示导入按钮
-   * 如传入 则需要再传入 :service 或 :import-url
-   *
-   * :import-title 可指定上传框的标题
+   * ---
+   * - ```import-url``` [可选]导入的API接口地址
+   * - ```import-title``` [可选]指定上传框的标题
    */
   showImport: {
     type: Boolean,
@@ -437,31 +433,29 @@ const props = defineProps({
   /**
    * # 导入的文件实体类
    * ---
-   * #### 💡 可通过 ```AirConfig.defaultFileEntity``` 配置, 默认为 ```AirFileEntity```
+   * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
    */
   fileEntity: {
     type: Function as unknown as PropType<ClassConstructor<IFile>>,
-    default: AirConfig.defaultFileEntity,
+    default: AirConfig.fileEntityClass,
   },
 
   /**
    * # 接口服务类
-   * ```
-   * 如 :service="UserService"
-   * ```
    */
   service: {
     type: Function as unknown as PropType<ClassConstructor<AirAbstractEntityService<AirEntity>>>,
-    default: null,
+    required: true,
   },
 
   /**
-   * # 关键词搜索的提示文案
-   * 如传入, 将覆盖 ```EntityConfig``` 的 ```keywordSearchPlaceholder``` 配置
+   * # 搜索框提示文案
+   * ---
+   * 💡 优先级: 组件传入 > EntityConfig配置 > AirConfig默认值
    */
   searchPlaceholder: {
     type: String,
-    default: '',
+    default: undefined,
   },
 })
 
@@ -503,7 +497,7 @@ const entityConfig = computed(() => getEntityConfig(entityInstance.value))
 /**
  * 高级搜索按钮标题
  */
-const searchTitle = ref('更多筛选')
+const searchTitle = '更多筛选'
 
 /**
  * 查询对象
@@ -516,40 +510,19 @@ const request = ref(new AirRequestPage(props.entity))
 const addTitle = computed(() => entityConfig.value.addTitle || (`添加${entityInstance.value.getClassName()}`))
 
 /**
- * 关键词搜索提示文字
+ * 搜索框提示文字
  */
-const keywordSearchPlaceholder = computed(() => {
-  if (props.searchPlaceholder) {
-    return props.searchPlaceholder
-  }
-  return entityConfig.value.keywordSearchPlaceholder
-    || props.searchPlaceholder
-    || AirConfig.defaultKeywordSearchPlaceholder
-})
+const placeholderForSearch = computed(() => props.searchPlaceholder || entityConfig.value.searchPlaceholder || AirConfig.searchPlaceholder)
 
 /**
- * 是否显示关键词搜索
+ * 是否显示搜索框
  */
-const isKeywordSearchEnabled = computed(() => {
-  if (entityConfig.value.hideKeywordSearch) {
-    // entityConfig设置隐藏 则全局隐藏
-    return false
-  }
-  // 兜底使用传入的配置
-  return !props.hideSearch
-})
+const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.showSearch ?? false)
 
 /**
- * 是否显示高级搜索
+ * 是否显示更多筛选器
  */
-const isAdvanceSearchEnabled = computed(() => {
-  if (entityConfig.value.hideAdvanceSearch) {
-    // entityConfig设置隐藏 则全局隐藏
-    return false
-  }
-  // 兜底使用传入的配置
-  return !props.hideAdvanceSearch
-})
+const isFilterEnabled = computed(() => props.showFilter ?? entityConfig.value.showFilter ?? false)
 
 /**
  * 为URL拼接AccessToken
@@ -571,7 +544,7 @@ function getUrlWithAccessToken(url: string) {
 /**
  * 导出方法
  */
-function exportIt() {
+function onExport() {
   let url = props.exportUrl
   if (!url) {
     // 没有自定义传入 则自动生成
@@ -580,7 +553,7 @@ function exportIt() {
       return
     }
     const service = AirClassTransformer.newInstance(props.service)
-    url = `${service.baseUrl}/${props.exportAsync ? AirConfig.defaultExportAsyncUrl : AirConfig.defaultExportSyncUrl}`
+    url = `${service.baseUrl}/${props.exportAsync ? AirConfig.exportUrl : AirConfig.exportSyncUrl}`
   }
   if (props.exportAsync) {
     AirDialog.createExportTask(url, request.value)
@@ -592,32 +565,31 @@ function exportIt() {
 /**
  * # 下载导入的模板
  */
-function downloadTemplate() {
+function onDownloadTemplate() {
   let url = props.importTemplateUrl
-  if (!url) {
-    // 没有自定义传入 则自动生成
-    if (!props.service) {
-      AirNotification.error('请为ToolBar传入service或者importTemplateUrl', '下载失败')
-      return false
-    }
-    const service = AirClassTransformer.newInstance(props.service)
-    url = `${service.baseUrl}/${AirConfig.defaultTemplateUrl}`
+  if (url) {
+    window.open(AirConfig.apiUrl + getUrlWithAccessToken(url))
+    return
   }
-  window.open(AirConfig.apiUrl + getUrlWithAccessToken(url))
-  return true
+
+  // 没有自定义传入 则自动生成
+  if (!props.service) {
+    AirNotification.error('请为ToolBar传入service或者importTemplateUrl', '下载失败')
+    return
+  }
+
+  const service = AirClassTransformer.newInstance(props.service)
+  url = `${service.baseUrl}/${AirConfig.importTemplateUrl}`
+  if (url.indexOf('https://') < 0 && url.indexOf('http://') <= 0) {
+    url = AirConfig.apiUrl + url
+  }
+  window.open(getUrlWithAccessToken(url))
 }
 
 /**
  * 高级搜索字段列表
  */
-const searchFieldList = computed(() => {
-  // 如果传入searchParams 优先使用searchParams
-
-  if (props.searchParams.length > 0) {
-    return props.searchParams
-  }
-  return entityInstance.value.getSearchFieldConfigList()
-})
+const searchFieldList = computed(() => props.searchParams || entityInstance.value.getSearchFieldConfigList())
 
 /**
  * 查询用的临时JSON
@@ -632,7 +604,7 @@ const keyword = ref('')
 /**
  * 高级搜索
  */
-function advanceSearch() {
+function onFilterConfirm() {
   // 删除关键词搜索数据
   keyword.value = ''
   request.value.keyword = keyword.value
@@ -643,7 +615,7 @@ function advanceSearch() {
 /**
  * 关键词搜索
  */
-function searchKeyword() {
+function onSearch() {
   // 删除高级搜索的数据
   filter.value = {}
   request.value.keyword = keyword.value
@@ -655,7 +627,7 @@ function searchKeyword() {
 /**
  * 重置表单
  */
-function resetSearch() {
+function onResetSearch() {
   filter.value = {}
   keyword.value = ''
   request.value = new AirRequestPage(props.entity)
@@ -667,7 +639,7 @@ function resetSearch() {
 /**
  * 导入
  */
-async function importIt() {
+async function onImport() {
   let url = props.importUrl
   if (!url) {
     // 没有自定义传入 则自动生成
@@ -676,22 +648,25 @@ async function importIt() {
       return
     }
     const service = AirClassTransformer.newInstance(props.service)
-    url = `${service.baseUrl}/${AirConfig.defaultImportUrl}`
+    url = `${service.baseUrl}/${AirConfig.importUrl}`
+    if (url.indexOf('https://') < 0 && url.indexOf('http://') <= 0) {
+      url = AirConfig.apiUrl + url
+    }
   }
   await AirDialog.showUpload(
     {
-      uploadUrl: AirConfig.apiUrl + url,
+      uploadUrl: url,
       exts: ['xls', 'xlsx'],
       title: props.importTitle || '导入数据',
       uploadSuccess: '数据导入成功',
       confirmText: '下载模板',
-      entity: AirConfig.defaultFileEntity,
+      entity: AirConfig.fileEntityClass,
     },
     () => {
-      downloadTemplate()
+      onDownloadTemplate()
     },
   )
-  resetSearch()
+  onResetSearch()
 }
 
 /**
@@ -711,7 +686,7 @@ function getInputType(item: AirSearchFieldConfig) {
 /**
  * 隐藏高级搜索(触发动画)
  */
-function hideAdvanceSearchDialog() {
+function hideFilterDialog() {
   showDialog.value = false
   searchAnimation.value = 'search-button-animation'
   setTimeout(() => {
@@ -722,7 +697,7 @@ function hideAdvanceSearchDialog() {
 /**
  * 暴露一个重置搜索的方法
  */
-defineExpose({ resetSearch })
+defineExpose({ resetSearch: onResetSearch })
 
 </script>
 
