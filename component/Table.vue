@@ -24,7 +24,7 @@
       @sort-change="sortChanged"
     >
       <el-table-column
-        v-if="!hideSelect"
+        v-if="showSelect"
         type="selection"
         width="40"
         fixed="left"
@@ -423,9 +423,11 @@ const props = defineProps({
   },
 
   /**
-   * # 是否隐藏多选框
+   * # 是否显示多选框
+   * ---
+   * 💡 可触发 ```@on-select(selectList)``` 事件, 可配置 ```:select-list``` 默认选中
    */
-  hideSelect: {
+  showSelect: {
     type: Boolean,
     default: false,
   },
@@ -452,7 +454,7 @@ const props = defineProps({
    */
   ctrlWidth: {
     type: Number,
-    default: 0,
+    default: 80,
   },
 
   /**
