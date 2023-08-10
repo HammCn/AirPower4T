@@ -52,6 +52,6 @@ export class AirClassTransformer {
    * @param TargetClass 目标类
    */
   static newInstance<T extends AirModel>(TargetClass: ClassConstructor<T>): T {
-    return this.parse({}, TargetClass)
+    return new TargetClass()
   }
 }

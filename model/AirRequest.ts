@@ -23,7 +23,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   /**
    * # 排序信息
    */
-  @Type(AirSort) sort = new AirSort()
+  @Type(AirSort) sort!: AirSort
 
   /**
    * # 如传入filter的类 将自动初始化一个空filter
@@ -34,5 +34,14 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
     if (filterClass) {
       this.filter = AirClassTransformer.parse({}, filterClass)
     }
+  }
+
+  /**
+   * # 设置排序对象
+   * @param sort 排序对象
+   */
+  setSort(sort: AirSort): this {
+    this.sort = sort
+    return this
   }
 }
