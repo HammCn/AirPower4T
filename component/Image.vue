@@ -37,7 +37,10 @@
       v-if="imageUrl && upload && entity"
       class="action"
     >
-      <el-icon @click="imageRemoved">
+      <el-icon
+        v-if="clearable"
+        @click="imageRemoved"
+      >
         <CircleCloseFilled />
       </el-icon>
     </div>
@@ -67,6 +70,16 @@ const props = defineProps({
   src: {
     type: String,
     default: () => undefined,
+  },
+
+  /**
+   * # 是否显示删除图标
+   * ---
+   * 💡 仅 ```upload``` 时有效, 如传入```false```, 则上传后不允许删除
+   */
+  clearable: {
+    type: Boolean,
+    default: true,
   },
 
   /**
