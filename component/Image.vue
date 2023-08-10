@@ -13,7 +13,7 @@
     >
       <template #error>
         <div class="image-error">
-          {{ upload && entity ? '上传图片' : '暂无图片' }}
+          {{ placeholder || (upload && entity ? '上传图片' : '暂无图片') }}
         </div>
       </template>
     </el-image>
@@ -69,6 +69,13 @@ const props = defineProps({
     default: () => undefined,
   },
 
+  /**
+   * # 提示文本
+   */
+  placeholder: {
+    type: String,
+    default: undefined,
+  },
   /**
    * # 允许上传
    */
