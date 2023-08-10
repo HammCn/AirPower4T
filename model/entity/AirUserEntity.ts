@@ -4,7 +4,7 @@ import { AirEntity } from '../../base/AirEntity'
 /**
  * # 内置用户实体
  * ---
- * 💡 如需扩展, 请自行实现 ```IUser```, 使用 ```AirConfig.defaultUserEntity``` 配置默认实现类
+ * 💡 如需扩展, 请自行实现 ```IUser```, 使用 ```AirConfig.userEntityClass``` 配置默认实现类
  * @author Hamm
  */
 export class AirUserEntity extends AirEntity implements IUser {
