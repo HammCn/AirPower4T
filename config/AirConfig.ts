@@ -138,9 +138,9 @@ export class AirConfig {
    * ---
    * ### 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
    * ```
-   * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
+   * AirConfig.dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
    * ```
    */
-  static defaultDateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
+  static dateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
   // #endregion
 }
