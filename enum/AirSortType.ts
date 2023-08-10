@@ -6,12 +6,12 @@
  */
 export enum AirSortType {
   /**
-   * # 降序排列
+   * # 升序排列
    */
   ASC = 'asc',
 
   /**
-   * # 升序排列
+   * # 降序排列
    */
   DESC = 'desc'
 }
