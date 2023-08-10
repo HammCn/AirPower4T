@@ -19,7 +19,7 @@ export abstract class AirAbstractService extends AirModel {
    * ---
    * ### 💡 你可以将这个传入的对象绑定到你需要Loading的DOM上
    */
-  private loading!: string
+  loading!: string
 
   /**
    * # 获取一个API服务实例

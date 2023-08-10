@@ -60,7 +60,6 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    */
   protected urlForDelete = 'delete'
 
-
   /**
    * # 查询分页数据列表
    * @param request 请求对象
@@ -102,8 +101,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 添加一条新的数据
    * @param data 保存的数据
-   * @param message [可选]新增成功的消息提示内容
-   * @param title [可选]新增成功的消息提示标题 默认 '新增成功'
+   * @param message [可选]添加成功的消息提示内容
+   * @param title [可选]添加成功的消息提示标题 默认 '添加成功'
    */
   async add(data: E, message?: string): Promise<number> {
     const json = await this.api(this.urlForAdd).post(data)

@@ -4,19 +4,20 @@ import { AirCode } from '../enum/AirCode'
 /**
  * # AirPower 全局配置
  * ---
- * ### 💡 可自行在 ```main.ts``` 中覆盖此类中的配置
+ * 💡 可自行在 ```main.ts``` 中覆盖此类中的配置
  * @author Hamm
  */
 export class AirConfig {
+  // #region 全局配置
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.0.0'
+  static readonly version = 'v1.0.1'
 
   /**
    * # AppID
    * ---
-   * ### 💡 用于处理一些唯一场景做项目区分
+   * 💡 用于处理一些唯一场景做项目区分
    */
   static appKey = 'airpower'
 
@@ -28,17 +29,23 @@ export class AirConfig {
   /**
    * # 项目名称
    * ---
-   * ### 💡 会显示在浏览器标题上
+   * 💡 会显示在浏览器标题上
    */
   static product = ''
+  // #endregion
 
+  // #region 路由相关配置开始
   /**
-   * # 😠超时时间 毫秒
-   * ---
-   * ### 💡 超时后请求会自动断开并抛出异常
+   * # 跳转登录的方法
    */
-  static timeout = 5000
+  static login = () => {
+    uni.redirectTo({
+      url: '/view/login',
+    })
+  }
+  // #endregion
 
+  // #region 网络相关配置开始
   /**
    * # 接口根地址
    * ---
@@ -96,15 +103,12 @@ export class AirConfig {
   static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
 
   /**
-   * # 默认的格式化时间
-   * ---
-   * ### 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
-   * ```
-   * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
-   * ```
+   * # 网络请求失败最大重试次数
    */
-  static defaultDateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
+  static retryTimesWhenNetworkError = 3
+  // #endregion
 
+  // #region 权限配置开始
   /**
    * # 保存身份令牌
    * @param accessToken 身份令牌
@@ -126,18 +130,17 @@ export class AirConfig {
   static removeAccessToken(): void {
     uni.removeStorageSync(this.authorizationHeaderKey)
   }
+  // #endregion
 
+  // #region 其他杂项配置
   /**
-   * # 网络请求失败最大重试次数
+   * # 默认的格式化时间
+   * ---
+   * ### 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
+   * ```
+   * AirConfig.defaultDateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
+   * ```
    */
-  static retryTimesWhenNetworkError = 3
-
-  /**
-   * # 跳转登录的方法
-   */
-  static login = () => {
-    uni.redirectTo({
-      url: '/view/login',
-    })
-  }
+  static defaultDateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
+  // #endregion
 }
