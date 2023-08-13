@@ -25,7 +25,7 @@ export interface IUseTableOption<E extends AirEntity> {
    *
    * @param requestData 请求对象
    */
-  beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E>
+  beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E> | void
 
   /**
    * # 添加行的子项的前置拦截方法
@@ -35,5 +35,5 @@ export interface IUseTableOption<E extends AirEntity> {
    * @param param 添加的数据
    * @param row 当前行数据
    */
-  beforeAddRow?: (param: E, row: E) => E
+  beforeAddRow?: (param: E, row: E) => E | void
 }

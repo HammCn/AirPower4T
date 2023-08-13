@@ -18,7 +18,7 @@ export interface IUseEditorOption<E extends AirEntity> {
    *
    * @param submitData 实体
    */
-  beforeSubmit?: (submitData: E) => E
+  beforeSubmit?: (submitData: E) => E | void
 
   /**
    * # 查到详情后的事件
@@ -27,6 +27,6 @@ export interface IUseEditorOption<E extends AirEntity> {
    *
    * @param detailData 实体
    */
-  afterGetDetail?: (detailData: E) => E
+  afterGetDetail?: (detailData: E) => E | void
 
 }

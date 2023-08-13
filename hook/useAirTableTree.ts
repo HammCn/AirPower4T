@@ -14,7 +14,7 @@ import { useAirTable } from './useAirTable'
  * @param serviceClass 表格使用的Service类
  * @param option [可选] 更多配置
  */
-export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}): IUseTableTreeResult<E> {
+export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption<E> = {}): IUseTableTreeResult<E> {
   const result = useAirTable(entityClass, serviceClass, option)
   async function onAddRow(row: E) {
     if (option.editor) {

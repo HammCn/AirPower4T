@@ -20,5 +20,5 @@ export interface IUseSelectorOption<E extends AirEntity> {
    *
    * @param request 请求对象
    */
-  beforeSearch?: (request: AirRequestPage<E>) => AirRequestPage<E>
+  beforeSearch?: (request: AirRequestPage<E>) => AirRequestPage<E> | void
 }
