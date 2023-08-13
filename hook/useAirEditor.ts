@@ -60,12 +60,14 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
      * # Editor显示的标题
      */
     title,
+
     /**
      * # 表单提交的方法
      * ---
      * 💡 你可以使用 ```beforeSubmit``` 方法来拦截请求的数据
      */
     onSubmit,
+
     /**
      * # 表单的Ref对象
      * ---
@@ -86,6 +88,7 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
      * # 表单数据
      */
     formData,
+
     /**
      * # 当前绑定的Loading状态
      * ---
