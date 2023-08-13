@@ -1,6 +1,7 @@
 import { ElForm, ElTable, ElTree } from 'element-plus'
 
 import type Node from 'element-plus/es/components/tree/src/model/node'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 一些定义的类型
@@ -31,3 +32,5 @@ export type AirTreeNode = Node;
  * #  图标类型字符串类型
  */
 export type AirIconType = 'DELETE_LIST' | 'DELETE' | 'EDIT' | 'DETAIL' | 'ADD' | 'FINISH' | 'SEARCH' | 'SETTING' | 'PUBLISH' | 'SAVE' | 'EXPORT' | 'IMPORT' | 'MORE' | 'LOCK' | 'UPLOAD' | 'LOGOUT' | 'DOWNLOAD' | 'CHECKIN' | 'SELECT' | 'MOVE_UP' | 'MOVE_DOWN' | 'CONFIRM' | 'CHECKBOX' | 'CLOCK' | 'MONITOR' | 'COMPARE' | 'CLOSE'
+
+export type AirProps = IJson

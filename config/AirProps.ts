@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PropType } from 'vue'
 import { AirEntity } from '../base/AirEntity'
+import { AirProps } from '../type/AirType'
 
 /**
  * # 使用无参DialogProps配置
  * @author Hamm
  */
-export function airProps() {
+export function airProps(): AirProps {
   return {
     /**
      * # 弹窗的确认按钮被点击事件
@@ -37,7 +38,7 @@ export function airProps() {
  * ### 💡 [可选]泛型: Param的类型
  * @param value [可选]默认参数
  */
-export function airPropsParam<P>(value: P | null = null) {
+export function airPropsParam<P>(value: P | null = null): AirProps {
   return Object.assign(airProps(), {
     /**
      * # 支持一个传入参数
@@ -67,7 +68,7 @@ export function airPropsId() {
  */
 export function airPropsSelector<
   S extends AirEntity = AirEntity, P extends AirEntity = AirEntity
->(value: P | null = null) {
+>(value: P | null = null): AirProps {
   return Object.assign(airProps(), {
     /**
      * # 是否使用多选
