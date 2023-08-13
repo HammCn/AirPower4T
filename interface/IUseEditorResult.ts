@@ -7,7 +7,7 @@ import { AirEntity } from '../base/AirEntity'
 /**
  * # Editor的Hook标准返回
  */
-export interface IHookEditor<E extends AirEntity> {
+export interface IUseEditorResult<E extends AirEntity> {
   /**
    * # Editor显示的标题
    */

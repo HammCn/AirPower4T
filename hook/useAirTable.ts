@@ -10,8 +10,7 @@ import { AirSort } from '../model/AirSort'
 import { AirPage } from '../model/AirPage'
 import { IUseTableOption } from '../interface/IUseTableOption'
 import { AirNotification } from '../feedback/AirNotification'
-import { ITree } from '../interface/ITree'
-import { IHookTable, IHookTableTree } from '../interface/IHookTable'
+import { IUseTableResult } from '../interface/IUseTableResult'
 
 /**
  * # 引入表格使用的Hook
@@ -19,7 +18,7 @@ import { IHookTable, IHookTableTree } from '../interface/IHookTable'
  * @param serviceClass 表格使用的Service类
  * @param option [可选] 更多配置
  */
-export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}): IHookTable<E> {
+export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}): IUseTableResult<E> {
   const isLoading = ref(false)
 
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
@@ -98,33 +97,5 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
 
   return {
     onSearch, onPageChanged, onEdit, onDelete, onAdd, onSortChanged, onSelected, onGetList, isLoading, response, request, list, selectList,
-  } as IHookTable<E>
-}
-/**
- * # 引入表格树使用的Hook
- * @param entityClass 实体类
- * @param serviceClass 表格使用的Service类
- * @param option [可选] 更多配置
- */
-export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}): IHookTableTree<E> {
-  const result = useAirTable(entityClass, serviceClass, option)
-  async function onAddRow(row: E) {
-    if (option.editor) {
-      let param = AirClassTransformer.newInstance(entityClass)
-      param.parentId = row.id
-      if (option.beforeAddRow) {
-        const result = option.beforeAddRow(param, row)
-        if (result !== undefined) {
-          param = result
-        }
-      }
-      await AirDialog.show(option.editor, param)
-      result.onGetList()
-      return
-    }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
-  }
-  return Object.assign(result, {
-    onAddRow,
-  }) as IHookTableTree<E>
+  } as IUseTableResult<E>
 }

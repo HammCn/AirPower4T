@@ -7,7 +7,7 @@ import { AirResponsePage } from '../model/AirResponsePage'
 /**
  * # 表格的Hook标准返回
  */
-export interface IHookTable<E extends AirEntity> {
+export interface IUseTableResult<E extends AirEntity> {
   /**
    * # 搜索事件
    */
@@ -75,14 +75,4 @@ export interface IHookTable<E extends AirEntity> {
    * # 选中的数据列表
    */
   selectList: Ref<E[]>,
-}
-
-/**
- * # 树表格的Hook标准返回
- */
-export interface IHookTableTree<E extends AirEntity> extends IHookTable<E> {
-  /**
-   * # 表格行的添加按钮点击事件
-   */
-  onAddRow: Function
 }

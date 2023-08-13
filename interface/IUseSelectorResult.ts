@@ -7,7 +7,7 @@ import { AirRequest } from '../model/AirRequest'
 /**
  * # 选择器Hook的标准返回
  */
-export interface IHookSelector<E extends AirEntity> {
+export interface IUseSelectorResult<E extends AirEntity> {
 
   /**
    * # Selector的标题

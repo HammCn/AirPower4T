@@ -5,7 +5,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirEntity } from '../base/AirEntity'
 import { IUseEditorOption } from '../interface/IUseEditorOption'
-import { IHookEditor } from '../interface/IHookEditor'
+import { IUseEditorResult } from '../interface/IUseEditorResult'
 
 /**
  * # 引入Editor的Hook
@@ -15,7 +15,7 @@ import { IHookEditor } from '../interface/IHookEditor'
  * @param option [可选]更多的配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption = {}): IHookEditor<E> {
+export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption = {}): IUseEditorResult<E> {
   const isLoading = ref(false)
 
   const service = AirClassTransformer.newInstance(serviceClass)
@@ -58,5 +58,5 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
 
   return {
     title, onSubmit, formRef, rules, formData, isLoading,
-  } as IHookEditor<E>
+  } as IUseEditorResult<E>
 }

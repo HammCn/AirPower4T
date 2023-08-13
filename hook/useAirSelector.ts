@@ -8,7 +8,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirSort } from '../model/AirSort'
 import { AirPage } from '../model/AirPage'
 import { IUseSelectorOption } from '../interface/IUseSelectorOption'
-import { IHookSelector } from '../interface/IHookSelector'
+import { IUseSelectorResult } from '../interface/IUseSelectorResult'
 
 /**
  * # 引入Selector使用的Hook
@@ -18,7 +18,7 @@ import { IHookSelector } from '../interface/IHookSelector'
  * @param option [可选] 更多配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption = {}): IHookSelector<E> {
+export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption = {}): IUseSelectorResult<E> {
   const isLoading = ref(false)
 
   const selected = ref(props.selectList)
@@ -75,5 +75,5 @@ export function useAirSelector<E extends AirEntity>(props: any, entityClass: Cla
 
   return {
     title, onSelect, selected, onSearch, onPageChanged, onSortChanged, onGetList, isLoading, response, request, list,
-  } as IHookSelector<E>
+  } as IUseSelectorResult<E>
 }
