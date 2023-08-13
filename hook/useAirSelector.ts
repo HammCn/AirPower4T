@@ -8,6 +8,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirSort } from '../model/AirSort'
 import { AirPage } from '../model/AirPage'
 import { IUseSelectorOption } from '../interface/IUseSelectorOption'
+import { IHookSelector } from '../interface/IHookSelector'
 
 /**
  * # 引入Selector使用的Hook
@@ -17,7 +18,7 @@ import { IUseSelectorOption } from '../interface/IUseSelectorOption'
  * @param option [可选] 更多配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption = {}) {
+export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption = {}): IHookSelector<E> {
   const isLoading = ref(false)
 
   const selected = ref(props.selectList)
@@ -73,62 +74,6 @@ export function useAirSelector<E extends AirEntity>(props: any, entityClass: Cla
   const title = computed(() => `请选择${entity.getClassName()}`)
 
   return {
-    /**
-     * # Selector的标题
-     */
-    title,
-
-    /**
-     * # 多选选择事件
-     */
-    onSelect,
-
-    /**
-     * # 已选择的数组
-     */
-    selected,
-
-    /**
-     * # 搜索事件
-     */
-    onSearch,
-
-    /**
-     * # 分页变更事件
-     */
-    onPageChanged,
-
-    /**
-     * # 排序变更事件
-     */
-    onSortChanged,
-
-    /**
-     * # 推荐使用 onSearch
-     * @deprecated
-     */
-    onGetList,
-
-    /**
-     * # 当前绑定的Loading状态
-     * ---
-     * 💡 请随意 ```v-loading``` 到你需要的地方
-     */
-    isLoading,
-
-    /**
-     * # 响应数据
-     */
-    response,
-
-    /**
-     * # 请求数据
-     */
-    request,
-
-    /**
-     * # 返回的单页数据列表
-     */
-    list,
-  }
+    title, onSelect, selected, onSearch, onPageChanged, onSortChanged, onGetList, isLoading, response, request, list,
+  } as IHookSelector<E>
 }

@@ -11,6 +11,7 @@ import { AirPage } from '../model/AirPage'
 import { IUseTableOption } from '../interface/IUseTableOption'
 import { AirNotification } from '../feedback/AirNotification'
 import { ITree } from '../interface/ITree'
+import { IHookTable, IHookTableTree } from '../interface/IHookTable'
 
 /**
  * # 引入表格使用的Hook
@@ -18,7 +19,7 @@ import { ITree } from '../interface/ITree'
  * @param serviceClass 表格使用的Service类
  * @param option [可选] 更多配置
  */
-export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}) {
+export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}): IHookTable<E> {
   const isLoading = ref(false)
 
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
@@ -96,74 +97,8 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
   onGetList()
 
   return {
-    /**
-     * # 搜索事件
-     */
-    onSearch,
-
-    /**
-     * # 分页变更事件
-     */
-    onPageChanged,
-
-    /**
-     * # 编辑事件
-     */
-    onEdit,
-
-    /**
-     * # 删除事件
-     */
-    onDelete,
-
-    /**
-     * # 添加事件
-     */
-    onAdd,
-
-    /**
-     * # 排序变更事件
-     */
-    onSortChanged,
-
-    /**
-     * # 多选事件
-     */
-    onSelected,
-
-    /**
-     * # 推荐使用 onSearch
-     * @deprecated
-     */
-    onGetList,
-
-    /**
-     * # 当前绑定的Loading状态
-     * ---
-     * 💡 请随意 ```v-loading``` 到你需要的地方
-     */
-    isLoading,
-
-    /**
-     * # 响应数据
-     */
-    response,
-
-    /**
-     * # 请求数据
-     */
-    request,
-
-    /**
-     * # 返回的单页数据列表
-     */
-    list,
-
-    /**
-     * # 选中的数据列表
-     */
-    selectList,
-  }
+    onSearch, onPageChanged, onEdit, onDelete, onAdd, onSortChanged, onSelected, onGetList, isLoading, response, request, list, selectList,
+  } as IHookTable<E>
 }
 /**
  * # 引入表格树使用的Hook
@@ -171,7 +106,7 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
  * @param serviceClass 表格使用的Service类
  * @param option [可选] 更多配置
  */
-export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}) {
+export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption = {}): IHookTableTree<E> {
   const result = useAirTable(entityClass, serviceClass, option)
   async function onAddRow(row: E) {
     if (option.editor) {
@@ -191,5 +126,5 @@ export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E
   }
   return Object.assign(result, {
     onAddRow,
-  })
+  }) as IHookTableTree<E>
 }

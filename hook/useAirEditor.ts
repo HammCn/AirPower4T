@@ -5,6 +5,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirEntity } from '../base/AirEntity'
 import { IUseEditorOption } from '../interface/IUseEditorOption'
+import { IHookEditor } from '../interface/IHookEditor'
 
 /**
  * # 引入Editor的Hook
@@ -14,7 +15,7 @@ import { IUseEditorOption } from '../interface/IUseEditorOption'
  * @param option [可选]更多的配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption = {}) {
+export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption = {}): IHookEditor<E> {
   const isLoading = ref(false)
 
   const service = AirClassTransformer.newInstance(serviceClass)
@@ -37,7 +38,7 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
 
   const rules = service.createValidator(props.param, option.customRules || {})
 
-  const formRef = ref<AirFormInstance>()
+  const formRef = ref<AirFormInstance>() as Ref<AirFormInstance>
 
   async function onSubmit() {
     let postData = AirClassTransformer.copy(formData.value, entityClass)
@@ -56,44 +57,6 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
   const title = computed(() => ((formData.value.id ? '修改' : '新增') + formData.value.getClassName()))
 
   return {
-    /**
-     * # Editor显示的标题
-     */
-    title,
-
-    /**
-     * # 表单提交的方法
-     * ---
-     * 💡 你可以使用 ```beforeSubmit``` 方法来拦截请求的数据
-     */
-    onSubmit,
-
-    /**
-     * # 表单的Ref对象
-     * ---
-     * 你可以绑定到组件中, 它将自动为你验证
-     * - ```ADialog``` 的 ```:form-ref```
-     * - ```el-form``` 的 ```ref```
-     */
-    formRef,
-
-    /**
-     * # 表单的验证规则
-     * ---
-     * 💡 你可以绑定到 ```el-form``` 的 ```:rules``` 上
-     */
-    rules,
-
-    /**
-     * # 表单数据
-     */
-    formData,
-
-    /**
-     * # 当前绑定的Loading状态
-     * ---
-     * 💡 请随意 ```v-loading``` 到你需要的地方
-     */
-    isLoading,
-  }
+    title, onSubmit, formRef, rules, formData, isLoading,
+  } as IHookEditor<E>
 }
