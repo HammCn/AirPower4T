@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-unused-vars */
 import { Ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
+import { AirPage } from '../model/AirPage'
+import { AirSort } from '../model/AirSort'
 
 /**
  * # 表格的Hook标准返回
@@ -11,43 +13,43 @@ export interface IUseTableResult<E extends AirEntity> {
   /**
    * # 搜索事件
    */
-  onSearch: Function,
+  onSearch: (request: AirRequest<E>) => void,
 
   /**
    * # 分页变更事件
    */
-  onPageChanged: Function,
+  onPageChanged: (page: AirPage) => void,
 
   /**
    * # 编辑事件
    */
-  onEdit: Function,
+  onEdit: (row: E) => void,
 
   /**
    * # 删除事件
    */
-  onDelete: Function,
+  onDelete: (row: E) => void,
 
   /**
    * # 添加事件
    */
-  onAdd: Function,
+  onAdd: () => void,
 
   /**
    * # 排序变更事件
    */
-  onSortChanged: Function,
+  onSortChanged: (sort: AirSort) => void,
 
   /**
    * # 多选事件
    */
-  onSelected: Function,
+  onSelected: (list: E[]) => void,
 
   /**
    * # 推荐使用 onSearch
    * @deprecated
    */
-  onGetList: Function,
+  onGetList: (request: AirRequest<E>) => void,
 
   /**
    * # 当前绑定的Loading状态

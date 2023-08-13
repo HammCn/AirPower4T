@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-unused-vars */
 import { AirEntity } from '../base/AirEntity'
 import { IUseTableResult } from './IUseTableResult'
 
@@ -9,5 +9,5 @@ export interface IUseTableTreeResult<E extends AirEntity> extends IUseTableResul
   /**
    * # 表格行的添加按钮点击事件
    */
-  onAddRow: Function
+  onAddRow: (row: E) => void
 }

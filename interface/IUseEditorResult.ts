@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { Ref } from 'vue'
 import { AirFormInstance } from '../type/AirType'
 import { IValidateRule } from './IValidateRule'
@@ -18,7 +17,7 @@ export interface IUseEditorResult<E extends AirEntity> {
    * ---
    * 💡 你可以使用 ```beforeSubmit``` 方法来拦截请求的数据
    */
-  onSubmit: Function,
+  onSubmit: () => void,
 
   /**
    * # 表单的Ref对象
