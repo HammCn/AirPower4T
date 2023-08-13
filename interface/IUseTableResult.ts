@@ -1,56 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { Ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
-import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { AirPage } from '../model/AirPage'
 import { AirSort } from '../model/AirSort'
+import { AirRequestPage } from '../model/AirRequestPage'
 
 /**
  * # 表格的Hook标准返回
  */
 export interface IUseTableResult<E extends AirEntity> {
-  /**
-   * # 搜索事件
-   */
-  onSearch: (request: AirRequest<E>) => void,
-
-  /**
-   * # 分页变更事件
-   */
-  onPageChanged: (page: AirPage) => void,
-
-  /**
-   * # 编辑事件
-   */
-  onEdit: (row: E) => void,
-
-  /**
-   * # 删除事件
-   */
-  onDelete: (row: E) => void,
-
-  /**
-   * # 添加事件
-   */
-  onAdd: () => void,
-
-  /**
-   * # 排序变更事件
-   */
-  onSortChanged: (sort: AirSort) => void,
-
-  /**
-   * # 多选事件
-   */
-  onSelected: (list: E[]) => void,
-
-  /**
-   * # 推荐使用 onSearch
-   * @deprecated
-   */
-  onGetList: (request: AirRequest<E>) => void,
-
   /**
    * # 当前绑定的Loading状态
    * ---
@@ -66,7 +25,7 @@ export interface IUseTableResult<E extends AirEntity> {
   /**
    * # 请求数据
    */
-  request: Ref<AirRequest<E>>,
+  request: Ref<AirRequestPage<E>>,
 
   /**
    * # 返回的单页数据列表
@@ -77,4 +36,59 @@ export interface IUseTableResult<E extends AirEntity> {
    * # 选中的数据列表
    */
   selectList: Ref<E[]>,
+
+  /**
+   * # 搜索事件
+   *
+   * @param request 请求对象
+   */
+  onSearch: (request: AirRequestPage<E>) => void,
+
+  /**
+   * # 分页变更事件
+   *
+   * @param page 分页对象
+   */
+  onPageChanged: (page: AirPage) => void,
+
+  /**
+   * # 编辑事件
+   *
+   * @param row 选择的行
+   */
+  onEdit: (row: E) => void,
+
+  /**
+   * # 删除事件
+   *
+   * @param row 选择的行
+   */
+  onDelete: (row: E) => void,
+
+  /**
+   * # 添加事件
+   */
+  onAdd: () => void,
+
+  /**
+   * # 排序变更事件
+   *
+   * @param sort 排序对象
+   */
+  onSortChanged: (sort: AirSort) => void,
+
+  /**
+   * # 多选事件
+   *
+   * @param list 选择的行列表
+   */
+  onSelected: (list: E[]) => void,
+
+  /**
+   * # 推荐使用 onSearch
+   * @deprecated
+   *
+   * @param request 请求对象
+   */
+  onGetList: (request: AirRequestPage<E>) => void,
 }

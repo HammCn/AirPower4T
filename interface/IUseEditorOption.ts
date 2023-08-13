@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+import { AirEntity } from '../base/AirEntity'
 import { IValidateRule } from './IValidateRule'
 
 /**
  * # Editor的Hook可选配置
  */
-export interface IUseEditorOption {
+export interface IUseEditorOption<E extends AirEntity> {
   /**
    * # 自定义验证
    */
@@ -13,16 +15,18 @@ export interface IUseEditorOption {
    * # 请求前拦截器
    * ---
    * 💡 参数为发起请求的数据,请处理后返回
+   *
+   * @param submitData 实体
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  beforeSubmit?: Function
+  beforeSubmit?: (submitData: E) => E
 
   /**
    * # 查到详情后的事件
    * ---
    * 💡 参数为响应的数据,请处理后返回
+   *
+   * @param detailData 实体
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  afterGetDetail?: Function
+  afterGetDetail?: (detailData: E) => E
 
 }

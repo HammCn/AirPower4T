@@ -27,7 +27,7 @@ export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E
         }
       }
       await AirDialog.show(option.editor, param)
-      result.onGetList()
+      result.onGetList(result.request.value)
       return
     }
     AirNotification.warning('请为 useAirTableList 的 option 传入 editor')

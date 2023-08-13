@@ -15,7 +15,7 @@ import { IUseEditorResult } from '../interface/IUseEditorResult'
  * @param option [可选]更多的配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption = {}): IUseEditorResult<E> {
+export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption<E> = {}): IUseEditorResult<E> {
   const isLoading = ref(false)
 
   const service = AirClassTransformer.newInstance(serviceClass)

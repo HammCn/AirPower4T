@@ -13,13 +13,6 @@ export interface IUseEditorResult<E extends AirEntity> {
   title: Ref<string>,
 
   /**
-   * # 表单提交的方法
-   * ---
-   * 💡 你可以使用 ```beforeSubmit``` 方法来拦截请求的数据
-   */
-  onSubmit: () => void,
-
-  /**
    * # 表单的Ref对象
    * ---
    * 你可以绑定到组件中, 它将自动为你验证
@@ -46,4 +39,11 @@ export interface IUseEditorResult<E extends AirEntity> {
    * 💡 请随意 ```v-loading``` 到你需要的地方
    */
   isLoading: Ref<boolean>,
+
+  /**
+   * # 表单提交的方法
+   * ---
+   * 💡 你可以使用 ```beforeSubmit``` 方法来拦截请求的数据
+   */
+  onSubmit: () => void,
 }

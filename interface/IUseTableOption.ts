@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { Component } from 'vue'
+import { AirRequestPage } from '../model/AirRequestPage'
+import { AirEntity } from '../base/AirEntity'
 /**
  * # TableList的Hook可选配置
  */
-export interface IUseTableOption {
+export interface IUseTableOption<E extends AirEntity> {
   /**
    * # 不分页
    * ---
@@ -19,15 +22,18 @@ export interface IUseTableOption {
    * # 搜索前的拦截方法
    * ---
    * 💡 参数为发起请求的数据,请处理后返回
+   *
+   * @param requestData 请求对象
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  beforeSearch?: Function
+  beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E>
 
   /**
    * # 添加行的子项的前置拦截方法
    * ---
    * 💡 参数为发起请求的数据,请处理后返回
+   *
+   * @param param 添加的数据
+   * @param row 当前行数据
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  beforeAddRow?: Function
+  beforeAddRow?: (param: E, row: E) => E
 }

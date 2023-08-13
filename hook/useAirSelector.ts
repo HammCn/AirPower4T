@@ -18,7 +18,7 @@ import { IUseSelectorResult } from '../interface/IUseSelectorResult'
  * @param option [可选] 更多配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption = {}): IUseSelectorResult<E> {
+export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E> {
   const isLoading = ref(false)
 
   const selected = ref(props.selectList)
