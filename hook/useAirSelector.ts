@@ -77,14 +77,17 @@ export function useAirSelector<E extends AirEntity>(props: any, entityClass: Cla
      * # Selector的标题
      */
     title,
+
     /**
      * # 多选选择事件
      */
     onSelect,
+
     /**
      * # 已选择的数组
      */
     selected,
+
     /**
      * # 搜索事件
      */
