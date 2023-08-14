@@ -130,6 +130,19 @@ export class AirConfig {
   static removeAccessToken(): void {
     wx.removeStorageSync(this.authorizationHeaderKey)
   }
+
+  /**
+   * # 权限列表
+   */
+  static permissionList: string[] = []
+
+  /**
+   * # 是否有权限
+   * @param permission 权限标识
+   */
+  static hasPermission(permission: string): boolean {
+    return this.permissionList.includes(permission)
+  }
   // #endregion
 
   // #region 其他杂项配置
