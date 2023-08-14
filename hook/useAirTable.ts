@@ -54,12 +54,12 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
   }
 
   async function onEdit(row: E) {
-    if (option.editor) {
-      await AirDialog.show(option.editor, row)
+    if (option.editView) {
+      await AirDialog.show(option.editView, row)
       onGetList()
       return
     }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
+    AirNotification.warning('请为 useAirTableList 的 option 传入 editView')
   }
 
   async function onDelete(data: E) {
@@ -68,12 +68,21 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
   }
 
   async function onAdd() {
-    if (option.editor) {
-      await AirDialog.show(option.editor)
+    if (option.editView) {
+      await AirDialog.show(option.editView)
       onGetList()
       return
     }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
+    AirNotification.warning('请为 useAirTableList 的 option 传入 editView')
+  }
+
+  async function onDetail(data: E) {
+    if (option.detailView) {
+      await AirDialog.show(option.detailView, data)
+      onGetList()
+      return
+    }
+    AirNotification.warning('请为 useAirTableList 的 option 传入 detailView')
   }
 
   async function onSortChanged(sort: AirSort) {
@@ -96,6 +105,6 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
   onGetList()
 
   return {
-    isLoading, response, request, list, selectList, onSearch, onPageChanged, onEdit, onDelete, onAdd, onSortChanged, onSelected, onGetList,
+    isLoading, response, request, list, selectList, onSearch, onPageChanged, onEdit, onDelete, onAdd, onSortChanged, onSelected, onGetList, onDetail,
   } as IUseTableResult<E>
 }

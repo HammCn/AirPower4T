@@ -17,7 +17,7 @@ import { useAirTable } from './useAirTable'
 export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption<E> = {}): IUseTableTreeResult<E> {
   const result = useAirTable(entityClass, serviceClass, option)
   async function onAddRow(row: E) {
-    if (option.editor) {
+    if (option.editView) {
       let param = AirClassTransformer.newInstance(entityClass)
       param.parentId = row.id
       if (option.beforeAddRow) {
@@ -26,7 +26,7 @@ export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E
           param = result
         }
       }
-      await AirDialog.show(option.editor, param)
+      await AirDialog.show(option.editView, param)
       result.onGetList(result.request.value)
       return
     }

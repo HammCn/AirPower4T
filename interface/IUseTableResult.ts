@@ -66,6 +66,13 @@ export interface IUseTableResult<E extends AirEntity> {
   onDelete: (row: E) => void,
 
   /**
+   * # 详情事件
+   *
+   * @param row 选择的行
+   */
+  onDetail: (row: E) => void,
+
+  /**
    * # 添加事件
    */
   onAdd: () => void,

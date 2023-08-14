@@ -16,7 +16,12 @@ export interface IUseTableOption<E extends AirEntity> {
   /**
    * # 新增修改的视图Vue文件
    */
-  editor?: Component
+  editView?: Component
+
+  /**
+   * # 详情的视图Vue文件
+   */
+  detailView?: Component
 
   /**
    * # 搜索前的拦截方法
