@@ -26,8 +26,8 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   @Type(AirSort) sort!: AirSort
 
   /**
-   * # 如传入filter的类 将自动初始化一个空filter
-   * @param filterClass filter的类
+   * # 初始化一个请求类
+   * @param filterClass 如传入filter的类 将自动初始化一个空filter
    */
   constructor(filterClass: ClassConstructor<E>) {
     super()
