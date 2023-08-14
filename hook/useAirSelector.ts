@@ -74,6 +74,6 @@ export function useAirSelector<E extends AirEntity>(props: any, entityClass: Cla
   const title = computed(() => `请选择${entity.getClassName()}`)
 
   return {
-    title, onSelect, selected, onSearch, onPageChanged, onSortChanged, onGetList, isLoading, response, request, list,
+    title, selected, isLoading, response, request, list, onSelect, onSearch, onPageChanged, onSortChanged, onGetList,
   } as IUseSelectorResult<E>
 }

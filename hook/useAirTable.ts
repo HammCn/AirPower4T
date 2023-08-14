@@ -96,6 +96,6 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
   onGetList()
 
   return {
-    onSearch, onPageChanged, onEdit, onDelete, onAdd, onSortChanged, onSelected, onGetList, isLoading, response, request, list, selectList,
+    isLoading, response, request, list, selectList, onSearch, onPageChanged, onEdit, onDelete, onAdd, onSortChanged, onSelected, onGetList,
   } as IUseTableResult<E>
 }

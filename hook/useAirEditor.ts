@@ -57,6 +57,6 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
   const title = computed(() => ((formData.value.id ? '修改' : '新增') + formData.value.getClassName()))
 
   return {
-    title, onSubmit, formRef, rules, formData, isLoading,
+    title, formRef, rules, formData, isLoading, onSubmit,
   } as IUseEditorResult<E>
 }
