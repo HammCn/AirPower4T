@@ -9,8 +9,8 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 /**
  * # 引入详情的Hook
  * @param props defineProps的返回值
- * @param entityClass Editor使用的实体类
- * @param serviceClass Editor使用的Service
+ * @param entityClass 详情使用的实体类
+ * @param serviceClass 详情使用的Service
  * @param option [可选]更多的配置
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,7 +20,7 @@ export function useAirDetail<E extends AirEntity>(props: any, entityClass: Class
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading
 
-  const formData: Ref<E> = ref(props.param.copy())
+  const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
 
   async function getDetail() {
     if (props.param.id) {

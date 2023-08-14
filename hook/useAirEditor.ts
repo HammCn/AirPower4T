@@ -21,7 +21,7 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading
 
-  const formData: Ref<E> = ref(props.param.copy())
+  const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
 
   async function getDetail() {
     if (props.param.id) {
