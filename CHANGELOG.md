@@ -1,5 +1,25 @@
 # AirPower 版本发布日志
 
+## v1.0.2
+
+### 🎉 Features:
+
+- feat(Hook): ```useAirEditor``` 支持传入操作成功的提示信息
+- feat(Hook): 提供了一个标准 ```useAirDetail``` 的Hook
+- feat(Image): 支持了是否允许移除已上传文件的prop参数
+- feat(Image): 支持了一个placeholder的prop参数
+- feat(Table): 翻转了部分表格prop参数项的含义
+
+
+### 🐞 Bugs
+
+- fix(AirProps): 修复 ```airPropsXXX``` 没有显性返回值类型的BUG
+
+### 🐔 Styles:
+
+- style(empty): 空状态图片修改
+- style(Frame): 默认的插槽内容修改
+
 ## v1.0.1
 
 ### 🎉 Features:
