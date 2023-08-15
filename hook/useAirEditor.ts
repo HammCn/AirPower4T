@@ -48,7 +48,7 @@ export function useAirEditor<E extends AirEntity>(props: any, entityClass: Class
         postData = result
       }
     }
-    await service.save(postData, postData.id ? `修改${formData.value.getClassName()}成功` : `添加${formData.value.getClassName()}成功`)
+    await service.save(postData, option.successMessage || (postData.id ? `修改${formData.value.getClassName()}成功` : `添加${formData.value.getClassName()}成功`))
     props.onConfirm()
   }
 

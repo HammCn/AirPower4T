@@ -12,6 +12,11 @@ export interface IUseEditorOption<E extends AirEntity> {
   customRules?: IValidateRule,
 
   /**
+   * # 编辑成功的提示消息
+   */
+  successMessage?: string
+
+  /**
    * # 请求前拦截器
    * ---
    * 💡 参数为发起请求的数据,请处理后返回
