@@ -25,9 +25,9 @@ export class AirConfig {
   static readonly version = 'v1.0.2'
 
   /**
-   * # AppID
+   * # AppKey
    * ---
-   * 💡 用于处理一些唯一场景做项目区分
+   * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
    */
   static appKey = 'airpower'
 
