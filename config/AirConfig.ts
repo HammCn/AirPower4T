@@ -106,6 +106,11 @@ export class AirConfig {
   static apiUrl = import.meta.env.VITE_APP_API_URL || '/api/'
 
   /**
+   * # Oauth2的authorize地址
+   */
+  static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
+
+  /**
    * # 静态资源根路径
    * ---
    * 💡 以 ```/``` 结尾

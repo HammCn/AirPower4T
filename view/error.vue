@@ -25,8 +25,8 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { AirConfig } from './config/AirConfig'
-import { AirHttpStatus } from './enum/AirHttpStatus'
+import { AirConfig } from '../config/AirConfig'
+import { AirHttpStatus } from '../enum/AirHttpStatus'
 
 const isLoading = ref(true)
 const isError = ref(false)
