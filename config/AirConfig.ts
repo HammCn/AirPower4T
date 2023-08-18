@@ -149,7 +149,7 @@ export class AirConfig {
    * # 默认下载导入模板的URL
    *
    * ---
-   * #😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
    * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```importTemplateUrl```
@@ -160,7 +160,7 @@ export class AirConfig {
    * # 默认同步导出URL
    *
    * ---
-   * #😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
    * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
@@ -171,7 +171,7 @@ export class AirConfig {
    * # 默认异步导出URL
    *
    * ---
-   * #😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
    *
    * ---
    * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
