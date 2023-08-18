@@ -74,7 +74,8 @@ if (!import.meta.env.DEV) {
 }
 
 app.directive('tip', {
-  mounted(el, binding) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mounted(el: any, binding: any) {
     el.addEventListener('mouseover', () => {
       if (binding.value) {
         AirStore().tooltipRef = el
