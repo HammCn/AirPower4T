@@ -6,26 +6,31 @@
 
 早期是子仓库方式的设计, 这个依赖库跟宿主项目在一起, 所以为了排前面, 选择使用**A**开头的单词, 后来想起 **Apple** 家难产了的一个产品的名称, **AirPower**, 作者是Apple十年老粉, 那就顺便致敬下 **Apple**. 
 
+## Show me the features
+
+1. **Model** / **Entity** 所有的数据交互都以数据模型实例的方式进行, 不再直接使用JSON.
+2. **Service** 使用服务类对所有的网络请求进行抽象, 通过继承方式实现相似代码的复用
+3. **Component** 提供了很多后台管理系统常用的组件和一些反馈组件
+4. **Hook** 提供了与Service交互的一些通用的交互Hooks
+5. **Enum** 提供了很多很多很多的枚举
+6. **Decorator** 提供了很多很多很多的装饰器
+7. 提供了类似 **Java** BeanCopy 相关的数据转换方式, 提供了完整的面向对象实现
+8. ......
+
 ## How to use?
 
-你可以在你的 **Vue3 & TypeScript & ElementPlus** 项目中直接从 **npm** 安装这个依赖库:
+你可以通过我们提供的 ```AirPowerWebStarter``` 项目提供的一键初始化脚本来完成 **AirPower** 宿主项目的初始化:
 
 ```bash
-yarn add airpower 
-// or
-npm install airpower
-```
-
-然后在你的 **main.ts** 中从 **airpower** 导入 **app**, 然后挂载到DOM上即可:
-
-```typescript
-import { app } from 'airpower'
-app.mount('#app')
+git clone https://github.com/HammCn/AirPowerWebStarter.git &&
+cd AirPowerWebStarter/src && 
+git clone https://github.com/HammCn/AirPower4T.git airpower && cd ../ &&
+yarn && cp .env.dev .env && yarn s
 ```
 
 ## Suggestions
 
-我们推荐了一个 [AirPower宿主仓库](https://github.com/HammCn/AirPowerWebStarter), 里面提供了一些 ```ESlint规则``` ```路由配置``` ```环境变量配置``` ```tsconfig``` ```vite.config```, 以及很多的 **demo** 代码, 你可以进行参考, 当然, 你也可以阅读我们的开发文档: [AirPower开发文档](https://apt.hamm.cn)
+我们提供的 [AirPower宿主仓库](https://github.com/HammCn/AirPowerWebStarter), 里面提供了一些 ```ESlint规则``` ```路由配置``` ```环境变量配置``` ```tsconfig``` ```vite.config```, 以及很多的 **demo** 代码, 你可以进行参考, 当然, 你也可以阅读我们的开发文档: [AirPower开发文档](https://apt.hamm.cn)
 
 ## Enjoy it
 
