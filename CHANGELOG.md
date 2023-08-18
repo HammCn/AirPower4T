@@ -1,5 +1,13 @@
 # AirPower 版本发布日志
 
+## v1.0.3
+
+### 🎉 Features:
+
+- feat(Websocket): 支持了一个Websocket服务类
+- feat(OAuth2): 提供了Oauth2的配置和跳转
+- feat(npm): 提供了npm包的引入方式
+
 ## v1.0.2
 
 ### 🎉 Features:
