@@ -1,0 +1,25 @@
+{
+  "name": "airpower",
+  "version": "1.0.0",
+  "description": "Backend library based on Vue3, TypeScript and Element Plus.",
+  "main": "main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HammCn/AirPower4T.git"
+  },
+  "keywords": [
+    "AirPower"
+  ],
+  "author": "Hamm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HammCn/AirPower4T/issues"
+  },
+  "homepage": "https://github.com/HammCn/AirPower4T#readme"
+}
