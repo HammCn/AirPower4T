@@ -1,6 +1,6 @@
 {
   "name": "airpower",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Backend library based on Vue3, TypeScript and Element Plus.",
   "main": "main.js",
   "directories": {
