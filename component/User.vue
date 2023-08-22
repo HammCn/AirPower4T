@@ -19,7 +19,9 @@
       >
         <div class="air-user-header">
           <div class="air-user-title">
-            <slot name="title" />
+            <slot name="title">
+              {{ user.nickname }}
+            </slot>
           </div>
           <div class="air-user-logout">
             <el-button
@@ -153,6 +155,8 @@ async function logout() {
       .air-user-title {
         flex: 1;
         font-size: 16px;
+        font-weight: bold;
+        margin-left: 10px;
       }
     }
   }
