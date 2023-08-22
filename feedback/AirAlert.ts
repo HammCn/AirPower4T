@@ -62,10 +62,10 @@ export class AirAlert {
 
   /**
    * # 显示弹窗消息提醒
-   * @param content [可选] 消息内容
+   * @param content 消息内容
    * @param description [可选] 消息标题
    */
-  show(content?: string, description?: string): Promise<void> {
+  show(content: string, description?: string): Promise<void> {
     return this.alert(content, description)
   }
 
@@ -78,19 +78,19 @@ export class AirAlert {
 
   /**
    * # 显示弹窗消息提醒
-   * @param content [可选] 消息内容
+   * @param content 消息内容
    * @param description [可选] 消息描述
    */
-  static show(content?: string, description?: string): Promise<void> {
+  static show(content: string, description?: string): Promise<void> {
     return this.create().show(content, description)
   }
 
   /**
    * # 弹出提示
-   * @param content [可选] 消息内容
+   * @param content 消息内容
    * @param description [可选] 消息描述
    */
-  private alert(content = '请先确认', description: string | undefined = undefined): Promise<void> {
+  private alert(content: string, description = ''): Promise<void> {
     return new Promise<void>((resolve) => {
       wx.showModal({
         title: content,
