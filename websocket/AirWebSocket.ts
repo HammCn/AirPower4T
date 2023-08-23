@@ -64,10 +64,10 @@ export class AirWebsocket {
     // eslint-disable-next-line no-unused-vars
     onmessage?: (message: string) => void,
     onopen?: () => void
-  }): AirWebsocket {
+  }): void {
     if (!AirConfig.websocketUrl) {
       AirAlert.error('请配置环境变量 VITE_APP_WEBSOCKET_URL')
-      return new AirWebsocket()
+      return
     }
     const instance = new AirWebsocket()
     instance.websocket = new WebSocket(`${AirConfig.websocketUrl}?${AirConfig.getAccessToken()}`)
@@ -85,8 +85,11 @@ export class AirWebsocket {
     }
     instance.websocket.onclose = () => {
       instance.isConnected = false
+      if (instance.reconnectWhenClosed) {
+        // Reconnect when close by exception
+        this.create(handler)
+      }
     }
-    return instance
   }
 
   /**
