@@ -1,5 +1,20 @@
 # AirPower 版本发布日志
 
+## v1.0.4
+
+### 🎉 Features:
+
+- feat(Transform): 树的数组递归转为普通的数组
+- feat(User): 用户弹窗插槽默认显示昵称
+
+
+### 🐞 Bug fixes:
+
+- fix(Props): 修复类型约束后代码不提示类型注释
+
+
+- style(User): 默认弹窗的宽高修改
+ 
 ## v1.0.3
 
 ### 🎉 Features:
@@ -18,7 +33,7 @@
 - feat(Table): 翻转了部分表格prop参数项的含义
 
 
-### 🐞 Bugs
+### 🐞 Bug fixes:
 
 - fix(AirProps): 修复 ```airPropsXXX``` 没有显性返回值类型的BUG
 
