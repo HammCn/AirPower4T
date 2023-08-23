@@ -1,6 +1,7 @@
 import { AirModel } from '../base/AirModel'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
+import { ITree } from '../interface/ITree'
 
 /**
  * # 转换类型助手
@@ -16,6 +17,21 @@ export class AirClassTransformer {
       return json
     }
     return JSON.parse(JSON.stringify(json))
+  }
+
+  /**
+   * # 树结构的数组转为普通数组
+   * @param treeList 树结构的数组
+   */
+  static treeList2List<E extends ITree>(treeList: E[]): E[] {
+    let list: E[] = []
+    treeList.forEach((item) => {
+      list.push(item)
+      if (item.children && item.children.length > 0) {
+        list = list.concat(this.treeList2List(item.children))
+      }
+    })
+    return list
   }
 
   /**
