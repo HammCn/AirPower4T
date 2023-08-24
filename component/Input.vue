@@ -165,7 +165,8 @@
       :clearable="fieldConfig?.clearable"
       :show-all-levels="fieldConfig?.showAllLevels"
       :props="{
-        value: 'key',
+        value: 'id',
+        label: 'name',
         multiple: fieldConfig?.multiple,
         emitPath: fieldConfig?.emitPath,
         checkStrictly: fieldConfig?.checkStrictly
@@ -240,6 +241,7 @@ import { IJson } from '../interface/IJson'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
 import { getDictionary } from '../decorator/Custom'
+import { ITree } from '../interface/ITree'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
@@ -326,7 +328,7 @@ const props = defineProps({
    * 优先级: ```AInput```传入 > ```@FormField```
    */
   tree: {
-    type: Object as unknown as PropType<IDictionary[]>,
+    type: Object as unknown as PropType<ITree[]>,
     default: undefined,
   },
 
