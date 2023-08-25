@@ -2,16 +2,12 @@ import { Ref } from 'vue'
 import { AirFormInstance } from '../type/AirType'
 import { IValidateRule } from './IValidateRule'
 import { AirEntity } from '../base/AirEntity'
+import { IUseDetailResult } from './IUseDetailResult'
 
 /**
  * # Editor的Hook标准返回
  */
-export interface IUseEditorResult<E extends AirEntity> {
-  /**
-   * # Editor显示的标题
-   */
-  title: Ref<string>,
-
+export interface IUseEditorResult<E extends AirEntity> extends IUseDetailResult<E>{
   /**
    * # 表单的Ref对象
    * ---
@@ -27,18 +23,6 @@ export interface IUseEditorResult<E extends AirEntity> {
    * 💡 你可以绑定到 ```el-form``` 的 ```:rules``` 上
    */
   rules: IValidateRule,
-
-  /**
-   * # 表单数据
-   */
-  formData: Ref<E>,
-
-  /**
-   * # 当前绑定的Loading状态
-   * ---
-   * 💡 请随意 ```v-loading``` 到你需要的地方
-   */
-  isLoading: Ref<boolean>,
 
   /**
    * # 表单提交的方法

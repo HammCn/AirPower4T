@@ -40,6 +40,6 @@ export function useAirDetail<E extends AirEntity>(props: any, entityClass: Class
   const title = computed(() => `${formData.value.getClassName()}详情`)
 
   return {
-    title, formData, isLoading,
+    title, formData, isLoading, service,
   } as IUseDetailResult<E>
 }
