@@ -12,12 +12,12 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.0.1'
+  static readonly version = 'v1.0.4'
 
   /**
-   * # AppID
+   * # AppKey
    * ---
-   * 💡 用于处理一些唯一场景做项目区分
+   * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
    */
   static appKey = 'airpower'
 
