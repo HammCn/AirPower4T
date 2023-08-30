@@ -8,35 +8,33 @@
     width="400px"
     @on-cancel="cancelExport"
   >
-    <template #body>
-      <div class="tips">
-        <template v-if="isLoading">
-          <el-progress
-            :percentage="100"
-            :indeterminate="true"
-            :duration="1"
-            :stroke-width="10"
-            :format="() => { }"
-          />
-          数据准备中,请稍后...
-        </template>
-        <template v-else>
-          <el-result
-            icon="success"
-            title="数据导出成功"
-          >
-            <template #extra>
-              <el-button
-                type="primary"
-                @click="download"
-              >
-                下载导出的文件
-              </el-button>
-            </template>
-          </el-result>
-        </template>
-      </div>
-    </template>
+    <div class="tips">
+      <template v-if="isLoading">
+        <el-progress
+          :percentage="100"
+          :indeterminate="true"
+          :duration="1"
+          :stroke-width="10"
+          :format="() => { }"
+        />
+        数据准备中,请稍后...
+      </template>
+      <template v-else>
+        <el-result
+          icon="success"
+          title="数据导出成功"
+        >
+          <template #extra>
+            <el-button
+              type="primary"
+              @click="download"
+            >
+              下载导出的文件
+            </el-button>
+          </template>
+        </el-result>
+      </template>
+    </div>
   </ADialog>
 </template>
 
