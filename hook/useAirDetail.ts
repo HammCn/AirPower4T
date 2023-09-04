@@ -5,6 +5,7 @@ import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 引入详情的Hook
@@ -13,8 +14,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
  * @param serviceClass 详情使用的Service
  * @param option [可选]更多的配置
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirDetail<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseDetailOption<E> = {}): IUseDetailResult<E> {
+export function useAirDetail<E extends AirEntity>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseDetailOption<E> = {}): IUseDetailResult<E> {
   const isLoading = ref(false)
 
   const service = AirClassTransformer.newInstance(serviceClass)

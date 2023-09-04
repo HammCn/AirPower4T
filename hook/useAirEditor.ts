@@ -7,6 +7,7 @@ import { AirEntity } from '../base/AirEntity'
 import { IUseEditorOption } from '../interface/IUseEditorOption'
 import { IUseEditorResult } from '../interface/IUseEditorResult'
 import { useAirDetail } from './useAirDetail'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 引入Editor的Hook
@@ -15,8 +16,7 @@ import { useAirDetail } from './useAirDetail'
  * @param serviceClass Editor使用的Service
  * @param option [可选]更多的配置
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirEditor<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption<E> = {}): IUseEditorResult<E> {
+export function useAirEditor<E extends AirEntity>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption<E> = {}): IUseEditorResult<E> {
   const result = useAirDetail(props, entityClass, serviceClass, option)
 
   const rules = result.service.createValidator(props.param, option.customRules || {})

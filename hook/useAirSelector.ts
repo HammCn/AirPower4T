@@ -9,6 +9,7 @@ import { AirSort } from '../model/AirSort'
 import { AirPage } from '../model/AirPage'
 import { IUseSelectorOption } from '../interface/IUseSelectorOption'
 import { IUseSelectorResult } from '../interface/IUseSelectorResult'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 引入Selector使用的Hook
@@ -17,8 +18,7 @@ import { IUseSelectorResult } from '../interface/IUseSelectorResult'
  * @param serviceClass Selector使用的Service类
  * @param option [可选] 更多配置
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAirSelector<E extends AirEntity>(props: any, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E> {
+export function useAirSelector<E extends AirEntity>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E> {
   const isLoading = ref(false)
 
   const selected = ref(props.selectList)
