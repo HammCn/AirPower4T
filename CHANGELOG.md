@@ -1,12 +1,25 @@
 # AirPower 版本发布日志
 
+## v1.0.5
+
+### 🎉 Features:
+
+- feat(WebSocket): 添加断线重连机制
+
+
+### 🐞 Bug fixes:
+
+- fix(hook): 添加一个基础的props参数限制
+- fix(Export): 修改导出模块的插槽
+- fix(hooks): 优化hooks部分的重复代码
+- fix(Input): 修复传入Tree的类型
+
 ## v1.0.4
 
 ### 🎉 Features:
 
 - feat(Transform): 树的数组递归转为普通的数组
 - feat(User): 用户弹窗插槽默认显示昵称
-
 
 ### 🐞 Bug fixes:
 
