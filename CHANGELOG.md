@@ -14,9 +14,6 @@
 - fix(hooks): 优化hooks部分的重复代码
 - fix(Input): 修复传入Tree的类型
 
-
-- style(User): 默认弹窗的宽高修改
-
 ## v1.0.4
 
 ### 🎉 Features:
