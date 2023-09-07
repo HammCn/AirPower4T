@@ -65,11 +65,6 @@ export class AirDictionaryArray<T extends IDictionary> extends Array<T> {
    * @param list 字典数组
    */
   static create(list: IDictionary[]): AirDictionaryArray<IDictionary> {
-    const dictionary = new AirDictionaryArray<IDictionary>()
-    list.forEach((json) => {
-      const item = { ...new AirDictionary(), ...json }
-      dictionary.push(item)
-    })
-    return dictionary
+    return this.createCustom(list)
   }
 }
