@@ -15,7 +15,7 @@ export class AirDictionaryArray<T extends IDictionary> extends Array<T> {
    * @param defaultLabel 默认Label
    */
   getLabel(key: boolean | number | string, defaultLabel = '-'): string {
-    return this.find((item) => item.key === key)?.label || defaultLabel
+    return this.get(key).label || defaultLabel
   }
 
   /**
@@ -24,7 +24,7 @@ export class AirDictionaryArray<T extends IDictionary> extends Array<T> {
    * @param defaultColor 默认Color
    */
   getColor(key: boolean | number | string, defaultColor: AirColor | string = AirColor.NORMAL): AirColor | string {
-    return this.find((item) => item.key === key)?.color || defaultColor
+    return this.get(key).color || defaultColor
   }
 
   /**
@@ -34,7 +34,7 @@ export class AirDictionaryArray<T extends IDictionary> extends Array<T> {
    * @param key Key
    */
   get(key: boolean | number | string): T {
-    return this.find((item) => item.key === key) as T || {}
+    return this.findByKey(key) as T || {}
   }
 
   /**
