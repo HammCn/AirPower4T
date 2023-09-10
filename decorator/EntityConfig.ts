@@ -9,7 +9,7 @@ import { AirDecorator } from '../helper/AirDecorator'
 import { IEntityConfig } from '../interface/IEntityConfig'
 
 /**
- * # 搜索配置key
+ * # 实体配置Key
  */
 const ENTITY_CONFIG_KEY = 'EntityConfig'
 
