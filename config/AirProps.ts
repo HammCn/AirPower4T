@@ -11,7 +11,7 @@ export function airProps() {
     /**
      * # 弹窗的确认按钮被点击事件
      * ---
-     * ### 💡 如果给ADialog传入了form表单的ref实体对象, 则校验通过之后才会回调此方法
+     * 💡 如果给ADialog传入了form表单的ref实体对象, 则校验通过之后才会回调此方法
      */
     onConfirm: {
       type: Function,
@@ -40,7 +40,7 @@ export function airProps() {
 export function airPropsParam<P>(value: P | null = null) {
   return Object.assign(airProps(), {
     /**
-     * # 支持一个传入参数
+     * # 父窗体弹出当前窗体时传入的参数
      */
     param: {
       type: Object as PropType<P>,
