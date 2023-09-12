@@ -13,8 +13,9 @@
     />
     <el-popover
       v-if="page.pageNum && response.pageCount"
-      :width="240"
+      :width="226"
       trigger="click"
+      @hide="pageChanged(page.pageNum)"
     >
       <template #reference>
         <div class="air-page-count">
@@ -45,14 +46,32 @@
           </div>
           <div class="air-page-goto">
             <el-button
-              v-for="item in response.pageCount"
+              v-for="item in pageCountList"
               :key="item"
               round
-              :type="page.pageNum === item ? 'primary' : 'default'"
+              :type="page.pageNum == item ? 'primary' : 'default'"
               @click="pageChanged(item)"
             >
               {{ item }}
             </el-button>
+          </div>
+          <div class="air-page-jumper">
+            <el-input
+              v-model="page.pageNum"
+              type="number"
+              placeholder="输入页码跳转"
+              min="1"
+              :max="response.pageCount"
+            >
+              <template #append>
+                <el-button
+                  size="small"
+                  @click="pageChanged(page.pageNum)"
+                >
+                  跳转
+                </el-button>
+              </template>
+            </el-input>
           </div>
         </div>
       </template>
@@ -67,7 +86,7 @@
 </template>
 
 <script lang="ts" setup="props">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { AirPage } from '../model/AirPage'
@@ -106,6 +125,17 @@ function sizeChanged(size: number): void {
   emits('change', page.value)
 }
 
+/**
+ * 快捷页码列表
+ */
+const pageCountList = computed(() => {
+  const maxShowPage = 20
+  const list: number[] = []
+  for (let i = 1; i <= (Math.min(props.response.pageCount, maxShowPage)); i += 1) {
+    list.push(i)
+  }
+  return list
+})
 </script>
 
 <style lang="scss">
@@ -184,7 +214,6 @@ function sizeChanged(size: number): void {
     justify-content: flex-start;
     flex-wrap: wrap;
     padding: 10px 0px;
-    max-height: 140px;
     padding-bottom: 10px;
     overflow: hidden;
     overflow-y: auto;
@@ -197,6 +226,12 @@ function sizeChanged(size: number): void {
       padding: 0px;
       font-size: 13px;
     }
+  }
+
+  .air-page-jumper{
+    display: flex;
+    flex-direction: row;
+
   }
 }
 </style>
