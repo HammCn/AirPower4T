@@ -1,5 +1,13 @@
 # AirPower 版本发布日志
 
+## v1.0.6
+
+### 🐞 Bug fixes:
+
+- fix(Page): 分页数量过多可能卡顿的BUG
+- fix(Dictionary): 优化查字典的重复代码
+- fix(Dictionary): 优化创建字典重复代码
+
 ## v1.0.5
 
 ### 🎉 Features:
