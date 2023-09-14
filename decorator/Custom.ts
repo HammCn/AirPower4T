@@ -9,6 +9,9 @@ import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 
+/**
+ * # 字典配置Key
+ */
 const DICTIONARY_KEY = 'Dictionary'
 
 /**
@@ -32,6 +35,9 @@ export function getDictionary(target: any, key: string): AirDictionaryArray<IDic
   return undefined
 }
 
+/**
+ * # 强制类型配置Key
+ */
 const TYPE_KEY = 'Type'
 
 /**
@@ -51,6 +57,9 @@ export function getType(target: any, key: string): ClassConstructor<unknown> | u
   return AirDecorator.getFieldConfig(target, key, TYPE_KEY) || undefined
 }
 
+/**
+ * # 自定义到JSON转换Key
+ */
 const TO_JSON_KEY = 'ToJson'
 
 /**
@@ -70,6 +79,9 @@ export function getToJson(target: any, key: string): Function | undefined {
   return AirDecorator.getFieldConfig(target, key, TO_JSON_KEY)
 }
 
+/**
+ * # 自定义到模型转换Key
+ */
 const TO_MODEL_KEY = 'ToModel'
 
 /**
@@ -89,6 +101,9 @@ export function getToModel(target: any, key: string): Function | undefined {
   return AirDecorator.getFieldConfig(target, key, TO_MODEL_KEY)
 }
 
+/**
+ * # 默认值Key
+ */
 const DEFAULT_KEY = 'Default'
 
 /**
@@ -111,6 +126,9 @@ export function getDefault(target: any, key: string): any {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
 }
 
+/**
+ * # 标记为数组Key
+ */
 const IS_ARRAY_KEY = 'IsArray'
 
 /**
@@ -129,6 +147,9 @@ export function getIsArray(target: any, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, IS_ARRAY_KEY)
 }
 
+/**
+ * # 类名称Key
+ */
 const CLASS_NAME_KEY = 'ClassName'
 
 /**
@@ -147,6 +168,9 @@ export function getClassName(target: any): string {
   return AirDecorator.getClassConfig(target, CLASS_NAME_KEY)
 }
 
+/**
+ * # 属性名Key
+ */
 const FIELD_NAME_KEY = 'FieldName'
 
 /**
@@ -166,6 +190,9 @@ export function getFieldName(target: any, key: string): string {
   return AirDecorator.getFieldConfig(target, key, FIELD_NAME_KEY) || key
 }
 
+/**
+ * # 忽略字段前缀Key
+ */
 const FIELD_IGNORE_KEY = 'IgnorePrefix'
 
 /**
@@ -184,6 +211,9 @@ export function getIgnorePrefix(target: any, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, FIELD_IGNORE_KEY) || false
 }
 
+/**
+ * # 字段前缀Key
+ */
 const FIELD_PREFIX_KEY = 'FieldPrefix'
 
 /**
@@ -202,6 +232,9 @@ export function getFieldPrefix(target: any): string {
   return AirDecorator.getClassConfig(target, FIELD_PREFIX_KEY) || ''
 }
 
+/**
+ * # 别名Key
+ */
 const ALIAS_KEY = 'Alias'
 
 /**
