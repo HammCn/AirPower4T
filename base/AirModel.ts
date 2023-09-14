@@ -232,12 +232,17 @@ export class AirModel {
 
   /**
    * # 创建一个当前类的实例
+   * @param recoverBy [可选]初始化用于覆盖对象实例的JSON
    */
   // eslint-disable-next-line no-unused-vars
-  static newInstance<T extends AirModel>(): T {
+  static newInstance<T extends AirModel>(recoverBy?: T): T {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return Object.assign(new this(), null) as T
+    const instance = Object.assign(new this(), null) as T
+    if (recoverBy) {
+      instance.recoverBy(recoverBy)
+    }
+    return instance
   }
 
   /**
