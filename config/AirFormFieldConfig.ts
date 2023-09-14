@@ -84,8 +84,6 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   trim = AirTrim.NONE
 
-  unique = false
-
   chinese = false
 
   mobilePhone = false

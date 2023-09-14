@@ -718,33 +718,6 @@ export class AirValidator {
       if (config.regExp) {
         (formRules[fieldKey]).push(AirValidator.show(`${fieldName}不符合验证规则`).ifNotTest(config.regExp))
       }
-      if (config.unique) {
-        (formRules[fieldKey]).push(
-          // eslint-disable-next-line @typescript-eslint/ban-types, no-loop-func
-          AirValidator.show('').whenBlur().setCustomValidator(async (_: unknown, value: string, callback: Function) => {
-            if (!value) {
-              callback()
-              return
-            }
-            try {
-              const exist = await service.getBy(fieldKey, value)
-              if (!exist) {
-                callback()
-                return
-              }
-              // 查到了ID
-              if ((form && exist.id === form.id)) {
-                // 没有查询到ID 或者查到了ID但是当前修改的ID
-                callback()
-                return
-              }
-              callback(typeof config.unique === 'string' ? config.unique : '该条记录已存在, 请重新输入')
-            } catch (e) {
-              callback()
-            }
-          }),
-        )
-      }
     }
     return formRules
   }

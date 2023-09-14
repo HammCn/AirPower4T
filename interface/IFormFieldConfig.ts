@@ -249,15 +249,6 @@ export interface IFormFieldConfig extends IFieldConfig {
   trim?: AirTrim
 
   /**
-   * # 是否唯一字段
-   * ---
-   * 💡 支持传入 ```boolean``` 和 ```string```
-   * - 如传入 ```有效字符串``` 则认为需要校验, 内容即是校验失败的报错信息
-   * - 如传入 ```true``` 则认为需要校验且自动生成校验失败的报错信息
-   */
-  unique?: boolean | string
-
-  /**
    * # 是否是纯中文
    * ---
    * 💡 支持传入 ```boolean``` 和 ```string```
