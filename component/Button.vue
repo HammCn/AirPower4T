@@ -95,7 +95,7 @@ const props = defineProps({
   /**
    * # 是否是主按钮
    * ---
-   * ### 💡 仅在 ```icon-button``` 下生效
+   * ### 💡 仅在 ```icon-button``` 为 ```false``` 时生效
    */
   primary: {
     type: Boolean,
@@ -105,7 +105,7 @@ const props = defineProps({
   /**
    * # 是否是危险按钮
    * ---
-   * ### 💡 仅在 ```icon-button``` 下生效
+   * ### 💡 ```danger``` 设置为 ```true``` 时, ```primary``` 失效
    */
   danger: {
     type: Boolean,
