@@ -747,7 +747,6 @@ function selectRow(list: ITree[]) {
  * 回显选中
  */
 function toggleSelection() {
-  if (airTableRef.value) { airTableRef.value.clearSelection() }
   selectRow(props.dataList as unknown as ITree[])
 }
 
@@ -775,6 +774,7 @@ watch(
   () => props.selectList,
   () => {
     nextTick(() => {
+      if (airTableRef.value) { airTableRef.value.clearSelection() }
       toggleSelection()
     })
   },
