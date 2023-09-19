@@ -37,13 +37,31 @@ AirPower是一个基于Vue3+TypeScript+ElementPlus+Vite的开发基础库，使�
 
 ## How to use?
 
-你可以通过我们提供的 ```AirPowerWebStarter``` 项目提供的一键初始化脚本来完成 **AirPower** 宿主项目的初始化:
+1. 你可以通过我们提供的 ```AirPowerWebStarter``` 项目提供的一键初始化脚本来完成 **AirPower** 宿主项目的初始化:
 
 ```bash
 git clone https://github.com/HammCn/AirPowerWebStarter.git &&
 cd AirPowerWebStarter/src && 
 git clone https://github.com/HammCn/AirPower4T.git airpower && cd ../ &&
 yarn && cp .env.dev .env && yarn s
+```
+
+2. 如果你需要手动初始化项目，可以参考下面的命令一步步执行
+
+```bash
+# 克隆宿主项目
+git clone https://github.com/HammCn/AirPowerWebStarter.git
+
+# 进入 src 目录
+cd AirPowerWebStarter/src
+
+# 克隆依赖项目
+git clone https://github.com/HammCn/AirPower4T.git airpower
+
+# 然后就可以复制一个环境变量，装依赖 启动
+cp .env.dev .env
+yarn
+yarn s
 ```
 
 ## Suggestions
