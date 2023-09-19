@@ -66,7 +66,9 @@ yarn s
 
 ## 🛎 我们的建议
 
-我们提供的 [AirPower宿主仓库](https://github.com/HammCn/AirPowerWebStarter), 里面提供了一些 ```ESlint规则``` ```路由配置``` ```环境变量配置``` ```tsconfig``` ```vite.config```, 以及很多的 **demo** 代码, 你可以进行参考, 当然, 你也可以阅读我们的开发文档: [AirPower开发文档](https://apt.hamm.cn)
+我们提供的 [AirPower宿主仓库](https://github.com/HammCn/AirPowerWebStarter), 里面提供了一些 ```ESlint规则``` ```路由配置``` ```环境变量配置``` ```tsconfig``` ```vite.config```, 以及很多的 **demo** 代码, 你可以进行参考。
+
+如果你有什么疑问或者问题，也可以 [发起一个issue](https://github.com/HammCn/AirPower4T/issues/new)
 
 ## ⏰ Enjoy it
 
