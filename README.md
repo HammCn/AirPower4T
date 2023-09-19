@@ -16,7 +16,7 @@
 
 为了满足前端开发标准化、工程化、系统化等等需求，我们设计并开发了一个开发组件库和常用类库和方法库的集合基础脚手架，其中包含了一些页面通用的布局、常用的弹窗和交互、提示信息以及网络请求，强类型面向对象的约束规范等，以满足日常开发的快捷、稳健、标准化等要求。
 
-AirPower是一个基于Vue3+TypeScript+ElementPlus+Vite的开发基础库，使用TypeScript的装饰器/反射/面向对象/类转换等前端开发方式。
+AirPower是一个基于 ```Vue3``` ```TypeScript``` ```Element Plus``` ```Vite``` 的开发基础库，使用 **装饰器**、**面向对象**、**Hook** 等前端开发方式。
 
 > 你当前查看的是 ```web``` 分支，我们也同时提供了 [```wechat```(微信小程序)](https://github.com/HammCn/AirPower4T/tree/wechat) [```uniapp```(UniApp)](https://github.com/HammCn/AirPower4T/tree/uniapp) 等分支：）
 
