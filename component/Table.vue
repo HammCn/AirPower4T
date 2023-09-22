@@ -239,7 +239,10 @@
         </template>
       </el-table-column>
       <template #empty>
-        <img src="../assets/img/empty.svg">
+        <img
+          src="../assets/img/empty.svg"
+          style="width: 80px;"
+        >
         <div>{{ emptyText || entityConfig.tableEmptyText || '暂无数据' }}</div>
       </template>
     </el-table>
