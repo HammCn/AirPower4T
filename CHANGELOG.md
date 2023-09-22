@@ -1,5 +1,13 @@
 # AirPower 版本发布日志
 
+## v1.0.8
+
+### 🐞 Bug fixes:
+
+- fix(Table): 分页多选数据丢失的BUG
+- fix(Button): 修复Button配置项逻辑错误的注释
+- fix(AirModel): 移除没用的注释行
+
 ## v1.0.7
 
 ### 🎉 Features:
