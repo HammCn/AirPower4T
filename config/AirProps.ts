@@ -19,6 +19,7 @@ export function airProps() {
         // console.log('On Confirm')
       },
     },
+
     /**
      * # 弹窗的取消或关闭按钮被点击事件
      */
@@ -76,6 +77,7 @@ export function airPropsSelector<
       type: Boolean,
       default: false,
     },
+
     /**
      * # 已经选择了的实体列表数组
      * ! 仅在mult为true时会有值
@@ -85,6 +87,7 @@ export function airPropsSelector<
       type: Array as PropType<S[]>,
       default: [] as PropType<S[]>,
     },
+
     /**
      * # 传入参数为一个实体
      *
