@@ -1,4 +1,5 @@
 import { AirModel } from '../base/AirModel'
+import { Type } from '../decorator/Custom'
 import { AirRequest } from './AirRequest'
 
 /**
@@ -9,7 +10,7 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
   /**
    * # 导出请求的API地址
    */
-  url!: string
+  @Type(String) url!: string
 
   /**
    * # 请求的参数
@@ -20,7 +21,7 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
    * # 下载导出文件的临时令牌
    * ! 传参用
    */
-  fileCode!: string
+  @Type(String) fileCode!: string
 
   /**
    * # 实例化一个导出模型

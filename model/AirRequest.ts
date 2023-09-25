@@ -18,7 +18,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   /**
    * # 关键词搜索
    */
-  keyword!: string
+  @Type(String) keyword!: string
 
   /**
    * # 排序信息

@@ -1,4 +1,5 @@
 import { AirModel } from '../base/AirModel'
+import { Type } from '../decorator/Custom'
 import { AirSortType } from '../enum/AirSortType'
 
 /**
@@ -9,12 +10,12 @@ export class AirSort extends AirModel {
   /**
    * # 排序字段 默认 ```id```
    */
-  field = 'id'
+  @Type(String) field = 'id'
 
   /**
    * # 排序方式 默认 ```desc```
    */
-  direction = AirSortType.DESC
+  @Type(String) direction = AirSortType.DESC
 
   /**
    * # 设置排序字段名
