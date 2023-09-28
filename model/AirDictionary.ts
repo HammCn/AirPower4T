@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IDictionary } from '../interface/IDictionary'
 import { AirColor } from '../enum/AirColor'
-import { AirModel } from '../base/AirModel'
 
 /**
  * # 标准字典实现类
  * @author Hamm
  */
-export class AirDictionary extends AirModel implements IDictionary {
+export class AirDictionary implements IDictionary {
   key!: number | string | boolean
 
   label!: any
@@ -24,7 +23,6 @@ export class AirDictionary extends AirModel implements IDictionary {
    * @param label [可选] 记录的Label
    */
   constructor(key?: number | string | boolean, label?: any) {
-    super()
     if (key) {
       this.key = key
     }
