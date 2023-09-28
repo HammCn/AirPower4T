@@ -1,5 +1,17 @@
 # AirPower 版本发布日志
 
+## v1.0.9
+
+### 🎉 Features:
+
+- feat(IEntity): 提供了一个实体标准接口
+
+### 🐞 Bug fixes:
+
+- fix(Dictionary): 删除错误的继承关系
+- fix(Type): 优化部分数据转换的预定义类型
+- fix(Table): 空数据下提示图片的大小
+
 ## v1.0.8
 
 ### 🐞 Bug fixes:
