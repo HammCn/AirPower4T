@@ -1,4 +1,5 @@
 import { AirModel } from '../base/AirModel'
+import { Type } from '../decorator/Custom'
 
 /**
  * # 分页类
@@ -8,10 +9,10 @@ export class AirPage extends AirModel {
   /**
    * # 分页页数
    */
-  pageNum = 1
+  @Type(Number) pageNum = 1
 
   /**
    * # 每页数量
    */
-  pageSize = 20
+  @Type(Number) pageSize = 20
 }

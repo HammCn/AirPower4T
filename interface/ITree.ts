@@ -1,10 +1,10 @@
-import { AirEntity } from '../base/AirEntity'
+import { IEntity } from './IEntity'
 
 /**
  * # 标准树结构
  * @author Hamm
  */
-export interface ITree extends AirEntity {
+export interface ITree extends IEntity {
   /**
    * # 树节点名称
    */

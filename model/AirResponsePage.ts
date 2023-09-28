@@ -27,10 +27,10 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   /**
    * # 返回总条数
    */
-  total = 0
+  @Type(Number) total = 0
 
   /**
    * # 返回总页数
    */
-  pageCount = 0
+  @Type(Number) pageCount = 0
 }
