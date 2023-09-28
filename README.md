@@ -14,7 +14,6 @@
 
 > 你当前查看的是 ```web``` 分支，我们也同时提供了 [```wechat```(微信小程序)](https://github.com/HammCn/AirPower4T/tree/wechat) [```uniapp```(UniApp)](https://github.com/HammCn/AirPower4T/tree/uniapp) 等分支：） 你可以先阅读 [掘金专栏](https://juejin.cn/post/7273290114921889807) 的一些文章，也可以体验 [线上示例DEMO](https://service.hamm.cn)，如果你喜欢这个项目，欢迎给我们大大的 ⭐️⭐️⭐️
 
-
 为了满足前端开发标准化、工程化、系统化等等需求，我们设计并开发了一个开发组件库和常用类库和方法库的集合基础脚手架，其中包含了一些页面通用的布局、常用的弹窗和交互、提示信息以及网络请求，强类型面向对象的约束规范等，以满足日常开发的快捷、稳健、标准化等要求。
 
 **AirPower** 是一个基于 ```Vue3``` ```TypeScript``` ```Element Plus``` ```Vite``` 的开发基础库，使用 **装饰器**、**面向对象**、**Hook** 等前端开发方式。
@@ -33,6 +32,14 @@
 6. **Decorator** 提供了很多很多很多的装饰器
 7. 提供了类似 **Java** BeanCopy 相关的数据转换方式, 提供了完整的面向对象实现
 8. ......
+
+## 💻 代码风格展示
+
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/effac781-9f53-4809-8f90-de3a10e33cb4"/>
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/68ea8ea9-948b-477d-839f-64e132a63f62"/>
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/6a782594-e633-4220-b9df-6755a28bb48f"/>
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/9498f65a-780e-42af-bbd8-aac257e545ff"/>
+
 
 ## 🔑 如何使用(初始化)?
 
@@ -69,8 +76,20 @@ yarn s
 
 如果你有什么疑问或者问题，你也可以加入开发者交流QQ群(```555156313```)进行咨询，当然，我们更建议你 [发起一个issue](https://github.com/HammCn/AirPower4T/issues/new)
 
+
 ## ⏰ Enjoy it
 
 好了, 那么接下来你可以愉快的开发了, 如果你有什么建议或者意见, 可以在本仓库中提交你的 **issues**, 你可以为这个依赖库进行 **添砖加瓦**!
 
 > ☕️Java: 加瓦? 什么Java?
+
+
+
+
+## 📷 来点*图(示例)
+
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/b2f4bab2-3d6d-460d-9bdd-d3ebc65d184d"/>
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/19b9400a-b8ac-4463-b1e2-d3b7a8eb1d97"/>
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/7135097b-a450-4f2e-b355-52e2fccc0b4a"/>
+<img width="24%" src="https://github.com/HammCn/AirPower4T/assets/16929327/84b4f4ad-0aac-40f3-baf1-9f36de87c8aa"/>
+ 
