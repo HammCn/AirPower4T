@@ -1,5 +1,9 @@
 * {
-  font-family: Helvetica, "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑", Arial;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Helvetica Neue",
+    sans-serif;
 }
 page {
   background-color: #ffffff;
@@ -14,6 +18,7 @@ uni-page-body {
   display: flex;
   flex-direction: column;
 }
+
 .weui-cells {
   width: 100%;
   border-radius: 10px;
