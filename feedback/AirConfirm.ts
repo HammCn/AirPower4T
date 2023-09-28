@@ -50,7 +50,7 @@ export class AirConfirm extends AirAlert {
    * @param content 消息内容
    * @param description [可选] 消息描述
    */
-  private confirm(content: string, description = ""): Promise<void> {
+  private confirm(content: string, description = ''): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       uni.showModal({
         title: content,
