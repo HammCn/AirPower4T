@@ -1,8 +1,9 @@
 @font-face {
-  font-family: "airpower"; /* Project id 3094087 */
-  src: url('iconfont.woff2?t=1662362116030') format('woff2'),
-       url('iconfont.woff?t=1662362116030') format('woff'),
-       url('iconfont.ttf?t=1662362116030') format('truetype');
+  font-family: "airpower";
+  src:
+    url("iconfont.woff2?t=1662362116030") format("woff2"),
+    url("iconfont.woff?t=1662362116030") format("woff"),
+    url("iconfont.ttf?t=1662362116030") format("truetype");
 }
 
 .airpower {
