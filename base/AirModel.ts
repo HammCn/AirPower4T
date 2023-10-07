@@ -269,24 +269,6 @@ export class AirModel {
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getClassName(): string {
-    return getClassName(this) || this.constructor.name
-  }
-
-  /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getFieldName(fieldKey: string): string {
-    return getFieldName(this, fieldKey)
-  }
-
-  /**
    * # 获取表单配置的Label
    *
    * 依次读取 ```表单配置的label``` > ```@FieldName``` > ```fieldKey```
@@ -327,6 +309,24 @@ export class AirModel {
    */
   static getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
     return this.newInstance().getCustomFormFieldConfig(fieldKey)
+  }
+
+  /**
+ * # 请直接调用静态方法获取
+ * ! 内部使用的保留方法
+ * @deprecated
+ */
+  getClassName(): string {
+    return getClassName(this) || this.constructor.name
+  }
+
+  /**
+ * # 请直接调用静态方法获取
+ * ! 内部使用的保留方法
+ * @deprecated
+ */
+  getFieldName(fieldKey: string): string {
+    return getFieldName(this, fieldKey)
   }
 
   /**
