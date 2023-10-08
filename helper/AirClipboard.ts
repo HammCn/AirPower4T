@@ -1,4 +1,4 @@
-import userClipboard from 'vue-clipboard3'
+import useClipboard from 'vue-clipboard3'
 /**
  * # 剪切板相关
  * @author Hamm
@@ -9,7 +9,7 @@ export class AirClipboard {
    * @param content 复制的内容
    */
   static async copy(content: string): Promise<unknown> {
-    const { toClipboard } = userClipboard()
+    const { toClipboard } = useClipboard()
     return toClipboard(content)
   }
 }
