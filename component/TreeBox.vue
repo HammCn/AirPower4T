@@ -2,9 +2,10 @@
   <div class="air-tree-box">
     <div
       class="air-tree-box-left"
-      :style="{ width: width + 'px' }"
+      :style="{ width: showWidth }"
     >
       <APanel
+        v-show="isShow"
         class="air-tree-box-panel"
         hide-footer
         :title="title"
@@ -38,6 +39,12 @@
           @node-click="treeSelectChanged"
         />
       </APanel>
+      <div
+        v-if="collapse"
+        class="collapse-bar"
+        :style="{ marginLeft: isShow ? '5px' : '0px' }"
+        @click="isShow = !isShow"
+      />
     </div>
     <div class="air-tree-box-right">
       <slot />
@@ -47,7 +54,7 @@
 
 <script lang="ts" setup="props">
 import {
-  PropType, Ref, ref, watch,
+  PropType, Ref, computed, ref, watch,
 } from 'vue'
 import { APanel } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -56,7 +63,7 @@ import { AirTreeInstance } from '../type/AirType'
 
 const emits = defineEmits(['onChange'])
 
-defineProps({
+const props = defineProps({
   /**
    * # 是否默认展开全部
    */
@@ -120,6 +127,14 @@ defineProps({
     type: Number,
     default: 300,
   },
+
+  /**
+   * # 是否可折叠
+   */
+  collapse: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 /**
@@ -138,6 +153,11 @@ const currentData: Ref<ITree | undefined> = ref()
 const searchKeyword = ref('')
 
 /**
+ * 是否显示树
+ */
+const isShow = ref(true)
+
+/**
  * 关键词变更事件
  */
 watch(searchKeyword, (val) => {
@@ -145,6 +165,8 @@ watch(searchKeyword, (val) => {
     treeRef.value.filter(val)
   }
 })
+
+const showWidth = computed(() => (isShow.value ? (`${props.width}px`) : 'auto'))
 
 /**
  * 树节点选中事件
@@ -185,11 +207,25 @@ function filterNode(value: string, node: ITree) {
   &-left {
     width: 300px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-right: 5px;
+
+    .collapse-bar {
+      background-color: white;
+      width: 5px;
+      margin-left: 5px;
+      cursor: pointer;
+      transition: all .3s;
+      border-radius: 3px;
+    }
+
+    .collapse-bar:hover {
+      background-color: var(--el-color-primary-light-3);
+    }
   }
 
   &-panel {
+    height: 100% !important;
 
     .panel-body {
       padding: 10px !important;
