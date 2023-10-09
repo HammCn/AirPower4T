@@ -135,6 +135,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  /**
+   * # 默认折叠状态
+   */
+  defaultCollapse: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 /**
@@ -155,7 +163,7 @@ const searchKeyword = ref('')
 /**
  * 是否显示树
  */
-const isShow = ref(true)
+const isShow = ref(!props.defaultCollapse)
 
 /**
  * 关键词变更事件
