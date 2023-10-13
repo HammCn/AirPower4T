@@ -41,11 +41,20 @@ export function getDictionary(target: any, key: string): AirDictionaryArray<IDic
 const TYPE_KEY = 'Type'
 
 /**
+ * # 标记为数组Key
+ */
+const IS_ARRAY_KEY = 'IsArray'
+
+/**
  * # 标记属性强制转换类
  * @param Clazz 类型
+ * @param isArray [可选]是否是数组
  */
-export function Type(Clazz: any): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TYPE_KEY, Clazz)
+export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
+  return (target: any, key: string) => {
+    AirDecorator.setFieldConfig(target, key, TYPE_KEY, Clazz)
+    AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, isArray)
+  }
 }
 
 /**
@@ -109,7 +118,7 @@ const DEFAULT_KEY = 'Default'
 /**
  * # 标记JSON转换到模型时属性的默认值
  * ---
- * ### 💡 如标记了 ```@IsArray()``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
+ * ### 💡 如标记了 ```@Type(?, true)``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
  *
  * @param value 默认值
  */
@@ -124,18 +133,6 @@ export function Default(value: any): Function {
  */
 export function getDefault(target: any, key: string): any {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
-}
-
-/**
- * # 标记为数组Key
- */
-const IS_ARRAY_KEY = 'IsArray'
-
-/**
- * # 标记属性是数组
- */
-export function IsArray(): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
 }
 
 /**
