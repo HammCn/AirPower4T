@@ -1,5 +1,5 @@
 import { AirEntity } from '@/airpower/base/AirEntity'
-import { IsArray, Type } from '@/airpower/decorator/Custom'
+import { Type } from '@/airpower/decorator/Custom'
 import { IMenu } from '@/airpower/interface/IMenu'
 
 /**
@@ -10,8 +10,7 @@ import { IMenu } from '@/airpower/interface/IMenu'
  */
 export class AirMenuEntity extends AirEntity implements IMenu {
   // eslint-disable-next-line no-use-before-define
-  @Type(AirMenuEntity)
-  @IsArray() children: this[] = []
+  @Type(AirMenuEntity, true) children: this[] = []
 
   name!: string
 
