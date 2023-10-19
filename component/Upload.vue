@@ -212,6 +212,7 @@ function uploadReady(file: { name: string; size: number; }): boolean {
 function onUploadError() {
   loading.value = false
   AirNotification.error('上传文件失败, 请稍后再试', '上传失败')
+  props.onCancel()
 }
 
 /**
@@ -237,6 +238,7 @@ function onUploadSuccess(result: IJson) {
     }
   } else {
     AirNotification.error(result.message as string || '好家伙,后端的拉垮哥们连Message都没返回???', '上传失败')
+    props.onCancel()
   }
 }
 
