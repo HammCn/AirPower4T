@@ -31,8 +31,8 @@ export function useAirEditor<E extends AirEntity>(props: IJson, entityClass: Cla
         postData = result
       }
     }
-    await result.service.save(postData, option.successMessage || (postData.id ? `修改${result.formData.value.getClassName()}成功` : `添加${result.formData.value.getClassName()}成功`))
-    props.onConfirm()
+    const id = await result.service.save(postData, option.successMessage || (postData.id ? `修改${result.formData.value.getClassName()}成功` : `添加${result.formData.value.getClassName()}成功`))
+    props.onConfirm(id)
   }
 
   const title = computed(() => ((result.formData.value.id ? '修改' : '新增') + result.formData.value.getClassName()))
