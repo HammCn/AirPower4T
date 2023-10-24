@@ -7,6 +7,18 @@ import { AirEntity } from '../base/AirEntity'
  */
 export interface IUseTableOption<E extends AirEntity> {
   /**
+   * # 不分页
+   * ---
+   * 💡 默认请求分页接口 如配置了 `treeList` 则此项自动失效
+   */
+  unPaginate?: boolean,
+
+  /**
+   * # 💡 请求专用的treeList接口
+   */
+  treeList?: boolean,
+
+  /**
    * # 新增修改的视图Vue文件
    */
   editView?: Component

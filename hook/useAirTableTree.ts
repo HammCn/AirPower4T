@@ -13,10 +13,10 @@ import { useAirTable } from './useAirTable'
  * @param entityClass 实体类
  * @param serviceClass 表格使用的Service类
  * @param option [可选] 更多配置
- * @param treeList 💡 [可选] 请求专用的`getTreeList`接口
  */
-export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableTreeOption<E> = {}, treeList = false): IUseTableTreeResult<E> {
-  const result = useAirTable(entityClass, serviceClass, option, treeList, false)
+export function useAirTableTree<E extends ITree>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E> {
+  option.unPaginate = true
+  const result = useAirTable(entityClass, serviceClass, option)
   async function onAddRow(row: E) {
     if (option.editView) {
       let param = AirClassTransformer.newInstance(entityClass)

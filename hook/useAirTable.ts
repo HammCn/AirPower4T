@@ -17,10 +17,8 @@ import { IUseTableResult } from '../interface/IUseTableResult'
  * @param entityClass 实体类
  * @param serviceClass 表格使用的Service类
  * @param option [可选] 更多配置
- * @param treeList 💡 [可选] 请求专用的`getTreeList`接口
- * @param paginate [可选] 分页加载 默认true
  */
-export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption<E> = {}, treeList = false, paginate = true): IUseTableResult<E> {
+export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseTableOption<E> = {}): IUseTableResult<E> {
   const isLoading = ref(false)
 
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
@@ -42,9 +40,9 @@ export function useAirTable<E extends AirEntity>(entityClass: ClassConstructor<E
         req = result
       }
     }
-    if (treeList) {
+    if (option.treeList) {
       list.value = await service.getTreeList(req)
-    } else if (paginate) {
+    } else if (!option.unPaginate) {
       response.value = await service.getPage(req)
       list.value = response.value.list
     } else {
