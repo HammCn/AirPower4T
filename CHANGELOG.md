@@ -1,5 +1,16 @@
 # AirPower 版本发布日志
 
+## v1.0.11
+
+### 🎉 Features:
+
+- feat(Decorator): 提供独立的IsArray装饰器
+
+### 🐞 Bug fixes:
+
+- fix(Hooks): 修复Edit钩子提交之后无ID返回的BUG
+- fix(Upload): 上传失败后无法重新上传的bug修复
+
 ## v1.0.10
 
 ### 🎉 Features:
