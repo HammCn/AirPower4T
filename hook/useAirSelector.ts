@@ -19,9 +19,9 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
 
   const title = computed(() => `请选择${result.entity.getClassName()}`)
 
-  const selectList = ref(props.selectList) as Ref<E[]>
+  result.selectList = props.selectList
 
   return Object.assign(result, {
-    title, selectList,
+    title,
   }) as IUseSelectorResult<E, S>
 }
