@@ -1,4 +1,4 @@
-import { Ref, computed, ref } from 'vue'
+import { computed } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
