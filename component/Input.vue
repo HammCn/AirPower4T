@@ -554,6 +554,9 @@ function emitValue() {
       default:
     }
   }
+  if (fieldConfig.value?.number) {
+    value.value = parseFloat(value.value?.toString() || '0')
+  }
   emits('onChange', value.value)
   emits('change', value.value)
   emits('update:modelValue', value.value)
