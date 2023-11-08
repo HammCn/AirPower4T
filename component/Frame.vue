@@ -25,11 +25,6 @@
             :menu-list="menuList"
           />
         </div>
-        <div class="air-copyright">
-          <slot name="copyright">
-            Powered by Hamm.cn
-          </slot>
-        </div>
       </div>
       <div class="air-right">
         <slot />
@@ -163,19 +158,6 @@ defineProps({
       .air-menu::-webkit-scrollbar {
         width: 0px;
         height: 0px;
-      }
-
-      .air-copyright {
-        font-size: 12px;
-        color: #999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 0px;
-        word-break: keep-all;
-        white-space: nowrap;
-        user-select: none;
       }
     }
 
