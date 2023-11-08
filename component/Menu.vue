@@ -3,7 +3,6 @@
     class="air-menu-tree"
     :default-active="defaultMenu"
     :router="true"
-    unique-opened
   >
     <ChildMenu :menu-list="menuList" />
   </el-menu>
@@ -62,6 +61,12 @@ watch(
   width: 100%;
   height: 100%;
   user-select: none;
+
+  .is-opened {
+    .el-sub-menu__title {
+      background-color: var(--el-menu-hover-bg-color);
+    }
+  }
 
   .el-sub-menu__title,
   .el-menu-item {
