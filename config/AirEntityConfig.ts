@@ -13,21 +13,21 @@ export class AirEntityConfig implements IEntityConfig {
 
   addTitle?: string
 
-  addPermission?: string
+  addPermission = 'add'
 
-  exportPermission?: string
+  exportPermission = 'export'
 
-  importPermission?: string
+  importPermission = 'import'
 
   tableEmptyText?: string
 
-  addChildPermission?: string
+  addChildPermission = 'add'
 
-  detailPermission?: string
+  detailPermission = 'getDetail'
 
-  deletePermission?: string
+  deletePermission = 'delete'
 
-  editPermission?: string
+  editPermission = 'update'
 
   hideFieldSelector = false
 
