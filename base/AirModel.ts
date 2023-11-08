@@ -335,7 +335,7 @@ export class AirModel {
  * @deprecated
  */
   getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
-    return getFormConfig(this, fieldKey)
+    return { ...new AirFormFieldConfig(), ...getFormConfig(this, fieldKey) }
   }
 
   /**
