@@ -37,7 +37,7 @@ export function FormField(fieldConfig: IFormFieldConfig = {}): Function {
  * @param key 属性名
  */
 export function getFormConfig(target: any, key: string): AirFormFieldConfig | null {
-  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY)
+  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
 
 /**

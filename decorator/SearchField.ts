@@ -37,7 +37,7 @@ export function SearchField(fieldConfig: ISearchFieldConfig = {}): Function {
  * @param key 属性名
  */
 export function getSearchConfig(target: any, key: string): AirSearchFieldConfig | null {
-  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY)
+  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
 /**
  * # 获取标记了搜索配置的字段列表

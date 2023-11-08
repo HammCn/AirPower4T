@@ -34,52 +34,34 @@ export class AirDecorator {
   }
 
   /**
-   * # 递归获取配置的值
-   * @param target 目标类
-   * @param key 配置key
-   * @param classConfigKey 配置项的Key
-   */
-  private static getClassConfigValue(target: any, key: string, classConfigKey: string): any {
-    const entityConfig = Reflect.get(target, classConfigKey)
-    if (entityConfig && entityConfig[key] !== undefined) {
-      return entityConfig[key]
-    }
-    const superClass = Reflect.getPrototypeOf(target)
-    if (!superClass || superClass.constructor.name === 'AirModel') {
-      return undefined
-    }
-    return this.getClassConfigValue(superClass, key, classConfigKey)
-  }
-
-  /**
    * # 递归获取指定类的配置项
    * @param target 目标类
    * @param classConfigKey 配置项的Key
    * @param defaultValue [可选]类装饰器请传入配置项实例
+   * @param isObject [可选]是否是对象配置
    */
-  static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined): any {
-    const classConfig = Reflect.get(target, classConfigKey)
-    if (!classConfig) {
-      const superClass = Reflect.getPrototypeOf(target)
-      if (!superClass || superClass.constructor.name === 'AirModel') {
-        if (typeof defaultValue === 'object') {
-          return {}
+  static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined, isObject = false): any {
+    let classConfig = Reflect.get(target, classConfigKey)
+    if (!isObject) {
+      // 普通配置
+      if (classConfig === undefined) {
+        const superClass = Reflect.getPrototypeOf(target)
+        if (!superClass || superClass.constructor.name === 'AirModel') {
+          return undefined
         }
-        return undefined
+        return this.getClassConfig(superClass, classConfigKey)
       }
-      return this.getClassConfig(superClass, classConfigKey)
+      return classConfig
     }
-    if (typeof defaultValue === 'object') {
-      const keys = Object.keys(defaultValue)
-      for (const key of keys) {
-        if ((classConfig as any)[key] !== undefined) {
-          // eslint-disable-next-line no-continue
-          continue
-        }
-        (classConfig as any)[key] = this.getClassConfigValue(target, key, classConfigKey)
-      }
+
+    classConfig = classConfig || {}
+    // 对象配置
+    const superClass = Reflect.getPrototypeOf(target)
+    if (!superClass || superClass.constructor.name === 'AirModel') {
+      return defaultValue
     }
-    return classConfig
+
+    return { ...this.getClassConfig(superClass, classConfigKey, defaultValue, isObject), ...classConfig }
   }
 
   /**
@@ -114,21 +96,31 @@ export class AirDecorator {
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey FieldConfigKey
+   * @param isObject [可选]是否对象配置
    */
-  static getFieldConfig(target: any, key: string, fieldConfigKey: string): any {
+  static getFieldConfig(target: any, key: string, fieldConfigKey: string, isObject = false): any {
     let fieldConfig = Reflect.get(target, `${`${fieldConfigKey}[${key}]`}`)
-    if (typeof fieldConfig === 'object') {
-      fieldConfig = AirClassTransformer.copyJson(fieldConfig)
+    if (!isObject) {
+      // 普通配置
+      if (fieldConfig !== undefined) {
+        return fieldConfig
+      }
+      // 没有查询到配置
+      const superClass = Reflect.getPrototypeOf(target)
+      if (!superClass || superClass.constructor.name === 'AirModel') {
+        return undefined
+      }
+      return this.getFieldConfig(superClass, key, fieldConfigKey)
     }
-    if (fieldConfig !== undefined) {
-      return fieldConfig
-    }
+
+    // 对象配置
+    fieldConfig = fieldConfig || {}
     // 没有查询到配置
     const superClass = Reflect.getPrototypeOf(target)
     if (!superClass || superClass.constructor.name === 'AirModel') {
-      return undefined
+      return {}
     }
-    return this.getFieldConfig(superClass, key, fieldConfigKey)
+    return { ...this.getFieldConfig(superClass, key, fieldConfigKey, true), ...fieldConfig }
   }
 
   /**

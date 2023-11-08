@@ -37,7 +37,7 @@ export function TableField(fieldConfig: ITableFieldConfig = {}): Function {
  * @param key 属性名
  */
 export function getTableConfig(target: any, key: string): AirTableFieldConfig | null {
-  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY)
+  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
 
 /**
