@@ -6,7 +6,7 @@ import { IValidateRule } from './IValidateRule'
 /**
  * # Editor的Hook可选配置
  */
-export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<E>{
+export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<E> {
   /**
    * # 自定义验证
    */
@@ -24,5 +24,5 @@ export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<
    *
    * @param submitData 实体
    */
-  beforeSubmit?: (submitData: E) => E | void
+  beforeSubmit?: (submitData: E) => E | null
 }

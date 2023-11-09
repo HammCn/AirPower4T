@@ -27,9 +27,10 @@ export function useAirEditor<E extends AirEntity>(props: IJson, entityClass: Cla
     let postData = AirClassTransformer.copy(result.formData.value, entityClass)
     if (option.beforeSubmit) {
       const result = option.beforeSubmit(postData)
-      if (result !== undefined) {
-        postData = result
+      if (result === null) {
+        return
       }
+      postData = result
     }
     const id = await result.service.save(postData, option.successMessage || (postData.id ? `修改${result.formData.value.getClassName()}成功` : `添加${result.formData.value.getClassName()}成功`))
     props.onConfirm(id)

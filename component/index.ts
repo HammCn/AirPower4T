@@ -15,6 +15,8 @@ import AButton from './Button.vue'
 import ADateTime from './DateTime.vue'
 import ACopy from './Copy.vue'
 import ATreeBox from './TreeBox.vue'
+import ATabs from './Tabs.vue'
+import ATab from './Tab.vue'
 
 export {
   ACopy,
@@ -34,4 +36,6 @@ export {
   AEmpty,
   AMenu,
   ATreeBox,
+  ATabs,
+  ATab,
 }
