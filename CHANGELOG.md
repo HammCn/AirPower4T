@@ -1,5 +1,22 @@
 # AirPower 版本发布日志
 
+## v1.0.12
+
+### 🎉 Features:
+
+- feat(Tabs): 支持了一个Tabs/Tab组件
+
+### 🐞 Bug fixes:
+
+- fix(Frame): 删除底部版权信息显示
+- fix(Menu): 优化菜单展开收起的样式
+- fix(Permission): 自动生成权限前缀逻辑优化
+- fix(Table): 修复装饰居右不生效的BUG
+- fix(FormConfig): 优化获取表单装饰器配置的逻辑
+- fix(Input): 输入数字大小验证异常的问题
+- fix(Selector): 修复选择后无法回调事件的BUG
+- fix(TreeHook): 优化useAirTable和useAirTableTree的使用方式
+
 ## v1.0.11
 
 ### 🎉 Features:
