@@ -37,10 +37,7 @@
 
 ## 💻 代码风格展示
 
-<img width="24%" src="./docs/img/1.png"/>
-<img width="24%" src="./docs/img/2.png"/>
-<img width="24%" src="./docs/img/3.png"/>
-<img width="24%" src="./docs/img/4.png"/>
+<img width="24%" src="./docs/img/1.png"/><img width="24%" src="./docs/img/2.png"/><img width="24%" src="./docs/img/3.png"/><img width="24%" src="./docs/img/4.png"/>
 
 
 ## 🔑 如何使用(初始化)?
@@ -67,8 +64,5 @@ AirPowerWebStarter via [Gitee](https://gitee.com/air-power/AirPowerWebStarter/bl
 
 ## 📷 来点*图(示例)
 
-<img width="24%" src="./docs/img/5.png"/>
-<img width="24%" src="./docs/img/6.png"/>
-<img width="24%" src="./docs/img/7.png"/>
-<img width="24%" src="./docs/img/8.png"/>
+<img width="24%" src="./docs/img/5.png"/><img width="24%" src="./docs/img/6.png"/><img width="24%" src="./docs/img/7.png"/><img width="24%" src="./docs/img/8.png"/>
  
