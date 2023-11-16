@@ -9,7 +9,7 @@
   <img src="https://svg.hamm.cn?key=UI&value=ElementPlus"/>
 </p>
 
-[Gitee](https://gitee.com/air-power/AirPower4T) / [Github](https://github.com/HammCn/AirPower4T/issues) / [CHANGELOG](./CHANGELOG.md)
+[Gitee](https://gitee.com/air-power/AirPower4T) / [Github](https://github.com/HammCn/AirPower4T) / [CHANGELOG](./CHANGELOG.md)
 
 
 ## 📖 这是个什么项目
