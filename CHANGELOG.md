@@ -1,4 +1,4 @@
-# AirPower 版本发布日志
+# AirPower4T 版本发布日志
 
 ## v1.0.12
 
