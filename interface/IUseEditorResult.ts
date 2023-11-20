@@ -3,11 +3,12 @@ import { AirFormInstance } from '../type/AirType'
 import { IValidateRule } from './IValidateRule'
 import { AirEntity } from '../base/AirEntity'
 import { IUseDetailResult } from './IUseDetailResult'
+import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 
 /**
  * # Editor的Hook标准返回
  */
-export interface IUseEditorResult<E extends AirEntity> extends IUseDetailResult<E>{
+export interface IUseEditorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends IUseDetailResult<E, S> {
   /**
    * # 表单的Ref对象
    * ---

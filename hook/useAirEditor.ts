@@ -16,7 +16,7 @@ import { IJson } from '../interface/IJson'
  * @param serviceClass Editor使用的Service
  * @param option [可选]更多的配置
  */
-export function useAirEditor<E extends AirEntity>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseEditorOption<E> = {}): IUseEditorResult<E> {
+export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseEditorOption<E> = {}): IUseEditorResult<E, S> {
   const result = useAirDetail(props, entityClass, serviceClass, option)
 
   const rules = result.service.createValidator(props.param, option.customRules || {})
@@ -40,5 +40,5 @@ export function useAirEditor<E extends AirEntity>(props: IJson, entityClass: Cla
 
   return Object.assign(result, {
     title, formRef, rules, onSubmit,
-  }) as IUseEditorResult<E>
+  }) as IUseEditorResult<E, S>
 }
