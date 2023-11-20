@@ -18,7 +18,11 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
   option.unPaginate = true
   const result = useAirTable(entityClass, serviceClass, option)
   async function onAddRow(row: E) {
-    if (option.editView) {
+    if (!option.editView) {
+      AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
+      return
+    }
+    try {
       let param = AirClassTransformer.newInstance(entityClass)
       param.parentId = row.id
       if (option.beforeAddRow) {
@@ -28,10 +32,9 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
         }
       }
       await AirDialog.show(option.editView, param)
+    } finally {
       result.onReloadData()
-      return
     }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
   }
   return Object.assign(result, {
     onAddRow,

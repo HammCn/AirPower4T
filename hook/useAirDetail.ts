@@ -14,7 +14,7 @@ import { IJson } from '../interface/IJson'
  * @param serviceClass 详情使用的Service
  * @param option [可选]更多的配置
  */
-export function useAirDetail<E extends AirEntity>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<AirAbstractEntityService<E>>, option: IUseDetailOption<E> = {}): IUseDetailResult<E> {
+export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
   const isLoading = ref(false)
 
   const service = AirClassTransformer.newInstance(serviceClass)
@@ -40,6 +40,6 @@ export function useAirDetail<E extends AirEntity>(props: IJson, entityClass: Cla
   const title = computed(() => `${formData.value.getClassName()}详情`)
 
   return {
-    title, formData, isLoading, service,
-  } as IUseDetailResult<E>
+    title, formData, isLoading, service, getDetail,
+  } as IUseDetailResult<E, S>
 }

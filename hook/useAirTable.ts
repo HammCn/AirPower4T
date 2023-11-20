@@ -16,12 +16,15 @@ import { airTableHook } from './airTableHook'
 export function useAirTable<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableOption<E> = {}): IUseTableResult<E, S> {
   const result = airTableHook(entityClass, serviceClass, option)
   async function onEdit(row: E) {
-    if (option.editView) {
-      await AirDialog.show(option.editView, row)
-      result.onReloadData()
+    if (!option.editView) {
+      AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
       return
     }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
+    try {
+      await AirDialog.show(option.editView, row)
+    } finally {
+      result.onReloadData()
+    }
   }
 
   async function onDelete(data: E) {

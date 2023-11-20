@@ -62,20 +62,27 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   async function onAdd() {
-    if (option.editView) {
-      await AirDialog.show(option.editView)
-      onReloadData()
+    if (!option.editView) {
+      AirNotification.warning('请为 useAirTableList 的 option 传入 editView')
       return
     }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 editView')
+    try {
+      await AirDialog.show(option.editView)
+    } finally {
+      onReloadData()
+    }
   }
 
   async function onDetail(data: E) {
-    if (option.detailView) {
-      await AirDialog.show(option.detailView, data)
+    if (!option.detailView) {
+      AirNotification.warning('请为 useAirTableList 的 option 传入 detailView')
       return
     }
-    AirNotification.warning('请为 useAirTableList 的 option 传入 detailView')
+    try {
+      await AirDialog.show(option.detailView, data)
+    } finally {
+      onReloadData()
+    }
   }
 
   async function onSortChanged(sort: AirSort) {

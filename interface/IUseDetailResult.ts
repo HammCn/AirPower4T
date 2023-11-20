@@ -5,7 +5,7 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 /**
  * # 详情的Hook标准返回
  */
-export interface IUseDetailResult<E extends AirEntity> {
+export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEntityService<E>> {
   /**
    * # 对话框显示的标题
    */
@@ -26,5 +26,10 @@ export interface IUseDetailResult<E extends AirEntity> {
   /**
    * # 当前Hook使用的Service实例
    */
-  service: AirAbstractEntityService<E>
+  service: S
+
+  /**
+   * # 查询详情
+   */
+  getDetail: () => void,
 }
