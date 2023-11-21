@@ -1,6 +1,7 @@
 <template>
   <div class="air-tree-box">
     <div
+      v-if="!hideTree"
       class="air-tree-box-left"
       :style="{ width: showWidth }"
     >
@@ -64,6 +65,13 @@ import { AirTreeInstance } from '../type/AirType'
 const emits = defineEmits(['onChange'])
 
 const props = defineProps({
+  /**
+   * # 隐藏树
+   */
+  hideTree: {
+    type: Boolean,
+    default: false,
+  },
   /**
    * # 是否默认展开全部
    */
