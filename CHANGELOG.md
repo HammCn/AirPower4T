@@ -1,5 +1,16 @@
 # AirPower4T 版本发布日志
 
+## v1.1.0
+
+### 🎉 Features:
+
+- feat(TreeBox): 支持`hide-tree`参数隐藏左侧树选择器
+- feat(Frame): 支持了配置是否只展开一个菜单
+
+### 🐞 Bug fixes:
+
+- fix(Hooks): 优化Table/Detail/Editor的Service类型
+
 ## v1.0.12
 
 ### 🎉 Features:
