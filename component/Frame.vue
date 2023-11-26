@@ -23,6 +23,7 @@
           <AMenu
             v-if="menuList"
             :menu-list="menuList"
+            :unique-opened="uniqueOpened"
           />
         </div>
       </div>
@@ -55,6 +56,14 @@ defineProps({
   menuList: {
     type: Array as PropType<Array<IMenu>>,
     required: true,
+  },
+
+  /**
+   * # 是否只保持展开一个菜单
+   */
+  uniqueOpened: {
+    type: Boolean,
+    default: true,
   },
 })
 

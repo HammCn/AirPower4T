@@ -3,6 +3,7 @@
     class="air-menu-tree"
     :default-active="defaultMenu"
     :router="true"
+    :unique-opened="uniqueOpened"
   >
     <ChildMenu :menu-list="menuList" />
   </el-menu>
@@ -23,6 +24,14 @@ defineProps({
   menuList: {
     type: Array as PropType<IMenu[]>,
     required: true,
+  },
+
+  /**
+   * # 是否只保持展开一个菜单
+   */
+  uniqueOpened: {
+    type: Boolean,
+    default: false,
   },
 })
 
