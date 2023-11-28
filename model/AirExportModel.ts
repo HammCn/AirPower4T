@@ -25,8 +25,8 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
 
   /**
    * # 实例化一个导出模型
-   * @param url [可选] 导出URL地址
-   * @param param [可选] 导出的查询参数
+   * @param url (可选) 导出URL地址
+   * @param param (可选) 导出的查询参数
    */
   constructor(url?: string, param?: R) {
     super()

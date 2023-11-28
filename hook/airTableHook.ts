@@ -16,7 +16,7 @@ import { ITableHookResult } from '../interface/ITableHookResult'
  * # 表格基础Hook
  * @param entityClass 实体类
  * @param serviceClass 表格使用的Service类
- * @param option [可选] 更多配置
+ * @param option (可选) 更多配置
  */
 export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: ITableHookOption<E> = {}): ITableHookResult<E, S> {
   const isLoading = ref(false)

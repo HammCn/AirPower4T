@@ -36,7 +36,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示成功图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   success(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.SUCCESS
@@ -46,7 +46,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示警告图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   warning(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.WARNING
@@ -56,7 +56,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示错误图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   error(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.ERROR
@@ -66,7 +66,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示消息图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   info(content: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.INFO
@@ -76,7 +76,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示无图标确认弹窗
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   show(content: string, title = '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -104,7 +104,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示成功图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   static success(content: string, title?: string): Promise<void> {
     return this.create().success(content, title)
@@ -113,7 +113,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示警告图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   static warning(content: string, title?: string): Promise<void> {
     return this.create().warning(content, title)
@@ -122,7 +122,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示错误图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   static error(content: string, title?: string): Promise<void> {
     return this.create().error(content, title)
@@ -131,7 +131,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示消息图标的确认框
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   static info(content: string, title?: string): Promise<void> {
     return this.create().info(content, title)
@@ -140,7 +140,7 @@ export class AirConfirm extends AirAlert {
   /**
    * # 显示无图标确认弹窗
    * @param content 确认内容
-   * @param title [可选] 确认标题
+   * @param title (可选) 确认标题
    */
   static show(content: string, title?: string): Promise<void> {
     return this.create().show(content, title)

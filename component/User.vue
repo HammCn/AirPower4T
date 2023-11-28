@@ -49,6 +49,7 @@
 </template>
 <script lang="ts" setup>
 import { PropType, ref } from 'vue'
+import { SwitchButton } from '@element-plus/icons-vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { IUser } from '../interface/IUser'
@@ -117,11 +118,10 @@ async function logout() {
 
   .air-user-dialog {
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 50px;
-    border-radius: 5px;
     background-color: white;
-    box-shadow: 0px 0px 20px rgb(0 0 0 / 20%);
+    box-shadow: 0 0 20px rgb(0 0 0 / 20%);
     border-radius: 6px;
     z-index: 99;
     display: flex;
@@ -143,11 +143,8 @@ async function logout() {
     }
 
     .air-user-header {
-      display: flex;
-      flex-direction: row;
       border-bottom: 1px solid #f5f5f5;
       padding: 10px;
-      align-items: center;
       display: flex;
       flex-direction: row;
       align-items: center;

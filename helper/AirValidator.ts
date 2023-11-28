@@ -501,7 +501,7 @@ export class AirValidator {
 
   /**
    * # 通过指定错误信息来创建一个验证器
-   * @param message [可选]验证失败的提示
+   * @param message (可选)验证失败的提示
    */
   static show(message?: string): AirValidator {
     return new AirValidator().show(message)
@@ -520,7 +520,7 @@ export class AirValidator {
    * @param num 邮箱
    */
   static isEmail(email: string): boolean {
-    return /^[a-zA-Z0-9]+(\.([a-zA-Z0-9]+)){0,}@[a-zA-Z0-9]+(\.([a-zA-Z0-9]+)){1,}$/.test(email)
+    return /^[a-zA-Z0-9]+(\.([a-zA-Z0-9]+))*@[a-zA-Z0-9]+(\.([a-zA-Z0-9]+))+$/.test(email)
   }
 
   /**
@@ -528,7 +528,7 @@ export class AirValidator {
    * @param num 号码
    */
   static isMobilePhone(num: string): boolean {
-    return /^(\+(\d{1,4})){0,1}1[3-9](\d{9})$/.test(num)
+    return /^(\+(\d{1,4}))?1[3-9](\d{9})$/.test(num)
   }
 
   /**
@@ -536,7 +536,7 @@ export class AirValidator {
    * @param num 号码
    */
   static isTelphone(num: string): boolean {
-    return /^(((0\d{2,3})-){0,1}((\d{7,8})|(400\d{7})|(800\d{7}))(-(\d{1,4})){0,1})$/.test(num)
+    return /^(((0\d{2,3})-)?((\d{7,8})|(400\d{7})|(800\d{7}))(-(\d{1,4}))?)$/.test(num)
   }
 
   /**
@@ -569,7 +569,7 @@ export class AirValidator {
    * @param str 字符串
    */
   static isNumber(str: string): boolean {
-    return /^(-){0,1}[0-9]+((.)[0-9]+){0,1}$/.test(str)
+    return /^(-)?[0-9]+((.)[0-9]+)?$/.test(str)
   }
 
   /**
@@ -577,7 +577,7 @@ export class AirValidator {
    * @param str 字符串
    */
   static isInteger(str: string): boolean {
-    return /^(-){0,1}[0-9]+$/.test(str)
+    return /^(-)?[0-9]+$/.test(str)
   }
 
   /**
@@ -585,7 +585,7 @@ export class AirValidator {
    * @param str 字符串
    */
   static isNaturalNumber(str: string): boolean {
-    return /^[0-9]+((.)[0-9]+){0,1}$/.test(str)
+    return /^[0-9]+((.)[0-9]+)?$/.test(str)
   }
 
   /**
@@ -671,7 +671,7 @@ export class AirValidator {
   /**
    * # 创建验证器
    * @param service 接口服务对象
-   * @param formRules [可选]表单验证规则
+   * @param formRules (可选)表单验证规则
    */
   static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(form: T, service: S, formRules: IValidateRule = {}) {
     const entity = AirClassTransformer.newInstance(service.entityClass)

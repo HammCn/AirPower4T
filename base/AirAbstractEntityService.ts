@@ -103,8 +103,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 添加一条新的数据
    * @param data 保存的数据
-   * @param message [可选]添加成功的消息提示内容
-   * @param title [可选]添加成功的消息提示标题 默认 '添加成功'
+   * @param message (可选)添加成功的消息提示内容
+   * @param title (可选)添加成功的消息提示标题 默认 '添加成功'
    */
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
     const json = await this.api(this.urlForAdd).post(data)
@@ -117,8 +117,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 修改一条数据
    * @param data 修改的数据实体
-   * @param message [可选]修改成功的消息提示内容
-   * @param title [可选]修改成功的消息提示标题 默认 '修改成功'
+   * @param message (可选)修改成功的消息提示内容
+   * @param title (可选)修改成功的消息提示标题 默认 '修改成功'
    */
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
     await this.api(this.urlForUpdate).post(data)
@@ -134,8 +134,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * ---
    *
    * @param data 保存的数据实体
-   * @param message [可选]保存成功的消息提示内容
-   * @param title [可选]保存成功的消息提示标题 默认 '保存成功'
+   * @param message (可选)保存成功的消息提示内容
+   * @param title (可选)保存成功的消息提示标题 默认 '保存成功'
    */
   async save(data: E, message?: string, title = '保存成功'): Promise<number> {
     if (data.id) {
@@ -148,8 +148,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 根据ID删除一条数据
    * @param id 删除的数据ID
-   * @param message [可选]删除成功的消息提示内容
-   * @param title [可选]删除成功的消息提示标题 默认 '删除成功'
+   * @param message (可选)删除成功的消息提示内容
+   * @param title (可选)删除成功的消息提示标题 默认 '删除成功'
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
     return this.api(this.urlForDelete).callbackError()
@@ -166,7 +166,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
 
   /**
    * # 创建一个实体的实例
-   * @param id [可选]ID
+   * @param id (可选)ID
    */
   private newEntityInstance(id?: number): E {
     // eslint-disable-next-line new-cap
@@ -180,7 +180,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 创建验证器
    * @param form 表单对象
-   * @param moreRule [可选] 更多的验证规则
+   * @param moreRule (可选) 更多的验证规则
    */
   static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule = {}) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -12,7 +12,7 @@ import { useAirTable } from './useAirTable'
  * # 引入表格树使用的Hook
  * @param entityClass 实体类
  * @param serviceClass 表格使用的Service类
- * @param option [可选] 更多配置
+ * @param option (可选) 更多配置
  */
 export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
   option.unPaginate = true

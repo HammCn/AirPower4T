@@ -52,6 +52,7 @@ import {
   ref, PropType, computed, watch,
 } from 'vue'
 
+import { CircleCloseFilled } from '@element-plus/icons-vue'
 import { AirImageConfig } from '../config/AirImageConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -214,7 +215,6 @@ function onUploadError() {
 /**
  * # 上传成功事件
  * @param response 成功响应
- * @param file 文件
  */
 function onUploadSuccess(response: { data: { url: string } }) {
   const entityData = AirClassTransformer.parse(response.data, props.entity)

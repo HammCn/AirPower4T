@@ -64,14 +64,11 @@ export class AirHttp {
 
   /**
    * # 创建一个HTTP实例
-   * @param url [可选] 请求的地址
+   * @param url (可选) 请求的地址
    */
-  constructor(url?: string, baseUrl?: string) {
+  constructor(url?: string) {
     if (url) {
       this.url = url
-    }
-    if (baseUrl) {
-      this.url = `${baseUrl}/${this.url}`
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
@@ -152,7 +149,7 @@ export class AirHttp {
   /**
    * # 发送请求
    *
-   * @param body [可选]请求体
+   * @param body (可选)请求体
    * @see post() 直接发送POST
    * @see get() 直接发送GET
    */
@@ -240,7 +237,7 @@ export class AirHttp {
 
   /**
    * # 发送GET请求 只支持简单一维数据
-   * @param params [可选]可携带的参数
+   * @param params (可选)可携带的参数
    */
   get(params?: IJson): Promise<any> {
     if (params) {

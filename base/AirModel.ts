@@ -238,7 +238,7 @@ export class AirModel {
 
   /**
    * # 创建一个当前类的实例
-   * @param recoverBy [可选]初始化用于覆盖对象实例的JSON
+   * @param recoverBy (可选)初始化用于覆盖对象实例的JSON
    */
   // eslint-disable-next-line no-unused-vars
   static newInstance<T extends AirModel>(this: new () => T, recoverBy?: IJson): T {
@@ -297,7 +297,7 @@ export class AirModel {
   /**
    * # 获取搜索字段的配置列表
    * 如不传入参数 则默认取所有标记了注解的字段
-   * @param fieldNameList [可选]字段列表
+   * @param fieldNameList (可选)字段列表
    */
   static getSearchFieldConfigList(...fieldNameList: string[]): AirSearchFieldConfig[] {
     return this.newInstance().getSearchFieldConfigList(fieldNameList)

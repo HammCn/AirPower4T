@@ -228,6 +228,7 @@ import {
   PropType, Ref, ref, watch, computed,
 } from 'vue'
 
+import { CircleClose } from '@element-plus/icons-vue'
 import { AirModel } from '../base/AirModel'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirConfig } from '../config/AirConfig'
@@ -500,7 +501,7 @@ watch(props, (newProps) => {
 function inputEvent() {
   if (fieldConfig.value?.number) {
     // 数字输入
-    let tempValue = value.value as number | string | undefined
+    let tempValue = value.value as number | string | undefined | null
     const max = fieldConfig.value.max ?? AirConfig.maxNumber
     const min = fieldConfig.value.min ?? AirConfig.minNumber
     if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidator.isNumber(tempValue.toString())) {
@@ -516,7 +517,6 @@ function inputEvent() {
       value.value = tempValue
     } else {
       // 输入的不是有效数字 直接置空
-      tempValue = undefined
       value.value = undefined
     }
   }
@@ -526,7 +526,7 @@ function inputEvent() {
  * 选择事件
  */
 function selectEvent() {
-  if (value.value === '' || value.value === null) {
+  if (value.value === '' || value.value === undefined) {
     value.value = undefined
   }
 }

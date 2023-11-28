@@ -39,7 +39,7 @@ export class AirLoading {
 
   /**
    * # 实例一个LoadingService
-   * @param domId [可选]DOMID 可选参数
+   * @param domId (可选)DOMID 可选参数
    */
   constructor(domId?: string) {
     if (domId) {
@@ -92,7 +92,7 @@ export class AirLoading {
 
   /**
    * # 弹出这个Loading
-   * @param message [可选]Loading文案 弹出Loading
+   * @param message (可选)Loading文案 弹出Loading
    */
   show(message?: string): this {
     if (message) {
@@ -113,7 +113,7 @@ export class AirLoading {
 
   /**
    * # 弹出这个Loading
-   * @param message [可选]Loading文案 弹出Loading
+   * @param message (可选)Loading文案 弹出Loading
    */
   static show(message?: string): AirLoading {
     return this.create().show(message)

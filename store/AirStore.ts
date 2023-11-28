@@ -22,7 +22,7 @@ export const AirStore = defineStore('AirStore', {
      * # ⌘ - ```macOS```
      * # Alt - ```Windows```
      */
-    controllKeyDown: false,
+    controlKeyDown: false,
 
     /**
      * # ESC被按下

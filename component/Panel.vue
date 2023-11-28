@@ -54,6 +54,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { FullScreen } from '@element-plus/icons-vue'
 import { AirConfig } from '../config/AirConfig'
 
 defineProps({
@@ -129,7 +130,6 @@ const isFullScreen = ref(false)
     align-items: center;
     border-bottom: 1px solid #f5f5f5;
     padding: 10px 15px;
-    padding-bottom: 10px;
     user-select: none;
 
     .panel-left {
@@ -185,7 +185,7 @@ const isFullScreen = ref(false)
   }
 
   .panel-footer {
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     display: flex;
     flex-direction: row;
 

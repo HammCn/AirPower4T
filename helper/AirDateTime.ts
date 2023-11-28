@@ -23,7 +23,7 @@ export class AirDateTime {
 
   /**
    * # 格式化到Unix秒时间戳(默认当前时间)
-   * @param date [可选]Date对象/时间字符串
+   * @param date (可选)Date对象/时间字符串
    */
   static getUnixTimeStamps(date?: Date | string): number {
     if (!date) {
@@ -34,7 +34,7 @@ export class AirDateTime {
 
   /**
    * # 格式化到毫秒时间戳(默认当前时间)
-   * @param date [可选]Date对象/时间字符串
+   * @param date (可选)Date对象/时间字符串
    */
   static getMilliTimeStamps(date?: Date | string): number {
     if (!date) {
@@ -56,7 +56,7 @@ export class AirDateTime {
   /**
    * # 从秒时间戳格式化时间
    * @param timeStamp 秒时间戳
-   * @param formateString [可选]格式化模板
+   * @param formateString (可选)格式化模板
    */
   static formatFromSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp * 1000), formateString)
@@ -65,7 +65,7 @@ export class AirDateTime {
   /**
    * # 从毫秒时间戳格式化时间
    * @param timeStamp 毫秒时间戳
-   * @param formateString [可选]格式化模板
+   * @param formateString (可选)格式化模板
    */
   static formatFromMilliSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp), formateString)
@@ -74,7 +74,7 @@ export class AirDateTime {
   /**
    * # 从字符串或对象格式化时间
    * @param date Date对象或字符串
-   * @param formateString [可选]格式化模板
+   * @param formateString (可选)格式化模板
    */
   static formatFromDate(date: Date | string, formateString?: AirDateTimeFormatter | string): string {
     if (!formateString) {
@@ -113,7 +113,7 @@ export class AirDateTime {
    */
   static getFriendlyDateTime(date: Date | string | number): string {
     const nowTimeStamps: number = this.getUnixTimeStamps(new Date())
-    let oldTimeStamp = 0
+    let oldTimeStamp: number
     if (typeof date === 'number') {
       oldTimeStamp = parseInt((date / 1000).toString(), 10)
     } else {

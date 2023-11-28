@@ -12,7 +12,7 @@ import { airTableHook } from './airTableHook'
  * @param props defineProps的返回值
  * @param entityClass 实体类
  * @param serviceClass Selector使用的Service类
- * @param option [可选] 更多配置
+ * @param option (可选) 更多配置
  */
 export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E, S> {
   const result = airTableHook(entityClass, serviceClass, option)

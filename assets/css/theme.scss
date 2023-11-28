@@ -72,10 +72,9 @@
   --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
   --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
   --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier),
-    opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+  opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
   --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
-  --el-transition-border: border-color var(--el-transition-duration-fast)
-    var(--el-transition-function-ease-in-out-bezier);
+  --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
   --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
 }
 

@@ -22,7 +22,7 @@ const FIELD_LIST_KEY = 'TableList'
 
 /**
  * # 为属性标记是表格字段
- * @param fieldConfig [可选]表格列的配置
+ * @param fieldConfig (可选)表格列的配置
  */
 export function TableField(fieldConfig: ITableFieldConfig = {}): Function {
   return (target: any, key: string) => {
@@ -50,6 +50,7 @@ export function getTableFieldList(target: any): string[] {
 
 /**
  * # 获取字段标记的表格字段配置列表
+ * @param target 目标实体类
  * @param keyList 字段列表
  */
 export function getTableConfigList(target: any, keyList: string[]) {

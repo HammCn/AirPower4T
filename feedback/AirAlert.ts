@@ -109,7 +109,7 @@ export class AirAlert {
   /**
    * # 设置弹窗宽度
    * @param width 宽度
-   * @param isPercent [可选] 是否百分比 默认false
+   * @param isPercent (可选) 是否百分比 默认false
    */
   setWidth(width: number, isPercent = false): this {
     if (isPercent) {
@@ -123,7 +123,7 @@ export class AirAlert {
   /**
    * # 设置弹窗高度
    * @param height 高度
-   * @param isPercent [可选] 是否百分比 默认false
+   * @param isPercent (可选) 是否百分比 默认false
    */
   setHeight(height: number, isPercent = false): this {
     if (isPercent) {
@@ -136,8 +136,8 @@ export class AirAlert {
 
   /**
    * # 显示成功消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   success(content?: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.SUCCESS
@@ -146,8 +146,8 @@ export class AirAlert {
 
   /**
    * # 显示警告消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   warning(content?: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.WARNING
@@ -156,8 +156,8 @@ export class AirAlert {
 
   /**
    * # 显示无图标的消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   show(content?: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.NONE
@@ -166,8 +166,8 @@ export class AirAlert {
 
   /**
    * # 显示错误消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   error(content?: string, title?: string): Promise<void> {
     this.icon = AirFeedbackType.ERROR
@@ -176,8 +176,8 @@ export class AirAlert {
 
   /**
    * # 显示信息类消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   info(content?: string, title?: string): Promise<void> {
     return this.alert(content, title)
@@ -192,8 +192,8 @@ export class AirAlert {
 
   /**
    * # 显示成功消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   static success(content?: string, title?: string): Promise<void> {
     return this.create().success(content, title)
@@ -201,8 +201,8 @@ export class AirAlert {
 
   /**
    * # 显示警告消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   static warning(content?: string, title?: string): Promise<void> {
     return this.create().warning(content, title)
@@ -210,8 +210,8 @@ export class AirAlert {
 
   /**
    * # 显示无图标的消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   static show(content?: string, title?: string): Promise<void> {
     return this.create().show(content, title)
@@ -219,8 +219,8 @@ export class AirAlert {
 
   /**
    * # 显示错误消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   static error(content?: string, title?: string): Promise<void> {
     return this.create().error(content, title)
@@ -228,8 +228,8 @@ export class AirAlert {
 
   /**
    * # 显示信息类消息提醒
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
   static info(content?: string, title?: string): Promise<void> {
     return this.create().info(content, title)
@@ -237,8 +237,8 @@ export class AirAlert {
 
   /**
    * # 弹出提示
-   * @param content [可选] 消息内容
-   * @param title [可选] 消息标题
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    *
    */
   private alert(content = '操作成功', title = '温馨提示'): Promise<void> {

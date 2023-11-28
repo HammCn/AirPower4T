@@ -422,8 +422,8 @@ const props = defineProps({
   /**
    * # 是否显示导入按钮
    * ---
-   * - ```import-url``` [可选]导入的API接口地址
-   * - ```import-title``` [可选]指定上传框的标题
+   * - ```import-url``` (可选)导入的API接口地址
+   * - ```import-title``` (可选)指定上传框的标题
    */
   showImport: {
     type: Boolean,

@@ -48,7 +48,7 @@ const IS_ARRAY_KEY = 'IsArray'
 /**
  * # 标记属性强制转换类
  * @param Clazz 类型
- * @param isArray [可选]是否是数组
+ * @param isArray (可选)是否是数组
  */
 export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
   return (target: any, key: string) => {

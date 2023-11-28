@@ -12,7 +12,7 @@ export class AirEntity extends AirModel implements IEntity {
 
   /**
    * # 实例化一个实体
-   * @param id [可选] 主键ID
+   * @param id (可选) 主键ID
    */
   constructor(id?: number) {
     super()

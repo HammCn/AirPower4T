@@ -242,6 +242,7 @@
         <img
           src="../assets/img/empty.svg"
           style="width: 80px;"
+          alt=""
         >
         <div>{{ emptyText || entityConfig.tableEmptyText || '暂无数据' }}</div>
       </template>
@@ -283,6 +284,7 @@ import {
   ref, PropType, watch, nextTick, computed,
 } from 'vue'
 
+import { Setting } from '@element-plus/icons-vue'
 import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
@@ -567,17 +569,12 @@ const isForceDelete = ref(false)
 /**
  * # 显示按下快捷键的提醒
  */
-watch(() => AirStore().controllKeyDown, () => {
-  isForceDelete.value = false
-  if (
-    AirStore().controllKeyDown
-    && !props.customDelete
-    && !props.hideDelete
-    && props.dataList
-    && props.dataList.length > 0
-  ) {
-    isForceDelete.value = true
-  }
+watch(() => AirStore().controlKeyDown, () => {
+  isForceDelete.value = !!(AirStore().controlKeyDown
+      && !props.customDelete
+      && !props.hideDelete
+      && props.dataList
+      && props.dataList.length > 0)
 })
 
 /**
@@ -737,7 +734,6 @@ function selectRow(list: ITree[]) {
       if (selectedRow.id === row.id) {
         airTableRef.value?.toggleRowSelection(row, true)
         // eslint-disable-next-line no-continue
-        continue
       }
     }
     if (row.children && row.children.length > 0) {
@@ -817,9 +813,9 @@ async function handleDelete(item: AirEntity) {
     return
   }
   try {
-    if (!AirStore().controllKeyDown) {
-      let title = '删除提醒'
-      let content = '是否确认删除当前选中的数据？'
+    if (!AirStore().controlKeyDown) {
+      let title: string
+      let content: string
       // 如果实体传入 则尝试自动获取
 
       const entityName = entityInstance.value.getClassName()
@@ -943,7 +939,7 @@ init()
     }
 
     &-dialog {
-      box-shadow: 0px 0px 20px rgb(0 0 0 / 20%);
+      box-shadow: 0 0 20px rgb(0 0 0 / 20%);
       position: absolute;
       right: 30px;
       top: 30px;

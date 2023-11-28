@@ -80,7 +80,7 @@ defineProps({
   flex-direction: column;
 
   .air-header {
-    padding: 0px 15px;
+    padding: 0 15px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -112,7 +112,7 @@ defineProps({
       flex-direction: row;
       overflow: hidden;
       width: 0;
-      margin: 0px 20px;
+      margin: 0 20px;
       background-color: red;
     }
   }
@@ -165,8 +165,8 @@ defineProps({
       }
 
       .air-menu::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
+        width: 0;
+        height: 0;
       }
     }
 
@@ -176,8 +176,7 @@ defineProps({
       display: flex;
       flex-direction: column;
       background: var(--el-color-primary-light-9);
-      margin: 5px;
-      margin-left: 0px;
+      margin: 5px 5px 5px 0;
     }
   }
 }

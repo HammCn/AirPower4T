@@ -52,7 +52,7 @@ const route = useRoute()
 watch(
   () => route,
   // eslint-disable-next-line
-  (newVal, oldVal) => {
+  (newVal) => {
     // eslint-disable-next-line no-restricted-globals
     defaultMenu.value = newVal.path || location.pathname
   },

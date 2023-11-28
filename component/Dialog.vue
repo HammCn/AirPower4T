@@ -1,6 +1,7 @@
 <template>
   <transition name="dialog">
     <div
+      v-if="true"
       class="dialog air-dialog"
       :class="getDialogClass"
       @mouseup="dialogMouseUpEvent"
@@ -484,10 +485,10 @@ async function confirmEvent() {
 .dialog {
   z-index: 99;
   position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   background-color: rgba($color: #000000, $alpha: 0.2);
   font-size: 18px;
   display: flex;
@@ -508,7 +509,7 @@ async function confirmEvent() {
   .main {
     animation: dialog-in 0.5s;
     background-color: white;
-    box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.3);
+    box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.3);
     max-width: 80%;
     max-height: 80%;
     display: flex;

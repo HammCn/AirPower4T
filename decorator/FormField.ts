@@ -22,7 +22,7 @@ const FIELD_LIST_KEY = 'FormList'
 
 /**
  * # 标记该字段可用于表单配置
- * @param fieldConfig [可选]配置项
+ * @param fieldConfig (可选)配置项
  */
 export function FormField(fieldConfig: IFormFieldConfig = {}): Function {
   return (target: any, key: string) => {

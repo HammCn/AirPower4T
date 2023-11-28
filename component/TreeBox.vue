@@ -245,7 +245,7 @@ function filterNode(value: string, node: ITree) {
 
     .panel-body {
       padding: 10px !important;
-      padding-right: 0px !important;
+      padding-right: 0 !important;
 
       .search-box {
         padding-right: 10px;

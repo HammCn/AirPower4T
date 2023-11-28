@@ -182,7 +182,7 @@ const pageCountList = computed(() => {
       cursor: pointer;
       font-weight: bold;
       color: #666;
-      margin: 0px 3px;
+      margin: 0 3px;
     }
 
     padding: 3px 8px;
@@ -213,8 +213,7 @@ const pageCountList = computed(() => {
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 10px 0px;
-    padding-bottom: 10px;
+    padding: 10px 0;
     overflow: hidden;
     overflow-y: auto;
     align-content: flex-start;
@@ -223,7 +222,7 @@ const pageCountList = computed(() => {
       width: 30px;
       height: 30px;
       margin: 5px;
-      padding: 0px;
+      padding: 0;
       font-size: 13px;
     }
   }

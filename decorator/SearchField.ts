@@ -22,7 +22,7 @@ const FIELD_LIST_KEY = 'SearchList'
 
 /**
  * # 标记该字段可用于搜索
- * @param fieldConfig [可选]搜索配置项
+ * @param fieldConfig (可选)搜索配置项
  */
 export function SearchField(fieldConfig: ISearchFieldConfig = {}): Function {
   return (target: any, key: string) => {

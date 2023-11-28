@@ -86,7 +86,7 @@ export class AirDialog {
   /**
    * # 弹出一个弹窗
    * @param view 使用的视图组件 传入一个import的vue
-   * @param param [可选]参数 将传入到目标对象的props.param参数上
+   * @param param (可选)参数 将传入到目标对象的props.param参数上
    */
   static async show<RES>(view: Component, param?: unknown): Promise<RES> {
     return this.build<RES>(view, {
@@ -96,9 +96,8 @@ export class AirDialog {
 
   /**
    * # 弹出上传文件对话框
-   * @param config [可选]上传自定义配置
-   * @param customConfirm [可选]自定义确认按钮回调方法
-   * @param F [可选泛型] 💡 可通过 ```AirConfig.defaultFileEntity``` 配置, 默认为 ```AirFileEntity```
+   * @param config (可选)上传自定义配置
+   * @param customConfirm (可选)自定义确认按钮回调方法
    */
   static async showUpload<F extends IFile>(config?: IUploadConfig, customConfirm?: Function): Promise<F> {
     return this.build<F>(AUpload, {
@@ -114,7 +113,7 @@ export class AirDialog {
   /**
    * # 创建一个导出任务
    * @param url 接口地址
-   * @param exportParam [可选]导出request参数对象
+   * @param exportParam (可选)导出request参数对象
    */
   static async createExportTask<R extends AirRequest>(url: string, exportParam?: R): Promise<unknown> {
     const param = new AirExportModel(url, exportParam)
@@ -124,7 +123,7 @@ export class AirDialog {
   /**
    * # 弹出一个单选选择器
    * @param view 使用的视图组件 传入一个import的vue
-   * @param param [可选]普通参数 将传入到目标对象的props.param参数上
+   * @param param (可选)普通参数 将传入到目标对象的props.param参数上
    */
   static async select<E extends AirEntity>(view: Component, param: E | undefined = undefined): Promise<E> {
     return this.build(view, {
@@ -135,8 +134,8 @@ export class AirDialog {
   /**
    * # 弹出一个多选选择器
    * @param view 使用的视图组件 传入一个import的vue
-   * @param selectList [可选]已选列表 将传入到目标对象的props.selectList参数上
-   * @param param [可选]普通参数 将传入到目标对象的props.param参数上
+   * @param selectList (可选)已选列表 将传入到目标对象的props.selectList参数上
+   * @param param (可选)普通参数 将传入到目标对象的props.param参数上
    */
   static async selectList<E extends AirEntity>(view: Component, selectList: E[] = [], param: E | undefined = undefined): Promise<E[]> {
     return this.build(view, {

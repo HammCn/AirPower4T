@@ -26,7 +26,7 @@ Window.prototype.airConfig = () => {
 
 document.onkeydown = (e: KeyboardEvent) => {
   if (e.key === 'Meta' || e.key === 'Alt') {
-    AirStore().controllKeyDown = true
+    AirStore().controlKeyDown = true
   }
   if (e.key === 'Escape') {
     AirStore().escKeyDown = true
@@ -35,7 +35,7 @@ document.onkeydown = (e: KeyboardEvent) => {
 
 document.onkeyup = (e: KeyboardEvent) => {
   if (e.key === 'Meta' || e.key === 'Alt') {
-    AirStore().controllKeyDown = false
+    AirStore().controlKeyDown = false
   }
   if (e.key === 'Escape') {
     AirStore().escKeyDown = false

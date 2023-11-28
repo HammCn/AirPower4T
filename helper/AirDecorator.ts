@@ -26,6 +26,7 @@ export class AirDecorator {
 
   /**
    * # 设置一个类配置项
+   * @param target 目标实体类
    * @param classConfigKey 配置项索引键值
    * @param classConfig 配置的参数
    */
@@ -37,8 +38,8 @@ export class AirDecorator {
    * # 递归获取指定类的配置项
    * @param target 目标类
    * @param classConfigKey 配置项的Key
-   * @param defaultValue [可选]类装饰器请传入配置项实例
-   * @param isObject [可选]是否是对象配置
+   * @param defaultValue (可选)类装饰器请传入配置项实例
+   * @param isObject (可选)是否是对象配置
    */
   static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined, isObject = false): any {
     let classConfig = Reflect.get(target, classConfigKey)
@@ -70,13 +71,13 @@ export class AirDecorator {
    * @param key 字段
    * @param fieldConfigKey 配置项索引键值
    * @param fieldConfig 配置的参数
-   * @param fieldListKey [可选]类配置项列表索引值
+   * @param fieldListKey (可选)类配置项列表索引值
    */
   static setFieldConfig(target: any, key: string, fieldConfigKey: string, fieldConfig: any, fieldListKey?: string) {
     if (fieldListKey) {
       this.setFieldDecoration(target, key, fieldListKey)
     }
-    this.setProperty(target, `${`${fieldConfigKey}[${key}]`}`, fieldConfig)
+    this.setProperty(target, `${fieldConfigKey}[${key}]`, fieldConfig)
   }
 
   /**
@@ -96,10 +97,10 @@ export class AirDecorator {
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey FieldConfigKey
-   * @param isObject [可选]是否对象配置
+   * @param isObject (可选)是否对象配置
    */
   static getFieldConfig(target: any, key: string, fieldConfigKey: string, isObject = false): any {
-    let fieldConfig = Reflect.get(target, `${`${fieldConfigKey}[${key}]`}`)
+    let fieldConfig = Reflect.get(target, `${fieldConfigKey}[${key}]`)
     if (!isObject) {
       // 普通配置
       if (fieldConfig !== undefined) {
@@ -127,7 +128,7 @@ export class AirDecorator {
    * # 获取类标记了装饰器的字段列表
    * @param target 目标类
    * @param fieldConfigKey FieldConfigKey
-   * @param list [递归参数]无需传入
+   * @param list (递归参数)无需传入
    */
   static getFieldList(target: any, fieldConfigKey: string, list: string[] = []): string[] {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
@@ -178,7 +179,7 @@ export class AirDecorator {
    * @param configKey 配置Key
    */
   static getFieldConfigValue(target: any, fieldConfigKey: string, key: string, configKey: string): any {
-    const fieldConfig = AirClassTransformer.copyJson(Reflect.get(target, `${`${fieldConfigKey}[${key}]`}`))
+    const fieldConfig = AirClassTransformer.copyJson(Reflect.get(target, `${fieldConfigKey}[${key}]`))
     if (fieldConfig && fieldConfig[configKey] !== undefined) {
       return fieldConfig[configKey]
     }

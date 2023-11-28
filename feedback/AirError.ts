@@ -19,7 +19,7 @@ export class AirError {
 
   /**
    * # 实例一个错误提示框
-   * @param error [可选]错误信息
+   * @param error (可选)错误信息
    */
   // eslint-disable-next-line
   constructor(error?: any) {
@@ -73,7 +73,7 @@ export class AirError {
   /**
    *
    * @param message 错误信息
-   * @param code [可选]错误代码
+   * @param code (可选)错误代码
    */
   static show(message: string, code?: number): void {
     if (code) {

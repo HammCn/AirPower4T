@@ -246,7 +246,7 @@ function onUploadSuccess(result: IJson) {
 <style lang="scss">
 .upload-dialog {
   .body {
-    padding-bottom: 0px !important;
+    padding-bottom: 0 !important;
   }
 
   .main {
@@ -282,7 +282,7 @@ function onUploadSuccess(result: IJson) {
 
             b {
               color: #999;
-              margin: 0px 3px;
+              margin: 0 3px;
             }
           }
         }

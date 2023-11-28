@@ -35,8 +35,8 @@ export function airProps() {
 /**
  * # 使用实体的DialogProps配置
  * ---
- * ### 💡 [可选]泛型: Param的类型
- * @param value [可选]默认参数
+ * ### 💡 (可选)泛型: Param的类型
+ * @param value (可选)默认参数
  */
 export function airPropsParam<P>(value: P | null = null) {
   return Object.assign(airProps(), {
