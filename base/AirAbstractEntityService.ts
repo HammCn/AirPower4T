@@ -3,11 +3,11 @@ import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { ClassConstructor } from '../type/ClassConstructor'
-import { AirEntity } from '../base/AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 import { AirAbstractService } from './AirAbstractService'
+import { AirEntity } from './AirEntity'
 
 /**
  * # 实体API服务超类
