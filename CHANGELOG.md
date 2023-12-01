@@ -1,4 +1,50 @@
-# AirPower 版本发布日志
+# AirPower4T 版本发布日志
+
+## v1.1.0
+
+### 🎉 Features:
+
+- feat(TreeBox): 支持`hide-tree`参数隐藏左侧树选择器
+- feat(Frame): 支持了配置是否只展开一个菜单
+
+### 🐞 Bug fixes:
+
+- fix(Hooks): 优化Table/Detail/Editor的Service类型
+
+## v1.0.12
+
+### 🎉 Features:
+
+- feat(Tabs): 支持了一个Tabs/Tab组件
+
+### 🐞 Bug fixes:
+
+- fix(Frame): 删除底部版权信息显示
+- fix(Menu): 优化菜单展开收起的样式
+- fix(Permission): 自动生成权限前缀逻辑优化
+- fix(Table): 修复装饰居右不生效的BUG
+- fix(FormConfig): 优化获取表单装饰器配置的逻辑
+- fix(Input): 输入数字大小验证异常的问题
+- fix(Selector): 修复选择后无法回调事件的BUG
+- fix(TreeHook): 优化useAirTable和useAirTableTree的使用方式
+
+## v1.0.11
+
+### 🎉 Features:
+
+- feat(Decorator): 提供独立的IsArray装饰器
+
+### 🐞 Bug fixes:
+
+- fix(Hooks): 修复Edit钩子提交之后无ID返回的BUG
+- fix(Upload): 上传失败后无法重新上传的bug修复
+
+## v1.0.10
+
+### 🎉 Features:
+
+- feat(Type): type装饰器支持传入是否数组的配置
+- feat(TreeBox): 支持了树选择框的折叠展开
 
 ## v1.0.9
 
