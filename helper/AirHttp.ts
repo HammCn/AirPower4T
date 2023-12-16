@@ -117,6 +117,14 @@ export class AirHttp {
   }
 
   /**
+   * # 允许携带Cookies
+   */
+  withCredentials(): this {
+    this.axiosRequestConfig.withCredentials = true
+    return this
+  }
+
+  /**
    * # 添加一个请求头
    * @param key 请求头key
    * @param value 请求头value
