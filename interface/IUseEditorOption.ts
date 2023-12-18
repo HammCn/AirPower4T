@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { AirEntity } from '../base/AirEntity'
+import { IJson } from './IJson'
 import { IUseDetailOption } from './IUseDetailOption'
 import { IValidateRule } from './IValidateRule'
 
@@ -25,4 +26,9 @@ export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<
    * @param submitData 实体
    */
   beforeSubmit?: (submitData: E) => E | null
+
+  /**
+   * # 请求要求继续操作
+   */
+  successAndContinue?: (result: IJson) => void
 }

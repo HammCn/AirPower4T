@@ -29,6 +29,16 @@ export function airProps() {
         // console.log('On Cancel')
       },
     },
+
+    /**
+     * # 弹窗的回调事件,不关闭弹窗
+     */
+    onCallback: {
+      type: Function,
+      default: () => () => {
+        // console.log('On Cancel')
+      },
+    },
   }
 }
 

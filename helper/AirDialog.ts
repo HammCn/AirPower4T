@@ -37,7 +37,7 @@ export class AirDialog {
         app = undefined
       }
     }
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       if (app) {
         return
       }
@@ -47,8 +47,12 @@ export class AirDialog {
           unmount()
           resolve(p)
         },
-        onCancel: () => {
+        onCallback: async (result: IJson) => {
+          reject(result)
+        },
+        onCancel: (error: IJson) => {
           unmount()
+          reject(error)
         },
         ...param,
       }

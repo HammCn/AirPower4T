@@ -8,6 +8,7 @@ import { IUseEditorOption } from '../interface/IUseEditorOption'
 import { IUseEditorResult } from '../interface/IUseEditorResult'
 import { useAirDetail } from './useAirDetail'
 import { IJson } from '../interface/IJson'
+import { AirConfig } from '../config/AirConfig'
 
 /**
  * # 引入Editor的Hook
@@ -32,8 +33,16 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
       }
       postData = result
     }
-    const id = await result.service.save(postData, option.successMessage || (postData.id ? `修改${result.formData.value.getClassName()}成功` : `添加${result.formData.value.getClassName()}成功`))
-    props.onConfirm(id)
+    try {
+      const id = await result.service.save(postData, option.successMessage || (postData.id ? `修改${result.formData.value.getClassName()}成功` : `添加${result.formData.value.getClassName()}成功`))
+      props.onConfirm(id)
+    } catch (e: unknown) {
+      if ((e as IJson).code === AirConfig.continueCode) {
+        if (option.successAndContinue) {
+          option.successAndContinue(e as IJson)
+        }
+      }
+    }
   }
 
   const title = computed(() => ((result.formData.value.id ? '修改' : '新增') + result.formData.value.getClassName()))

@@ -9,6 +9,7 @@ import { AirHttpMethod } from '../enum/AirHttpMethod'
 import { AirConfig } from '../config/AirConfig'
 import { AirModel } from '../base/AirModel'
 import { IJson } from '../interface/IJson'
+import { AirAlert } from '../feedback/AirAlert'
 
 /**
  * # 网络请求类
@@ -193,6 +194,13 @@ export class AirHttp {
           case AirConfig.successCode:
             // 成功
             data(res.data[AirConfig.httpDataKey])
+            break
+          case AirConfig.continueCode:
+            // 需要继续操作
+            if (!this.errorCallback) {
+              AirAlert.success(res.data[AirConfig.httpMessageKey] || '部分操作成功，请继续操作', '继续操作')
+            }
+            error(res.data)
             break
           case AirConfig.unAuthorizeCode:
             // 需要登录

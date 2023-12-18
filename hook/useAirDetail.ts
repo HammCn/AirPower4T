@@ -23,8 +23,8 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
   const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
 
   async function getDetail() {
-    if (props.param.id) {
-      formData.value = await service.getDetail(props.param.id)
+    if (formData.value.id) {
+      formData.value = await service.getDetail(formData.value.id)
 
       if (option.afterGetDetail) {
         const result = option.afterGetDetail(formData.value)

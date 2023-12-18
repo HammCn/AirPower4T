@@ -10,6 +10,11 @@ export enum AirCode {
   SUCCESS = 200,
 
   /**
+   * # 继续操作
+   */
+  CONTINUE = 201,
+
+  /**
    * # 需要跳转到登录
    */
   UNAUTHORIZED = 401,

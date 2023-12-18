@@ -206,6 +206,11 @@ export class AirConfig {
   static successCode: AirCode | number = AirCode.SUCCESS
 
   /**
+   * # 全局http请求返回 继续状态码
+   */
+  static continueCode: AirCode | number = AirCode.CONTINUE
+
+  /**
    * # 全局http请求返回 登录状态码
    */
   static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
