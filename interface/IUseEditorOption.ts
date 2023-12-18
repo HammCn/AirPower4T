@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { AirEntity } from '../base/AirEntity'
-import { IJson } from './IJson'
 import { IUseDetailOption } from './IUseDetailOption'
 import { IValidateRule } from './IValidateRule'
 
@@ -30,5 +29,5 @@ export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<
   /**
    * # 请求要求继续操作
    */
-  successAndContinue?: (result: IJson) => void
+  successAndContinue?: (data: E) => void
 }

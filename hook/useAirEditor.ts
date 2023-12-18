@@ -39,7 +39,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     } catch (e: unknown) {
       if ((e as IJson).code === AirConfig.continueCode) {
         if (option.successAndContinue) {
-          option.successAndContinue(e as IJson)
+          option.successAndContinue(AirClassTransformer.parse((e as IJson).data, entityClass))
         }
       }
     }
