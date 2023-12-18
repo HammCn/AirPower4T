@@ -31,7 +31,7 @@
         :reserve-selection="true"
       />
       <el-table-column
-        v-if="!hideIndex"
+        v-if="!AirConfig.hideTableIndex && !hideIndex"
         type="index"
         label="序号"
         fixed="left"

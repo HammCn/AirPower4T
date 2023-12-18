@@ -418,6 +418,13 @@ export class AirConfig {
   static arraySplitor = ','
 
   /**
+   * # 隐藏表格序号列
+   * ---
+   * 💡 如设置为 `true`， 则全局隐藏, `ATable` 传入的 `hideIndex` 失效
+   */
+  static hideTableIndex = false
+
+  /**
    * # AES加解密使用的key
    */
   static cryptoKey = 'abcdef0123456789'
