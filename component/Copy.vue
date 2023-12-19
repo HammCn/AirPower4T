@@ -8,7 +8,7 @@
   </el-link>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { PropType, ref } from 'vue'
 import { AirStore } from '../store/AirStore'
 import { AirClipboard } from '../helper/AirClipboard'
 
@@ -17,8 +17,8 @@ const props = defineProps({
    * # 复制的内容
    */
   content: {
-    type: String,
-    default: '',
+    type: Object as PropType<string | number>,
+    required: true,
   },
 })
 
@@ -44,7 +44,7 @@ async function copy() {
   if (!props.content) {
     return
   }
-  await AirClipboard.copy(props.content)
+  await AirClipboard.copy(props.content.toString())
   copyTips.value = '成功复制到剪切板!'
   AirStore().tooltip = copyTips.value
   clearTimeout(timer)
