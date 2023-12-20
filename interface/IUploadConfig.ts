@@ -69,4 +69,9 @@ export interface IUploadConfig {
    * ### 💡 如为实体对象, 请自行 ```.toJson()```
    */
   data?: IJson
+
+  /**
+   * # 上传文件时同时传输的header数据
+   */
+  header?: IJson
 }

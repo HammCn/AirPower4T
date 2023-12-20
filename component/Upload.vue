@@ -52,7 +52,6 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
 import { IFile } from '../interface/IFile'
-import { AirCode } from '../enum/AirCode'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 
@@ -156,9 +155,17 @@ const props = defineProps({
   },
 
   /**
-   * # 上传文件同时发送的数据
-   */
+ * # 上传文件同时发送的数据
+ */
   data: {
+    type: Object as PropType<IJson>,
+    default: () => null,
+  },
+
+  /**
+ * # 上传文件同时发送的header
+ */
+  header: {
     type: Object as PropType<IJson>,
     default: () => null,
   },
@@ -180,6 +187,10 @@ const url = computed(() => props.uploadUrl || AirConfig.uploadUrl)
 const uploadHeader = ref({
   Authorization: AirConfig.getAccessToken(),
 } as IJson)
+
+if (props.header) {
+  Object.assign(uploadHeader.value, props.header)
+}
 
 /**
  * # 上传验证
@@ -224,7 +235,7 @@ function onUploadSuccess(result: IJson) {
     onUploadError()
     return
   }
-  if (result.code === AirCode.SUCCESS) {
+  if (result.code === AirConfig.successCode) {
     AirNotification.success(props.uploadSuccess, '上传成功')
     if (props.onCustomSuccess) {
       props.onCustomSuccess(result.data)
