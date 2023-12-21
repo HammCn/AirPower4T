@@ -1,5 +1,20 @@
 # AirPower4T 版本发布日志
 
+## v1.1.1
+
+### 🎉 Features:
+
+- feat(Http): 添加了允许携带`Cookies`请求的方法
+- feat(Config): 支持了全局隐藏表格序号`hideTableIndex`
+- feat(Http): 支持了部分成功后继续操作功能`continue`
+- feat(Upload): 支持了自定义`Header`请求参数
+- feat(Table): 支持了前置显示文本`prefixText`参数
+
+### 🐞 Bug fixes:
+
+- fix(Table): 优化了一些`Table`组件的样式
+- fix(Copy): 修复`Number`类数据无法复制的BUG
+
 ## v1.1.0
 
 ### 🎉 Features:
