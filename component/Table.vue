@@ -59,6 +59,10 @@
               :data="(scope as any).row"
               :index="(scope as any).$index"
             >
+              <span
+                v-if="item.prefixText"
+                style="color:#aaa;margin-right: 3px;"
+              >{{ item.prefixText }}</span>
               <!-- 自动读取枚举 -->
               <div
                 v-if="item.dictionary || getDictionary(entityInstance, item.key)"

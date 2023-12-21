@@ -75,6 +75,13 @@ export interface ITableFieldConfig extends IFieldConfig {
   align?: 'right' | 'left' | 'center';
 
   /**
+   * # 前置文字
+   * ---
+   * 💡 一般用于显示一些类似 ¥ 的文本
+   */
+  prefixText?: string;
+
+  /**
    * # 后置文字
    * ---
    * 💡 一般用于显示一些类似 单位 的文本

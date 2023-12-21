@@ -34,6 +34,8 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   align: 'right' | 'left' | 'center' = 'left'
 
+  prefixText?: string
+
   suffixText?: string
 
   payloadField?: string
