@@ -59,4 +59,8 @@ export interface ISearchFieldConfig extends IFieldConfig {
    */
   dataType?: AirSearchDataType;
 
+  /**
+   * # 搜索宽度
+   */
+  width?: string
 }

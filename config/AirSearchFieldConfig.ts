@@ -27,4 +27,6 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
   dataType = AirSearchDataType.TEXT
 
   filterable = true
+
+  width = '200px'
 }

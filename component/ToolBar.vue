@@ -24,206 +24,94 @@
     <div class="air-tool-bar--right">
       <slot name="beforeSearch" />
       <template v-if="isSearchEnabled">
-        <el-input
-          v-model="keyword"
-          v-tip="searchPlaceholder"
-          :placeholder="placeholderForSearch"
-          class="keyword"
-          @keydown.enter="onSearch"
+        <template
+          v-for=" item in searchFieldList "
+          :key="item.key"
         >
-          <template #suffix>
-            <el-icon
-              v-if="keyword"
-              style="margin-right:6px;"
-              @click="keyword = ''; onSearch()"
-            >
-              <CircleClose />
-            </el-icon>
-            <el-icon
-              style="vertical-align: middle"
-              @click="onSearch"
-            >
-              <Search />
-            </el-icon>
-          </template>
-        </el-input>
-      </template>
-      <template v-if="isFilterEnabled">
-        <div class="advance-search">
-          <el-button
-            :class="searchAnimation"
-            @click.stop=" keyword = ''; showDialog = !showDialog"
-          >
-            <i class="airpower icon-commonicon_gengduoshaixuan" />{{ searchTitle }}
-          </el-button>
           <div
-            v-if="showDialog"
-            class="advance-search-bg"
-            :title="'点击关闭' + searchTitle"
-            @click="hideFilterDialog"
-          />
-          <transition name="search">
-            <div
-              v-if="showDialog"
-              class="advance-search-dialog"
+            v-if="!item.hide"
+            class="item"
+            :style="{ width: item.width + 'px' }"
+          >
+            <slot
+              :name="item.key"
+              :data="data"
             >
-              <div class="advance-search-title">
-                <div class="advance-search-title-label">
-                  {{ searchTitle }}
-                </div>
-                <div
-                  class="advance-search-title-close"
-                  @click="hideFilterDialog"
-                >
-                  <i class="airpower icon-commonicon_guanbi" />
-                </div>
-              </div>
-              <div class="advance-search-form">
-                <el-form
-                  ref="formRef"
-                  label-width="auto"
-                  :model="filter"
-                >
-                  <template
-                    v-for=" item in searchFieldList "
-                    :key="item.key"
-                  >
-                    <el-form-item
-                      v-if="!item.hide"
-                      :label="item.label"
-                    >
-                      <slot
-                        :name="item.key"
-                        :data="filter"
-                      >
-                        <template v-if="item.between">
-                          <el-date-picker
-                            v-if="item.betweenType === AirBetweenType.DATE"
-                            v-model="filter[item.key]"
-                            :editable="false"
-                            type="daterange"
-                            range-separator="至"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期"
-                            format="YYYY/MM/DD"
-                            value-format="x"
-                            :default-time="[
-                              new Date(1991, 10, 3, 0, 0, 0),
-                              new Date(1991, 10, 3, 23, 59, 59),
-                            ]
-                            "
-                          />
-                          <el-time-picker
-                            v-if="item.betweenType === AirBetweenType.TIME"
-                            v-model="filter[item.key]"
-                            is-range
-                            arrow-control
-                            :editable="false"
-                            range-separator="至"
-                            start-placeholder="开始时间"
-                            end-placeholder="结束时间"
-                            value-format="HH:mm:ss"
-                          />
-                          <el-date-picker
-                            v-if="item.betweenType === AirBetweenType.DATETIME"
-                            v-model="filter[item.key]"
-                            type="datetimerange"
-                            range-separator="至"
-                            start-placeholder="开始时间"
-                            end-placeholder="结束时间"
-                            format="YYYY/MM/DD HH:mm:ss"
-                            :editable="false"
-                            value-format="x"
-                            :default-time="[
-                              new Date(1991, 10, 3, 0, 0, 0),
-                              new Date(1991, 10, 3, 23, 59, 59),
-                            ]
-                            "
-                          />
-
-                          <el-slider
-                            v-if="item.betweenType === AirBetweenType.NUMBER"
-                            v-model="filter[item.key]"
-                            range
-                            :min="item.betweenMin ?? 0"
-                            :max="item.betweenMax ?? 100"
-                          />
-                        </template>
-
-                        <el-select
-                          v-else-if="item.dictionary && item.dictionary.length > 0"
-                          v-model="filter[item.key]"
-                          :placeholder="'请选择' + item.label + '...'"
-                          clearable
-                          :filterable="item.filterable"
-                          @clear=" filter[item.key] = undefined"
-                        >
-                          <template v-for=" enumItem of item.dictionary ">
-                            <el-option
-                              v-if="!enumItem.disabled"
-                              :key="(enumItem.key as string)"
-                              :value="enumItem.key"
-                              :label="enumItem.label"
-                            />
-                          </template>
-                        </el-select>
-
-                        <el-select
-                          v-else-if="getDictionary(entityInstance, item.key)"
-                          v-model="filter[item.key]"
-                          :placeholder="'请选择' + item.label + '...'"
-                          clearable
-                          :filterable="item.filterable"
-                          @clear=" filter[item.key] = undefined"
-                        >
-                          <template v-for=" enumItem of getDictionary(entityInstance, item.key) ">
-                            <el-option
-                              v-if="!enumItem.disabled"
-                              :key="(enumItem.key as string)"
-                              :value="enumItem.key"
-                              :label="enumItem.label"
-                            />
-                          </template>
-                        </el-select>
-                        <el-input-number
-                          v-else-if="item.dataType === AirSearchDataType.NUMBER"
-                          v-model.number="filter[item.key]"
-                          :placeholder="'请输入' + item.label + '...'"
-                          :type="getInputType(item)"
-                          :controls="false"
-                        />
-                        <el-input
-                          v-else
-                          v-model="filter[item.key]"
-                          :placeholder="'请输入' + item.label + '...'"
-                          clearable
-                          :type="getInputType(item)"
-                          @clear=" filter[item.key] = undefined"
-                        />
-                      </slot>
-                    </el-form-item>
-                  </template>
-                </el-form>
-              </div>
-              <div class="advance-search-footer">
-                <el-button
-                  type="primary"
-                  @click="onFilterConfirm"
-                >
-                  确定筛选
-                </el-button>
-                <el-button
-                  @click="
-                    onResetSearch();
-                    hideFilterDialog()
+              <template v-if="item.between">
+                <el-date-picker
+                  v-if="item.betweenType === AirBetweenType.DATE"
+                  v-model="data[item.key]"
+                  :editable="false"
+                  type="daterange"
+                  range-separator="至"
+                  :start-placeholder="item.label + ''"
+                  end-placeholder="结束"
+                  format="YYYY/MM/DD"
+                  value-format="x"
+                  :default-time="[
+                    new Date(1991, 10, 3, 0, 0, 0),
+                    new Date(1991, 10, 3, 23, 59, 59),
+                  ]
                   "
-                >
-                  重置筛选
-                </el-button>
-              </div>
-            </div>
-          </transition>
-        </div>
+                />
+                <el-time-picker
+                  v-if="item.betweenType === AirBetweenType.TIME"
+                  v-model="data[item.key]"
+                  is-range
+                  arrow-control
+                  :editable="false"
+                  range-separator="至"
+                  :start-placeholder="item.label + ''"
+                  end-placeholder="结束"
+                  value-format="HH:mm:ss"
+                />
+                <el-date-picker
+                  v-if="item.betweenType === AirBetweenType.DATETIME"
+                  v-model="data[item.key]"
+                  type="datetimerange"
+                  range-separator="至"
+                  :start-placeholder="item.label + ''"
+                  end-placeholder="结束"
+                  format="YYYY/MM/DD HH:mm:ss"
+                  :editable="false"
+                  value-format="x"
+                  :default-time="[
+                    new Date(1991, 10, 3, 0, 0, 0),
+                    new Date(1991, 10, 3, 23, 59, 59),
+                  ]
+                  "
+                />
+              </template>
+              <el-select
+                v-else-if="item.dictionary || getDictionary(entityInstance, item.key)"
+                v-model="data[item.key]"
+                :placeholder="item.label + '...'"
+                clearable
+                :filterable="item.filterable"
+                @clear=" data[item.key] = undefined"
+                @change="onSearch()"
+              >
+                <template v-for="enumItem of item.dictionary || getDictionary(entityInstance, item.key)">
+                  <el-option
+                    v-if="!enumItem.disabled"
+                    :key="(enumItem.key as string)"
+                    :value="enumItem.key"
+                    :label="enumItem.label"
+                  />
+                </template>
+              </el-select>
+              <el-input
+                v-else
+                v-model="data[item.key]"
+                clearable
+                :placeholder="item.label + '...'"
+                @clear="onSearch"
+                @change="onSearch"
+                @keydown.enter="onSearch"
+              />
+            </slot>
+          </div>
+        </template>
       </template>
       <AButton
         v-if="showExport"
@@ -248,11 +136,9 @@ import { AButton } from '../component'
 import { AirDialog } from '../helper/AirDialog'
 import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
-import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirFormInstance } from '../type/AirType'
 import { AirBetweenType } from '../enum/AirBetweenType'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
@@ -262,8 +148,8 @@ import { AirRequestPage } from '../model/AirRequestPage'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { IJson } from '../interface/IJson'
-import { getDictionary } from '../decorator/Custom'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import { getDictionary } from '../decorator/Custom'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 
@@ -475,29 +361,15 @@ const entityInstance = computed(() => {
 })
 
 /**
- * 表单
+ * 查询数据
  */
-const formRef = ref<AirFormInstance>()
-
-/**
- * 是否显示高级搜索表单
- */
-const showDialog = ref(false)
-
-/**
- * 高级搜索按钮动画
- */
-const searchAnimation = ref('')
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const data = ref({} as Record<string, any>)
 
 /**
  * 内部使用的配置
  */
 const entityConfig = computed(() => getEntityConfig(entityInstance.value))
-
-/**
- * 高级搜索按钮标题
- */
-const searchTitle = '更多筛选'
 
 /**
  * 查询对象
@@ -510,19 +382,9 @@ const request = ref(new AirRequestPage(props.entity))
 const addTitle = computed(() => entityConfig.value.addTitle || (`添加${entityInstance.value.getClassName()}`))
 
 /**
- * 搜索框提示文字
- */
-const placeholderForSearch = computed(() => props.searchPlaceholder || entityConfig.value.searchPlaceholder || AirConfig.searchPlaceholder)
-
-/**
  * 是否显示搜索框
  */
-const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.showSearch ?? false)
-
-/**
- * 是否显示更多筛选器
- */
-const isFilterEnabled = computed(() => props.showFilter ?? entityConfig.value.showFilter ?? false)
+const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.showSearch ?? true)
 
 /**
  * 为URL拼接AccessToken
@@ -600,28 +462,23 @@ const filter = ref({} as IJson)
  * 查询用的关键词
  */
 const keyword = ref('')
-
 /**
- * 高级搜索
- */
-function onFilterConfirm() {
-  // 删除关键词搜索数据
-  keyword.value = ''
-  request.value.keyword = keyword.value
-  request.value.filter = AirClassTransformer.newInstance(props.entity).recoverBy(filter.value)
-  emits('onSearch', request.value)
-}
-
-/**
- * 关键词搜索
+ * 查询事件
  */
 function onSearch() {
-  // 删除高级搜索的数据
-  filter.value = {}
-  request.value.keyword = keyword.value
-  request.value.exclude('filter')
-  emits('onReset')
-  emits('onSearch', request.value)
+  const request = new AirRequest(props.entity)
+  const keys = Object.keys(data.value)
+  keys.forEach((key) => {
+    if (data.value[key] === '') {
+      data.value[key] = undefined
+    }
+  })
+  request.filter = AirClassTransformer.newInstance(props.entity).recoverBy(data.value)
+  if ((request as AirRequestPage<AirEntity>).page) {
+    (request as AirRequestPage<AirEntity>).page.pageNum = 1
+  }
+  request.keyword = keyword.value.trimEnd().trimStart()
+  emits('onSearch', request)
 }
 
 /**
@@ -670,31 +527,6 @@ async function onImport() {
 }
 
 /**
- * 获取输入的类型
- */
-function getInputType(item: AirSearchFieldConfig) {
-  switch (item.dataType) {
-    case AirSearchDataType.TEXTAREA:
-      return 'textarea'
-    case AirSearchDataType.NUMBER:
-      return 'number'
-    default:
-      return 'text'
-  }
-}
-
-/**
- * 隐藏高级搜索(触发动画)
- */
-function hideFilterDialog() {
-  showDialog.value = false
-  searchAnimation.value = 'search-button-animation'
-  setTimeout(() => {
-    searchAnimation.value = ''
-  }, 500)
-}
-
-/**
  * 暴露一个重置搜索的方法
  */
 defineExpose({ resetSearch: onResetSearch })
@@ -703,8 +535,10 @@ defineExpose({ resetSearch: onResetSearch })
 
 <style lang="scss">
 .air-tool-bar {
-  padding: 0 0 20px 0;
+  padding: 0 0 10px 0;
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 
   .el-button+.el-button {
     margin-left: 5px;
@@ -724,7 +558,6 @@ defineExpose({ resetSearch: onResetSearch })
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex: 1;
 
     .airpower {
       margin-right: 5px;
@@ -736,132 +569,32 @@ defineExpose({ resetSearch: onResetSearch })
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap-reverse;
 
     .keyword {
+      width: 240px;
+    }
+
+    >* {
+      margin: 0px 2px;
+      margin-bottom: 5px;
+    }
+
+    .el-input,
+    .el-select {
       cursor: pointer;
-      width: 300px;
-      margin-right: 5px;
-
-      .el-icon {
-        transition: all 0.3s;
-      }
-
-      .el-icon:hover {
-        color: var(--primary-color);
-      }
+      border: none;
     }
 
-    .advance-search-bg {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.05);
-      z-index: 10001;
+    .item {
+      display: flex;
+      width: 200px;
     }
 
-    .search-button-animation {
-      animation: jump-in 0.2s infinite;
-      animation-delay: 0.3s;
+    .el-date-editor--datetimerange,
+    .el-date-editor--daterange {
+      flex: 1;
     }
-
-    .advance-search {
-      position: relative;
-
-      .airpower {
-        margin-right: 5px;
-      }
-
-      .advance-search-dialog {
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        z-index: 10002;
-        background: white;
-        box-shadow: 0px 0px 20px rgb(0 0 0 / 20%);
-        border-radius: 6px;
-        max-height: 500px;
-        display: flex;
-        flex-direction: column;
-        min-width: 500px;
-
-        .advance-search-title {
-          padding: 15px 15px 20px 20px;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-        }
-
-        .advance-search-title-label {
-          flex: 1;
-        }
-
-        .advance-search-title-close {
-          transition: all 0.3s;
-          cursor: pointer;
-          font-size: 18px;
-        }
-
-        .advance-search-title-close:hover {
-          color: var(--primary-color);
-        }
-
-        .advance-search-form {
-          flex: 1;
-          height: 0;
-          overflow: hidden;
-          overflow-y: auto;
-          padding: 20px;
-          border-top: 1px solid #eee;
-          border-bottom: 1px solid #eee;
-
-          .el-input,
-          .el-input-number {
-            max-width: 100% !important;
-          }
-
-        }
-
-        .advance-search-footer {
-          padding: 15px;
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-end;
-        }
-      }
-    }
-
-    .el-button-group {
-      display: inline-flex;
-    }
-
-    &--search {
-      width: 300px;
-
-      .el-input-group__append {
-        background-color: transparent;
-
-        &:hover {
-          color: #f39800;
-        }
-      }
-
-      .el-input__inner {
-        &:focus {
-          border-color: var(--el-input-hover-border,
-              var(--el-border-color-hover)) !important;
-        }
-      }
-    }
-  }
-
-  .search-btn {
-    margin: 0 10px;
-  }
-
-  .reset-btn {
-    margin-left: 0px;
   }
 }
 </style>
