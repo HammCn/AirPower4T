@@ -21,5 +21,10 @@ import image from '../assets/img/empty.svg'
   right: 0;
   top: 0;
   bottom: 0;
+
+  ::v-deep(.el-empty__image) {
+    width: 80px;
+    height: 80px;
+  }
 }
 </style>
