@@ -122,7 +122,6 @@ defineProps({
       overflow: hidden;
       width: 0;
       margin: 0 20px;
-      background-color: red;
     }
   }
 

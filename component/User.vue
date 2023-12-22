@@ -2,7 +2,7 @@
   <div class="air-user">
     <el-image
       class="air-user-head"
-      :src="user.avatar || defaultAvatar"
+      :src="userAvatar"
       @click="isDialogShow = true"
     />
     <div
@@ -47,15 +47,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { PropType, ref } from 'vue'
+import { PropType, computed, ref } from 'vue'
 import { SwitchButton } from '@element-plus/icons-vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { IUser } from '../interface/IUser'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
 import defaultAvatar from '@/assets/img/logo-avatar.png'
+import { AirFile } from '../helper/AirFile'
 
-defineProps({
+const props = defineProps({
   /**
    * # 用户信息
    */
@@ -82,6 +83,13 @@ defineProps({
 })
 
 const isDialogShow = ref(false)
+
+const userAvatar = computed(() => {
+  if (props.user.avatar) {
+    return AirFile.getStaticFileUrl(props.user.avatar)
+  }
+  return defaultAvatar
+})
 
 /**
  * 退出登录
