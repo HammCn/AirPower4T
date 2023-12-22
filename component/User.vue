@@ -1,9 +1,8 @@
 <template>
   <div class="air-user">
-    <el-avatar
+    <el-image
       class="air-user-head"
-      :size="36"
-      :src="user.avatar || ''"
+      :src="user.avatar || defaultAvatar"
       @click="isDialogShow = true"
     />
     <div
@@ -54,6 +53,7 @@ import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { IUser } from '../interface/IUser'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
+import defaultAvatar from '@/assets/img/logo-avatar.png'
 
 defineProps({
   /**
@@ -102,8 +102,12 @@ async function logout() {
   position: relative;
 
   .air-user-head {
-
+    border-radius: 8px;
     cursor: pointer;
+    width: 36px;
+    height: 36px;
+    background-color: #eee;
+    overflow: hidden;
   }
 
   .air-user-cover {
