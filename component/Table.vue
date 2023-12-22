@@ -1040,14 +1040,6 @@ init()
     display: inherit;
   }
 
-  .el-table__placeholder {
-    display: none;
-  }
-
-  .el-table__indent {
-    margin-right: 5px;
-  }
-
   .el-table__empty-text {
     line-height: 40px;
   }
