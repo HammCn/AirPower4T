@@ -13,6 +13,7 @@
     </div>
     <div class="air-main">
       <div
+        v-if="!hideMenu"
         class="air-left"
         :style="{ width: menuWidth + 'px' }"
       >
@@ -64,6 +65,14 @@ defineProps({
   uniqueOpened: {
     type: Boolean,
     default: true,
+  },
+
+  /**
+   * # 是否隐藏菜单
+   */
+  hideMenu: {
+    type: Boolean,
+    default: false,
   },
 })
 
