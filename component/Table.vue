@@ -575,10 +575,10 @@ const isForceDelete = ref(false)
  */
 watch(() => AirStore().controlKeyDown, () => {
   isForceDelete.value = !!(AirStore().controlKeyDown
-      && !props.customDelete
-      && !props.hideDelete
-      && props.dataList
-      && props.dataList.length > 0)
+    && !props.customDelete
+    && !props.hideDelete
+    && props.dataList
+    && props.dataList.length > 0)
 })
 
 /**
@@ -633,10 +633,11 @@ function updateSelectedFieldList() {
   selectedFieldList.value = (allFieldList.value || []).filter(
     (item) => !item.removed && !item.hide,
   ).map((item) => item.key)
-
-  const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}`) || '[]')
-  if (fieldListCache.length > 0 && !props.hideFieldSelector) {
-    selectedFieldList.value = fieldListCache
+  if (AirConfig.tableFieldCacheEnabled) {
+    const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}`) || '[]')
+    if (fieldListCache.length > 0 && !props.hideFieldSelector) {
+      selectedFieldList.value = fieldListCache
+    }
   }
 }
 

@@ -409,6 +409,11 @@ export class AirConfig {
   static pageSizes = [20, 30, 50]
 
   /**
+   * # 是否开启表格列字段缓存
+   */
+  static tableFieldCacheEnabled = true
+
+  /**
    * # 默认的表格空数据兜底字符串
    * ---
    * 💡 ```@TableField``` 装饰器中可以单独配置 ```emptyValue```,
