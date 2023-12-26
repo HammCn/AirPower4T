@@ -12,7 +12,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.1.0'
+  static readonly version = 'v1.1.1'
 
   /**
    * # AppKey
@@ -96,6 +96,11 @@ export class AirConfig {
    * # 全局http请求返回 成功状态码
    */
   static successCode: AirCode | number = AirCode.SUCCESS
+
+  /**
+   * # 全局http请求返回 继续状态码
+   */
+  static continueCode: AirCode | number = AirCode.CONTINUE
 
   /**
    * # 全局http请求返回 登录状态码

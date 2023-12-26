@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirAlert } from '../feedback/AirAlert'
 
+/**
+ * # 断言判断提示
+ *
+ * @author Hamm
+ */
 export class AirAssert {
   /**
    * # 断言条件成立时抛出异常
