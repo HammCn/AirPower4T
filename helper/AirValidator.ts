@@ -23,24 +23,24 @@ export class AirValidator {
    * # 验证是否邮箱
    * @param str 邮箱
    */
-  static isEmail(str: string): boolean {
-    return /^[a-zA-Z0-9]+(\.([a-zA-Z0-9]+)){0,}@[a-zA-Z0-9]+(\.([a-zA-Z0-9]+)){1,}$/.test(str)
+  static isEmail(email: string): boolean {
+    return /^[a-zA-Z0-9]+(\.([a-zA-Z0-9]+))*@[a-zA-Z0-9]+(\.([a-zA-Z0-9]+))+$/.test(email)
   }
 
   /**
    * # 验证是否手机号里
    * @param str 号码
    */
-  static isMobilePhone(str: string): boolean {
-    return /^(\+(\d{1,4})){0,1}1[3-9](\d{9})$/.test(str)
+  static isMobilePhone(num: string): boolean {
+    return /^(\+(\d{1,4}))?1[3-9](\d{9})$/.test(num)
   }
 
   /**
    * # 验证是否座机号
    * @param str 号码
    */
-  static isTelphone(str: string): boolean {
-    return /^(((0\d{2,3})-){0,1}((\d{7,8})|(400\d{7})|(800\d{7}))(-(\d{1,4})){0,1})$/.test(str)
+  static isTelphone(num: string): boolean {
+    return /^(((0\d{2,3})-)?((\d{7,8})|(400\d{7})|(800\d{7}))(-(\d{1,4}))?)$/.test(num)
   }
 
   /**
@@ -72,7 +72,7 @@ export class AirValidator {
    * @param str 字符串
      */
   static isNumber(str: string): boolean {
-    return /^(-){0,1}[0-9]+((.)[0-9]+){0,1}$/.test(str)
+    return /^(-)?[0-9]+((.)[0-9]+)?$/.test(str)
   }
 
   /**
@@ -80,7 +80,7 @@ export class AirValidator {
    * @param str 字符串
    */
   static isInteger(str: string): boolean {
-    return /^(-){0,1}[0-9]+$/.test(str)
+    return /^(-)?[0-9]+$/.test(str)
   }
 
   /**
@@ -88,7 +88,7 @@ export class AirValidator {
    * @param str 字符串
    */
   static isNaturalNumber(str: string): boolean {
-    return /^[0-9]+((.)[0-9]+){0,1}$/.test(str)
+    return /^[0-9]+((.)[0-9]+)?$/.test(str)
   }
 
   /**

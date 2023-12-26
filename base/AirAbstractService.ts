@@ -23,7 +23,7 @@ export abstract class AirAbstractService extends AirModel {
 
   /**
    * # 获取一个API服务实例
-   * @param loading [可选]Loading的Ref对象
+   * @param loading (可选)Loading的Ref对象
    */
   constructor(loading?: string) {
     super()
@@ -35,10 +35,15 @@ export abstract class AirAbstractService extends AirModel {
   /**
    * # 创建一个AirHttp实例
    * @param url 请求的接口地址
-   * @param baseUrl [可选] 请求的接口目录
+   * @param baseUrl (可选) 请求的接口目录
    */
   api(url: string, baseUrl?: string) {
-    return new AirHttp(url, baseUrl || this.baseUrl).setLoading(this.loading)
+    if (baseUrl) {
+      url = `${baseUrl}/${url}`
+    } else {
+      url = `${this.baseUrl}/${url}`
+    }
+    return new AirHttp(url).setLoading(this.loading)
   }
 
   /**

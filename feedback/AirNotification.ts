@@ -13,7 +13,7 @@ export class AirNotification {
   /**
    * # 通知默认保留时长
    */
-  private duration = 1000
+  private duration = 1500
 
   /**
    * # 创建实例方法

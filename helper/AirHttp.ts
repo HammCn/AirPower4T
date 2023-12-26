@@ -47,14 +47,11 @@ export class AirHttp {
 
   /**
    * # 创建一个HTTP实例
-   * @param url [可选] 请求的地址
+   * @param url (可选) 请求的地址
    */
-  constructor(url?: string, baseUrl?: string) {
+  constructor(url?: string) {
     if (url) {
       this.url = url
-    }
-    if (baseUrl) {
-      this.url = `${baseUrl}/${this.url}`
     }
     this.header[AirConfig.appKeyHeader] = AirConfig.appKey
     this.header[AirConfig.authorizationHeaderKey] = AirConfig.getAccessToken()
@@ -140,7 +137,10 @@ export class AirHttp {
 
   /**
    * # 发送请求
-   * @param json JSON数据
+   *
+   * @param body (可选)请求体
+   * @see post() 直接发送POST
+   * @see get() 直接发送GET
    */
   async send(json: IJson): Promise<any> {
     return new Promise((success, fail) => {
@@ -240,5 +240,26 @@ export class AirHttp {
     }
     this.method = 'POST'
     return this.send(json)
+  }
+
+  /**
+   * # 发送GET请求 只支持简单一维数据
+   * @param params (可选)可携带的参数
+   */
+  get(params?: IJson): Promise<any> {
+    if (params) {
+      const queryArray = []
+      // eslint-disable-next-line guard-for-in
+      for (const key in params) {
+        queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
+      }
+      if (this.url.includes('?')) {
+        this.url += `&${queryArray.join('&')}`
+      } else {
+        this.url += `?${queryArray.join('&')}`
+      }
+    }
+    this.method = 'GET'
+    return this.send({})
   }
 }

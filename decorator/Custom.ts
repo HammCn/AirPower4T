@@ -41,11 +41,30 @@ export function getDictionary(target: any, key: string): AirDictionaryArray<IDic
 const TYPE_KEY = 'Type'
 
 /**
+ * # 标记为数组Key
+ */
+const IS_ARRAY_KEY = 'IsArray'
+
+/**
  * # 标记属性强制转换类
  * @param Clazz 类型
+ * @param isArray (可选)是否是数组
  */
-export function Type(Clazz: any): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TYPE_KEY, Clazz)
+export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
+  return (target: any, key: string) => {
+    AirDecorator.setFieldConfig(target, key, TYPE_KEY, Clazz)
+    AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, isArray)
+  }
+}
+
+/**
+ * # 标记是数组
+ * 可在此配置，但更建议在Type中直接配置第二个参数
+ */
+export function IsArray(): Function {
+  return (target: any, key: string) => {
+    AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
+  }
 }
 
 /**
@@ -57,6 +76,14 @@ export function getType(target: any, key: string): ClassConstructor<unknown> | u
   return AirDecorator.getFieldConfig(target, key, TYPE_KEY) || undefined
 }
 
+/**
+ * # 获取属性是否数组
+ * @param target 目标类
+ * @param key 属性名
+ */
+export function getIsArray(target: any, key: string): boolean {
+  return AirDecorator.getFieldConfig(target, key, IS_ARRAY_KEY)
+}
 /**
  * # 自定义到JSON转换Key
  */
@@ -109,7 +136,7 @@ const DEFAULT_KEY = 'Default'
 /**
  * # 标记JSON转换到模型时属性的默认值
  * ---
- * ### 💡 如标记了 ```@IsArray()``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
+ * ### 💡 如标记了 ```@Type(?, true)``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
  *
  * @param value 默认值
  */
@@ -124,27 +151,6 @@ export function Default(value: any): Function {
  */
 export function getDefault(target: any, key: string): any {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
-}
-
-/**
- * # 标记为数组Key
- */
-const IS_ARRAY_KEY = 'IsArray'
-
-/**
- * # 标记属性是数组
- */
-export function IsArray(): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
-}
-
-/**
- * # 获取属性是否数组
- * @param target 目标类
- * @param key 属性名
- */
-export function getIsArray(target: any, key: string): boolean {
-  return AirDecorator.getFieldConfig(target, key, IS_ARRAY_KEY)
 }
 
 /**
