@@ -3,4 +3,9 @@
  * @author Hamm
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IJson<V = any> = Record<string, V>
+export interface IJson<V = any> {
+  /**
+   * JSON的键
+   */
+  [x: string]: V;
+}
