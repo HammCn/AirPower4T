@@ -4,6 +4,7 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 
 /**
  * # 详情的Hook标准返回
+ * @author Hamm
  */
 export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEntityService<E>> {
   /**

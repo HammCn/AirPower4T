@@ -1,6 +1,10 @@
 import { AirConfig } from '../config/AirConfig'
 import { AirAlert } from '../feedback/AirAlert'
 
+/**
+ * # 内置的Websocket助手
+ * @author Hamm
+ */
 export class AirWebsocket {
   /**
    * # WebSocket实例

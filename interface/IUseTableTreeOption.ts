@@ -1,8 +1,11 @@
 import { ITree } from './ITree'
 import { IUseTableOption } from './IUseTableOption'
 
+/**
+ * # TableTreeList的Hook可选配置
+ * @author Hamm
+ */
 export interface IUseTableTreeOption<T extends ITree> extends IUseTableOption<T> {
-
   /**
    * # 添加行的子项的前置拦截方法
    * ---

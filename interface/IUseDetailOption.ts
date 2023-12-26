@@ -4,9 +4,9 @@ import { AirEntity } from '../base/AirEntity'
 
 /**
  * # Detail的Hook可选配置
+ * @author Hamm
  */
 export interface IUseDetailOption<E extends AirEntity> {
-
   /**
    * # 查到详情后的事件
    * ---

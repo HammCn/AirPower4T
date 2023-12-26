@@ -8,7 +8,6 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
  * @author Hamm
  */
 export interface IUseTableResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
-
   /**
    * # 编辑事件
    *

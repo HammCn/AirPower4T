@@ -3,7 +3,6 @@ import { AirNotification } from '../feedback/AirNotification'
 
 /**
  * # 断言判断提示
- *
  * @author Hamm
  */
 export class AirAssert {

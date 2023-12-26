@@ -7,7 +7,6 @@ import { IJson } from './IJson'
  * @author Hamm
  */
 export interface IUploadConfig {
-
   /**
    * # 对话框标题
    */

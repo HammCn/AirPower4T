@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 /**
  * # 内置的AirPower图标
  * @author Hamm
