@@ -96,6 +96,7 @@ export class AirHttp {
       }
       option.header = this.header
       option.url = option.url || (AirConfig.apiUrl + this.url)
+
       option.complete = () => {
         if (this.loading) {
           AirLoading.hide()
@@ -150,6 +151,7 @@ export class AirHttp {
         }
         console.warn('[HTTP HEADER]', this.header)
         console.warn('[HTTP BODY]', json)
+        console.warn('[HTTP URL]', AirConfig.apiUrl + this.url)
         uni.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
