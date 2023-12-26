@@ -13,6 +13,7 @@ export interface ISearchFieldConfig extends IFieldConfig {
    * # 隐藏搜索
    */
   hide?: boolean;
+
   /**
    * # 排序 越大越靠上边
    */
