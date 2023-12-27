@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 /**
  * # 允许输入的数据类型枚举
  * @author Hamm

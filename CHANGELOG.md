@@ -1,5 +1,21 @@
 # AirPower4T 版本发布日志
 
+## v1.1.2
+
+### 🎉 Features:
+
+- feat(Table): 支持了`tableFieldCacheEnabled`表格列字段缓存配置
+- feat(Frame): 支持通过`hideMenu`参数隐藏左侧菜单
+
+### 🐞 Bug fixes:
+
+- fix(IJson): 修改`IJson`的声明方式为接口
+- fix(Service): 实体服务基类删除提醒失败的问题修复
+- fix(User): 优化了右上角头像部分的样式
+- fix(Search): 优化了搜索的展示方式
+- fix(Empty): 修改占位图片的宽度和高度
+- fix(Table): 树形数据的缩进样式修改
+
 ## v1.1.1
 
 ### 🎉 Features:
