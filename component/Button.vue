@@ -115,7 +115,7 @@ const props = defineProps({
   /**
    * # 是否禁用按钮
    * ---
-   * ### 💡 如传入了 ```permission```, 则优先判断权限
+   * ### 💡 如不禁用，且传入了 ```permission``` 则按权限判断是否禁用 否则不禁用
    */
   disabled: {
     type: Boolean,
@@ -127,11 +127,13 @@ const props = defineProps({
  * 是否禁用
  */
 const isDisabled = computed(() => {
-  if (props.permission) {
-    // 传了标识 查看是否有权限，优先级：基础服务 > 自定义disabled
-    return AirConfig.permissionList.includes(props.permission) ? props.disabled : true
+  if (props.disabled) {
+    return true
   }
-  return props.disabled
+  if (props.permission) {
+    return !AirConfig.permissionList.includes(props.permission)
+  }
+  return false
 })
 
 /**
