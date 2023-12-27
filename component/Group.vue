@@ -98,7 +98,7 @@ function getColumn() {
   if (!props.column || props.column < 1) {
     return 1
   }
-  return Math.min(props.column, 3)
+  return Math.min(props.column, 4)
 }
 
 /**
@@ -159,6 +159,15 @@ function getBodyClass() {
     >* {
       width: 29.3333333%;
       margin: 10px 2%;
+    }
+  }
+
+  .column-4 {
+    display: flex;
+
+    >* {
+      width: 24%;
+      margin: 10px 0.5%;
     }
   }
 
