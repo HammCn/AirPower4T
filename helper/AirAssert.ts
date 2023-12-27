@@ -3,7 +3,6 @@ import { AirAlert } from '../feedback/AirAlert'
 
 /**
  * # 断言判断提示
- *
  * @author Hamm
  */
 export class AirAssert {

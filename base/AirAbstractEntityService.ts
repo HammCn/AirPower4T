@@ -149,7 +149,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param message (可选)删除成功的消息提示内容
    */
   async delete(id: number, message?: string): Promise<void> {
-    this.api(this.urlForDelete).callbackError()
+    await this.api(this.urlForDelete).callbackError()
       .post(this.newEntityInstance(id))
       .then(async () => {
         if (message) {
