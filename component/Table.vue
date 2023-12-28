@@ -166,15 +166,14 @@
         v-if="!hideCtrl || isFieldSelectorEnabled"
         fixed="right"
         align="right"
-        :width="ctrlWidth || 'auto'
-        "
+        :width="ctrlWidth || 'auto'"
       >
         <template #header>
           <div class="custom-header">
             <span
               v-if="!hideCtrl"
               class="custom-header-title"
-            >操作</span>
+            />
             <template v-if="isFieldSelectorEnabled">
               <el-icon
                 v-tip="'配置列字段'"
@@ -482,7 +481,8 @@ const props = defineProps({
    */
   ctrlWidth: {
     type: Number,
-    default: 80,
+    // eslint-disable-next-line vue/require-valid-default-prop
+    default: 'auto',
   },
 
   /**
@@ -1098,12 +1098,6 @@ init()
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-
-    .custom-header-title {
-      flex: 1;
-      text-align: left;
-      margin-left: 3px;
-    }
 
     .air-field-select-icon {
       font-size: 16px;
