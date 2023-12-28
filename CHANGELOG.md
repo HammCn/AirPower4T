@@ -1,5 +1,22 @@
 # AirPower4T 版本发布日志
 
+## v1.1.3
+
+### 🎉 Features:
+
+- feat(KeyEvent): 增加了删除快捷键`5s`内不操作超时
+- feat(Button): 支持了传入`link-button`的文字类按钮
+- feat(Table): 支持了全局`tableLinkButton`指定表格使用文字按钮
+
+### 🐞 Bug fixes:
+
+- fix(Group): 修改展示数据列数上限为`4`
+- fix(Service): 修复删除调用后无阻塞的问题
+- fix(Button): 修复禁用与权限优先级错误的问题
+- fix(Table): 修改表格操作区默认宽度为`auto`
+- fix(Hook): 修复`TableHook`重置分页对象可能为`undefined`的问题
+- fix(Input): 修复`change`事件不返回变更后的值的问题
+
 ## v1.1.2
 
 ### 🎉 Features:
