@@ -225,6 +225,7 @@
                 type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
                 :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
+                tooltip="查看详情"
                 @click="handleDetail((scope as any).row)"
               >
                 详情
@@ -237,6 +238,7 @@
                 :danger="isForceDelete"
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
+                tooltip="删除这条数据"
                 @click="handleDelete((scope as any).row)"
               >
                 删除
