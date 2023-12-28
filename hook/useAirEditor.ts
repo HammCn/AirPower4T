@@ -46,7 +46,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  const title = computed(() => ((result.formData.value.id ? '修改' : '新增') + result.formData.value.getClassName()))
+  const title = computed(() => ((result.formData.value.id ? '编辑' : '新增') + result.formData.value.getClassName()))
 
   return Object.assign(result, {
     title, formRef, rules, onSubmit,

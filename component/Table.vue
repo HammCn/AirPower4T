@@ -200,8 +200,8 @@
                 :icon-button="!linkButton"
                 type="ADD"
                 :disabled="isAddDisabled((scope as any).row)"
-                :tooltip="isAddDisabled((scope as any).row) ? '禁止添加' : '添加'"
                 :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD_CHILD)"
+                tooltip="添加子项"
                 @click="handleAdd((scope as any).row)"
               >
                 添加
@@ -212,8 +212,8 @@
                 :icon-button="!linkButton"
                 type="EDIT"
                 :disabled="isEditDisabled((scope as any).row)"
-                :tooltip="isEditDisabled((scope as any).row) ? '禁止编辑' : '编辑'"
                 :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
+                tooltip="编辑这条数据"
                 @click="handleEdit((scope as any).row)"
               >
                 编辑
@@ -224,7 +224,6 @@
                 :icon-button="!linkButton"
                 type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
-                :tooltip="isDetailDisabled((scope as any).row) ? '禁止查看详情' : '查看详情'"
                 :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
                 @click="handleDetail((scope as any).row)"
               >
@@ -237,7 +236,6 @@
                 type="DELETE"
                 :danger="isForceDelete"
                 :disabled="isDeleteDisabled((scope as any).row)"
-                :tooltip="isDeleteDisabled((scope as any).row) ? '禁止删除' : '删除'"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
                 @click="handleDelete((scope as any).row)"
               >
