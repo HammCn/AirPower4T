@@ -15,6 +15,7 @@
         style="width:100%"
         :readonly="readonly"
         @change="selectEvent"
+        @clear="selectEvent"
         @visible-change="selectEvent"
         @keydown="inputKeyDown"
       />
@@ -31,6 +32,7 @@
         :value-format="fieldConfig.dateFormatter"
         :readonly="readonly"
         @change="selectEvent"
+        @clear="selectEvent"
         @visible-change="selectEvent"
         @keydown="inputKeyDown"
       />
@@ -123,6 +125,7 @@
         collapse-tags-tooltip
         @keydown="inputKeyDown"
         @change="selectEvent"
+        @clear="selectEvent"
       >
         <template v-if="list">
           <el-option
@@ -175,6 +178,7 @@
       :collapse-tags="fieldConfig?.collapseTags"
       collapse-tags-tooltip
       @change="selectEvent"
+      @clear="selectEvent"
       @keydown="inputKeyDown"
     />
     <el-input
@@ -201,6 +205,7 @@
       "
       @keydown="inputKeyDown"
       @change="inputEvent"
+      @clear="selectEvent"
       @blur="inputBlur"
     >
       <template
@@ -537,6 +542,8 @@ function selectEvent() {
 function clearEvent() {
   emits('onClear')
   emits('clear')
+  emits('onChange', value.value)
+  emits('change', value.value)
 }
 
 /**
@@ -557,9 +564,9 @@ function emitValue() {
   if (fieldConfig.value?.number) {
     value.value = parseFloat(value.value?.toString() || '0')
   }
+  emits('update:modelValue', value.value)
   emits('onChange', value.value)
   emits('change', value.value)
-  emits('update:modelValue', value.value)
 }
 
 /**
