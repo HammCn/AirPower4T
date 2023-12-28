@@ -19,10 +19,11 @@
     :class="customClass"
     :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
     :disabled="isDisabled"
+    :link="linkButton"
     @click=" $emit('onClick'); $emit('click')"
   >
     <i
-      v-if="showIcon"
+      v-if="showIcon && !linkButton"
       class="airpower"
       :class="showIcon"
       style="margin-right: 5px;"
@@ -85,9 +86,17 @@ const props = defineProps({
   },
 
   /**
-   * # 是否图标按钮
-   */
+ * # 是否图标按钮
+ */
   iconButton: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+ * # 是否链接按钮
+ */
+  linkButton: {
     type: Boolean,
     default: false,
   },
