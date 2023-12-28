@@ -197,41 +197,53 @@
             <template v-if="!hideCtrl">
               <AButton
                 v-if="showAdd"
-                icon-button
+                :link-button="linkButton"
+                :icon-button="!linkButton"
                 type="ADD"
                 :disabled="isAddDisabled((scope as any).row)"
                 :tooltip="isAddDisabled((scope as any).row) ? '禁止添加' : '添加'"
                 :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD_CHILD)"
                 @click="handleAdd((scope as any).row)"
-              />
+              >
+                添加
+              </AButton>
               <AButton
                 v-if="!hideEdit"
-                icon-button
+                :link-button="linkButton"
+                :icon-button="!linkButton"
                 type="EDIT"
                 :disabled="isEditDisabled((scope as any).row)"
                 :tooltip="isEditDisabled((scope as any).row) ? '禁止编辑' : '编辑'"
                 :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
                 @click="handleEdit((scope as any).row)"
-              />
+              >
+                编辑
+              </AButton>
               <AButton
                 v-if="showDetail"
-                icon-button
+                :link-button="linkButton"
+                :icon-button="!linkButton"
                 type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
                 :tooltip="isDetailDisabled((scope as any).row) ? '禁止查看详情' : '查看详情'"
                 :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
                 @click="handleDetail((scope as any).row)"
-              />
+              >
+                详情
+              </AButton>
               <AButton
                 v-if="!hideDelete"
-                icon-button
+                :link-button="linkButton"
+                :icon-button="!linkButton"
                 type="DELETE"
                 :danger="isForceDelete"
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :tooltip="isDeleteDisabled((scope as any).row) ? '禁止删除' : '删除'"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
                 @click="handleDelete((scope as any).row)"
-              />
+              >
+                删除
+              </AButton>
             </template>
             <!-- 自定义操作列后置插槽 -->
             <slot
@@ -313,6 +325,13 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
 const props = defineProps({
+  /**
+   * # 表格使用链接按钮
+   */
+  linkButton: {
+    type: Boolean,
+    default: AirConfig.tableLinkButton,
+  },
   /**
    * # 行尾编辑按钮的权限标识
    * 如不传入 则默认使用 ```EntityConfig``` 的 ```editPermission``` 配置
@@ -896,6 +915,15 @@ init()
 <style lang="scss">
 .ctrlRow {
   display: flex;
+
+  .el-button--default {
+    font-weight: normal;
+    color: var(--primary-color);
+  }
+
+  .el-button+.el-button {
+    margin-left: 0px;
+  }
 
   .el-link.is-underline:hover:after {
     border-bottom: none;

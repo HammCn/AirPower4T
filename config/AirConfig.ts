@@ -414,6 +414,11 @@ export class AirConfig {
   static tableFieldCacheEnabled = true
 
   /**
+   * # 表格是否使用链接按钮
+   */
+  static tableLinkButton = false
+
+  /**
    * # 默认的表格空数据兜底字符串
    * ---
    * 💡 ```@TableField``` 装饰器中可以单独配置 ```emptyValue```,
