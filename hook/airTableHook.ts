@@ -57,6 +57,9 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   async function onReloadData() {
+    if (!request.value.page) {
+      request.value.page = new AirPage()
+    }
     request.value.page.pageNum = 1
     request.value.filter = AirClassTransformer.newInstance(entityClass)
     onSearch(request.value)
