@@ -53,7 +53,7 @@ import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { IUser } from '../interface/IUser'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
-import defaultAvatar from '@/assets/img/logo-avatar.png'
+import defaultAvatar from '../assets/img/avatar.svg'
 import { AirFile } from '../helper/AirFile'
 
 const props = defineProps({
