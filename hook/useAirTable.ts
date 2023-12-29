@@ -18,7 +18,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
   const result = airTableHook(entityClass, serviceClass, option)
   async function onEdit(row: E) {
     if (!option.editView) {
-      AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
+      await AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
       return
     }
     try {

@@ -20,7 +20,7 @@ export class AirLoading {
   /**
    * # 加载目标
    */
-  private target: string | unknown = document.body
+  private readonly target: string | unknown = document.body
 
   /**
    * # 是否全屏

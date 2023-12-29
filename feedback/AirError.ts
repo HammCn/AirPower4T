@@ -64,8 +64,8 @@ export class AirError {
   /**
    * # 显示错误信息提示
    */
-  show(): void {
-    new AirNotification().setTitle(`发生错误(${this.code})`)
+  async show(): Promise<void> {
+    await new AirNotification().setTitle(`发生错误(${this.code})`)
       .setMessage(this.message)
       .error()
   }
@@ -75,12 +75,14 @@ export class AirError {
    * @param message 错误信息
    * @param code (可选)错误代码
    */
-  static show(message: string, code?: number): void {
+  static async show(message: string, code?: number): Promise<void> {
     if (code) {
-      return this.create().setCode(code)
+      return this.create()
+        .setCode(code)
         .setMessage(message)
         .show()
     }
-    return this.create(message).show()
+    return this.create(message)
+      .show()
   }
 }
