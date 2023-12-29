@@ -109,7 +109,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
     const json = await this.api(this.urlForAdd).post(data)
     if (message) {
-      AirNotification.success(message, title)
+      await AirNotification.success(message, title)
     }
     return AirClassTransformer.parse(json, this.entityClass).id
   }
@@ -123,7 +123,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
     await this.api(this.urlForUpdate).post(data)
     if (message) {
-      AirNotification.success(message, title)
+      await AirNotification.success(message, title)
     }
   }
 
@@ -156,7 +156,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       .post(this.newEntityInstance(id))
       .then(async () => {
         if (message) {
-          AirNotification.success(message, title)
+          await AirNotification.success(message, title)
         }
       })
       .catch(async (err: Error) => {
