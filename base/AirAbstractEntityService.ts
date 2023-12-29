@@ -109,7 +109,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
     const json = await this.api(this.urlForAdd).post(data)
     if (message) {
-      await AirNotification.success(message, title)
+      AirNotification.success(message, title)
     }
     return AirClassTransformer.parse(json, this.entityClass).id
   }
@@ -123,7 +123,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
     await this.api(this.urlForUpdate).post(data)
     if (message) {
-      await AirNotification.success(message, title)
+      AirNotification.success(message, title)
     }
   }
 
@@ -152,16 +152,15 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param title (可选)删除成功的消息提示标题 默认 '删除成功'
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
-    await this.api(this.urlForDelete).callbackError()
-      .post(this.newEntityInstance(id))
-      .then(async () => {
-        if (message) {
-          await AirNotification.success(message, title)
-        }
-      })
-      .catch(async (err: Error) => {
-        await AirAlert.error(err.message, '删除失败')
-      })
+    try {
+      await this.api(this.urlForDelete).callbackError()
+        .post(this.newEntityInstance(id))
+      if (message) {
+        AirNotification.success(message, title)
+      }
+    } catch (err: any) {
+      await AirAlert.error(err.message, '删除失败')
+    }
   }
 
   /**
