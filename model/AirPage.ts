@@ -15,4 +15,11 @@ export class AirPage extends AirModel {
    * # 每页数量
    */
   @Type(Number) pageSize = 20
+
+  /**
+   * # 是否在当前首页
+   */
+  isFirstPage(): boolean {
+    return this.pageNum === 1
+  }
 }
