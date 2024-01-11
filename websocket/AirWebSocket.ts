@@ -74,7 +74,7 @@ export class AirWebsocket {
       return
     }
     const instance = new AirWebsocket()
-    instance.websocket = new WebSocket(`${AirConfig.websocketUrl}?${AirConfig.getAccessToken()}`)
+    instance.websocket = new WebSocket(AirConfig.websocketUrl)
     instance.websocket.onopen = () => {
       instance.isConnected = true
       instance.startHeartBeat()
@@ -91,7 +91,9 @@ export class AirWebsocket {
       instance.isConnected = false
       if (instance.reconnectWhenClosed) {
         // Reconnect when close by exception
-        this.create(handler)
+        setTimeout(() => {
+          this.create(handler)
+        }, 1000)
       }
     }
   }
