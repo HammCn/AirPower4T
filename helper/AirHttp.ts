@@ -58,6 +58,15 @@ export class AirHttp {
   }
 
   /**
+   * # 设置请求方法
+   * @param method 请求方法
+   */
+  setMethod(method: 'GET' | 'POST'): this {
+    this.method = method
+    return this
+  }
+
+  /**
    * # 编辑请求头
    * @param key KEY
    * @param value VALUE
