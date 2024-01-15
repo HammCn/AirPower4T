@@ -188,7 +188,7 @@ export class AirHttp {
                     fail(json)
                     return
                   }
-                  AirAlert.show(json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试')
+                  AirAlert.show('操作失败', json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试')
               }
             } catch (e) {
               console.warn('[HTTP ERROR]', res.data, e)
