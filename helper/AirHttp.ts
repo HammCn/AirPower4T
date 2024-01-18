@@ -189,7 +189,7 @@ export class AirHttp {
                     return
                   }
                   await AirAlert.show('版本更新', json[AirConfig.httpMessageKey])
-                  plus.runtime.openURL(json[AirConfig.httpDataKey].toJson() || AirConfig.updateUrl)
+                  plus.runtime.openURL(json[AirConfig.httpDataKey] || AirConfig.updateUrl)
                   break
                 default:
                   console.warn('[HTTP ERROR]', res.data)
