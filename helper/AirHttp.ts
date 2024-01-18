@@ -166,7 +166,7 @@ export class AirHttp {
           data: json,
           method: this.method,
           header: this.header,
-          success: (res) => {
+          success: async (res) => {
             const json = res.data as IJson
             try {
               switch (json[AirConfig.httpCodeKey]) {
@@ -188,7 +188,8 @@ export class AirHttp {
                     fail(json)
                     return
                   }
-                  plus.runtime.openURL((res.data as IJson).data.toString() || AirConfig.updateUrl)
+                  await AirAlert.show('版本更新', json[AirConfig.httpMessageKey])
+                  plus.runtime.openURL(json[AirConfig.httpDataKey].toJson() || AirConfig.updateUrl)
                   break
                 default:
                   console.warn('[HTTP ERROR]', res.data)
