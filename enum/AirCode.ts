@@ -16,6 +16,11 @@ export enum AirCode {
   CONTINUE = 201,
 
   /**
+   * # 要求重定向或下载
+   */
+  REDIRECT = 301,
+
+  /**
    * # 需要跳转到登录
    */
   UNAUTHORIZED = 401,

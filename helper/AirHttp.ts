@@ -182,6 +182,14 @@ export class AirHttp {
                   }
                   AirConfig.login()
                   break
+                case AirConfig.redirectCode:
+                  console.warn('[HTTP UPDATE]', res.data)
+                  if (this.errorCallback) {
+                    fail(json)
+                    return
+                  }
+                  plus.runtime.openURL(res.data.toString() || AirConfig.updateUrl)
+                  break
                 default:
                   console.warn('[HTTP ERROR]', res.data)
                   if (this.errorCallback) {

@@ -61,6 +61,11 @@ export class AirConfig {
   static staticUrl = ''
 
   /**
+   * # 下载更新的地址
+   */
+  static updateUrl = ''
+
+  /**
    * # 默认的文件上传地址
    */
   static uploadUrl = `${AirConfig.apiUrl}attach/upload`
@@ -106,6 +111,11 @@ export class AirConfig {
    * # 全局http请求返回 登录状态码
    */
   static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
+
+  /**
+   * # 全局http请求返回 要求更新版本
+   */
+  static redirectCode: AirCode | number = AirCode.REDIRECT
 
   /**
    * # 网络请求失败最大重试次数
