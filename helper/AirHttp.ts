@@ -188,7 +188,7 @@ export class AirHttp {
                     fail(json)
                     return
                   }
-                  plus.runtime.openURL(res.data.toString() || AirConfig.updateUrl)
+                  plus.runtime.openURL((res.data as IJson).data.toString() || AirConfig.updateUrl)
                   break
                 default:
                   console.warn('[HTTP ERROR]', res.data)
