@@ -99,6 +99,14 @@ const props = defineProps({
   },
 
   /**
+   * 请求头
+   */
+  headers: {
+    type: Object as PropType<IJson>,
+    default: () => {},
+  },
+
+  /**
    * # 显示上传tips
    */
   showTips: {
@@ -177,6 +185,7 @@ watch(props, () => {
  * # 上传文件的头
  */
 const uploadHeader = ref({} as IJson)
+uploadHeader.value = { ...uploadHeader.value, ...props.headers }
 uploadHeader.value[AirConfig.authorizationHeaderKey] = localStorage.getItem(AirConfig.authorizationHeaderKey)
 
 /**
@@ -218,7 +227,7 @@ function onUploadError() {
  */
 function onUploadSuccess(response: { data: { url: string } }) {
   const entityData = AirClassTransformer.parse(response.data, props.entity)
-  if (entityData && entityData.id && entityData.url) {
+  if (entityData && entityData.url) {
     imageUrl.value = AirFile.getStaticFileUrl(entityData.url)
     emits('onUpload', entityData)
   } else {
