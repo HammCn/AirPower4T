@@ -73,4 +73,9 @@ export interface IUploadConfig {
    * # 上传文件时同时传输的header数据
    */
   header?: IJson
+
+  /**
+   * # 显示的提示文字
+   */
+  tips?: string
 }

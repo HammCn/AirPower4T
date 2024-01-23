@@ -3,7 +3,7 @@
     :title="title"
     :fullable="false"
     hide-cancel
-    min-height="280px"
+    min-height="220px"
     :hide-footer="!confirmText"
     :confirm-text="confirmText"
     class="upload-dialog"
@@ -37,6 +37,12 @@
               <b>{{ exts.join('/') }}</b>文件
             </template>
           </span>
+          <div
+            v-if="tips"
+            class="tips"
+          >
+            {{ tips }}
+          </div>
         </div>
       </el-upload>
     </div>
@@ -169,6 +175,14 @@ const props = defineProps({
     type: Object as PropType<IJson>,
     default: () => null,
   },
+
+  /**
+   * 显示的提示文字
+   */
+  tips: {
+    type: String,
+    default: '',
+  },
 })
 
 /**
@@ -296,6 +310,16 @@ function onUploadSuccess(result: IJson) {
               margin: 0 3px;
             }
           }
+
+          .tips {
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            color: orangered;
+            font-size: 14px;
+          }
         }
 
         .el-upload-dragger {
@@ -303,6 +327,12 @@ function onUploadSuccess(result: IJson) {
         }
       }
     }
+  }
+}
+
+::v-deep(.air-dialog) {
+  .main {
+    min-height: 200px !important;
   }
 }
 </style>
