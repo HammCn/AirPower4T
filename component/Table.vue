@@ -915,6 +915,7 @@ init()
 <style lang="scss">
 .ctrlRow {
   display: flex;
+  padding-right: 8px;
 
   .el-button--default {
     font-weight: normal;
