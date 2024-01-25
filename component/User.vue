@@ -1,10 +1,11 @@
 <template>
   <div class="air-user">
-    <el-image
+    <div
       class="air-user-head"
-      :src="userAvatar"
       @click="isDialogShow = true"
-    />
+    >
+      <el-image :src="userAvatar" />
+    </div>
     <div
       v-if="isDialogShow"
       class="air-user-cover"
@@ -116,6 +117,11 @@ async function logout() {
     height: 36px;
     background-color: #eee;
     overflow: hidden;
+
+    * {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .air-user-cover {
