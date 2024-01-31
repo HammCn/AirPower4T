@@ -1,0 +1,5 @@
+<view class="a-footer">
+  <view class="a-footer-flex">
+    <slot></slot>
+  </view>
+</view>

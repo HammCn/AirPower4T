@@ -161,4 +161,13 @@ export class AirConfig {
    */
   static dateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
   // #endregion
+
+  /**
+   * # 手机短震动
+   */
+  static shake() {
+    wx.vibrateShort({
+      type: "heavy"
+    })
+  }
 }

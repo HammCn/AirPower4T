@@ -1,0 +1,34 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: 20rpx;
+  backdrop-filter: blur(20rpx);
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.05);
+  pointer-events: auto;
+}
+
+.tab-bar-item {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tab-bar-item image {
+  width: 25px;
+  height: 25px;
+}
+
+.tab-bar-item view {
+  font-size: 12px;
+}
