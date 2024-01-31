@@ -9,6 +9,7 @@
   flex-direction: row;
   padding-bottom: env(safe-area-inset-bottom);
   padding-top: 20rpx;
+  -webkit-backdrop-filter: blur(20rpx);
   backdrop-filter: blur(20rpx);
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.05);
