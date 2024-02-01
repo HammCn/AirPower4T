@@ -182,7 +182,7 @@ export class AirHttp {
                   }
                   AirConfig.login()
                   break
-                case AirConfig.redirectCode:
+                case AirConfig.upgradeClientNecssary:
                   console.warn('[HTTP UPDATE]', res.data)
                   if (this.errorCallback) {
                     fail(json)

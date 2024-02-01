@@ -115,7 +115,7 @@ export class AirConfig {
   /**
    * # 全局http请求返回 要求更新版本
    */
-  static redirectCode: AirCode | number = AirCode.REDIRECT
+  static upgradeClientNecssary: AirCode | number = AirCode.UPGRADE_CLIENT_NECESSARY
 
   /**
    * # 网络请求失败最大重试次数

@@ -16,9 +16,9 @@ export enum AirCode {
   CONTINUE = 201,
 
   /**
-   * # 要求重定向或下载
+   * # 强制更新客户端
    */
-  REDIRECT = 301,
+  UPGRADE_CLIENT_NECESSARY = 301,
 
   /**
    * # 需要跳转到登录
