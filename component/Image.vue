@@ -27,6 +27,7 @@
         class="image-upload-box"
         :action="uploadUrl"
         :headers="uploadHeader"
+        :name="uploadFileName"
         :show-file-list="false"
         :before-upload="beforeUpload"
         :on-error="onUploadError"
@@ -103,7 +104,7 @@ const props = defineProps({
    */
   headers: {
     type: Object as PropType<IJson>,
-    default: () => {},
+    default: () => { },
   },
 
   /**
@@ -144,6 +145,16 @@ const props = defineProps({
   uploadUrl: {
     type: String,
     default: '',
+  },
+
+  /**
+   * # 上传文件的字段名
+   * ---
+   * 默认为 `file`
+   */
+  uploadFileName: {
+    type: String,
+    default: 'file',
   },
 
   /**
