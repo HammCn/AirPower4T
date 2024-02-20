@@ -94,7 +94,7 @@
               <template v-else-if="item.image">
                 <el-image
                   style="background-color:#f3f6f9"
-                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px' }"
+                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px', borderRadius: item.imageRadius }"
                   lazy
                   :src="AirFile.getStaticFileUrl((scope as any).row[item.key])"
                   :preview-src-list="[AirFile.getStaticFileUrl((scope as any).row[item.key])]"

@@ -50,6 +50,8 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   imageHeight = 60
 
+  imageRadius = '10px'
+
   emptyValue = AirConfig.tableEmptyValue
 
   payloadArray = false

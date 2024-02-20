@@ -126,6 +126,11 @@ export interface ITableFieldConfig extends IFieldConfig {
   imageHeight?: number;
 
   /**
+   * # 图片圆角 默认10px
+   */
+  imageRadius?: string
+
+  /**
    * # 空数据兜底字符串
    * ---
    * 💡 可在 ```AirConfig.defaultTableEmptyValue``` 进行全局兜底, 此配置项将优先使用 仅支持普通字段和挂载字段
