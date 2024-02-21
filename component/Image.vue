@@ -19,6 +19,7 @@
     </el-image>
     <div
       v-if="uploadHeader && upload"
+      v-loading="isUploading"
       class="image-upload"
       :class="imageUrl ? 'image-preview-color' : ''"
     >
@@ -178,6 +179,11 @@ const uploadUrl = computed(() => props.uploadUrl || AirConfig.uploadUrl)
  */
 const imageUrl = ref('')
 
+/**
+ * # 是否正在上传
+ */
+const isUploading = ref(false)
+
 function init() {
   if (props.src) {
     imageUrl.value = AirFile.getStaticFileUrl(props.src)
@@ -222,6 +228,7 @@ function beforeUpload(file: File): boolean {
     AirNotification.warning(`图片大小不能超过${AirFile.getFileSizeFriendly(props.limit)}!`, '图片过大')
     return false
   }
+  isUploading.value = true
   return true
 }
 
@@ -229,6 +236,7 @@ function beforeUpload(file: File): boolean {
  * # 上传失败事件
  */
 function onUploadError() {
+  isUploading.value = false
   AirNotification.error('图片上传失败,请重新上传', '上传失败')
 }
 
@@ -241,6 +249,7 @@ function onUploadSuccess(response: { data: { url: string } }) {
   if (entityData && entityData.url) {
     imageUrl.value = AirFile.getStaticFileUrl(entityData.url)
     emits('onUpload', entityData)
+    isUploading.value = false
   } else {
     onUploadError()
   }
