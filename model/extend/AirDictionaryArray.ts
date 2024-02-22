@@ -7,7 +7,7 @@ import { AirDictionary } from '../AirDictionary'
  * # 字典数组
  * @author Hamm
  */
-export class AirDictionaryArray<T extends IDictionary> extends Array<T> {
+export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Array<T> {
   /**
    * # 获取字典指定Key的Label
    * @param key Key
