@@ -12,7 +12,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.1.3'
+  static readonly version = 'v1.1.4'
 
   /**
    * # AppKey
@@ -171,4 +171,13 @@ export class AirConfig {
    */
   static dateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
   // #endregion
+
+  /**
+   * # 手机短震动
+   */
+  static shake() {
+    wx.vibrateShort({
+      type: "heavy"
+    })
+  }
 }
