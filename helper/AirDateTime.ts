@@ -11,6 +11,8 @@ import { IJson } from '../interface/IJson'
 export class AirDateTime {
   /**
    * # 😜 睡会再起来干活
+   * ---
+   * ### 🔞 不要忘了`await`，否则没睡醒就起来干活了 :)
    * @param milliSeconds 毫秒数
    */
   static async sleep(milliSeconds: number): Promise<void> {
