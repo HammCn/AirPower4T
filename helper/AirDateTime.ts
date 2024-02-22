@@ -11,6 +11,8 @@ import { IJson } from '../interface/IJson'
 export class AirDateTime {
   /**
    * # 😜 睡会再起来干活
+   * ---
+   * ### 🔞 不要忘了`await`，否则没睡醒就起来干活了 :)
    * @param milliSeconds 毫秒数
    */
   static async sleep(milliSeconds: number): Promise<void> {
@@ -26,9 +28,6 @@ export class AirDateTime {
    * @param date (可选)Date对象/时间字符串
    */
   static getUnixTimeStamps(date?: Date | string): number {
-    if (!date) {
-      date = new Date()
-    }
     return Math.round(this.getMilliTimeStamps(date) / 1000)
   }
 
@@ -56,7 +55,7 @@ export class AirDateTime {
   /**
    * # 从秒时间戳格式化时间
    * @param timeStamp 秒时间戳
-   * @param formateString (可选)格式化模板
+   * @param formateString (可选)格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp * 1000), formateString)
@@ -65,7 +64,7 @@ export class AirDateTime {
   /**
    * # 从毫秒时间戳格式化时间
    * @param timeStamp 毫秒时间戳
-   * @param formateString (可选)格式化模板
+   * @param formateString (可选)格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromMilliSecond(timeStamp: number, formateString?: AirDateTimeFormatter | string): string {
     return this.formatFromDate(new Date(timeStamp), formateString)
@@ -74,7 +73,7 @@ export class AirDateTime {
   /**
    * # 从字符串或对象格式化时间
    * @param date Date对象或字符串
-   * @param formateString (可选)格式化模板
+   * @param formateString (可选)格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromDate(date: Date | string, formateString?: AirDateTimeFormatter | string): string {
     if (!formateString) {
