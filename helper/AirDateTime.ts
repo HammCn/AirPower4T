@@ -28,9 +28,6 @@ export class AirDateTime {
    * @param date (可选)Date对象/时间字符串
    */
   static getUnixTimeStamps(date?: Date | string): number {
-    if (!date) {
-      date = new Date()
-    }
     return Math.round(this.getMilliTimeStamps(date) / 1000)
   }
 
