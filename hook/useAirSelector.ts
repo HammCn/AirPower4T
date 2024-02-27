@@ -16,13 +16,20 @@ import { airTableHook } from './airTableHook'
  * @author Hamm
  */
 export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E, S> {
+  /**
+   * # 表格Hook返回对象
+   */
   const result = airTableHook(entityClass, serviceClass, option)
 
+  /**
+   * # 选择器对话框的标题
+   */
   const title = computed(() => `请选择${result.entity.getClassName()}`)
 
   result.selectList.value = props.selectList
 
-  return Object.assign(result, {
+  return ({
+    ...result,
     title,
   }) as IUseSelectorResult<E, S>
 }

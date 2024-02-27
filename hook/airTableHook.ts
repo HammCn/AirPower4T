@@ -20,19 +20,45 @@ import { ITableHookResult } from '../interface/ITableHookResult'
  * @author Hamm
  */
 export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: ITableHookOption<E> = {}): ITableHookResult<E, S> {
+  /**
+   * # 加载状态
+   */
   const isLoading = ref(false)
 
+  /**
+   * # 请求对象
+   */
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
 
+  /**
+   * # 响应对象
+   */
   const response = ref(new AirResponsePage<E>()) as Ref<AirResponsePage<E>>
 
+  /**
+   * # 表格行数据数组
+   */
   const list = ref([] as E[]) as Ref<E[]>
 
+  /**
+   * # 传入的实体对象
+   */
   const entity = AirClassTransformer.newInstance(entityClass)
 
+  /**
+   * # 传入的Service对象
+   */
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading
 
+  /**
+   * # 选择的列表
+   */
+  const selectList = ref([] as E[]) as Ref<E[]>
+
+  /**
+   * # 查询列表事件
+   */
   async function onGetList() {
     let req = request.value
     if (option.beforeSearch) {
@@ -51,11 +77,20 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
+  /**
+   * # 搜索事件
+   * @param req 请求对象
+   */
   async function onSearch(req: AirRequestPage<E>) {
     request.value = req
     onGetList()
   }
 
+  /**
+   * # 重新加载数据事件
+   * ---
+   * 💡 会自动返回第一页
+   */
   async function onReloadData() {
     if (!request.value.page) {
       request.value.page = new AirPage()
@@ -65,6 +100,9 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     onSearch(request.value)
   }
 
+  /**
+   * # 添加事件
+   */
   async function onAdd() {
     if (!option.editView) {
       AirNotification.warning('请为 useAirTableList 的 option 传入 editView')
@@ -77,30 +115,44 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  async function onDetail(data: E) {
+  /**
+   * # 点击表格行详情事件
+   * @param row 行数据
+   */
+  async function onDetail(row: E) {
     if (!option.detailView) {
       AirNotification.warning('请为 useAirTableList 的 option 传入 detailView')
       return
     }
     try {
-      await AirDialog.show(option.detailView, data)
+      await AirDialog.show(option.detailView, row)
     } finally {
       onReloadData()
     }
   }
 
+  /**
+   * # 排序变更事件
+   * @param sort 排序对象
+   */
   async function onSortChanged(sort: AirSort) {
     request.value.sort = sort
     request.value.page = new AirPage()
     onGetList()
   }
 
-  const selectList = ref([] as E[]) as Ref<E[]>
-
+  /**
+   * # 选择变更事件
+   * @param list 选择列表
+   */
   async function onSelected(list: E[]) {
     selectList.value = list
   }
 
+  /**
+   * # 分页变更事件
+   * @param page 分页对象
+   */
   async function onPageChanged(page: AirPage) {
     request.value.page = page
     onGetList()
@@ -109,6 +161,20 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   onGetList()
 
   return {
-    entity, service, isLoading, response, request, list, selectList, onSearch, onPageChanged, onAdd, onSortChanged, onSelected, onGetList, onDetail, onReloadData,
+    entity,
+    service,
+    isLoading,
+    response,
+    request,
+    list,
+    selectList,
+    onSearch,
+    onPageChanged,
+    onAdd,
+    onSortChanged,
+    onSelected,
+    onGetList,
+    onDetail,
+    onReloadData,
   } as ITableHookResult<E, S>
 }

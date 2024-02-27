@@ -16,8 +16,18 @@ import { useAirTable } from './useAirTable'
  * @author Hamm
  */
 export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
+  // 设置不分页
   option.unPaginate = true
+
+  /**
+   * # 表格Hook返回对象
+   */
   const result = useAirTable(entityClass, serviceClass, option)
+
+  /**
+   * # 树表格添加子项事件
+   * @param row 行数据
+   */
   async function onAddRow(row: E) {
     if (!option.editView) {
       AirNotification.warning('请为 useAirTableList 的 option 传入 editor')
@@ -37,7 +47,9 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
       result.onReloadData()
     }
   }
-  return Object.assign(result, {
+
+  return ({
+    ...result,
     onAddRow,
   }) as IUseTableTreeResult<E, S>
 }
