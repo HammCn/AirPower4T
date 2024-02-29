@@ -49,15 +49,15 @@ export function airProps() {
  * @param value (可选)默认参数
  */
 export function airPropsParam<P>(value: P | null = null) {
-  return {
-    ...airProps(), /**
+  return Object.assign(airProps(), {
+    /**
      * # 父窗体弹出当前窗体时传入的参数
      */
     param: {
       type: Object as PropType<P>,
       default: value,
     },
-  }
+  })
 }
 
 /**
@@ -79,8 +79,8 @@ export function airPropsId() {
 export function airPropsSelector<
   S extends AirEntity = AirEntity, P extends AirEntity = AirEntity
 >(value: P | null = null) {
-  return {
-    ...airProps(), /**
+  return Object.assign(airProps, {
+    /**
      * # 是否使用多选
      */
     mult: {
@@ -111,5 +111,5 @@ export function airPropsSelector<
       type: Object as PropType<P>,
       default: value,
     },
-  }
+  })
 }

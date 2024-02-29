@@ -28,8 +28,7 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
 
   result.selectList.value = props.selectList
 
-  return ({
-    ...result,
+  return Object.assign(result, {
     title,
   }) as IUseSelectorResult<E, S>
 }

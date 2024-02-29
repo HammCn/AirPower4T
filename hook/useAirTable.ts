@@ -45,8 +45,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     result.onReloadData()
   }
 
-  return ({
-    ...result,
+  return Object.assign(result, {
     onEdit,
     onDelete,
   }) as IUseTableResult<E, S>

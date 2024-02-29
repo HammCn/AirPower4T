@@ -203,10 +203,7 @@ const uploadHeader = ref({
 } as IJson)
 
 if (props.header) {
-  uploadHeader.value = {
-    ...uploadHeader.value,
-    ...props.header,
-  }
+  Object.assign(uploadHeader.value, props.header)
 }
 
 /**

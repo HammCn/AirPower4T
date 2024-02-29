@@ -63,8 +63,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  return ({
-    ...result,
+  return Object.assign(result, {
     title,
     formRef,
     rules,

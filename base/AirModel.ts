@@ -23,7 +23,7 @@ export class AirModel {
    * @param obj 覆盖对象
    */
   recoverBy(obj: IJson | AirModel): this {
-    return { ...this, ...obj }
+    return Object.assign(this, obj)
   }
 
   /**
@@ -31,7 +31,7 @@ export class AirModel {
    */
   copy(): this {
     const newModel = Object.create(Object.getPrototypeOf(this))
-    return { ...newModel, ...this }
+    return Object.assign(newModel, this)
   }
 
   /**
@@ -243,7 +243,7 @@ export class AirModel {
   static newInstance<T extends AirModel>(this: new () => T, recoverBy?: IJson): T {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const instance = ({ ...new this(), ...null }) as T
+    const instance = (Object.assign(new this(), null)) as T
     if (recoverBy) {
       return instance.recoverBy(recoverBy)
     }
