@@ -79,7 +79,7 @@ export function airPropsId() {
 export function airPropsSelector<
   S extends AirEntity = AirEntity, P extends AirEntity = AirEntity
 >(value: P | null = null) {
-  return Object.assign(airProps, {
+  return Object.assign(airProps(), {
     /**
      * # 是否使用多选
      */
