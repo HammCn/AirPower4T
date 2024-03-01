@@ -53,7 +53,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   static createCustom<T extends IDictionary>(list: T[]): AirDictionaryArray<T> {
     const dictionary = new AirDictionaryArray<T>()
     list.forEach((json: T) => {
-      const item = { ...new AirDictionary(), ...json }
+      const item = Object.assign(new AirDictionary(), json)
       dictionary.push(item)
     })
     return dictionary
