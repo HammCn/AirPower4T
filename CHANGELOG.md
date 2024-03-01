@@ -1,5 +1,12 @@
 # AirPower4T 版本发布日志
 
+## v1.1.6
+
+### 🐞 Bug fixes:
+
+- fix(Search): 修改搜索框默认宽度为`150`像素
+- fix(AirModel): 修复简单类型数据嵌套转换失败的BUG
+
 ## v1.1.5
 
 ### 🎉 Features:
