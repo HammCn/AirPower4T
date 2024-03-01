@@ -1,7 +1,6 @@
 import { AirBetweenType } from '../enum/AirBetweenType'
 import { IFieldConfig } from './IFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
-import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
@@ -24,7 +23,7 @@ export interface ISearchFieldConfig extends IFieldConfig {
    * ---
    * 💡 可配置 ```filterable``` 等参数
    */
-  dictionary?: AirDictionaryArray<IDictionary>;
+  dictionary?: AirDictionaryArray;
 
   /**
    * # 可筛选
@@ -63,5 +62,5 @@ export interface ISearchFieldConfig extends IFieldConfig {
   /**
    * # 搜索宽度
    */
-  width?: string
+  width?: number
 }
