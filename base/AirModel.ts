@@ -91,7 +91,11 @@ export class AirModel {
           // 数组需要循环转换
           const jsonList: IJson[] = []
           for (let i = 0; i < fieldData.length; i += 1) {
-            jsonList[i] = (fieldData[i] as AirModel).toJson()
+            if (typeof fieldData[i] === 'object') {
+              jsonList[i] = (fieldData[i] as AirModel).toJson()
+              continue
+            }
+            jsonList[i] = (fieldData[i] as AirModel)
           }
           json[fieldAliasName || fieldKey] = jsonList
           continue
