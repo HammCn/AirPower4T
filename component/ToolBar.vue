@@ -53,6 +53,8 @@
                     new Date(1991, 10, 3, 23, 59, 59),
                   ]
                   "
+                  @clear=" data[item.key] = undefined"
+                  @change="onSearch()"
                 />
                 <el-time-picker
                   v-if="item.betweenType === AirBetweenType.TIME"
@@ -64,6 +66,8 @@
                   :start-placeholder="item.label + ''"
                   end-placeholder="结束"
                   value-format="HH:mm:ss"
+                  @clear=" data[item.key] = undefined"
+                  @change="onSearch()"
                 />
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATETIME"
@@ -80,6 +84,8 @@
                     new Date(1991, 10, 3, 23, 59, 59),
                   ]
                   "
+                  @clear=" data[item.key] = undefined"
+                  @change="onSearch()"
                 />
               </template>
               <el-select
