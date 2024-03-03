@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" src="./assets/img/airpower.svg"/>
+  <img width="300" src="./assets/img/airpower.svg"/>4T
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
 
 为了满足前端开发标准化、工程化、系统化等等需求，我们设计并开发了一个开发组件库和常用类库和方法库的集合基础脚手架，其中包含了一些页面通用的布局、常用的弹窗和交互、提示信息以及网络请求，强类型面向对象的约束规范等，以满足日常开发的快捷、稳健、标准化等要求。
 
-**AirPower** 是一个基于 ```Vue3``` ```TypeScript``` ```Element Plus``` ```Vite``` 的开发基础库，使用 **装饰器**、**面向对象**、**Hook** 等前端开发方式。
+**AirPower4T** 是一个基于 ```Vue3``` ```TypeScript``` ```Element Plus``` ```Vite``` 的开发基础库，使用 **装饰器**、**面向对象**、**Hook** 等前端开发方式。
 
 > 如需只使用 工具包，可以使用我们提供的单独抽离的工具包项目 [AirPower@Gitee](https://gitee.com/hamm/AirPower) / [AirPower@Github](https://github.com/HammCn/AirPower) 
 
@@ -44,7 +44,7 @@
 
 ## 🔑 如何使用(初始化)?
 
-你可以通过我们提供的 ```AirPower宿主仓库``` 项目来完成 **AirPower** 宿主项目的初始化:
+你可以通过我们提供的 ```AirPower4T宿主仓库``` 项目来完成 **AirPower4T** 宿主项目的初始化:
 
 AirPowerWebStarter via [Gitee](https://gitee.com/air-power/AirPowerWebStarter/blob/main/README.md) / [Github](https://github.com/HammCn/AirPowerWebStarter/blob/main/README.md)
 
@@ -52,7 +52,7 @@ AirPowerWebStarter via [Gitee](https://gitee.com/air-power/AirPowerWebStarter/bl
 
 ## 🛎 我们的建议
 
-我们提供的 **AirPower宿主仓库** 里面提供了一些 ```ESlint规则``` ```路由配置``` ```环境变量配置``` ```tsconfig``` ```vite.config```, 以及很多的 **demo** 代码, 你可以进行参考。
+我们提供的 **AirPower4T宿主仓库** 里面提供了一些 ```ESlint规则``` ```路由配置``` ```环境变量配置``` ```tsconfig``` ```vite.config```, 以及很多的 **demo** 代码, 你可以进行参考。
 
 如果你有什么疑问或者问题，你也可以加入开发者交流QQ群(```555156313```)进行咨询，当然，我们更建议你发起 [Gitee issue](https://gitee.com/air-power/AirPower4T/issues/new) / [Github issue](https://github.com/HammCn/AirPower4T/issues/new)
 
