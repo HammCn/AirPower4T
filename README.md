@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" src="./assets/img/airpower.png"/>
+  <img width="300" src="./assets/img/airpower.svg"/>
 </p>
 
 <p align="center">
@@ -9,7 +9,7 @@
   <img src="https://svg.hamm.cn?key=UI&value=ElementPlus"/>
 </p>
 
-[Gitee](https://gitee.com/air-power/AirPower4T) / [Github](https://github.com/HammCn/AirPower4T) / [CHANGELOG](./CHANGELOG.md)
+[Gitee](https://gitee.com/air-power/AirPower4T) / [Github](https://github.com/HammCn/AirPower4T) / [CHANGELOG](./CHANGELOG.md) / [DOCUMENT](https://www.npmjs.com/package/airpower?activeTab=readme)
 
 
 ## 📖 这是个什么项目
@@ -19,6 +19,8 @@
 为了满足前端开发标准化、工程化、系统化等等需求，我们设计并开发了一个开发组件库和常用类库和方法库的集合基础脚手架，其中包含了一些页面通用的布局、常用的弹窗和交互、提示信息以及网络请求，强类型面向对象的约束规范等，以满足日常开发的快捷、稳健、标准化等要求。
 
 **AirPower** 是一个基于 ```Vue3``` ```TypeScript``` ```Element Plus``` ```Vite``` 的开发基础库，使用 **装饰器**、**面向对象**、**Hook** 等前端开发方式。
+
+> 如需只使用 工具包，可以使用我们提供的单独抽离的工具包项目 [AirPower@Gitee](https://gitee.com/hamm/AirPower) / [AirPower@Github](https://github.com/HammCn/AirPower) 
 
 ## 🎈 为何起名**AirPower**
 
