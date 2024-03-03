@@ -20,7 +20,7 @@
 
 **AirPower4T** 是一个基于 ```Vue3``` ```TypeScript``` ```Element Plus``` ```Vite``` 的开发基础库，使用 **装饰器**、**面向对象**、**Hook** 等前端开发方式。
 
-> 如需只使用 工具包，可以使用我们提供的单独抽离的工具包项目 [AirPower@Gitee](https://gitee.com/hamm/AirPower) / [AirPower@Github](https://github.com/HammCn/AirPower) 
+> 如需只使用 工具包，可以使用我们提供的单独抽离的工具包项目 [AirPower@Gitee](https://gitee.com/air-power/AirPower) / [AirPower@Github](https://github.com/HammCn/AirPower) 
 
 ## 🎈 为何起名**AirPower**
 
