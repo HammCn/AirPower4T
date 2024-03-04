@@ -41,12 +41,12 @@ export enum AirPermissionAction {
   IMPORT = 'import',
 
   /**
-   * # 导入
+   * # 禁用
    */
   DISABLE = 'disable',
 
   /**
-   * # 导入
+   * # 启用
    */
   ENABLE = 'enable',
 }
