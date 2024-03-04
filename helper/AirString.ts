@@ -1,3 +1,7 @@
+/**
+ * # 字符串处理工具类
+ * @author Hamm
+ */
 export class AirString {
   /**
    * # 单码元长度
