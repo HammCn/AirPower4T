@@ -9,8 +9,9 @@
   <img src="https://svg.hamm.cn?key=UI&value=ElementPlus"/>
 </p>
 
-[Gitee](https://gitee.com/air-power/AirPower4T) / [Github](https://github.com/HammCn/AirPower4T) / [CHANGELOG](./CHANGELOG.md) / [DOCUMENT](https://www.npmjs.com/package/airpower?activeTab=readme)
-
+<p align="center">
+  <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> / <a href="https://github.com/HammCn/AirPower4T">Github</a> / <a href="./CHANGELOG.md">CHANGELOG</a> / <a href="https://www.npmjs.com/package/airpower?activeTab=readme">DOCUMENT</a>
+</p>
 
 ## 📖 这是个什么项目
 
