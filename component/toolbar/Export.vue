@@ -41,10 +41,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ADialog } from '..'
-import { AirExportModel } from '@/airpower/model/AirExportModel'
-import { AirFile } from '@/airpower/helper/AirFile'
-import { AirHttp } from '@/airpower/helper/AirHttp'
-import { airPropsParam } from '@/airpower/config/AirProps'
+import { AirExportModel } from '../../model/AirExportModel'
+import { AirFile } from '../../helper/AirFile'
+import { AirHttp } from '../../helper/AirHttp'
+import { airPropsParam } from '../../config/AirProps'
 
 const props = defineProps(airPropsParam(new AirExportModel()))
 

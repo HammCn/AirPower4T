@@ -211,7 +211,7 @@ export class AirHttp {
                 AirConfig.router.push('/login')
               }
             } else {
-              AirNotification.error('请为@/airpower/app的AirConfig注入当前项目的路由', '请先登录')
+              AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
             }
             break
           default:
