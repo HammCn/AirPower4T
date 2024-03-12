@@ -13,7 +13,8 @@
     >
       <template #error>
         <div class="image-error">
-          {{ placeholder || (upload && entity ? '上传图片' : '暂无图片') }}
+          {{ placeholder || (upload && entity ? (AirI18n.get().UplpadImage || '上传图片') :
+            (AirI18n.get().NoPicture || '暂无图片')) }}
         </div>
       </template>
     </el-image>
@@ -63,6 +64,7 @@ import { AirConfig } from '../config/AirConfig'
 import { IFile } from '../interface/IFile'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
+import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits(['onUpload', 'onRemove'])
 
@@ -221,11 +223,11 @@ function imageRemoved() {
 function beforeUpload(file: File): boolean {
   const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1)
   if (!props.exts.includes(fileExt.toLocaleLowerCase())) {
-    AirNotification.warning(`仅允许${props.exts.join('/')}格式`, '图片格式不支持')
+    AirNotification.warning(`${AirI18n.get().ImageSupportExts || '支持的图片格式为: '} ${props.exts.join('/')}`, AirI18n.get().ImageExtNotSupported || '图片格式不支持')
     return false
   }
   if (file.size > props.limit) {
-    AirNotification.warning(`图片大小不能超过${AirFile.getFileSizeFriendly(props.limit)}!`, '图片过大')
+    AirNotification.warning(`${AirI18n.get().FileMaxSizeAllowed || '文件最大允许为: '}${AirFile.getFileSizeFriendly(props.limit)}`, AirI18n.get().FileTooLarge || '文件过大')
     return false
   }
   isUploading.value = true
@@ -237,7 +239,7 @@ function beforeUpload(file: File): boolean {
  */
 function onUploadError() {
   isUploading.value = false
-  AirNotification.error('图片上传失败,请重新上传', '上传失败')
+  AirNotification.error(AirI18n.get().FileUploadErrorAndRetryPlease || '文件上传失败,请重新上传', AirI18n.get().UploadError || '上传失败')
 }
 
 /**

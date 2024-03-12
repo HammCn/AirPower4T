@@ -10,6 +10,7 @@ import { AirConfig } from '../config/AirConfig'
 import { AirModel } from '../base/AirModel'
 import { IJson } from '../interface/IJson'
 import { AirAlert } from '../feedback/AirAlert'
+import { AirI18n } from './AirI18n'
 
 /**
  * # 网络请求类
@@ -198,7 +199,7 @@ export class AirHttp {
           case AirConfig.continueCode:
             // 需要继续操作
             if (!this.errorCallback) {
-              AirAlert.success(res.data[AirConfig.httpMessageKey] || '部分操作成功，请继续操作', '继续操作')
+              AirAlert.success(res.data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
             }
             error(res.data)
             break
@@ -217,7 +218,7 @@ export class AirHttp {
           default:
             // 其他业务错误
             if (!this.errorCallback) {
-              AirNotification.error(res.data[AirConfig.httpMessageKey] || AirConfig.errorMessage, AirConfig.errorTitle)
+              AirNotification.error(res.data[AirConfig.httpMessageKey] || AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
             }
             error(res.data)
         }
@@ -227,7 +228,7 @@ export class AirHttp {
           this.loading.value = false
         }
         if (!this.errorCallback) {
-          AirNotification.error(AirConfig.errorMessage, AirConfig.errorTitle)
+          AirNotification.error(AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
         }
         error(err)
       })

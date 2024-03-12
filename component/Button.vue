@@ -1,7 +1,7 @@
 <template>
   <el-link
     v-if="iconButton"
-    v-tip="permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip"
+    v-tip="permission && !AirConfig.permissionList.includes(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
     :class="customClass"
     :type="danger ? 'danger' : 'default'"
     :underline="false"
@@ -15,7 +15,7 @@
   </el-link>
   <el-button
     v-else
-    v-tip="permission && !AirConfig.permissionList.includes(permission) ? '无权操作' : tooltip"
+    v-tip="permission && !AirConfig.permissionList.includes(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
     :class="customClass"
     :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
     :disabled="isDisabled"
@@ -36,6 +36,7 @@ import { computed, PropType } from 'vue'
 import { AirIcon } from '../enum/AirIcon'
 import { AirIconType } from '../type/AirType'
 import { AirConfig } from '../config/AirConfig'
+import { AirI18n } from '../helper/AirI18n'
 
 defineEmits(['click', 'onClick'])
 

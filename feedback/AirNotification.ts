@@ -1,5 +1,6 @@
 import { ElNotification } from 'element-plus'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 通知基类
@@ -9,12 +10,12 @@ export class AirNotification {
   /**
    * # 通知标题
    */
-  private title = '系统提示'
+  private title = AirI18n.get().SystemNotice || '系统提示'
 
   /**
    * # 通知内容
    */
-  private message = '你并没有传入具体的错误信息：）'
+  private message = AirI18n.get().NoErrorMessageGiven || '你并没有传入具体的错误信息：）'
 
   /**
    * # 通知默认保留时长

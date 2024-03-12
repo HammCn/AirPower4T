@@ -17,19 +17,19 @@
           :stroke-width="10"
           :format="() => { }"
         />
-        数据准备中,请稍后...
+        {{ AirI18n.get().ExportLoadingAndWaitPlease || '数据准备中,请稍后...' }}
       </template>
       <template v-else>
         <el-result
           icon="success"
-          title="数据导出成功"
+          :title="AirI18n.get().ExportSuccess || '数据导出成功'"
         >
           <template #extra>
             <el-button
               type="primary"
               @click="download"
             >
-              下载导出的文件
+              {{ AirI18n.get().DownloadExportFile || '下载导出文件' }}
             </el-button>
           </template>
         </el-result>
@@ -45,6 +45,7 @@ import { AirExportModel } from '../../model/AirExportModel'
 import { AirFile } from '../../helper/AirFile'
 import { AirHttp } from '../../helper/AirHttp'
 import { airPropsParam } from '../../config/AirProps'
+import { AirI18n } from '@/airpower/helper/AirI18n'
 
 const props = defineProps(airPropsParam(new AirExportModel()))
 

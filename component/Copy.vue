@@ -11,6 +11,7 @@
 import { PropType, ref } from 'vue'
 import { AirStore } from '../store/AirStore'
 import { AirClipboard } from '../helper/AirClipboard'
+import { AirI18n } from '../helper/AirI18n'
 
 const props = defineProps({
   /**
@@ -25,7 +26,7 @@ const props = defineProps({
 /**
  * 复制的默认提示
  */
-const defaultTips = '点击复制'
+const defaultTips = AirI18n.get().ClickToCopy || '点击复制'
 
 /**
  * 当前显示的提示
@@ -45,7 +46,7 @@ async function copy() {
     return
   }
   await AirClipboard.copy(props.content.toString())
-  copyTips.value = '成功复制到剪切板!'
+  copyTips.value = AirI18n.get().CopySuccess || '成功复制到剪切板!'
   AirStore().tooltip = copyTips.value
   clearTimeout(timer)
   timer = setTimeout(() => {

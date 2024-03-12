@@ -99,6 +99,7 @@ import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
 import { AirRand } from '../helper/AirRand'
 import { AirStore } from '../store/AirStore'
+import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
@@ -116,7 +117,7 @@ const props = defineProps({
    */
   confirmText: {
     type: String,
-    default: '确定',
+    default: AirI18n.get().Confirm || '确定',
   },
 
   /**
@@ -124,7 +125,7 @@ const props = defineProps({
    */
   cancelText: {
     type: String,
-    default: '取消',
+    default: AirI18n.get().Cancel || '取消',
   },
 
   /**
@@ -470,7 +471,7 @@ async function confirmEvent() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const list = ((e as any)[keys[0]] as AirValidator[])
       if (list.length > 0) {
-        AirNotification.warning(list[0].message, '验证失败')
+        AirNotification.warning(list[0].message, AirI18n.get().ValidError || '验证失败')
       }
     }
     dialogBgClicked()

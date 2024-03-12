@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
@@ -6,6 +6,7 @@ import { IUseSelectorOption } from '../interface/IUseSelectorOption'
 import { IUseSelectorResult } from '../interface/IUseSelectorResult'
 import { IJson } from '../interface/IJson'
 import { airTableHook } from './airTableHook'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 引入Selector使用的Hook
@@ -24,7 +25,7 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
   /**
    * # 选择器对话框的标题
    */
-  const title = computed(() => `请选择${result.entity.getClassName()}`)
+  const title = ref(AirI18n.get().SelectPlease || '请选择')
 
   result.selectList.value = props.selectList
 

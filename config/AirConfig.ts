@@ -232,7 +232,7 @@ export class AirConfig {
   /**
    * # 标准错误提示标题
    */
-  static errorTitle = '发生错误'
+  static errorTitle = '系统错误'
 
   /**
    * # 标准错误提示内容

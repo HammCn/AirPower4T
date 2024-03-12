@@ -1,5 +1,6 @@
 import { AirConfig } from '../config/AirConfig'
 import { AirCode } from '../enum/AirCode'
+import { AirI18n } from '../helper/AirI18n'
 import { AirNotification } from './AirNotification'
 
 /**
@@ -26,7 +27,7 @@ export class AirError {
     switch (typeof error) {
       case 'object':
         this.code = error?.code || AirCode.ERROR
-        this.message = (error as Error).message || '系统错误,请查看控制台错误信息'
+        this.message = (error as Error).message || AirI18n.get().ErrorAndSeeConsole || '系统错误,请查看控制台错误信息'
         break
       case 'string':
         this.message = error
@@ -65,7 +66,7 @@ export class AirError {
    * # 显示错误信息提示
    */
   async show(): Promise<void> {
-    await new AirNotification().setTitle(`发生错误(${this.code})`)
+    await new AirNotification().setTitle(AirI18n.get().SystemError || '发生错误')
       .setMessage(this.message)
       .error()
   }

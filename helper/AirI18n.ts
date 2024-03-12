@@ -1,4 +1,5 @@
 import { AirLanguage } from '../enum/AirLanguage'
+import { AirI18nDefault } from '../model/AirI18nDefault'
 
 /**
  * # I18n工具库
@@ -27,23 +28,11 @@ import { AirLanguage } from '../enum/AirLanguage'
  * ```
  * @author Hamm
  */
-export class AirI18n {
-  private static readonly languageCacheKey = 'air-language'
-
-  /**
-   * # 语言名称
-   */
-  language = (localStorage.getItem(AirI18n.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
-
-  // ! 以下是内置的文案
-
-  // todo
-
-  // ! 以下是静态方法
+export class AirI18n extends AirI18nDefault {
   /**
    * # 当前使用的语言
    */
-  private static currentLanguage = (localStorage.getItem(AirI18n.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  private static currentLanguage = (localStorage.getItem(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   /**
    * # 语言列表
@@ -71,13 +60,14 @@ export class AirI18n {
    * # 获取翻译后的字符串
    * @param key 字符串
    * @returns 翻译后的字符串
+   * @deprecated
    */
-  protected static get(): AirI18n {
+  static get(): AirI18n {
     const lang = this.languages.find((item) => item.language === this.currentLanguage)
     if (lang) {
       return lang
     }
-    throw new Error('语言包不存在')
+    return new AirI18n()
   }
 
   /**

@@ -19,14 +19,14 @@
     >
       <template #reference>
         <div class="air-page-count">
-          <span>{{ page.pageNum }} / {{ response.pageCount }}</span>页
+          <span>{{ page.pageNum }} / {{ response.pageCount }}</span>
         </div>
       </template>
       <template #default>
         <div class="air-page-panel-box">
           <div class="air-page-header">
             <div class="air-page-title">
-              每页显示
+              {{ AirI18n.get().PageSize || '每页显示' }}
             </div>
 
             <el-radio-group
@@ -59,7 +59,7 @@
             <el-input
               v-model="page.pageNum"
               type="number"
-              placeholder="输入页码跳转"
+              :placeholder="AirI18n.get().InputPageNumber || '输入页码跳转'"
               min="1"
               :max="response.pageCount"
             >
@@ -68,7 +68,7 @@
                   size="small"
                   @click="pageChanged(page.pageNum)"
                 >
-                  跳转
+                  {{ AirI18n.get().Jump || '跳转' }}
                 </el-button>
               </template>
             </el-input>
@@ -80,7 +80,7 @@
       v-if="response.total"
       class="air-page-total"
     >
-      共<span>{{ response.total }}</span>条数据
+      {{ AirI18n.get().TotalRow || '总条数' }}: <span>{{ response.total }}</span>
     </div>
   </div>
 </template>
@@ -90,6 +90,7 @@ import { computed, ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { AirPage } from '../model/AirPage'
+import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits(['onChange', 'change'])
 
@@ -227,7 +228,7 @@ const pageCountList = computed(() => {
     }
   }
 
-  .air-page-jumper{
+  .air-page-jumper {
     display: flex;
     flex-direction: row;
 

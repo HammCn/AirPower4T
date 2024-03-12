@@ -248,6 +248,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
 import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
+import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
@@ -653,7 +654,7 @@ function init() {
           || fieldConfig.value.dateType !== undefined
         ) {
           // 传入了枚举值
-          placeholderRef.value = `请选择${field}...`
+          placeholderRef.value = AirI18n.get().SelectPlease || '请选择'
         }
         if (fieldConfig.value.placeholder) {
           // 传入了自定义placeholder
