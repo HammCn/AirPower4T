@@ -31,7 +31,7 @@ export class AirI18n {
   private static readonly languageCacheKey = 'air-language'
 
   /**
-   * # 当前语言
+   * # 语言名称
    */
   language = (localStorage.getItem(AirI18n.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
