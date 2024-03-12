@@ -35,10 +35,16 @@ export class AirI18n extends AirI18nDefault {
   private static currentLanguage = (localStorage.getItem(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   /**
+   * # 当前使用的语言包
+   */
+  // eslint-disable-next-line no-use-before-define
+  private static currentLanguagePackage?: AirI18n
+
+  /**
    * # 语言列表
    */
   // eslint-disable-next-line no-use-before-define
-  private static languages: AirI18n[]
+  private static languages: AirI18n[] = []
 
   /**
    * # 获取当前使用的语言
@@ -63,11 +69,7 @@ export class AirI18n extends AirI18nDefault {
    * @deprecated
    */
   static get(): AirI18n {
-    const lang = this.languages.find((item) => item.language === this.currentLanguage)
-    if (lang) {
-      return lang
-    }
-    return new AirI18n()
+    return this.currentLanguagePackage || new AirI18n()
   }
 
   /**
@@ -77,6 +79,7 @@ export class AirI18n extends AirI18nDefault {
   static init(...languages: AirI18n[]): void {
     if (languages.length > 0) {
       this.languages = languages
+      this.currentLanguagePackage = this.languages.find((item) => item.language === this.currentLanguage)
     }
   }
 
@@ -86,6 +89,7 @@ export class AirI18n extends AirI18nDefault {
    */
   static setCurrentLanguage(language: AirLanguage): void {
     this.currentLanguage = language
+    this.currentLanguagePackage = this.languages.find((item) => item.language === this.currentLanguage)
     localStorage.setItem(AirI18n.languageCacheKey, language)
   }
 }

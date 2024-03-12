@@ -16,6 +16,77 @@ export class AirI18nDefault {
   language = (localStorage.getItem(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   //! Start
+  /** # 点击这里上传 */
+  ClickHereToUpload?: string
+
+  /** # 配置表格列 */
+  ConfigureTableColumns?: string
+
+  /** # 选择要显示的列 */
+  SelectTableColumnsToShow?: string
+
+  /** # 是否确认删除选择的数据 */
+  AreYouConfirmToDelete?: string
+
+  /** # 确认删除 */
+  DeleteConfirm?: string
+
+  /** # 添加子项 */
+  AddSubItem?: string
+
+  /** # 删除 */
+  Delete?: string
+
+  /** # 序号 */
+  ID?: string
+
+  /** # 暂无 */
+  Nothing?: string
+
+  /** # 暂无数据 */
+  NoData?: string
+
+  /** # 至 */
+  To?: string
+
+  /** # 结束 */
+  End?: string
+
+  /** # 导入 */
+  Import?: string
+
+  /** # 导入成功 */
+  ImportSuccess?: string
+
+  /** # 下载模板 */
+  DownloadTemplate?: string
+
+  /** # 导出 */
+  Export?: string
+
+  /** # 文件大小 */
+  FileSize?: string
+
+  /** # 文件格式 */
+  FileExt?: string
+
+  /** # 文件格式不支持 */
+  FileExtNotSupported?: string
+
+  /** # 文件大小不支持 */
+  FileSizeNotSupported?: string
+
+  /** # 上传成功 */
+  UploadSuccess?: string
+
+  /** # 退出登录 */
+  Logout?: string
+
+  /** # 退出确认 */
+  LogoutConfirm?: string
+
+  /** # 是否确认退出当前登录的用户 */
+  AreYouConfirmToLogout?: string
 
   /** # 每页显示 */
   PageSize?: string

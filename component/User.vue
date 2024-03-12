@@ -32,7 +32,7 @@
               <el-icon>
                 <SwitchButton />
               </el-icon>
-              退出登录
+              {{ AirI18n.get().Logout || '退出登录' }}
             </el-button>
           </div>
         </div>
@@ -56,6 +56,7 @@ import { IUser } from '../interface/IUser'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
 import defaultAvatar from '../assets/img/avatar.svg'
 import { AirFile } from '../helper/AirFile'
+import { AirI18n } from '../helper/AirI18n'
 
 const props = defineProps({
   /**
@@ -96,7 +97,7 @@ const userAvatar = computed(() => {
  * 退出登录
  */
 async function logout() {
-  await AirConfirm.create().dangerButton().setConfirmText('确认退出').show('是否确认退出当前登录的用户?', '退出登录')
+  await AirConfirm.create().dangerButton().setConfirmText(AirI18n.get().LogoutConfirm || '退出确认').show(AirI18n.get().AreYouConfirmToLogout || '是否确认退出当前登录的用户?', AirI18n.get().LogoutConfirm || '退出确认')
   AirConfig.removeAccessToken()
   if (AirConfig.router) {
     AirConfig.router.replace('/login')

@@ -25,7 +25,6 @@
         <slot name="headerRight" />
         <div
           v-if="fullable"
-          v-tip="'全屏/退出全屏'"
           class="panel-full"
           @click="isFullScreen = !isFullScreen"
         >

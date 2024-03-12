@@ -28,7 +28,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * # 对话框显示的标题
    */
-  const title = computed(() => ((result.formData.value.id ? (AirI18n.get().Edit || '编辑') : (AirI18n.get().Add || '添加')) + result.formData.value.getClassName()))
+  const title = computed(() => ((result.formData.value.id ? (AirI18n.get().Edit || '编辑') : (AirI18n.get().Add || '添加'))))
 
   /**
    * # 自动生成的验证规则

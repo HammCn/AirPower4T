@@ -17,7 +17,7 @@
         type="IMPORT"
         @click="onImport()"
       >
-        导入
+        {{ AirI18n.get().Import || '导入' }}
       </AButton>
       <slot name="afterButton" />
     </div>
@@ -43,9 +43,9 @@
                   v-model="data[item.key]"
                   :editable="false"
                   type="daterange"
-                  range-separator="至"
                   :start-placeholder="item.label + ''"
-                  end-placeholder="结束"
+                  :range-separator="AirI18n.get().To + '至'"
+                  :end-placeholder="AirI18n.get().End || '结束'"
                   format="YYYY/MM/DD"
                   value-format="x"
                   :default-time="[
@@ -62,9 +62,9 @@
                   is-range
                   arrow-control
                   :editable="false"
-                  range-separator="至"
+                  :range-separator="AirI18n.get().To + '至'"
+                  :end-placeholder="AirI18n.get().End || '结束'"
                   :start-placeholder="item.label + ''"
-                  end-placeholder="结束"
                   value-format="HH:mm:ss"
                   @clear=" data[item.key] = undefined"
                   @change="onSearch()"
@@ -73,9 +73,9 @@
                   v-if="item.betweenType === AirBetweenType.DATETIME"
                   v-model="data[item.key]"
                   type="datetimerange"
-                  range-separator="至"
                   :start-placeholder="item.label + ''"
-                  end-placeholder="结束"
+                  :range-separator="AirI18n.get().To + '至'"
+                  :end-placeholder="AirI18n.get().End || '结束'"
                   format="YYYY/MM/DD HH:mm:ss"
                   :editable="false"
                   value-format="x"
@@ -126,7 +126,7 @@
         custom-class="export-button"
         @click=" onExport()"
       >
-        导出
+        {{ AirI18n.get().Export || '导出' }}
       </AButton>
       <slot name="afterSearch" />
     </div>
@@ -156,6 +156,7 @@ import { AirRequest } from '../model/AirRequest'
 import { IJson } from '../interface/IJson'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { getDictionary } from '../decorator/Custom'
+import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 
@@ -385,7 +386,7 @@ const request = ref(new AirRequestPage(props.entity))
 /**
  * 添加按钮的标题
  */
-const addTitle = computed(() => entityConfig.value.addTitle || (`添加${entityInstance.value.getClassName()}`))
+const addTitle = computed(() => entityConfig.value.addTitle || (AirI18n.get().Add || '添加'))
 
 /**
  * 是否显示搜索框
@@ -520,9 +521,9 @@ async function onImport() {
     {
       uploadUrl: url,
       exts: ['xls', 'xlsx'],
-      title: props.importTitle || '导入数据',
-      uploadSuccess: '数据导入成功',
-      confirmText: '下载模板',
+      title: props.importTitle || AirI18n.get().Import || '导入',
+      uploadSuccess: AirI18n.get().ImportSuccess || '数据导入成功',
+      confirmText: AirI18n.get().DownloadTemplate || '下载模板',
       entity: AirConfig.fileEntityClass,
     },
     () => {
