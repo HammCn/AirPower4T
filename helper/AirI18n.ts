@@ -28,10 +28,12 @@ import { AirLanguage } from '../enum/AirLanguage'
  * @author Hamm
  */
 export class AirI18n {
+  private static readonly languageCacheKey = 'air-language'
+
   /**
    * # 当前语言
    */
-  language = AirLanguage.ChineseSimplified
+  language = (localStorage.getItem(AirI18n.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   // ! 以下是内置的文案
 
@@ -39,14 +41,9 @@ export class AirI18n {
 
   // ! 以下是静态方法
   /**
-   * # 是否开启`I18n`
-   */
-  static enabled = false
-
-  /**
    * # 当前使用的语言
    */
-  private static currentLanguage = AirLanguage.ChineseSimplified
+  private static currentLanguage = (localStorage.getItem(AirI18n.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   /**
    * # 语言列表
@@ -90,10 +87,7 @@ export class AirI18n {
   static init(...languages: AirI18n[]): void {
     if (languages.length > 0) {
       this.languages = languages
-      this.enabled = true
-      return
     }
-    this.enabled = false
   }
 
   /**
@@ -102,5 +96,6 @@ export class AirI18n {
    */
   static setCurrentLanguage(language: AirLanguage): void {
     this.currentLanguage = language
+    localStorage.setItem(AirI18n.languageCacheKey, language)
   }
 }
