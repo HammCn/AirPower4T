@@ -112,7 +112,7 @@
 
   .el-message-box__header {
     border-bottom: 1px solid #ebebeb;
-    padding: 15px 20px !important;
+    padding: 0px 20px 10px 10px !important;
 
     .el-message-box__title {
       color: #333;
@@ -120,15 +120,15 @@
     }
 
     .el-message-box__close {
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: -5px;
+      font-size: 24px !important;
+      font-weight: bold !important;
+      margin: 8px 10px 0px 0px !important;
     }
   }
 
   .el-message-box__content {
-    padding: 30px;
-    font-size: 15px;
+    padding: 20px !important;
+    font-size: 15px !important;
 
     .iconfont,
     .el-message-box__status {
