@@ -2,6 +2,7 @@
 import { ElMessageBox, ElMessageBoxOptions } from 'element-plus'
 import { CSSProperties } from 'vue'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 消息弹窗类
@@ -12,12 +13,12 @@ export class AirAlert {
   /**
    * # 确认按钮文字
    */
-  protected confirmText = '确认'
+  protected confirmText = AirI18n.get().Confirm || '确定'
 
   /**
    * # 取消按钮文字
    */
-  protected cancelText = '取消'
+  protected cancelText = AirI18n.get().Cancel || '取消'
 
   /**
    * # 可选的确认图标类型

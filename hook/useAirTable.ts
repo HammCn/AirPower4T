@@ -6,6 +6,7 @@ import { IUseTableOption } from '../interface/IUseTableOption'
 import { AirNotification } from '../feedback/AirNotification'
 import { IUseTableResult } from '../interface/IUseTableResult'
 import { airTableHook } from './airTableHook'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 引入表格使用的Hook
@@ -41,7 +42,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
    * @param row 行数据
    */
   async function onDelete(row: E) {
-    await result.service.delete(row.id, `删除${result.entity.getClassName()}成功`)
+    await result.service.delete(row.id, AirI18n.get().DeleteSuccess || '删除成功')
     result.onReloadData()
   }
 

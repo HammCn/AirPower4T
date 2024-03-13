@@ -1,5 +1,6 @@
 import { ElLoading } from 'element-plus'
 import { IJson } from '../interface/IJson'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 通知基类
@@ -15,7 +16,7 @@ export class AirLoading {
   /**
    * # Loading文字
    */
-  private message = '加载中'
+  private message = AirI18n.get().Loading || '加载中'
 
   /**
    * # 加载目标

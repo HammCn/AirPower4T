@@ -1,4 +1,4 @@
-import { Ref, computed, ref } from 'vue'
+import { Ref, ref } from 'vue'
 import { IUseDetailOption } from '../interface/IUseDetailOption'
 import { IUseDetailResult } from '../interface/IUseDetailResult'
 import { AirEntity } from '../base/AirEntity'
@@ -6,6 +6,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IJson } from '../interface/IJson'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 引入详情的Hook
@@ -35,7 +36,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * # 显示的对话框标题
    */
-  const title = computed(() => `${formData.value.getClassName()}详情`)
+  const title = ref(AirI18n.get().Detail || '详情')
 
   /**
    * # 查询详情方法

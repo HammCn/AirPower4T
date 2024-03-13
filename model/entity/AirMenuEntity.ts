@@ -1,6 +1,6 @@
-import { AirEntity } from '@/airpower/base/AirEntity'
-import { Type } from '@/airpower/decorator/Custom'
-import { IMenu } from '@/airpower/interface/IMenu'
+import { AirEntity } from '../../base/AirEntity'
+import { Type } from '../../decorator/Custom'
+import { IMenu } from '../../interface/IMenu'
 
 /**
  * # 内置菜单实体

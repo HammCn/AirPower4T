@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" src="./assets/img/airpower.svg"/>4T
+  <img width="300" src="./assets/img/airpower.svg"/> <b>4T</b>
 </p>
 
 <p align="center">
@@ -9,8 +9,9 @@
   <img src="https://svg.hamm.cn?key=UI&value=ElementPlus"/>
 </p>
 
-[Gitee](https://gitee.com/air-power/AirPower4T) / [Github](https://github.com/HammCn/AirPower4T) / [CHANGELOG](./CHANGELOG.md) / [DOCUMENT](https://www.npmjs.com/package/airpower?activeTab=readme)
-
+<p align="center">
+  <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> / <a href="https://github.com/HammCn/AirPower4T">Github</a> / <a href="./CHANGELOG.md">CHANGELOG</a> / <a href="https://www.npmjs.com/package/airpower?activeTab=readme">DOCUMENT</a>
+</p>
 
 ## 📖 这是个什么项目
 
@@ -67,4 +68,9 @@ AirPowerWebStarter via [Gitee](https://gitee.com/air-power/AirPowerWebStarter/bl
 ## 📷 来点*图(示例)
 
 <img width="24%" src="./docs/img/5.png"/><img width="24%" src="./docs/img/6.png"/><img width="24%" src="./docs/img/7.png"/><img width="24%" src="./docs/img/8.png"/>
- 
+
+---
+  
+<p align="center">
+ATTENTION: Contributor list is just for fun!!!
+</p>

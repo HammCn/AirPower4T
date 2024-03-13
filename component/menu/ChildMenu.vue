@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import { PropType } from 'vue'
-import { IMenu } from '@/airpower/interface/IMenu'
+import { IMenu } from '../../interface/IMenu'
 
 defineProps({
   /**

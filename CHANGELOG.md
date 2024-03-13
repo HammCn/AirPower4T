@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v1.1.7
+
+### 🎉 Features:
+
+- feat(AirString): 提供了一个字符串处理类
+
+### 🐞 Bug fixes:
+
+- fix(Permission): 更新了`AirPermissionAction`部分错误的注释
+- fix(Dictionary): 优化了`AirDictionaryArray`字典拷贝数据的问题
+- fix(Path): 修改部分绝对路径为相对路径
+
 ## v1.1.6
 
 ### 🐞 Bug fixes:

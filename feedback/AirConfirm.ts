@@ -1,6 +1,7 @@
 import { ElMessageBox } from 'element-plus'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirAlert } from './AirAlert'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * #  确认弹窗类
@@ -78,7 +79,7 @@ export class AirConfirm extends AirAlert {
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
-  show(content: string, title = '操作提醒'): Promise<void> {
+  show(content: string, title = AirI18n.get().OperateNotice || '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       ElMessageBox.confirm(
         content,

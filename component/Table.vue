@@ -33,7 +33,7 @@
       <el-table-column
         v-if="!AirConfig.hideTableIndex && !hideIndex"
         type="index"
-        label="序号"
+        :label="AirI18n.get().ID || '序号'"
         fixed="left"
         width="60"
       />
@@ -104,7 +104,7 @@
                 >
                   <template #error>
                     <div class="image-error">
-                      暂无
+                      {{ AirI18n.get().Nothing || '暂无' }}
                     </div>
                   </template>
                 </el-image>
@@ -176,7 +176,7 @@
             />
             <template v-if="isFieldSelectorEnabled">
               <el-icon
-                v-tip="'配置列字段'"
+                v-tip="AirI18n.get().ConfigureTableColumns || '配置表格列'"
                 class="air-field-select-icon"
                 @click="isFieldSelectorShow = true"
               >
@@ -201,10 +201,10 @@
                 type="ADD"
                 :disabled="isAddDisabled((scope as any).row)"
                 :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD_CHILD)"
-                tooltip="添加子项"
+                :tooltip="AirI18n.get().AddSubItem || '添加子项'"
                 @click="handleAdd((scope as any).row)"
               >
-                添加
+                {{ AirI18n.get().Add || "添加" }}
               </AButton>
               <AButton
                 v-if="!hideEdit"
@@ -213,10 +213,10 @@
                 type="EDIT"
                 :disabled="isEditDisabled((scope as any).row)"
                 :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
-                tooltip="编辑这条数据"
+                :tooltip="AirI18n.get().Edit || '编辑'"
                 @click="handleEdit((scope as any).row)"
               >
-                编辑
+                {{ AirI18n.get().Edit || "编辑" }}
               </AButton>
               <AButton
                 v-if="showDetail"
@@ -225,10 +225,10 @@
                 type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
                 :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
-                tooltip="查看详情"
+                :tooltip="AirI18n.get().Detail || '详情'"
                 @click="handleDetail((scope as any).row)"
               >
-                详情
+                {{ AirI18n.get().Detail || "详情" }}
               </AButton>
               <AButton
                 v-if="!hideDelete"
@@ -238,10 +238,10 @@
                 :danger="isForceDelete"
                 :disabled="isDeleteDisabled((scope as any).row)"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
-                tooltip="删除这条数据"
+                :tooltip="AirI18n.get().Delete || '删除'"
                 @click="handleDelete((scope as any).row)"
               >
-                删除
+                {{ AirI18n.get().Delete || "删除" }}
               </AButton>
             </template>
             <!-- 自定义操作列后置插槽 -->
@@ -259,7 +259,7 @@
           style="width: 80px;"
           alt=""
         >
-        <div>{{ emptyText || entityConfig.tableEmptyText || '暂无数据' }}</div>
+        <div>{{ emptyText || entityConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
       </template>
     </el-table>
     <div class="air-field-selector">
@@ -274,7 +274,7 @@
           class="air-field-selector-dialog"
         >
           <div class="air-field-selector-title">
-            请选择需要显示的字段
+            {{ AirI18n.get().ConfigureTableColumns || '选择要显示的列' }}
           </div>
           <div class="air-field-selector-list">
             <el-check-tag
@@ -320,6 +320,7 @@ import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
@@ -842,9 +843,8 @@ async function handleDelete(item: AirEntity) {
       let content: string
       // 如果实体传入 则尝试自动获取
 
-      const entityName = entityInstance.value.getClassName()
-      title = '删除提醒'
-      content = `是否确认删除当前选中的${entityName}？`
+      title = AirI18n.get().DeleteConfirm || '确认删除'
+      content = AirI18n.get().AreYouConfirmToDelete || '是否确认删除选择的数据'
 
       // 如果传入配置项 则覆盖实体标注的内容
       if (props.deleteTitle) {
@@ -853,7 +853,7 @@ async function handleDelete(item: AirEntity) {
       if (props.deleteContent) {
         content = props.deleteContent
       }
-      await AirConfirm.create().dangerButton().enableEscClose().setConfirmText('确认删除')
+      await AirConfirm.create().dangerButton().enableEscClose().setConfirmText(title)
         .show(content, title)
     }
     emits('onDelete', item)

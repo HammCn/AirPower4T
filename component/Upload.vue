@@ -28,13 +28,13 @@
         :data="data"
       >
         <div class="el-upload__text">
-          <b>点击或拖到此处上传</b>
+          <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
           <span>
-            仅限不超过
+            {{ AirI18n.get().FileSize || "文件大小: " }}
             <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
-            的
+            {{ AirI18n.get().FileExt || "文件格式: " }}
             <template v-if="!exts.includes('*')">
-              <b>{{ exts.join('/') }}</b>文件
+              <b>{{ exts.join('/') }}</b>
             </template>
           </span>
           <div
@@ -60,6 +60,7 @@ import { AirFile } from '../helper/AirFile'
 import { IFile } from '../interface/IFile'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
+import { AirI18n } from '../helper/AirI18n'
 
 const props = defineProps({
   /**
@@ -131,7 +132,7 @@ const props = defineProps({
    */
   uploadSuccess: {
     type: String,
-    default: '你选择的文件上传成功！',
+    default: AirI18n.get().UploadSuccess || '上传成功',
   },
 
   /**
@@ -216,14 +217,14 @@ function uploadReady(file: { name: string; size: number; }): boolean {
     const fileExt = arr && arr.length > 1 ? arr[arr.length - 1] : ''
     const isFileTypeInLimited = !(props.exts.indexOf(fileExt.toLowerCase()) < 0)
     if (!isFileTypeInLimited) {
-      AirNotification.error(`只允许上传${props.exts.join('/')}类型的文件`, `不允许的文件类型${fileExt}`)
+      AirNotification.error(`${AirI18n.get().FileExtNotSupported || '文件格式不支持 '}${fileExt}`, AirI18n.get().UploadError || '上传失败')
       return false
     }
   }
   const isFileSizeInLimited = file.size <= props.maxSize
   // 文件大小验证
   if (!isFileSizeInLimited) {
-    AirNotification.error(`只允许上传不超过${AirFile.getFileSizeFriendly(props.maxSize)}的文件`, `文件大小超限${AirFile.getFileSizeFriendly(file.size)}`)
+    AirNotification.error(`${AirI18n.get().FileSizeNotSupported || '文件大小不支持 '}${AirFile.getFileSizeFriendly(file.size)}`, AirI18n.get().UploadError || '上传失败')
     return false
   }
 
@@ -236,7 +237,7 @@ function uploadReady(file: { name: string; size: number; }): boolean {
  */
 function onUploadError() {
   loading.value = false
-  AirNotification.error('上传文件失败, 请稍后再试', '上传失败')
+  AirNotification.error(AirI18n.get().FileUploadErrorAndRetryPlease || '上传文件失败, 请稍后再试', AirI18n.get().UploadError || '上传失败')
   props.onCancel()
 }
 
@@ -250,7 +251,7 @@ function onUploadSuccess(result: IJson) {
     return
   }
   if (result.code === AirConfig.successCode) {
-    AirNotification.success(props.uploadSuccess, '上传成功')
+    AirNotification.success(props.uploadSuccess, AirI18n.get().UploadSuccess || '上传成功')
     if (props.onCustomSuccess) {
       props.onCustomSuccess(result.data)
       props.onConfirm(null)
@@ -262,7 +263,7 @@ function onUploadSuccess(result: IJson) {
       props.onConfirm(entity)
     }
   } else {
-    AirNotification.error(result.message as string || '好家伙,后端的拉垮哥们连Message都没返回???', '上传失败')
+    AirNotification.error(result.message as string || '好家伙,后端的拉垮哥们连Message都没返回???', AirI18n.get().UploadError || '上传失败')
     props.onCancel()
   }
 }

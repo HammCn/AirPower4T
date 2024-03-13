@@ -22,7 +22,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.1.6'
+  static readonly version = 'v1.1.7'
 
   /**
    * # AppKey
@@ -183,7 +183,7 @@ export class AirConfig {
    * ---
    * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
    */
-  static authorizationHeaderKey = 'Authorization'
+  static authorizationHeaderKey = 'authorization'
 
   /**
    * # Http返回状态码的字段
@@ -232,7 +232,7 @@ export class AirConfig {
   /**
    * # 标准错误提示标题
    */
-  static errorTitle = '发生错误'
+  static errorTitle = '系统错误'
 
   /**
    * # 标准错误提示内容
