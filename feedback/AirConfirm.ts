@@ -1,5 +1,6 @@
 import { AirAlert } from './AirAlert'
 import { AirI18n } from '../helper/AirI18n'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 确认弹窗类
@@ -59,7 +60,7 @@ export class AirConfirm extends AirAlert {
         confirmText: this.confirmText,
         confirmColor: this.confirmColor,
         cancelText: this.cancelText,
-        success: (res) => {
+        success: (res: IJson) => {
           if (res.confirm) {
             resolve()
             return
