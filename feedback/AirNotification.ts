@@ -1,4 +1,5 @@
 import { AirFeedbackType } from '../enum/AirFeedbackType'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 通知基类

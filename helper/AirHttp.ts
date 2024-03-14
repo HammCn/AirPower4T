@@ -9,6 +9,7 @@ import { IFile } from '../interface/IFile'
 import { IJson } from '../interface/IJson'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirI18n } from './AirI18n'
 
 /**
  * # 封装的网络请求类
@@ -111,7 +112,7 @@ export class AirHttp {
           AirLoading.hide()
         }
       }
-      option.success = (res) => {
+      option.success = (res: IJson) => {
         try {
           const json = JSON.parse(res.data)
           switch (json[AirConfig.httpCodeKey]) {
@@ -131,14 +132,14 @@ export class AirHttp {
                 fail(json[AirConfig.httpMessageKey])
                 return
               }
-              AirAlert.show('上传失败', json[AirConfig.httpMessageKey] as string || '上传文件失败, 请稍后再试')
+              AirAlert.show(AirI18n.get().UploadError || "上传失败", json[AirConfig.httpMessageKey] as string || AirI18n.get().FileUploadErrorAndRetryPlease || "文件上传失败,请重试")
           }
         } catch (e) {
           if (this.errorCallback) {
             fail(e)
             return
           }
-          AirAlert.show('上传失败', '上传文件失败, 请稍后再试')
+          AirAlert.show(AirI18n.get().UploadError || "上传失败", AirI18n.get().FileUploadErrorAndRetryPlease || "文件上传失败,请重试")
         }
       }
       uni.uploadFile(option)
@@ -166,7 +167,7 @@ export class AirHttp {
           data: json,
           method: this.method,
           header: this.header,
-          success: async (res) => {
+          success: async (res: IJson) => {
             const json = res.data as IJson
             try {
               switch (json[AirConfig.httpCodeKey]) {
@@ -197,7 +198,7 @@ export class AirHttp {
                     fail(json)
                     return
                   }
-                  AirAlert.show('操作失败', json[AirConfig.httpMessageKey] as string || '服务器处理异常, 请稍后再试')
+                  AirAlert.show(AirI18n.get().SystemError || "系统错误", json[AirConfig.httpMessageKey] as string || AirI18n.get().SystemErrorAndRetryPlease || "系统发生了一些错误，请稍候再试")
               }
             } catch (e) {
               console.warn('[HTTP ERROR]', res.data, e)
@@ -205,10 +206,10 @@ export class AirHttp {
                 fail(e)
                 return
               }
-              AirAlert.show('操作失败', '解析数据出现异常, 请联系管理员处理')
+              AirAlert.show(AirI18n.get().SystemError || "系统错误", AirI18n.get().SystemErrorAndRetryPlease || "系统发生了一些错误，请稍候再试")
             }
           },
-          fail: (res) => {
+          fail: (res: IJson) => {
             console.warn('[HTTP ERROR]', res)
             this.triedTimes += 1
             console.warn(res)
@@ -229,7 +230,7 @@ export class AirHttp {
                 .catch(() => fail(res))
             } else {
               this.triedTimes = 0
-              AirAlert.show('网络错误', '请求网络出现异常, 请检查你的网络信息或稍后再试')
+              AirAlert.show(AirI18n.get().SystemError || "系统错误", AirI18n.get().CheckYourNetworkPlease)
               fail(res)
             }
           },

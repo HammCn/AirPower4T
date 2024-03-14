@@ -1,3 +1,5 @@
+import { AirI18n } from "../helper/AirI18n"
+
 /**
  * # 消息弹窗类
  * 可通过 ```.create()``` 方法创建自定义实例
@@ -7,12 +9,12 @@ export class AirAlert {
   /**
    * # 确认按钮文字
    */
-  protected confirmText = '确认'
+  protected confirmText = AirI18n.get().Confirm || '确定'
 
   /**
    * # 取消按钮文字
    */
-  protected cancelText = '取消'
+  protected cancelText = AirI18n.get().Cancel || '取消'
 
   /**
    * # 确认按钮颜色
