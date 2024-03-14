@@ -1,4 +1,5 @@
 import { AirAlert } from './AirAlert'
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 确认弹窗类
