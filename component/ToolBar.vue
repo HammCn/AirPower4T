@@ -44,7 +44,7 @@
                   :editable="false"
                   type="daterange"
                   :start-placeholder="item.label + ''"
-                  :range-separator="AirI18n.get().To + '至'"
+                  :range-separator="AirI18n.get().To || '至'"
                   :end-placeholder="AirI18n.get().End || '结束'"
                   format="YYYY/MM/DD"
                   value-format="x"
@@ -62,7 +62,7 @@
                   is-range
                   arrow-control
                   :editable="false"
-                  :range-separator="AirI18n.get().To + '至'"
+                  :range-separator="AirI18n.get().To || '至'"
                   :end-placeholder="AirI18n.get().End || '结束'"
                   :start-placeholder="item.label + ''"
                   value-format="HH:mm:ss"
@@ -74,7 +74,7 @@
                   v-model="data[item.key]"
                   type="datetimerange"
                   :start-placeholder="item.label + ''"
-                  :range-separator="AirI18n.get().To + '至'"
+                  :range-separator="AirI18n.get().To || '至'"
                   :end-placeholder="AirI18n.get().End || '结束'"
                   format="YYYY/MM/DD HH:mm:ss"
                   :editable="false"
