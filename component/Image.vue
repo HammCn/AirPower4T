@@ -263,7 +263,6 @@ function onUploadError() {
 function onUploadSuccess(response: { data: { url: string } }) {
   const entityData = AirClassTransformer.parse(response.data, props.entity)
   if (entityData && entityData.url) {
-    imageUrl.value = AirFile.getStaticFileUrl(entityData.url)
     emits('onUpload', entityData)
     isUploading.value = false
   } else {
