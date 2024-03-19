@@ -1,21 +1,49 @@
 <template>
-  <div class="air-image" :style="{ width: props.imageConfig.width + 'px', height: props.imageConfig.height + 'px' }">
-    <el-image fit="contain" :src="imageUrl" preview-teleported :preview-src-list="[imageUrl]" lazy :z-index="99">
+  <div
+    class="air-image"
+    :style="{ width: props.imageConfig.width + 'px', height: props.imageConfig.height + 'px' }"
+  >
+    <el-image
+      fit="contain"
+      :src="imageUrl"
+      preview-teleported
+      :preview-src-list="[imageUrl]"
+      lazy
+      :z-index="99"
+    >
       <template #error>
         <div class="image-error">
           {{ placeholder || (upload && entity ? (AirI18n.get().UplpadImage || '上传图片') :
-    (AirI18n.get().NoPicture || '暂无图片')) }}
+            (AirI18n.get().NoPicture || '暂无图片')) }}
         </div>
       </template>
     </el-image>
-    <div v-if="uploadHeader && upload" v-loading="isUploading" class="image-upload"
-      :class="imageUrl ? 'image-preview-color' : ''">
-      <el-upload v-if="!imageUrl" class="image-upload-box" :action="uploadUrl" :headers="uploadHeader"
-        :name="uploadFileName" :show-file-list="false" :before-upload="beforeUpload" :on-error="onUploadError"
-        :on-success="onUploadSuccess" />
+    <div
+      v-if="uploadHeader && upload"
+      v-loading="isUploading"
+      class="image-upload"
+      :class="imageUrl ? 'image-preview-color' : ''"
+    >
+      <el-upload
+        v-if="!imageUrl"
+        class="image-upload-box"
+        :action="uploadUrl"
+        :headers="uploadHeader"
+        :name="uploadFileName"
+        :show-file-list="false"
+        :before-upload="beforeUpload"
+        :on-error="onUploadError"
+        :on-success="onUploadSuccess"
+      />
     </div>
-    <div v-if="imageUrl && upload && entity" class="action">
-      <el-icon v-if="clearable" @click="imageRemoved">
+    <div
+      v-if="imageUrl && upload && entity"
+      class="action"
+    >
+      <el-icon
+        v-if="clearable"
+        @click="imageRemoved"
+      >
         <CircleCloseFilled />
       </el-icon>
     </div>
