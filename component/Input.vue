@@ -18,6 +18,7 @@
         @clear="selectEvent"
         @visible-change="selectEvent"
         @keydown="inputKeyDown"
+        @focus="emits('focus')"
       />
       <el-time-picker
         v-else
@@ -35,6 +36,7 @@
         @clear="selectEvent"
         @visible-change="selectEvent"
         @keydown="inputKeyDown"
+        @focus="emits('focus')"
       />
     </template>
     <template v-else-if="dictionary || (fieldConfig && fieldConfig.dictionary) || list">
@@ -126,6 +128,7 @@
         @keydown="inputKeyDown"
         @change="selectEvent"
         @clear="selectEvent"
+        @focus="emits('focus')"
       >
         <template v-if="list">
           <el-option
@@ -180,6 +183,7 @@
       @change="selectEvent"
       @clear="selectEvent"
       @keydown="inputKeyDown"
+      @focus="emits('focus')"
     />
     <el-input
       v-else
@@ -207,6 +211,7 @@
       @change="inputEvent"
       @clear="selectEvent"
       @blur="inputBlur"
+      @focus="emits('focus')"
     >
       <template
         v-if="fieldConfig && fieldConfig.suffixText"
@@ -250,7 +255,7 @@ import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
 
-const emits = defineEmits(['onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
+const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
 const props = defineProps({
   modelValue: {
@@ -359,6 +364,26 @@ const props = defineProps({
 })
 
 /**
+ * 绑定的数据
+ */
+const value: Ref<string | number | boolean | Array<unknown> | IJson | undefined> = ref(props.modelValue)
+
+function emitChange() {
+  emits('onChange', value.value)
+  emits('change', value.value)
+}
+
+function emitBlur() {
+  emits('blur')
+  emits('onBlur')
+}
+
+function emitClear() {
+  emits('clear')
+  emits('onClear')
+}
+
+/**
  * # 实体的实例
  */
 const entityInstance = computed(() => {
@@ -377,11 +402,6 @@ const isClearButtonShow = ref(props.showClear)
  * 占位内容
  */
 const placeholderRef = ref(props.placeholder)
-
-/**
- * 绑定的数据
- */
-const value: Ref<string | number | boolean | Array<unknown> | IJson | undefined> = ref(props.modelValue)
 
 /**
  * 字段的表单配置信息
@@ -541,10 +561,8 @@ function selectEvent() {
  * 清空事件
  */
 function clearEvent() {
-  emits('onClear')
-  emits('clear')
-  emits('onChange', value.value)
-  emits('change', value.value)
+  emitClear()
+  emitChange()
 }
 
 /**
@@ -566,8 +584,7 @@ function emitValue() {
     value.value = parseFloat(value.value?.toString() || '0')
   }
   emits('update:modelValue', value.value)
-  emits('onChange', value.value)
-  emits('change', value.value)
+  emitChange()
 }
 
 /**
@@ -612,6 +629,7 @@ function inputBlur() {
   }
   inputEvent()
   emitValue()
+  emitBlur()
 }
 
 /**
