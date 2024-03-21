@@ -1,6 +1,6 @@
 <template>
   <ADialog
-    :title="param"
+    title="拨打电话"
     :fullable="false"
     class="air-phone-call"
     hide-footer
@@ -13,14 +13,22 @@
         :content="content"
         :size="160"
       />
-      <span><el-icon class="icon"><WarningFilled /></el-icon>请使用手机自带的相机扫码</span>
+      <ACopy
+        class="phone"
+        :content="param"
+      >
+        {{ param }}
+      </ACopy>
+      <span><el-icon class="icon">
+        <WarningFilled />
+      </el-icon>请使用手机自带的相机扫码</span>
     </div>
   </ADialog>
 </template>
 
 <script lang="ts" setup>
 import { airPropsParam } from '@/airpower/config/AirProps'
-import { ADialog, AQrocde } from '..'
+import { ACopy, ADialog, AQrocde } from '..'
 
 const props = defineProps(airPropsParam(''))
 
@@ -33,15 +41,22 @@ const content = `tel:${props.param}`
   justify-content: center;
   flex-direction: column;
 
+  .phone {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
   >span {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text-danger-color);
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    .icon{
+
+    .icon {
       margin-right: 3px;
     }
   }
