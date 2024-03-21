@@ -32,7 +32,7 @@ export class AirI18n extends AirI18nDefault {
   /**
    * # 当前使用的语言
    */
-  private static currentLanguage = (localStorage.getItem(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  private static currentLanguage = (wx.getStorageSync(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   /**
    * # 当前使用的语言包
@@ -90,6 +90,6 @@ export class AirI18n extends AirI18nDefault {
   static setCurrentLanguage(language: AirLanguage): void {
     this.currentLanguage = language
     this.currentLanguagePackage = this.languages.find((item) => item.language === this.currentLanguage)
-    localStorage.setItem(AirI18n.languageCacheKey, language)
+    wx.setStorageSync(AirI18n.languageCacheKey, language)
   }
 }
