@@ -1,6 +1,7 @@
 <template>
   <el-link
     v-tip="copyTips"
+    class="air-copy"
     :underline="false"
     @click="copy"
   >
@@ -55,3 +56,15 @@ async function copy() {
   }, 2000)
 }
 </script>
+
+<style lang="scss" scoped>
+.air-copy {
+  width: 100%;
+  flex: 1;
+
+  ::v-deep(.el-link__inner) {
+    width: 100%;
+    flex: 1;
+  }
+}
+</style>
