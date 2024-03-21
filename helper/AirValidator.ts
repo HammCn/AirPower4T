@@ -209,7 +209,7 @@ export class AirValidator {
   ifEmpty(): this {
     this.required = true
     if (!this.message) {
-      this.message = AirI18n.get().Required || '此项必须为必填项'
+      this.message = AirI18n.get().Required || '此项为必填项'
     }
     return this
   }
