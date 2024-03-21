@@ -59,4 +59,6 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
   arraySplitor = AirConfig.arraySplitor
 
   nowrap = true
+
+  phone = false
 }

@@ -1,12 +1,12 @@
 <template>
   <div
-    v-loading="!value"
+    v-loading="!content"
     class="air-qrcode"
     :style="{ width: size + 'px', height: size + 'px', }"
   >
     <QrcodeVue
-      v-if="value"
-      :value="value"
+      v-if="content"
+      :value="content"
       :size="size"
       level="H"
     />
@@ -19,7 +19,7 @@ import QrcodeVue from 'qrcode.vue'
 import { ref, watch } from 'vue'
 
 const props = defineProps({
-  value: {
+  content: {
     type: String,
     default: '',
   },
@@ -32,8 +32,8 @@ const props = defineProps({
 
 const qr = ref('')
 
-watch(() => props.value, () => {
-  qr.value = props.value || ''
+watch(() => props.content, () => {
+  qr.value = props.content || ''
 })
 </script>
 <style scoped lang="scss">

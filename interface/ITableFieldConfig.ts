@@ -157,4 +157,11 @@ export interface ITableFieldConfig extends IFieldConfig {
    * # 配置列换行省略
    */
   nowrap?: boolean
+
+  /**
+   * # 标记为电话字段
+   * ---
+   * 💡 点击将唤起拨号或展示拨号二维码
+   */
+  phone?: boolean
 }

@@ -17,6 +17,8 @@ import ACopy from './Copy.vue'
 import ATreeBox from './TreeBox.vue'
 import ATabs from './Tabs.vue'
 import ATab from './Tab.vue'
+import APhone from './Phone.vue'
+import AQrocde from './Qrcode.vue'
 
 export {
   ACopy,
@@ -38,4 +40,6 @@ export {
   ATreeBox,
   ATabs,
   ATab,
+  APhone,
+  AQrocde,
 }

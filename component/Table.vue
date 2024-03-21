@@ -82,6 +82,10 @@
                   (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
                     .getLabel((scope as any).row[item.key], item.emptyValue) }}
               </div>
+              <!-- 是手机字段 -->
+              <template v-else-if="item.phone">
+                <APhone :phone="(scope as any).row[item.key]" />
+              </template>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
                 <ADateTime
@@ -309,7 +313,9 @@ import { AirTableInstance } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
-import { ADateTime, ACopy, AButton } from '.'
+import {
+  ADateTime, ACopy, AButton, APhone,
+} from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
