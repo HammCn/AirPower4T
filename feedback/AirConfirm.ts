@@ -1,5 +1,4 @@
 import { AirAlert } from './AirAlert'
-import { AirI18n } from '../helper/AirI18n'
 import { IJson } from '../interface/IJson'
 
 /**

@@ -13,7 +13,7 @@ export class AirI18nDefault {
   /**
    * # 语言名称
    */
-  language = (localStorage.getItem(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  language = (wx.getStorageSync(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   //! Start
   /** # 点击这里上传 */
