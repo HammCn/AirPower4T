@@ -14,10 +14,10 @@
         :type="fieldConfig.dateType"
         style="width:100%"
         :readonly="readonly"
-        @change="selectEvent"
-        @clear="selectEvent"
-        @visible-change="selectEvent"
-        @keydown="inputKeyDown"
+        @change="onChanged"
+        @clear="onClear"
+        @visible-change="onChanged"
+        @keydown="onKeyDown"
         @focus="emits('focus')"
       />
       <el-time-picker
@@ -32,10 +32,10 @@
         :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
         :value-format="fieldConfig.dateFormatter"
         :readonly="readonly"
-        @change="selectEvent"
-        @clear="selectEvent"
-        @visible-change="selectEvent"
-        @keydown="inputKeyDown"
+        @change="onChanged"
+        @clear="onClear"
+        @visible-change="onChanged"
+        @keydown="onKeyDown"
         @focus="emits('focus')"
       />
     </template>
@@ -56,13 +56,13 @@
           item => item.key === false
         )?.label
           || ''"
-        @change="selectEvent"
+        @change="onChanged"
       />
       <el-radio-group
         v-else-if="fieldConfig?.radioButton"
         v-model="value"
         :readonly="readonly"
-        @change="selectEvent"
+        @change="onChanged"
       >
         <template v-if="list">
           <el-radio-button
@@ -87,7 +87,7 @@
         v-else-if="fieldConfig?.radio"
         v-model="value"
         :readonly="readonly"
-        @change="selectEvent"
+        @change="onChanged"
       >
         <template v-if="list">
           <el-radio
@@ -125,9 +125,9 @@
         :remote-method="onSearch"
         :remote="!!onSearch"
         collapse-tags-tooltip
-        @keydown="inputKeyDown"
-        @change="selectEvent"
-        @clear="selectEvent"
+        @keydown="onKeyDown"
+        @change="onChanged"
+        @clear="onClear"
         @focus="emits('focus')"
       >
         <template v-if="list">
@@ -180,9 +180,9 @@
       :disabled="disabled"
       :collapse-tags="fieldConfig?.collapseTags"
       collapse-tags-tooltip
-      @change="selectEvent"
-      @clear="selectEvent"
-      @keydown="inputKeyDown"
+      @change="onChanged"
+      @clear="onClear"
+      @keydown="onKeyDown"
       @focus="emits('focus')"
     />
     <el-input
@@ -207,10 +207,10 @@
         { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
         : false
       "
-      @keydown="inputKeyDown"
-      @change="inputEvent"
-      @clear="selectEvent"
-      @blur="inputBlur"
+      @keydown="onKeyDown"
+      @change="checkNumberValue"
+      @clear="onClear"
+      @blur="onBlur"
       @focus="emits('focus')"
     >
       <template
@@ -224,7 +224,7 @@
       <template #suffix>
         <el-icon
           v-if="isClearButtonShow"
-          @click="clearEvent()"
+          @click="onClear()"
         >
           <CircleClose />
         </el-icon>
@@ -424,9 +424,9 @@ const dictionary = computed(() => {
 })
 
 /**
- * 值变化同步
+ * Props的value变化
  */
-function setValue(newProps?: typeof props) {
+function onPropsValueUpdated(newProps?: typeof props) {
   if (newProps) {
     if (newProps.disabled) {
       // disabled
@@ -518,13 +518,13 @@ const getInputType = computed(() => {
  */
 watch(props, (newProps) => {
   isClearButtonShow.value = props.showClear
-  setValue(newProps)
+  onPropsValueUpdated(newProps)
 })
 
 /**
- * 输入事件
+ * 验证输入的值
  */
-function inputEvent() {
+function checkNumberValue() {
   if (fieldConfig.value?.number) {
     // 数字输入
     let tempValue = value.value as number | string | undefined | null
@@ -548,19 +548,24 @@ function inputEvent() {
   }
 }
 
-/**
- * 选择事件
- */
-function selectEvent() {
-  if (value.value === '' || value.value === undefined) {
+function setUndefinedIfEmptyString() {
+  if (value.value === '') {
     value.value = undefined
   }
 }
 
 /**
+ * 数据变更
+ */
+function onChanged() {
+  setUndefinedIfEmptyString()
+}
+
+/**
  * 清空事件
  */
-function clearEvent() {
+function onClear() {
+  setUndefinedIfEmptyString()
   emitClear()
   emitChange()
 }
@@ -591,7 +596,7 @@ function emitValue() {
  * 输入键盘按下事件
  * @param event
  */
-function inputKeyDown(event: KeyboardEvent) {
+function onKeyDown(event: KeyboardEvent) {
   switch (event.code) {
     case 'KeyE':
       if (fieldConfig.value?.number) {
@@ -612,7 +617,7 @@ function inputKeyDown(event: KeyboardEvent) {
 /**
  * 输入框失去焦点
  */
-function inputBlur() {
+function onBlur() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
@@ -627,7 +632,7 @@ function inputBlur() {
       default:
     }
   }
-  inputEvent()
+  checkNumberValue()
   emitValue()
   emitBlur()
 }
@@ -688,7 +693,7 @@ function init() {
     return
   }
   // 初始化同步值
-  setValue(props)
+  onPropsValueUpdated(props)
 }
 
 init()
