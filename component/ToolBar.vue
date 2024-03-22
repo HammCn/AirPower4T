@@ -112,7 +112,6 @@
                 clearable
                 :placeholder="item.label + '...'"
                 @clear="onSearch"
-                @change="onSearch"
                 @keydown.enter="onSearch"
               />
             </slot>
