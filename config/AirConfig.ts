@@ -176,8 +176,8 @@ export class AirConfig {
    * # 手机短震动
    */
   static shake() {
-    wx.vibrateShort({
-      type: "heavy"
+    uni.vibrateShort({
+      type: 'heavy',
     })
   }
 }
