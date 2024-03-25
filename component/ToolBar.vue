@@ -134,7 +134,7 @@
 
 <script lang="ts" setup>
 import {
-  PropType, ref, computed,
+  PropType, ref, computed, watch,
 } from 'vue'
 
 import { AButton } from '../component'
@@ -486,6 +486,13 @@ function onSearch() {
   request.keyword = keyword.value.trimEnd().trimStart()
   emits('onSearch', request)
 }
+
+watch(() => data, () => {
+  onSearch()
+}, {
+  deep: true,
+  immediate: true,
+})
 
 /**
  * 重置表单
