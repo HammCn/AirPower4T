@@ -59,11 +59,9 @@ async function copy() {
 
 <style lang="scss" scoped>
 .air-copy {
-  width: 100%;
   flex: 1;
 
   ::v-deep(.el-link__inner) {
-    width: 100%;
     flex: 1;
   }
 }
