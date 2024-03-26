@@ -1,10 +1,10 @@
-import { IEntity } from './IEntity'
+import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准用户接口
  * @author Hamm
  */
-export interface IUser extends IEntity {
+export interface IUser extends AirEntity {
   /**
    * # 用户昵称
    */
