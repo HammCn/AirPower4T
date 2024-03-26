@@ -68,7 +68,7 @@
           <el-radio-button
             v-for="item in list"
             :key="item.key"
-            :label="item.key"
+            :value="item.key"
           >
             {{ item.label }}
           </el-radio-button>
@@ -77,7 +77,7 @@
           <el-radio-button
             v-for="item in (fieldConfig.dictionary || dictionary)"
             :key="item.key"
-            :label="item.key"
+            :value="item.key"
           >
             {{ item.label }}
           </el-radio-button>
@@ -93,7 +93,7 @@
           <el-radio
             v-for="item in list"
             :key="item.key"
-            :label="item.key"
+            :value="item.key"
           >
             {{ item.label }}
           </el-radio>
@@ -102,7 +102,7 @@
           <el-radio
             v-for="item in (fieldConfig.dictionary || dictionary)"
             :key="item.key"
-            :label="item.key"
+            :value="item.key"
           >
             {{ item.label }}
           </el-radio>

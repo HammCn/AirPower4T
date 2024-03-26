@@ -37,7 +37,7 @@
               <el-radio-button
                 v-for="item in AirConfig.pageSizes"
                 :key="item"
-                :label="item"
+                :value="item"
                 @click="sizeChanged(item)"
               >
                 {{ item }}
