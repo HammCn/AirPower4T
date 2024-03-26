@@ -1,5 +1,24 @@
 # AirPower4T 版本发布日志
 
+## v1.2.0
+
+### ⛔️ Breaking:
+
+- breaking(Version): 限制了`ElementPlus`的版本最小为`v2.6.0`
+
+### 🎉 Features:
+
+- feat(Version): 添加了版本助手类和依赖版本验证
+
+### 🐞 Bug fixes:
+
+- fix(Radio): 修复`ElementPlus`的历史遗留`label`屎问题 &PR#15525
+- fix(Entity): 修复实体的错误继承问题
+- fix(Copy): 修复复制组件的居中问题
+- fix(ToolBar): 修复ToolBar自定义插槽不触发Search事件的bug
+- fix(Input): 优化了一些事件名称和数据处理逻辑
+- fix(ToolBar): 修复搜索输入后回车触发两次的问题
+
 ## v1.1.9
 
 ### 🎉 Features:
