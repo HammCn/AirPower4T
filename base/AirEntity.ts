@@ -1,12 +1,14 @@
 import { FieldName, Type } from '../decorator/Custom'
-import { IEntity } from '../interface/IEntity'
 import { AirModel } from './AirModel'
 
 /**
  * # 实体超类
  * @author Hamm
  */
-export class AirEntity extends AirModel implements IEntity {
+export class AirEntity extends AirModel {
+  /**
+   * # 主键ID
+   */
   @Type(Number)
   @FieldName('ID') id!: number
 
@@ -19,5 +21,13 @@ export class AirEntity extends AirModel implements IEntity {
     if (id) {
       this.id = id
     }
+  }
+
+  /**
+   * # 获取一个只包含ID的实体
+   * @returns 仅包含ID的实体
+   */
+  newInstanceOnlyId() {
+    return new AirEntity(this.id)
   }
 }
