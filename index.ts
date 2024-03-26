@@ -29,6 +29,7 @@ import App from './App.vue'
 // AirConfig
 import { AirConfig } from './config/AirConfig'
 import { AirStore } from './store/AirStore'
+import { AirVersion } from './helper/AirVersion'
 
 // Vue初始化
 const app = createApp(App)
@@ -71,6 +72,8 @@ console.groupEnd()
 if (!import.meta.env.DEV) {
   console.groupCollapsed('%cConsole', 'font-size:12px;color:#333;font-weight:300;')
 }
+
+AirVersion.check()
 
 app.directive('tip', {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
