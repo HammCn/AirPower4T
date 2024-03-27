@@ -214,20 +214,26 @@
       @focus="emits('focus')"
     >
       <template
-        v-if="fieldConfig && fieldConfig.suffixText"
-        #append
+        v-for="(index, name) in $slots"
+        #[name]
       >
-        <slot name="append">
-          {{ fieldConfig?.suffixText }}
+        <slot :name="name">
+          <template
+            v-if="name=='append' && fieldConfig && fieldConfig.suffixText"
+          >
+            {{ fieldConfig?.suffixText }}
+          </template>
+          <template
+            v-if="name=='suffix'"
+          >
+            <el-icon
+              v-if="isClearButtonShow"
+              @click="onClear()"
+            >
+              <CircleClose />
+            </el-icon>
+          </template>
         </slot>
-      </template>
-      <template #suffix>
-        <el-icon
-          v-if="isClearButtonShow"
-          @click="onClear()"
-        >
-          <CircleClose />
-        </el-icon>
       </template>
     </el-input>
   </div>
