@@ -195,7 +195,7 @@ export class AirModel {
         (instance as any)[fieldKey] = fieldValueList
         continue
       }
-      if (defaultValue !== undefined) {
+      if (defaultValue !== undefined && fieldData === undefined) {
         // 如果有默认值 则先给上默认值
         (instance as any)[fieldKey] = defaultValue
       }
