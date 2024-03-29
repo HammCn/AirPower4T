@@ -48,19 +48,6 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   }
 
   /**
-   * @deprecated
-   */
-  static createCustom<T extends IDictionary = IDictionary>(list: T[]): AirDictionaryArray<T> {
-    if (import.meta.env.DEV) {
-      AirNotification.warning('请使用 AirDictionaryArray.create()')
-    } else {
-      // eslint-disable-next-line no-console
-      console.error('请使用 AirDictionaryArray.create()')
-    }
-    return this.create(list)
-  }
-
-  /**
    * # 创建字典
    * @param list 字典数组
    */
