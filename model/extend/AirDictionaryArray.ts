@@ -47,23 +47,15 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   }
 
   /**
-   * # 创建可扩展的字典
+   * # 创建字典
    * @param list 字典数组
    */
-  static createCustom<T extends IDictionary>(list: T[]): AirDictionaryArray<T> {
+  static create<T extends IDictionary = IDictionary>(list: T[]): AirDictionaryArray<T> {
     const dictionary = new AirDictionaryArray<T>()
     list.forEach((json: T) => {
       const item = Object.assign(new AirDictionary(), json)
       dictionary.push(item)
     })
     return dictionary
-  }
-
-  /**
-   * # 创建字典
-   * @param list 字典数组
-   */
-  static create(list: IDictionary[]): AirDictionaryArray<IDictionary> {
-    return this.createCustom(list)
   }
 }
