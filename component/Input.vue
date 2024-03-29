@@ -555,7 +555,7 @@ function checkNumberValue() {
 }
 
 function setUndefinedIfEmptyString() {
-  if (value.value === '') {
+  if (value.value === null) {
     value.value = undefined
   }
 }
