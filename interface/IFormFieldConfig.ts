@@ -315,4 +315,11 @@ export interface IFormFieldConfig extends IFieldConfig {
    * # 正则表达式对象
    */
   regExp?: RegExp
+
+  /**
+   * # 是否隐藏表单字段
+   * ---
+   * 💡 如配置`true` 则`getFormFieldConfigList`将无法拿到这个属性
+   */
+  hide?: boolean
 }

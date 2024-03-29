@@ -55,7 +55,7 @@ export function getFormFieldList(target: any): string[] {
  * @param keyList 选择字段列表
  */
 export function getFormConfigList(target: any, keyList: string[]) {
-  return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirFormFieldConfig).sort((a, b) => b.orderNumber - a.orderNumber).map((item) => {
+  return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirFormFieldConfig).filter((item) => !item.hide).sort((a, b) => b.orderNumber - a.orderNumber).map((item) => {
     item.label = item.label || getFieldName(target, item.key)
     return item
   })

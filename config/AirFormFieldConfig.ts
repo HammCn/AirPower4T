@@ -99,4 +99,6 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
   email = false
 
   regExp = undefined
+
+  hide = false
 }
