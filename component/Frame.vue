@@ -64,7 +64,7 @@ defineProps({
    */
   uniqueOpened: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 
   /**
