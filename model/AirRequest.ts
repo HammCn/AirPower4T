@@ -31,9 +31,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
    */
   constructor(filterClass: ClassConstructor<E>) {
     super()
-    if (filterClass) {
-      this.filter = AirClassTransformer.parse({}, filterClass)
-    }
+    this.filter = AirClassTransformer.parse({}, filterClass)
   }
 
   /**

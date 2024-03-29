@@ -100,6 +100,9 @@ export class AirDecorator {
    * @param isObject (可选)是否对象配置
    */
   static getFieldConfig(target: any, key: string, fieldConfigKey: string, isObject = false): any {
+    if (typeof target !== 'object') {
+      target = target.prototype
+    }
     let fieldConfig = Reflect.get(target, `${fieldConfigKey}[${key}]`)
     if (!isObject) {
       // 普通配置
