@@ -96,4 +96,12 @@ export class AirRand {
     }
     return str
   }
+
+  /**
+   * # 获取随机颜色
+   * @returns 随机颜色
+   */
+  static getRandColor() {
+    return `#${Math.random().toString(16).padEnd(6, '0').slice(2, 8)}`
+  }
 }
