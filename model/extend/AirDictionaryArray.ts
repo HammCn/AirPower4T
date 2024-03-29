@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AirNotification } from '@/airpower/feedback/AirNotification'
 import { AirColor } from '../../enum/AirColor'
 import { IDictionary } from '../../interface/IDictionary'
 import { AirDictionary } from '../AirDictionary'
