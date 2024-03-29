@@ -45,7 +45,7 @@ import { AirExportModel } from '../../model/AirExportModel'
 import { AirFile } from '../../helper/AirFile'
 import { AirHttp } from '../../helper/AirHttp'
 import { airPropsParam } from '../../config/AirProps'
-import { AirI18n } from '@/airpower/helper/AirI18n'
+import { AirI18n } from '../../helper/AirI18n'
 
 const props = defineProps(airPropsParam(new AirExportModel()))
 

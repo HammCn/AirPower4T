@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { airPropsParam } from '@/airpower/config/AirProps'
+import { airPropsParam } from '../../config/AirProps'
 import { ACopy, ADialog, AQrocde } from '..'
 
 const props = defineProps(airPropsParam(''))
