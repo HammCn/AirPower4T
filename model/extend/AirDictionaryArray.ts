@@ -48,11 +48,18 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
 
   /**
    * # 创建字典
-   * ---
-   * ### 💡 如为继承 `IDictionary` 的自定义字典，可通过泛型参数传入
    * @param list 字典数组
    */
-  static create<T extends IDictionary = IDictionary>(list: T[]): AirDictionaryArray<T> {
+  static create(list: IDictionary[]): AirDictionaryArray<IDictionary> {
+    return this.createCustom<IDictionary>(list)
+  }
+
+  /**
+   * # 创建自定义字典
+   * @param list 字典数组
+   * @param T 自定义字典类型(继承`IDictionary`)
+   */
+  static createCustom<T extends IDictionary>(list: T[]): AirDictionaryArray<T> {
     const dictionary = new AirDictionaryArray<T>()
     list.forEach((json: T) => {
       const item = Object.assign(new AirDictionary(), json)
