@@ -48,6 +48,8 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
 
   /**
    * # 创建字典
+   * ---
+   * ### 💡 如为继承 `IDictionary` 的自定义字典，可通过泛型参数传入
    * @param list 字典数组
    */
   static create<T extends IDictionary = IDictionary>(list: T[]): AirDictionaryArray<T> {
