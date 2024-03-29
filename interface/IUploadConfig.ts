@@ -51,7 +51,7 @@ export interface IUploadConfig {
    * ---
    * ### 💡 可通过 ```AirConfig.defaultFileEntity``` 配置, 默认为 ```AirFileEntity```
    */
-  entity: ClassConstructor<IFile>
+  entity?: ClassConstructor<IFile>
 
   /**
    * # 自定义上传成功的回调
