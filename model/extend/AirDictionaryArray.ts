@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AirNotification } from '@/airpower/feedback/AirNotification'
 import { AirColor } from '../../enum/AirColor'
 import { IDictionary } from '../../interface/IDictionary'
 import { AirDictionary } from '../AirDictionary'
@@ -44,6 +45,19 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
    */
   findByKey(key: boolean | number | string): T | undefined {
     return this.find((item) => item.key === key)
+  }
+
+  /**
+   * @deprecated
+   */
+  static createCustom<T extends IDictionary = IDictionary>(list: T[]): AirDictionaryArray<T> {
+    if (import.meta.env.DEV) {
+      AirNotification.warning('请使用 AirDictionaryArray.create()')
+    } else {
+      // eslint-disable-next-line no-console
+      console.error('请使用 AirDictionaryArray.create()')
+    }
+    return this.create(list)
   }
 
   /**
