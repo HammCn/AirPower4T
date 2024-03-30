@@ -416,7 +416,7 @@ export class AirConfig {
   /**
    * # 表格是否使用链接按钮
    */
-  static tableLinkButton = false
+  static tableLinkButton = true
 
   /**
    * # 默认的表格空数据兜底字符串
