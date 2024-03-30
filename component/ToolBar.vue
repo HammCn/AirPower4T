@@ -113,6 +113,7 @@
                 :placeholder="item.label + '...'"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
+                @change="onSearch"
               />
             </slot>
           </div>
