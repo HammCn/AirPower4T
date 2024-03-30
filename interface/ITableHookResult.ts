@@ -50,7 +50,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
   service: S,
 
   /**
-   * # 刷新数据 返回第一页 恢复默认搜索条件
+   * # 刷新数据 返回第一页
    */
   onReloadData: () => void,
 
@@ -95,11 +95,8 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
   onSelected: (list: E[]) => void,
 
   /**
-   * # 推荐使用 onSearch
-   * @deprecated
-   *
-   * @param request 请求对象
+   * # 刷新数据 保持留在当页
    */
-  onGetList: (request: AirRequestPage<E>) => void,
+  onGetList: () => void,
 
 }

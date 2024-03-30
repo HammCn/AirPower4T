@@ -96,7 +96,6 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
       request.value.page = new AirPage()
     }
     request.value.page.pageNum = 1
-    request.value.filter = AirClassTransformer.newInstance(entityClass)
     onSearch(request.value)
   }
 
@@ -111,7 +110,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     try {
       await AirDialog.show(option.editView)
     } finally {
-      onReloadData()
+      onGetList()
     }
   }
 
