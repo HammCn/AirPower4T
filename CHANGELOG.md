@@ -1,5 +1,26 @@
 # AirPower4T 版本发布日志
 
+## v1.3.0
+
+### ⛔️ Breaking:
+
+  `AirConfig.tableLinkButton` 默认值修改为 `true`，你依然可以通过 `AirConfig.tableLinkButton = false` 来继续使用图标按钮
+
+
+### 🎉 Features:
+
+- feat(FormField): 支持配置`hide=true`将字段从`getFormFieldConfigList`中隐藏
+- feat(Decorator): 支持了类和原型兼容获取装饰器配置
+
+### 🐞 Bug fixes:
+
+- fix(Upload): 参数实体类配置修改为可选
+- fix(Frame): 修改菜单默认为允许多个同时展开
+- fix(Hook): 优化`useAirTable`的刷新数据逻辑
+- fix(ToolBar): 修复`watch`导致重复发起查询请求的问题
+- fix(ToolBar): 输入搜索变更后发起搜索
+- fix(AirConfig): 设置表格默认按钮样式为链接按钮
+
 ## v1.2.2
 
 ### ⛔️ Breaking:
