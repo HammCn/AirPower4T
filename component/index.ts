@@ -19,6 +19,7 @@ import ATabs from './Tabs.vue'
 import ATab from './Tab.vue'
 import APhone from './Phone.vue'
 import AQrocde from './Qrcode.vue'
+import ASelector from './Selector.vue'
 
 export {
   ACopy,
@@ -42,4 +43,5 @@ export {
   ATab,
   APhone,
   AQrocde,
+  ASelector,
 }
