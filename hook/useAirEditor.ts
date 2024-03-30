@@ -1,4 +1,6 @@
-import { Ref, computed, ref } from 'vue'
+import {
+  Ref, computed, ref, watch,
+} from 'vue'
 import { AirFormInstance } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -63,6 +65,13 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
       }
     }
   }
+
+  watch(result.formData, () => {
+    formRef.value?.validate()
+  }, {
+    deep: true,
+    immediate: true,
+  })
 
   return Object.assign(result, {
     title,

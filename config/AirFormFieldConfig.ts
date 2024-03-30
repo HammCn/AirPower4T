@@ -92,6 +92,8 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   requiredNumber = false
 
+  requiredPayload = false
+
   telPhone = false
 
   phone = false

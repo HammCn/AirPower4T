@@ -312,6 +312,15 @@ export interface IFormFieldConfig extends IFieldConfig {
   requiredNumber?: boolean | string
 
   /**
+   * # 是否必填(挂载对象)
+   * ---
+   * 💡 支持传入 ```boolean``` 和 ```string```
+   * - 如传入 ```有效字符串``` 则认为需要校验, 内容即是校验失败的报错信息
+   * - 如传入 ```true``` 则认为需要校验且自动生成校验失败的报错信息
+   */
+  requiredPayload?: boolean | string
+
+  /**
    * # 正则表达式对象
    */
   regExp?: RegExp
