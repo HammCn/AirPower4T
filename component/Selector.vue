@@ -30,12 +30,20 @@
 </template>
 <script setup lang="ts" generic="T extends ISelector">
 import { Component, PropType, computed } from 'vue'
-import { AirDialog } from '@/airpower/helper/AirDialog'
-import { ISelector } from '@/airpower/interface/ISelector'
+import { AirDialog } from '../helper/AirDialog'
+import { ISelector } from '../interface/ISelector'
 
 const result = defineModel<T>()
 
 const props = defineProps({
+  /**
+   * # 默认空值的提示
+   */
+  deafult: {
+    type: String,
+    default: '',
+  },
+
   /**
    * # 提示信息
    */
@@ -76,12 +84,7 @@ function emitChange() {
   emits('onChange', result.value)
 }
 
-const label = computed(() => {
-  if (result.value) {
-    return result.value.getSelectorLabel() || ''
-  }
-  return ''
-})
+const label = computed(() => result.value?.getSelectorLabel() || props.deafult)
 
 async function onSelect() {
   result.value = await AirDialog.show<T>(props.selector, props.param)

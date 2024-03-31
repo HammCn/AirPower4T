@@ -1,4 +1,4 @@
-import { AirEntity } from '@/airpower/base/AirEntity'
+import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准公共选择器接口
