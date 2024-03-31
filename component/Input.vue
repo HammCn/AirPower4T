@@ -219,9 +219,12 @@
       >
         <slot :name="name">
           <template
-            v-if="name=='append' && fieldConfig && fieldConfig.suffixText"
+            v-if="name==='append' "
           >
-            {{ fieldConfig?.suffixText }}
+            {{ customAppend() }}
+            <template v-if="fieldConfig && fieldConfig.suffixText">
+              {{ fieldConfig?.suffixText }}
+            </template>
           </template>
           <template
             v-if="name=='suffix'"
@@ -234,6 +237,12 @@
             </el-icon>
           </template>
         </slot>
+      </template>
+      <template
+        v-if="!isCustomAppend && fieldConfig && fieldConfig.suffixText"
+        #append
+      >
+        {{ fieldConfig?.suffixText }}
       </template>
     </el-input>
   </div>
@@ -261,6 +270,10 @@ import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
 
+const isCustomAppend = ref(false)
+function customAppend() {
+  isCustomAppend.value = true
+}
 const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
 const props = defineProps({
