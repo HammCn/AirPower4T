@@ -155,7 +155,9 @@
                     class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
                   >
-                    {{ (scope as any).row[item.key] ?? item.emptyValue }}
+                    {{
+                      getStringValue((scope as any).row[item.key]) ?? item.emptyValue
+                    }}
                   </div>
                 </template>
               </template>
@@ -654,7 +656,10 @@ const allFieldList = computed(() => {
 })
 
 function getStringValue(str: string | number | object) {
-  return str ? str.toString() : ''
+  if (str === undefined || str === null) {
+    return ''
+  }
+  return str.toString()
 }
 
 /**
