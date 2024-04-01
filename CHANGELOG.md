@@ -1,5 +1,19 @@
 # AirPower4T 版本发布日志
 
+## v1.3.1
+
+### 🎉 Features:
+
+- feat(Table): 支持了行尾更多按钮的几个配置项
+- feat(Selector): 支持了一个标准选择组件
+- feat(FormField): 支持了`payload`的表单校验
+
+### 🐞 Bug fixes:
+
+- fix(Warnings): 修复了调试输出的部分警告问题
+- fix(Input): 修复自定义后缀显示异常的问题
+- fix(Selector): 修复错误的绝对依赖路径
+
 ## v1.3.0
 
 ### ⛔️ Breaking:
