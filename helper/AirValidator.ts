@@ -501,6 +501,23 @@ export class AirValidator {
   }
 
   /**
+   * # 如果输入内容不在以下范围内报错
+   * @param list 范围 枚举或字符
+   */
+  ifPayloadEmpty(): this {
+    this.required = true
+    this.trigger = 'change'
+    this.validator = (_: any, value: Object, callback: Function) => {
+      if (value) {
+        callback()
+      } else {
+        callback(this.message || AirI18n.get().Required || '请先选择此项')
+      }
+    }
+    return this
+  }
+
+  /**
    * # 通过指定错误信息来创建一个验证器
    * @param message (可选)验证失败的提示
    */
@@ -688,6 +705,9 @@ export class AirValidator {
       }
       if (config.requiredNumber) {
         (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredNumber === 'string' ? config.requiredNumber : '').toNumber().ifEmpty())
+      }
+      if (config.requiredPayload) {
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredPayload === 'string' ? config.requiredPayload : '').ifPayloadEmpty())
       }
       if (config.minLength) {
         (formRules[fieldKey]).push(AirValidator.show().ifLengthLessThan(config.minLength))

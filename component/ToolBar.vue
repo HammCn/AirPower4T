@@ -113,6 +113,7 @@
                 :placeholder="item.label + '...'"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
+                @change="onSearch"
               />
             </slot>
           </div>
@@ -134,7 +135,7 @@
 
 <script lang="ts" setup>
 import {
-  PropType, ref, computed, watch,
+  PropType, ref, computed,
 } from 'vue'
 
 import { AButton } from '../component'
@@ -487,13 +488,6 @@ function onSearch() {
   emits('onSearch', request)
 }
 
-watch(() => data, () => {
-  onSearch()
-}, {
-  deep: true,
-  immediate: true,
-})
-
 /**
  * 重置表单
  */
@@ -542,7 +536,7 @@ async function onImport() {
 /**
  * 暴露一个重置搜索的方法
  */
-defineExpose({ resetSearch: onResetSearch })
+defineExpose({ resetSearch: onResetSearch, search: onSearch })
 
 </script>
 
