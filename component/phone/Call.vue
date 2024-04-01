@@ -27,10 +27,18 @@
 </template>
 
 <script lang="ts" setup>
-import { airPropsParam } from '../../config/AirProps'
+import { airProps } from '../../config/AirProps'
 import { ACopy, ADialog, AQrocde } from '..'
 
-const props = defineProps(airPropsParam(''))
+const props = defineProps(Object.assign(airProps(), {
+  /**
+     * # 父窗体弹出当前窗体时传入的参数
+     */
+  param: {
+    type: String,
+    default: '',
+  },
+}))
 
 const content = `tel:${props.param}`
 </script>

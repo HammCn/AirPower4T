@@ -84,7 +84,7 @@
               </div>
               <!-- 是手机字段 -->
               <template v-else-if="item.phone">
-                <APhone :phone="(scope as any).row[item.key]" />
+                <APhone :phone="getStringValue((scope as any).row[item.key])" />
               </template>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
@@ -141,9 +141,11 @@
                     class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
                   >
-                    <ACopy :content="(scope as any).row[item.key]">
+                    <ACopy
+                      :content="getStringValue((scope as any).row[item.key])"
+                    >
                       {{
-                        (scope as any).row[item.key] ?? item.emptyValue
+                        getStringValue((scope as any).row[item.key]) ?? item.emptyValue
                       }}
                     </ACopy>
                   </div>
@@ -650,6 +652,10 @@ const allFieldList = computed(() => {
     return item
   })
 })
+
+function getStringValue(str: string | number | object) {
+  return str ? str.toString() : ''
+}
 
 /**
  * 更新已选字段

@@ -9,7 +9,7 @@
   </el-link>
 </template>
 <script lang="ts" setup>
-import { PropType, ref } from 'vue'
+import { ref } from 'vue'
 import { AirStore } from '../store/AirStore'
 import { AirClipboard } from '../helper/AirClipboard'
 import { AirI18n } from '../helper/AirI18n'
@@ -19,7 +19,7 @@ const props = defineProps({
    * # 复制的内容
    */
   content: {
-    type: Object as PropType<string | number>,
+    type: String,
     required: true,
   },
 })
