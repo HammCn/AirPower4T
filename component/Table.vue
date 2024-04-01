@@ -29,6 +29,7 @@
         width="40"
         fixed="left"
         :reserve-selection="true"
+        :selectable="isSelectable"
       />
       <el-table-column
         v-if="!AirConfig.hideTableIndex && !hideIndex"
@@ -141,9 +142,7 @@
                     class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
                   >
-                    <ACopy
-                      :content="getStringValue((scope as any).row[item.key])"
-                    >
+                    <ACopy :content="getStringValue((scope as any).row[item.key])">
                       {{
                         getStringValue((scope as any).row[item.key]) ?? item.emptyValue
                       }}
@@ -215,7 +214,7 @@
                 {{ AirI18n.get().Add || "添加" }}
               </AButton>
               <AButton
-                v-if="!hideEdit"
+                v-if="isEditShowInline"
                 :link-button="linkButton"
                 :icon-button="!linkButton"
                 type="EDIT"
@@ -227,7 +226,7 @@
                 {{ AirI18n.get().Edit || "编辑" }}
               </AButton>
               <AButton
-                v-if="showDetail"
+                v-if="isDetailShowInline"
                 :link-button="linkButton"
                 :icon-button="!linkButton"
                 type="DETAIL"
@@ -239,7 +238,7 @@
                 {{ AirI18n.get().Detail || "详情" }}
               </AButton>
               <AButton
-                v-if="!hideDelete"
+                v-if="isDeleteShowInline"
                 :link-button="linkButton"
                 :icon-button="!linkButton"
                 type="DELETE"
@@ -258,6 +257,60 @@
               :data="(scope as any).row"
               :index="(scope as any).$index"
             />
+            <el-dropdown
+              v-if="showMoreButton"
+              popper-class="air-table-more-button"
+            >
+              <span class="el-dropdown-link">
+                <AButton link-button>[更多]</AButton>
+              </span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <slot
+                    name="moreButtons"
+                    :data="(scope as any).row"
+                    :index="(scope as any).$index"
+                  />
+                  <AButton
+                    v-if="!hideEdit && editInMore"
+                    :link-button="linkButton"
+                    :icon-button="!linkButton"
+                    type="EDIT"
+                    :disabled="isEditDisabled((scope as any).row)"
+                    :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
+                    :tooltip="AirI18n.get().Edit || '编辑'"
+                    @click="handleEdit((scope as any).row)"
+                  >
+                    {{ AirI18n.get().Edit || "编辑" }}
+                  </AButton>
+                  <AButton
+                    v-if="showDetail && detailInMore"
+                    :link-button="linkButton"
+                    :icon-button="!linkButton"
+                    type="DETAIL"
+                    :disabled="isDetailDisabled((scope as any).row)"
+                    :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
+                    :tooltip="AirI18n.get().Detail || '详情'"
+                    @click="handleDetail((scope as any).row)"
+                  >
+                    {{ AirI18n.get().Detail || "详情" }}
+                  </AButton>
+                  <AButton
+                    v-if="!hideDelete && deleteInMore"
+                    :link-button="linkButton"
+                    :icon-button="!linkButton"
+                    type="DELETE"
+                    :danger="isForceDelete"
+                    :disabled="isDeleteDisabled((scope as any).row)"
+                    :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
+                    :tooltip="AirI18n.get().Delete || '删除'"
+                    @click="handleDelete((scope as any).row)"
+                  >
+                    {{ AirI18n.get().Delete || "删除" }}
+                  </AButton>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </div>
         </template>
       </el-table-column>
@@ -461,6 +514,14 @@ const props = defineProps({
   },
 
   /**
+   * # 控制是否禁用多选按钮的回调方法
+   */
+  selectable: {
+    type: Function,
+    default: null,
+  },
+
+  /**
    * # 是否显示多选框
    * ---
    * 💡 可触发 ```@on-select(selectList)``` 事件, 可配置 ```:select-list``` 默认选中
@@ -524,6 +585,44 @@ const props = defineProps({
    * # 是否自定义删除事件
    */
   customDelete: Boolean,
+
+  /**
+   * # 是否显示更多的下拉按钮
+   */
+  showMoreButton: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+ * # 在更多里显示删除
+  * ---
+  * 💡 仅在 `showMoreButton=true` 时有效，且 `deleteInMore=true` 时被收起到更多，否则保持表格行内显示
+ */
+  deleteInMore: {
+    type: Boolean,
+    default: true,
+  },
+
+  /**
+* # 在更多里显示编辑
+  * ---
+  * 💡 仅在 `showMoreButton=true` 时有效，且 `editInMore=true` 时被收起到更多，否则保持表格行内显示
+*/
+  editInMore: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+  * # 在更多里显示详情
+  * ---
+  * 💡 仅在 `showMoreButton=true` 时有效，且 `detailInMore=true` 时被收起到更多，否则保持表格行内显示
+  */
+  detailInMore: {
+    type: Boolean,
+    default: true,
+  },
 
   /**
    * # 是否懒加载
@@ -718,6 +817,9 @@ const isDetailDisabled = (row: typeof props.entity) => (props.disableDetail
 const isEditDisabled = (row: typeof props.entity) => (props.disableEdit
   ? props.disableEdit(row)
   : false)
+const isSelectable = (row: typeof props.entity) => (props.selectable
+  ? props.selectable(row)
+  : true)
 
 // 监听传入字段列表变化
 watch(() => props.fieldList, () => {
@@ -927,6 +1029,46 @@ function sortChanged(data: { prop: string; order: string }) {
 }
 
 init()
+
+//! 计算按钮是否显示
+const isDeleteShowInline = computed(() => {
+  if (props.hideDelete) {
+    return false
+  }
+  if (!props.showMoreButton) {
+    return true
+  }
+  if (props.showMoreButton && !props.deleteInMore) {
+    return true
+  }
+  return false
+})
+
+const isEditShowInline = computed(() => {
+  if (props.hideEdit) {
+    return false
+  }
+  if (!props.showMoreButton) {
+    return true
+  }
+  if (props.showMoreButton && !props.editInMore) {
+    return true
+  }
+  return false
+})
+
+const isDetailShowInline = computed(() => {
+  if (!props.showDetail) {
+    return false
+  }
+  if (!props.showMoreButton) {
+    return true
+  }
+  if (props.showMoreButton && !props.detailInMore) {
+    return true
+  }
+  return false
+})
 </script>
 
 <style lang="scss">
@@ -1149,6 +1291,24 @@ init()
   .row-delete {
     color: var(--el-color-error);
   }
+}
 
+.air-table-more-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  .air-button {
+    min-width: 100px;
+    padding: 6px 0px;
+    color: var(--primary-color);
+    font-weight: normal !important;
+    background-color: transparent;
+  }
+
+  .air-button+.air-button {
+    margin: 0px !important;
+  }
 }
 </style>

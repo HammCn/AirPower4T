@@ -2,6 +2,7 @@
   <el-link
     v-if="iconButton"
     v-tip="permission && !AirConfig.permissionList.includes(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
+    class="air-button"
     :class="customClass"
     :type="danger ? 'danger' : 'default'"
     :underline="false"
@@ -16,6 +17,7 @@
   <el-button
     v-else
     v-tip="permission && !AirConfig.permissionList.includes(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
+    class="air-button"
     :class="customClass"
     :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
     :disabled="isDisabled"
