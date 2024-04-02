@@ -61,4 +61,8 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
   nowrap = true
 
   phone = false
+
+  money = false
+
+  moneyPrecision = AirConfig.moneyPrecision
 }

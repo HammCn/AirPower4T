@@ -87,6 +87,13 @@
               <template v-else-if="item.phone">
                 <APhone :phone="getStringValue((scope as any).row[item.key])" />
               </template>
+              <!-- 是金额字段 -->
+              <template v-else-if="item.money">
+                <AMoney
+                  :money="(scope as any).row[item.key]"
+                  :precision="item.moneyPrecision"
+                />
+              </template>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
                 <ADateTime
@@ -371,7 +378,7 @@ import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
 import {
-  ADateTime, ACopy, AButton, APhone,
+  ADateTime, ACopy, AButton, APhone, AMoney,
 } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'

@@ -159,9 +159,21 @@ export interface ITableFieldConfig extends IFieldConfig {
   nowrap?: boolean
 
   /**
-   * # 标记为电话字段
+   * # 📱标记为电话字段
    * ---
    * 💡 点击将唤起拨号或展示拨号二维码
    */
   phone?: boolean
+
+  /**
+   * # 💰是否是金额字段
+   * ---
+   * 💡 如配置`true` 则自动显示 `¥` 符号,且自动保留小数，可单独配置小数位数，默认为 `AirConfig.moneyPrecision`
+   */
+  money?: boolean
+
+  /**
+   * # 💰金额字段保留的小数位数
+   */
+  moneyPrecision?: number
 }

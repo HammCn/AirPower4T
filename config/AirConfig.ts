@@ -293,6 +293,11 @@ export class AirConfig {
   static numberPrecision = 2
 
   /**
+   * # 金额的小数精度
+   */
+  static moneyPrecision = AirConfig.numberPrecision
+
+  /**
    *  # 最大数字
    */
   static maxNumber = 999999999999999

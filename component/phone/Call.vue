@@ -15,13 +15,13 @@
       />
       <ACopy
         class="phone"
-        :content="param"
+        :content="phone"
       >
-        {{ param }}
+        {{ phone }}
       </ACopy>
       <span><el-icon class="icon">
         <WarningFilled />
-      </el-icon>请使用手机自带的相机扫码</span>
+      </el-icon>{{ tips }}</span>
     </div>
   </ADialog>
 </template>
@@ -32,15 +32,23 @@ import { ACopy, ADialog, AQrocde } from '..'
 
 const props = defineProps(Object.assign(airProps(), {
   /**
-     * # 父窗体弹出当前窗体时传入的参数
-     */
-  param: {
+   * # 📱电话号码
+   */
+  phone: {
     type: String,
     default: '',
   },
+
+  /**
+   * # 💡提示
+   */
+  tips: {
+    type: String,
+    default: '请使用手机自带的相机扫码',
+  },
 }))
 
-const content = `tel:${props.param}`
+const content = `tel:${props.phone}`
 </script>
 <style lang="scss" scoped>
 .air-phone-call__content {
