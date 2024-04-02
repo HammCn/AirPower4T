@@ -1300,8 +1300,8 @@ const isDetailShowInline = computed(() => {
   justify-content: flex-start;
 
   .air-button {
-    min-width: 100px;
-    padding: 6px 0px;
+    width: 100%;
+    padding: 8px 0px;
     color: var(--primary-color);
     font-weight: normal !important;
     background-color: transparent;
