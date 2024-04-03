@@ -10,6 +10,7 @@ import { IUser } from '../interface/IUser'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirMoneyDirection } from '../type/AirType'
 
 /**
  * # AirPower 全局配置
@@ -293,9 +294,14 @@ export class AirConfig {
   static numberPrecision = 2
 
   /**
-   * # 金额的小数精度
+   * # 💰金额的小数精度
    */
   static moneyPrecision = AirConfig.numberPrecision
+
+  /**
+   * # 💰金额的舍弃方向
+   */
+  static moneyDirection: AirMoneyDirection = 'down'
 
   /**
    *  # 最大数字

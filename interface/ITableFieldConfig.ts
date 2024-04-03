@@ -2,6 +2,7 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
 import { IDictionary } from './IDictionary'
+import { AirMoneyDirection } from '../type/AirType'
 
 /**
  * # 表格的字段配置接口
@@ -168,12 +169,23 @@ export interface ITableFieldConfig extends IFieldConfig {
   /**
    * # 💰是否是金额字段
    * ---
-   * 💡 如配置`true` 则自动显示 `¥` 符号,且自动保留小数，可单独配置小数位数，默认为 `AirConfig.moneyPrecision`
+   * 💡 如配置`true` 则自动显示 `¥` 符号,且自动保留小数
+   * - 可单独配置小数位数，默认为 `AirConfig.moneyPrecision`
+   * - 可单独小数舍弃方式，默认为 `AirConfig.moneyDirection`
    */
   money?: boolean
 
   /**
    * # 💰金额字段保留的小数位数
+   * ---
+   * 💡 默认为 `AirConfig.moneyPrecision` 可手动在 `main.ts` 中覆盖全局默认值
    */
   moneyPrecision?: number
+
+  /**
+   * # 💰金额字段舍弃方向
+   * ---
+   * 💡 默认为 `AirConfig.moneyDirection` 可手动在 `main.ts` 中覆盖全局默认值
+   */
+  moneyDirection?: AirMoneyDirection
 }

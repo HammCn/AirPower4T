@@ -32,7 +32,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   forceShow = false
 
-  align: 'right' | 'left' | 'center' = 'left'
+  align?: 'right' | 'left' | 'center'
 
   prefixText?: string
 
@@ -65,4 +65,6 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
   money = false
 
   moneyPrecision = AirConfig.moneyPrecision
+
+  moneyDirection? = AirConfig.moneyDirection
 }

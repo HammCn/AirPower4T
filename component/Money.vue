@@ -1,21 +1,23 @@
 <template>
   <ACopy
     class="air-money"
-    :content="money.toFixed(precision)"
+    :content="showMoney"
   >
     <div class="prefix">
       ¥
     </div>
     <div class="money">
-      {{ money.toFixed(precision) }}
+      {{ showMoney }}
     </div>
   </ACopy>
 </template>
 <script setup lang="ts">
+import { PropType, computed } from 'vue'
 import { ACopy } from '.'
 import { AirConfig } from '../config/AirConfig'
+import { AirMoneyDirection } from '../type/AirType'
 
-defineProps({
+const props = defineProps({
   /**
    * # 💰金额
    */
@@ -25,14 +27,36 @@ defineProps({
   },
 
   /**
-   * # 💰金额的小数精度
-   * ---
-   * 💡 默认为 `AirConfig.moneyPrecision`
-   */
+ * # 💰金额的小数精度
+ * ---
+ * 💡 默认为 `AirConfig.moneyPrecision`
+ */
   precision: {
     type: Number,
     default: AirConfig.moneyPrecision,
   },
+
+  /**
+ * # 💰金额的小数舍弃方式
+ * ---
+ * 💡 默认为 `AirConfig.moneyDirection`
+ */
+  direction: {
+    type: String as PropType<AirMoneyDirection>,
+    default: AirConfig.moneyDirection,
+  },
+})
+
+const showMoney = computed(() => {
+  const precision = 10 ** props.precision
+  let number = props.money * precision
+
+  if (props.direction === 'up') {
+    number = Math.ceil(number)
+  } else {
+    number = Math.floor(number)
+  }
+  return (number / precision).toFixed(props.precision).toString()
 })
 </script>
 <style lang="scss" scoped>

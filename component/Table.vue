@@ -92,6 +92,7 @@
                 <AMoney
                   :money="(scope as any).row[item.key]"
                   :precision="item.moneyPrecision"
+                  :direction="item.moneyDirection"
                 />
               </template>
               <!-- 自动时间日期格式化 -->
@@ -751,11 +752,19 @@ const allFieldList = computed(() => {
   // 如果传入fieldList 优先使用fieldList
   if (props.fieldList.length > 0) {
     // 过滤没有隐藏且没有移除的列
-    return props.fieldList.filter((item) => !item.removed)
+    return props.fieldList.filter((item) => !item.removed).map((item) => {
+      if (item.money && !item.align) {
+        item.align = 'right'
+      }
+      return item
+    })
   }
   return (entityInstance.value.getTableFieldConfigList().filter((item) => !item.removed) || []).map((item) => {
     if (item.dictionary) {
       item.dictionary = AirDictionaryArray.create(item.dictionary)
+    }
+    if (item.money && !item.align) {
+      item.align = 'right'
     }
     return item
   })
