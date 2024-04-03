@@ -1,5 +1,15 @@
 # AirPower4T 版本发布日志
 
+## v1.3.2
+
+### 🎉 Features:
+
+- feat(Money): 新增了金额组件且表格字段支持配置`money` `moneyPrecision`
+
+### 🐞 Bug fixes:
+
+- fix(Table): 更多按钮的间距调整
+
 ## v1.3.1
 
 ### 🎉 Features:
