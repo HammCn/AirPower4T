@@ -1,5 +1,5 @@
 import {
-  RouteRecordRaw, Router, createRouter, createWebHistory,
+  createRouter, createWebHistory, Router, RouteRecordRaw,
 } from 'vue-router'
 
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
@@ -23,7 +23,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.3.3'
+  static readonly version = 'v1.3.4'
 
   /**
    * # AppKey
@@ -96,6 +96,7 @@ export class AirConfig {
     AirConfig.router = router
     return router
   }
+
   // #endregion
 
   // #region 网络相关配置开始
@@ -285,6 +286,7 @@ export class AirConfig {
   static removeAccessToken(): void {
     localStorage.removeItem(this.authorizationHeaderKey)
   }
+
   // #endregion
 
   // #region 输入相关配置开始

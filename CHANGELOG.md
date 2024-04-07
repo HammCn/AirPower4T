@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v1.3.4
+
+### 🐞 Bug fixes:
+
+- fix(Qrcode): 修改一个错误导出的组件名称
+
 ## v1.3.3
 
 ### 🎉 Features:
@@ -34,8 +40,7 @@
 
 ### ⛔️ Breaking:
 
-  `AirConfig.tableLinkButton` 默认值修改为 `true`，你依然可以通过 `AirConfig.tableLinkButton = false` 来继续使用图标按钮
-
+`AirConfig.tableLinkButton` 默认值修改为 `true`，你依然可以通过 `AirConfig.tableLinkButton = false` 来继续使用图标按钮
 
 ### 🎉 Features:
 
@@ -316,7 +321,6 @@
 
 - feat(WebSocket): 添加断线重连机制
 
-
 ### 🐞 Bug fixes:
 
 - fix(hook): 添加一个基础的props参数限制
@@ -337,7 +341,7 @@
 
 
 - style(User): 默认弹窗的宽高修改
- 
+
 ## v1.0.3
 
 ### 🎉 Features:
@@ -354,7 +358,6 @@
 - feat(Image): 支持了是否允许移除已上传文件的prop参数
 - feat(Image): 支持了一个placeholder的prop参数
 - feat(Table): 翻转了部分表格prop参数项的含义
-
 
 ### 🐞 Bug fixes:
 
