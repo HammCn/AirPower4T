@@ -29,7 +29,7 @@
   </el-input>
 </template>
 <script setup lang="ts" generic="T extends ISelector">
-import { Component, PropType, computed } from 'vue'
+import { Component, computed, PropType } from 'vue'
 import { AirDialog } from '../helper/AirDialog'
 import { ISelector } from '../interface/ISelector'
 
@@ -39,7 +39,7 @@ const props = defineProps({
   /**
    * # 默认空值的提示
    */
-  deafult: {
+  default: {
     type: String,
     default: '',
   },
@@ -84,7 +84,7 @@ function emitChange() {
   emits('onChange', result.value)
 }
 
-const label = computed(() => result.value?.getSelectorLabel() || props.deafult)
+const label = computed(() => result.value?.getSelectorLabel() || props.default)
 
 async function onSelect() {
   result.value = await AirDialog.show<T>(props.selector, props.param)
