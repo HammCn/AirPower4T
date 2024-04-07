@@ -21,7 +21,9 @@
         :disabled="disabled"
         @click="
           result = undefined;
-          emitChange()"
+          emitChange();
+          emitClear();
+        "
       >
         清除
       </el-button>
@@ -77,11 +79,16 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['change', 'onChange'])
+const emits = defineEmits(['change', 'onChange', 'clear', 'onClear'])
 
 function emitChange() {
   emits('change', result.value)
   emits('onChange', result.value)
+}
+
+function emitClear() {
+  emits('clear')
+  emits('onClear')
 }
 
 const label = computed(() => result.value?.getSelectorLabel() || props.default)
