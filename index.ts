@@ -19,7 +19,7 @@ import './assets/css/animation.scss'
 import './assets/css/font.css'
 import './assets/css/global.scss'
 
-// ELement Plus 中文
+// Element Plus 中文
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 // 入口视图
@@ -36,7 +36,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 
-// ELement Plus 初始化
+// Element Plus 初始化
 app.use(ElementPlus, { zIndex: 3000, locale: zhCn })
 
 // 全局注册Element Plus 图标

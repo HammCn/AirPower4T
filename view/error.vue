@@ -14,7 +14,8 @@
         {{ errorTitle }}
       </div>
       <div class="description">
-        {{ errorDesc }} <router-link to="/">
+        {{ errorDesc }}
+        <router-link to="/">
           {{ AirI18n.get().ReturnHome || '返回首页' }}
         </router-link>
       </div>
@@ -55,7 +56,7 @@ watch(errorCode, () => {
       break
     case AirHttpStatus.INTERNAL_SERVER_ERROR:
       errorTitle.value = AirI18n.get().SorryButSomeInternalServerError || '很抱歉,服务器发生了一点小错误'
-      errorDesc.value = AirI18n.get().ServerMaintenancing || '服务器可能正在维护中, '
+      errorDesc.value = AirI18n.get().ServerMaintaining || '服务器可能正在维护中, '
       isError.value = true
       break
     case AirHttpStatus.NOT_FOUND:
@@ -89,6 +90,7 @@ function checkErrorCode() {
       errorCode.value = AirHttpStatus.OK
   }
 }
+
 checkErrorCode()
 
 watch(() => route, () => {

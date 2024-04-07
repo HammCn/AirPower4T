@@ -9,6 +9,27 @@ import { AirDictionary } from '../AirDictionary'
  */
 export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Array<T> {
   /**
+   * # 创建字典
+   * @param list 字典数组
+   */
+  static create(list: IDictionary[]): AirDictionaryArray {
+    return this.createCustom<IDictionary>(list)
+  }
+
+  /**
+   * # 创建自定义字典
+   * @param list 字典数组
+   */
+  static createCustom<T extends IDictionary>(list: T[]): AirDictionaryArray<T> {
+    const dictionary = new AirDictionaryArray<T>()
+    list.forEach((json: T) => {
+      const item = Object.assign(new AirDictionary(), json)
+      dictionary.push(item)
+    })
+    return dictionary
+  }
+
+  /**
    * # 获取字典指定Key的Label
    * @param key Key
    * @param defaultLabel 默认Label
@@ -44,27 +65,5 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
    */
   findByKey(key: boolean | number | string): T | undefined {
     return this.find((item) => item.key === key)
-  }
-
-  /**
-   * # 创建字典
-   * @param list 字典数组
-   */
-  static create(list: IDictionary[]): AirDictionaryArray<IDictionary> {
-    return this.createCustom<IDictionary>(list)
-  }
-
-  /**
-   * # 创建自定义字典
-   * @param list 字典数组
-   * @param T 自定义字典类型(继承`IDictionary`)
-   */
-  static createCustom<T extends IDictionary>(list: T[]): AirDictionaryArray<T> {
-    const dictionary = new AirDictionaryArray<T>()
-    list.forEach((json: T) => {
-      const item = Object.assign(new AirDictionary(), json)
-      dictionary.push(item)
-    })
-    return dictionary
   }
 }

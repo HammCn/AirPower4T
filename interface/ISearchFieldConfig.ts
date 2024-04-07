@@ -40,7 +40,7 @@ export interface ISearchFieldConfig extends IFieldConfig {
   between?: boolean;
 
   /**
-   * # 区间类型
+   * # 区间的类型
    */
   betweenType?: AirBetweenType;
 

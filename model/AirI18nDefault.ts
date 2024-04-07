@@ -116,7 +116,7 @@ export class AirI18nDefault {
   ValidError?: string
 
   /** # 上传图片 */
-  UplpadImage?: string
+  UploadImage?: string
 
   /** # 上传失败 */
   UploadError?: string
@@ -152,7 +152,7 @@ export class AirI18nDefault {
   SorryButSomeInternalServerError?: string
 
   /** # 服务器可能正在维护中 */
-  ServerMaintenancing?: string
+  ServerMaintaining?: string
 
   /** # 没有找到你想访问的资源 */
   SorryButResourceNotFound?: string
@@ -235,7 +235,7 @@ export class AirI18nDefault {
   /** # 请输入有效的座机号 */
   InvalidTelPhone?: string
 
-  /** # 请输入有效的联系电话 */
+  /** # 请输入有效联系电话 */
   InvalidPhone?: string
 
   /** # 请输入有效的手机号 */

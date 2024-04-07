@@ -1,7 +1,7 @@
 <template>
   <div
-    class="air-table-container"
     :style="{ height: (autoHeight ? 'auto' : '0px') }"
+    class="air-table-container"
   >
     <div class="air-table-tool-bar">
       <slot name="addButton" />
@@ -10,14 +10,14 @@
       v-if="allFieldList"
       :id="tableId"
       ref="airTableRef"
-      flexible
-      class="air-table"
-      :row-key="(row: any) => row.id"
+      :data="dataList"
+      :default-expand-all="defaultExpandAll"
       :lazy="lazy"
       :load="load"
-      :default-expand-all="defaultExpandAll"
+      :row-key="(row: any) => row.id"
       :tree-props="treeProps"
-      :data="dataList"
+      class="air-table"
+      flexible
       height="100%"
       @select="selectChanged"
       @select-all="selectChanged"
@@ -25,17 +25,17 @@
     >
       <el-table-column
         v-if="showSelect"
-        type="selection"
-        width="40"
-        fixed="left"
         :reserve-selection="true"
         :selectable="isSelectable"
+        fixed="left"
+        type="selection"
+        width="40"
       />
       <el-table-column
         v-if="!AirConfig.hideTableIndex && !hideIndex"
-        type="index"
         :label="AirI18n.get().ID || '序号'"
         fixed="left"
+        type="index"
         width="60"
       />
       <!-- 文本数据渲染 -->
@@ -45,20 +45,20 @@
       >
         <el-table-column
           v-if="isSelected(item)"
-          :prop="item.key"
-          :label="item.label"
-          :width="item.width || 'auto'"
-          :min-width="item.minWidth || 'auto'"
-          :fixed="item.fixed"
-          :sortable="item.sortable"
           :align="item.align"
+          :fixed="item.fixed"
+          :label="item.label"
+          :min-width="item.minWidth || 'auto'"
+          :prop="item.key"
+          :sortable="item.sortable"
+          :width="item.width || 'auto'"
         >
           <template #default="scope">
             <!-- 支持自定义插槽 -->
             <slot
-              :name="item.key"
               :data="(scope as any).row"
               :index="(scope as any).$index"
+              :name="item.key"
             >
               <span
                 v-if="item.prefixText"
@@ -72,16 +72,17 @@
                 <!-- 显示状态灯 -->
                 <span
                   v-if="item.showColor"
-                  class="light"
                   :style="{
                     backgroundColor:
                       (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
                         .getColor((scope as any).row[item.key], AirColor.NORMAL)
                   }"
+                  class="light"
                 />
                 {{
                   (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
-                    .getLabel((scope as any).row[item.key], item.emptyValue) }}
+                    .getLabel((scope as any).row[item.key], item.emptyValue)
+                }}
               </div>
               <!-- 是手机字段 -->
               <template v-else-if="item.phone">
@@ -90,30 +91,30 @@
               <!-- 是金额字段 -->
               <template v-else-if="item.money">
                 <AMoney
+                  :direction="item.moneyDirection"
                   :money="(scope as any).row[item.key]"
                   :precision="item.moneyPrecision"
-                  :direction="item.moneyDirection"
                 />
               </template>
               <!-- 自动时间日期格式化 -->
               <template v-else-if="item.dateTimeFormatter">
                 <ADateTime
-                  :time="(scope as any).row[item.key]"
                   :formatter="item.dateTimeFormatter"
                   :is-friendly="item.friendlyDateTime"
+                  :time="(scope as any).row[item.key]"
                 />
               </template>
               <!-- 图片字段 -->
               <template v-else-if="item.image">
                 <el-image
-                  style="background-color:#f3f6f9"
-                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px', borderRadius: item.imageRadius }"
-                  lazy
-                  :src="AirFile.getStaticFileUrl((scope as any).row[item.key])"
                   :preview-src-list="[AirFile.getStaticFileUrl((scope as any).row[item.key])]"
+                  :src="AirFile.getStaticFileUrl((scope as any).row[item.key])"
+                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px', borderRadius: item.imageRadius }"
                   :z-index="999999"
-                  preview-teleported
                   fit="contain"
+                  lazy
+                  preview-teleported
+                  style="background-color:#f3f6f9"
                 >
                   <template #error>
                     <div class="image-error">
@@ -126,8 +127,8 @@
               <template v-else-if="item.payloadField">
                 <template v-if="item.copyField">
                   <div
-                    class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
+                    class="air-table-column"
                   >
                     <ACopy :content="getPayloadRowData((scope as any).row, item)">
                       {{ getPayloadRowData((scope as any).row, item) }}
@@ -136,8 +137,8 @@
                 </template>
                 <template v-else>
                   <div
-                    class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
+                    class="air-table-column"
                   >
                     {{ getPayloadRowData((scope as any).row, item) }}
                   </div>
@@ -147,8 +148,8 @@
               <template v-else>
                 <template v-if="item.copyField">
                   <div
-                    class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
+                    class="air-table-column"
                   >
                     <ACopy :content="getStringValue((scope as any).row[item.key])">
                       {{
@@ -159,8 +160,8 @@
                 </template>
                 <template v-else>
                   <div
-                    class="air-table-column"
                     :class="item.nowrap ? 'nowrap' : ''"
+                    class="air-table-column"
                   >
                     {{
                       getStringValue((scope as any).row[item.key]) ?? item.emptyValue
@@ -179,9 +180,9 @@
       <!-- 如果没有隐藏操作列 或者字段选择器启用 -->
       <el-table-column
         v-if="!hideCtrl || isFieldSelectorEnabled"
-        fixed="right"
-        align="right"
         :width="ctrlWidth || 'auto'"
+        align="right"
+        fixed="right"
       >
         <template #header>
           <div class="custom-header">
@@ -204,56 +205,56 @@
           <div class="ctrlRow">
             <!-- 自定义操作列前置插槽 -->
             <slot
-              name="customRow"
               :data="(scope as any).row"
               :index="(scope as any).$index"
+              name="customRow"
             />
             <template v-if="!hideCtrl">
               <AButton
                 v-if="showAdd"
-                :link-button="linkButton"
-                :icon-button="!linkButton"
-                type="ADD"
                 :disabled="isAddDisabled((scope as any).row)"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
                 :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD_CHILD)"
                 :tooltip="AirI18n.get().AddSubItem || '添加子项'"
+                type="ADD"
                 @click="handleAdd((scope as any).row)"
               >
                 {{ AirI18n.get().Add || "添加" }}
               </AButton>
               <AButton
                 v-if="isEditShowInline"
-                :link-button="linkButton"
-                :icon-button="!linkButton"
-                type="EDIT"
                 :disabled="isEditDisabled((scope as any).row)"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
                 :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
                 :tooltip="AirI18n.get().Edit || '编辑'"
+                type="EDIT"
                 @click="handleEdit((scope as any).row)"
               >
                 {{ AirI18n.get().Edit || "编辑" }}
               </AButton>
               <AButton
                 v-if="isDetailShowInline"
-                :link-button="linkButton"
-                :icon-button="!linkButton"
-                type="DETAIL"
                 :disabled="isDetailDisabled((scope as any).row)"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
                 :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
                 :tooltip="AirI18n.get().Detail || '详情'"
+                type="DETAIL"
                 @click="handleDetail((scope as any).row)"
               >
                 {{ AirI18n.get().Detail || "详情" }}
               </AButton>
               <AButton
                 v-if="isDeleteShowInline"
-                :link-button="linkButton"
-                :icon-button="!linkButton"
-                type="DELETE"
                 :danger="isForceDelete"
                 :disabled="isDeleteDisabled((scope as any).row)"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
                 :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
                 :tooltip="AirI18n.get().Delete || '删除'"
+                type="DELETE"
                 @click="handleDelete((scope as any).row)"
               >
                 {{ AirI18n.get().Delete || "删除" }}
@@ -261,9 +262,9 @@
             </template>
             <!-- 自定义操作列后置插槽 -->
             <slot
-              name="endRow"
               :data="(scope as any).row"
               :index="(scope as any).$index"
+              name="endRow"
             />
             <el-dropdown
               v-if="showMoreButton"
@@ -275,43 +276,43 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <slot
-                    name="moreButtons"
                     :data="(scope as any).row"
                     :index="(scope as any).$index"
+                    name="moreButtons"
                   />
                   <AButton
                     v-if="!hideEdit && editInMore"
-                    :link-button="linkButton"
-                    :icon-button="!linkButton"
-                    type="EDIT"
                     :disabled="isEditDisabled((scope as any).row)"
+                    :icon-button="!linkButton"
+                    :link-button="linkButton"
                     :permission="editPermission || AirPermission.getPermission(entity, AirPermissionAction.EDIT)"
                     :tooltip="AirI18n.get().Edit || '编辑'"
+                    type="EDIT"
                     @click="handleEdit((scope as any).row)"
                   >
                     {{ AirI18n.get().Edit || "编辑" }}
                   </AButton>
                   <AButton
                     v-if="showDetail && detailInMore"
-                    :link-button="linkButton"
-                    :icon-button="!linkButton"
-                    type="DETAIL"
                     :disabled="isDetailDisabled((scope as any).row)"
+                    :icon-button="!linkButton"
+                    :link-button="linkButton"
                     :permission="detailPermission || AirPermission.getPermission(entity, AirPermissionAction.DETAIL)"
                     :tooltip="AirI18n.get().Detail || '详情'"
+                    type="DETAIL"
                     @click="handleDetail((scope as any).row)"
                   >
                     {{ AirI18n.get().Detail || "详情" }}
                   </AButton>
                   <AButton
                     v-if="!hideDelete && deleteInMore"
-                    :link-button="linkButton"
-                    :icon-button="!linkButton"
-                    type="DELETE"
                     :danger="isForceDelete"
                     :disabled="isDeleteDisabled((scope as any).row)"
+                    :icon-button="!linkButton"
+                    :link-button="linkButton"
                     :permission="deletePermission || AirPermission.getPermission(entity, AirPermissionAction.DELETE)"
                     :tooltip="AirI18n.get().Delete || '删除'"
+                    type="DELETE"
                     @click="handleDelete((scope as any).row)"
                   >
                     {{ AirI18n.get().Delete || "删除" }}
@@ -324,9 +325,9 @@
       </el-table-column>
       <template #empty>
         <img
+          alt=""
           src="../assets/img/empty.svg"
           style="width: 80px;"
-          alt=""
         >
         <div>{{ emptyText || entityConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
       </template>
@@ -349,9 +350,9 @@
             <el-check-tag
               v-for="item in allFieldList"
               :key="item.key"
-              :disabled="item.forceShow"
-              :class="item.forceShow ? 'disabled' : ''"
               :checked="!!selectedFieldList.find(i => i === item.key)"
+              :class="item.forceShow ? 'disabled' : ''"
+              :disabled="item.forceShow"
               @change="fieldSelectChanged($event, item)"
             >
               {{ item.label }}
@@ -365,7 +366,7 @@
 
 <script lang="ts" setup>
 import {
-  ref, PropType, watch, nextTick, computed,
+  computed, nextTick, PropType, ref, watch,
 } from 'vue'
 
 import { Setting } from '@element-plus/icons-vue'
@@ -379,7 +380,7 @@ import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
 import {
-  ADateTime, ACopy, AButton, APhone, AMoney,
+  AButton, ACopy, ADateTime, AMoney, APhone,
 } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
@@ -603,30 +604,30 @@ const props = defineProps({
   },
 
   /**
- * # 在更多里显示删除
-  * ---
-  * 💡 仅在 `showMoreButton=true` 时有效，且 `deleteInMore=true` 时被收起到更多，否则保持表格行内显示
- */
+   * # 在更多里显示删除
+   * ---
+   * 💡 仅在 `showMoreButton=true` 时有效，且 `deleteInMore=true` 时被收起到更多，否则保持表格行内显示
+   */
   deleteInMore: {
     type: Boolean,
     default: true,
   },
 
   /**
-* # 在更多里显示编辑
-  * ---
-  * 💡 仅在 `showMoreButton=true` 时有效，且 `editInMore=true` 时被收起到更多，否则保持表格行内显示
-*/
+   * # 在更多里显示编辑
+   * ---
+   * 💡 仅在 `showMoreButton=true` 时有效，且 `editInMore=true` 时被收起到更多，否则保持表格行内显示
+   */
   editInMore: {
     type: Boolean,
     default: false,
   },
 
   /**
-  * # 在更多里显示详情
-  * ---
-  * 💡 仅在 `showMoreButton=true` 时有效，且 `detailInMore=true` 时被收起到更多，否则保持表格行内显示
-  */
+   * # 在更多里显示详情
+   * ---
+   * 💡 仅在 `showMoreButton=true` 时有效，且 `detailInMore=true` 时被收起到更多，否则保持表格行内显示
+   */
   detailInMore: {
     type: Boolean,
     default: true,
@@ -666,8 +667,7 @@ const props = defineProps({
    */
   treeProps: {
     type: Object as PropType<ITreeProps>,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 
   /**
@@ -712,10 +712,10 @@ const isForceDelete = ref(false)
  */
 watch(() => AirStore().controlKeyDown, () => {
   isForceDelete.value = !!(AirStore().controlKeyDown
-    && !props.customDelete
-    && !props.hideDelete
-    && props.dataList
-    && props.dataList.length > 0)
+      && !props.customDelete
+      && !props.hideDelete
+      && props.dataList
+      && props.dataList.length > 0)
 })
 
 /**
@@ -770,7 +770,7 @@ const allFieldList = computed(() => {
   })
 })
 
-function getStringValue(str: string | number | object) {
+function getStringValue(str: string | number | object | undefined | null) {
   if (str === undefined || str === null) {
     return ''
   }
@@ -933,7 +933,9 @@ watch(
   () => props.selectList,
   () => {
     nextTick(() => {
-      if (airTableRef.value) { airTableRef.value.clearSelection() }
+      if (airTableRef.value) {
+        airTableRef.value.clearSelection()
+      }
       toggleSelection()
     })
   },
@@ -1054,10 +1056,7 @@ const isDeleteShowInline = computed(() => {
   if (!props.showMoreButton) {
     return true
   }
-  if (props.showMoreButton && !props.deleteInMore) {
-    return true
-  }
-  return false
+  return props.showMoreButton && !props.deleteInMore
 })
 
 const isEditShowInline = computed(() => {
@@ -1067,10 +1066,7 @@ const isEditShowInline = computed(() => {
   if (!props.showMoreButton) {
     return true
   }
-  if (props.showMoreButton && !props.editInMore) {
-    return true
-  }
-  return false
+  return props.showMoreButton && !props.editInMore
 })
 
 const isDetailShowInline = computed(() => {
@@ -1080,10 +1076,7 @@ const isDetailShowInline = computed(() => {
   if (!props.showMoreButton) {
     return true
   }
-  if (props.showMoreButton && !props.detailInMore) {
-    return true
-  }
-  return false
+  return props.showMoreButton && !props.detailInMore
 })
 </script>
 
@@ -1097,7 +1090,7 @@ const isDetailShowInline = computed(() => {
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0px;
   }
 
@@ -1115,7 +1108,7 @@ const isDetailShowInline = computed(() => {
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1197,7 +1190,7 @@ const isDetailShowInline = computed(() => {
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1324,7 +1317,7 @@ const isDetailShowInline = computed(() => {
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0px !important;
   }
 }

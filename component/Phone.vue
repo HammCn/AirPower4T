@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="phone && AirValidator.isTelphoneOrMobilePhone(phone)"
+    v-if="phone && AirValidator.isTelephoneOrMobilePhone(phone)"
     v-tip="'点击扫码拨打'"
     class="air-phone"
     @click="callPhone()"
@@ -15,6 +15,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { Iphone } from '@element-plus/icons-vue'
 import { AirDialog } from '../helper/AirDialog'
 import { AirValidator } from '../helper/AirValidator'
 import Call from './phone/Call.vue'
@@ -30,7 +31,7 @@ async function callPhone() {
   await AirDialog.show(Call, props.phone)
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .air-phone {
   display: flex;
   flex-direction: row;

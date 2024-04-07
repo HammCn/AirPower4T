@@ -1,7 +1,6 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
-import { IDictionary } from './IDictionary'
 import { AirMoneyDirection } from '../type/AirType'
 
 /**
@@ -44,7 +43,7 @@ export interface ITableFieldConfig extends IFieldConfig {
    * ---
    * 💡 如字典配置了 ```color```, 可使用 ```showColor``` 配置项显示颜色
    */
-  dictionary?: AirDictionaryArray<IDictionary>;
+  dictionary?: AirDictionaryArray;
 
   /**
    * # 如是日期 可传入转换规则

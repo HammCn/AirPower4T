@@ -1,39 +1,41 @@
 <template>
   <div
-    class="air-image"
     :style="{ width: props.imageConfig.width + 'px', height: props.imageConfig.height + 'px' }"
+    class="air-image"
   >
     <el-image
-      fit="contain"
-      :src="imageUrl"
-      preview-teleported
       :preview-src-list="[imageUrl]"
-      lazy
+      :src="imageUrl"
       :z-index="99"
+      fit="contain"
+      lazy
+      preview-teleported
     >
       <template #error>
         <div class="image-error">
-          {{ placeholder || (upload && entity ? (AirI18n.get().UplpadImage || '上传图片') :
-            (AirI18n.get().NoPicture || '暂无图片')) }}
+          {{
+            placeholder || (upload && entity ? (AirI18n.get().UploadImage || '上传图片') :
+              (AirI18n.get().NoPicture || '暂无图片'))
+          }}
         </div>
       </template>
     </el-image>
     <div
       v-if="uploadHeader && upload"
       v-loading="isUploading"
-      class="image-upload"
       :class="imageUrl ? 'image-preview-color' : ''"
+      class="image-upload"
     >
       <el-upload
         v-if="!imageUrl"
-        class="image-upload-box"
         :action="uploadUrl"
+        :before-upload="beforeUpload"
         :headers="uploadHeader"
         :name="uploadFileName"
-        :show-file-list="false"
-        :before-upload="beforeUpload"
         :on-error="onUploadError"
         :on-success="onUploadSuccess"
+        :show-file-list="false"
+        class="image-upload-box"
       />
     </div>
     <div
@@ -52,7 +54,7 @@
 
 <script lang="ts" setup>
 import {
-  ref, PropType, computed, watch,
+  computed, PropType, ref, watch,
 } from 'vue'
 
 import { CircleCloseFilled } from '@element-plus/icons-vue'
@@ -107,7 +109,8 @@ const props = defineProps({
    */
   headers: {
     type: Object as PropType<IJson>,
-    default: () => { },
+    default: () => {
+    },
   },
 
   /**

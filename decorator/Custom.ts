@@ -6,7 +6,6 @@
  * @author Hamm
  */
 import { AirDecorator } from '../helper/AirDecorator'
-import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 
@@ -19,7 +18,7 @@ const DICTIONARY_KEY = 'Dictionary'
  * # 标记属性的枚举字典
  * @param dictionary 字典数组
  */
-export function Dictionary(dictionary: AirDictionaryArray<IDictionary>): Function {
+export function Dictionary(dictionary: AirDictionaryArray): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
 }
 
@@ -28,7 +27,7 @@ export function Dictionary(dictionary: AirDictionaryArray<IDictionary>): Functio
  * @param target 目标类
  * @param key 属性名
  */
-export function getDictionary(target: any, key: string): AirDictionaryArray<IDictionary> | undefined {
+export function getDictionary(target: any, key: string): AirDictionaryArray | undefined {
   const config = AirDecorator.getFieldConfig(target, key, DICTIONARY_KEY)
   if (config) {
     return AirDictionaryArray.create(config)
@@ -85,6 +84,7 @@ export function getType(target: any, key: string): ClassConstructor<unknown> | u
 export function getIsArray(target: any, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, IS_ARRAY_KEY)
 }
+
 /**
  * # 自定义到JSON转换Key
  */

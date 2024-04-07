@@ -40,7 +40,7 @@ export class AirLoading {
 
   /**
    * # 实例一个LoadingService
-   * @param domId (可选)DOMID 可选参数
+   * @param domId (可选)DomId 可选参数
    */
   constructor(domId?: string) {
     if (domId) {
@@ -56,6 +56,14 @@ export class AirLoading {
   }
 
   /**
+   * # 弹出这个Loading
+   * @param message (可选)Loading文案 弹出Loading
+   */
+  static show(message?: string): AirLoading {
+    return this.create().show(message)
+  }
+
+  /**
    * # 设置是否全屏
    * @param isFullScreen 是否全屏 默认true
    */
@@ -66,10 +74,10 @@ export class AirLoading {
 
   /**
    * # 设置背景色
-   * @param backgroud 背景色 RGB/RGBA/#333
+   * @param background 背景色 RGB/RGBA/#333
    */
-  setBackground(backgroud: string): this {
-    this.background = backgroud
+  setBackground(background: string): this {
+    this.background = background
     return this
   }
 
@@ -110,14 +118,6 @@ export class AirLoading {
     }
     this.instance = ElLoading.service(options)
     return this
-  }
-
-  /**
-   * # 弹出这个Loading
-   * @param message (可选)Loading文案 弹出Loading
-   */
-  static show(message?: string): AirLoading {
-    return this.create().show(message)
   }
 
   /**

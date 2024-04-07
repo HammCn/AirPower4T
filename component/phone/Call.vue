@@ -1,11 +1,11 @@
 <template>
   <ADialog
-    title="拨打电话"
     :fullable="false"
     class="air-phone-call"
     hide-footer
     min-height="200px"
     min-width="250px"
+    title="拨打电话"
     @on-cancel="onCancel()"
   >
     <div class="air-phone-call__content">
@@ -14,8 +14,8 @@
         :size="160"
       />
       <ACopy
-        class="phone"
         :content="phone"
+        class="phone"
       >
         {{ phone }}
       </ACopy>
@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts" setup>
+import { WarningFilled } from '@element-plus/icons-vue'
 import { airProps } from '../../config/AirProps'
 import { ACopy, ADialog, AQrcode } from '..'
 

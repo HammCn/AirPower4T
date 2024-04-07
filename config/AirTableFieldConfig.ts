@@ -1,5 +1,4 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { IDictionary } from '../interface/IDictionary'
 import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
@@ -22,7 +21,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   orderNumber = 1
 
-  dictionary?: AirDictionaryArray<IDictionary>
+  dictionary?: AirDictionaryArray
 
   dateTimeFormatter?: AirDateTimeFormatter | string
 

@@ -1,7 +1,6 @@
 import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
-import { IDictionary } from '../interface/IDictionary'
 import { AirFieldConfig } from './AirFieldConfig'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
@@ -56,7 +55,7 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   showLimit?: boolean
 
-  dictionary?: AirDictionaryArray<IDictionary>
+  dictionary?: AirDictionaryArray
 
   checkStrictly = true
 
@@ -84,21 +83,21 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   trim = AirTrim.NONE
 
-  chinese = false
+  chinese: string | boolean = false
 
-  mobilePhone = false
+  mobilePhone: string | boolean = false
 
-  requiredString = false
+  requiredString: string | boolean = false
 
-  requiredNumber = false
+  requiredNumber: string | boolean = false
 
-  requiredPayload = false
+  requiredPayload: string | boolean = false
 
-  telPhone = false
+  telPhone: string | boolean = false
 
-  phone = false
+  phone: string | boolean = false
 
-  email = false
+  email: string | boolean = false
 
   regExp = undefined
 

@@ -2,7 +2,6 @@ import { AirBetweenType } from '../enum/AirBetweenType'
 import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
-import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
@@ -14,7 +13,7 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
 
   orderNumber = 1
 
-  dictionary?: AirDictionaryArray<IDictionary>
+  dictionary?: AirDictionaryArray
 
   between = false
 

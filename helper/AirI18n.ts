@@ -64,7 +64,6 @@ export class AirI18n extends AirI18nDefault {
 
   /**
    * # 获取翻译后的字符串
-   * @param key 字符串
    * @returns 翻译后的字符串
    * @deprecated
    */

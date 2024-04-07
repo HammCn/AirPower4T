@@ -3,7 +3,6 @@ import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { AirTrim } from '../enum/AirTrim'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
-import { IDictionary } from './IDictionary'
 
 /**
  * # 表单的字段配置接口
@@ -166,7 +165,7 @@ export interface IFormFieldConfig extends IFieldConfig {
    * ---
    * 💡 如 ```AInput``` 传入了自定义的数据 ```list``` 或 ```tree```, 则此项失效
    */
-  dictionary?: AirDictionaryArray<IDictionary>;
+  dictionary?: AirDictionaryArray;
 
   /**
    * # 返回全路径的值
@@ -230,7 +229,7 @@ export interface IFormFieldConfig extends IFieldConfig {
   radioButton?: boolean;
 
   /**
-   * # 表单的默认值
+   * # 表单默认值
    */
   defaultValue?: boolean | string | number;
 

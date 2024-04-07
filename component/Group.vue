@@ -1,7 +1,7 @@
 <template>
   <div
-    class="air-group"
     :class="autoHeight ? 'auto-height' : ''"
+    class="air-group"
   >
     <div
       v-if="title"
@@ -28,8 +28,8 @@
     </div>
     <div
       v-show="!isCollapse"
-      class="group-body"
       :class="getBodyClass()"
+      class="group-body"
     >
       <slot />
     </div>
@@ -38,6 +38,7 @@
 
 <script lang="ts" setup="props">
 import { ref } from 'vue'
+import { ArrowDown, ArrowRight } from '@element-plus/icons-vue'
 
 const props = defineProps({
   /**
@@ -87,12 +88,12 @@ const props = defineProps({
    */
   collapse: {
     type: Boolean,
-    dafault: false,
+    default: false,
   },
 })
 
 /**
- * 获取合理的列数
+ * 获取合理列数
  */
 function getColumn() {
   if (!props.column || props.column < 1) {
@@ -133,21 +134,21 @@ function getBodyClass() {
   }
 
   .column-auto {
-    >* {
+    > * {
       width: 320px;
       min-width: 33.333333333%;
       margin: 10px 0;
     }
   }
 
-  .column-1>* {
+  .column-1 > * {
     width: 100%;
   }
 
   .column-2 {
     display: flex;
 
-    >* {
+    > * {
       width: 46%;
       margin: 10px 2%;
     }
@@ -156,7 +157,7 @@ function getBodyClass() {
   .column-3 {
     display: flex;
 
-    >* {
+    > * {
       width: 29.3333333%;
       margin: 10px 2%;
     }
@@ -165,7 +166,7 @@ function getBodyClass() {
   .column-4 {
     display: flex;
 
-    >* {
+    > * {
       width: 24%;
       margin: 10px 0.5%;
     }

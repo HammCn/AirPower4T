@@ -15,7 +15,7 @@ export class AirAssert {
   static when(condition: boolean, message: string, title?: string) {
     if (condition) {
       AirNotification.warning(message, title)
-      throw new Error(`\n\n[AirAssert Faild]: ${title || ''}\n${message}\n\n\n`)
+      throw new Error(`\n\n[AirAssert Failed]: ${title || ''}\n${message}\n\n\n`)
     }
   }
 
