@@ -583,8 +583,7 @@ defineExpose({ resetSearch: onResetSearch, search: onSearch })
     }
 
     >* {
-      margin: 0px 2px;
-      margin-bottom: 5px;
+      margin: 0px 2px 5px;
     }
 
     .el-input,

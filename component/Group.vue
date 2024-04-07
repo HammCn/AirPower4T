@@ -175,12 +175,11 @@ function getBodyClass() {
   .group-title {
     font-size: 16px;
     padding-top: 5px;
-    padding-bottom: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     margin-bottom: 10px;
 
     .left {
@@ -198,7 +197,7 @@ function getBodyClass() {
 
         span {
           border-bottom: 3px solid var(--primary-color);
-          padding-bottom: 0px;
+          padding-bottom: 0;
           margin-bottom: -2px;
           user-select: none;
         }
@@ -224,7 +223,7 @@ function getBodyClass() {
 .air-group.auto-height {
   flex: 1;
   height: 0;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 
   .group-body {
     flex: 1;

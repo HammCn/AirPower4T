@@ -1091,7 +1091,7 @@ const isDetailShowInline = computed(() => {
   }
 
   .el-button + .el-button {
-    margin-left: 0px;
+    margin-left: 0;
   }
 
   .el-link.is-underline:hover:after {
@@ -1311,14 +1311,14 @@ const isDetailShowInline = computed(() => {
 
   .air-button {
     width: 100%;
-    padding: 8px 0px;
+    padding: 8px 0;
     color: var(--primary-color);
     font-weight: normal !important;
     background-color: transparent;
   }
 
   .air-button + .air-button {
-    margin: 0px !important;
+    margin: 0 !important;
   }
 }
 </style>

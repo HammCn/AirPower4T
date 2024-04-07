@@ -112,7 +112,7 @@
 
   .el-message-box__header {
     border-bottom: 1px solid #ebebeb;
-    padding: 0px 20px 10px 10px !important;
+    padding: 0 20px 10px 10px !important;
 
     .el-message-box__title {
       color: #333;
@@ -122,7 +122,7 @@
     .el-message-box__close {
       font-size: 24px !important;
       font-weight: bold !important;
-      margin: 8px 10px 0px 0px !important;
+      margin: 8px 10px 0 0 !important;
     }
   }
 
