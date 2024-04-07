@@ -9,7 +9,7 @@
     @on-cancel="onCancel()"
   >
     <div class="air-phone-call__content">
-      <AQrocde
+      <AQrcode
         :content="content"
         :size="160"
       />
@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import { airProps } from '../../config/AirProps'
-import { ACopy, ADialog, AQrocde } from '..'
+import { ACopy, ADialog, AQrcode } from '..'
 
 const props = defineProps(Object.assign(airProps(), {
   /**
@@ -63,7 +63,7 @@ const content = `tel:${props.phone}`
     font-weight: bold;
   }
 
-  >span {
+  > span {
     font-size: 12px;
     color: var(--text-danger-color);
     margin-top: 10px;

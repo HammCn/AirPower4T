@@ -18,7 +18,7 @@ import ATreeBox from './TreeBox.vue'
 import ATabs from './Tabs.vue'
 import ATab from './Tab.vue'
 import APhone from './Phone.vue'
-import AQrocde from './Qrcode.vue'
+import AQrcode from './Qrcode.vue'
 import ASelector from './Selector.vue'
 import AMoney from './Money.vue'
 
@@ -43,7 +43,7 @@ export {
   ATabs,
   ATab,
   APhone,
-  AQrocde,
+  AQrcode,
   ASelector,
   AMoney,
 }
