@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v1.4.1
+
+### 🎉 Features:
+
+- feat(Table): 支持了个选择字段的缓存参数`fieldCacheKey`
+
+### 🐞 Bug fixes:
+
+- fix(Config): 优化数字大小配置的安全边界值
+- fix(Input): 修复输入小数`1.02`类型失败的BUG
+- fix(CSS): 优化了一些冗余像素的样式代码
+
 ## v1.4.0
 
 ### ⛔️ Breaking:
