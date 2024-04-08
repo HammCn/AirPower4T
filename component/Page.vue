@@ -26,7 +26,7 @@
         <div class="air-page-panel-box">
           <div class="air-page-header">
             <div class="air-page-title">
-              {{ AirI18n.get().PageSize || '每页显示' }}
+              {{ AirI18n.get().PageSize || '每页' }}
             </div>
 
             <el-radio-group
