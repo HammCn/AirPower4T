@@ -547,8 +547,8 @@ function checkNumberValue() {
   if (fieldConfig.value?.number) {
     // 数字输入
     let tempValue = value.value as number | string | undefined | null
-    const max = fieldConfig.value.max ?? AirConfig.maxNumber
-    const min = fieldConfig.value.min ?? AirConfig.minNumber
+    const max = Math.min(fieldConfig.value.max ?? AirConfig.maxNumber, Number.MAX_SAFE_INTEGER)
+    const min = Math.max(fieldConfig.value.min ?? AirConfig.minNumber, Number.MIN_SAFE_INTEGER)
     if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidator.isNumber(tempValue.toString())) {
       tempValue = parseFloat(tempValue.toString())
       // 按最大值最小值做边界处理

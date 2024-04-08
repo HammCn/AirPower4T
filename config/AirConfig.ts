@@ -308,7 +308,7 @@ export class AirConfig {
   /**
    *  # 最大数字
    */
-  static maxNumber = 999999999999999
+  static maxNumber = Number.MAX_SAFE_INTEGER
 
   /**
    *  # 最小数字
