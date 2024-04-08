@@ -220,7 +220,7 @@
                 type="ADD"
                 @click="handleAdd((scope as any).row)"
               >
-                {{ AirI18n.get().Add || "添加" }}
+                {{ AirI18n.get().Add || '添加' }}
               </AButton>
               <AButton
                 v-if="isEditShowInline"
@@ -232,7 +232,7 @@
                 type="EDIT"
                 @click="handleEdit((scope as any).row)"
               >
-                {{ AirI18n.get().Edit || "编辑" }}
+                {{ AirI18n.get().Edit || '编辑' }}
               </AButton>
               <AButton
                 v-if="isDetailShowInline"
@@ -244,7 +244,7 @@
                 type="DETAIL"
                 @click="handleDetail((scope as any).row)"
               >
-                {{ AirI18n.get().Detail || "详情" }}
+                {{ AirI18n.get().Detail || '详情' }}
               </AButton>
               <AButton
                 v-if="isDeleteShowInline"
@@ -257,7 +257,7 @@
                 type="DELETE"
                 @click="handleDelete((scope as any).row)"
               >
-                {{ AirI18n.get().Delete || "删除" }}
+                {{ AirI18n.get().Delete || '删除' }}
               </AButton>
             </template>
             <!-- 自定义操作列后置插槽 -->
@@ -290,7 +290,7 @@
                     type="EDIT"
                     @click="handleEdit((scope as any).row)"
                   >
-                    {{ AirI18n.get().Edit || "编辑" }}
+                    {{ AirI18n.get().Edit || '编辑' }}
                   </AButton>
                   <AButton
                     v-if="showDetail && detailInMore"
@@ -302,7 +302,7 @@
                     type="DETAIL"
                     @click="handleDetail((scope as any).row)"
                   >
-                    {{ AirI18n.get().Detail || "详情" }}
+                    {{ AirI18n.get().Detail || '详情' }}
                   </AButton>
                   <AButton
                     v-if="!hideDelete && deleteInMore"
@@ -315,7 +315,7 @@
                     type="DELETE"
                     @click="handleDelete((scope as any).row)"
                   >
-                    {{ AirI18n.get().Delete || "删除" }}
+                    {{ AirI18n.get().Delete || '删除' }}
                   </AButton>
                 </el-dropdown-menu>
               </template>
@@ -393,6 +393,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
+import { AirCrypto } from '@/airpower/helper/AirCrypto'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
 
@@ -546,6 +547,14 @@ const props = defineProps({
   hideIndex: {
     type: Boolean,
     default: false,
+  },
+
+  /**
+   * # 表格字段缓存Key
+   */
+  fieldCacheKey: {
+    type: String,
+    default: AirCrypto.base64Encode(window.location.pathname),
   },
 
   /**
@@ -712,10 +721,10 @@ const isForceDelete = ref(false)
  */
 watch(() => AirStore().controlKeyDown, () => {
   isForceDelete.value = !!(AirStore().controlKeyDown
-      && !props.customDelete
-      && !props.hideDelete
-      && props.dataList
-      && props.dataList.length > 0)
+    && !props.customDelete
+    && !props.hideDelete
+    && props.dataList
+    && props.dataList.length > 0)
 })
 
 /**
@@ -752,14 +761,16 @@ const allFieldList = computed(() => {
   // 如果传入fieldList 优先使用fieldList
   if (props.fieldList.length > 0) {
     // 过滤没有隐藏且没有移除的列
-    return props.fieldList.filter((item) => !item.removed).map((item) => {
-      if (item.money && !item.align) {
-        item.align = 'right'
-      }
-      return item
-    })
+    return props.fieldList.filter((item) => !item.removed)
+      .map((item) => {
+        if (item.money && !item.align) {
+          item.align = 'right'
+        }
+        return item
+      })
   }
-  return (entityInstance.value.getTableFieldConfigList().filter((item) => !item.removed) || []).map((item) => {
+  return (entityInstance.value.getTableFieldConfigList()
+    .filter((item) => !item.removed) || []).map((item) => {
     if (item.dictionary) {
       item.dictionary = AirDictionaryArray.create(item.dictionary)
     }
@@ -777,20 +788,24 @@ function getStringValue(str: string | number | object | undefined | null) {
   return str.toString()
 }
 
+const selectFieldListKey = computed(() => `field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}_${props.fieldCacheKey}`)
+
 /**
  * 更新已选字段
  */
 function updateSelectedFieldList() {
   selectedFieldList.value = []
-  selectedFieldList.value = (allFieldList.value || []).filter(
-    (item) => !item.removed && !item.hide,
-  ).map((item) => item.key)
   if (AirConfig.tableFieldCacheEnabled) {
-    const fieldListCache: string[] = JSON.parse(localStorage.getItem(`field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}`) || '[]')
+    const fieldListCache: string[] = JSON.parse(localStorage.getItem(selectFieldListKey.value) || '[]')
     if (fieldListCache.length > 0 && !props.hideFieldSelector) {
       selectedFieldList.value = fieldListCache
+      return
     }
   }
+  selectedFieldList.value = allFieldList.value.filter(
+    (item) => !item.removed && !item.hide,
+  )
+    .map((item) => item.key)
 }
 
 /**
@@ -812,7 +827,7 @@ function fieldSelectChanged(status: boolean, config: AirTableFieldConfig) {
     selectedFieldList.value.push(config.key)
   }
 
-  localStorage.setItem(`field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}`, JSON.stringify(selectedFieldList.value))
+  localStorage.setItem(selectFieldListKey.value, JSON.stringify(selectedFieldList.value))
 }
 
 // 初始化
@@ -867,7 +882,8 @@ function getPayloadRowData(row: any, config: AirTableFieldConfig) {
     if (row[config.key] && row[config.key].length > 0) {
       // 对象数组挂载
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return row[config.key].map((i: any) => i[config.payloadField || '']).join(config.arraySplitor)
+      return row[config.key].map((i: any) => i[config.payloadField || ''])
+        .join(config.arraySplitor)
     }
   }
   return config.emptyValue
@@ -990,7 +1006,10 @@ async function handleDelete(item: AirEntity) {
       if (props.deleteContent) {
         content = props.deleteContent
       }
-      await AirConfirm.create().dangerButton().enableEscClose().setConfirmText(title)
+      await AirConfirm.create()
+        .dangerButton()
+        .enableEscClose()
+        .setConfirmText(title)
         .show(content, title)
     }
     emits('onDelete', item)
@@ -1046,8 +1065,6 @@ function sortChanged(data: { prop: string; order: string }) {
   }
 }
 
-init()
-
 //! 计算按钮是否显示
 const isDeleteShowInline = computed(() => {
   if (props.hideDelete) {
@@ -1078,6 +1095,8 @@ const isDetailShowInline = computed(() => {
   }
   return props.showMoreButton && !props.detailInMore
 })
+
+init()
 </script>
 
 <style lang="scss">
