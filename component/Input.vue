@@ -560,10 +560,9 @@ function checkNumberValue() {
         ),
       )
       value.value = tempValue
-    } else {
-      // 输入的不是有效数字 直接置空
-      value.value = undefined
+      value.value = parseFloat(value.value?.toString() || '0')
     }
+    value.value = parseFloat(value.value?.toString() || '0')
   }
 }
 
@@ -603,9 +602,6 @@ function emitValue() {
         break
       default:
     }
-  }
-  if (fieldConfig.value?.number) {
-    value.value = parseFloat(value.value?.toString() || '0')
   }
   emits('update:modelValue', value.value)
   emitChange()
