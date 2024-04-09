@@ -14,10 +14,10 @@
         :size="160"
       />
       <ACopy
-        :content="phone"
+        :content="param"
         class="phone"
       >
-        {{ phone }}
+        {{ param }}
       </ACopy>
       <span><el-icon class="icon">
         <WarningFilled />
@@ -28,17 +28,11 @@
 
 <script lang="ts" setup>
 import { WarningFilled } from '@element-plus/icons-vue'
-import { airProps } from '../../config/AirProps'
+import { airPropsParam } from '../../config/AirProps'
 import { ACopy, ADialog, AQrcode } from '..'
 
-const props = defineProps(Object.assign(airProps(), {
-  /**
-   * # 📱电话号码
-   */
-  phone: {
-    type: String,
-    default: '',
-  },
+const props = defineProps({
+  ...airPropsParam(''),
 
   /**
    * # 💡提示
@@ -47,9 +41,9 @@ const props = defineProps(Object.assign(airProps(), {
     type: String,
     default: '请使用手机自带的相机扫码',
   },
-}))
+})
 
-const content = `tel:${props.phone}`
+const content = `tel:${props.param}`
 </script>
 <style lang="scss" scoped>
 .air-phone-call__content {
