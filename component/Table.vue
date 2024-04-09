@@ -80,7 +80,12 @@
                   class="light"
                 />
                 {{
-                  (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
+                  (
+                    item.dictionary ||
+                    getDictionary(entityInstance, item.key) ||
+                    new AirDictionaryArray()
+                  )
+
                     .getLabel((scope as any).row[item.key], item.emptyValue)
                 }}
               </div>
@@ -366,7 +371,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, nextTick, PropType, ref, watch,
+  computed, ComputedRef, nextTick, PropType, ref, watch,
 } from 'vue'
 
 import { Setting } from '@element-plus/icons-vue'
@@ -757,7 +762,7 @@ const isFieldSelectorEnabled = computed(() => {
 /**
  * 所有的字段
  */
-const allFieldList = computed(() => {
+const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   // 如果传入fieldList 优先使用fieldList
   if (props.fieldList.length > 0) {
     // 过滤没有隐藏且没有移除的列
