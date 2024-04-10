@@ -11,7 +11,7 @@
     {{ phone }}
   </div>
   <div v-else>
-    {{ phone || "-" }}
+    {{ phone || '-' }}
   </div>
 </template>
 <script lang="ts" setup>
@@ -21,6 +21,9 @@ import { AirValidator } from '../helper/AirValidator'
 import Call from './phone/Call.vue'
 
 const props = defineProps({
+  /**
+   * # 电话号码
+   */
   phone: {
     type: String,
     required: true,

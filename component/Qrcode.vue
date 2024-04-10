@@ -19,11 +19,17 @@ import QrcodeVue from 'qrcode.vue'
 import { ref, watch } from 'vue'
 
 const props = defineProps({
+  /**
+   * # 二维码内容
+   */
   content: {
     type: String,
-    default: '',
+    required: true,
   },
 
+  /**
+   * # 二维码尺寸
+   */
   size: {
     type: Number,
     default: 200,
