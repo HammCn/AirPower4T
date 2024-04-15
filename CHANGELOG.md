@@ -1,5 +1,13 @@
 # AirPower4T 版本发布日志
 
+## v1.4.4
+
+### 🐞 Bug fixes:
+
+- fix(Input): 修复输入重复emit的性能问题
+- fix(Button): 修复按钮权限异常的BUG
+- fix(ToolBar): 修复了搜索清空时触发两次的BUG
+
 ## v1.4.3
 
 ### 🎉 Features:
