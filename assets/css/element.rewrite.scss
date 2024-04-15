@@ -91,10 +91,10 @@
   color: white;
 }
 
-.el-tree--highlight-current
-  .el-tree-node.is-current
-  > .el-tree-node__content
-  > .el-icon.el-tree-node__expand-icon.is-leaf {
+.el-tree--highlight-current,
+.el-tree-node.is-current,
+> .el-tree-node__content,
+> .el-icon.el-tree-node__expand-icon.is-leaf {
   color: transparent;
 }
 
@@ -203,6 +203,7 @@
       font-weight: normal;
     }
   }
+
   .el-table__body td.el-table__cell.is-center {
     .cell {
       text-align: center;

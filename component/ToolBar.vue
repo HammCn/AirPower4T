@@ -30,90 +30,90 @@
         >
           <div
             v-if="!item.hide"
-            class="item"
             :style="{ width: item.width + 'px' }"
+            class="item"
           >
             <slot
-              :name="item.key"
               :data="data"
+              :name="item.key"
             >
               <template v-if="item.between">
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATE"
                   v-model="data[item.key]"
-                  :editable="false"
-                  type="daterange"
-                  :start-placeholder="item.label + ''"
-                  :range-separator="AirI18n.get().To || '至'"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  format="YYYY/MM/DD"
-                  value-format="x"
                   :default-time="[
                     new Date(1991, 10, 3, 0, 0, 0),
                     new Date(1991, 10, 3, 23, 59, 59),
                   ]
                   "
-                  @clear=" data[item.key] = undefined"
+                  :editable="false"
+                  :end-placeholder="AirI18n.get().End || '结束'"
+                  :range-separator="AirI18n.get().To || '至'"
+                  :start-placeholder="item.label + ''"
+                  format="YYYY/MM/DD"
+                  type="daterange"
+                  value-format="x"
                   @change="onSearch()"
+                  @clear=" data[item.key] = undefined"
                 />
                 <el-time-picker
                   v-if="item.betweenType === AirBetweenType.TIME"
                   v-model="data[item.key]"
-                  is-range
-                  arrow-control
                   :editable="false"
-                  :range-separator="AirI18n.get().To || '至'"
                   :end-placeholder="AirI18n.get().End || '结束'"
+                  :range-separator="AirI18n.get().To || '至'"
                   :start-placeholder="item.label + ''"
+                  arrow-control
+                  is-range
                   value-format="HH:mm:ss"
-                  @clear=" data[item.key] = undefined"
                   @change="onSearch()"
+                  @clear=" data[item.key] = undefined"
                 />
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATETIME"
                   v-model="data[item.key]"
-                  type="datetimerange"
-                  :start-placeholder="item.label + ''"
-                  :range-separator="AirI18n.get().To || '至'"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  format="YYYY/MM/DD HH:mm:ss"
-                  :editable="false"
-                  value-format="x"
                   :default-time="[
                     new Date(1991, 10, 3, 0, 0, 0),
                     new Date(1991, 10, 3, 23, 59, 59),
                   ]
                   "
-                  @clear=" data[item.key] = undefined"
+                  :editable="false"
+                  :end-placeholder="AirI18n.get().End || '结束'"
+                  :range-separator="AirI18n.get().To || '至'"
+                  :start-placeholder="item.label + ''"
+                  format="YYYY/MM/DD HH:mm:ss"
+                  type="datetimerange"
+                  value-format="x"
                   @change="onSearch()"
+                  @clear=" data[item.key] = undefined"
                 />
               </template>
               <el-select
                 v-else-if="item.dictionary || getDictionary(entityInstance, item.key)"
                 v-model="data[item.key]"
+                :filterable="item.filterable"
                 :placeholder="item.label + '...'"
                 clearable
-                :filterable="item.filterable"
-                @clear=" data[item.key] = undefined"
                 @change="onSearch()"
+                @clear=" data[item.key] = undefined"
               >
                 <template v-for="enumItem of item.dictionary || getDictionary(entityInstance, item.key)">
                   <el-option
                     v-if="!enumItem.disabled"
                     :key="(enumItem.key as string)"
-                    :value="enumItem.key"
                     :label="enumItem.label"
+                    :value="enumItem.key"
                   />
                 </template>
               </el-select>
               <el-input
                 v-else
                 v-model="data[item.key]"
-                clearable
                 :placeholder="item.label + '...'"
+                clearable
+                @change="onSearch"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
-                @change="onSearch"
               />
             </slot>
           </div>
@@ -122,8 +122,8 @@
       <AButton
         v-if="showExport"
         :permission="exportPermission || AirPermission.getPermission(entity, AirPermissionAction.EXPORT)"
-        type="EXPORT"
         custom-class="export-button"
+        type="EXPORT"
         @click=" onExport()"
       >
         {{ AirI18n.get().Export || '导出' }}
@@ -134,9 +134,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  PropType, ref, computed,
-} from 'vue'
+import { computed, PropType, ref } from 'vue'
 
 import { AButton } from '../component'
 import { AirDialog } from '../helper/AirDialog'
@@ -469,6 +467,7 @@ const filter = ref({} as IJson)
  * 查询用的关键词
  */
 const keyword = ref('')
+
 /**
  * 查询事件
  */
@@ -547,7 +546,7 @@ defineExpose({ resetSearch: onResetSearch, search: onSearch })
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -582,8 +581,8 @@ defineExpose({ resetSearch: onResetSearch, search: onSearch })
       width: 240px;
     }
 
-    >* {
-      margin: 0px 2px 5px;
+    > * {
+      margin: 0 2px 5px;
     }
 
     .el-input,
