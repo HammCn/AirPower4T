@@ -111,7 +111,6 @@
                 v-model="data[item.key]"
                 :placeholder="item.label + '...'"
                 clearable
-                @change="onSearch"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
               />
