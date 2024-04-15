@@ -14,9 +14,7 @@
         :type="fieldConfig.dateType"
         style="width:100%"
         :readonly="readonly"
-        @change="onChanged"
         @clear="onClear"
-        @visible-change="onChanged"
         @keydown="onKeyDown"
         @focus="emits('focus')"
       />
@@ -32,9 +30,7 @@
         :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
         :value-format="fieldConfig.dateFormatter"
         :readonly="readonly"
-        @change="onChanged"
         @clear="onClear"
-        @visible-change="onChanged"
         @keydown="onKeyDown"
         @focus="emits('focus')"
       />
@@ -56,13 +52,11 @@
           item => item.key === false
         )?.label
           || ''"
-        @change="onChanged"
       />
       <el-radio-group
         v-else-if="fieldConfig?.radioButton"
         v-model="value"
         :readonly="readonly"
-        @change="onChanged"
       >
         <template v-if="list">
           <el-radio-button
@@ -87,7 +81,6 @@
         v-else-if="fieldConfig?.radio"
         v-model="value"
         :readonly="readonly"
-        @change="onChanged"
       >
         <template v-if="list">
           <el-radio
@@ -126,7 +119,6 @@
         :remote="!!onSearch"
         collapse-tags-tooltip
         @keydown="onKeyDown"
-        @change="onChanged"
         @clear="onClear"
         @focus="emits('focus')"
       >
@@ -180,7 +172,6 @@
       :disabled="disabled"
       :collapse-tags="fieldConfig?.collapseTags"
       collapse-tags-tooltip
-      @change="onChanged"
       @clear="onClear"
       @keydown="onKeyDown"
       @focus="emits('focus')"
@@ -250,7 +241,7 @@
 
 <script setup lang="ts">
 import {
-  PropType, Ref, ref, watch, computed,
+  computed, PropType, ref, Ref, watch,
 } from 'vue'
 
 import { CircleClose } from '@element-plus/icons-vue'
@@ -566,24 +557,10 @@ function checkNumberValue() {
   }
 }
 
-function setUndefinedIfEmptyString() {
-  if (value.value === null) {
-    value.value = undefined
-  }
-}
-
-/**
- * 数据变更
- */
-function onChanged() {
-  setUndefinedIfEmptyString()
-}
-
 /**
  * 清空事件
  */
 function onClear() {
-  setUndefinedIfEmptyString()
   emitClear()
   emitChange()
 }
