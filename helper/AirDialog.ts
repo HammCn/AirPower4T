@@ -19,10 +19,20 @@ import { AirStore } from '../store/AirStore'
  */
 export class AirDialog {
   /**
-  * # 弹出对话框的内部方法
-  * @param view 使用的视图组件 传入一个import的vue
-  * @param param 弹窗参数 将传入到合并到props上
-  */
+   * # 当前对话框ID
+   */
+  public static currentDialogId = 0
+
+  /**
+   * # 已弹出的ID数组
+   */
+  public static dialogIdList: number[] = []
+
+  /**
+   * # 弹出对话框的内部方法
+   * @param view 使用的视图组件 传入一个import的vue
+   * @param param 弹窗参数 将传入到合并到props上
+   */
   static async build<RES>(view: Component, param: IJson): Promise<RES> {
     const parentNode = document.createElement('div')
     const domId = `dialog_${Math.random()}`
@@ -35,6 +45,7 @@ export class AirDialog {
         app.unmount()
         document.body.removeChild(parentNode)
         app = undefined
+        this.dialogIdList.shift()
       }
     }
     return new Promise((resolve, reject) => {
@@ -56,6 +67,7 @@ export class AirDialog {
         },
         ...param,
       }
+
       /**
        * 创建App实例
        */
@@ -75,12 +87,15 @@ export class AirDialog {
       app.use(ElementPlus, { locale: zhCn })
 
       // 注册全局组件
-      Object.keys(Icons).forEach((key) => {
-        if (app) {
-          app.component(key, Icons[key as keyof typeof Icons])
-        }
-      })
+      Object.keys(Icons)
+        .forEach((key) => {
+          if (app) {
+            app.component(key, Icons[key as keyof typeof Icons])
+          }
+        })
 
+      this.currentDialogId += 1
+      this.dialogIdList.unshift(this.currentDialogId)
       document.body.appendChild(parentNode)
       // 挂载组件
       app.mount(parentNode)

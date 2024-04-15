@@ -9,11 +9,11 @@
       @click.self="dialogBgClicked"
     >
       <button
-        :id="'hidden-button-' + randId"
+        :id="'hidden-button-' + domId"
         class="hidden-button"
       />
       <div
-        :id="randId"
+        :id="dialogIdPrefix+domId"
         class="main"
         :style="{
           width: width,
@@ -90,16 +90,16 @@
 
 <script lang="ts" setup>
 import {
-  watch, ref, nextTick, PropType, computed, onMounted,
+  computed, nextTick, onMounted, PropType, ref, watch,
 } from 'vue'
 import { AButton } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
-import { AirRand } from '../helper/AirRand'
 import { AirStore } from '../store/AirStore'
 import { AirI18n } from '../helper/AirI18n'
+import { AirDialog } from '@/airpower/helper/AirDialog'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
@@ -287,7 +287,7 @@ const cursorRef = ref('grab')
 /**
  * # 随机ID
  */
-const randId = ref(`id${AirRand.getRandNumberAndCharString()}`)
+const domId = ref(AirDialog.currentDialogId)
 
 /**
  * 窗体偏移的x
@@ -333,7 +333,8 @@ const isFullScreen = ref(props.fullable && props.fullScreen)
  * 强制焦点丢失
  */
 onMounted(() => {
-  document.getElementById(`hidden-button-${randId.value}`)?.focus()
+  document.getElementById(`hidden-button-${domId.value}`)
+    ?.focus()
 })
 
 /**
@@ -345,9 +346,13 @@ watch(isFullScreen, () => {
 
 watch(() => AirStore().escKeyDown, () => {
   if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc) {
-    emits('onCancel')
+    if (AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
+      emits('onCancel')
+    }
   }
 })
+
+const dialogIdPrefix = 'dialog_'
 
 /**
  * 鼠标按下的事件
@@ -362,9 +367,9 @@ function dialogMouseDownEvent(event: MouseEvent) {
   startY = event.clientY - y.value
   isMoving.value = true
   trueWidth = window.innerWidth
-    - (document.querySelector(`#${randId.value}`) as HTMLDivElement).offsetWidth
+    - (document.querySelector(`#${dialogIdPrefix}${domId.value}`) as HTMLDivElement).offsetWidth
   trueHeight = window.innerHeight
-    - (document.querySelector(`#${randId.value}`) as HTMLDivElement).offsetHeight
+    - (document.querySelector(`#${dialogIdPrefix}${domId.value}`) as HTMLDivElement).offsetHeight
 }
 
 /**
@@ -479,7 +484,6 @@ async function confirmEvent() {
   }
   emits('onConfirm')
 }
-
 </script>
 
 <style scoped lang="scss">
