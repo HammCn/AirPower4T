@@ -1,5 +1,18 @@
 # AirPower4T 版本发布日志
 
+## v1.4.3
+
+### 🎉 Features:
+
+- feat(Dictionary): 提供了禁用启用的全局字典配置
+- feat(Config): 提供了配置是否表格开启禁用启用按钮
+- feat(Service): 提供了禁用启用的API默认调用和配置
+
+### 🐞 Bug fixes:
+
+- fix(BUG): 修复了一些错误的样式
+- fix(Permission): 优化了权限列表的读取和缓存
+
 ## v1.4.2
 
 ### 🎉 Features:
