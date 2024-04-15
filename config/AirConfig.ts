@@ -439,6 +439,11 @@ export class AirConfig {
   static tableEmptyValue = '-'
 
   /**
+   * # 表格是否默认开启禁用和启用按钮
+   */
+  static tableShowEnableAndDisable = false
+
+  /**
    * # 默认的表格数组显示分割字符
    * ---
    * 💡 ```@TableField``` 装饰器中可以单独配置 ```arraySplitor```,
