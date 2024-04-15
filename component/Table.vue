@@ -1333,6 +1333,10 @@ init()
   justify-content: flex-start;
   width: 120px;
 
+  .el-scrollbar {
+    width: 100%;
+  }
+
   .air-button {
     width: 100%;
     padding: 8px 0;
