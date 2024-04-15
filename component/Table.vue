@@ -251,6 +251,34 @@
               >
                 {{ AirI18n.get().Detail || '详情' }}
               </AButton>
+              <template
+                v-if="isEnableAndDisableShowInline && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
+              >
+                <AButton
+                  v-if="((scope as any).row as AirEntity).isDisabled"
+                  :disabled="isDisableChangeStatus((scope as any).row)"
+                  :icon-button="!linkButton"
+                  :link-button="linkButton"
+                  :permission="enablePermission || AirPermission.getPermission(entity, AirPermissionAction.ENABLE)"
+                  :tooltip="AirI18n.get().Enable || '启用'"
+                  type="CLOSE"
+                  @click="handleEnable((scope as any).row)"
+                >
+                  {{ AirI18n.get().Enable || '启用' }}
+                </AButton>
+                <AButton
+                  v-else
+                  :disabled="isDisableChangeStatus((scope as any).row)"
+                  :icon-button="!linkButton"
+                  :link-button="linkButton"
+                  :permission="disablePermission || AirPermission.getPermission(entity, AirPermissionAction.DISABLE)"
+                  :tooltip="AirI18n.get().Disable || '禁用'"
+                  type="CLOSE"
+                  @click="handleDisable((scope as any).row)"
+                >
+                  {{ AirI18n.get().Edit || '禁用' }}
+                </AButton>
+              </template>
               <AButton
                 v-if="isDeleteShowInline"
                 :danger="isForceDelete"
@@ -309,6 +337,34 @@
                   >
                     {{ AirI18n.get().Detail || '详情' }}
                   </AButton>
+                  <template
+                    v-if="enableAndDisableInMore && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
+                  >
+                    <AButton
+                      v-if="((scope as any).row as AirEntity).isDisabled"
+                      :disabled="isDisableChangeStatus((scope as any).row)"
+                      :icon-button="!linkButton"
+                      :link-button="linkButton"
+                      :permission="enablePermission || AirPermission.getPermission(entity, AirPermissionAction.ENABLE)"
+                      :tooltip="AirI18n.get().Enable || '启用'"
+                      type="CLOSE"
+                      @click="handleEnable((scope as any).row)"
+                    >
+                      {{ AirI18n.get().Enable || '启用' }}
+                    </AButton>
+                    <AButton
+                      v-else
+                      :disabled="isDisableChangeStatus((scope as any).row)"
+                      :icon-button="!linkButton"
+                      :link-button="linkButton"
+                      :permission="disablePermission || AirPermission.getPermission(entity, AirPermissionAction.DISABLE)"
+                      :tooltip="AirI18n.get().Disable || '禁用'"
+                      type="CLOSE"
+                      @click="handleDisable((scope as any).row)"
+                    >
+                      {{ AirI18n.get().Edit || '禁用' }}
+                    </AButton>
+                  </template>
                   <AButton
                     v-if="!hideDelete && deleteInMore"
                     :danger="isForceDelete"
@@ -400,7 +456,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
 import { AirCrypto } from '@/airpower/helper/AirCrypto'
 
-const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort'])
+const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort', 'onDisable', 'onEnable'])
 
 const props = defineProps({
   /**
@@ -410,11 +466,30 @@ const props = defineProps({
     type: Boolean,
     default: AirConfig.tableLinkButton,
   },
+
   /**
    * # 行尾编辑按钮的权限标识
    * 如不传入 则默认使用 ```EntityConfig``` 的 ```editPermission``` 配置
    */
   editPermission: {
+    type: String,
+    default: undefined,
+  },
+
+  /**
+   * # 行尾禁用按钮的权限标识
+   * 如不传入 则默认使用 ```EntityConfig``` 的 ```disablePermission``` 配置
+   */
+  disablePermission: {
+    type: String,
+    default: undefined,
+  },
+
+  /**
+   * # 行尾启用按钮的权限标识
+   * 如不传入 则默认使用 ```EntityConfig``` 的 ```enablePermission``` 配置
+   */
+  enablePermission: {
     type: String,
     default: undefined,
   },
@@ -505,6 +580,14 @@ const props = defineProps({
   },
 
   /**
+   * # 控制是否允许操作禁用启用
+   */
+  disableChangeStatus: {
+    type: Function,
+    default: null,
+  },
+
+  /**
    * # 控制是否禁用行内详情按钮的回调方法
    */
   disableDetail: {
@@ -542,6 +625,16 @@ const props = defineProps({
    * 💡 可触发 ```@on-select(selectList)``` 事件, 可配置 ```:select-list``` 默认选中
    */
   showSelect: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * # 是否显示禁用启用
+   * ---
+   *
+   */
+  showEnableAndDisable: {
     type: Boolean,
     default: false,
   },
@@ -635,6 +728,16 @@ const props = defineProps({
   editInMore: {
     type: Boolean,
     default: false,
+  },
+
+  /**
+   * # 在更多里显示禁用启用
+   * ---
+   * 💡 仅在 `showMoreButton=true` 时有效，且 `enableAndDisableInMore=true` 时被收起到更多，否则保持表格行内显示
+   */
+  enableAndDisableInMore: {
+    type: Boolean,
+    default: true,
   },
 
   /**
@@ -844,6 +947,9 @@ function init() {
 const isAddDisabled = (row: typeof props.entity) => (props.disableAdd
   ? props.disableAdd(row)
   : false)
+const isDisableChangeStatus = (row: typeof props.entity) => (props.disableChangeStatus
+  ? props.disableChangeStatus(row)
+  : false)
 const isDeleteDisabled = (row: typeof props.entity) => (props.disableDelete
   ? props.disableDelete(row)
   : false)
@@ -987,6 +1093,22 @@ function handleEdit(item: AirEntity) {
 }
 
 /**
+ * 启用按钮点击事件
+ * @param item 编辑的数据
+ */
+function handleEnable(item: AirEntity) {
+  emits('onEnable', item)
+}
+
+/**
+ * 禁用按钮点击事件
+ * @param item 编辑的数据
+ */
+function handleDisable(item: AirEntity) {
+  emits('onDisable', item)
+}
+
+/**
  * 单个删除 单个删除
  * @param item
  */
@@ -1089,6 +1211,16 @@ const isEditShowInline = computed(() => {
     return true
   }
   return props.showMoreButton && !props.editInMore
+})
+
+const isEnableAndDisableShowInline = computed(() => {
+  if (!props.showEnableAndDisable) {
+    return false
+  }
+  if (!props.showMoreButton) {
+    return true
+  }
+  return props.showMoreButton && !props.enableAndDisableInMore
 })
 
 const isDetailShowInline = computed(() => {

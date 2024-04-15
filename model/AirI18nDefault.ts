@@ -172,6 +172,12 @@ export class AirI18nDefault {
   /** # 删除成功 */
   DeleteSuccess?: string
 
+  /** # 禁用成功 */
+  DisableSuccess?: string
+
+  /** # 启用成功 */
+  EnableSuccess?: string
+
   /** # 详情 */
   Detail?: string
 
@@ -180,6 +186,12 @@ export class AirI18nDefault {
 
   /** # 编辑 */
   Edit?: string
+
+  /** # 禁用 */
+  Disable?: string
+
+  /** # 启用 */
+  Enable?: string
 
   /** # 编辑成功标题 */
   EditSuccess?: string

@@ -7,6 +7,7 @@ import { AirNotification } from '../feedback/AirNotification'
 import { IUseTableResult } from '../interface/IUseTableResult'
 import { airTableHook } from './airTableHook'
 import { AirI18n } from '../helper/AirI18n'
+import { AirConfirm } from '@/airpower/feedback/AirConfirm'
 
 /**
  * # 引入表格使用的Hook
@@ -46,8 +47,30 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     result.onReloadData()
   }
 
+  /**
+   * # 表格行禁用事件
+   * @param row 行数据
+   */
+  async function onDisable(row: E) {
+    await AirConfirm.warning('是否确认禁用当前选择的数据？', '禁用提醒')
+    await result.service.disable(row.id, AirI18n.get().DisableSuccess || '禁用成功')
+    result.onReloadData()
+  }
+
+  /**
+   * # 表格行启用事件
+   * @param row 行数据
+   */
+  async function onEnable(row: E) {
+    await AirConfirm.warning('是否确认启用当前选择的数据？', '启用提醒')
+    await result.service.enable(row.id, AirI18n.get().EnableSuccess || '启用成功')
+    result.onReloadData()
+  }
+
   return Object.assign(result, {
     onEdit,
     onDelete,
+    onDisable,
+    onEnable,
   }) as IUseTableResult<E, S>
 }
