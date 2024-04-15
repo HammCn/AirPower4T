@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v1.4.2
+
+### 🎉 Features:
+
+- feat(ESC): 支持了`esc`只关闭最后弹出的对话框
+
+### 🐞 Bug fixes:
+
+- fix(Table): 为`allFieldList`添加了强制类型断言
+- fix(Phone): 修复拨打电话组件不显示且无法拨打的问题
+- fix(Table): 修复只有一个更多菜单时的居中问题
+
 ## v1.4.1
 
 ### 🎉 Features:
