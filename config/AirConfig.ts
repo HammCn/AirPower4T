@@ -246,7 +246,33 @@ export class AirConfig {
   /**
    * # 权限列表
    */
-  static permissionList: string[] = []
+  private static permissionList: string[] = []
+
+  /**
+   * # 权限缓存Key
+   */
+  private static readonly permissionKey = `${this.appKey}_permissions`
+
+  /**
+   * # 保存权限列表
+   * @param permissions 权限列表
+   */
+  static savePermissionList(permissions: string[]) {
+    this.permissionList = permissions
+    localStorage.setItem(this.permissionKey, JSON.stringify(permissions))
+  }
+
+  /**
+   * # 获取缓存的权限列表
+   */
+  static getPermissionList(): string[] {
+    const str = localStorage.getItem(this.permissionKey) || '[]'
+    try {
+      return JSON.parse(str)
+    } catch (e) {
+      return []
+    }
+  }
 
   /**
    * # 是否自动处理常用权限

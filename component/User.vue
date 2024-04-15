@@ -48,7 +48,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { PropType, computed, ref } from 'vue'
+import { computed, PropType, ref } from 'vue'
 import { SwitchButton } from '@element-plus/icons-vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
@@ -97,8 +97,12 @@ const userAvatar = computed(() => {
  * 退出登录
  */
 async function logout() {
-  await AirConfirm.create().dangerButton().setConfirmText(AirI18n.get().LogoutConfirm || '退出确认').show(AirI18n.get().AreYouConfirmToLogout || '是否确认退出当前登录的用户?', AirI18n.get().LogoutConfirm || '退出确认')
+  await AirConfirm.create()
+    .dangerButton()
+    .setConfirmText(AirI18n.get().LogoutConfirm || '退出确认')
+    .show(AirI18n.get().AreYouConfirmToLogout || '是否确认退出当前登录的用户?', AirI18n.get().LogoutConfirm || '退出确认')
   AirConfig.removeAccessToken()
+  AirConfig.savePermissionList([])
   if (AirConfig.router) {
     AirConfig.router.replace('/login')
   }
