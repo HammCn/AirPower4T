@@ -1214,9 +1214,6 @@ const isEditShowInline = computed(() => {
 })
 
 const isEnableAndDisableShowInline = computed(() => {
-  if (!props.showEnableAndDisable) {
-    return false
-  }
   if (!props.showMoreButton) {
     return true
   }
