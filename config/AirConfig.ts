@@ -484,8 +484,8 @@ export class AirConfig {
   static hideTableIndex = false
 
   /**
-   * # AES加解密使用的key
+   * # AES加解密使用默认向量
    */
-  static cryptoKey = 'abcdef0123456789'
+  static aesCbcIvString = '0000000000000001'
   // #endregion
 }
