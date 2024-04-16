@@ -486,6 +486,6 @@ export class AirConfig {
   /**
    * # AES加解密使用默认向量
    */
-  static aesCbcIvString = '0000000000000001'
+  static aesCbcIvString = '0000000000000000'
   // #endregion
 }
