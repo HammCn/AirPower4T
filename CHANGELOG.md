@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v1.4.5
+
+### 🐞 Bug fixes:
+
+-  fix(Permission): 缓存权限Key错误的问题修复
+
 ## v1.4.4
 
 ### 🐞 Bug fixes:
