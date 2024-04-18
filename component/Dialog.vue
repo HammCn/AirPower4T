@@ -99,7 +99,7 @@ import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
 import { AirStore } from '../store/AirStore'
 import { AirI18n } from '../helper/AirI18n'
-import { AirDialog } from '@/airpower/helper/AirDialog'
+import { AirDialog } from '../helper/AirDialog'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 

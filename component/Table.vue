@@ -454,7 +454,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
-import { AirCrypto } from '@/airpower/helper/AirCrypto'
+import { AirCrypto } from '../helper/AirCrypto'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort', 'onDisable', 'onEnable'])
 

@@ -1,7 +1,7 @@
 import { Dictionary, FieldName, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
-import { TableField } from '@/airpower/decorator/TableField'
-import { AirDisableDictionary } from '@/airpower/model/AirDisableDictionary'
+import { TableField } from '../decorator/TableField'
+import { AirDisableDictionary } from '../model/AirDisableDictionary'
 
 /**
  * # 实体超类
