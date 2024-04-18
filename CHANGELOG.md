@@ -1,5 +1,16 @@
 # AirPower4T 版本发布日志
 
+## v1.4.6
+
+### 🎉 Features:
+
+- feat(Entity): 提供了一个复制到只带ID的实体的方法
+- feat(Hook): `useAirTableTree` 支持了配置不分页
+
+### 🐞 Bug fixes:
+
+-  fix(Crypto): 优化了`aes`加解密的方法
+
 ## v1.4.5
 
 ### 🐞 Bug fixes:
