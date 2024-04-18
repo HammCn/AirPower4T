@@ -34,7 +34,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     try {
       await AirDialog.show(option.editView, row)
     } finally {
-      result.onReloadData()
+      result.onGetList()
     }
   }
 
@@ -44,7 +44,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
    */
   async function onDelete(row: E) {
     await result.service.delete(row.id, AirI18n.get().DeleteSuccess || '删除成功')
-    result.onReloadData()
+    result.onGetList()
   }
 
   /**
@@ -54,7 +54,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
   async function onDisable(row: E) {
     await AirConfirm.warning('是否确认禁用当前选择的数据？', '禁用提醒')
     await result.service.disable(row.id, AirI18n.get().DisableSuccess || '禁用成功')
-    result.onReloadData()
+    result.onGetList()
   }
 
   /**
@@ -64,7 +64,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
   async function onEnable(row: E) {
     await AirConfirm.warning('是否确认启用当前选择的数据？', '启用提醒')
     await result.service.enable(row.id, AirI18n.get().EnableSuccess || '启用成功')
-    result.onReloadData()
+    result.onGetList()
   }
 
   return Object.assign(result, {
