@@ -37,10 +37,11 @@ export class AirEntity extends AirModel {
   }
 
   /**
-   * # 获取一个只包含ID的实体
+   * # 复制一个只包含ID的实体
    * @returns 仅包含ID的实体
    */
-  newInstanceOnlyId() {
-    return new AirEntity(this.id)
+  copyExposeId() {
+    return this.copy()
+      .expose('id')
   }
 }
