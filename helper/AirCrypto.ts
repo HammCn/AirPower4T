@@ -8,11 +8,6 @@ import { AirConfig } from '../config/AirConfig'
  */
 export class AirCrypto {
   /**
-   * # 默认key
-   */
-  private static iv = AirConfig.aesCbcIvString
-
-  /**
    * # AES加密方法
    * @param data 加密数据
    * @param key 密钥
