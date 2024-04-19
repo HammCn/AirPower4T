@@ -7,7 +7,7 @@ import { AirNotification } from '../feedback/AirNotification'
 import { IUseTableResult } from '../interface/IUseTableResult'
 import { airTableHook } from './airTableHook'
 import { AirI18n } from '../helper/AirI18n'
-import { AirConfirm } from '@/airpower/feedback/AirConfirm'
+import { AirConfirm } from '../feedback/AirConfirm'
 
 /**
  * # 引入表格使用的Hook
