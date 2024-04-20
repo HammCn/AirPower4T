@@ -1,5 +1,12 @@
 # AirPower4T 版本发布日志
 
+## v1.4.7
+
+### 🐞 Bug fixes:
+
+- fix(Import): 优化了一些错误的绝对引用路径
+- fix(Table): 禁用/启用/删除后不返回第一页
+
 ## v1.4.6
 
 ### 🎉 Features:
