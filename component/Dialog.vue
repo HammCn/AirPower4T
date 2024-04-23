@@ -345,8 +345,8 @@ watch(isFullScreen, () => {
 })
 
 watch(() => AirStore().escKeyDown, () => {
-  if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc) {
-    if (AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
+  if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc && AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
+    if (props.hoverClose || !props.hideClose) {
       emits('onCancel')
     }
   }
