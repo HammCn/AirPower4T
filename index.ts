@@ -49,12 +49,21 @@ export { app }
 console.clear()
 
 console.log(
-  `%c©Air%cPower\n%c${AirConfig.version}`,
-  `padding:20px 0px 10px 0px;
-  font-size:24px;
+  `%c©%cAirPower%c4T%c${AirConfig.version}%c\n已支持: Web、微信小程序、uniapp\n\n%c🔥🔥🔥AirPower系列开源项目推荐\n
+%c基础脚手架: https://github.com/HammCn/AirPower
+%c后端(Java): https://github.com/HammCn/AirPower4J
+  `,
+  `padding:20px 0px 0px 0px;
+  font-size:24px;font-weight:bold;
   color:#f39800;`,
+  'font-size:24px;color:#f39800;',
   'font-size:24px;color:#0083c0;',
-  'font-size:14px;color:#333;padding-bottom:20px;',
+  'font-size:12px;color:#fff;background-color:#ff4500;padding:1px 5px;border-radius:3px;',
+  'font-size:12px;color:#ccc;padding-bottom:50px;',
+
+  'font-size:10px;color:#333;padding-bottom:5px;',
+  'font-size:10px;color:#ccc;padding-bottom:5px;',
+  'font-size:10px;color:#ccc;padding-bottom:5px;',
 )
 console.groupCollapsed('%cRuntime', 'font-size:12px;color:#333;font-weight:300;')
 console.log(
