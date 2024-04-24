@@ -1,5 +1,12 @@
 # AirPower4T 版本发布日志
 
+## v1.4.8
+
+### 🐞 Bug fixes:
+
+- fix(Table): 修复多语言环境的提示文案错误
+- fix(Dialog): 隐藏关闭按钮时`ESC`不触发自动关闭
+
 ## v1.4.7
 
 ### 🐞 Bug fixes:
