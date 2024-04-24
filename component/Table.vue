@@ -405,7 +405,7 @@
           class="air-field-selector-dialog"
         >
           <div class="air-field-selector-title">
-            {{ AirI18n.get().ConfigureTableColumns || '选择要显示的列' }}
+            {{ AirI18n.get().SelectTableColumnsToShow || '选择要显示的列' }}
           </div>
           <div class="air-field-selector-list">
             <el-check-tag
