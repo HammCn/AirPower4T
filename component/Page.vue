@@ -57,11 +57,12 @@
           </div>
           <div class="air-page-jumper">
             <el-input
-              v-model="page.pageNum"
+              v-model="currentPage"
               type="number"
               :placeholder="AirI18n.get().InputPageNumber || '输入页码跳转'"
               min="1"
               :max="response.pageCount"
+              @change="currentPageChanged"
             >
               <template #append>
                 <el-button
@@ -105,29 +106,37 @@ const props = defineProps({
 })
 
 const page = ref(new AirPage())
+const currentPage = ref(page.value.pageNum)
 
 /**
- * 页码变更
+ * # 抛出数据
+ */
+function emitChange() {
+  currentPage.value = page.value.pageNum
+  emits('change')
+  emits('onChange')
+}
+
+/**
+ * # 页码变更
  */
 function pageChanged(num: number): void {
   page.value.pageNum = num
   page.value.pageSize = props.response.page.pageSize
-  emits('onChange', page.value)
-  emits('change', page.value)
+  emitChange()
 }
 
 /**
- * 每页数量变更
+ * # 每页数量变更
  */
 function sizeChanged(size: number): void {
   page.value.pageNum = 1
   page.value.pageSize = size
-  emits('onChange', page.value)
-  emits('change', page.value)
+  emitChange()
 }
 
 /**
- * 快捷页码列表
+ * # 快捷页码列表
  */
 const pageCountList = computed(() => {
   const maxShowPage = 20
@@ -137,6 +146,17 @@ const pageCountList = computed(() => {
   }
   return list
 })
+
+/**
+ * # 输入页码变更
+ */
+function currentPageChanged() {
+  if (currentPage.value) {
+    page.value.pageNum = Math.min(props.response.pageCount, parseInt(currentPage.value.toString(), 10))
+    page.value.pageNum = Math.max(page.value.pageNum, 1)
+    emitChange()
+  }
+}
 </script>
 
 <style lang="scss">
