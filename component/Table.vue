@@ -405,7 +405,7 @@
           class="air-field-selector-dialog"
         >
           <div class="air-field-selector-title">
-            {{ AirI18n.get().ConfigureTableColumns || '选择要显示的列' }}
+            {{ AirI18n.get().SelectTableColumnsToShow || '选择要显示的列' }}
           </div>
           <div class="air-field-selector-list">
             <el-check-tag
@@ -454,7 +454,7 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
-import { AirCrypto } from '@/airpower/helper/AirCrypto'
+import { AirCrypto } from '../helper/AirCrypto'
 
 const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort', 'onDisable', 'onEnable'])
 

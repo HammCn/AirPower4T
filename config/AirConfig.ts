@@ -23,7 +23,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v1.4.4'
+  static readonly version = 'v1.4.8'
 
   /**
    * # AppKey
@@ -251,7 +251,7 @@ export class AirConfig {
   /**
    * # 权限缓存Key
    */
-  private static readonly permissionKey = `${this.appKey}_permissions`
+  private static readonly permissionKey = '_permissions'
 
   /**
    * # 保存权限列表
@@ -259,14 +259,14 @@ export class AirConfig {
    */
   static savePermissionList(permissions: string[]) {
     this.permissionList = permissions
-    localStorage.setItem(this.permissionKey, JSON.stringify(permissions))
+    localStorage.setItem(this.appKey + this.permissionKey, JSON.stringify(permissions))
   }
 
   /**
    * # 获取缓存的权限列表
    */
   static getPermissionList(): string[] {
-    const str = localStorage.getItem(this.permissionKey) || '[]'
+    const str = localStorage.getItem(this.appKey + this.permissionKey) || '[]'
     try {
       return JSON.parse(str)
     } catch (e) {
@@ -484,8 +484,8 @@ export class AirConfig {
   static hideTableIndex = false
 
   /**
-   * # AES加解密使用的key
+   * # AES加解密使用默认向量
    */
-  static cryptoKey = 'abcdef0123456789'
+  static aesCbcIvString = '0000000000000000'
   // #endregion
 }

@@ -8,41 +8,37 @@ import { AirConfig } from '../config/AirConfig'
  */
 export class AirCrypto {
   /**
-   * # 默认key
-   */
-  private static key = AirConfig.cryptoKey
-
-  /**
    * # AES加密方法
    * @param data 加密数据
-   * @param key (可选)密钥 默认```AirConfig.cryptoKey```
+   * @param key 密钥
    * @param mode (可选)加密方式 默认 CBC
    * @param padding (可选)填充方式 默认无填充
+   * @param iv (可选)向量 默认```AirConfig.aesCbcIvString```
    */
-  static aesEncrypt(data: string, key = this.key, mode = CryptoJS.mode.CBC, padding = CryptoJS.pad.ZeroPadding): string {
-    const src = CryptoJS.enc.Utf8.parse(data)
-    const iv = CryptoJS.enc.Utf8.parse(key)
-    return CryptoJS.AES.encrypt(src, iv, {
-      iv,
+  static aesEncrypt(data: string, key: string, mode = CryptoJS.mode.CBC, padding = CryptoJS.pad.ZeroPadding, iv = AirConfig.aesCbcIvString): string {
+    return CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(data), CryptoJS.enc.Utf8.parse(key), {
+      iv: CryptoJS.enc.Utf8.parse(iv),
       mode,
       padding,
-    }).toString()
+    })
+      .toString()
   }
 
   /**
    * # AES解密方法
    * @param data 需要解密的数据
-   * @param key (可选)密钥 默认```AirConfig.cryptoKey```
+   * @param key 密钥
    * @param mode (可选)加密方式 默认 CBC
    * @param padding (可选)填充方式 默认无填充
+   * @param iv (可选)向量 默认```AirConfig.aesCbcIvString```
    */
-  static aesDecrypt(data: string, key = this.key, mode = CryptoJS.mode.CBC, padding = CryptoJS.pad.ZeroPadding): string {
-    const iv = CryptoJS.enc.Utf8.parse(key)
-    return CryptoJS.AES.decrypt(data, iv, {
-      iv,
+  static aesDecrypt(data: string, key: string, mode = CryptoJS.mode.CBC, padding = CryptoJS.pad.ZeroPadding, iv = AirConfig.aesCbcIvString): string {
+    return CryptoJS.AES.decrypt(data, CryptoJS.enc.Utf8.parse(key), {
+      iv: CryptoJS.enc.Utf8.parse(iv),
       mode,
       padding,
-    }).toString(CryptoJS.enc.Utf8)
+    })
+      .toString(CryptoJS.enc.Utf8)
   }
 
   /**
@@ -50,7 +46,8 @@ export class AirCrypto {
    * @param data 源字符串
    */
   static sha1(data: string): string {
-    return CryptoJS.SHA1(data).toString()
+    return CryptoJS.SHA1(data)
+      .toString()
   }
 
   /**
@@ -58,7 +55,8 @@ export class AirCrypto {
    * @param data 源字符串
    */
   static md5(data: string): string {
-    return CryptoJS.MD5(data).toString()
+    return CryptoJS.MD5(data)
+      .toString()
   }
 
   /**

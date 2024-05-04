@@ -17,7 +17,9 @@ import { useAirTable } from './useAirTable'
  */
 export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
   // 设置不分页
-  option.unPaginate = true
+  if (option.unPaginate === undefined) {
+    option.unPaginate = true
+  }
 
   /**
    * # 表格Hook返回对象

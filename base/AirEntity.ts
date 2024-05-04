@@ -1,7 +1,7 @@
 import { Dictionary, FieldName, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
-import { TableField } from '@/airpower/decorator/TableField'
-import { AirDisableDictionary } from '@/airpower/model/AirDisableDictionary'
+import { TableField } from '../decorator/TableField'
+import { AirDisableDictionary } from '../model/AirDisableDictionary'
 
 /**
  * # 实体超类
@@ -37,10 +37,11 @@ export class AirEntity extends AirModel {
   }
 
   /**
-   * # 获取一个只包含ID的实体
+   * # 复制一个只包含ID的实体
    * @returns 仅包含ID的实体
    */
-  newInstanceOnlyId() {
-    return new AirEntity(this.id)
+  copyExposeId() {
+    return this.copy()
+      .expose('id')
   }
 }

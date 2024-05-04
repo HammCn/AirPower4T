@@ -1,5 +1,36 @@
 # AirPower4T 版本发布日志
 
+## v1.4.8
+
+### 🐞 Bug fixes:
+
+- fix(Table): 修复多语言环境的提示文案错误
+- fix(Dialog): 隐藏关闭按钮时`ESC`不触发自动关闭
+
+## v1.4.7
+
+### 🐞 Bug fixes:
+
+- fix(Import): 优化了一些错误的绝对引用路径
+- fix(Table): 禁用/启用/删除后不返回第一页
+
+## v1.4.6
+
+### 🎉 Features:
+
+- feat(Entity): 提供了一个复制到只带ID的实体的方法
+- feat(Hook): `useAirTableTree` 支持了配置不分页
+
+### 🐞 Bug fixes:
+
+-  fix(Crypto): 优化了`aes`加解密的方法
+
+## v1.4.5
+
+### 🐞 Bug fixes:
+
+-  fix(Permission): 缓存权限Key错误的问题修复
+
 ## v1.4.4
 
 ### 🐞 Bug fixes:

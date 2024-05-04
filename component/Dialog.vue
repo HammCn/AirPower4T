@@ -99,7 +99,7 @@ import { AirValidator } from '../helper/AirValidator'
 import type { AirFormInstance } from '../type/AirType'
 import { AirStore } from '../store/AirStore'
 import { AirI18n } from '../helper/AirI18n'
-import { AirDialog } from '@/airpower/helper/AirDialog'
+import { AirDialog } from '../helper/AirDialog'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
@@ -345,8 +345,8 @@ watch(isFullScreen, () => {
 })
 
 watch(() => AirStore().escKeyDown, () => {
-  if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc) {
-    if (AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
+  if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc && AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
+    if (props.hoverClose || !props.hideClose) {
       emits('onCancel')
     }
   }
