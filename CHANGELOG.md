@@ -1,5 +1,12 @@
 # AirPower4T 版本发布日志
 
+## v1.4.9
+
+### 🐞 Bug fixes:
+
+- rm(IEntity): 移除了没有使用的`IEntity`接口
+- fix(Page): 修复分页组件输入异常的问题
+
 ## v1.4.8
 
 ### 🐞 Bug fixes:
@@ -23,13 +30,13 @@
 
 ### 🐞 Bug fixes:
 
--  fix(Crypto): 优化了`aes`加解密的方法
+- fix(Crypto): 优化了`aes`加解密的方法
 
 ## v1.4.5
 
 ### 🐞 Bug fixes:
 
--  fix(Permission): 缓存权限Key错误的问题修复
+- fix(Permission): 缓存权限Key错误的问题修复
 
 ## v1.4.4
 
