@@ -1,5 +1,7 @@
-import { FieldName, Type } from '../decorator/Custom'
+import { Dictionary, FieldName, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
+import { TableField } from '../decorator/TableField'
+import { AirDisableDictionary } from '../model/AirDisableDictionary'
 
 /**
  * # 实体超类
@@ -11,6 +13,17 @@ export class AirEntity extends AirModel {
    */
   @Type(Number)
   @FieldName('ID') id!: number
+
+  @Type(Boolean)
+  @Dictionary(AirDisableDictionary)
+  @TableField({
+    showColor: true,
+    width: 80,
+    orderNumber: -100,
+    forceShow: true,
+    removed: true,
+  })
+  @FieldName('禁用') isDisabled!: boolean
 
   /**
    * # 实例化一个实体
@@ -24,10 +37,11 @@ export class AirEntity extends AirModel {
   }
 
   /**
-   * # 获取一个只包含ID的实体
+   * # 复制一个只包含ID的实体
    * @returns 仅包含ID的实体
    */
-  newInstanceOnlyId() {
-    return new AirEntity(this.id)
+  copyExposeId() {
+    return this.copy()
+      .expose('id')
   }
 }

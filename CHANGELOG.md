@@ -1,5 +1,110 @@
 # AirPower4T 版本发布日志
 
+## v1.4.9
+
+### 🐞 Bug fixes:
+
+- rm(IEntity): 移除了没有使用的`IEntity`接口
+- fix(Page): 修复分页组件输入异常的问题
+
+## v1.4.8
+
+### 🐞 Bug fixes:
+
+- fix(Table): 修复多语言环境的提示文案错误
+- fix(Dialog): 隐藏关闭按钮时`ESC`不触发自动关闭
+
+## v1.4.7
+
+### 🐞 Bug fixes:
+
+- fix(Import): 优化了一些错误的绝对引用路径
+- fix(Table): 禁用/启用/删除后不返回第一页
+
+## v1.4.6
+
+### 🎉 Features:
+
+- feat(Entity): 提供了一个复制到只带ID的实体的方法
+- feat(Hook): `useAirTableTree` 支持了配置不分页
+
+### 🐞 Bug fixes:
+
+- fix(Crypto): 优化了`aes`加解密的方法
+
+## v1.4.5
+
+### 🐞 Bug fixes:
+
+- fix(Permission): 缓存权限Key错误的问题修复
+
+## v1.4.4
+
+### 🐞 Bug fixes:
+
+- fix(Input): 修复输入重复emit的性能问题
+- fix(Button): 修复按钮权限异常的BUG
+- fix(ToolBar): 修复了搜索清空时触发两次的BUG
+
+## v1.4.3
+
+### 🎉 Features:
+
+- feat(Dictionary): 提供了禁用启用的全局字典配置
+- feat(Config): 提供了配置是否表格开启禁用启用按钮
+- feat(Service): 提供了禁用启用的API默认调用和配置
+
+### 🐞 Bug fixes:
+
+- fix(BUG): 修复了一些错误的样式
+- fix(Permission): 优化了权限列表的读取和缓存
+
+## v1.4.2
+
+### 🎉 Features:
+
+- feat(ESC): 支持了`esc`只关闭最后弹出的对话框
+
+### 🐞 Bug fixes:
+
+- fix(Table): 为`allFieldList`添加了强制类型断言
+- fix(Phone): 修复拨打电话组件不显示且无法拨打的问题
+- fix(Table): 修复只有一个更多菜单时的居中问题
+
+## v1.4.1
+
+### 🎉 Features:
+
+- feat(Table): 支持了个选择字段的缓存参数`fieldCacheKey`
+
+### 🐞 Bug fixes:
+
+- fix(Config): 优化数字大小配置的安全边界值
+- fix(Input): 修复输入小数`1.02`类型失败的BUG
+- fix(CSS): 优化了一些冗余像素的样式代码
+
+## v1.4.0
+
+### ⛔️ Breaking:
+
+- (style): 优化了大量的代码风格
+
+### 🎉 Features:
+
+- feat(Selector): 提供了一个清除的监听事件
+
+## v1.3.4
+
+### 🐞 Bug fixes:
+
+- fix(Qrcode): 修改一个错误导出的组件名称
+
+## v1.3.3
+
+### 🎉 Features:
+
+- feat(Money): 支持了全局默认金额舍弃方向和配置
+
 ## v1.3.2
 
 ### 🎉 Features:
@@ -28,8 +133,7 @@
 
 ### ⛔️ Breaking:
 
-  `AirConfig.tableLinkButton` 默认值修改为 `true`，你依然可以通过 `AirConfig.tableLinkButton = false` 来继续使用图标按钮
-
+`AirConfig.tableLinkButton` 默认值修改为 `true`，你依然可以通过 `AirConfig.tableLinkButton = false` 来继续使用图标按钮
 
 ### 🎉 Features:
 
@@ -310,7 +414,6 @@
 
 - feat(WebSocket): 添加断线重连机制
 
-
 ### 🐞 Bug fixes:
 
 - fix(hook): 添加一个基础的props参数限制
@@ -331,7 +434,7 @@
 
 
 - style(User): 默认弹窗的宽高修改
- 
+
 ## v1.0.3
 
 ### 🎉 Features:
@@ -348,7 +451,6 @@
 - feat(Image): 支持了是否允许移除已上传文件的prop参数
 - feat(Image): 支持了一个placeholder的prop参数
 - feat(Table): 翻转了部分表格prop参数项的含义
-
 
 ### 🐞 Bug fixes:
 

@@ -15,13 +15,13 @@ export class AirValidator {
    * # 验证是否手机号或座机号
    * @param phoneNumber 号码
    */
-  static isTelphoneOrMobilePhone(phoneNumber: string): boolean {
-    return this.isMobilePhone(phoneNumber) || this.isTelphone(phoneNumber)
+  static isTelephoneOrMobilePhone(phoneNumber: string): boolean {
+    return this.isMobilePhone(phoneNumber) || this.isTelephone(phoneNumber)
   }
 
   /**
    * # 验证是否邮箱
-   * @param str 邮箱
+   * @param email
    */
   static isEmail(email: string): boolean {
     return /^[a-zA-Z0-9]+(\.([a-zA-Z0-9]+))*@[a-zA-Z0-9]+(\.([a-zA-Z0-9]+))+$/.test(email)
@@ -37,9 +37,9 @@ export class AirValidator {
 
   /**
    * # 验证是否座机号
-   * @param str 号码
+   * @param num 号码
    */
-  static isTelphone(num: string): boolean {
+  static isTelephone(num: string): boolean {
     return /^(((0\d{2,3})-)?((\d{7,8})|(400\d{7})|(800\d{7}))(-(\d{1,4}))?)$/.test(num)
   }
 

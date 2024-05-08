@@ -10,27 +10,27 @@ import { AirCode } from '../enum/AirCode'
 export class AirConfig {
   // #region 全局配置
   /**
-   * # AirPower版本号
-   */
-  static readonly version = 'v1.3.2'
+     * # AirPower版本号
+     */
+  static readonly version = 'v1.4.9'
 
   /**
-   * # AppKey
-   * ---
-   * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
-   */
+     * # AppKey
+     * ---
+     * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
+     */
   static appKey = 'airpower'
 
   /**
-   * # AppKey Header
-   */
+     * # AppKey Header
+     */
   static appKeyHeader = 'appkey'
 
   /**
-   * # 项目名称
-   * ---
-   * 💡 会显示在浏览器标题上
-   */
+     * # 项目名称
+     * ---
+     * 💡 会显示在浏览器标题上
+     */
   static product = ''
   // #endregion
 
@@ -61,14 +61,16 @@ export class AirConfig {
   static staticUrl = ''
 
   /**
-   * # 默认的文件上传地址
-   */
-  static uploadUrl = `${AirConfig.apiUrl}attach/upload`
+     * # 接口根地址
+     * ---
+     * 💡 以 ```/``` 结尾
+     */
+  static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
 
   /**
-   * # 上传文件默认字段名称
-   */
-  static uploadFileName = 'file'
+     * # Oauth2的authorize地址
+     */
+  static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
 
   /**
    * # AccessToken对应的Key
@@ -78,29 +80,43 @@ export class AirConfig {
   static authorizationHeaderKey = 'authorization'
 
   /**
-   * # Http返回状态码的字段
-   */
+     * # 默认同步导出URL
+     *
+     * ---
+     * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+     *
+     * ---
+     * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
+     */
+  static exportSyncUrl = 'exportSync'
+
+  /**
+     * # 默认异步导出URL
+     *
+     * ---
+     * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+     *
+     * ---
+     * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
+     */
+  static exportUrl = 'export'
+
+  /**
+     * # AccessToken对应的Key
+     * ---
+     * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
+     */
+  static authorizationHeaderKey = 'authorization'
+
+  /**
+     * # Http返回状态码的字段
+     */
   static httpCodeKey = 'code'
 
   /**
-   * # Http返回错误信息的字段
-   */
+     * # Http返回错误信息的字段
+     */
   static httpMessageKey = 'message'
-
-  /**
-   * # Http返回数据的字段
-   */
-  static httpDataKey = 'data'
-
-  /**
-   * # 全局http请求返回 成功状态码
-   */
-  static successCode: AirCode | number = AirCode.SUCCESS
-
-  /**
-   * # 全局http请求返回 继续状态码
-   */
-  static continueCode: AirCode | number = AirCode.CONTINUE
 
   /**
    * # 全局http请求返回 登录状态码
@@ -167,7 +183,7 @@ export class AirConfig {
    */
   static shake() {
     wx.vibrateShort({
-      type: "heavy"
+      type: 'heavy',
     })
   }
 }
