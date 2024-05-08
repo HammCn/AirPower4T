@@ -9,7 +9,7 @@ export class AirApi {
    * @returns 缓存的值
    */
   public static getStorage(key: string): string {
-    const value = localStorage.getItem(key)
+    const value = wx.getStorageSync(key)
     return value ? value.toString() : ''
   }
 
@@ -19,6 +19,6 @@ export class AirApi {
    * @param value 缓存的值
    */
   public static setStorage(key: string, value: string | number) {
-    localStorage.setItem(key, value.toString())
+    wx.setStorageSync(key, value.toString)
   }
 }
