@@ -33,18 +33,7 @@ export class AirConfig {
       * 💡 会显示在浏览器标题上
       */
    static product = ''
-   // #endregion
 
-   // #region 路由相关配置开始
-   /**
-    * # 跳转登录的方法
-    */
-   static login = () => {
-      AirApi.redirect("/view/login")
-   }
-   // #endregion
-
-   // #region 网络相关配置开始
    /**
     * # 接口根地址
     * ---
@@ -63,33 +52,11 @@ export class AirConfig {
     * # 默认的文件上传地址
     */
    static uploadUrl = `${AirConfig.apiUrl}attach/upload`
- 
+
    /**
     * # 上传文件默认字段名称
     */
    static uploadFileName = 'file'
-
-   /**
-      * # 默认同步导出URL
-      *
-      * ---
-      * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-      *
-      * ---
-      * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
-      */
-   static exportSyncUrl = 'exportSync'
-
-   /**
-      * # 默认异步导出URL
-      *
-      * ---
-      * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-      *
-      * ---
-      * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
-      */
-   static exportUrl = 'export'
 
    /**
       * # AccessToken对应的Key
@@ -112,11 +79,16 @@ export class AirConfig {
     * # Http返回数据的字段
     */
    static httpDataKey = 'data'
- 
+
    /**
     * # 全局http请求返回 成功状态码
     */
    static successCode: AirCode | number = AirCode.SUCCESS
+
+   /**
+    * # 全局http请求返回 继续状态码
+    */
+   static continueCode: AirCode | number = AirCode.CONTINUE
 
    /**
     * # 全局http请求返回 登录状态码
@@ -124,13 +96,44 @@ export class AirConfig {
    static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
 
    /**
-    * # 网络请求失败最大重试次数
+    * # 权限列表
     */
-   static retryTimesWhenNetworkError = 3
-   
-   // #endregion
+   private static permissionList: string[] = []
 
-   // #region 权限配置开始
+   /**
+    * # 权限缓存Key
+    */
+   private static readonly permissionKey = '_permissions'
+
+   /**
+    * # 保存权限列表
+    * @param permissions 权限列表
+    */
+   static savePermissionList(permissions: string[]) {
+      this.permissionList = permissions
+      AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(permissions))
+   }
+
+   /**
+    * # 获取缓存的权限列表
+    */
+   static getPermissionList(): string[] {
+      const str = AirApi.getStorage(this.appKey + this.permissionKey) || '[]'
+      try {
+         return JSON.parse(str)
+      } catch (e) {
+         return []
+      }
+   }
+
+   /**
+    * # 是否有权限
+    * @param permission 权限标识
+    */
+   static hasPermission(permission: string): boolean {
+      return this.permissionList.includes(permission)
+   }
+
    /**
     * # 保存身份令牌
     * @param accessToken 身份令牌
@@ -154,28 +157,22 @@ export class AirConfig {
    }
 
    /**
-    * # 权限列表
-    */
-   static permissionList: string[] = []
-
-   /**
-    * # 是否有权限
-    * @param permission 权限标识
-    */
-   static hasPermission(permission: string): boolean {
-      return this.permissionList.includes(permission)
-   }
-   // #endregion
-
-   // #region 其他杂项配置
-   /**
     * # 默认的格式化时间
     * ---
-    * ### 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
-    * ```
-    * AirConfig.dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD
+    * 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
     * ```
     */
-   static dateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
-   // #endregion
+   static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
+
+   /**
+    * # 网络请求失败最大重试次数
+    */
+   static retryTimesWhenNetworkError = 3
+
+   /**
+    * # 跳转登录的方法
+    */
+   static login = () => {
+      AirApi.redirect("/view/login")
+   }
 }
