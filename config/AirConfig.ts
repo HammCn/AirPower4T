@@ -1,5 +1,6 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
+import { AirApi } from './AirApi'
 
 /**
  * # AirPower 全局配置
@@ -8,44 +9,37 @@ import { AirCode } from '../enum/AirCode'
  * @author Hamm
  */
 export class AirConfig {
-  // #region 全局配置
   /**
-     * # AirPower版本号
-     */
+   * # AirPower版本号
+   */
   static readonly version = 'v1.4.9'
 
   /**
-     * # AppKey
-     * ---
-     * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
-     */
+   * # AppKey
+   * ---
+   * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
+   */
   static appKey = 'airpower'
 
   /**
-     * # AppKey Header
-     */
+   * # AppKey Header
+   */
   static appKeyHeader = 'appkey'
 
   /**
-     * # 项目名称
-     * ---
-     * 💡 会显示在浏览器标题上
-     */
+   * # 项目名称
+   * ---
+   * 💡 会显示在浏览器标题上
+   */
   static product = ''
-  // #endregion
 
-  // #region 路由相关配置开始
   /**
    * # 跳转登录的方法
    */
   static login = () => {
-    my.redirectTo({
-      url: '/view/login',
-    })
+    AirApi.redirect("/view/login")
   }
-  // #endregion
 
-  // #region 网络相关配置开始
   /**
    * # 接口根地址
    * ---
@@ -71,42 +65,42 @@ export class AirConfig {
   static uploadFileName = 'file'
 
   /**
-     * # 默认同步导出URL
-     *
-     * ---
-     * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-     *
-     * ---
-     * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
-     */
+   * # 默认同步导出URL
+   *
+   * ---
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   *
+   * ---
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
+   */
   static exportSyncUrl = 'exportSync'
 
   /**
-     * # 默认异步导出URL
-     *
-     * ---
-     * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-     *
-     * ---
-     * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
-     */
+   * # 默认异步导出URL
+   *
+   * ---
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   *
+   * ---
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
+   */
   static exportUrl = 'export'
 
   /**
-     * # AccessToken对应的Key
-     * ---
-     * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
-     */
+   * # AccessToken对应的Key
+   * ---
+   * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
+   */
   static authorizationHeaderKey = 'authorization'
 
   /**
-     * # Http返回状态码的字段
-     */
+   * # Http返回状态码的字段
+   */
   static httpCodeKey = 'code'
 
   /**
-     * # Http返回错误信息的字段
-     */
+   * # Http返回错误信息的字段
+   */
   static httpMessageKey = 'message'
 
   /**
@@ -120,62 +114,27 @@ export class AirConfig {
   static successCode: AirCode | number = AirCode.SUCCESS
 
   /**
-   * # 全局http请求返回 登录状态码
-   */
-  static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
-
-  /**
-   * # 网络请求失败最大重试次数
-   */
-  static retryTimesWhenNetworkError = 3
-
-  // #endregion
-
-  // #region 权限配置开始
-  /**
    * # 保存身份令牌
    * @param accessToken 身份令牌
    */
   static saveAccessToken(accessToken: string): void {
-    my.setStorageSync({
-      key: this.authorizationHeaderKey,
-      data: accessToken
-    })
+    AirApi.setStorage(this.authorizationHeaderKey, accessToken)
   }
 
   /**
    * # 获取身份令牌
    */
   static getAccessToken(): string {
-    return my.getStorageSync({
-      key: this.authorizationHeaderKey
-    }).data as string || ''
+    return AirApi.getStorage(this.authorizationHeaderKey)
   }
 
   /**
    * # 移除本地存储的身份令牌
    */
   static removeAccessToken(): void {
-    my.removeStorageSync({
-      key: this.authorizationHeaderKey
-    })
+    AirApi.removeStorage(this.authorizationHeaderKey)
   }
 
-  /**
-   * # 权限列表
-   */
-  static permissionList: string[] = []
-
-  /**
-   * # 是否有权限
-   * @param permission 权限标识
-   */
-  static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission)
-  }
-  // #endregion
-
-  // #region 其他杂项配置
   /**
    * # 默认的格式化时间
    * ---
@@ -185,12 +144,4 @@ export class AirConfig {
    * ```
    */
   static dateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
-  // #endregion
-
-  /**
-   * # 手机短震动
-   */
-  static shake() {
-    my.vibrateShort()
-  }
 }
