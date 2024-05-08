@@ -45,74 +45,11 @@ export class AirConfig {
   static product = ''
 
   /**
-   * # Vue 路由对象
-   */
-  static router: Router
-
-  /**
-   * # 最近访问的路径
-   */
-  static lastPathKey = 'air_last_path'
-
-  /**
-   * # 设置上次访问的路径
-   * @param path
-   */
-  static setLastPath(path: string): void {
-    AirApi.setStorage(this.lastPathKey, path)
-  }
-
-  /**
-   * # 获取上次访问的路径
-   */
-  static getLastPath(): string {
-    return AirApi.getStorage(this.lastPathKey)
-  }
-
-  /**
-   * # 创建Vue路由实例
-   * @param routes 路由配置文件
-   * @param ignoreGuard 不使用守卫
-   */
-  static createRouter(routes: RouteRecordRaw[], ignoreGuard = false) {
-    // 创建路由
-    const router = createRouter({
-      history: createWebHistory(),
-      routes,
-    })
-    router.afterEach(() => {
-      window.scrollTo(0, 0)
-    })
-    if (!ignoreGuard) {
-      router.beforeEach((to, _, next) => {
-        if (to.meta.name || to.name) {
-          window.document.title = `${to.meta.name || to.name} - ${AirConfig.product}` || AirConfig.product
-        }
-        next()
-      })
-    }
-    AirConfig.router = router
-    return router
-  }
-
-  /**
    * # 接口根地址
    * ---
    * 💡 以 ```/``` 结尾
    */
   static apiUrl = import.meta.env.VITE_APP_API_URL || '/api/'
-
-  /**
-   * # 接口根地址
-   * ---
-   * 💡 以 ```/``` 结尾
-   */
-  static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
-
-  /**
-   * # Oauth2的authorize地址
-   */
-  static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
 
   /**
    * # 静态资源根路径
@@ -130,50 +67,6 @@ export class AirConfig {
    * # 上传文件默认字段名称
    */
   static uploadFileName = 'file'
-
-  /**
-   * # 默认的导入数据的URL
-   *
-   * ---
-   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-   *
-   * ---
-   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```importUrl```
-   */
-  static importUrl = 'import'
-
-  /**
-   * # 默认下载导入模板的URL
-   *
-   * ---
-   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-   *
-   * ---
-   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```importTemplateUrl```
-   */
-  static importTemplateUrl = 'importTemplate'
-
-  /**
-   * # 默认同步导出URL
-   *
-   * ---
-   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-   *
-   * ---
-   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
-   */
-  static exportSyncUrl = 'exportSync'
-
-  /**
-   * # 默认异步导出URL
-   *
-   * ---
-   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-   *
-   * ---
-   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
-   */
-  static exportUrl = 'export'
 
   /**
    * # AccessToken对应的Key
@@ -213,28 +106,6 @@ export class AirConfig {
   static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
 
   /**
-   * # 😠超时时间 毫秒
-   * ---
-   * 💡 超时后请求会自动断开并抛出异常
-   */
-  static timeout = 5000
-
-  /**
-   * # 是否访问超时
-   */
-  static isTimeout = false
-
-  /**
-   * # 标准错误提示标题
-   */
-  static errorTitle = '系统错误'
-
-  /**
-   * # 标准错误提示内容
-   */
-  static errorMessage = '系统发生了一些错误，请稍候再试 :)'
-
-  /**
    * # 权限列表
    */
   private static permissionList: string[] = []
@@ -264,15 +135,6 @@ export class AirConfig {
       return []
     }
   }
-
-  /**
-   * # 是否自动处理常用权限
-   *
-   * 如此项配置为 ```false``` , 则 ```EntityConfig``` 中的 ```permissionPrefix``` 将自动失效
-   *
-   * 若此时 ```EntityConfig``` 没有配置其他的权限标识, 则认为不校验权限
-   */
-  static autoPermission = true
 
   /**
    * # 是否有权限
@@ -311,6 +173,37 @@ export class AirConfig {
    * ```
    */
   static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
+
+  /**
+   * # 😠超时时间 毫秒
+   * ---
+   * 💡 超时后请求会自动断开并抛出异常
+   */
+  static timeout = 5000
+
+  /**
+   * # 是否访问超时
+   */
+  static isTimeout = false
+
+  /**
+   * # 标准错误提示标题
+   */
+  static errorTitle = '系统错误'
+
+  /**
+   * # 标准错误提示内容
+   */
+  static errorMessage = '系统发生了一些错误，请稍候再试 :)'
+
+  /**
+   * # 是否自动处理常用权限
+   *
+   * 如此项配置为 ```false``` , 则 ```EntityConfig``` 中的 ```permissionPrefix``` 将自动失效
+   *
+   * 若此时 ```EntityConfig``` 没有配置其他的权限标识, 则认为不校验权限
+   */
+  static autoPermission = true
 
   /**
    * # AES加解密使用默认向量
@@ -469,4 +362,111 @@ export class AirConfig {
    * 💡 如设置为 `true`， 则全局隐藏, `ATable` 传入的 `hideIndex` 失效
    */
   static hideTableIndex = false
+
+  /**
+   * # Vue 路由对象
+   */
+  static router: Router
+
+  /**
+   * # 最近访问的路径
+   */
+  static lastPathKey = 'air_last_path'
+
+  /**
+   * # 设置上次访问的路径
+   * @param path
+   */
+  static setLastPath(path: string): void {
+    AirApi.setStorage(this.lastPathKey, path)
+  }
+
+  /**
+   * # 获取上次访问的路径
+   */
+  static getLastPath(): string {
+    return AirApi.getStorage(this.lastPathKey)
+  }
+
+  /**
+   * # 创建Vue路由实例
+   * @param routes 路由配置文件
+   * @param ignoreGuard 不使用守卫
+   */
+  static createRouter(routes: RouteRecordRaw[], ignoreGuard = false) {
+    // 创建路由
+    const router = createRouter({
+      history: createWebHistory(),
+      routes,
+    })
+    router.afterEach(() => {
+      window.scrollTo(0, 0)
+    })
+    if (!ignoreGuard) {
+      router.beforeEach((to, _, next) => {
+        if (to.meta.name || to.name) {
+          window.document.title = `${to.meta.name || to.name} - ${AirConfig.product}` || AirConfig.product
+        }
+        next()
+      })
+    }
+    AirConfig.router = router
+    return router
+  }
+
+  /**
+   * # WebSocketUrl
+   * ---
+   * 💡 以 ```/``` 结尾
+   */
+  static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
+
+  /**
+   * # Oauth2的authorize地址
+   */
+  static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
+
+  /**
+   * # 默认的导入数据的URL
+   *
+   * ---
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   *
+   * ---
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```importUrl```
+   */
+  static importUrl = 'import'
+
+  /**
+   * # 默认下载导入模板的URL
+   *
+   * ---
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   *
+   * ---
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```importTemplateUrl```
+   */
+  static importTemplateUrl = 'importTemplate'
+
+  /**
+   * # 默认同步导出URL
+   *
+   * ---
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   *
+   * ---
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
+   */
+  static exportSyncUrl = 'exportSync'
+
+  /**
+   * # 默认异步导出URL
+   *
+   * ---
+   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
+   *
+   * ---
+   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
+   */
+  static exportUrl = 'export'
 }
