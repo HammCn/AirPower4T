@@ -9,7 +9,6 @@ import { AirApi } from './AirApi'
  * @author Hamm
  */
 export class AirConfig {
-  // #region 全局配置
   /**
    * # AirPower版本号
    */
