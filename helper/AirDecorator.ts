@@ -167,7 +167,11 @@ export class AirDecorator {
         })
           .forEach((configKey) => {
             if (configKey !== 'key') {
-              result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) ?? (defaultConfig as IJson)[configKey]
+              if (this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === null || this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === undefined) {
+                result[configKey] = (defaultConfig as IJson)[configKey]
+              } else {
+                result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
+              }
             }
           })
         result.key = config.key
