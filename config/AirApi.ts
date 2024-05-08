@@ -8,8 +8,8 @@ export class AirApi {
    * @param data 数据
    */
   static setClipboardData(data: string) {
-    wx.setClipboardData({
-      data: data,
+    my.setClipboard({
+      text: data
     })
   }
 
@@ -18,7 +18,7 @@ export class AirApi {
    * @param path 路径
    */
   static navigateTo(path: string) {
-    wx.navigateTo({
+    my.navigateTo({
       url: path,
     })
   }
@@ -27,7 +27,7 @@ export class AirApi {
    * # 停止下拉刷新
    */
   static stopPullDownRefresh() {
-    wx.stopPullDownRefresh()
+    my.stopPullDownRefresh()
   }
 
   /**
@@ -35,7 +35,7 @@ export class AirApi {
    * 返回的页面数，如果 delta 大于现有页面数，则返回到首页。
    */
   static navigateBack(delta?: number) {
-    wx.navigateBack({
+    my.navigateBack({
       delta: delta
     })
   }
@@ -44,30 +44,28 @@ export class AirApi {
    * # 隐藏返回首页按钮
    */
   static hideHomeButton() {
-    wx.hideHomeButton()
+    my.hideBackHome()
   }
 
   /**
    * # 手机短震动
    */
   static vibrateShort() {
-    wx.vibrateShort({
-      type: "heavy",
-    })
+    my.vibrateShort()
   }
 
   /**
    * # 手机长震动
    */
   static vibrateLong() {
-    wx.vibrateLong()
+    my.vibrateLong()
   }
 
   /**
    * # 手机震动
    */
   static vibrate() {
-    wx.vibrateLong()
+    my.vibrate()
   }
 
   /**
@@ -75,7 +73,7 @@ export class AirApi {
    * @param path 路径
    */
   static redirect(path: string) {
-    wx.redirectTo({
+    my.redirectTo({
       url: path
     })
   }
