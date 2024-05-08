@@ -1,3 +1,4 @@
+import { AirApi } from '../config/AirApi'
 import { AirLanguage } from '../enum/AirLanguage'
 
 /**
@@ -13,7 +14,7 @@ export class AirI18nDefault {
   /**
    * # 语言名称
    */
-  language = (wx.getStorageSync(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  language = (AirApi.getStorage(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   //! Start
   /** # 点击这里上传 */
