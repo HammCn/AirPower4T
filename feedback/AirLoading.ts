@@ -9,8 +9,7 @@ export class AirLoading {
    */
   static show(message: string): void {
     my.showLoading({
-      title: message,
-      mask: true,
+      content: message,
     })
   }
 

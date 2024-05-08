@@ -94,14 +94,11 @@ export class AirAlert {
    */
   private alert(content: string, description = ''): Promise<void> {
     return new Promise<void>((resolve) => {
-      my.showModal({
+      my.alert({
         title: content,
         content: description,
-        confirmText: this.confirmText,
-        cancelText: this.cancelText,
+        buttonText: this.confirmText,
         confirmColor: this.confirmColor,
-        cancelColor: this.cancelColor,
-        showCancel: false,
         success: () => {
           resolve()
         },
