@@ -61,6 +61,16 @@ export class AirConfig {
    static staticUrl = ''
 
    /**
+    * # 默认的文件上传地址
+    */
+   static uploadUrl = `${AirConfig.apiUrl}attach/upload`
+ 
+   /**
+    * # 上传文件默认字段名称
+    */
+   static uploadFileName = 'file'
+
+   /**
       * # 默认同步导出URL
       *
       * ---
