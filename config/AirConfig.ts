@@ -1,5 +1,6 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
+import { AirApi } from './AirApi'
 
 /**
  * # AirPower 全局配置
@@ -39,9 +40,7 @@ export class AirConfig {
     * # 跳转登录的方法
     */
    static login = () => {
-      wx.redirectTo({
-         url: '/view/login',
-      })
+      AirApi.redirect("/view/login")
    }
    // #endregion
 
@@ -137,21 +136,21 @@ export class AirConfig {
     * @param accessToken 身份令牌
     */
    static saveAccessToken(accessToken: string): void {
-      wx.setStorageSync(this.authorizationHeaderKey, accessToken)
+      AirApi.setStorage(this.authorizationHeaderKey, accessToken)
    }
 
    /**
     * # 获取身份令牌
     */
    static getAccessToken(): string {
-      return wx.getStorageSync(this.authorizationHeaderKey) || ''
+      return AirApi.getStorage(this.authorizationHeaderKey)
    }
 
    /**
     * # 移除本地存储的身份令牌
     */
    static removeAccessToken(): void {
-      wx.removeStorageSync(this.authorizationHeaderKey)
+      AirApi.removeStorage(this.authorizationHeaderKey)
    }
 
    /**
@@ -179,13 +178,4 @@ export class AirConfig {
     */
    static dateTimeFormatter = AirDateTimeFormatter.MM_DD_HH_mm
    // #endregion
-
-   /**
-    * # 手机短震动
-    */
-   static shake() {
-      wx.vibrateShort({
-         type: 'heavy',
-      })
-   }
 }

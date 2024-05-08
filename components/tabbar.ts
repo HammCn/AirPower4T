@@ -1,4 +1,4 @@
-import { AirConfig } from "../config/AirConfig"
+import { AirApi } from "../config/AirApi"
 
 Component({
   data: {
@@ -26,7 +26,7 @@ Component({
       this.setData({
         selected: data.index
       })
-      AirConfig.shake()
+      AirApi.vibrateShort()
       this.triggerEvent('changeTab', data.index)
     }
   }
