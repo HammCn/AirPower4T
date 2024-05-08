@@ -11,27 +11,27 @@ import { AirApi } from './AirApi'
 export class AirConfig {
    // #region 全局配置
    /**
-      * # AirPower版本号
-      */
+    * # AirPower版本号
+    */
    static readonly version = 'v1.4.9'
 
    /**
-      * # AppKey
-      * ---
-      * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
-      */
+    * # AppKey
+    * ---
+    * 💡 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
+    */
    static appKey = 'airpower'
 
    /**
-      * # AppKey Header
-      */
+    * # AppKey Header
+    */
    static appKeyHeader = 'appkey'
 
    /**
-      * # 项目名称
-      * ---
-      * 💡 会显示在浏览器标题上
-      */
+    * # 项目名称
+    * ---
+    * 💡 会显示在浏览器标题上
+    */
    static product = ''
 
    /**
@@ -59,20 +59,20 @@ export class AirConfig {
    static uploadFileName = 'file'
 
    /**
-      * # AccessToken对应的Key
-      * ---
-      * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
-      */
+    * # AccessToken对应的Key
+    * ---
+    * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
+    */
    static authorizationHeaderKey = 'authorization'
 
    /**
-      * # Http返回状态码的字段
-      */
+    * # Http返回状态码的字段
+    */
    static httpCodeKey = 'code'
 
    /**
-      * # Http返回错误信息的字段
-      */
+    * # Http返回错误信息的字段
+    */
    static httpMessageKey = 'message'
 
    /**
