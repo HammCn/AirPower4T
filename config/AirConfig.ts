@@ -100,6 +100,16 @@ export class AirConfig {
    static httpMessageKey = 'message'
 
    /**
+    * # Http返回数据的字段
+    */
+   static httpDataKey = 'data'
+ 
+   /**
+    * # 全局http请求返回 成功状态码
+    */
+   static successCode: AirCode | number = AirCode.SUCCESS
+
+   /**
     * # 全局http请求返回 登录状态码
     */
    static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
@@ -108,16 +118,6 @@ export class AirConfig {
     * # 网络请求失败最大重试次数
     */
    static retryTimesWhenNetworkError = 3
-
-   /**
-    * # 网络请求成功状态码
-    */
-   static successCode = AirCode.SUCCESS
-
-   /**
-    * # 网络请求成功返回的数据字段
-    */
-   static httpDataKey = "data"
    
    // #endregion
 
