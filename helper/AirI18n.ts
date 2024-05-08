@@ -90,10 +90,6 @@ export class AirI18n extends AirI18nDefault {
   static setCurrentLanguage(language: AirLanguage): void {
     this.currentLanguage = language
     this.currentLanguagePackage = this.languages.find((item) => item.language === this.currentLanguage)
-<<<<<<< HEAD
-    wx.setStorageSync(AirI18n.languageCacheKey, language)
-=======
     AirApi.setStorage(AirI18n.languageCacheKey, language)
->>>>>>> web
   }
 }
