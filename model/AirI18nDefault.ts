@@ -1,3 +1,4 @@
+import { AirApi } from '../config/AirApi'
 import { AirLanguage } from '../enum/AirLanguage'
 
 /**
@@ -13,7 +14,7 @@ export class AirI18nDefault {
   /**
    * # 语言名称
    */
-  language = (wx.getStorageSync(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  language = (AirApi.getStorage(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   //! Start
   /** # 点击这里上传 */
@@ -116,7 +117,7 @@ export class AirI18nDefault {
   ValidError?: string
 
   /** # 上传图片 */
-  UplpadImage?: string
+  UploadImage?: string
 
   /** # 上传失败 */
   UploadError?: string
@@ -152,7 +153,7 @@ export class AirI18nDefault {
   SorryButSomeInternalServerError?: string
 
   /** # 服务器可能正在维护中 */
-  ServerMaintenancing?: string
+  ServerMaintaining?: string
 
   /** # 没有找到你想访问的资源 */
   SorryButResourceNotFound?: string
@@ -172,6 +173,12 @@ export class AirI18nDefault {
   /** # 删除成功 */
   DeleteSuccess?: string
 
+  /** # 禁用成功 */
+  DisableSuccess?: string
+
+  /** # 启用成功 */
+  EnableSuccess?: string
+
   /** # 详情 */
   Detail?: string
 
@@ -180,6 +187,12 @@ export class AirI18nDefault {
 
   /** # 编辑 */
   Edit?: string
+
+  /** # 禁用 */
+  Disable?: string
+
+  /** # 启用 */
+  Enable?: string
 
   /** # 编辑成功标题 */
   EditSuccess?: string
@@ -235,7 +248,7 @@ export class AirI18nDefault {
   /** # 请输入有效的座机号 */
   InvalidTelPhone?: string
 
-  /** # 请输入有效的联系电话 */
+  /** # 请输入有效联系电话 */
   InvalidPhone?: string
 
   /** # 请输入有效的手机号 */

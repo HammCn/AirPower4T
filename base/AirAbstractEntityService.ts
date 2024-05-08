@@ -51,6 +51,16 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   protected urlForAdd = 'add'
 
   /**
+   * # 启用API地址的默认URL
+   */
+  protected urlForEnable = 'enable'
+
+  /**
+   * # 禁用API地址的默认URL
+   */
+  protected urlForDisable = 'disable'
+
+  /**
    * # 修改API地址的默认URL
    */
   protected urlForUpdate = 'update'
@@ -65,7 +75,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param request 请求对象
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
-    const json = await this.api(this.urlForGetPage).post(request)
+    const json = await this.api(this.urlForGetPage)
+      .post(request)
     const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
     responsePage.list = AirClassTransformer.parseArray(responsePage.list as IJson[], this.entityClass)
     return responsePage
@@ -76,7 +87,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetList).post(request) as IJson[]
+    const json = await this.api(this.urlForGetList)
+      .post(request) as IJson[]
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -85,7 +97,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
-    const json = await this.api(this.urlForGetTreeList).post(request) as IJson[]
+    const json = await this.api(this.urlForGetTreeList)
+      .post(request) as IJson[]
     return AirClassTransformer.parseArray(json, this.entityClass)
   }
 
@@ -94,7 +107,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
-    const json = await this.api(this.urlForGetDetail).post(this.newEntityInstance(id))
+    const json = await this.api(this.urlForGetDetail)
+      .post(this.newEntityInstance(id))
     return AirClassTransformer.parse(json, this.entityClass)
   }
 
@@ -159,6 +173,42 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       .catch(async (err: Error) => {
         await AirAlert.show(err.message, '删除失败')
       })
+  }
+
+  /**
+   * # 根据ID禁用一条数据
+   * @param id 禁用的数据ID
+   * @param message (可选)禁用成功的消息提示内容
+   */
+  async disable(id: number, message?: string): Promise<void> {
+    try {
+      await this.api(this.urlForDisable)
+        .callbackError()
+        .post(this.newEntityInstance(id))
+      if (message) {
+        AirNotification.success(message)
+      }
+    } catch (err: any) {
+      await AirAlert.show(err.message, '禁用失败')
+    }
+  }
+
+  /**
+   * # 根据ID启用一条数据
+   * @param id 启用的数据ID
+   * @param message (可选)启用成功的消息提示内容
+   */
+  async enable(id: number, message?: string): Promise<void> {
+    try {
+      await this.api(this.urlForEnable)
+        .callbackError()
+        .post(this.newEntityInstance(id))
+      if (message) {
+        AirNotification.success(message)
+      }
+    } catch (err: any) {
+      await AirAlert.show(err.message, '启用失败')
+    }
   }
 
   /**

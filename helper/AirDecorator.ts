@@ -75,18 +75,18 @@ export class AirDecorator {
    */
   static setFieldConfig(target: any, key: string, fieldConfigKey: string, fieldConfig: any, fieldListKey?: string) {
     if (fieldListKey) {
-      this.setFieldDecoration(target, key, fieldListKey)
+      this.addFieldDecoratorKey(target, key, fieldListKey)
     }
     this.setProperty(target, `${fieldConfigKey}[${key}]`, fieldConfig)
   }
 
   /**
-   *
+   * # 设置一个字段的包含装饰器索引
    * @param target 目标类
    * @param key 字段
    * @param fieldListKey 类配置项列表索引值
    */
-  private static setFieldDecoration(target: any, key: string, fieldListKey: string) {
+  private static addFieldDecoratorKey(target: any, key: string, fieldListKey: string) {
     const list: string[] = Reflect.get(target, fieldListKey) || []
     list.push(key)
     this.setProperty(target, fieldListKey, list)
@@ -161,11 +161,19 @@ export class AirDecorator {
       if (config) {
         const defaultConfig = new FieldConfigClass()
         const result: IJson = {}
-        Object.keys({ ...defaultConfig, config }).forEach((configKey) => {
-          if (configKey !== 'key') {
-            result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) ?? (defaultConfig as IJson)[configKey]
-          }
+        Object.keys({
+          ...defaultConfig,
+          config,
         })
+          .forEach((configKey) => {
+            if (configKey !== 'key') {
+              if (this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === null || this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === undefined) {
+                result[configKey] = (defaultConfig as IJson)[configKey]
+              } else {
+                result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
+              }
+            }
+          })
         result.key = config.key
         result.label = config.label
         fieldConfigList.push(result as T)
