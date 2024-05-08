@@ -9,7 +9,7 @@ export class AirApi {
    * @returns 缓存的值
    */
   public static getStorage(key: string): string {
-    const value = wx.getStorageSync(key)
+    const value = my.getStorageSync({ key })
     return value ? value.toString() : ''
   }
 
@@ -19,6 +19,14 @@ export class AirApi {
    * @param value 缓存的值
    */
   public static setStorage(key: string, value: string | number) {
-    wx.setStorageSync(key, value.toString)
+    my.setStorageSync({ key: key, data: value.toString })
+  }
+
+  /**
+   * # 移除缓存
+   * @param key 缓存的Key
+   */
+  static removeStorage(key: string) {
+    my.removeStorageSync({ key })
   }
 }
