@@ -21,4 +21,12 @@ export class AirApi {
   public static setStorage(key: string, value: string | number) {
     wx.setStorageSync(key, value.toString)
   }
+
+  /**
+   * # 移除缓存
+   * @param key 缓存的Key
+   */
+  static removeStorage(key: string) {
+    wx.removeStorageSync(key)
+  }
 }

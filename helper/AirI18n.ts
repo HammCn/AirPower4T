@@ -1,3 +1,4 @@
+import { AirApi } from '../config/AirApi'
 import { AirLanguage } from '../enum/AirLanguage'
 import { AirI18nDefault } from '../model/AirI18nDefault'
 
@@ -32,7 +33,7 @@ export class AirI18n extends AirI18nDefault {
   /**
    * # 当前使用的语言
    */
-  private static currentLanguage = (wx.getStorageSync(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  private static currentLanguage = (AirApi.getStorage(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
   /**
    * # 当前使用的语言包
@@ -89,6 +90,10 @@ export class AirI18n extends AirI18nDefault {
   static setCurrentLanguage(language: AirLanguage): void {
     this.currentLanguage = language
     this.currentLanguagePackage = this.languages.find((item) => item.language === this.currentLanguage)
+<<<<<<< HEAD
     wx.setStorageSync(AirI18n.languageCacheKey, language)
+=======
+    AirApi.setStorage(AirI18n.languageCacheKey, language)
+>>>>>>> web
   }
 }
