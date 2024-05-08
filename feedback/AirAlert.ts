@@ -94,7 +94,7 @@ export class AirAlert {
    */
   private alert(content: string, description = ''): Promise<void> {
     return new Promise<void>((resolve) => {
-      wx.showModal({
+      my.showModal({
         title: content,
         content: description,
         confirmText: this.confirmText,

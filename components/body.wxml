@@ -1,3 +1,0 @@
-<view class="{{clazz}}">
-  <slot></slot>
-</view>
