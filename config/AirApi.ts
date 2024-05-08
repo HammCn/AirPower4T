@@ -21,4 +21,12 @@ export class AirApi {
   public static setStorage(key: string, value: string | number) {
     localStorage.setItem(key, value.toString())
   }
+
+  /**
+   * # 移除缓存
+   * @param key 缓存的Key
+   */
+  static removeStorage(key: string) {
+    localStorage.removeItem(key)
+  }
 }
