@@ -1,6 +1,5 @@
 import { Dictionary, FieldName, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
-import { TableField } from '../decorator/TableField'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'
 
 /**
@@ -16,13 +15,6 @@ export class AirEntity extends AirModel {
 
   @Type(Boolean)
   @Dictionary(AirDisableDictionary)
-  @TableField({
-    showColor: true,
-    width: 80,
-    orderNumber: -100,
-    forceShow: true,
-    removed: true,
-  })
   @FieldName('禁用') isDisabled!: boolean
 
   /**
