@@ -305,6 +305,19 @@ export class AirConfig {
   }
 
   /**
+   * # 默认的格式化时间
+   * ---
+   * 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
+   * ```
+   */
+  static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
+
+  /**
+   * # AES加解密使用默认向量
+   */
+  static aesCbcIvString = '0000000000000000'
+
+  /**
    *  # 数字精度
    */
   static numberPrecision = 2
@@ -405,16 +418,6 @@ export class AirConfig {
    * 💡 默认不允许遮罩层关闭 设置为 ```true``` 即允许遮罩层关闭
    */
   static dialogCloseByCover = false
-  // #endregion
-
-  // #region 其他杂项
-  /**
-   * # 默认的格式化时间
-   * ---
-   * 💡 ```ADateTime``` ```ATable``` 的格式化都将默认使用这个配置
-   * ```
-   */
-  static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
 
   /**
    * # 默认树结构配置数据
@@ -466,9 +469,4 @@ export class AirConfig {
    * 💡 如设置为 `true`， 则全局隐藏, `ATable` 传入的 `hideIndex` 失效
    */
   static hideTableIndex = false
-
-  /**
-   * # AES加解密使用默认向量
-   */
-  static aesCbcIvString = '0000000000000000'
 }
