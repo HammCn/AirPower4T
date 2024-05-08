@@ -18,5 +18,5 @@ export enum AirFeedbackType {
   /**
    * # 错误
    */
-  ERROR = 'error',
+  ERROR = 'exception',
 }

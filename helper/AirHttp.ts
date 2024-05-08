@@ -99,7 +99,7 @@ export class AirHttp {
    * @param option 上传配置
    * @param clazz 转换的类
    */
-  async upload<T extends IFile>(option: WechatMiniprogram.UploadFileOption, clazz?: ClassConstructor<T>): Promise<T> {
+  async upload<T extends IFile>(option: IJson, clazz?: ClassConstructor<T>): Promise<T> {
     return new Promise((success, fail) => {
       if (this.loading) {
         AirLoading.show(this.loading)
@@ -141,7 +141,7 @@ export class AirHttp {
           AirAlert.show(AirI18n.get().UploadError || "上传失败", AirI18n.get().FileUploadErrorAndRetryPlease || "文件上传失败,请重试")
         }
       }
-      wx.uploadFile(option)
+      my.uploadFile(option as any)
     })
   }
 
@@ -160,11 +160,11 @@ export class AirHttp {
         }
         console.warn('[HTTP HEADER]', this.header)
         console.warn('[HTTP BODY]', json)
-        wx.request({
+        my.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
           method: this.method,
-          header: this.header,
+          headers: this.header,
           success: (res: IJson) => {
             const json = res.data as IJson
             try {
