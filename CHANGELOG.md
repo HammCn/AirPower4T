@@ -1,5 +1,12 @@
 # AirPower4T 版本发布日志
 
+## v1.5.0
+
+### 🐞 Bug fixes:
+
+- fix(Breaking): 弃用了一些方法和装饰器
+- fix(Decorator): 修复一个ES兼容问题
+
 ## v1.4.9
 
 ### 🐞 Bug fixes:
