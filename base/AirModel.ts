@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getAlias, getClassName, getDefault, getFieldName, getFieldPrefix, getIgnorePrefix, getIsArray, getToJson, getToModel, getType,
+  getAlias, getDefault, getFieldName, getFieldPrefix, getIsArray, getModelName, getNoPrefix, getToJson, getToModel, getType,
 } from '../decorator/Custom'
 import { IJson } from '../interface/IJson'
 
@@ -67,7 +67,7 @@ export class AirModel {
     for (const fieldKey of fieldKeyList) {
       const fieldData = (this as any)[fieldKey]
       let fieldAliasName = getAlias(this, fieldKey) || fieldKey
-      if (!getIgnorePrefix(this, fieldKey) && getFieldPrefix(this)) {
+      if (!getNoPrefix(this, fieldKey) && getFieldPrefix(this)) {
         // 按忽略前缀规则获取别名
         fieldAliasName = getFieldPrefix(this) + fieldAliasName
       }
@@ -153,7 +153,7 @@ export class AirModel {
       const FieldTypeClass = getType(instance, fieldKey)
       const fieldAliasName = getAlias(instance, fieldKey)
       let fieldData = json[
-        (!getIgnorePrefix(instance, fieldKey)
+        (!getNoPrefix(instance, fieldKey)
           ? getFieldPrefix(instance)
           : ''
         )
@@ -250,10 +250,18 @@ export class AirModel {
 
   /**
    * # 获取类的可阅读名字
-   * 可使用 @ClassName 装饰器修饰 如无修饰 则直接返回类名
+   * 可使用 @Model 装饰器修饰 如无修饰 则直接返回类名
+   */
+  static getModelName() {
+    return this.newInstance().getModelName()
+  }
+
+  /**
+   * # 请使用 getModelName()
+   * @deprecated
    */
   static getClassName() {
-    return this.newInstance().getClassName()
+    return this.getModelName()
   }
 
   /**
@@ -270,8 +278,8 @@ export class AirModel {
  * ! 内部使用的保留方法
  * @deprecated
  */
-  getClassName(): string {
-    return getClassName(this) || this.constructor.name
+  getModelName(): string {
+    return getModelName(this) || this.constructor.name
   }
 
   /**

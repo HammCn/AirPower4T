@@ -61,10 +61,18 @@ export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
  * # 标记是数组
  * 可在此配置，但更建议在Type中直接配置第二个参数
  */
-export function IsArray(): Function {
+export function List(): Function {
   return (target: any, key: string) => {
     AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
   }
+}
+
+/**
+ * # 请使用 @Array
+ * @deprecated
+ */
+export function IsArray(): Function {
+  return List()
 }
 
 /**
@@ -161,18 +169,34 @@ const CLASS_NAME_KEY = 'ClassName'
 
 /**
  * # 为类标记可读名称
- * @param className 类的可读名称
+ * @param name 类的可读名称
+ */
+export function Model(name: string): Function {
+  return (target: any) => AirDecorator.setClassConfig(target, CLASS_NAME_KEY, name)
+}
+
+/**
+ * # 请使用 @Model
+ * @deprecated
  */
 export function ClassName(className: string): Function {
-  return (target: any) => AirDecorator.setClassConfig(target, CLASS_NAME_KEY, className)
+  return Model(className)
 }
 
 /**
  * # 获取类的可读名称
  * @param target 目标类
  */
-export function getClassName(target: any): string {
+export function getModelName(target: any): string {
   return AirDecorator.getClassConfig(target, CLASS_NAME_KEY)
+}
+
+/**
+ * # 请使用 getModelName()
+ * @deprecated
+ */
+export function getClassName(target: any): string {
+  return getModelName(target)
 }
 
 /**
@@ -182,10 +206,18 @@ const FIELD_NAME_KEY = 'FieldName'
 
 /**
  * # 为属性标记可读名称
- * @param fieldName 属性的可读名称
+ * @param name 属性的可读名称
+ */
+export function Field(name: string): Function {
+  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_NAME_KEY, name)
+}
+
+/**
+ * # 请使用 @Field
+ * @deprecated
  */
 export function FieldName(fieldName: string): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_NAME_KEY, fieldName)
+  return Field(fieldName)
 }
 
 /**
@@ -205,8 +237,16 @@ const FIELD_IGNORE_KEY = 'IgnorePrefix'
 /**
  * # 标记属性忽略类的别名前缀
  */
-export function IgnorePrefix(): Function {
+export function NoPrefix(): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_IGNORE_KEY, true)
+}
+
+/**
+ * # 请使用 @NoPrefix
+ * @deprecated
+ */
+export function IgnorePrefix(): Function {
+  return NoPrefix()
 }
 
 /**
@@ -214,8 +254,16 @@ export function IgnorePrefix(): Function {
  * @param target 目标类
  * @param key 属性名称
  */
-export function getIgnorePrefix(target: any, key: string): boolean {
+export function getNoPrefix(target: any, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, FIELD_IGNORE_KEY) || false
+}
+
+/**
+ * # 请使用 getNoPrefix()
+ * @deprecated
+ */
+export function getIgnorePrefix(target: any, key: string): boolean {
+  return getNoPrefix(target, key)
 }
 
 /**
