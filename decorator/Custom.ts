@@ -68,8 +68,8 @@ export function List(): Function {
 }
 
 /**
- * # 请使用 @Array
  * @deprecated
+ * @see List()
  */
 export function IsArray(): Function {
   return List()
@@ -176,8 +176,8 @@ export function Model(name: string): Function {
 }
 
 /**
- * # 请使用 @Model
  * @deprecated
+ * @see Model()
  */
 export function ClassName(className: string): Function {
   return Model(className)
@@ -192,8 +192,8 @@ export function getModelName(target: any): string {
 }
 
 /**
- * # 请使用 getModelName()
  * @deprecated
+ * @see getModelName()
  */
 export function getClassName(target: any): string {
   return getModelName(target)
@@ -213,8 +213,8 @@ export function Field(name: string): Function {
 }
 
 /**
- * # 请使用 @Field
  * @deprecated
+ * @see Field()
  */
 export function FieldName(fieldName: string): Function {
   return Field(fieldName)
@@ -242,8 +242,8 @@ export function NoPrefix(): Function {
 }
 
 /**
- * # 请使用 @NoPrefix
  * @deprecated
+ * @see NoPrefix()
  */
 export function IgnorePrefix(): Function {
   return NoPrefix()
@@ -259,8 +259,8 @@ export function getNoPrefix(target: any, key: string): boolean {
 }
 
 /**
- * # 请使用 getNoPrefix()
  * @deprecated
+ * @see getNoPrefix()
  */
 export function getIgnorePrefix(target: any, key: string): boolean {
   return getNoPrefix(target, key)

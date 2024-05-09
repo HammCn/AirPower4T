@@ -33,8 +33,8 @@ export function Search(config: ISearchFieldConfig = {}): Function {
 }
 
 /**
- * # 请使用 @Search
  * @deprecated
+ * @see Search()
  */
 export function SearchField(fieldConfig: ISearchFieldConfig = {}): Function {
   return Search(fieldConfig)

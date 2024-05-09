@@ -33,8 +33,8 @@ export function Table(config: ITableFieldConfig = {}): Function {
 }
 
 /**
- * # 请使用 @Table
  * @deprecated
+ * @see Table()
  */
 export function TableField(fieldConfig: ITableFieldConfig = {}): Function {
   return Table(fieldConfig)

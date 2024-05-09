@@ -263,8 +263,8 @@ export class AirModel {
   }
 
   /**
-   * # 请使用 getModelName()
    * @deprecated
+   * @see getModelName()
    */
   static getClassName() {
     return this.getModelName()

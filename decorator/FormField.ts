@@ -33,8 +33,8 @@ export function Form(config: IFormFieldConfig = {}): Function {
 }
 
 /**
- * # 请使用 @Form
  * @deprecated
+ * @see Form()
  */
 export function FormField(fieldConfig: IFormFieldConfig = {}): Function {
   return Form(fieldConfig)
