@@ -23,13 +23,21 @@ const FIELD_LIST_KEY = 'SearchList'
 
 /**
  * # 标记该字段可用于搜索
- * @param fieldConfig (可选)搜索配置项
+ * @param config (可选)搜索配置项
+ */
+export function Search(config: ISearchFieldConfig = {}): Function {
+  return (target: any, key: string) => {
+    config.key = key
+    return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
+  }
+}
+
+/**
+ * # 请使用 @Search
+ * @deprecated
  */
 export function SearchField(fieldConfig: ISearchFieldConfig = {}): Function {
-  return (target: any, key: string) => {
-    fieldConfig.key = key
-    return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, fieldConfig, FIELD_LIST_KEY)
-  }
+  return Search(fieldConfig)
 }
 
 /**

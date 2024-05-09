@@ -23,13 +23,21 @@ const FIELD_LIST_KEY = 'TableList'
 
 /**
  * # 为属性标记是表格字段
- * @param fieldConfig (可选)表格列的配置
+ * @param config (可选)表格列的配置
+ */
+export function Table(config: ITableFieldConfig = {}): Function {
+  return (target: any, key: string) => {
+    config.key = key
+    return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
+  }
+}
+
+/**
+ * # 请使用 @Table
+ * @deprecated
  */
 export function TableField(fieldConfig: ITableFieldConfig = {}): Function {
-  return (target: any, key: string) => {
-    fieldConfig.key = key
-    return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, fieldConfig, FIELD_LIST_KEY)
-  }
+  return Table(fieldConfig)
 }
 
 /**

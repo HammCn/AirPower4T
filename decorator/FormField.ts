@@ -23,13 +23,21 @@ const FIELD_LIST_KEY = 'FormList'
 
 /**
  * # 标记该字段可用于表单配置
- * @param fieldConfig (可选)配置项
+ * @param config (可选)配置项
+ */
+export function Form(config: IFormFieldConfig = {}): Function {
+  return (target: any, key: string) => {
+    config.key = key
+    return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
+  }
+}
+
+/**
+ * # 请使用 @Form
+ * @deprecated
  */
 export function FormField(fieldConfig: IFormFieldConfig = {}): Function {
-  return (target: any, key: string) => {
-    fieldConfig.key = key
-    return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, fieldConfig, FIELD_LIST_KEY)
-  }
+  return Form(fieldConfig)
 }
 
 /**

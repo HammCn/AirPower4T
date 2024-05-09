@@ -1,15 +1,9 @@
 /* eslint-disable no-continue */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getAlias, getClassName, getDefault, getFieldName, getFieldPrefix, getIgnorePrefix, getIsArray, getToJson, getToModel, getType,
+  getAlias, getDefault, getFieldName, getFieldPrefix, getIsArray, getModelName, getNoPrefix, getToJson, getToModel, getType,
 } from '../decorator/Custom'
 import { IJson } from '../interface/IJson'
-import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { getFormConfig, getFormConfigList } from '../decorator/FormField'
-import { getSearchConfigList } from '../decorator/SearchField'
-import { getTableConfigList } from '../decorator/TableField'
 
 /**
  * # 模型超类
@@ -73,7 +67,7 @@ export class AirModel {
     for (const fieldKey of fieldKeyList) {
       const fieldData = (this as any)[fieldKey]
       let fieldAliasName = getAlias(this, fieldKey) || fieldKey
-      if (!getIgnorePrefix(this, fieldKey) && getFieldPrefix(this)) {
+      if (!getNoPrefix(this, fieldKey) && getFieldPrefix(this)) {
         // 按忽略前缀规则获取别名
         fieldAliasName = getFieldPrefix(this) + fieldAliasName
       }
@@ -159,7 +153,7 @@ export class AirModel {
       const FieldTypeClass = getType(instance, fieldKey)
       const fieldAliasName = getAlias(instance, fieldKey)
       let fieldData = json[
-        (!getIgnorePrefix(instance, fieldKey)
+        (!getNoPrefix(instance, fieldKey)
           ? getFieldPrefix(instance)
           : ''
         )
@@ -256,10 +250,18 @@ export class AirModel {
 
   /**
    * # 获取类的可阅读名字
-   * 可使用 @ClassName 装饰器修饰 如无修饰 则直接返回类名
+   * 可使用 @Model 装饰器修饰 如无修饰 则直接返回类名
+   */
+  static getModelName() {
+    return this.newInstance().getModelName()
+  }
+
+  /**
+   * # 请使用 getModelName()
+   * @deprecated
    */
   static getClassName() {
-    return this.newInstance().getClassName()
+    return this.getModelName()
   }
 
   /**
@@ -272,55 +274,12 @@ export class AirModel {
   }
 
   /**
-   * # 获取表单配置的Label
-   *
-   * 依次读取 ```表单配置的label``` > ```@FieldName``` > ```fieldKey```
-   * @param fieldKey 字段名
-   */
-  static getFormFieldLabel(fieldKey: string): string {
-    return this.newInstance().getFormFieldLabel(fieldKey)
-  }
-
-  /**
-   * # 获取表格字段的配置列表
-   * @param fieldNameList 字段列表
-   */
-  static getTableFieldConfigList(...fieldNameList: string[]): AirTableFieldConfig[] {
-    return this.newInstance().getTableFieldConfigList(fieldNameList)
-  }
-
-  /**
-   * # 获取表单字段的配置列表
-   * @param fieldNameList 字段列表
-   */
-  static getFormFieldConfigList(...fieldNameList: string[]): AirFormFieldConfig[] {
-    return this.newInstance().getFormFieldConfigList(fieldNameList)
-  }
-
-  /**
-   * # 获取搜索字段的配置列表
-   * 如不传入参数 则默认取所有标记了注解的字段
-   * @param fieldNameList (可选)字段列表
-   */
-  static getSearchFieldConfigList(...fieldNameList: string[]): AirSearchFieldConfig[] {
-    return this.newInstance().getSearchFieldConfigList(fieldNameList)
-  }
-
-  /**
-   * # 获取属性的表单配置
-   * @param fieldKey 属性名
-   */
-  static getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
-    return this.newInstance().getCustomFormFieldConfig(fieldKey)
-  }
-
-  /**
  * # 请直接调用静态方法获取
  * ! 内部使用的保留方法
  * @deprecated
  */
-  getClassName(): string {
-    return getClassName(this) || this.constructor.name
+  getModelName(): string {
+    return getModelName(this) || this.constructor.name
   }
 
   /**
@@ -330,56 +289,5 @@ export class AirModel {
  */
   getFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)
-  }
-
-  /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
-    return { ...new AirFormFieldConfig(), ...getFormConfig(this, fieldKey) }
-  }
-
-  /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getFormFieldLabel(fieldKey: string): string {
-    return this.getCustomFormFieldConfig(fieldKey)?.label || this.getFieldName(fieldKey)
-  }
-
-  /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
-    return getTableConfigList(this, fieldNameList)
-  }
-
-  /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
-    return getFormConfigList(this, fieldNameList)
-  }
-
-  /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
-  getSearchFieldConfigList(fieldNameList: string[] = []): AirSearchFieldConfig[] {
-    const configList = getSearchConfigList(this, fieldNameList)
-    configList.sort((a, b) => b.orderNumber - a.orderNumber || 1)
-    const queryParams: AirSearchFieldConfig[] = []
-    for (const config of configList) {
-      queryParams.push(config)
-    }
-    return queryParams
   }
 }
