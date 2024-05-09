@@ -73,7 +73,7 @@ export class AirConfig {
    * ---
    * 💡 ```缓存的名称``` 和 ```Api传输的Header``` 都叫这个名字
    */
-  static authorizationHeaderKey = 'authorization'
+  static authorizationHeaderKey = 'Authorization'
 
   /**
    * # Http返回状态码的字段
