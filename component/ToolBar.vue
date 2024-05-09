@@ -396,12 +396,11 @@ const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.sh
  */
 function getUrlWithAccessToken(url: string) {
   const accessToken = AirConfig.getAccessToken()
-  url = url.replace('authorization', 'Authorization')
-  if (url.indexOf('?Authorization=') < 0 && url.indexOf('&Authorization=') < 0) {
+  if (url.indexOf(`?${AirConfig.authorizationHeaderKey}=`) < 0 && url.indexOf(`&${AirConfig.authorizationHeaderKey}=`) < 0) {
     if (url.indexOf('?') < 0) {
-      url += `?Authorization=${accessToken}`
+      url += `?${AirConfig.authorizationHeaderKey}=${accessToken}`
     } else {
-      url += `&Authorization=${accessToken}`
+      url += `&${AirConfig.authorizationHeaderKey}=${accessToken}`
     }
   }
   return url
@@ -478,11 +477,13 @@ function onSearch() {
       data.value[key] = undefined
     }
   })
-  request.filter = AirClassTransformer.newInstance(props.entity).recoverBy(data.value)
+  request.filter = AirClassTransformer.newInstance(props.entity)
+    .recoverBy(data.value)
   if ((request as AirRequestPage<AirEntity>).page) {
     (request as AirRequestPage<AirEntity>).page.pageNum = 1
   }
-  request.keyword = keyword.value.trimEnd().trimStart()
+  request.keyword = keyword.value.trimEnd()
+    .trimStart()
   emits('onSearch', request)
 }
 
@@ -534,7 +535,10 @@ async function onImport() {
 /**
  * 暴露一个重置搜索的方法
  */
-defineExpose({ resetSearch: onResetSearch, search: onSearch })
+defineExpose({
+  resetSearch: onResetSearch,
+  search: onSearch,
+})
 
 </script>
 
