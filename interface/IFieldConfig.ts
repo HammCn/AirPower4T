@@ -16,7 +16,7 @@ export interface IFieldConfig {
    * ---
    * ### 💡 如传入 则将覆盖 ```@FieldName``` 的声明
    *
-   * 实体可通过 ```.getFormFieldLabel()``` 方法获取 ```@FormField()```装饰器中的这个配置
+   * 实体可通过 ```.getFormFieldLabel()``` 方法获取 ```@Form()```装饰器中的这个配置
    */
   label?: string;
 }
