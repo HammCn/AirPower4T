@@ -1,5 +1,12 @@
 # AirPower4T 版本发布日志
 
+## v1.5.1
+
+### 🐞 Bug fixes:
+
+- fix(Config): 修改授权令牌请求头默认值为 `Authorization`
+- fix(注释): 优化了一些错误的注释
+
 ## v1.5.0
 
 ### 🐞 Bug fixes:
