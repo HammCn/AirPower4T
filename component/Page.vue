@@ -49,7 +49,8 @@
               v-for="item in pageCountList"
               :key="item"
               round
-              :type="page.pageNum == item ? 'primary' : 'default'"
+              :disabled="item === disablePageLabel"
+              :type="page.pageNum == parseInt(item,10) ? 'primary' : 'default'"
               @click="pageChanged(item)"
             >
               {{ item }}
@@ -87,6 +88,7 @@
 </template>
 
 <script lang="ts" setup="props">
+/* eslint-disable no-continue */
 import { computed, ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirResponsePage } from '../model/AirResponsePage'
@@ -113,15 +115,15 @@ const currentPage = ref(page.value.pageNum)
  */
 function emitChange() {
   currentPage.value = page.value.pageNum
-  emits('change')
-  emits('onChange')
+  emits('change', page.value)
+  emits('onChange', page.value)
 }
 
 /**
  * # 页码变更
  */
-function pageChanged(num: number): void {
-  page.value.pageNum = num
+function pageChanged(num: string | number): void {
+  page.value.pageNum = parseInt(num.toString(), 10)
   page.value.pageSize = props.response.page.pageSize
   emitChange()
 }
@@ -135,14 +137,57 @@ function sizeChanged(size: number): void {
   emitChange()
 }
 
+const disablePageLabel = '...'
+
 /**
  * # 快捷页码列表
  */
 const pageCountList = computed(() => {
-  const maxShowPage = 20
-  const list: number[] = []
-  for (let i = 1; i <= (Math.min(props.response.pageCount, maxShowPage)); i += 1) {
-    list.push(i)
+  const showPageCount = 15
+  const endSecondPage = showPageCount - 1
+  const mid = parseInt((showPageCount / 2).toString(), 10) + 1
+
+  const list:string[] = []
+  if (props.response.pageCount <= showPageCount) {
+    for (let i = 1; i <= props.response.pageCount; i += 1) {
+      list.push(i.toString())
+    }
+    return list
+  }
+  for (let i = 1; i <= showPageCount; i += 1) {
+    if (i === 1) {
+      list.push(i.toString())
+      continue
+    }
+    if (i === showPageCount) {
+      list.push(props.response.pageCount.toString())
+      continue
+    }
+    if (page.value.pageNum > mid) {
+      if (i === 2) {
+        list.push(disablePageLabel)
+        continue
+      }
+
+      if (page.value.pageNum > props.response.pageCount - mid) {
+        list.push(String(props.response.pageCount - mid + 1 + i - mid))
+        continue
+      }
+
+      if (endSecondPage === i && page.value.pageNum <= props.response.pageCount - mid + 1) {
+        list.push(disablePageLabel)
+        continue
+      }
+
+      list.push((page.value.pageNum - mid + i).toString())
+      continue
+    }
+
+    if (endSecondPage === i) {
+      list.push(disablePageLabel)
+      continue
+    }
+    list.push((i.toString()))
   }
   return list
 })
