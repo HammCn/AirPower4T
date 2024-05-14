@@ -89,16 +89,16 @@ const props = defineProps({
   },
 
   /**
- * # 是否图标按钮
- */
+   * # 是否图标按钮
+   */
   iconButton: {
     type: Boolean,
     default: false,
   },
 
   /**
- * # 是否链接按钮
- */
+   * # 是否链接按钮
+   */
   linkButton: {
     type: Boolean,
     default: false,
@@ -143,7 +143,8 @@ const isDisabled = computed(() => {
     return true
   }
   if (props.permission) {
-    return !AirConfig.getPermissionList().includes(props.permission)
+    return !AirConfig.getPermissionList()
+      .includes(props.permission)
   }
   return false
 })
