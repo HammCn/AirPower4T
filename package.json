@@ -1,0 +1,31 @@
+{
+  "name": "airpower4t",
+  "version": "0.0.1",
+  "description": "AirPower4T is a fast web development toolkit.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HammCn/AirPower4T.git"
+  },
+  "keywords": [
+    "AirPower",
+    "AirPower4T",
+    "Vue3",
+    "Vite",
+    "OOP",
+    "TypeScript",
+    "ElementPlus"
+  ],
+  "author": "admin@hamm.cn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HammCn/AirPower4T/issues"
+  },
+  "homepage": "https://github.com/HammCn/AirPower4T#readme"
+}
