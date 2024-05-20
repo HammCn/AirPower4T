@@ -1,6 +1,6 @@
 {
   "name": "airpower4t",
-  "version": "0.0.1",
+  "version": "v2.0.0-beta.1",
   "description": "AirPower4T is a fast web development toolkit.",
   "main": "index.js",
   "directories": {
