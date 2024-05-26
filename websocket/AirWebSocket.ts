@@ -1,4 +1,3 @@
-import { AirConfig } from '../config/AirConfig'
 import { AirAlert } from '../feedback/AirAlert'
 
 /**
@@ -64,17 +63,17 @@ export class AirWebsocket {
   /**
    * # 创建一个WebSocket
    */
-  static create(handler: {
+  static create(url: string, handler: {
     // eslint-disable-next-line no-unused-vars
     onmessage?: (message: string) => void,
     onopen?: () => void
   }): void {
-    if (!AirConfig.websocketUrl) {
-      AirAlert.error('请配置环境变量 VITE_APP_WEBSOCKET_URL')
+    if (!url) {
+      AirAlert.error('请传入WebSocket连接的URL')
       return
     }
     const instance = new AirWebsocket()
-    instance.websocket = new WebSocket(AirConfig.websocketUrl)
+    instance.websocket = new WebSocket(url)
     instance.websocket.onopen = () => {
       instance.isConnected = true
       instance.startHeartBeat()
@@ -92,7 +91,7 @@ export class AirWebsocket {
       if (instance.reconnectWhenClosed) {
         // Reconnect when close by exception
         setTimeout(() => {
-          this.create(handler)
+          this.create(url, handler)
         }, 1000)
       }
     }
