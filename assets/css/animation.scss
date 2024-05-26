@@ -160,3 +160,17 @@
         opacity: 1;
     }
 }
+
+.love {
+    animation: love 1s linear infinite;
+}
+
+@keyframes love {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

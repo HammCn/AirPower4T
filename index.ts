@@ -15,7 +15,6 @@ import * as Icons from '@element-plus/icons-vue'
 
 // 引入样式
 import './assets/css/animation.scss'
-// import './assets/css/theme.scss'
 import './assets/css/font.css'
 import './assets/css/global.scss'
 
