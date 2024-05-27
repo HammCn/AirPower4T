@@ -1,10 +1,21 @@
 import { AirAlert } from '../feedback/AirAlert'
+import { AirWebsocketEvent } from './AirWebSocketEvent'
 
 /**
  * # 内置的Websocket助手
  * @author Hamm
  */
 export class AirWebsocket {
+  /**
+   * # PING包的字符串
+   */
+  static ping = 'PING'
+
+  /**
+   * # PONG包的字符串
+   */
+  static pong = 'PONG'
+
   /**
    * # WebSocket实例
    */
@@ -45,7 +56,7 @@ export class AirWebsocket {
   private startHeartBeat() {
     clearTimeout(this.heartBeatTimer)
     if (this.isConnected) {
-      this.websocket.send('ping')
+      this.websocket.send(AirWebsocket.ping)
       this.heartBeatTimer = setTimeout(() => {
         this.startHeartBeat()
       }, this.heartBeatSecond * 1000)
@@ -65,8 +76,8 @@ export class AirWebsocket {
    */
   static create(url: string, handler: {
     // eslint-disable-next-line no-unused-vars
-    onmessage?: (message: string) => void,
-    onopen?: () => void
+    onMessage?: (event: AirWebsocketEvent) => void,
+    onConnect?: () => void
   }): void {
     if (!url) {
       AirAlert.error('请传入WebSocket连接的URL')
@@ -77,14 +88,19 @@ export class AirWebsocket {
     instance.websocket.onopen = () => {
       instance.isConnected = true
       instance.startHeartBeat()
-      if (handler.onopen) {
-        handler.onopen()
+      if (handler.onConnect) {
+        handler.onConnect()
       }
     }
     instance.websocket.onmessage = (message) => {
-      if (handler.onmessage) {
-        handler.onmessage(message.data)
+      if (message.data === AirWebsocket.pong) {
+        return
       }
+      if (!handler.onMessage) {
+        return
+      }
+      const event = AirWebsocketEvent.fromJson(JSON.parse(message.data))
+      handler.onMessage(event)
     }
     instance.websocket.onclose = () => {
       instance.isConnected = false
