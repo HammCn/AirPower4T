@@ -49,7 +49,7 @@ export class AirNotification {
 
   /**
    * # 设置自动关闭时间
-   * @param duration 自动关闭时间
+   * @param duration 自动关闭时间(毫秒)
    */
   setDuration(duration: number): this {
     this.duration = duration

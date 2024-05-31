@@ -1,24 +1,43 @@
 <template>
-  <el-form-item
-    :label="entityInstance.getFormFieldLabel(field)"
-    :prop="field"
-  >
-    <AInput
-      v-model="modelValue[field]"
-      :entity="entityClass"
-      :model-modifiers="{ field }"
-      :modifier="field"
+  <template v-if="fieldList.length === 0">
+    <el-form-item
+      :label="entityInstance.getFormFieldLabel(field)"
+      :prop="field"
+    >
+      <AInput
+        v-model="formData[field]"
+        :entity="entityClass"
+        :model-modifiers="{ field }"
+        :modifier="field"
+        @change="onChange($event)"
+        @blur="emits('blur'); emits('onBlur')"
+        @focus="emits('focus'); emits('onFocus')"
+        @clear="emits('clear'); emits('onClear');"
+      />
+    </el-form-item>
+  </template>
+  <template v-else>
+    <AFormField
+      v-for="item in fieldList"
+      :key="item"
+      :field="item"
+      @blur="emits('blur'); emits('onBlur')"
+      @focus="emits('focus'); emits('onFocus')"
+      @clear="emits('clear'); emits('onClear');"
+      @change="onChange($event)"
     />
-  </el-form-item>
+  </template>
 </template>
 
 <script setup lang="ts" generic="E extends AirEntity">
-import { PropType, computed, inject } from 'vue'
+import {
+  PropType, Ref, computed, inject, ref,
+} from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { ClassConstructor } from '../type/ClassConstructor'
-import { AInput } from '.'
-import { AirNotification } from '../feedback/AirNotification'
+import { AFormField, AInput } from '.'
+import { IJson } from '../interface/IJson'
 
 const props = defineProps({
   /**
@@ -33,25 +52,65 @@ const props = defineProps({
 
   /**
    * # 字段的名称
+   * ---
+   * ### 💡 `field` 和 `fieldList` 必传一个
    */
   field: {
     type: String,
-    required: true,
+    default: '',
+  },
+
+  /**
+   * # 手动绑定的表单对象
+   */
+  modelValue: {
+    type: Object as PropType<E>,
+    default: null,
+  },
+
+  /**
+   * # 字段的名称数组
+   * ---
+   * ### 💡 `field` 和 `fieldList` 必传一个
+   */
+  fieldList: {
+    type: Array<string>,
+    default: () => [],
   },
 })
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const modelValue = defineModel<any>()
+const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
-let entityClass = inject('entityClass') as ClassConstructor<E>
-
-if (!entityClass) {
-  AirNotification.error('未使用useAirEditor创建表单，注入实体类失败，请手动传入到AFormField的entity属性')
+if (props.fieldList.length === 0 && !props.field) {
+  throw new Error('field和fieldList必传一个！！！')
 }
 
-if (props.entity) {
-  entityClass = props.entity
+// 手动绑定的 v-model 覆盖 自动注入的表单对象
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const formData = ref(props.modelValue || inject('formData')) as Ref<any>
+if (!formData.value) {
+  throw new Error('请手动为AFormField绑定v-model或使用useAirEditor创建表单对象(推荐)！！！')
+}
+
+// 手动传入的实体类 覆盖 自动注入的实体类
+const entityClass = inject('entityClass') as ClassConstructor<E> || props.entity
+
+if (!entityClass) {
+  throw new Error('请手动传入到AFormField的entity属性或使用useAirEditor创建表单对象(推荐)！！！')
 }
 
 const entityInstance = computed(() => AirClassTransformer.newInstance(entityClass))
+
+function emitValue() {
+  emits('change', formData.value)
+  emits('onChange', formData.value)
+  emits('update:modelValue', formData.value)
+}
+
+function onChange(val: unknown) {
+  (formData.value as IJson)[props.field] = val
+  if (props.modelValue) {
+    emitValue()
+  }
+}
 </script>
