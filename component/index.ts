@@ -21,6 +21,7 @@ import APhone from './Phone.vue'
 import AQrcode from './Qrcode.vue'
 import ASelector from './Selector.vue'
 import AMoney from './Money.vue'
+import AFormField from './FormField.vue'
 
 export {
   ACopy,
@@ -46,4 +47,5 @@ export {
   AQrcode,
   ASelector,
   AMoney,
+  AFormField,
 }
