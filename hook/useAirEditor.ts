@@ -1,5 +1,5 @@
 import {
-  Ref, computed, provide, ref, watch,
+  Ref, computed, ref, watch,
 } from 'vue'
 import { AirFormInstance } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
@@ -65,9 +65,6 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
       }
     }
   }
-
-  provide('entityClass', entityClass)
-  provide('formData', result.formData.value)
 
   watch(result.formData, () => {
     formRef.value?.validate()
