@@ -2,11 +2,11 @@
  * # 枚举基类
  * @author Hamm
  */
-export class AirEnum {
+export class AirEnum<K = number> {
   /**
    * # 枚举的值
    */
-  private key!: number
+  private key!: K
 
   /**
    * # 枚举的描述
@@ -34,7 +34,7 @@ export class AirEnum {
    * @param key 枚举值
    * @param label 枚举描述
    */
-  constructor(key: number, label: string) {
+  constructor(key: K, label: string) {
     this.key = key
     this.label = label
   }
@@ -46,16 +46,17 @@ export class AirEnum {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
   static get<T extends AirEnum>(this: new (...args: any[]) => T, key: number): T | null {
-    const keys = Object.getOwnPropertyNames(this)
-    for (const k of keys) {
-      if (['name', 'length', 'prototype'].includes(k)) {
-        // eslint-disable-next-line no-continue
-        continue
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const item: T = (this as any)[k]
-      if (item.getKey() === key) return item
-    }
-    return null
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (this as any).toArray().find((item:T) => item.getKey() === key) || null
+  }
+
+  /**
+   * # 将枚举转为数组
+   * @returns 枚举数组
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
+  static toArray<T extends AirEnum>(this: new (...args: any[]) => T): T[] {
+    return Object.values(this)
+      .filter((item) => item instanceof this)
   }
 }
