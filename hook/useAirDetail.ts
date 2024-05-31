@@ -1,4 +1,4 @@
-import { Ref, ref } from 'vue'
+import { Ref, provide, ref } from 'vue'
 import { IUseDetailOption } from '../interface/IUseDetailOption'
 import { IUseDetailResult } from '../interface/IUseDetailResult'
 import { AirEntity } from '../base/AirEntity'
@@ -53,6 +53,9 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
       }
     }
   }
+
+  provide('entityClass', entityClass)
+  provide('formData', formData.value)
 
   getDetail()
 

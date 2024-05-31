@@ -4,16 +4,21 @@
       :label="entityInstance.getFormFieldLabel(field)"
       :prop="field"
     >
-      <AInput
-        v-model="formData[field]"
-        :entity="entityClass"
-        :model-modifiers="{ field }"
-        :modifier="field"
-        @change="onChange($event)"
-        @blur="emits('blur'); emits('onBlur')"
-        @focus="emits('focus'); emits('onFocus')"
-        @clear="emits('clear'); emits('onClear');"
-      />
+      <slot>
+        <AInput
+          v-model="formData[field]"
+          :entity="entityClass"
+          :model-modifiers="{ field }"
+          :modifier="field"
+          :disabled="disabled"
+          :disabled-value="disabledValue"
+          :readonly="readonly"
+          @change="onChange($event)"
+          @blur="emits('blur'); emits('onBlur')"
+          @focus="emits('focus'); emits('onFocus')"
+          @clear="emits('clear'); emits('onClear');"
+        />
+      </slot>
     </el-form-item>
   </template>
   <template v-else>
@@ -21,6 +26,9 @@
       v-for="item in fieldList"
       :key="item"
       :field="item"
+      :disabled="disabled"
+      :disabled-value="disabledValue"
+      :readonly="readonly"
       @blur="emits('blur'); emits('onBlur')"
       @focus="emits('focus'); emits('onFocus')"
       @clear="emits('clear'); emits('onClear');"
@@ -76,6 +84,31 @@ const props = defineProps({
   fieldList: {
     type: Array<string>,
     default: () => [],
+  },
+
+  /**
+   * # 是否禁用输入
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * # 是否只读
+   */
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * # 禁用时显示的值
+   * 如果被禁用时传入了这个值, 则会显示这个值.
+   */
+  disabledValue: {
+    type: [String, Boolean, Number, Array, Object],
+    default: undefined,
   },
 })
 
