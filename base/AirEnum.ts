@@ -45,7 +45,7 @@ export class AirEnum {
    * @returns 枚举项目
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
-  static getByKey<T extends AirEnum>(this: new (...args: any[]) => T, key: number): T | null {
+  static get<T extends AirEnum>(this: new (...args: any[]) => T, key: number): T | null {
     const keys = Object.getOwnPropertyNames(this)
     for (const k of keys) {
       if (['name', 'length', 'prototype'].includes(k)) {
