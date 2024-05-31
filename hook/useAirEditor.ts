@@ -67,6 +67,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   provide('entityClass', entityClass)
+  provide('formData', result.formData.value)
 
   watch(result.formData, () => {
     formRef.value?.validate()
