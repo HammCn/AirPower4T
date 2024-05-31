@@ -93,7 +93,8 @@ export class AirModel {
       }
       if (typeof fieldData === 'object') {
         if ((Reflect.getPrototypeOf(fieldData.constructor) as any)?.name === AirEnum.name) {
-          json[fieldAliasName || fieldKey] = (fieldData as AirEnum).getKey()
+          // 如果数据类型是枚举 则转换为枚举的Key值
+          json[fieldAliasName || fieldKey] = (fieldData as AirEnum).key
           continue
         }
 
