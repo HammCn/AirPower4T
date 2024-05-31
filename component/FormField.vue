@@ -101,16 +101,12 @@ if (!entityClass) {
 
 const entityInstance = computed(() => AirClassTransformer.newInstance(entityClass))
 
-function emitValue() {
-  emits('change', formData.value)
-  emits('onChange', formData.value)
-  emits('update:modelValue', formData.value)
-}
-
 function onChange(val: unknown) {
   (formData.value as IJson)[props.field] = val
   if (props.modelValue) {
-    emitValue()
+    emits('update:modelValue', formData.value)
   }
+  emits('change', formData.value)
+  emits('onChange', formData.value)
 }
 </script>
