@@ -1,4 +1,4 @@
-import { Ref, provide, ref } from 'vue'
+import { provide, Ref, ref } from 'vue'
 import { IUseDetailOption } from '../interface/IUseDetailOption'
 import { IUseDetailResult } from '../interface/IUseDetailResult'
 import { AirEntity } from '../base/AirEntity'
