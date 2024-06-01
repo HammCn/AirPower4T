@@ -5,6 +5,7 @@
  * # 自定义类和属性名注解
  * @author Hamm
  */
+import { AirEnum } from '../base/AirEnum'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
@@ -17,9 +18,17 @@ const DICTIONARY_KEY = 'Dictionary'
 /**
  * # 标记属性的枚举字典
  * @param dictionary 字典数组或枚举类
+ * ---
+ * ### 💡 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
  */
-export function Dictionary(dictionary: AirDictionaryArray): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
+export function Dictionary(dictionary: AirDictionaryArray | ClassConstructor<AirEnum>): Function {
+  return (target: any, key: string) => {
+    if (!(dictionary instanceof AirDictionaryArray)) {
+      // 如果不是字典 转为字典
+      dictionary = AirDictionaryArray.create((dictionary as any).toDictionary())
+    }
+    AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
+  }
 }
 
 /**

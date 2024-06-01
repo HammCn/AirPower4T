@@ -55,7 +55,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   provide('entityClass', entityClass)
-  provide('formData', formData.value)
+  provide('formData', formData)
 
   getDetail()
 
