@@ -1,7 +1,16 @@
 /* eslint-disable no-continue */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  getAlias, getDefault, getFieldName, getFieldPrefix, getIsArray, getModelName, getNoPrefix, getToJson, getToModel, getType,
+  getAlias,
+  getDefault,
+  getFieldName,
+  getFieldPrefix,
+  getIsArray,
+  getModelName,
+  getNoPrefix,
+  getToJson,
+  getToModel,
+  getType,
 } from '../decorator/Custom'
 import { IJson } from '../interface/IJson'
 
@@ -12,9 +21,9 @@ import { IJson } from '../interface/IJson'
 export class AirModel {
   /**
    * # 用指定的数据对当前实例进行覆盖
+   * @param obj 覆盖对象
    * ---
    * ### 💡 相同字段才会覆盖上去
-   * @param obj 覆盖对象
    */
   recoverBy(obj: IJson | AirModel): this {
     return Object.assign(this, obj)
@@ -156,7 +165,7 @@ export class AirModel {
           ? getFieldPrefix(instance)
           : ''
         )
-        + (fieldAliasName || fieldKey)]
+      + (fieldAliasName || fieldKey)]
       if (fieldData === undefined) {
         // 没有值尝试获取默认值
         fieldData = getDefault(instance, fieldKey)
@@ -264,19 +273,19 @@ export class AirModel {
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getModelName(): string {
     return getModelName(this) || this.constructor.name
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)
   }
