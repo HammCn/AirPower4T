@@ -35,6 +35,22 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   disabled?: boolean
 
   /**
+   * # 判断Key是否相等
+   * @param key Key
+   */
+  equalsKey(key: K): boolean {
+    return this.key === key
+  }
+
+  /**
+   * # 判断Key是否不相等
+   * @param key Key
+   */
+  notEqualsKey(key: K): boolean {
+    return this.key !== key
+  }
+
+  /**
    * # 实例化创建一个枚举项目
    * @param key 枚举值
    * @param label 枚举描述
