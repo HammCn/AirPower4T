@@ -33,14 +33,6 @@ export function Table(config: ITableFieldConfig = {}): Function {
 }
 
 /**
- * @deprecated
- * @see Table()
- */
-export function TableField(fieldConfig: ITableFieldConfig = {}): Function {
-  return Table(fieldConfig)
-}
-
-/**
  * # 获取对象的属性表格的配置
  * @param target 目标对象
  * @param key 属性名

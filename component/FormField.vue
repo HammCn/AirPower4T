@@ -118,9 +118,15 @@ if (props.fieldList.length === 0 && !props.field) {
   throw new Error('field和fieldList必传一个！！！')
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const injectFormData = inject('formData') as Ref<any> | undefined
+
 // 手动绑定的 v-model 覆盖 自动注入的表单对象
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const formData = ref(props.modelValue || inject('formData')) as Ref<any>
+const formData = ref(props.modelValue) as Ref<any>
+if (injectFormData && injectFormData.value) {
+  formData.value = injectFormData.value
+}
 if (!formData.value) {
   throw new Error('请手动为AFormField绑定v-model或使用useAirEditor创建表单对象(推荐)！！！')
 }
@@ -136,10 +142,12 @@ const entityInstance = computed(() => AirClassTransformer.newInstance(entityClas
 
 function onChange(val: unknown) {
   (formData.value as IJson)[props.field] = val
-  if (props.modelValue) {
-    emits('update:modelValue', formData.value)
-  }
+  emits('update:modelValue', formData.value)
   emits('change', formData.value)
   emits('onChange', formData.value)
+  if (injectFormData) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (injectFormData.value as any)[props.field] = val
+  }
 }
 </script>

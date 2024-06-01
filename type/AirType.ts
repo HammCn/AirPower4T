@@ -36,3 +36,8 @@ export type AirIconType = 'DELETE_LIST' | 'DELETE' | 'EDIT' | 'DETAIL' | 'ADD' |
  * # 💰 金额的舍弃方向类型
  */
 export type AirMoneyDirection = 'up' | 'down'
+
+/**
+ * # 枚举Key的类型
+ */
+export type AirEnumKey = string | number | boolean;

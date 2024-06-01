@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirColor } from '../enum/AirColor'
+import { AirEnumKey } from '../type/AirType'
 
 /**
  * # 标准字典 用于全局固定枚举字典的声明
@@ -9,7 +10,7 @@ export interface IDictionary {
   /**
    * # 字典的值
    */
-  key: number | string | boolean,
+  key: AirEnumKey,
 
   /**
    * # 字典的显示标题

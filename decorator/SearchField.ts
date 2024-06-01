@@ -33,14 +33,6 @@ export function Search(config: ISearchFieldConfig = {}): Function {
 }
 
 /**
- * @deprecated
- * @see Search()
- */
-export function SearchField(fieldConfig: ISearchFieldConfig = {}): Function {
-  return Search(fieldConfig)
-}
-
-/**
  * # 获取对象某个字段标记的搜索配置项
  * @param target 目标类或对象
  * @param key 属性名
