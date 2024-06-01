@@ -147,7 +147,7 @@ const pageCountList = computed(() => {
   const endSecondPage = showPageCount - 1
   const mid = parseInt((showPageCount / 2).toString(), 10) + 1
 
-  const list:string[] = []
+  const list: string[] = []
   if (props.response.pageCount <= showPageCount) {
     for (let i = 1; i <= props.response.pageCount; i += 1) {
       list.push(i.toString())

@@ -39,7 +39,7 @@
 
 <script setup lang="ts" generic="E extends AirEntity">
 import {
-  PropType, Ref, computed, inject, ref,
+  computed, inject, PropType, Ref, ref,
 } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'

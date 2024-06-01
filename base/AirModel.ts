@@ -4,7 +4,16 @@ import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import {
-  getAlias, getDefault, getFieldName, getFieldPrefix, getIsArray, getModelName, getNoPrefix, getToJson, getToModel, getType,
+  getAlias,
+  getDefault,
+  getFieldName,
+  getFieldPrefix,
+  getIsArray,
+  getModelName,
+  getNoPrefix,
+  getToJson,
+  getToModel,
+  getType,
 } from '../decorator/Custom'
 import { getFormConfig, getFormConfigList } from '../decorator/FormField'
 import { getSearchConfigList } from '../decorator/SearchField'
@@ -18,9 +27,9 @@ import { IJson } from '../interface/IJson'
 export class AirModel {
   /**
    * # 用指定的数据对当前实例进行覆盖
+   * @param obj 覆盖对象
    * ---
    * ### 💡 相同字段才会覆盖上去
-   * @param obj 覆盖对象
    */
   recoverBy(obj: IJson | AirModel): this {
     return Object.assign(this, obj)
@@ -162,7 +171,7 @@ export class AirModel {
           ? getFieldPrefix(instance)
           : ''
         )
-        + (fieldAliasName || fieldKey)]
+      + (fieldAliasName || fieldKey)]
       if (fieldData === undefined) {
         // 没有值尝试获取默认值
         fieldData = getDefault(instance, fieldKey)
@@ -313,64 +322,64 @@ export class AirModel {
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getModelName(): string {
     return getModelName(this) || this.constructor.name
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getFieldName(fieldKey: string): string {
     return getFieldName(this, fieldKey)
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
     return { ...new AirFormFieldConfig(), ...getFormConfig(this, fieldKey) }
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getFormFieldLabel(fieldKey: string): string {
     return this.getCustomFormFieldConfig(fieldKey)?.label || this.getFieldName(fieldKey)
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
     return getTableConfigList(this, fieldNameList)
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
     return getFormConfigList(this, fieldNameList)
   }
 
   /**
- * # 请直接调用静态方法获取
- * ! 内部使用的保留方法
- * @deprecated
- */
+   * # 请直接调用静态方法获取
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getSearchFieldConfigList(fieldNameList: string[] = []): AirSearchFieldConfig[] {
     const configList = getSearchConfigList(this, fieldNameList)
     configList.sort((a, b) => b.orderNumber - a.orderNumber || 1)

@@ -262,9 +262,11 @@ import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
 
 const isCustomAppend = ref(false)
+
 function customAppend() {
   isCustomAppend.value = true
 }
+
 const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 
 const props = defineProps({
@@ -656,7 +658,7 @@ function init() {
 
     if (!placeholderRef.value) {
       const field = fieldConfig.value?.label
-        || entityInstance.value.getFieldName(fieldName.value)
+          || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
@@ -664,9 +666,9 @@ function init() {
         // 装饰了FormField
         if (
           dictionary.value || fieldConfig.value.dictionary
-          || props.list
-          || props.tree
-          || fieldConfig.value.dateType !== undefined
+            || props.list
+            || props.tree
+            || fieldConfig.value.dateType !== undefined
         ) {
           // 传入了枚举值
           placeholderRef.value = AirI18n.get().SelectPlease || '请选择'
