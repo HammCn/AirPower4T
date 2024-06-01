@@ -14,16 +14,16 @@ export class AirImageConfig {
   height = 100
 
   /**
-  * # 设置宽度
-  */
+   * # 设置宽度
+   */
   setWidth(width: number): this {
     this.width = width
     return this
   }
 
   /**
-  * # 设置高度
-  */
+   * # 设置高度
+   */
   setHeight(height: number): this {
     this.height = height
     return this

@@ -69,7 +69,6 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**
    * # 获取枚举的Disabled
    * @param key Key
-   * @param defaultColor 默认Color
    */
   static isDisabled(key: AirEnumKey): boolean | undefined {
     return (this as any).get(key).disabled

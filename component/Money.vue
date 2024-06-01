@@ -12,7 +12,7 @@
   </ACopy>
 </template>
 <script setup lang="ts">
-import { PropType, computed } from 'vue'
+import { computed, PropType } from 'vue'
 import { ACopy } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirMoneyDirection } from '../type/AirType'
@@ -27,20 +27,20 @@ const props = defineProps({
   },
 
   /**
- * # 💰金额的小数精度
- * ---
- * 💡 默认为 `AirConfig.moneyPrecision`
- */
+   * # 💰金额的小数精度
+   * ---
+   * 💡 默认为 `AirConfig.moneyPrecision`
+   */
   precision: {
     type: Number,
     default: AirConfig.moneyPrecision,
   },
 
   /**
- * # 💰金额的小数舍弃方式
- * ---
- * 💡 默认为 `AirConfig.moneyDirection`
- */
+   * # 💰金额的小数舍弃方式
+   * ---
+   * 💡 默认为 `AirConfig.moneyDirection`
+   */
   direction: {
     type: String as PropType<AirMoneyDirection>,
     default: AirConfig.moneyDirection,

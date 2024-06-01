@@ -1,6 +1,4 @@
-import {
-  Dictionary, Field, Type,
-} from '../decorator/Custom'
+import { Dictionary, Field, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
 import { Table } from '../decorator/TableField'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, watch, ref } from 'vue'
+import { PropType, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ChildMenu from './menu/ChildMenu.vue'
 import { IMenu } from '../interface/IMenu'
@@ -52,7 +52,7 @@ const route = useRoute()
 watch(
   () => route,
   // eslint-disable-next-line
-  (newVal) => {
+    (newVal) => {
     // eslint-disable-next-line no-restricted-globals
     defaultMenu.value = newVal.path || location.pathname
   },
@@ -72,7 +72,7 @@ watch(
   user-select: none;
 
   .is-opened {
-    >.el-sub-menu__title {
+    > .el-sub-menu__title {
       background-color: var(--el-menu-hover-bg-color);
     }
   }

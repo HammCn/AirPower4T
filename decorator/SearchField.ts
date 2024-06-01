@@ -40,6 +40,7 @@ export function Search(config: ISearchFieldConfig = {}): Function {
 export function getSearchConfig(target: any, key: string): AirSearchFieldConfig | null {
   return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
+
 /**
  * # 获取标记了搜索配置的字段列表
  * @param target 目标对象
@@ -47,6 +48,7 @@ export function getSearchConfig(target: any, key: string): AirSearchFieldConfig 
 export function getSearchFieldList(target: any): string[] {
   return AirDecorator.getFieldList(target, FIELD_LIST_KEY)
 }
+
 /**
  * # 获取指定类的搜索字段配置项列表
  * @param target 目标类或对象

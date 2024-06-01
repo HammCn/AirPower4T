@@ -9,6 +9,7 @@ import { AirEnum } from '../base/AirEnum'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirEnumKey } from '@/airpower/type/AirType'
 
 /**
  * # 字典配置Key
@@ -21,7 +22,7 @@ const DICTIONARY_KEY = 'Dictionary'
  * ---
  * ### 💡 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
  */
-export function Dictionary(dictionary: AirDictionaryArray | ClassConstructor<AirEnum>): Function {
+export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>): Function {
   return (target: any, key: string) => {
     if (!(dictionary instanceof AirDictionaryArray)) {
       // 如果不是字典 转为字典

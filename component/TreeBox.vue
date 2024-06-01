@@ -55,7 +55,7 @@
 
 <script lang="ts" setup="props">
 import {
-  PropType, Ref, computed, ref, watch,
+  computed, PropType, Ref, ref, watch,
 } from 'vue'
 import { APanel } from '.'
 import { AirConfig } from '../config/AirConfig'

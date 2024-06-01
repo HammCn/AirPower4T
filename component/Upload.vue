@@ -50,8 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, PropType, computed } from 'vue'
-
+import { computed, PropType, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
@@ -162,16 +161,16 @@ const props = defineProps({
   },
 
   /**
- * # 上传文件同时发送的数据
- */
+   * # 上传文件同时发送的数据
+   */
   data: {
     type: Object as PropType<IJson>,
     default: () => null,
   },
 
   /**
- * # 上传文件同时发送的header
- */
+   * # 上传文件同时发送的header
+   */
   header: {
     type: Object as PropType<IJson>,
     default: () => null,
@@ -257,8 +256,8 @@ function onUploadSuccess(result: IJson) {
       props.onConfirm(null)
     } else {
       const entity = AirClassTransformer.parse(
-        result.data as IJson,
-        props.entity,
+          result.data as IJson,
+          props.entity,
       )
       props.onConfirm(entity)
     }
@@ -297,7 +296,7 @@ function onUploadSuccess(result: IJson) {
           display: flex;
           flex-direction: column;
 
-          >b {
+          > b {
             font-size: 18px;
           }
 

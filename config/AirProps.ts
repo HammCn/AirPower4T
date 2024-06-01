@@ -71,10 +71,10 @@ export function airPropsId() {
 
 /**
  * # 使用选择器的DialogProps配置
-   * ---
-   * ### 💡 S: selectList参数的类型
-   * ---
-   * ### 💡 P: param参数的类型
+ * ---
+ * ### 💡 S: selectList参数的类型
+ * ---
+ * ### 💡 P: param参数的类型
  */
 export function airPropsSelector<
   S extends AirEntity = AirEntity, P extends AirEntity = AirEntity

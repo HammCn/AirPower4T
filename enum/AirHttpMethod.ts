@@ -10,5 +10,4 @@ export enum AirHttpMethod {
   PUT = 'PUT',
   DELETE = 'DELETE',
   PATCH = 'PATCH',
-  OPTION = 'OPTION'
 }
