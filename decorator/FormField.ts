@@ -33,14 +33,6 @@ export function Form(config: IFormFieldConfig = {}): Function {
 }
 
 /**
- * @deprecated
- * @see Form()
- */
-export function FormField(fieldConfig: IFormFieldConfig = {}): Function {
-  return Form(fieldConfig)
-}
-
-/**
  * # 获取对象某个字段标记的表单配置项
  * @param target 目标类或对象
  * @param key 属性名

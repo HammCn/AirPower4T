@@ -10,7 +10,6 @@ import { getFormConfig, getFormConfigList } from '../decorator/FormField'
 import { getSearchConfigList } from '../decorator/SearchField'
 import { getTableConfigList } from '../decorator/TableField'
 import { IJson } from '../interface/IJson'
-import { AirEnum } from './AirEnum'
 
 /**
  * # 模型超类
@@ -92,12 +91,6 @@ export class AirModel {
         continue
       }
       if (typeof fieldData === 'object') {
-        if ((Reflect.getPrototypeOf(fieldData.constructor) as any)?.name === AirEnum.name) {
-          // 如果数据类型是枚举 则转换为枚举的Key值
-          json[fieldAliasName || fieldKey] = (fieldData as AirEnum).key
-          continue
-        }
-
         // 是数组 循环转换
         if (Array.isArray(fieldData)) {
           // 数组需要循环转换
@@ -228,14 +221,6 @@ export class AirModel {
           (instance as any)[fieldKey] = !!fieldData
           break
         default:
-          if ((Reflect.getPrototypeOf(FieldTypeClass) as any)?.name === AirEnum.name) {
-            const enumItem = (FieldTypeClass as any).getByKey(fieldData)
-            if (enumItem) {
-              (instance as any)[fieldKey] = enumItem
-            }
-            continue
-          }
-
           // 是对象 需要递归转换
           (instance as any)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
       }
@@ -273,14 +258,6 @@ export class AirModel {
    */
   static getModelName() {
     return this.newInstance().getModelName()
-  }
-
-  /**
-   * @deprecated
-   * @see getModelName()
-   */
-  static getClassName() {
-    return this.getModelName()
   }
 
   /**

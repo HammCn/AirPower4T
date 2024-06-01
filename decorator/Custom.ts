@@ -5,10 +5,8 @@
  * # 自定义类和属性名注解
  * @author Hamm
  */
-import { AirEnum } from '../base/AirEnum'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnumKey } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
@@ -20,11 +18,7 @@ const DICTIONARY_KEY = 'Dictionary'
  * # 标记属性的枚举字典
  * @param dictionary 字典数组或枚举类
  */
-export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>): Function {
-  if (dictionary instanceof Function) {
-    // 如果标记的枚举类 将枚举类转为字典
-    dictionary = (dictionary as any).toDictionary()
-  }
+export function Dictionary(dictionary: AirDictionaryArray): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
 }
 
@@ -71,14 +65,6 @@ export function List(): Function {
   return (target: any, key: string) => {
     AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
   }
-}
-
-/**
- * @deprecated
- * @see List()
- */
-export function IsArray(): Function {
-  return List()
 }
 
 /**
@@ -182,27 +168,11 @@ export function Model(name: string): Function {
 }
 
 /**
- * @deprecated
- * @see Model()
- */
-export function ClassName(className: string): Function {
-  return Model(className)
-}
-
-/**
  * # 获取类的可读名称
  * @param target 目标类
  */
 export function getModelName(target: any): string {
   return AirDecorator.getClassConfig(target, CLASS_NAME_KEY)
-}
-
-/**
- * @deprecated
- * @see getModelName()
- */
-export function getClassName(target: any): string {
-  return getModelName(target)
 }
 
 /**
@@ -216,14 +186,6 @@ const FIELD_NAME_KEY = 'FieldName'
  */
 export function Field(name: string): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_NAME_KEY, name)
-}
-
-/**
- * @deprecated
- * @see Field()
- */
-export function FieldName(fieldName: string): Function {
-  return Field(fieldName)
 }
 
 /**
@@ -248,28 +210,12 @@ export function NoPrefix(): Function {
 }
 
 /**
- * @deprecated
- * @see NoPrefix()
- */
-export function IgnorePrefix(): Function {
-  return NoPrefix()
-}
-
-/**
  * # 获取属性是否忽略别名前缀
  * @param target 目标类
  * @param key 属性名称
  */
 export function getNoPrefix(target: any, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, FIELD_IGNORE_KEY) || false
-}
-
-/**
- * @deprecated
- * @see getNoPrefix()
- */
-export function getIgnorePrefix(target: any, key: string): boolean {
-  return getNoPrefix(target, key)
 }
 
 /**
