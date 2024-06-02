@@ -4,7 +4,7 @@
     class="air-group"
   >
     <div
-      v-if="title"
+      v-if="title && !hideTitle"
       class="group-title"
     >
       <div class="left">
@@ -42,11 +42,18 @@ import { ArrowDown, ArrowRight } from '@element-plus/icons-vue'
 
 const props = defineProps({
   /**
+   * # 隐藏标题
+   */
+  hideTitle: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * # 分组标题
    */
   title: {
     type: String,
-    required: true,
+    default: '',
   },
 
   /**
