@@ -30,6 +30,7 @@
       v-show="!isCollapse"
       :class="getBodyClass()"
       class="group-body"
+      :style="{paddingTop:hideTitle?'0':'10px'}"
     >
       <slot />
     </div>
@@ -132,7 +133,6 @@ function getBodyClass() {
     flex-direction: row;
     flex-wrap: wrap;
     display: flex;
-    padding-top: 10px;
 
     .el-cascader,
     .el-select {
