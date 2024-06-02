@@ -4,7 +4,7 @@
     class="air-group"
   >
     <div
-      v-if="title"
+      v-if="title && !hideTitle"
       class="group-title"
     >
       <div class="left">
@@ -30,6 +30,7 @@
       v-show="!isCollapse"
       :class="getBodyClass()"
       class="group-body"
+      :style="{paddingTop:hideTitle?'0':'10px'}"
     >
       <slot />
     </div>
@@ -42,11 +43,18 @@ import { ArrowDown, ArrowRight } from '@element-plus/icons-vue'
 
 const props = defineProps({
   /**
+   * # 隐藏标题
+   */
+  hideTitle: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * # 分组标题
    */
   title: {
     type: String,
-    required: true,
+    default: '',
   },
 
   /**
@@ -125,7 +133,6 @@ function getBodyClass() {
     flex-direction: row;
     flex-wrap: wrap;
     display: flex;
-    padding-top: 10px;
 
     .el-cascader,
     .el-select {

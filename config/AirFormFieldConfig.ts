@@ -57,6 +57,8 @@ export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConf
 
   dictionary?: AirDictionaryArray
 
+  showColor = false
+
   checkStrictly = true
 
   emitPath = false
