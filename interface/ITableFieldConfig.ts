@@ -51,7 +51,7 @@ export interface ITableFieldConfig extends IFieldConfig {
   dateTimeFormatter?: AirDateTimeFormatter | string;
 
   /**
-   * # 是否显示枚举字典的颜色状态灯
+   * # 是否显示枚举字典的颜色灯
    * ---
    * 💡 如果显示 请确保传入的 ```dictionary``` 配置了 ```color```
    */

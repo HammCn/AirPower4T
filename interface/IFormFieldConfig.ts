@@ -168,6 +168,13 @@ export interface IFormFieldConfig extends IFieldConfig {
   dictionary?: AirDictionaryArray;
 
   /**
+   * # 是否显示枚举字典的颜色灯
+   * ---
+   * 💡 如果显示 请确保传入的 ```dictionary``` 配置了 ```color```
+   */
+  showColor?: boolean
+
+  /**
    * # 返回全路径的值
    */
   emitPath?: boolean;

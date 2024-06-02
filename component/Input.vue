@@ -122,33 +122,24 @@
         @clear="onClear"
         @focus="emits('focus')"
       >
-        <template v-if="list">
-          <el-option
-            v-for="item in list"
-            :key="(item.key as string)"
-            :label="item.label"
-            :value="item.key"
-            :disabled="item.disabled"
-          />
-        </template>
-        <template v-else-if="dictionary">
-          <el-option
-            v-for="item in dictionary"
-            :key="(item.key as string)"
-            :label="item.label"
-            :value="item.key"
-            :disabled="item.disabled"
-          />
-        </template>
-        <template v-else-if="fieldConfig">
-          <el-option
-            v-for="item in fieldConfig.dictionary"
-            :key="(item.key as string)"
-            :label="item.label"
-            :value="item.key"
-            :disabled="item.disabled"
-          />
-        </template>
+        <el-option
+          v-for="item in list || dictionary || fieldConfig?.dictionary || []"
+          :key="(item.key as string)"
+          :label="item.label"
+          :value="item.key"
+          :disabled="item.disabled"
+        >
+          <div
+            v-if="fieldConfig?.showColor"
+            class="air-input-select"
+          >
+            <span class="label">{{ item.label }}</span>
+            <span
+              :style="{ backgroundColor:item.color || AirColor.NORMAL }"
+              class="light"
+            />
+          </div>
+        </el-option>
       </el-select>
     </template>
 
@@ -260,6 +251,7 @@ import { AirEntity } from '../base/AirEntity'
 import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
+import { AirColor } from '@/airpower/enum/AirColor'
 
 const isCustomAppend = ref(false)
 
@@ -713,6 +705,26 @@ init()
     .el-input__inner {
       text-align: left;
     }
+  }
+}
+
+.air-input-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .label {
+    width: 0;
+    flex: 1;
+  }
+
+  .light {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: -15px;
+    border-radius: 100%;
   }
 }
 </style>
