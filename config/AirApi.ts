@@ -35,7 +35,11 @@ export class AirApi {
    * 返回的页面数，如果 delta 大于现有页面数，则返回到首页。
    */
   static navigateBack(delta?: number) {
+<<<<<<< HEAD
     uni.navigateBack({
+=======
+    wx.navigateBack({
+>>>>>>> wechat
       delta,
     })
   }
@@ -96,7 +100,7 @@ export class AirApi {
    * @param value 缓存的值
    */
   public static setStorage(key: string, value: string | number) {
-    uni.setStorageSync(key, value.toString)
+    uni.setStorageSync(key, value.toString())
   }
 
   /**
