@@ -9,7 +9,7 @@ export class AirApi {
    */
   static setClipboardData(data: string) {
     wx.setClipboardData({
-      data: data,
+      data,
     })
   }
 
@@ -36,7 +36,7 @@ export class AirApi {
    */
   static navigateBack(delta?: number) {
     wx.navigateBack({
-      delta: delta
+      delta,
     })
   }
 
@@ -52,7 +52,7 @@ export class AirApi {
    */
   static vibrateShort() {
     wx.vibrateShort({
-      type: "heavy",
+      type: 'heavy',
     })
   }
 
@@ -76,9 +76,10 @@ export class AirApi {
    */
   static redirect(path: string) {
     wx.redirectTo({
-      url: path
+      url: path,
     })
   }
+
   /**
    * # 获取缓存的值
    * @param key 缓存的Key
@@ -95,7 +96,7 @@ export class AirApi {
    * @param value 缓存的值
    */
   public static setStorage(key: string, value: string | number) {
-    wx.setStorageSync(key, value.toString)
+    wx.setStorageSync(key, value.toString())
   }
 
   /**
