@@ -27,9 +27,9 @@ const FIELD_LIST_KEY = 'TableList'
  * @param config (可选)表格列的配置
  */
 export function Table(config: ITableFieldConfig = {}): Function {
-  if (!(config?.dictionary instanceof AirDictionaryArray)) {
+  if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
     // 如果不是字典 转为字典
-    config.dictionary = AirDictionaryArray.create((config?.dictionary as any).toDictionary())
+    config.dictionary = AirDictionaryArray.create((config.dictionary as any).toDictionary())
   }
   return (target: any, key: string) => {
     config.key = key

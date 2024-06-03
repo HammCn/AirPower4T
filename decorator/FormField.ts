@@ -27,9 +27,9 @@ const FIELD_LIST_KEY = 'FormList'
  * @param config (可选)配置项
  */
 export function Form(config: IFormFieldConfig = {}): Function {
-  if (!(config?.dictionary instanceof AirDictionaryArray)) {
+  if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
     // 如果不是字典 转为字典
-    config.dictionary = AirDictionaryArray.create((config?.dictionary as any).toDictionary())
+    config.dictionary = AirDictionaryArray.create((config.dictionary as any).toDictionary())
   }
   return (target: any, key: string) => {
     config.key = key
