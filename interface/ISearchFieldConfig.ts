@@ -2,12 +2,15 @@ import { AirBetweenType } from '../enum/AirBetweenType'
 import { IFieldConfig } from './IFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirEnum } from '../base/AirEnum'
+import { AirEnumKey } from '../type/AirType'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 表格的字段配置接口
  * @author Hamm
  */
-export interface ISearchFieldConfig extends IFieldConfig {
+export interface ISearchFieldConfig<K extends AirEnumKey = AirEnumKey, E extends AirEnum<K> = AirEnum<K>> extends IFieldConfig {
   /**
    * # 隐藏搜索
    */
@@ -23,7 +26,7 @@ export interface ISearchFieldConfig extends IFieldConfig {
    * ---
    * 💡 可配置 ```filterable``` 等参数
    */
-  dictionary?: AirDictionaryArray;
+  dictionary?: AirDictionaryArray | ClassConstructor<E>;
 
   /**
    * # 可筛选
