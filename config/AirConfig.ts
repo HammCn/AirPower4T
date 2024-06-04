@@ -53,6 +53,11 @@ export class AirConfig {
   static uploadUrl = `${AirConfig.apiUrl}attach/upload`
 
   /**
+   * # 下载更新的地址
+   */
+  static updateUrl = ''
+
+  /**
    * # 上传文件默认字段名称
    */
   static uploadFileName = 'file'
@@ -93,6 +98,11 @@ export class AirConfig {
    * # 全局http请求返回 登录状态码
    */
   static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
+
+  /**
+   * # 全局http请求返回 要求更新版本
+   */
+  static upgradeClientNecssary: AirCode | number = AirCode.UPGRADE_CLIENT_NECESSARY
 
   /**
    * # 权限列表

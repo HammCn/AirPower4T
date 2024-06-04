@@ -3,7 +3,6 @@
  * @author Hamm
  */
 export class AirVersion {
-
   /**
    * # 获取版本号数字
    * @param version 版本号字符串
