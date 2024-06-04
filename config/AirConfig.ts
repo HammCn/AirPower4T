@@ -172,6 +172,6 @@ export class AirConfig {
    * # 跳转登录的方法
    */
   static login = () => {
-    AirApi.redirect("/view/login")
+    AirApi.redirect('/view/login')
   }
 }

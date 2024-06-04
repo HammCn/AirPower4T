@@ -8,8 +8,8 @@ export class AirApi {
    * @param data 数据
    */
   static setClipboardData(data: string) {
-    wx.setClipboardData({
-      data: data,
+    uni.setClipboardData({
+      data,
     })
   }
 
@@ -18,7 +18,7 @@ export class AirApi {
    * @param path 路径
    */
   static navigateTo(path: string) {
-    wx.navigateTo({
+    uni.navigateTo({
       url: path,
     })
   }
@@ -27,7 +27,7 @@ export class AirApi {
    * # 停止下拉刷新
    */
   static stopPullDownRefresh() {
-    wx.stopPullDownRefresh()
+    uni.stopPullDownRefresh()
   }
 
   /**
@@ -35,8 +35,8 @@ export class AirApi {
    * 返回的页面数，如果 delta 大于现有页面数，则返回到首页。
    */
   static navigateBack(delta?: number) {
-    wx.navigateBack({
-      delta: delta
+    uni.navigateBack({
+      delta,
     })
   }
 
@@ -44,15 +44,15 @@ export class AirApi {
    * # 隐藏返回首页按钮
    */
   static hideHomeButton() {
-    wx.hideHomeButton()
+    uni.hideHomeButton()
   }
 
   /**
    * # 手机短震动
    */
   static vibrateShort() {
-    wx.vibrateShort({
-      type: "heavy",
+    uni.vibrateShort({
+      type: 'heavy',
     })
   }
 
@@ -60,14 +60,14 @@ export class AirApi {
    * # 手机长震动
    */
   static vibrateLong() {
-    wx.vibrateLong()
+    uni.vibrateLong()
   }
 
   /**
    * # 手机震动
    */
   static vibrate() {
-    wx.vibrateLong()
+    uni.vibrateLong()
   }
 
   /**
@@ -75,17 +75,18 @@ export class AirApi {
    * @param path 路径
    */
   static redirect(path: string) {
-    wx.redirectTo({
-      url: path
+    uni.redirectTo({
+      url: path,
     })
   }
+
   /**
    * # 获取缓存的值
    * @param key 缓存的Key
    * @returns 缓存的值
    */
   public static getStorage(key: string): string {
-    const value = wx.getStorageSync(key)
+    const value = uni.getStorageSync(key)
     return value ? value.toString() : ''
   }
 
@@ -95,7 +96,7 @@ export class AirApi {
    * @param value 缓存的值
    */
   public static setStorage(key: string, value: string | number) {
-    wx.setStorageSync(key, value.toString)
+    uni.setStorageSync(key, value.toString())
   }
 
   /**
@@ -103,6 +104,6 @@ export class AirApi {
    * @param key 缓存的Key
    */
   static removeStorage(key: string) {
-    wx.removeStorageSync(key)
+    uni.removeStorageSync(key)
   }
 }
