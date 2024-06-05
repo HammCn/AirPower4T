@@ -36,7 +36,7 @@ export class AirApi {
    */
   static navigateBack(delta?: number) {
     my.navigateBack({
-      delta: delta
+      delta,
     })
   }
 
@@ -77,6 +77,7 @@ export class AirApi {
       url: path
     })
   }
+
   /**
    * # 获取缓存的值
    * @param key 缓存的Key
