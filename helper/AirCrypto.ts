@@ -12,15 +12,25 @@ export class AirCrypto {
    * @param data 加密数据
    * @param key 密钥
    * @param mode (可选)加密方式 默认 CBC
-   * @param padding (可选)填充方式 默认无填充
+   * @param padding (可选)填充方式 默认Pkcs7
    * @param iv (可选)向量 默认```AirConfig.aesCbcIvString```
    */
-  static aesEncrypt(data: string, key: string, mode = CryptoJS.mode.CBC, padding = CryptoJS.pad.ZeroPadding, iv = AirConfig.aesCbcIvString): string {
-    return CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(data), CryptoJS.enc.Utf8.parse(key), {
-      iv: CryptoJS.enc.Utf8.parse(iv),
-      mode,
-      padding,
-    })
+  static aesEncrypt(
+    data: string,
+    key: string,
+    mode = CryptoJS.mode.CBC,
+    padding = CryptoJS.pad.Pkcs7,
+    iv = AirConfig.aesCbcIvString,
+  ): string {
+    return CryptoJS.AES.encrypt(
+      data,
+      CryptoJS.enc.Base64.parse(key),
+      {
+        iv: CryptoJS.enc.Utf8.parse(iv),
+        mode,
+        padding,
+      },
+    )
       .toString()
   }
 
@@ -29,15 +39,26 @@ export class AirCrypto {
    * @param data 需要解密的数据
    * @param key 密钥
    * @param mode (可选)加密方式 默认 CBC
-   * @param padding (可选)填充方式 默认无填充
+   * @param padding (可选)填充方式 默认Pkcs7
    * @param iv (可选)向量 默认```AirConfig.aesCbcIvString```
    */
-  static aesDecrypt(data: string, key: string, mode = CryptoJS.mode.CBC, padding = CryptoJS.pad.ZeroPadding, iv = AirConfig.aesCbcIvString): string {
-    return CryptoJS.AES.decrypt(data, CryptoJS.enc.Utf8.parse(key), {
-      iv: CryptoJS.enc.Utf8.parse(iv),
-      mode,
-      padding,
-    })
+  static aesDecrypt(
+    data: string,
+    key: string,
+    mode = CryptoJS.mode.CBC,
+    padding = CryptoJS.pad.Pkcs7,
+    iv = AirConfig.aesCbcIvString,
+  ): string {
+    console.log(CryptoJS.enc.Utf8.parse(iv))
+    return CryptoJS.AES.decrypt(
+      data,
+      CryptoJS.enc.Base64.parse(key),
+      {
+        iv: CryptoJS.enc.Utf8.parse(iv),
+        mode,
+        padding,
+      },
+    )
       .toString(CryptoJS.enc.Utf8)
   }
 
