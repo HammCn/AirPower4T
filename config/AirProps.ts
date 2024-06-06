@@ -72,13 +72,16 @@ export function airPropsId() {
 /**
  * # 使用选择器的DialogProps配置
  * ---
- * ### 💡 S: selectList参数的类型
+ * #### 💡 S: selectList参数的类型
  * ---
- * ### 💡 P: param参数的类型
+ * #### 💡 P: param参数的类型(默认同 `selectList` 类型一致)
+ *
+ *
+ * @param param 选择器的参数
  */
 export function airPropsSelector<
-  S extends AirEntity = AirEntity, P extends AirEntity = AirEntity
->(value: P | null = null) {
+  S extends AirEntity, P extends AirEntity = S
+>(param: P | null = null) {
   return Object.assign(airProps(), {
     /**
      * # 是否使用多选
@@ -94,8 +97,8 @@ export function airPropsSelector<
      * 请放心使用ID属性, 其他的属性不一定有
      */
     selectList: {
-      type: Array as PropType<S[]>,
-      default: [] as PropType<S[]>,
+      type: Array<S>,
+      default: () => [],
     },
 
     /**
@@ -109,7 +112,7 @@ export function airPropsSelector<
      */
     param: {
       type: Object as PropType<P>,
-      default: value,
+      default: param,
     },
   })
 }
