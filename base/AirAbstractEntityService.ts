@@ -175,7 +175,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
         AirNotification.success(message, title)
       }
     } catch (err) {
-      await AirAlert.error(err.message, '删除失败')
+      await AirAlert.error((err as Error).message, '删除失败')
     }
   }
 
@@ -194,7 +194,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
         AirNotification.success(message, title)
       }
     } catch (err) {
-      await AirAlert.error(err.message, '禁用失败')
+      await AirAlert.error((err as Error).message, '禁用失败')
     }
   }
 
@@ -213,7 +213,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
         AirNotification.success(message, title)
       }
     } catch (err) {
-      await AirAlert.error(err.message, '启用失败')
+      await AirAlert.error((err as Error).message, '启用失败')
     }
   }
 
