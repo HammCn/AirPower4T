@@ -131,14 +131,14 @@ export class AirHttp {
                 fail(json[AirConfig.httpMessageKey])
                 return
               }
-              AirAlert.show(AirI18n.get().UploadError || "上传失败", json[AirConfig.httpMessageKey] as string || AirI18n.get().FileUploadErrorAndRetryPlease || "文件上传失败,请重试")
+              AirAlert.show(AirI18n.get().UploadError || '上传失败', json[AirConfig.httpMessageKey] as string || AirI18n.get().FileUploadErrorAndRetryPlease || '文件上传失败,请重试')
           }
         } catch (e) {
           if (this.errorCallback) {
             fail(e)
             return
           }
-          AirAlert.show(AirI18n.get().UploadError || "上传失败", AirI18n.get().FileUploadErrorAndRetryPlease || "文件上传失败,请重试")
+          AirAlert.show(AirI18n.get().UploadError || '上传失败', AirI18n.get().FileUploadErrorAndRetryPlease || '文件上传失败,请重试')
         }
       }
       wx.uploadFile(option)
@@ -187,7 +187,7 @@ export class AirHttp {
                     fail(json)
                     return
                   }
-                  AirAlert.show(AirI18n.get().SystemError || "系统错误", json[AirConfig.httpMessageKey] as string || AirI18n.get().SystemErrorAndRetryPlease || "系统发生了一些错误，请稍候再试")
+                  AirAlert.show(AirI18n.get().SystemError || '系统错误', json[AirConfig.httpMessageKey] as string || AirI18n.get().SystemErrorAndRetryPlease || '系统发生了一些错误，请稍候再试')
               }
             } catch (e) {
               console.warn('[HTTP ERROR]', res.data, e)
@@ -195,7 +195,7 @@ export class AirHttp {
                 fail(e)
                 return
               }
-              AirAlert.show(AirI18n.get().SystemError || "系统错误", AirI18n.get().SystemErrorAndRetryPlease || "系统发生了一些错误，请稍候再试")
+              AirAlert.show(AirI18n.get().SystemError || '系统错误', AirI18n.get().SystemErrorAndRetryPlease || '系统发生了一些错误，请稍候再试')
             }
           },
           fail: (res: IJson) => {
@@ -219,7 +219,7 @@ export class AirHttp {
                 .catch(() => fail(res))
             } else {
               this.triedTimes = 0
-              AirAlert.show(AirI18n.get().SystemError || "系统错误", AirI18n.get().CheckYourNetworkPlease)
+              AirAlert.show(AirI18n.get().SystemError || '系统错误', AirI18n.get().CheckYourNetworkPlease)
               fail(res)
             }
           },
@@ -258,7 +258,7 @@ export class AirHttp {
    */
   get(params?: IJson): Promise<any> {
     if (params) {
-      const queryArray = []
+      const queryArray: string[] = []
       // eslint-disable-next-line guard-for-in
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
