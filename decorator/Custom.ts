@@ -7,6 +7,7 @@
  */
 import { AirEnum } from '../base/AirEnum'
 import { AirDecorator } from '../helper/AirDecorator'
+import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEnumKey } from '@/airpower/type/AirType'
@@ -26,7 +27,7 @@ export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionar
   return (target: any, key: string) => {
     if (!(dictionary instanceof AirDictionaryArray)) {
       // 如果不是字典 转为字典
-      dictionary = AirDictionaryArray.create((dictionary as any).toDictionary())
+      dictionary = AirDictionaryArray.create((dictionary as IJson).toDictionary())
     }
     AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
   }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -188,6 +187,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message)
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       await AirAlert.show(err.message, '禁用失败')
     }
@@ -206,6 +206,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message)
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       await AirAlert.show(err.message, '启用失败')
     }
