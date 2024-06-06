@@ -169,8 +169,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
           AirNotification.success(message)
         }
       })
-      .catch(async (err: Error) => {
-        await AirAlert.show(err.message, '删除失败')
+      .catch(async (err) => {
+        await AirAlert.show((err as Error).message, '删除失败')
       })
   }
 
@@ -187,9 +187,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message)
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      await AirAlert.show(err.message, '禁用失败')
+    } catch (err) {
+      await AirAlert.show((err as Error).message, '禁用失败')
     }
   }
 
@@ -206,9 +205,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message)
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      await AirAlert.show(err.message, '启用失败')
+    } catch (err) {
+      await AirAlert.show((err as Error).message, '启用失败')
     }
   }
 
