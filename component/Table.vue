@@ -57,7 +57,7 @@
             <!-- 支持自定义插槽 -->
             <slot
               :data="getRowEntity(scope)"
-              :index="(scope as IJson).$index"
+              :index="scope.$index"
               :name="item.key"
             >
               <span
@@ -211,7 +211,7 @@
             <!-- 自定义操作列前置插槽 -->
             <slot
               :data="getRowEntity(scope)"
-              :index="(scope as IJson).$index"
+              :index="scope.$index"
               name="customRow"
             />
             <template v-if="!hideCtrl">
@@ -255,7 +255,7 @@
                 v-if="isEnableAndDisableShowInline && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
               >
                 <AButton
-                  v-if="(getRowEntity(scope) as AirEntity).isDisabled"
+                  v-if="getRowEntity(scope).isDisabled"
                   :disabled="isDisableChangeStatus(getRowEntity(scope))"
                   :icon-button="!linkButton"
                   :link-button="linkButton"
@@ -296,7 +296,7 @@
             <!-- 自定义操作列后置插槽 -->
             <slot
               :data="getRowEntity(scope)"
-              :index="(scope as IJson).$index"
+              :index="scope.$index"
               name="endRow"
             />
             <el-dropdown
@@ -310,7 +310,7 @@
                 <el-dropdown-menu>
                   <slot
                     :data="getRowEntity(scope)"
-                    :index="(scope as IJson).$index"
+                    :index="scope.$index"
                     name="moreButtons"
                   />
                   <AButton
@@ -341,7 +341,7 @@
                     v-if="enableAndDisableInMore && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
                   >
                     <AButton
-                      v-if="(getRowEntity(scope) as AirEntity).isDisabled"
+                      v-if="getRowEntity(scope).isDisabled"
                       :disabled="isDisableChangeStatus(getRowEntity(scope))"
                       :icon-button="!linkButton"
                       :link-button="linkButton"
@@ -838,7 +838,7 @@ const isFieldSelectorShow = ref(false)
 /**
  * 选择的字段
  */
-const selectedFieldList = ref([] as string[])
+const selectedFieldList = ref<string[]>([])
 
 /**
  * # Entity的实例
@@ -860,10 +860,10 @@ const entityInstance = computed(() => {
  */
 watch(() => AirStore().controlKeyDown, () => {
   isForceDelete.value = !!(AirStore().controlKeyDown
-      && !props.customDelete
-      && !props.hideDelete
-      && props.dataList
-      && props.dataList.length > 0)
+    && !props.customDelete
+    && !props.hideDelete
+    && props.dataList
+    && props.dataList.length > 0)
 })
 
 /**
@@ -1207,7 +1207,7 @@ function handleSortChanged(data: { prop: string; order: string }) {
  * @param scope
  */
 function getRowEntity(scope: IJson): E {
-  return scope.row as E
+  return scope.row
 }
 
 /**
@@ -1278,7 +1278,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 0;
   }
 
@@ -1296,7 +1296,7 @@ init()
   }
 }
 
-.ctrlRow + .el-button {
+.ctrlRow+.el-button {
   margin-left: 12px;
 }
 
@@ -1378,7 +1378,7 @@ init()
   }
 }
 
-.air-table-tool-bar > * {
+.air-table-tool-bar>* {
   margin-bottom: 10px;
 }
 
@@ -1509,7 +1509,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button + .air-button {
+  .air-button+.air-button {
     margin: 0 !important;
   }
 }

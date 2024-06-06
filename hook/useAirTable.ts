@@ -72,5 +72,5 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     onDelete,
     onDisable,
     onEnable,
-  }) as IUseTableResult<E, S>
+  })
 }

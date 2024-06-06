@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, {
-  AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, AxiosResponseHeaders, Method,
+  AxiosRequestConfig, AxiosResponse, Method,
 } from 'axios'
 import { Ref } from 'vue'
 import { AirNotification } from '../feedback/AirNotification'
@@ -114,7 +114,7 @@ export class AirHttp {
     if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers['content-type']) {
       header = { ...header, 'content-type': this.axiosRequestConfig.headers['content-type'] }
     }
-    this.axiosRequestConfig.headers = header as AxiosRequestHeaders
+    this.axiosRequestConfig.headers = header
     return this
   }
 
@@ -132,7 +132,7 @@ export class AirHttp {
    * @param value 请求头value
    */
   addHttpHeader(key: string, value: string): this {
-    this.axiosRequestConfig.headers = this.axiosRequestConfig.headers || {} as AxiosResponseHeaders
+    this.axiosRequestConfig.headers = this.axiosRequestConfig.headers || {}
     this.axiosRequestConfig.headers[key] = value
     return this
   }
@@ -258,7 +258,7 @@ export class AirHttp {
    */
   get(params?: IJson): Promise<any> {
     if (params) {
-      const queryArray = []
+      const queryArray: string[] = []
       // eslint-disable-next-line guard-for-in
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)

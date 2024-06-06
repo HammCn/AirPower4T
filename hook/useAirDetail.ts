@@ -65,5 +65,5 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
     isLoading,
     service,
     getDetail,
-  } as IUseDetailResult<E, S>
+  }
 }

@@ -27,7 +27,7 @@ export class AirError {
     switch (typeof error) {
       case 'object':
         this.code = error?.code || AirCode.ERROR
-        this.message = (error as Error).message || AirI18n.get().ErrorAndSeeConsole || '系统错误,请查看控制台错误信息'
+        this.message = error?.message || AirI18n.get().ErrorAndSeeConsole || '系统错误,请查看控制台错误信息'
         break
       case 'string':
         this.message = error

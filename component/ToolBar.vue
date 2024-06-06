@@ -100,7 +100,7 @@
                 <template v-for="enumItem of item.dictionary || getDictionary(entityInstance, item.key)">
                   <el-option
                     v-if="!enumItem.disabled"
-                    :key="(enumItem.key as string)"
+                    :key="enumItem.key.toString()"
                     :label="enumItem.label"
                     :value="enumItem.key"
                   />
@@ -194,7 +194,7 @@ const props = defineProps({
    * 则覆盖自动生成的条件
    */
   searchParams: {
-    type: Array as unknown as PropType<AirSearchFieldConfig[]>,
+    type: Array<AirSearchFieldConfig>,
     default: undefined,
   },
 
@@ -367,8 +367,7 @@ const entityInstance = computed(() => {
 /**
  * 查询数据
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const data = ref({} as Record<string, any>)
+const data = ref<IJson>({})
 
 /**
  * 内部使用的配置
@@ -459,7 +458,7 @@ const searchFieldList = computed(() => props.searchParams || entityInstance.valu
 /**
  * 查询用的临时JSON
  */
-const filter = ref({} as IJson)
+const filter = ref<IJson>({})
 
 /**
  * 查询用的关键词
@@ -549,7 +548,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 5px;
   }
 
@@ -584,7 +583,7 @@ defineExpose({
       width: 240px;
     }
 
-    > * {
+    >* {
       margin: 0 2px 5px;
     }
 

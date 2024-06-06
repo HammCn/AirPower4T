@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirColor } from '../enum/AirColor'
 import { AirEnumKey } from '../type/AirType'
 
@@ -15,6 +14,7 @@ export interface IDictionary {
   /**
    * # 字典的显示标题
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   label: any
 
   /**

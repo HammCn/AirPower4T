@@ -31,5 +31,5 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
 
   return Object.assign(result, {
     title,
-  }) as IUseSelectorResult<E, S>
+  })
 }

@@ -39,7 +39,7 @@
 
 <script setup lang="ts" generic="E extends AirEntity">
 import {
-  computed, inject, PropType, Ref, ref,
+  computed, inject, PropType, ref,
 } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -118,12 +118,11 @@ if (props.fieldList.length === 0 && !props.field) {
   throw new Error('field和fieldList必传一个！！！')
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const injectFormData = inject('formData') as Ref<any> | undefined
+const injectFormData = inject<IJson>('formData')
 
 // 手动绑定的 v-model 覆盖 自动注入的表单对象
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const formData = ref(props.modelValue) as Ref<any>
+const formData = ref<any>(props.modelValue)
 if (injectFormData && injectFormData.value) {
   formData.value = injectFormData.value
 }
@@ -146,8 +145,7 @@ function onChange(val: unknown) {
   emits('change', formData.value)
   emits('onChange', formData.value)
   if (injectFormData) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (injectFormData.value as any)[props.field] = val
+    (injectFormData.value as IJson)[props.field] = val
   }
 }
 </script>

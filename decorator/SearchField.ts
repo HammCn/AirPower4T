@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /**
  * # 搜索字段的注解
@@ -11,6 +9,7 @@ import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { IJson } from '../interface/IJson'
 
 /**
  *  # 搜索字段key
@@ -26,10 +25,10 @@ const FIELD_LIST_KEY = 'SearchList'
  * # 标记该字段可用于搜索
  * @param config (可选)搜索配置项
  */
-export function Search(config: ISearchFieldConfig = {}): Function {
+export function Search(config: ISearchFieldConfig = {}) {
   if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
     // 如果不是字典 转为字典
-    config.dictionary = AirDictionaryArray.create((config.dictionary as any).toDictionary())
+    config.dictionary = AirDictionaryArray.create((config.dictionary as IJson).toDictionary())
   }
   return (target: any, key: string) => {
     config.key = key

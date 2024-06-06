@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirAlert } from '../feedback/AirAlert'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -175,7 +174,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message, title)
       }
-    } catch (err: any) {
+    } catch (err) {
       await AirAlert.error(err.message, '删除失败')
     }
   }
@@ -194,7 +193,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message, title)
       }
-    } catch (err: any) {
+    } catch (err) {
       await AirAlert.error(err.message, '禁用失败')
     }
   }
@@ -213,7 +212,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       if (message) {
         AirNotification.success(message, title)
       }
-    } catch (err: any) {
+    } catch (err) {
       await AirAlert.error(err.message, '启用失败')
     }
   }

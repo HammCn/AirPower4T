@@ -52,5 +52,5 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
 
   return Object.assign(result, {
     onAddRow,
-  }) as IUseTableTreeResult<E, S>
+  })
 }
