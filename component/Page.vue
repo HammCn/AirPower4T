@@ -50,7 +50,7 @@
               :key="item"
               round
               :disabled="item === disablePageLabel"
-              :type="page.pageNum == parseInt(item,10) ? 'primary' : 'default'"
+              :type="page.pageNum == parseInt(item, 10) ? 'primary' : 'default'"
               @click="pageChanged(item)"
             >
               {{ item }}

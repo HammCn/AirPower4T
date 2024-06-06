@@ -14,7 +14,7 @@ export class AirString {
   static getLength(str: string): number {
     let len = 0
     for (let i = 0; i < str.length;) {
-      const codePoint = str.codePointAt(i) as number
+      const codePoint = str.codePointAt(i)!
       i += (codePoint > this.SINGLE_POINT_LENGTH ? 2 : 1)
       len += 1
     }
@@ -33,7 +33,7 @@ export class AirString {
       throw new Error('AirString.get() Error: index error')
     }
     for (let i = 0; i < str.length;) {
-      const codePoint = str.codePointAt(i) as number
+      const codePoint = str.codePointAt(i)!
       if (current === index) {
         return String.fromCodePoint(codePoint)
       }

@@ -1,5 +1,4 @@
 /* eslint-disable no-continue */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
@@ -51,7 +50,7 @@ export class AirModel {
     const fieldList = Object.keys(this)
     for (const field of fieldList) {
       if (!fields.includes(field)) {
-        (this as any)[field] = undefined
+        (this as IJson)[field] = undefined
       }
     }
     return this
@@ -65,7 +64,7 @@ export class AirModel {
     const fieldList = Object.keys(this)
     for (const field of fieldList) {
       if (fields.includes(field)) {
-        (this as any)[field] = undefined
+        (this as IJson)[field] = undefined
       }
     }
     return this
@@ -80,7 +79,7 @@ export class AirModel {
     const fieldKeyList = Object.keys(this)
     const json: IJson = {}
     for (const fieldKey of fieldKeyList) {
-      const fieldData = (this as any)[fieldKey]
+      const fieldData = (this as IJson)[fieldKey]
       let fieldAliasName = getAlias(this, fieldKey) || fieldKey
       if (!getNoPrefix(this, fieldKey) && getFieldPrefix(this)) {
         // 按忽略前缀规则获取别名
@@ -171,18 +170,18 @@ export class AirModel {
           ? getFieldPrefix(instance)
           : ''
         )
-      + (fieldAliasName || fieldKey)]
+        + (fieldAliasName || fieldKey)]
       if (fieldData === undefined) {
         // 没有值尝试获取默认值
         fieldData = getDefault(instance, fieldKey)
       }
-      (instance as any)[fieldKey] = fieldData
+      (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
       if (toModelFunction !== undefined) {
         // 标记了手动转换到模型的自定义方法
         try {
-          (instance as any)[fieldKey] = toModelFunction((json as any))
+          (instance as IJson)[fieldKey] = toModelFunction(json as IJson)
         } catch (e) {
           // eslint-disable-next-line no-console
           console.warn('ToModel Function Error', e)
@@ -191,7 +190,7 @@ export class AirModel {
       }
       if (getIsArray(instance, fieldKey)) {
         // 是数组 循环转换
-        const fieldValueList: any = []
+        const fieldValueList: IJson[] = []
         if (typeof fieldData === 'object' && Array.isArray(fieldData)) {
           for (let i = 0; i < fieldData.length; i += 1) {
             // 如果标记了类 需要递归处理
@@ -200,12 +199,12 @@ export class AirModel {
             }
           }
         }
-        (instance as any)[fieldKey] = fieldValueList
+        (instance as IJson)[fieldKey] = fieldValueList
         continue
       }
       if (defaultValue !== undefined && (fieldData === undefined || fieldData === null || fieldData === '')) {
         // 如果有默认值 则先给上默认值
-        (instance as any)[fieldKey] = defaultValue
+        (instance as IJson)[fieldKey] = defaultValue
       }
 
       if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
@@ -219,19 +218,19 @@ export class AirModel {
       }
       switch (FieldTypeClass.name) {
         case 'String':
-          (instance as any)[fieldKey] = fieldData.toString()
+          (instance as IJson)[fieldKey] = fieldData.toString()
           break
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          (instance as any)[fieldKey] = (Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData))
+          (instance as IJson)[fieldKey] = (Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData))
           break
         case 'Boolean':
           // 强制转换为布尔型
-          (instance as any)[fieldKey] = !!fieldData
+          (instance as IJson)[fieldKey] = !!fieldData
           break
         default:
           // 是对象 需要递归转换
-          (instance as any)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
+          (instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
       }
     }
 
@@ -240,7 +239,7 @@ export class AirModel {
       const fieldAliasName = getAlias(instance, fieldKey)
 
       if (fieldAliasName && fieldAliasName !== fieldKey) {
-        delete (instance as any)[fieldAliasName]
+        delete (instance as IJson)[fieldAliasName]
       }
     }
     return instance

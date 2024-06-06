@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ChildMenu from './menu/ChildMenu.vue'
 import { IMenu } from '../interface/IMenu'
@@ -22,7 +22,7 @@ defineProps({
    * ### 💡 请确保传入的数组类型为 ```IMenu``` 的实现类
    */
   menuList: {
-    type: Array as PropType<IMenu[]>,
+    type: Array<IMenu>,
     required: true,
   },
 

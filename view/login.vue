@@ -11,8 +11,7 @@ import { AirConfig } from '../config/AirConfig'
 
 const isLoading = ref(true)
 
-// eslint-disable-next-line no-restricted-globals
-location.replace(`${AirConfig.oauthUrl}?appKey=${AirConfig.appKey}&redirectUri=${encodeURIComponent(`${location.origin}/callback`)}`)
+window.location.replace(`${AirConfig.oauthUrl}?appKey=${AirConfig.appKey}&redirectUri=${encodeURIComponent(`${window.location.origin}/callback`)}`)
 </script>
 <style lang="scss" scoped>
 .air-login {

@@ -38,7 +38,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * # 表格行数据数组
    */
-  const list = ref([] as E[]) as Ref<E[]>
+  const list = ref<E[]>([]) as Ref<E[]>
 
   /**
    * # 传入的实体对象
@@ -54,7 +54,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * # 选择的列表
    */
-  const selectList = ref([] as E[]) as Ref<E[]>
+  const selectList = ref([]) as Ref<E[]>
 
   /**
    * # 查询列表事件
@@ -175,5 +175,5 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     onGetList,
     onDetail,
     onReloadData,
-  } as ITableHookResult<E, S>
+  }
 }

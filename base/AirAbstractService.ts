@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Ref } from 'vue'
 import { AirHttp } from '../helper/AirHttp'
 import { AirModel } from '../base/AirModel'

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirNotification } from '../feedback/AirNotification'
 
 /**
@@ -25,7 +24,7 @@ export class AirAssert {
    * @param message 错误信息
    * @param title (可选)错误标题
    */
-  static whenNull(value: any, message: string, title?: string) {
+  static whenNull(value: unknown, message: string, title?: string) {
     return this.when(value === null, message, title)
   }
 
@@ -35,7 +34,7 @@ export class AirAssert {
    * @param message 错误信息
    * @param title (可选)错误标题
    */
-  static whenUndefined(value: any, message: string, title?: string) {
+  static whenUndefined(value: unknown, message: string, title?: string) {
     return this.when(value === undefined, message, title)
   }
 }

@@ -124,7 +124,7 @@
       >
         <el-option
           v-for="item in list || dictionary || fieldConfig?.dictionary || []"
-          :key="(item.key as string)"
+          :key="item.key.toString()"
           :label="item.label"
           :value="item.key"
           :disabled="item.disabled"
@@ -135,7 +135,7 @@
           >
             <span class="label">{{ item.label }}</span>
             <span
-              :style="{ backgroundColor:item.color || AirColor.NORMAL }"
+              :style="{ backgroundColor: item.color || AirColor.NORMAL }"
               class="light"
             />
           </div>
@@ -200,17 +200,13 @@
         #[name]
       >
         <slot :name="name">
-          <template
-            v-if="name==='append' "
-          >
+          <template v-if="name === 'append'">
             {{ customAppend() }}
             <template v-if="fieldConfig && fieldConfig.suffixText">
               {{ fieldConfig?.suffixText }}
             </template>
           </template>
-          <template
-            v-if="name=='suffix'"
-          >
+          <template v-if="name == 'suffix'">
             <el-icon
               v-if="isClearButtonShow"
               @click="onClear()"
@@ -335,7 +331,7 @@ const props = defineProps({
    * 优先级: ```AInput```传入 > ```@FormField```
    */
   list: {
-    type: Object as unknown as PropType<IDictionary[]>,
+    type: Array<IDictionary>,
     default: undefined,
   },
 
@@ -344,7 +340,7 @@ const props = defineProps({
    * 优先级: ```AInput```传入 > ```@FormField```
    */
   tree: {
-    type: Object as unknown as PropType<ITree[]>,
+    type: Array<ITree>,
     default: undefined,
   },
 
@@ -650,7 +646,7 @@ function init() {
 
     if (!placeholderRef.value) {
       const field = fieldConfig.value?.label
-          || entityInstance.value.getFieldName(fieldName.value)
+        || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
@@ -658,9 +654,9 @@ function init() {
         // 装饰了FormField
         if (
           dictionary.value || fieldConfig.value.dictionary
-            || props.list
-            || props.tree
-            || fieldConfig.value.dateType !== undefined
+          || props.list
+          || props.tree
+          || fieldConfig.value.dateType !== undefined
         ) {
           // 传入了枚举值
           placeholderRef.value = AirI18n.get().SelectPlease || '请选择'

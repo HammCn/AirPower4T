@@ -206,7 +206,7 @@ watch(props, () => {
 /**
  * # 上传文件的头
  */
-const uploadHeader = ref({} as IJson)
+const uploadHeader = ref<IJson>({})
 uploadHeader.value = { ...uploadHeader.value, ...props.headers }
 uploadHeader.value[AirConfig.authorizationHeaderKey] = localStorage.getItem(AirConfig.authorizationHeaderKey)
 

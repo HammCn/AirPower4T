@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue'
 import { AMenu } from '.'
 import { IMenu } from '../interface/IMenu'
 
@@ -55,7 +54,7 @@ defineProps({
    * ### 💡 请确保传入的数组类型为 ```IMenu``` 的实现类
    */
   menuList: {
-    type: Array as PropType<Array<IMenu>>,
+    type: Array<IMenu>,
     required: true,
   },
 

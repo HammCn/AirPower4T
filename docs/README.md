@@ -283,7 +283,7 @@ defineProps({
 
 */
 menuList: {
-type: Array as PropType<IMenu[]>,
+type: Array<IMenu>,
 required: true,
 },
 

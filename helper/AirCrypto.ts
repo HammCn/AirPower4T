@@ -49,7 +49,6 @@ export class AirCrypto {
     padding = CryptoJS.pad.Pkcs7,
     iv = AirConfig.aesCbcIvString,
   ): string {
-    console.log(CryptoJS.enc.Utf8.parse(iv))
     return CryptoJS.AES.decrypt(
       data,
       CryptoJS.enc.Base64.parse(key),

@@ -55,7 +55,7 @@
 
 <script lang="ts" setup="props">
 import {
-  computed, PropType, Ref, ref, watch,
+  computed, Ref, ref, watch,
 } from 'vue'
 import { APanel } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -100,7 +100,7 @@ const props = defineProps({
    * # 左侧树的数据
    */
   treeData: {
-    type: Array as PropType<ITree[]>,
+    type: Array<ITree>,
     required: true,
   },
 

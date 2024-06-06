@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirConfig } from './AirConfig'
 import { IJson } from '../interface/IJson'
 import { AirStore } from '../store/AirStore'
@@ -18,7 +17,7 @@ Window.prototype.airConfig = () => {
   console.clear()
   const airConfig: IJson = {}
   Object.keys(AirConfig).forEach((item) => {
-    airConfig[item] = (AirConfig as any)[item]
+    airConfig[item] = (AirConfig as IJson)[item]
   })
   // eslint-disable-next-line no-console
   console.table(airConfig, ['value'])

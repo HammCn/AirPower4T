@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /**
  * # 表单字段的注解
@@ -9,6 +7,7 @@
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IFormFieldConfig } from '../interface/IFormFieldConfig'
+import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { getFieldName } from './Custom'
 
@@ -26,10 +25,10 @@ const FIELD_LIST_KEY = 'FormList'
  * # 标记该字段可用于表单配置
  * @param config (可选)配置项
  */
-export function Form(config: IFormFieldConfig = {}): Function {
+export function Form(config: IFormFieldConfig = {}) {
   if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
     // 如果不是字典 转为字典
-    config.dictionary = AirDictionaryArray.create((config.dictionary as any).toDictionary())
+    config.dictionary = AirDictionaryArray.create((config.dictionary as IJson).toDictionary())
   }
   return (target: any, key: string) => {
     config.key = key

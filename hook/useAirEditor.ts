@@ -78,5 +78,5 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     formRef,
     rules,
     onSubmit,
-  }) as IUseEditorResult<E, S>
+  })
 }

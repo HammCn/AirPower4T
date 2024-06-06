@@ -13,7 +13,7 @@
         class="hidden-button"
       />
       <div
-        :id="dialogIdPrefix+domId"
+        :id="dialogIdPrefix + domId"
         class="main"
         :style="{
           width: width,
@@ -100,6 +100,7 @@ import type { AirFormInstance } from '../type/AirType'
 import { AirStore } from '../store/AirStore'
 import { AirI18n } from '../helper/AirI18n'
 import { AirDialog } from '../helper/AirDialog'
+import { IJson } from '../interface/IJson'
 
 const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
 
@@ -366,10 +367,11 @@ function dialogMouseDownEvent(event: MouseEvent) {
   startX = event.clientX - x.value
   startY = event.clientY - y.value
   isMoving.value = true
+  const dom: HTMLDivElement = document.querySelector(`#${dialogIdPrefix}${domId.value}`)!
   trueWidth = window.innerWidth
-      - (document.querySelector(`#${dialogIdPrefix}${domId.value}`) as HTMLDivElement).offsetWidth
+    - dom.offsetWidth
   trueHeight = window.innerHeight
-      - (document.querySelector(`#${dialogIdPrefix}${domId.value}`) as HTMLDivElement).offsetHeight
+    - dom.offsetHeight
 }
 
 /**
@@ -473,8 +475,7 @@ async function confirmEvent() {
     // 校验抛出了一异常
     const keys = Object.keys(e as Error)
     if (keys.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const list = ((e as any)[keys[0]] as AirValidator[])
+      const list: AirValidator[] = (e as IJson)[keys[0]]
       if (list.length > 0) {
         AirNotification.warning(list[0].message, AirI18n.get().ValidError || '验证失败')
       }

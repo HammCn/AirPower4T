@@ -58,7 +58,7 @@ const content = `tel:${props.param}`
     font-weight: bold;
   }
 
-  > span {
+  >span {
     font-size: 12px;
     color: var(--text-danger-color);
     margin-top: 10px;

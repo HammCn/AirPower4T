@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { ElMessageBox, ElMessageBoxOptions } from 'element-plus'
 import { CSSProperties } from 'vue'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
