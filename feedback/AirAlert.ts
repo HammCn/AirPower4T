@@ -1,4 +1,4 @@
-import { AirI18n } from "../helper/AirI18n"
+import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 消息弹窗类
