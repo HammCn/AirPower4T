@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v2.0.1
+
+### 🎉 Features:
+
+- feat(FormField): 支持了传入`list`和`tree`的参数
+
 ## v2.0.0
 
 ### 🎉 Features:
