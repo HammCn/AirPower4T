@@ -13,6 +13,8 @@
           :disabled="disabled"
           :disabled-value="disabledValue"
           :readonly="readonly"
+          :list="list"
+          :tree="tree"
           @change="onChange($event)"
           @blur="emits('blur'); emits('onBlur')"
           @focus="emits('focus'); emits('onFocus')"
@@ -46,6 +48,8 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AFormField, AInput } from '.'
 import { IJson } from '../interface/IJson'
+import { IDictionary } from '@/airpower/interface/IDictionary'
+import { ITree } from '@/airpower/interface/ITree'
 
 const props = defineProps({
   /**
@@ -108,6 +112,24 @@ const props = defineProps({
    */
   disabledValue: {
     type: [String, Boolean, Number, Array, Object],
+    default: undefined,
+  },
+
+  /**
+   * # 可选数组
+   * 优先级: ```AInput```传入 > ```@FormField```
+   */
+  list: {
+    type: Array<IDictionary>,
+    default: undefined,
+  },
+
+  /**
+   * # 可选树结构
+   * 优先级: ```AInput```传入 > ```@FormField```
+   */
+  tree: {
+    type: Array<ITree>,
     default: undefined,
   },
 })
