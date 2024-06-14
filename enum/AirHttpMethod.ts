@@ -2,7 +2,7 @@
 
 /**
  * # 请求方法枚举
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirHttpMethod {
   GET = 'GET',

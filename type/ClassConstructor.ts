@@ -3,7 +3,7 @@
 
 /**
  * # 类包装
- * @author Hamm
+ * @author Hamm.cn
  */
 export type ClassConstructor<T> = {
   new(...args: any[]): T;

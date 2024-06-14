@@ -4,7 +4,7 @@ import { AirI18n } from '../helper/AirI18n'
 
 /**
  * # 通知基类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirLoading {
   /**

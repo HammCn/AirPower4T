@@ -4,7 +4,7 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 
 /**
  * # 一些定义的类型
- * @author Hamm
+ * @author Hamm.cn
  */
 
 /**

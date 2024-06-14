@@ -9,7 +9,7 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 
 /**
  * # TableHook的基础返回结构
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEntityService<E>> {
   /**

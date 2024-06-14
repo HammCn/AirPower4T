@@ -2,7 +2,7 @@ import { IFieldConfig } from '../interface/IFieldConfig'
 
 /**
  * # 字段配置基类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirFieldConfig implements IFieldConfig {
   key!: string

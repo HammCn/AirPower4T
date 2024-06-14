@@ -1,6 +1,6 @@
 /**
  * # 展示图片模型
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirImageConfig {
   /**

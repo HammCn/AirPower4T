@@ -4,7 +4,7 @@ import { AirConfig } from '../config/AirConfig'
 
 /**
  * # 加解密和散列摘要算法助手类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirCrypto {
   /**

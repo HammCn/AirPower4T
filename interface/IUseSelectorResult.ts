@@ -6,7 +6,7 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 
 /**
  * # 选择器Hook的标准返回
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
 

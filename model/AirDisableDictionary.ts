@@ -4,7 +4,7 @@ import { AirColor } from '../enum/AirColor'
 /**
  * # 禁用启用字典
  *
- * @author Hamm
+ * @author Hamm.cn
  */
 export const AirDisableDictionary = AirDictionaryArray.create([
   {

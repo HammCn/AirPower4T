@@ -2,7 +2,7 @@ import { AirValidator } from '../helper/AirValidator'
 
 /**
  * # 表单验证规则
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IValidateRule {
   /**

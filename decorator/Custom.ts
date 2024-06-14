@@ -3,7 +3,7 @@
 
 /**
  * # 自定义类和属性名注解
- * @author Hamm
+ * @author Hamm.cn
  */
 import { AirEnum } from '../base/AirEnum'
 import { AirDecorator } from '../helper/AirDecorator'

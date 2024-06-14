@@ -4,7 +4,7 @@ import { AirRequest } from './AirRequest'
 
 /**
  * # 导出的数据模型
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel {
   /**

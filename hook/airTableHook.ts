@@ -17,7 +17,7 @@ import { ITableHookResult } from '../interface/ITableHookResult'
  * @param entityClass 实体类
  * @param serviceClass 表格使用的Service类
  * @param option (可选) 更多配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: ITableHookOption<E> = {}): ITableHookResult<E, S> {
   /**

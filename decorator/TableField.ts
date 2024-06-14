@@ -2,7 +2,7 @@
 
 /**
  * # 表格字段的注解
- * @author Hamm
+ * @author Hamm.cn
  */
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'

@@ -19,7 +19,7 @@ import { AirI18n } from '../helper/AirI18n'
  * @param entityClass Editor使用的实体类
  * @param serviceClass Editor使用的Service
  * @param option (可选)更多的配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseEditorOption<E> = {}): IUseEditorResult<E, S> {
   /**

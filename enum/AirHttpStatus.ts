@@ -2,7 +2,7 @@
 
 /**
  * # HTTP状态码枚举
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirHttpStatus {
   /**

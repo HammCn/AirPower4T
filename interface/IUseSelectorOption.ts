@@ -4,7 +4,7 @@ import { ITableHookOption } from './ITableHookOption'
 
 /**
  * # Selector的Hook可选配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IUseSelectorOption<E extends AirEntity> extends ITableHookOption<E> {
   // TODO 暂无

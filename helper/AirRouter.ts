@@ -7,7 +7,7 @@ const modules = import.meta.glob('../../view/**/*.vue')
 
 /**
  * # Vue路由助手
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirRouter {
   /**

@@ -4,7 +4,7 @@ import { AirColor } from '../enum/AirColor'
 
 /**
  * # 标准字典实现类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirDictionary implements IDictionary {
   key!: number | string | boolean

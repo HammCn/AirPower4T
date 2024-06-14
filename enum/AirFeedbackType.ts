@@ -2,7 +2,7 @@
 
 /**
  * # 图标类型
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirFeedbackType {
   /**

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 /**
  * # 全局状态管理器
- * @author Hamm
+ * @author Hamm.cn
  */
 export const AirStore = defineStore('AirStore', {
   state: () => ({

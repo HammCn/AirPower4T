@@ -7,7 +7,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 表格的字段配置接口
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends AirEnum<K> = AirEnum<K>> extends IFieldConfig {
   /**

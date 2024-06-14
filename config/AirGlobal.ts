@@ -4,7 +4,7 @@ import { AirStore } from '../store/AirStore'
 
 /**
  * # 一些全局使用的扩展方法
- * @author Hamm
+ * @author Hamm.cn
  */
 declare global {
   interface Window {

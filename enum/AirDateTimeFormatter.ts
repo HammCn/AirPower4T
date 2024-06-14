@@ -3,7 +3,7 @@
 
 /**
  * # 标准时间格式化
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirDateTimeFormatter {
   /**

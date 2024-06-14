@@ -2,7 +2,7 @@ import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准公共选择器接口
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface ISelector extends AirEntity {
   /**

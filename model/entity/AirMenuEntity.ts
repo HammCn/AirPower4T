@@ -6,7 +6,7 @@ import { IMenu } from '../../interface/IMenu'
  * # 内置菜单实体
  * ---
  * 💡 如需扩展, 请自行实现 ```IMenu```
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirMenuEntity extends AirEntity implements IMenu {
   // eslint-disable-next-line no-use-before-define

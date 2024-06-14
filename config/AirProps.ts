@@ -4,7 +4,7 @@ import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 使用无参DialogProps配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export function airProps() {
   return {

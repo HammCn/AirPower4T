@@ -14,7 +14,7 @@ import { AirI18n } from '../helper/AirI18n'
  * @param entityClass 实体类
  * @param serviceClass Selector使用的Service类
  * @param option (可选) 更多配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E, S> {
   /**

@@ -4,7 +4,7 @@ import { AirModel } from '../base/AirModel'
 
 /**
  * # API服务超类
- * @author Hamm
+ * @author Hamm.cn
  */
 export abstract class AirAbstractService extends AirModel {
   /**

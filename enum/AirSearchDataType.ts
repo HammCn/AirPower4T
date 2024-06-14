@@ -2,7 +2,7 @@
 
 /**
  * # 搜索的数据类型
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirSearchDataType {
   /**

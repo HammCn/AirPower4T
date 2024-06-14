@@ -2,7 +2,7 @@
 
 /**
  * # 返回状态码
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirCode {
   /**

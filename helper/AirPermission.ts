@@ -6,7 +6,7 @@ import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 权限标识处理类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirPermission {
   /**

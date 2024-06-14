@@ -1,6 +1,6 @@
 /**
  * # 为类标记配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IEntityConfig {
   /**

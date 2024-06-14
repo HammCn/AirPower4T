@@ -4,7 +4,7 @@ import { AirWebSocketPayload } from './AirWebSocketPayload'
 
 /**
  * # WebSocket事件
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirWebsocketEvent extends AirModel {
   /**

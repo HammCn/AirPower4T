@@ -2,7 +2,7 @@
 
 /**
  * # 内置的AirPower图标
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirIcon {
   /**
