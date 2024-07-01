@@ -1,6 +1,6 @@
 /**
  * # 控制台输出助手
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirConsole {
   /**

@@ -2,7 +2,7 @@ import { INormalTreeProps } from './INormalTreeProps'
 
 /**
  * # 级联面板配置项
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface ICascaderProps extends INormalTreeProps {
   /**

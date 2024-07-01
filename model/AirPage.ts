@@ -3,7 +3,7 @@ import { Type } from '../decorator/Custom'
 
 /**
  * # 分页类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirPage extends AirModel {
   /**

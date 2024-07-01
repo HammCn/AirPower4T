@@ -2,7 +2,7 @@
 
 /**
  * # AInput使用的时间格式
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirDateTimeType {
   /**

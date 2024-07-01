@@ -14,7 +14,7 @@ import { AirI18n } from './AirI18n'
 
 /**
  * # 网络请求类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirHttp {
   /**

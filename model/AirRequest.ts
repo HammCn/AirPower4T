@@ -7,7 +7,7 @@ import { AirSort } from './AirSort'
 
 /**
  * # 请求类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   /**

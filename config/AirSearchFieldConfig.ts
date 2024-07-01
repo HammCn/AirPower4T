@@ -6,7 +6,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
  * # 查询字段配置实现类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirSearchFieldConfig extends AirFieldConfig implements ISearchFieldConfig {
   hide = false

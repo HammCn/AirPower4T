@@ -13,7 +13,7 @@ import { useAirTable } from './useAirTable'
  * @param entityClass 实体类
  * @param serviceClass 表格使用的Service类
  * @param option (可选) 更多配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
   // 设置不分页

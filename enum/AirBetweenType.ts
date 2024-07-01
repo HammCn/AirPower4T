@@ -2,7 +2,7 @@
 
 /**
  * # 区间类型
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirBetweenType {
   /**

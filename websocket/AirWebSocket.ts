@@ -3,7 +3,7 @@ import { AirWebsocketEvent } from './AirWebSocketEvent'
 
 /**
  * # 内置的Websocket助手
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirWebsocket {
   /**

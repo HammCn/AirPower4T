@@ -14,7 +14,7 @@ import { AirI18n } from '../helper/AirI18n'
  * @param entityClass 详情使用的实体类
  * @param serviceClass 详情使用的Service
  * @param option (可选)更多的配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
   /**

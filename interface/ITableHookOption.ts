@@ -5,7 +5,7 @@ import { AirRequestPage } from '../model/AirRequestPage'
 
 /**
  * # 表格相关的根级配置项
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface ITableHookOption<E extends AirEntity> {
   /**

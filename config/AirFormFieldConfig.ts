@@ -8,7 +8,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
  * # 表单字段配置实现类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirFormFieldConfig extends AirFieldConfig implements IFormFieldConfig {
   dateFormatter = AirDateTimeFormatter.TIMESTAMP

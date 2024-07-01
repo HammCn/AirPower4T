@@ -2,7 +2,7 @@
 
 /**
  * # 实体的配置项注解
- * @author Hamm
+ * @author Hamm.cn
  */
 import { AirDecorator } from '../helper/AirDecorator'
 import { IEntityConfig } from '../interface/IEntityConfig'

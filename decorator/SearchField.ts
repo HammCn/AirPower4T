@@ -2,7 +2,7 @@
 
 /**
  * # 搜索字段的注解
- * @author Hamm
+ * @author Hamm.cn
  */
 import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'

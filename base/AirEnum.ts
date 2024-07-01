@@ -7,7 +7,7 @@ import { AirEnumKey } from '../type/AirType'
 
 /**
  * # 枚举基类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**

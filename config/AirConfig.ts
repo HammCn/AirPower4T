@@ -17,13 +17,13 @@ import { AirApi } from './AirApi'
  * # AirPower 全局配置
  * ---
  * 💡 可自行在 ```main.ts``` 中覆盖此类中的配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v2.0.1'
+  static readonly version = 'v2.0.2'
 
   /**
    * # AppKey
@@ -120,8 +120,8 @@ export class AirConfig {
    * @param permissions 权限列表
    */
   static savePermissionList(permissions: string[]) {
-    this.permissionList = permissions
-    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(permissions))
+    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
+    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
   }
 
   /**
@@ -141,7 +141,7 @@ export class AirConfig {
    * @param permission 权限标识
    */
   static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission)
+    return this.permissionList.includes(permission.toLowerCase())
   }
 
   /**

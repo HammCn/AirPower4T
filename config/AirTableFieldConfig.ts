@@ -6,7 +6,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**
  * # 表格的字段配置实现类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldConfig {
   hide = false

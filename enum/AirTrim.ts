@@ -2,7 +2,7 @@
 
 /**
  * # 去空格方式枚举
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirTrim {
   /**

@@ -16,7 +16,7 @@ import { AirAbstractService } from './AirAbstractService'
  * ### 💡 包含了常用的增删改查等方法
  *
  * @param E 泛型实体类 ```AirEntity``` 的子类
- * @author Hamm
+ * @author Hamm.cn
  */
 export abstract class AirAbstractEntityService<E extends AirEntity> extends AirAbstractService {
   /**

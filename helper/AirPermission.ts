@@ -6,9 +6,14 @@ import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 权限标识处理类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirPermission {
+  /**
+   * # 下划线
+   */
+  private static readonly UNDER_LINE = '_'
+
   /**
    * # 获取指定实体类在某个场景的权限标识字符串
    * @param EntityClass 实体类
@@ -26,29 +31,30 @@ export class AirPermission {
       // 自动处理权限
       if (!entityConfig.permissionPrefix) {
         // 没有配置前缀 从类中获取权限前缀
-        const entityName = EntityClass.name.replace('Entity', '_').toString()
-        entityConfig.permissionPrefix = entityName.slice(0, 1).toLocaleLowerCase() + entityName.slice(1)
+        const entityName = EntityClass.name.replace('Entity', '').toString()
+        entityConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
       }
     } else {
       // 如不自动配置权限, 则将权限前缀清空
       entityConfig.permissionPrefix = ''
     }
+    const permissionPrefix = entityConfig.permissionPrefix + this.UNDER_LINE
 
     switch (action) {
       case AirPermissionAction.ADD:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.addPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.addPermission, action)
       case AirPermissionAction.DELETE:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.deletePermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.deletePermission, action)
       case AirPermissionAction.EDIT:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.editPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.editPermission, action)
       case AirPermissionAction.DETAIL:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.detailPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.detailPermission, action)
       case AirPermissionAction.ADD_CHILD:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.addChildPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.addChildPermission, action)
       case AirPermissionAction.EXPORT:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.exportPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.exportPermission, action)
       case AirPermissionAction.IMPORT:
-        return entityConfig.permissionPrefix + this.getAutoPermissionFlag(entityConfig.importPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.importPermission, action)
       default:
     }
     return ''

@@ -2,7 +2,7 @@ import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准用户接口
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IUser extends AirEntity {
   /**

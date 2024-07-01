@@ -4,7 +4,7 @@ import { IJson } from './IJson'
 
 /**
  * # 上传配置项
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IUploadConfig {
   /**

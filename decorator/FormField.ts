@@ -2,7 +2,7 @@
 
 /**
  * # 表单字段的注解
- * @author Hamm
+ * @author Hamm.cn
  */
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'

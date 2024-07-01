@@ -15,7 +15,7 @@ import { AirStore } from '../store/AirStore'
 
 /**
  * # 弹窗助手类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirDialog {
   /**

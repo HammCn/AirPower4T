@@ -2,7 +2,7 @@
 
 /**
  * # HTTP ContentType
- * @author Hamm
+ * @author Hamm.cn
  */
 export enum AirHttpContentType {
   /**

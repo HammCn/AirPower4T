@@ -5,7 +5,7 @@ import { IValidateRule } from './IValidateRule'
 
 /**
  * # Editor的Hook可选配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<E> {
   /**

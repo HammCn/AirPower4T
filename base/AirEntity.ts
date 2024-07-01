@@ -5,7 +5,7 @@ import { AirDisableDictionary } from '../model/AirDisableDictionary'
 
 /**
  * # 实体超类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirEntity extends AirModel {
   /**

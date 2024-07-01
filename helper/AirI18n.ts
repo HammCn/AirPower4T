@@ -27,7 +27,7 @@ import { AirI18nDefault } from '../model/AirI18nDefault'
  *  abstract Hello_World: string
  * }
  * ```
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirI18n extends AirI18nDefault {
   /**

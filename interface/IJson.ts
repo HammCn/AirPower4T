@@ -1,6 +1,6 @@
 /**
  * # 标准的JSON数据
- * @author Hamm
+ * @author Hamm.cn
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface IJson<V = any> {
