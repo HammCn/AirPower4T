@@ -1,7 +1,7 @@
 <template>
   <el-link
     v-if="iconButton"
-    v-tip="permission && !AirConfig.getPermissionList().includes(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
+    v-tip="permission && !AirConfig.hasPermission(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
     class="air-button"
     :class="customClass"
     :type="danger ? 'danger' : 'default'"
@@ -16,7 +16,7 @@
   </el-link>
   <el-button
     v-else
-    v-tip="permission && !AirConfig.getPermissionList().includes(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
+    v-tip="permission && !AirConfig.hasPermission(permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : tooltip"
     class="air-button"
     :class="customClass"
     :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
@@ -143,8 +143,7 @@ const isDisabled = computed(() => {
     return true
   }
   if (props.permission) {
-    return !AirConfig.getPermissionList()
-      .includes(props.permission)
+    return !AirConfig.hasPermission(props.permission)
   }
   return false
 })
