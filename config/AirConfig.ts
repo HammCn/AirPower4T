@@ -121,7 +121,7 @@ export class AirConfig {
    */
   static savePermissionList(permissions: string[]) {
     this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
-    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(permissions))
+    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
   }
 
   /**
