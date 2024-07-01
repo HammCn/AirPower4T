@@ -120,7 +120,7 @@ export class AirConfig {
    * @param permissions 权限列表
    */
   static savePermissionList(permissions: string[]) {
-    this.permissionList = permissions
+    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
     AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(permissions))
   }
 
@@ -141,7 +141,7 @@ export class AirConfig {
    * @param permission 权限标识
    */
   static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission)
+    return this.permissionList.includes(permission.toLowerCase())
   }
 
   /**

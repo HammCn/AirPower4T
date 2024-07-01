@@ -27,7 +27,7 @@ export class AirPermission {
       if (!entityConfig.permissionPrefix) {
         // 没有配置前缀 从类中获取权限前缀
         const entityName = EntityClass.name.replace('Entity', '_').toString()
-        entityConfig.permissionPrefix = entityName.slice(0, 1).toLocaleLowerCase() + entityName.slice(1)
+        entityConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
       }
     } else {
       // 如不自动配置权限, 则将权限前缀清空
