@@ -8,9 +8,14 @@ import { AirRequest } from './AirRequest'
  */
 export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel {
   /**
-   * # 导出请求的API地址
+   * # 创建导出任务的API地址
    */
-  @Type(String) url!: string
+  @Type(String) createExportTaskUrl!: string
+
+  /**
+   * # 查询导出结果的API地址
+   */
+  @Type(String) queryExportUrl!: string
 
   /**
    * # 请求的参数
@@ -22,19 +27,4 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
    * ! 传参用
    */
   @Type(String) fileCode!: string
-
-  /**
-   * # 实例化一个导出模型
-   * @param url (可选) 导出URL地址
-   * @param param (可选) 导出的查询参数
-   */
-  constructor(url?: string, param?: R) {
-    super()
-    if (url) {
-      this.url = url
-    }
-    if (param) {
-      this.param = param
-    }
-  }
 }

@@ -8,7 +8,6 @@ import { AUpload } from '../component'
 import ExportView from '../component/toolbar/Export.vue'
 import { IUploadConfig } from '../interface/IUploadConfig'
 import { IFile } from '../interface/IFile'
-import { AirRequest } from '../model/AirRequest'
 import { AirEntity } from '../base/AirEntity'
 import { IJson } from '../interface/IJson'
 import { AirStore } from '../store/AirStore'
@@ -131,12 +130,10 @@ export class AirDialog {
 
   /**
    * # 创建一个导出任务
-   * @param url 接口地址
-   * @param exportParam (可选)导出request参数对象
+   * @param exportParam (可选)导出参数对象
    */
-  static async createExportTask<R extends AirRequest>(url: string, exportParam?: R): Promise<unknown> {
-    const param = new AirExportModel(url, exportParam)
-    return this.show(ExportView, param)
+  static async createExportTask(exportModel: AirExportModel): Promise<unknown> {
+    return this.show(ExportView, exportModel)
   }
 
   /**

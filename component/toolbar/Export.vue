@@ -46,6 +46,7 @@ import { AirFile } from '../../helper/AirFile'
 import { AirHttp } from '../../helper/AirHttp'
 import { airPropsParam } from '../../config/AirProps'
 import { AirI18n } from '../../helper/AirI18n'
+import { IJson } from '../../interface/IJson'
 
 const props = defineProps(airPropsParam(new AirExportModel()))
 
@@ -81,7 +82,7 @@ async function startLoop(fileCode: string) {
   try {
     const exportModel = new AirExportModel()
     exportModel.fileCode = fileCode
-    const downloadPath = await AirHttp.create('file/download').callbackError()
+    const downloadPath = await AirHttp.create(props.param.queryExportUrl).callbackError()
       .post(exportModel) as unknown as string
     isLoading.value = false
     exportFilePath.value = AirFile.getStaticFileUrl(downloadPath)
@@ -108,9 +109,11 @@ async function createExportTask() {
   isLoading.value = true
   try {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
-    const json = props.param.param.toJson()
-    json.page = undefined
-    const fileCode: string = await AirHttp.create(props.param.url).post(json) as unknown as string
+    const exportRequest = props.param.param;
+
+    // 导出数据无需分页
+    (exportRequest as IJson).page = undefined
+    const fileCode: string = await AirHttp.create(props.param.createExportTaskUrl).post(exportRequest) as unknown as string
     // 轮询任务结果
     startLoop(fileCode)
   } catch (e) {
