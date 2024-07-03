@@ -23,7 +23,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v2.0.2'
+  static readonly version = 'v2.1.1'
 
   /**
    * # AppKey
@@ -447,26 +447,4 @@ export class AirConfig {
    * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```importTemplateUrl```
    */
   static importTemplateUrl = 'importTemplate'
-
-  /**
-   * # 默认同步导出URL
-   *
-   * ---
-   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-   *
-   * ---
-   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportSyncUrl```
-   */
-  static exportSyncUrl = 'exportSync'
-
-  /**
-   * # 默认异步导出URL
-   *
-   * ---
-   * 😈 请注意 请勿包含 ```baseUrl``` 和 ```apiUrl```
-   *
-   * ---
-   * 将自动拼接 ```apiUrl``` + ```baseUrl``` + ```exportUrl```
-   */
-  static exportUrl = 'export'
 }

@@ -82,7 +82,7 @@ async function startLoop(fileCode: string) {
   try {
     const exportModel = new AirExportModel()
     exportModel.fileCode = fileCode
-    const downloadPath = await AirHttp.create('user/queryExport').callbackError()
+    const downloadPath = await AirHttp.create(props.param.queryExportUrl).callbackError()
       .post(exportModel) as unknown as string
     isLoading.value = false
     exportFilePath.value = AirFile.getStaticFileUrl(downloadPath)
@@ -113,7 +113,7 @@ async function createExportTask() {
 
     // 导出数据无需分页
     (exportRequest as IJson).page = undefined
-    const fileCode: string = await AirHttp.create(props.param.url).post(exportRequest) as unknown as string
+    const fileCode: string = await AirHttp.create(props.param.createExportTaskUrl).post(exportRequest) as unknown as string
     // 轮询任务结果
     startLoop(fileCode)
   } catch (e) {

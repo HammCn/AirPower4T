@@ -155,6 +155,7 @@ import { IJson } from '../interface/IJson'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { getDictionary } from '../decorator/Custom'
 import { AirI18n } from '../helper/AirI18n'
+import { AirExportModel } from '../model/AirExportModel'
 
 const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
 
@@ -244,15 +245,6 @@ const props = defineProps({
   },
 
   /**
-   * # 导出接口地址 如传入则优先使用
-   * 默认按传入的service自动生成
-   */
-  exportUrl: {
-    type: String,
-    default: undefined,
-  },
-
-  /**
    * # 导出的请求参数
    */
   exportParam: {
@@ -263,21 +255,11 @@ const props = defineProps({
   /**
    * # 是否显示导出按钮
    * ---
-   * 💡 如传入 则需要再传入 ```:service``` 或 ```:export-url```
+   * 💡 如传入 则需要再传入 ```:service```
    */
   showExport: {
     type: Boolean,
     default: false,
-  },
-
-  /**
-   * # 异步导出
-   * ---
-   * 💡 建议数据量大的导出功能都使用这个方法
-   */
-  exportAsync: {
-    type: Boolean,
-    default: true,
   },
 
   /**
@@ -410,21 +392,17 @@ function getUrlWithAccessToken(url: string) {
  * 导出方法
  */
 function onExport() {
-  let url = props.exportUrl
-  if (!url) {
-    // 没有自定义传入 则自动生成
-    if (!props.service) {
-      AirNotification.error('请为ToolBar传入service或者exportUrl', '导出失败')
-      return
-    }
-    const service = AirClassTransformer.newInstance(props.service)
-    url = `${service.baseUrl}/${props.exportAsync ? AirConfig.exportUrl : AirConfig.exportSyncUrl}`
-  }
-  if (props.exportAsync) {
-    AirDialog.createExportTask(url, request.value)
+  if (!props.service) {
+    AirNotification.error('请为ToolBar传入service', '导出失败')
     return
   }
-  window.open(AirConfig.apiUrl + getUrlWithAccessToken(url))
+
+  const service = AirClassTransformer.newInstance(props.service)
+  const exportModel = new AirExportModel()
+  exportModel.param = request.value
+  exportModel.createExportTaskUrl = `${service.baseUrl}/export`
+  exportModel.queryExportUrl = `${service.baseUrl}/queryExport`
+  AirDialog.createExportTask(exportModel)
 }
 
 /**
