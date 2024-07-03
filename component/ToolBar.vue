@@ -113,6 +113,7 @@
                 clearable
                 @clear="onSearch"
                 @keydown.enter="onSearch"
+                @blur="onSearch()"
               />
             </slot>
           </div>
@@ -276,7 +277,7 @@ const props = defineProps({
    */
   exportAsync: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 
   /**
@@ -469,21 +470,21 @@ const keyword = ref('')
  * 查询事件
  */
 function onSearch() {
-  const request = new AirRequest(props.entity)
+  request.value = new AirRequestPage(props.entity)
   const keys = Object.keys(data.value)
   keys.forEach((key) => {
     if (data.value[key] === '') {
       data.value[key] = undefined
     }
   })
-  request.filter = AirClassTransformer.newInstance(props.entity)
+  request.value.filter = AirClassTransformer.newInstance(props.entity)
     .recoverBy(data.value)
-  if ((request as AirRequestPage<AirEntity>).page) {
-    (request as AirRequestPage<AirEntity>).page.pageNum = 1
+  if (request.value.page) {
+    request.value.page.pageNum = 1
   }
-  request.keyword = keyword.value.trimEnd()
+  request.value.keyword = keyword.value.trimEnd()
     .trimStart()
-  emits('onSearch', request)
+  emits('onSearch', request.value)
 }
 
 /**
