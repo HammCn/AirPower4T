@@ -109,9 +109,11 @@ async function createExportTask() {
   isLoading.value = true
   try {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
-    const json = props.param.param;
-    (json as IJson).page = undefined
-    const fileCode: string = await AirHttp.create(props.param.url).post(json) as unknown as string
+    const exportRequest = props.param.param;
+
+    // 导出数据无需分页
+    (exportRequest as IJson).page = undefined
+    const fileCode: string = await AirHttp.create(props.param.url).post(exportRequest) as unknown as string
     // 轮询任务结果
     startLoop(fileCode)
   } catch (e) {
