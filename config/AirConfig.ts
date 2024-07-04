@@ -10,7 +10,7 @@ import { IUser } from '../interface/IUser'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
-import { AirMoneyDirection } from '../type/AirType'
+import { AirCodeNumber, AirMoneyDirection } from '../type/AirType'
 import { AirApi } from './AirApi'
 
 /**
@@ -93,17 +93,17 @@ export class AirConfig {
   /**
    * # 全局http请求返回 成功状态码
    */
-  static successCode: AirCode | number = AirCode.SUCCESS
+  static successCode: AirCodeNumber = AirCode.SUCCESS
 
   /**
    * # 全局http请求返回 继续状态码
    */
-  static continueCode: AirCode | number = AirCode.CONTINUE
+  static continueCode: AirCodeNumber = AirCode.CONTINUE
 
   /**
    * # 全局http请求返回 登录状态码
    */
-  static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
+  static unAuthorizeCode: AirCodeNumber = AirCode.UNAUTHORIZED
 
   /**
    * # 权限列表
