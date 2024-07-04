@@ -247,7 +247,7 @@ import { AirEntity } from '../base/AirEntity'
 import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
-import { AirColor } from '@/airpower/enum/AirColor'
+import { AirColor } from '../enum/AirColor'
 
 const isCustomAppend = ref(false)
 
