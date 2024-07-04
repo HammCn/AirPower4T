@@ -10,6 +10,7 @@ import { AirClassTransformer } from './AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirI18n } from './AirI18n'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 表单验证工具
@@ -224,9 +225,10 @@ export class AirValidator {
    * # 创建验证器
    * @param form 表单对象
    * @param service 接口服务对象
-   * @param formRules (可选)表单验证规则
+   * @param rules (可选)表单验证规则
    */
-  static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(form: T, service: S, formRules: IValidateRule = {}) {
+  static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(form: T, service: S, rules: IValidateRule<T> = {}) {
+    const formRules: IJson = rules
     const entity = AirClassTransformer.newInstance(service.entityClass)
     const formFieldList = entity.getFormFieldConfigList()
     for (let i = 0; i < formFieldList.length; i += 1) {
@@ -274,7 +276,7 @@ export class AirValidator {
         (formRules[fieldKey]).push(AirValidator.show('').ifNotTest(config.regExp))
       }
     }
-    return formRules
+    return formRules as IValidateRule<T>
   }
 
   /**

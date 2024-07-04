@@ -12,6 +12,7 @@ import { useAirDetail } from './useAirDetail'
 import { IJson } from '../interface/IJson'
 import { AirConfig } from '../config/AirConfig'
 import { AirI18n } from '../helper/AirI18n'
+import { IValidateRule } from '../interface/IValidateRule'
 
 /**
  * # 引入Editor的Hook
@@ -35,7 +36,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * # 自动生成的验证规则
    */
-  const rules = result.service.createValidator(props.param, option.customRules || {})
+  const rules : IValidateRule<E> = result.service.createValidator(props.param, option.customRules || {})
 
   /**
    * # 表单实例

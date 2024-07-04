@@ -11,7 +11,7 @@ export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<
   /**
    * # 自定义验证
    */
-  customRules?: IValidateRule,
+  customRules?: IValidateRule<E>,
 
   /**
    * # 编辑成功的提示消息
