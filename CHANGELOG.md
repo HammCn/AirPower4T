@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v2.1.2
+
+### 🎉 Features:
+
+- feat(type): 内置了一些标准数据类型别名
+- feat(Rules): 添加了useAirEditor自定义验证器的类型约束
+
+### 🐞 Bug fixes:
+
+- fix(component): 修正组件及装饰器中导入路径的相对引用
+- docs(IFieldConfig): 将@FieldName替换为@Field注解说明
+
 ## v2.1.1
 
 ### 🎉 Features:
