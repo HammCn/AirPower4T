@@ -1,7 +1,9 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
-import { AirEnumKey, AirMoneyDirection } from '../type/AirType'
+import {
+  AirEnumKey, AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
+} from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { ClassConstructor } from '../type/ClassConstructor'
 
@@ -33,7 +35,7 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
   /**
    * # 是否表格浮动字段
    */
-  fixed?: 'left' | 'right';
+  fixed?: AirTableFixed;
 
   /**
    * # 排序 越大越靠左边
@@ -64,7 +66,7 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
    * ---
    * 💡 ```custom``` 为自定义排序, ```ATable``` 组件将触发 ```onSortChange``` 事件
    */
-  sortable?: boolean | 'custom';
+  sortable?: AirSortable;
 
   /**
    * # 强制显示到表格列 不允许取消勾选
@@ -74,7 +76,7 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
   /**
    * # 列对齐方式
    */
-  align?: 'right' | 'left' | 'center';
+  align?: AirTableAlign;
 
   /**
    * # 前置文字

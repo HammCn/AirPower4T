@@ -24,7 +24,7 @@ export interface IUseEditorResult<E extends AirEntity, S extends AirAbstractEnti
    * ---
    * 💡 你可以绑定到 ```el-form``` 的 ```:rules``` 上
    */
-  rules: IValidateRule,
+  rules: IValidateRule<E>,
 
   /**
    * # 表单提交的方法

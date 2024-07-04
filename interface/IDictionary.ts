@@ -1,5 +1,4 @@
-import { AirColor } from '../enum/AirColor'
-import { AirEnumKey } from '../type/AirType'
+import { AirColorString, AirEnumKey } from '../type/AirType'
 
 /**
  * # 标准字典 用于全局固定枚举字典的声明
@@ -22,7 +21,7 @@ export interface IDictionary {
    * ---
    * ### 💡 支持 ```AirColor``` 标准色 / 十六进制 / HTML标准色
    */
-  color?: AirColor | string
+  color?: AirColorString
 
   /**
    * # 是否被禁用

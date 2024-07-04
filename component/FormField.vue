@@ -48,8 +48,8 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AFormField, AInput } from '.'
 import { IJson } from '../interface/IJson'
-import { IDictionary } from '@/airpower/interface/IDictionary'
-import { ITree } from '@/airpower/interface/ITree'
+import { IDictionary } from '../interface/IDictionary'
+import { ITree } from '../interface/ITree'
 
 const props = defineProps({
   /**

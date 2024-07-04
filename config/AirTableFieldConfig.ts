@@ -3,6 +3,7 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirSortable, AirTableAlign, AirTableFixed } from '../type/AirType'
 
 /**
  * # 表格的字段配置实现类
@@ -17,7 +18,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   minWidth?: number
 
-  fixed?: 'left' | 'right'
+  fixed?: AirTableFixed
 
   orderNumber = 1
 
@@ -27,11 +28,11 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   showColor = false
 
-  sortable: boolean | 'custom' = false
+  sortable: AirSortable = false
 
   forceShow = false
 
-  align?: 'right' | 'left' | 'center'
+  align?: AirTableAlign
 
   prefixText?: string
 
