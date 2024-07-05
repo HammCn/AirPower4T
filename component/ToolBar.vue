@@ -159,7 +159,11 @@ import { getDictionary } from '../decorator/Custom'
 import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
 
-const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
+const emits = defineEmits<{
+  onSearch: [request: AirRequestPage<E>],
+  onAdd: [],
+  onReset: []
+}>()
 
 const props = defineProps({
   /**
