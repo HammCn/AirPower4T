@@ -4,7 +4,7 @@ import { AirSortType } from '../enum/AirSortType'
 
 /**
  * # 排序类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirSort extends AirModel {
   /**

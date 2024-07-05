@@ -2,7 +2,7 @@ import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准文件
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface IFile extends AirEntity {
   /**

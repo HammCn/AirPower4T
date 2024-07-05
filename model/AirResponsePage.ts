@@ -6,7 +6,7 @@ import { AirSort } from './AirSort'
 
 /**
  * # 响应分页类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirResponsePage<E extends AirEntity> extends AirModel {
   /**

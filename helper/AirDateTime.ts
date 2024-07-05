@@ -6,7 +6,7 @@ import { IJson } from '../interface/IJson'
 
 /**
  * # 时间日期时间戳格式化类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirDateTime {
   /**

@@ -3,7 +3,7 @@ import { AirLanguage } from '../enum/AirLanguage'
 
 /**
  * # 内置的一些i18n文案
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirI18nDefault {
   /**

@@ -6,7 +6,7 @@ import { AirClassTransformer } from './AirClassTransformer'
 
 /**
  * # 装饰器助手类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirDecorator {
   /**

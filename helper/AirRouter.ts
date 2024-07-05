@@ -4,7 +4,7 @@ import { IJson } from '../interface/IJson'
 
 /**
  * # 路由助手
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirRouter {
   /**

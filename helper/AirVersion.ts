@@ -1,6 +1,6 @@
 /**
  * # 依赖版本检测
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirVersion {
   /**

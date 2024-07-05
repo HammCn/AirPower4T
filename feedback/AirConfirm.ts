@@ -4,7 +4,7 @@ import { IJson } from '../interface/IJson'
 /**
  * # 确认弹窗类
  * 可通过 ```.create()``` 方法创建自定义实例
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirConfirm extends AirAlert {
   /**

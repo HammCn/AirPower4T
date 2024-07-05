@@ -5,7 +5,7 @@ import { ITree } from '../interface/ITree'
 
 /**
  * # 转换类型助手
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirClassTransformer {
   /**

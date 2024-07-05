@@ -5,7 +5,7 @@ import { AirRequest } from './AirRequest'
 
 /**
  * # 请求分页类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirRequestPage<E extends AirEntity> extends AirRequest<E> {
   /**

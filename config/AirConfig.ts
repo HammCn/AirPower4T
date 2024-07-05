@@ -1,18 +1,19 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
 import { AirApi } from './AirApi'
+import { AirCodeNumber } from '../type/AirType'
 
 /**
  * # AirPower 全局配置
  * ---
  * 💡 可自行在 ```main.ts``` 中覆盖此类中的配置
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v2.0.0-beta.2'
+  static readonly version = 'v2.1.3'
 
   /**
    * # AppKey
@@ -87,17 +88,17 @@ export class AirConfig {
   /**
    * # 全局http请求返回 成功状态码
    */
-  static successCode: AirCode | number = AirCode.SUCCESS
+  static successCode: AirCodeNumber = AirCode.SUCCESS
 
   /**
    * # 全局http请求返回 继续状态码
    */
-  static continueCode: AirCode | number = AirCode.CONTINUE
+  static continueCode: AirCodeNumber = AirCode.CONTINUE
 
   /**
    * # 全局http请求返回 登录状态码
    */
-  static unAuthorizeCode: AirCode | number = AirCode.UNAUTHORIZED
+  static unAuthorizeCode: AirCodeNumber = AirCode.UNAUTHORIZED
 
   /**
    * # 全局http请求返回 要求更新版本
@@ -119,8 +120,8 @@ export class AirConfig {
    * @param permissions 权限列表
    */
   static savePermissionList(permissions: string[]) {
-    this.permissionList = permissions
-    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(permissions))
+    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
+    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
   }
 
   /**
@@ -140,7 +141,7 @@ export class AirConfig {
    * @param permission 权限标识
    */
   static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission)
+    return this.permissionList.includes(permission.toLowerCase())
   }
 
   /**
