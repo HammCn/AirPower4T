@@ -12,8 +12,8 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirI18n } from './AirI18n'
 
 /**
- * # 封装的网络请求类
- * @author Hamm
+ * # 网络请求类
+ * @author Hamm.cn
  */
 export class AirHttp {
   /**

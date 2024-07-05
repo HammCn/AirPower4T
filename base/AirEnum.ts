@@ -3,11 +3,11 @@
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnumKey } from '../type/AirType'
+import { AirColorString, AirEnumKey } from '../type/AirType'
 
 /**
  * # 枚举基类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**
@@ -25,7 +25,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * ---
    * ### 💡 支持 ```AirColor``` 标准色 / 十六进制 / HTML标准色
    */
-  color?: AirColor | string
+  color?: AirColorString
 
   /**
    * # 是否被禁用
@@ -57,7 +57,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param color (可选)枚举扩展的颜色
    * @param disable (可选)是否禁用
    */
-  constructor(key: K, label: string, color?: AirColor | string, disable?: boolean) {
+  constructor(key: K, label: string, color?: AirColorString, disable?: boolean) {
     this.key = key
     this.label = label
     this.color = color
@@ -78,7 +78,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key Key
    * @param defaultColor 默认Color
    */
-  static getColor(key: AirEnumKey, defaultColor: AirColor | string = AirColor.NORMAL): AirColor | string {
+  static getColor(key: AirEnumKey, defaultColor: AirColorString = AirColor.NORMAL): AirColorString {
     return (this as any).get(key).color || defaultColor
   }
 

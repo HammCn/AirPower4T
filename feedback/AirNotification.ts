@@ -2,7 +2,7 @@ import { AirFeedbackType } from '../enum/AirFeedbackType'
 
 /**
  * # 通知基类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirNotification {
   /**

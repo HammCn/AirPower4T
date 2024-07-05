@@ -1,6 +1,6 @@
 /**
  * # 加载状态
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirLoading {
   /**

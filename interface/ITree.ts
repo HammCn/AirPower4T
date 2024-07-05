@@ -2,7 +2,7 @@ import { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准树结构
- * @author Hamm
+ * @author Hamm.cn
  */
 export interface ITree extends AirEntity {
   /**
