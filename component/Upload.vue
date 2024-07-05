@@ -49,7 +49,7 @@
   </ADialog>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="F extends IFile">
 import { computed, PropType, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -66,7 +66,8 @@ const props = defineProps({
    * # 标准确认返回
    */
   onConfirm: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(file: F | null) => void>,
     default: () => null,
   },
 
@@ -156,7 +157,7 @@ const props = defineProps({
    * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
    */
   entity: {
-    type: Function as unknown as PropType<ClassConstructor<IFile>>,
+    type: Function as unknown as PropType<ClassConstructor<F>>,
     default: AirConfig.fileEntityClass,
   },
 
