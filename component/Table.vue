@@ -211,7 +211,7 @@
             <!-- 自定义操作列前置插槽 -->
             <slot
               :data="getRowEntity(scope)"
-              :index="scope.$index"
+              :index="scope.$index as number"
               name="customRow"
             />
             <template v-if="!hideCtrl">
@@ -568,7 +568,8 @@ const props = defineProps({
    * # 控制是否禁用行内编辑按钮的回调方法
    */
   disableEdit: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -576,7 +577,8 @@ const props = defineProps({
    * # 控制是否禁用行内添加按钮的回调方法
    */
   disableAdd: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -584,7 +586,8 @@ const props = defineProps({
    * # 控制是否允许操作禁用启用
    */
   disableChangeStatus: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -592,7 +595,8 @@ const props = defineProps({
    * # 控制是否禁用行内详情按钮的回调方法
    */
   disableDetail: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -600,7 +604,8 @@ const props = defineProps({
    * # 控制是否禁用行内删除按钮的回调方法
    */
   disableDelete: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -616,7 +621,8 @@ const props = defineProps({
    * # 控制是否禁用多选按钮的回调方法
    */
   selectable: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
