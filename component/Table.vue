@@ -211,7 +211,7 @@
             <!-- 自定义操作列前置插槽 -->
             <slot
               :data="getRowEntity(scope)"
-              :index="scope.$index"
+              :index="scope.$index as number"
               name="customRow"
             />
             <template v-if="!hideCtrl">
@@ -425,7 +425,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity, S extends AirAbstractEntityService<E>">
+<script lang="ts" setup generic="E extends AirEntity">
 import {
   computed, ComputedRef, nextTick, PropType, ref, watch,
 } from 'vue'
@@ -452,13 +452,21 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 
-const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort', 'onDisable', 'onEnable'])
+const emits = defineEmits<{
+  onDetail: [row: E],
+  onDelete: [row: E]
+  onEdit: [row: E]
+  onSelect: [list: E[]]
+  onAdd: [row: E]
+  onSort: [sort?: AirSort]
+  onDisable: [row: E]
+  onEnable: [row: E]
+}>()
 const props = defineProps({
   /**
    * # 表格使用链接按钮
@@ -568,7 +576,8 @@ const props = defineProps({
    * # 控制是否禁用行内编辑按钮的回调方法
    */
   disableEdit: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -576,7 +585,8 @@ const props = defineProps({
    * # 控制是否禁用行内添加按钮的回调方法
    */
   disableAdd: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -584,7 +594,8 @@ const props = defineProps({
    * # 控制是否允许操作禁用启用
    */
   disableChangeStatus: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -592,7 +603,8 @@ const props = defineProps({
    * # 控制是否禁用行内详情按钮的回调方法
    */
   disableDetail: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -600,7 +612,8 @@ const props = defineProps({
    * # 控制是否禁用行内删除按钮的回调方法
    */
   disableDelete: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -616,7 +629,8 @@ const props = defineProps({
    * # 控制是否禁用多选按钮的回调方法
    */
   selectable: {
-    type: Function,
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
 
@@ -1158,15 +1172,15 @@ async function handleDelete(item: E) {
 /**
  * # 是否在当前页数据中
  */
-function inCurrentPage(list: ITree[], find: ITree): boolean {
+function inCurrentPage(list: E[], find: E): boolean {
   const isIn = false
   for (let i = 0; i < list.length; i += 1) {
     const row = list[i]
     if (row.id === find.id) {
       return true
     }
-    if (row.children && row.children.length > 0) {
-      return inCurrentPage(row.children, find)
+    if ((row as IJson).children && (row as IJson).children.length > 0) {
+      return inCurrentPage((row as IJson).children, find)
     }
   }
   return isIn
@@ -1176,11 +1190,11 @@ function inCurrentPage(list: ITree[], find: ITree): boolean {
  * # 选中事件
  * @param list 选中的列表
  */
-function handleSelectChanged(list: ITree[]) {
+function handleSelectChanged(list: E[]) {
   // 在当前页面没找到的数据 保持选中
   const selectAll = list.map((item) => item.copy())
   list.forEach((find) => {
-    if (!inCurrentPage(props.dataList as unknown as ITree[], find)) {
+    if (!inCurrentPage(props.dataList, find)) {
       selectAll.push(find)
     }
   })

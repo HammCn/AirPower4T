@@ -133,8 +133,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, PropType, ref } from 'vue'
+<script lang="ts" setup generic="E extends AirEntity">
+import {
+  computed, PropType, Ref, ref,
+} from 'vue'
 
 import { AButton } from '../component'
 import { AirDialog } from '../helper/AirDialog'
@@ -157,7 +159,11 @@ import { getDictionary } from '../decorator/Custom'
 import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
 
-const emits = defineEmits(['onSearch', 'onAdd', 'onReset'])
+const emits = defineEmits<{
+  onSearch: [request: AirRequestPage<E>],
+  onAdd: [],
+  onReset: []
+}>()
 
 const props = defineProps({
   /**
@@ -212,7 +218,7 @@ const props = defineProps({
    * # 实体类
    */
   entity: {
-    type: Function as unknown as PropType<ClassConstructor<AirEntity>>,
+    type: Function as unknown as PropType<ClassConstructor<E>>,
     required: true,
   },
 
@@ -317,7 +323,7 @@ const props = defineProps({
    * # 接口服务类
    */
   service: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntityService<AirEntity>>>,
+    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntityService<E>>>,
     required: true,
   },
 
@@ -348,32 +354,32 @@ const entityInstance = computed(() => {
 })
 
 /**
- * 查询数据
+ * # 查询数据
  */
 const data = ref<IJson>({})
 
 /**
- * 内部使用的配置
+ * # 内部使用的配置
  */
 const entityConfig = computed(() => getEntityConfig(entityInstance.value))
 
 /**
- * 查询对象
+ * # 查询对象
  */
-const request = ref(new AirRequestPage(props.entity))
+const request = ref(new AirRequestPage(props.entity)) as Ref<AirRequestPage<E>>
 
 /**
- * 添加按钮的标题
+ * # 添加按钮的标题
  */
 const addTitle = computed(() => entityConfig.value.addTitle || (AirI18n.get().Add || '添加'))
 
 /**
- * 是否显示搜索框
+ * # 是否显示搜索框
  */
 const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.showSearch ?? true)
 
 /**
- * 为URL拼接AccessToken
+ * # 为URL拼接AccessToken
  * @param url
  */
 function getUrlWithAccessToken(url: string) {
@@ -389,7 +395,7 @@ function getUrlWithAccessToken(url: string) {
 }
 
 /**
- * 导出方法
+ * # 导出方法
  */
 function onExport() {
   if (!props.service) {
@@ -430,22 +436,22 @@ function onDownloadTemplate() {
 }
 
 /**
- * 高级搜索字段列表
+ * # 高级搜索字段列表
  */
 const searchFieldList = computed(() => props.searchParams || entityInstance.value.getSearchFieldConfigList())
 
 /**
- * 查询用的临时JSON
+ * # 查询用的临时JSON
  */
 const filter = ref<IJson>({})
 
 /**
- * 查询用的关键词
+ * # 查询用的关键词
  */
 const keyword = ref('')
 
 /**
- * 查询事件
+ * # 查询事件
  */
 function onSearch() {
   request.value = new AirRequestPage(props.entity)
@@ -466,7 +472,7 @@ function onSearch() {
 }
 
 /**
- * 重置表单
+ * # 重置表单
  */
 function onResetSearch() {
   filter.value = {}
@@ -478,7 +484,7 @@ function onResetSearch() {
 }
 
 /**
- * 导入
+ * # 导入
  */
 async function onImport() {
   let url = props.importUrl
@@ -511,7 +517,7 @@ async function onImport() {
 }
 
 /**
- * 暴露一个重置搜索的方法
+ * # 暴露一个重置搜索的方法
  */
 defineExpose({
   resetSearch: onResetSearch,
