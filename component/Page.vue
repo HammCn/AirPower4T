@@ -87,22 +87,26 @@
   </div>
 </template>
 
-<script lang="ts" setup="props">
+<script lang="ts" setup="props" generic="E extends AirEntity">
 /* eslint-disable no-continue */
 import { computed, ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { AirPage } from '../model/AirPage'
 import { AirI18n } from '../helper/AirI18n'
+import { AirEntity } from '../base/AirEntity'
 
-const emits = defineEmits(['onChange', 'change'])
+const emits = defineEmits<{
+  onChange: [page: AirPage],
+  change: [page: AirPage],
+}>()
 
 const props = defineProps({
   /**
    * # 响应对象
    */
   response: {
-    type: AirResponsePage,
+    type: AirResponsePage<E>,
     required: true,
   },
 })
