@@ -53,7 +53,7 @@
   </div>
 </template>
 
-<script lang="ts" setup="props">
+<script lang="ts" setup="props" generic="T extends ITree">
 import {
   computed, Ref, ref, watch,
 } from 'vue'
@@ -62,7 +62,9 @@ import { AirConfig } from '../config/AirConfig'
 import { ITree } from '../interface/ITree'
 import { AirTreeInstance } from '../type/AirType'
 
-const emits = defineEmits(['onChange'])
+const emits = defineEmits<{
+  onChange: [data: T | undefined]
+}>()
 
 const props = defineProps({
   /**
@@ -100,7 +102,7 @@ const props = defineProps({
    * # 左侧树的数据
    */
   treeData: {
-    type: Array<ITree>,
+    type: Array<T>,
     required: true,
   },
 
@@ -161,7 +163,7 @@ const treeRef = ref<AirTreeInstance>()
 /**
  * 当前选中的数据
  */
-const currentData: Ref<ITree | undefined> = ref()
+const currentData: Ref<T | undefined> = ref()
 
 /**
  * 当前搜索关键词
@@ -188,7 +190,7 @@ const showWidth = computed(() => (isShow.value ? (`${props.width}px`) : 'auto'))
  * 树节点选中事件
  * @param row
  */
-function treeSelectChanged(row: ITree) {
+function treeSelectChanged(row: T) {
   if (currentData.value && row.id === currentData.value.id) {
     currentData.value = undefined
     if (treeRef.value) {
