@@ -425,7 +425,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity, S extends AirAbstractEntityService<E>">
+<script lang="ts" setup generic="E extends AirEntity">
 import {
   computed, ComputedRef, nextTick, PropType, ref, watch,
 } from 'vue'
@@ -452,7 +452,6 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/ITreeProps'
