@@ -457,7 +457,16 @@ import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 
-const emits = defineEmits(['onDetail', 'onDelete', 'onEdit', 'onSelect', 'onAdd', 'onSort', 'onDisable', 'onEnable'])
+const emits = defineEmits<{
+  onDetail: [row: E],
+  onDelete: [row: E]
+  onEdit: [row: E]
+  onSelect: [list: E[]]
+  onAdd: [row: E]
+  onSort: [sort?: AirSort]
+  onDisable: [row: E]
+  onEnable: [row: E]
+}>()
 const props = defineProps({
   /**
    * # 表格使用链接按钮
@@ -1163,15 +1172,15 @@ async function handleDelete(item: E) {
 /**
  * # 是否在当前页数据中
  */
-function inCurrentPage(list: ITree[], find: ITree): boolean {
+function inCurrentPage(list: E[], find: E): boolean {
   const isIn = false
   for (let i = 0; i < list.length; i += 1) {
     const row = list[i]
     if (row.id === find.id) {
       return true
     }
-    if (row.children && row.children.length > 0) {
-      return inCurrentPage(row.children, find)
+    if ((row as IJson).children && (row as IJson).children.length > 0) {
+      return inCurrentPage((row as IJson).children, find)
     }
   }
   return isIn
@@ -1181,11 +1190,11 @@ function inCurrentPage(list: ITree[], find: ITree): boolean {
  * # 选中事件
  * @param list 选中的列表
  */
-function handleSelectChanged(list: ITree[]) {
+function handleSelectChanged(list: E[]) {
   // 在当前页面没找到的数据 保持选中
   const selectAll = list.map((item) => item.copy())
   list.forEach((find) => {
-    if (!inCurrentPage(props.dataList as unknown as ITree[], find)) {
+    if (!inCurrentPage(props.dataList, find)) {
       selectAll.push(find)
     }
   })
