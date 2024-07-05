@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity">
+<script lang="ts" setup generic="E extends AirEntity,S extends AirAbstractEntityService<E>">
 import {
   computed, PropType, Ref, ref,
 } from 'vue'
@@ -323,7 +323,7 @@ const props = defineProps({
    * # 接口服务类
    */
   service: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntityService<E>>>,
+    type: Function as unknown as PropType<ClassConstructor<S>>,
     required: true,
   },
 
