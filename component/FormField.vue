@@ -134,7 +134,17 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
+const emits = defineEmits<{
+  onChange: [value: E],
+  change: [value: E],
+  'update:modelValue': [value: E],
+  blur: [],
+  onBlur: [],
+  focus: [],
+  onFocus: [],
+  onClear: [],
+  clear: [],
+}>()
 
 if (props.fieldList.length === 0 && !props.field) {
   throw new Error('field和fieldList必传一个！！！')

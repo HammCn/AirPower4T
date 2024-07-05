@@ -14,7 +14,7 @@
         :disabled="disabled"
         @click="onSelect()"
       >
-        选择
+        {{ selectLabel }}
       </el-button>
       <el-button
         v-else
@@ -25,17 +25,19 @@
           emitClear();
         "
       >
-        清除
+        {{ clearLabel }}
       </el-button>
     </template>
   </el-input>
 </template>
 <script setup lang="ts" generic="T extends ISelector">
-import { Component, computed, PropType } from 'vue'
+import {
+  Component, computed, ModelRef, PropType,
+} from 'vue'
 import { AirDialog } from '../helper/AirDialog'
 import { ISelector } from '../interface/ISelector'
 
-const result = defineModel<T>()
+const result = defineModel<T>() as ModelRef<T | undefined>
 
 const props = defineProps({
   /**
@@ -44,6 +46,22 @@ const props = defineProps({
   default: {
     type: String,
     default: '',
+  },
+
+  /**
+ * # 选择按钮文案
+ */
+  selectLabel: {
+    type: String,
+    default: '选择',
+  },
+
+  /**
+ * # 清除按钮文案
+ */
+  clearLabel: {
+    type: String,
+    default: '清除',
   },
 
   /**
@@ -79,7 +97,12 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['change', 'onChange', 'clear', 'onClear'])
+const emits = defineEmits<{
+  change: [data: T | undefined],
+  onChange: [data: T | undefined],
+  clear: [],
+  onClear: []
+}>()
 
 function emitChange() {
   emits('change', result.value)

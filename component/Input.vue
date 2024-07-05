@@ -226,7 +226,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="M extends AirModel">
 import {
   computed, PropType, ref, Ref, watch,
 } from 'vue'
@@ -314,7 +314,7 @@ const props = defineProps({
    * 如同时传入了```modifier```或```v-model```指令的```modifier``` 则自动生成兜底的```placeholder```等信息
    */
   entity: {
-    type: Function as unknown as PropType<ClassConstructor<AirModel>>,
+    type: Function as unknown as PropType<ClassConstructor<M>>,
     default: undefined,
   },
 

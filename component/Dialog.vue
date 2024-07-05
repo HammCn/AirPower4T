@@ -102,7 +102,11 @@ import { AirI18n } from '../helper/AirI18n'
 import { AirDialog } from '../helper/AirDialog'
 import { IJson } from '../interface/IJson'
 
-const emits = defineEmits(['onCancel', 'onFull', 'onConfirm'])
+const emits = defineEmits<{
+  onCancel: [],
+  onFull: [isFullScreen: boolean],
+  onConfirm: []
+}>()
 
 const props = defineProps({
   /**

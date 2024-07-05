@@ -52,7 +52,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="F extends IFile">
 import {
   computed, PropType, ref, watch,
 } from 'vue'
@@ -68,7 +68,10 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
 
-const emits = defineEmits(['onUpload', 'onRemove'])
+const emits = defineEmits<{
+  onUpload: [file: F],
+  onRemove:[]
+}>()
 
 const props = defineProps({
   /**
@@ -169,7 +172,7 @@ const props = defineProps({
    * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
    */
   entity: {
-    type: Function as unknown as PropType<ClassConstructor<IFile>>,
+    type: Function as unknown as PropType<ClassConstructor<F>>,
     default: AirConfig.fileEntityClass,
   },
 })
