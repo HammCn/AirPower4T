@@ -15,7 +15,7 @@ import { IJson } from '../interface/IJson'
 
 /**
  * # 模型超类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirModel {
   /**

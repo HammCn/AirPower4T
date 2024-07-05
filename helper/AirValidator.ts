@@ -3,7 +3,7 @@ import { AirInputType } from '../enum/AirInputType'
 
 /**
  * # 表单验证工具
- * @author Hamm
+ * @author Hamm.cn
  * */
 export class AirValidator {
   /**

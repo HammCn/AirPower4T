@@ -3,7 +3,7 @@ import { AirI18n } from './AirI18n'
 
 /**
  * # 文件助手类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirFile {
   /**

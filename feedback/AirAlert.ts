@@ -3,7 +3,7 @@ import { AirI18n } from '../helper/AirI18n'
 /**
  * # 消息弹窗类
  * 可通过 ```.create()``` 方法创建自定义实例
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirAlert {
   /**

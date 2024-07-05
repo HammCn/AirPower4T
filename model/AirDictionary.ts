@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IDictionary } from '../interface/IDictionary'
-import { AirColor } from '../enum/AirColor'
+import { AirColorString, AirEnumKey } from '../type/AirType'
 
 /**
  * # 标准字典实现类
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirDictionary implements IDictionary {
-  key!: number | string | boolean
+  key!: AirEnumKey
 
   label!: any
 
-  color?: AirColor | string
+  color?: AirColorString
 
   disabled?: boolean = false
 
@@ -22,7 +22,7 @@ export class AirDictionary implements IDictionary {
    * @param key (可选) 记录的key
    * @param label (可选) 记录的Label
    */
-  constructor(key?: number | string | boolean, label?: any) {
+  constructor(key?: AirEnumKey, label?: any) {
     if (key) {
       this.key = key
     }
@@ -35,7 +35,7 @@ export class AirDictionary implements IDictionary {
    * # 设置常量值
    * @param key 常量值
    */
-  setKey(key: string | number | boolean): this {
+  setKey(key: AirEnumKey): this {
     this.key = key
     return this
   }

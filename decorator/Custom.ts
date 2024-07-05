@@ -3,14 +3,14 @@
 
 /**
  * # 自定义类和属性名注解
- * @author Hamm
+ * @author Hamm.cn
  */
 import { AirEnum } from '../base/AirEnum'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirEnumKey } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
-import { AirEnumKey } from '@/airpower/type/AirType'
 
 /**
  * # 字典配置Key

@@ -2,7 +2,7 @@ import { AirAlert } from '../feedback/AirAlert'
 
 /**
  * # 断言判断提示
- * @author Hamm
+ * @author Hamm.cn
  */
 export class AirAssert {
   /**
