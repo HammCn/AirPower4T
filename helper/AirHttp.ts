@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, {
-  AxiosRequestConfig, AxiosResponse, Method,
-} from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import { Ref } from 'vue'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirHttpContentType } from '../enum/AirHttpContentType'
@@ -18,37 +16,37 @@ import { AirI18n } from './AirI18n'
  */
 export class AirHttp {
   /**
-   * # 访问的接口URL
+   * ## 访问的接口URL
    */
   private url = ''
 
   /**
-   * # Loading
+   * ## Loading
    */
   private loading!: Ref<boolean>
 
   /**
-   * # 基础返回对象
+   * ## 基础返回对象
    */
   private axiosResponse!: Promise<AxiosResponse<any, any>>
 
   /**
-   * # 基础请求配置
+   * ## 基础请求配置
    */
   private axiosRequestConfig: AxiosRequestConfig = {}
 
   /**
-   * # 是否隐藏自动错误提示
+   * ## 是否隐藏自动错误提示
    */
   private errorCallback = false
 
   /**
-   * # 请求超时毫秒数
+   * ## 请求超时毫秒数
    */
   private timeout = AirConfig.timeout
 
   /**
-   * # 设置请求超时时间
+   * ## 设置请求超时时间
    * @param timeout 超时毫秒数
    */
   setTimeout(timeout: number) {
@@ -57,7 +55,7 @@ export class AirHttp {
   }
 
   /**
-   * # 是否回调错误信息
+   * ## 是否回调错误信息
    */
   callbackError(): this {
     this.errorCallback = true
@@ -65,8 +63,8 @@ export class AirHttp {
   }
 
   /**
-   * # 创建一个HTTP实例
-   * @param url (可选) 请求的地址
+   * ## 创建一个HTTP实例
+   * @param url `可选` 请求的地址
    */
   constructor(url?: string) {
     if (url) {
@@ -89,7 +87,7 @@ export class AirHttp {
   }
 
   /**
-   * # 创建一个AirHttp客户端
+   * ## 创建一个AirHttp客户端
    * @param url 请求的URL
    */
   static create(url: string): AirHttp {
@@ -97,8 +95,8 @@ export class AirHttp {
   }
 
   /**
-   * # 设置Loading的Ref对象
-   * @param loading Loading的Ref
+   * ## 设置Loading
+   * @param loading Loading
    *
    */
   setLoading(loading: Ref<boolean>): this {
@@ -107,19 +105,22 @@ export class AirHttp {
   }
 
   /**
-   * # 设置请求头
+   * ## 设置请求头
    * @param header 请求头
    */
   setHttpHeader(header: IJson): this {
     if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers['content-type']) {
-      header = { ...header, 'content-type': this.axiosRequestConfig.headers['content-type'] }
+      header = {
+        ...header,
+        'content-type': this.axiosRequestConfig.headers['content-type'],
+      }
     }
     this.axiosRequestConfig.headers = header
     return this
   }
 
   /**
-   * # 允许携带Cookies
+   * ## 允许携带Cookies
    */
   withCredentials(): this {
     this.axiosRequestConfig.withCredentials = true
@@ -127,9 +128,9 @@ export class AirHttp {
   }
 
   /**
-   * # 添加一个请求头
-   * @param key 请求头key
-   * @param value 请求头value
+   * ## 添加一个请求头
+   * @param key 请求头 `key`
+   * @param value 请求头 `value`
    */
   addHttpHeader(key: string, value: string): this {
     this.axiosRequestConfig.headers = this.axiosRequestConfig.headers || {}
@@ -138,8 +139,8 @@ export class AirHttp {
   }
 
   /**
-   * # 设置请求方法
-   * - 支持直接调用 ```.post()``` ```.get()```
+   * ## 设置请求方法
+   * - 支持直接调用 `.post()` `.get()`
    * @param method 请求方法
    */
   setHttpMethod(method: AirHttpMethod): this {
@@ -148,18 +149,21 @@ export class AirHttp {
   }
 
   /**
-   * # 设置请求content-type
-   * @param contentType content-type
+   * ## 设置请求`content-type`
+   * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
-    this.axiosRequestConfig.headers = { ...this.axiosRequestConfig.headers, 'content-type': contentType }
+    this.axiosRequestConfig.headers = {
+      ...this.axiosRequestConfig.headers,
+      'content-type': contentType,
+    }
     return this
   }
 
   /**
-   * # 发送请求
+   * ## 发送请求
    *
-   * @param body (可选)请求体
+   * @param body `可选` 请求体
    * @see post() 直接发送POST
    * @see get() 直接发送GET
    */
@@ -222,21 +226,22 @@ export class AirHttp {
             }
             error(res.data)
         }
-      }).catch((err) => {
-        // 其他错误
-        if (this.loading) {
-          this.loading.value = false
-        }
-        if (!this.errorCallback) {
-          AirNotification.error(AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
-        }
-        error(err)
       })
+        .catch((err) => {
+          // 其他错误
+          if (this.loading) {
+            this.loading.value = false
+          }
+          if (!this.errorCallback) {
+            AirNotification.error(AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
+          }
+          error(err)
+        })
     })
   }
 
   /**
-   * # 发送POST
+   * ## 发送POST
    * @param model 发送的数据模型(数组)
    */
   post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
@@ -253,8 +258,8 @@ export class AirHttp {
   }
 
   /**
-   * # 发送GET请求 只支持简单一维数据
-   * @param params (可选)可携带的参数
+   * ## 发送GET请求 只支持简单一维数据
+   * @param params `可选` 可携带的参数
    */
   get(params?: IJson): Promise<any> {
     if (params) {

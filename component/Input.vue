@@ -311,7 +311,7 @@ const props = defineProps({
 
   /**
    * # 传入的实体类
-   * 如同时传入了```modifier```或```v-model```指令的```modifier``` 则自动生成兜底的```placeholder```等信息
+   * 如同时传入了 `modifier` 或 `v-model` 指令的 `modifier` 则自动生成兜底的 `placeholder` 等信息
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<M>>,
@@ -320,15 +320,16 @@ const props = defineProps({
 
   /**
    * # 自定义提示文字
-   * 优先级: ```AInput```传入 > ```@FormField``` > 自动生成
+   * 优先级: `AInput` 传入 > `@Form` > 自动生成
    */
   placeholder: {
-    type: String, default: '',
+    type: String,
+    default: '',
   },
 
   /**
    * # 可选数组
-   * 优先级: ```AInput```传入 > ```@FormField```
+   * 优先级: `AInput` 传入 > `@Form`
    */
   list: {
     type: Array<IDictionary>,
@@ -337,7 +338,7 @@ const props = defineProps({
 
   /**
    * # 可选树结构
-   * 优先级: ```AInput```传入 > ```@FormField```
+   * 优先级: `AInput` 传入 > `@Form`
    */
   tree: {
     type: Array<ITree>,
@@ -562,10 +563,12 @@ function emitValue() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
-        value.value = value.value.toString().trim()
+        value.value = value.value.toString()
+          .trim()
         break
       case AirTrim.END:
-        value.value = value.value.toString().trimEnd()
+        value.value = value.value.toString()
+          .trimEnd()
         break
       default:
     }
@@ -603,13 +606,16 @@ function onBlur() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
-        value.value = value.value.toString().trim()
+        value.value = value.value.toString()
+          .trim()
         break
       case AirTrim.START:
-        value.value = value.value.toString().trimStart()
+        value.value = value.value.toString()
+          .trimStart()
         break
       case AirTrim.END:
-        value.value = value.value.toString().trimEnd()
+        value.value = value.value.toString()
+          .trimEnd()
         break
       default:
     }
@@ -646,7 +652,7 @@ function init() {
 
     if (!placeholderRef.value) {
       const field = fieldConfig.value?.label
-        || entityInstance.value.getFieldName(fieldName.value)
+          || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
@@ -654,9 +660,9 @@ function init() {
         // 装饰了FormField
         if (
           dictionary.value || fieldConfig.value.dictionary
-          || props.list
-          || props.tree
-          || fieldConfig.value.dateType !== undefined
+            || props.list
+            || props.tree
+            || fieldConfig.value.dateType !== undefined
         ) {
           // 传入了枚举值
           placeholderRef.value = AirI18n.get().SelectPlease || '请选择'

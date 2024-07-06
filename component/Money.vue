@@ -28,8 +28,7 @@ const props = defineProps({
 
   /**
    * # 💰金额的小数精度
-   * ---
-   * 💡 默认为 `AirConfig.moneyPrecision`
+   * 默认为 `AirConfig.moneyPrecision`
    */
   precision: {
     type: Number,
@@ -38,8 +37,7 @@ const props = defineProps({
 
   /**
    * # 💰金额的小数舍弃方式
-   * ---
-   * 💡 默认为 `AirConfig.moneyDirection`
+   * 默认为 `AirConfig.moneyDirection`
    */
   direction: {
     type: String as PropType<AirMoneyDirection>,
@@ -56,7 +54,8 @@ const showMoney = computed(() => {
   } else {
     number = Math.floor(number)
   }
-  return (number / precision).toFixed(props.precision).toString()
+  return (number / precision).toFixed(props.precision)
+    .toString()
 })
 </script>
 <style lang="scss" scoped>

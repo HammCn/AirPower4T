@@ -6,7 +6,7 @@ import { ITreeProps } from './ITreeProps'
  */
 export interface INormalTreeProps extends ITreeProps {
   /**
-   * # 用于显示到树控件上的 key
+   * ## 用于显示到树控件上的 `key`
    */
   label?: string;
 }

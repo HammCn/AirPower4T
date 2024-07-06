@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v2.2.0
+
+### 🎉 Docs:
+
+- docs(注释): 修改了大量的注释代码,规范了注释风格
+
 ## v2.1.4
 
 ### 🎉 Features:
@@ -511,15 +517,15 @@
 
 ### 🎉 Features:
 
-- feat(Hook): ```useAirEditor``` 支持传入操作成功的提示信息
-- feat(Hook): 提供了一个标准 ```useAirDetail``` 的Hook
+- feat(Hook): `useAirEditor` 支持传入操作成功的提示信息
+- feat(Hook): 提供了一个标准 `useAirDetail` 的Hook
 - feat(Image): 支持了是否允许移除已上传文件的prop参数
 - feat(Image): 支持了一个placeholder的prop参数
 - feat(Table): 翻转了部分表格prop参数项的含义
 
 ### 🐞 Bug fixes:
 
-- fix(AirProps): 修复 ```airPropsXXX``` 没有显性返回值类型的BUG
+- fix(AirProps): 修复 `airPropsXXX` 没有显性返回值类型的BUG
 
 ### 🐔 Styles:
 
@@ -530,9 +536,9 @@
 
 ### 🎉 Features:
 
-- feat(useAirEditor): 支持了一个通用编辑表单内置的```useAirEditor```Hook
-- feat(useAirTable): 支持了一个通用表格内置的```useAirTable```Hook
-- feat(useAirSelector): 支持了一个通用选择器内置的```useAirSelector```Hook
+- feat(useAirEditor): 支持了一个通用编辑表单内置的`useAirEditor`Hook
+- feat(useAirTable): 支持了一个通用表格内置的`useAirTable`Hook
+- feat(useAirSelector): 支持了一个通用选择器内置的`useAirSelector`Hook
 
 ## v1.0.0
 

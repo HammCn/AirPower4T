@@ -9,10 +9,10 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { useAirTable } from './useAirTable'
 
 /**
- * # 引入表格树使用的Hook
+ * # 引入表格树使用的`Hook`
  * @param entityClass 实体类
- * @param serviceClass 表格使用的Service类
- * @param option (可选) 更多配置
+ * @param serviceClass 表格使用的`Service`类
+ * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
@@ -22,12 +22,12 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
   }
 
   /**
-   * # 表格Hook返回对象
+   * ## 表格`Hook`返回对象
    */
   const result = useAirTable(entityClass, serviceClass, option)
 
   /**
-   * # 树表格添加子项事件
+   * ## 树表格添加子项事件
    * @param row 行数据
    */
   async function onAddRow(row: E) {

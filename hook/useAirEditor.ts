@@ -15,36 +15,36 @@ import { AirI18n } from '../helper/AirI18n'
 import { IValidateRule } from '../interface/IValidateRule'
 
 /**
- * # 引入Editor的Hook
- * @param props defineProps的返回值
- * @param entityClass Editor使用的实体类
- * @param serviceClass Editor使用的Service
- * @param option (可选)更多的配置
+ * # 引入`Editor`的`Hook`
+ * @param props `defineProps`的返回值
+ * @param entityClass `Editor`使用的实体类
+ * @param serviceClass `Editor`使用的`Service`
+ * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
 export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseEditorOption<E> = {}): IUseEditorResult<E, S> {
   /**
-   * # 详情Hook返回对象
+   * ## 详情`Hook`返回对象
    */
   const result = useAirDetail(props, entityClass, serviceClass, option)
 
   /**
-   * # 对话框显示的标题
+   * ## 对话框显示的标题
    */
   const title = computed(() => ((result.formData.value.id ? (AirI18n.get().Edit || '编辑') : (AirI18n.get().Add || '添加'))))
 
   /**
-   * # 自动生成的验证规则
+   * ## 自动生成的验证规则
    */
   const rules: IValidateRule<E> = result.service.createValidator(props.param, option.customRules || {})
 
   /**
-   * # 表单实例
+   * ## 表单实例
    */
   const formRef = ref<AirFormInstance>() as Ref<AirFormInstance>
 
   /**
-   * # 表单提交事件
+   * ## 表单提交事件
    */
   async function onSubmit() {
     let postData = AirClassTransformer.copy(result.formData.value, entityClass)

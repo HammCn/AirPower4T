@@ -13,51 +13,51 @@ import { ITableHookOption } from '../interface/hooks/ITableHookOption'
 import { ITableHookResult } from '../interface/hooks/ITableHookResult'
 
 /**
- * # 表格基础Hook
+ * # 表格基础`Hook`
  * @param entityClass 实体类
- * @param serviceClass 表格使用的Service类
- * @param option (可选) 更多配置
+ * @param serviceClass 表格使用的 `Service` 类
+ * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: ITableHookOption<E> = {}): ITableHookResult<E, S> {
   /**
-   * # 加载状态
+   * ## 加载状态
    */
   const isLoading = ref(false)
 
   /**
-   * # 请求对象
+   * ## 请求对象
    */
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
 
   /**
-   * # 响应对象
+   * ## 响应对象
    */
   const response = ref(new AirResponsePage<E>()) as Ref<AirResponsePage<E>>
 
   /**
-   * # 表格行数据数组
+   * ## 表格行数据数组
    */
   const list = ref<E[]>([]) as Ref<E[]>
 
   /**
-   * # 传入的实体对象
+   * ## 传入的实体对象
    */
   const entity = AirClassTransformer.newInstance(entityClass)
 
   /**
-   * # 传入的Service对象
+   * ## 传入的 `Service` 对象
    */
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading
 
   /**
-   * # 选择的列表
+   * ## 选择的列表
    */
   const selectList = ref([]) as Ref<E[]>
 
   /**
-   * # 查询列表事件
+   * ## 查询列表事件
    */
   async function onGetList() {
     let req = request.value
@@ -78,7 +78,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 搜索事件
+   * ## 搜索事件
    * @param req 请求对象
    */
   async function onSearch(req: AirRequestPage<E>) {
@@ -87,9 +87,8 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 重新加载数据事件
-   * ---
-   * 💡 会自动返回第一页
+   * ## 重新加载数据事件
+   * 会自动返回第一页
    */
   async function onReloadData() {
     if (!request.value.page) {
@@ -100,7 +99,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 添加事件
+   * ## 添加事件
    */
   async function onAdd() {
     if (!option.editView) {
@@ -115,7 +114,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 点击表格行详情事件
+   * ## 点击表格行详情事件
    * @param row 行数据
    */
   async function onDetail(row: E) {
@@ -131,7 +130,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 排序变更事件
+   * ## 排序变更事件
    * @param sort 排序对象
    */
   async function onSortChanged(sort: AirSort) {
@@ -141,7 +140,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 选择变更事件
+   * ## 选择变更事件
    * @param list 选择列表
    */
   async function onSelected(list: E[]) {
@@ -149,7 +148,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * # 分页变更事件
+   * ## 分页变更事件
    * @param page 分页对象
    */
   async function onPageChanged(page: AirPage) {

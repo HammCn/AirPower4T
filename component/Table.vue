@@ -479,7 +479,7 @@ const props = defineProps({
 
   /**
    * # 行尾编辑按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```editPermission``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `editPermission` 配置
    */
   editPermission: {
     type: String,
@@ -488,7 +488,7 @@ const props = defineProps({
 
   /**
    * # 行尾禁用按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```disablePermission``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `disablePermission` 配置
    */
   disablePermission: {
     type: String,
@@ -497,7 +497,7 @@ const props = defineProps({
 
   /**
    * # 行尾启用按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```enablePermission``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `enablePermission` 配置
    */
   enablePermission: {
     type: String,
@@ -506,7 +506,7 @@ const props = defineProps({
 
   /**
    * # 行尾详情按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```detailPermission``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `detailPermission` 配置
    */
   detailPermission: {
     type: String,
@@ -515,7 +515,7 @@ const props = defineProps({
 
   /**
    * # 行尾删除按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```deletePermission``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `deletePermission` 配置
    */
   deletePermission: {
     type: String,
@@ -524,7 +524,7 @@ const props = defineProps({
 
   /**
    * # 行尾添加按钮的权限标识
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```addChildPermission``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `addChildPermission` 配置
    */
   addPermission: {
     type: String,
@@ -558,7 +558,7 @@ const props = defineProps({
 
   /**
    * # 默认表格空文案
-   * 如不传入 则默认使用 ```EntityConfig``` 的 ```tableEmptyText``` 配置
+   * 如不传入 则默认使用 `EntityConfig` 的 `tableEmptyText` 配置
    */
   emptyText: {
     type: String,
@@ -637,8 +637,7 @@ const props = defineProps({
 
   /**
    * # 是否显示多选框
-   * ---
-   * 💡 可触发 ```@on-select(selectList)``` 事件, 可配置 ```:select-list``` 默认选中
+   * 可触发 `@on-select(selectList)` 事件, 可配置 `:select-list` 默认选中
    */
   showSelect: {
     type: Boolean,
@@ -671,7 +670,7 @@ const props = defineProps({
 
   /**
    * # 是否隐藏字段选择
-   * 如 ```EntityConfig``` 的 ```hideFieldSelector``` 设置为 ```true```, 则此项失效
+   * 如 `EntityConfig` 的 `hideFieldSelector` 设置为 `true`, 则此项失效
    */
   hideFieldSelector: {
     type: Boolean,
@@ -738,8 +737,7 @@ const props = defineProps({
 
   /**
    * # 在更多里显示删除
-   * ---
-   * 💡 仅在 `showMoreButton=true` 时有效，且 `deleteInMore=true` 时被收起到更多，否则保持表格行内显示
+   * 仅在 `showMoreButton=true` 时有效，且 `deleteInMore=true` 时被收起到更多，否则保持表格行内显示
    */
   deleteInMore: {
     type: Boolean,
@@ -748,8 +746,7 @@ const props = defineProps({
 
   /**
    * # 在更多里显示编辑
-   * ---
-   * 💡 仅在 `showMoreButton=true` 时有效，且 `editInMore=true` 时被收起到更多，否则保持表格行内显示
+   * 仅在 `showMoreButton=true` 时有效，且 `editInMore=true` 时被收起到更多，否则保持表格行内显示
    */
   editInMore: {
     type: Boolean,
@@ -758,8 +755,7 @@ const props = defineProps({
 
   /**
    * # 在更多里显示禁用启用
-   * ---
-   * 💡 仅在 `showMoreButton=true` 时有效，且 `enableAndDisableInMore=true` 时被收起到更多，否则保持表格行内显示
+   * 仅在 `showMoreButton=true` 时有效，且 `enableAndDisableInMore=true` 时被收起到更多，否则保持表格行内显示
    */
   enableAndDisableInMore: {
     type: Boolean,
@@ -768,8 +764,7 @@ const props = defineProps({
 
   /**
    * # 在更多里显示详情
-   * ---
-   * 💡 仅在 `showMoreButton=true` 时有效，且 `detailInMore=true` 时被收起到更多，否则保持表格行内显示
+   * 仅在 `showMoreButton=true` 时有效，且 `detailInMore=true` 时被收起到更多，否则保持表格行内显示
    */
   detailInMore: {
     type: Boolean,
@@ -875,10 +870,10 @@ const entityInstance = computed(() => {
  */
 watch(() => AirStore().controlKeyDown, () => {
   isForceDelete.value = !!(AirStore().controlKeyDown
-    && !props.customDelete
-    && !props.hideDelete
-    && props.dataList
-    && props.dataList.length > 0)
+      && !props.customDelete
+      && !props.hideDelete
+      && props.dataList
+      && props.dataList.length > 0)
 })
 
 /**
@@ -1293,7 +1288,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
@@ -1311,7 +1306,7 @@ init()
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1393,7 +1388,7 @@ init()
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1524,7 +1519,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0 !important;
   }
 }

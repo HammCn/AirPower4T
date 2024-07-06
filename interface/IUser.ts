@@ -6,12 +6,12 @@ import { AirEntity } from '../base/AirEntity'
  */
 export interface IUser extends AirEntity {
   /**
-   * # 用户昵称
+   * ## 用户昵称
    */
   nickname: string
 
   /**
-   * # 用户头像
+   * ## 用户头像
    */
   avatar: string
 }

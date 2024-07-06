@@ -12,18 +12,18 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { getFieldName } from './Custom'
 
 /**
- * # 表单字段key
+ * ## 表单字段key
  */
 const FIELD_CONFIG_KEY = 'Form'
 
 /**
- * # 表单字段列表key
+ * ## 表单字段列表key
  */
 const FIELD_LIST_KEY = 'FormList'
 
 /**
- * # 标记该字段可用于表单配置
- * @param config (可选)配置项
+ * ## 标记该字段可用于表单配置
+ * @param config 配置项
  */
 export function Form(config: IFormFieldConfig = {}) {
   if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
@@ -37,7 +37,7 @@ export function Form(config: IFormFieldConfig = {}) {
 }
 
 /**
- * # 获取对象某个字段标记的表单配置项
+ * ## 获取对象某个字段标记的表单配置项
  * @param target 目标类或对象
  * @param key 属性名
  */
@@ -46,7 +46,7 @@ export function getFormConfig(target: any, key: string): AirFormFieldConfig | nu
 }
 
 /**
- * # 获取标记了表单配置的字段列表
+ * ## 获取标记了表单配置的字段列表
  * @param target 目标对象
  */
 export function getFormFieldList(target: any): string[] {
@@ -54,7 +54,7 @@ export function getFormFieldList(target: any): string[] {
 }
 
 /**
- * # 获取指定类的表单字段配置项列表
+ * ## 获取指定类的表单字段配置项列表
  * @param target 目标类或对象
  * @param keyList 选择字段列表
  */

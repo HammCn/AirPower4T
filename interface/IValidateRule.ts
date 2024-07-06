@@ -7,7 +7,7 @@ import { AirValidator } from '../helper/AirValidator'
  */
 export type IValidateRule<E extends AirEntity = AirEntity> = {
   /**
-   * # 字段名:[验证器]
+   * ## 字段名:[验证器]
    */
   // eslint-disable-next-line no-unused-vars
   [K in keyof E]?: AirValidator[]

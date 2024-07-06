@@ -30,9 +30,9 @@
         <div class="el-upload__text">
           <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
           <span>
-            {{ AirI18n.get().FileSize || "文件大小: " }}
+            {{ AirI18n.get().FileSize || '文件大小: ' }}
             <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
-            {{ AirI18n.get().FileExt || "文件格式: " }}
+            {{ AirI18n.get().FileExt || '文件格式: ' }}
             <template v-if="!exts.includes('*')">
               <b>{{ exts.join('/') }}</b>
             </template>
@@ -153,8 +153,7 @@ const props = defineProps({
 
   /**
    * # 接收文件的实体类
-   * ---
-   * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
+   * 可通过 `AirConfig.fileEntityClass` 配置, 默认为 `AirFileEntity`
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<F>>,
@@ -257,8 +256,8 @@ function onUploadSuccess(result: IJson) {
       props.onConfirm(null)
     } else {
       const entity = AirClassTransformer.parse(
-        result.data as IJson,
-        props.entity,
+          result.data as IJson,
+          props.entity,
       )
       props.onConfirm(entity)
     }
@@ -297,7 +296,7 @@ function onUploadSuccess(result: IJson) {
           display: flex;
           flex-direction: column;
 
-          >b {
+          > b {
             font-size: 18px;
           }
 

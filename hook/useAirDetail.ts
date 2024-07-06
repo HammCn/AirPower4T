@@ -9,37 +9,37 @@ import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
 
 /**
- * # 引入详情的Hook
- * @param props defineProps的返回值
+ * # 引入详情的`Hook`
+ * @param props `defineProps` 的返回值
  * @param entityClass 详情使用的实体类
- * @param serviceClass 详情使用的Service
- * @param option (可选)更多的配置
+ * @param serviceClass 详情使用的 `Service`
+ * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
 export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
   /**
-   * # 加载状态
+   * ## 加载状态
    */
   const isLoading = ref(false)
 
   /**
-   * # 传入的Service对象
+   * ## 传入的 `Service` 对象
    */
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading
 
   /**
-   * # 表单对象
+   * ## 表单对象
    */
   const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
 
   /**
-   * # 显示的对话框标题
+   * ## 显示的对话框标题
    */
   const title = ref(AirI18n.get().Detail || '详情')
 
   /**
-   * # 查询详情方法
+   * ## 查询详情方法
    */
   async function getDetail() {
     if (formData.value.id) {

@@ -18,50 +18,50 @@ import { IJson } from '../interface/IJson'
  * */
 export class AirValidator {
   /**
-   * # 默认的进制
+   * ## 默认的进制
    */
   private static readonly DEFAULT_RADIX = 10
 
   /**
-   * # 错误提醒
-   * 请通过 ```.show()``` 传入
+   * ## 错误提醒
+   * 请通过 `.show()` 传入
    */
   message!: string
 
   /**
-   * # 类型 默认string
-   * 可通过 ```toString``` ```toNumber``` ```toArray```设置
+   * ## 类型 默认string
+   * 可通过 `toString` `toNumber` `toArray` 设置
    */
   private type!: string
 
   /**
-   * # 触发方式(默认blur)
+   * ## 触发方式(默认blur)
    * 不建议直接设置哦~
    */
   private trigger: 'blur' | 'change' = 'change'
 
   /**
-   * # 是否必填
-   * 可以调用 ```.ifEmpty()```
+   * ## 是否必填
+   * 可以调用 `.ifEmpty()`
    */
   private required = false
 
   /**
-   * # 自定义验证器
-   * 请调用 ```.setCustomValidator()```
+   * ## 自定义验证器
+   * 请调用 `.setCustomValidator()`
    */
   private validator!: (rule: any, value: any, callback: Function) => void
 
   /**
-   * # 通过指定错误信息来创建一个验证器
-   * @param message (可选)验证失败的提示
+   * ## 通过指定错误信息来创建一个验证器
+   * @param message `可选` 验证失败的提示
    */
   static show(message?: string): AirValidator {
     return new AirValidator().show(message)
   }
 
   /**
-   * # 验证是否手机号或座机号
+   * ## 验证是否手机号或座机号
    * @param phoneNumber 号码
    */
   static isTelephoneOrMobilePhone(phoneNumber: string): boolean {
@@ -69,7 +69,7 @@ export class AirValidator {
   }
 
   /**
-   * # 验证是否邮箱
+   * ## 验证是否邮箱
    * @param email
    */
   static isEmail(email: string): boolean {
@@ -77,7 +77,7 @@ export class AirValidator {
   }
 
   /**
-   * # 验证是否手机号里
+   * ## 验证是否手机号里
    * @param num 号码
    */
   static isMobilePhone(num: string): boolean {
@@ -85,7 +85,7 @@ export class AirValidator {
   }
 
   /**
-   * # 验证是否座机号
+   * ## 验证是否座机号
    * @param num 号码
    */
   static isTelephone(num: string): boolean {
@@ -93,7 +93,7 @@ export class AirValidator {
   }
 
   /**
-   * # 是否是纯汉字
+   * ## 是否是纯汉字
    *
    * @param str 字符串
    */
@@ -102,7 +102,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否只包含了字母
+   * ## 字符串是否只包含了字母
    * @param str 字符串
    */
   static isOnlyLetter(str: string): boolean {
@@ -110,7 +110,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否只包含了数字
+   * ## 字符串是否只包含了数字
    * @param str 字符串
    */
   static isOnlyNumberAndLetter(str: string): boolean {
@@ -118,7 +118,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否是数字 正负整数小数和0
+   * ## 字符串是否是数字 正负整数小数和0
    * @param str 字符串
    */
   static isNumber(str: string): boolean {
@@ -126,7 +126,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否是整数
+   * ## 字符串是否是整数
    * @param str 字符串
    */
   static isInteger(str: string): boolean {
@@ -134,7 +134,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否是自然整数小数
+   * ## 字符串是否是自然整数小数
    * @param str 字符串
    */
   static isNaturalNumber(str: string): boolean {
@@ -142,7 +142,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否是自然整数数
+   * ## 字符串是否是自然整数数
    * @param str 字符串
    */
   static isNaturalInteger(str: string): boolean {
@@ -150,7 +150,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符串是否是合法身份证
+   * ## 字符串是否是合法身份证
    * @param str 字符串
    */
   static isChineseIdCard(str: string): boolean {
@@ -195,7 +195,7 @@ export class AirValidator {
   }
 
   /**
-   * # 是否满足如下的规则
+   * ## 是否满足如下的规则
    * @param str 被验证字符串
    * @param list 验证器
    */
@@ -213,7 +213,7 @@ export class AirValidator {
   }
 
   /**
-   * # 创建一个验证器
+   * ## 创建一个验证器
    * @param rule 验证规则
    * @returns
    */
@@ -222,10 +222,10 @@ export class AirValidator {
   }
 
   /**
-   * # 创建验证器
+   * ## 创建验证器
    * @param form 表单对象
    * @param service 接口服务对象
-   * @param rules (可选)表单验证规则
+   * @param rules `可选` 表单验证规则
    */
   static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(form: T, service: S, rules: IValidateRule<T> = {}) {
     const formRules: IJson = rules
@@ -238,49 +238,62 @@ export class AirValidator {
         formRules[fieldKey] = []
       }
       if (config.requiredString) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredString === 'string' ? config.requiredString : '').ifEmpty())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredString === 'string' ? config.requiredString : '')
+          .ifEmpty())
       }
       if (config.requiredNumber) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredNumber === 'string' ? config.requiredNumber : '').toNumber().ifEmpty())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredNumber === 'string' ? config.requiredNumber : '')
+          .toNumber()
+          .ifEmpty())
       }
       if (config.requiredPayload) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredPayload === 'string' ? config.requiredPayload : '').ifPayloadEmpty())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredPayload === 'string' ? config.requiredPayload : '')
+          .ifPayloadEmpty())
       }
       if (config.minLength) {
-        (formRules[fieldKey]).push(AirValidator.show().ifLengthLessThan(config.minLength))
+        (formRules[fieldKey]).push(AirValidator.show()
+          .ifLengthLessThan(config.minLength))
       }
       if (config.number) {
         if (config.min) {
-          (formRules[fieldKey]).push(AirValidator.show().ifLessThan(config.min))
+          (formRules[fieldKey]).push(AirValidator.show()
+            .ifLessThan(config.min))
         }
         if (config.max) {
-          (formRules[fieldKey]).push(AirValidator.show().ifGreaterThan(config.max))
+          (formRules[fieldKey]).push(AirValidator.show()
+            .ifGreaterThan(config.max))
         }
       }
       if (config.chinese) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.chinese === 'string' ? config.chinese : '').ifNotChinese())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.chinese === 'string' ? config.chinese : '')
+          .ifNotChinese())
       }
       if (config.telPhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.telPhone === 'string' ? config.telPhone : '').ifNotTelPhone())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.telPhone === 'string' ? config.telPhone : '')
+          .ifNotTelPhone())
       }
       if (config.mobilePhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.mobilePhone === 'string' ? config.mobilePhone : '').ifNotMobilePhone())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.mobilePhone === 'string' ? config.mobilePhone : '')
+          .ifNotMobilePhone())
       }
       if (config.phone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.phone === 'string' ? config.phone : '').ifNotPhone())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.phone === 'string' ? config.phone : '')
+          .ifNotPhone())
       }
       if (config.email) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.email === 'string' ? config.email : '').ifNotEmail())
+        (formRules[fieldKey]).push(AirValidator.show(typeof config.email === 'string' ? config.email : '')
+          .ifNotEmail())
       }
       if (config.regExp) {
-        (formRules[fieldKey]).push(AirValidator.show('').ifNotTest(config.regExp))
+        (formRules[fieldKey]).push(AirValidator.show('')
+          .ifNotTest(config.regExp))
       }
     }
     return formRules as IValidateRule<T>
   }
 
   /**
-   * # 转换验证数据为数组
+   * ## 转换验证数据为数组
    */
   toArray(): this {
     this.type = 'array'
@@ -288,7 +301,7 @@ export class AirValidator {
   }
 
   /**
-   * # 转换验证数据为数字
+   * ## 转换验证数据为数字
    */
   toNumber(): this {
     this.type = 'number'
@@ -296,7 +309,7 @@ export class AirValidator {
   }
 
   /**
-   * # 转换验证数据为字符串
+   * ## 转换验证数据为字符串
    */
   toString(): this {
     this.type = 'string'
@@ -304,7 +317,7 @@ export class AirValidator {
   }
 
   /**
-   * # 转换验证数据为日期
+   * ## 转换验证数据为日期
    */
   toDate(): this {
     this.type = 'date'
@@ -312,7 +325,7 @@ export class AirValidator {
   }
 
   /**
-   * # 显示错误信息
+   * ## 显示错误信息
    * @param message 验证失败提醒文案
    */
   show(message?: string): this {
@@ -323,7 +336,7 @@ export class AirValidator {
   }
 
   /**
-   * # 不允许的内容
+   * ## 不允许的内容
    * @param str 内容
    */
   ifEquals(str: string): this {
@@ -338,7 +351,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符长度少于多少时报错
+   * ## 字符长度少于多少时报错
    * @param min 最小值
    */
   ifLengthLessThan(min: number): this {
@@ -353,7 +366,7 @@ export class AirValidator {
   }
 
   /**
-   * # 字符长度超过多少时报错
+   * ## 字符长度超过多少时报错
    * @param max 最大值
    */
   ifLengthGreaterThan(max: number): this {
@@ -368,7 +381,7 @@ export class AirValidator {
   }
 
   /**
-   * # 不小于多少时报错 即必须大于
+   * ## 不小于多少时报错 即必须大于
    * @param min 最小值
    */
   ifNotLessThan(min: number): this {
@@ -386,7 +399,7 @@ export class AirValidator {
   /** ********************************************* 数学相关 */
 
   /**
-   * # 不大于多少时报错 即必须小于
+   * ## 不大于多少时报错 即必须小于
    * @param max 最大值
    */
   ifNotGreaterThan(max: number): this {
@@ -402,7 +415,7 @@ export class AirValidator {
   }
 
   /**
-   * # 小于多少时报错
+   * ## 小于多少时报错
    * @param min 最小值
    */
   ifLessThan(min: number): this {
@@ -418,7 +431,7 @@ export class AirValidator {
   }
 
   /**
-   * # 大于多少时报错
+   * ## 大于多少时报错
    * @param max 最大值
    */
   ifGreaterThan(max: number): this {
@@ -434,7 +447,7 @@ export class AirValidator {
   }
 
   /**
-   * # 为空时报错
+   * ## 为空时报错
    */
   ifEmpty(): this {
     this.required = true
@@ -445,7 +458,7 @@ export class AirValidator {
   }
 
   /**
-   * # 失去焦点时验证
+   * ## 失去焦点时验证
    */
   whenBlur(): this {
     this.trigger = 'blur'
@@ -453,7 +466,7 @@ export class AirValidator {
   }
 
   /**
-   * # 设置自定义验证器
+   * ## 设置自定义验证器
    * @param validator 验证方法
    */
   setCustomValidator(validator: (_: any, value: any, callback: Function) => void): this {
@@ -462,7 +475,7 @@ export class AirValidator {
   }
 
   /**
-   * # 当不包含某些字符串时报错
+   * ## 当不包含某些字符串时报错
    * @param whats 字符串数组
    */
   ifNotContain(...whats: string[]): this {
@@ -485,7 +498,7 @@ export class AirValidator {
   }
 
   /**
-   * # 当包含某些字符串时报错
+   * ## 当包含某些字符串时报错
    * @param whats 字符串数组
    */
   ifContain(...whats: string[]): this {
@@ -512,7 +525,7 @@ export class AirValidator {
   }
 
   /**
-   * # 满足指定正则表达式后报错
+   * ## 满足指定正则表达式后报错
    * @param regx 正则
    */
   ifTest(regx: RegExp): this {
@@ -527,7 +540,7 @@ export class AirValidator {
   }
 
   /**
-   * # 不满足指定正则表达式后报错
+   * ## 不满足指定正则表达式后报错
    * @param regx 正则
    */
   ifNotTest(regx: RegExp): this {
@@ -542,7 +555,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是邮箱时报错
+   * ## 如果不是邮箱时报错
    */
   ifNotEmail(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -556,7 +569,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是手机号时报错
+   * ## 如果不是手机号时报错
    */
   ifNotMobilePhone(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -570,7 +583,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是座机号时报错
+   * ## 如果不是座机号时报错
    */
   ifNotTelPhone(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -584,7 +597,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是联系电话时报错
+   * ## 如果不是联系电话时报错
    */
   ifNotPhone(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -598,7 +611,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是纯字母时报错
+   * ## 如果不是纯字母时报错
    */
   ifNotOnlyLetter(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -612,7 +625,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是字母和数字报错
+   * ## 如果不是字母和数字报错
    */
   ifNotOnlyNumberAndLetter(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -626,7 +639,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是自然整数(含0)时报错
+   * ## 如果不是自然整数(含0)时报错
    */
   ifNotNaturalInteger(): this {
     this.toNumber()
@@ -641,7 +654,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是自然整数(含0)时报错
+   * ## 如果不是自然整数(含0)时报错
    */
   ifNotNaturalNumber(): this {
     this.toNumber()
@@ -656,7 +669,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是整数时报错
+   * ## 如果不是整数时报错
    */
   ifNotInteger(): this {
     this.toNumber()
@@ -671,7 +684,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是数字(含小数)时报错
+   * ## 如果不是数字(含小数)时报错
    */
   ifNotNumber(): this {
     this.toNumber()
@@ -686,7 +699,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是有效身份证时报错
+   * ## 如果不是有效身份证时报错
    */
   ifNotChineseIdCard(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -700,7 +713,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果不是纯汉字
+   * ## 如果不是纯汉字
    */
   ifNotChinese(): this {
     this.validator = (_: any, value: string, callback: Function) => {
@@ -714,7 +727,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果输入内容不在以下范围内报错
+   * ## 如果输入内容不在以下范围内报错
    * @param list 范围 枚举或字符
    */
   ifNot(...list: AirInputType[] | string[]): this {
@@ -729,7 +742,7 @@ export class AirValidator {
   }
 
   /**
-   * # 如果输入内容不在以下范围内报错
+   * ## 如果输入内容不在以下范围内报错
    */
   ifPayloadEmpty(): this {
     this.required = true

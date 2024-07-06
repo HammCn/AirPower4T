@@ -4,7 +4,7 @@
  */
 export class AirApi {
   /**
-   * # 获取缓存的值
+   * ## 获取缓存的值
    * @param key 缓存的Key
    * @returns 缓存的值
    */
@@ -14,7 +14,7 @@ export class AirApi {
   }
 
   /**
-   * # 设置缓存
+   * ## 设置缓存
    * @param key 缓存的Key
    * @param value 缓存的值
    */
@@ -23,7 +23,7 @@ export class AirApi {
   }
 
   /**
-   * # 移除缓存
+   * ## 移除缓存
    * @param key 缓存的Key
    */
   static removeStorage(key: string) {
