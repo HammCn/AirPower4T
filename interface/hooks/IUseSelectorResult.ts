@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { Ref } from 'vue'
-import { AirEntity } from '../base/AirEntity'
+import { AirEntity } from '../../base/AirEntity'
 import { ITableHookResult } from './ITableHookResult'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
  * # 选择器Hook的标准返回

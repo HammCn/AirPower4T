@@ -1,6 +1,6 @@
 import { Ref } from 'vue'
-import { AirEntity } from '../base/AirEntity'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import { AirEntity } from '../../base/AirEntity'
+import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
  * # 详情的Hook标准返回

@@ -56,6 +56,7 @@
           <template #default="scope">
             <!-- 支持自定义插槽 -->
             <slot
+              v-if="scope.$index>=0"
               :data="getRowEntity(scope)"
               :index="scope.$index"
               :name="item.key"
@@ -454,7 +455,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
-import { ITreeProps } from '../interface/ITreeProps'
+import { ITreeProps } from '../interface/props/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 const emits = defineEmits<{
@@ -1292,7 +1293,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
@@ -1310,7 +1311,7 @@ init()
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1392,7 +1393,7 @@ init()
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1523,7 +1524,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0 !important;
   }
 }

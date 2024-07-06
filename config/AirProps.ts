@@ -45,7 +45,7 @@ export function airProps() {
 /**
  * # 使用实体的DialogProps配置
  * ---
- * ### 💡 (可选)泛型: Param的类型
+ * 💡 (可选)泛型: Param的类型
  * @param value (可选)默认参数
  */
 export function airPropsParam<P>(value: P | null = null) {
@@ -63,7 +63,7 @@ export function airPropsParam<P>(value: P | null = null) {
 /**
  * # 使用ID的DialogProps配置
  * ---
- * ### 💡 传入的 ```param``` 参数为 ```Number``` 类型的ID
+ * 💡 传入的 ```param``` 参数为 ```Number``` 类型的ID
  */
 export function airPropsId() {
   return airPropsParam<number>(0)
@@ -72,9 +72,9 @@ export function airPropsId() {
 /**
  * # 使用选择器的DialogProps配置
  * ---
- * #### 💡 S: selectList参数的类型
+ * #💡 S: selectList参数的类型
  * ---
- * #### 💡 P: param参数的类型(默认同 `selectList` 类型一致)
+ * #💡 P: param参数的类型(默认同 `selectList` 类型一致)
  *
  *
  * @param param 选择器的参数

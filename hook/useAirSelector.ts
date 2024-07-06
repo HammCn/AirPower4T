@@ -2,8 +2,8 @@ import { ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { IUseSelectorOption } from '../interface/IUseSelectorOption'
-import { IUseSelectorResult } from '../interface/IUseSelectorResult'
+import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
+import { IUseSelectorResult } from '../interface/hooks/IUseSelectorResult'
 import { IJson } from '../interface/IJson'
 import { airTableHook } from './airTableHook'
 import { AirI18n } from '../helper/AirI18n'
@@ -32,6 +32,7 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
   const disableConfirm = props.mult && result.selectList.value.length === 0
 
   return Object.assign(result, {
-    title, disableConfirm,
+    title,
+    disableConfirm,
   })
 }

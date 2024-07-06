@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { AirEntity } from '../base/AirEntity'
+import { AirEntity } from '../../base/AirEntity'
 import { ITableHookOption } from './ITableHookOption'
 
 /**

@@ -1,10 +1,10 @@
-import { AirBetweenType } from '../enum/AirBetweenType'
+import { AirBetweenType } from '../../enum/AirBetweenType'
 import { IFieldConfig } from './IFieldConfig'
-import { AirSearchDataType } from '../enum/AirSearchDataType'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnum } from '../base/AirEnum'
-import { AirEnumKey } from '../type/AirType'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { AirSearchDataType } from '../../enum/AirSearchDataType'
+import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
+import { AirEnum } from '../../base/AirEnum'
+import { AirEnumKey } from '../../type/AirType'
+import { ClassConstructor } from '../../type/ClassConstructor'
 
 /**
  * # 表格的字段配置接口

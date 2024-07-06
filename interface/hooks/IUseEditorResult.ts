@@ -1,9 +1,9 @@
 import { Ref } from 'vue'
-import { AirFormInstance } from '../type/AirType'
-import { IValidateRule } from './IValidateRule'
-import { AirEntity } from '../base/AirEntity'
+import { AirFormInstance } from '../../type/AirType'
+import { IValidateRule } from '../IValidateRule'
+import { AirEntity } from '../../base/AirEntity'
 import { IUseDetailResult } from './IUseDetailResult'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
  * # Editor的Hook标准返回

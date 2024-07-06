@@ -2,7 +2,7 @@ import { AirConfig } from '../config/AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { AirFieldConfig } from './AirFieldConfig'
-import { IFormFieldConfig } from '../interface/IFormFieldConfig'
+import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 

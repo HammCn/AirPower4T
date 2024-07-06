@@ -1,4 +1,4 @@
-import { ITree } from './ITree'
+import { ITree } from '../ITree'
 import { IUseTableOption } from './IUseTableOption'
 
 /**

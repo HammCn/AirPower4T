@@ -9,8 +9,8 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirSort } from '../model/AirSort'
 import { AirPage } from '../model/AirPage'
 import { AirNotification } from '../feedback/AirNotification'
-import { ITableHookOption } from '../interface/ITableHookOption'
-import { ITableHookResult } from '../interface/ITableHookResult'
+import { ITableHookOption } from '../interface/hooks/ITableHookOption'
+import { ITableHookResult } from '../interface/hooks/ITableHookResult'
 
 /**
  * # 表格基础Hook

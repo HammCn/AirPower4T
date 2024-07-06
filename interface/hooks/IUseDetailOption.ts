@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { AirEntity } from '../base/AirEntity'
+import { AirEntity } from '../../base/AirEntity'
 
 /**
  * # Detail的Hook可选配置

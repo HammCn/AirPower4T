@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Component } from 'vue'
-import { AirEntity } from '../base/AirEntity'
-import { AirRequestPage } from '../model/AirRequestPage'
+import { AirEntity } from '../../base/AirEntity'
+import { AirRequestPage } from '../../model/AirRequestPage'
 
 /**
  * # 表格相关的根级配置项

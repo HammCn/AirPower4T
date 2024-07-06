@@ -13,7 +13,7 @@ import { AirAbstractService } from './AirAbstractService'
 /**
  * # 实体API服务超类
  * ---
- * ### 💡 包含了常用的增删改查等方法
+ * 💡 包含了常用的增删改查等方法
  *
  * @param E 泛型实体类 ```AirEntity``` 的子类
  * @author Hamm.cn
@@ -22,7 +22,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 为基类提供当前的实体类
    * ---
-   * ### 💡 请求时会通过这个类进行数据转换
+   * 💡 请求时会通过这个类进行数据转换
    */
   abstract entityClass: ClassConstructor<E>
 
@@ -145,7 +145,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   /**
    * # 保存一条数据并返回主键ID
    *
-   * ### 💡 如包含ID 则更新 如不包含 则创建
+   * 💡 如包含ID 则更新 如不包含 则创建
    * ---
    *
    * @param data 保存的数据实体

@@ -10,14 +10,14 @@ export abstract class AirAbstractService extends AirModel {
   /**
    * # API目录地址
    * ---
-   * ### 💡 一般对应后端的分组/控制器/目录等
+   * 💡 一般对应后端的分组/控制器/目录等
    */
   abstract baseUrl: string
 
   /**
    * # Loading的ref对象
    * ---
-   * ### 💡 你可以将这个传入的对象绑定到你需要Loading的DOM上
+   * 💡 你可以将这个传入的对象绑定到你需要Loading的DOM上
    */
   loading!: Ref<boolean>
 
@@ -44,7 +44,8 @@ export abstract class AirAbstractService extends AirModel {
       url = `${this.baseUrl}/${url}`
     }
     if (this.loading) {
-      return AirHttp.create(url).setLoading(this.loading)
+      return AirHttp.create(url)
+        .setLoading(this.loading)
     }
     return AirHttp.create(url)
   }

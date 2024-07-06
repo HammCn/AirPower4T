@@ -6,7 +6,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { AirExportModel } from '../model/AirExportModel'
 import { AUpload } from '../component'
 import ExportView from '../component/toolbar/Export.vue'
-import { IUploadConfig } from '../interface/IUploadConfig'
+import { IUploadProps } from '../interface/props/IUploadProps'
 import { IFile } from '../interface/IFile'
 import { AirEntity } from '../base/AirEntity'
 import { IJson } from '../interface/IJson'
@@ -117,7 +117,7 @@ export class AirDialog {
    * @param config (可选)上传自定义配置
    * @param customConfirm (可选)自定义确认按钮回调方法
    */
-  static async showUpload<F extends IFile>(config?: IUploadConfig, customConfirm?: Function): Promise<F> {
+  static async showUpload<F extends IFile>(config?: IUploadProps, customConfirm?: Function): Promise<F> {
     return this.build<F>(AUpload, {
       onCustomConfirm: () => {
         if (customConfirm) {
@@ -130,7 +130,7 @@ export class AirDialog {
 
   /**
    * # 创建一个导出任务
-   * @param exportParam (可选)导出参数对象
+   * @param exportModel (可选)导出参数对象
    */
   static async createExportTask(exportModel: AirExportModel): Promise<unknown> {
     return this.show(ExportView, exportModel)

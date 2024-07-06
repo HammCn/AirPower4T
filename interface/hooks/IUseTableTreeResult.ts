@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { AirEntity } from '../base/AirEntity'
+import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import { AirEntity } from '../../base/AirEntity'
 import { IUseTableResult } from './IUseTableResult'
 
 /**

@@ -1,4 +1,4 @@
-import { IFieldConfig } from '../interface/IFieldConfig'
+import { IFieldConfig } from '../interface/decorators/IFieldConfig'
 
 /**
  * # 字段配置基类

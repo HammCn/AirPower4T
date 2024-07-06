@@ -23,14 +23,14 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**
    * # 标准 **AirColor** 颜色或自定义颜色
    * ---
-   * ### 💡 支持 ```AirColor``` 标准色 / 十六进制 / HTML标准色
+   * 💡 支持 ```AirColor``` 标准色 / 十六进制 / HTML标准色
    */
   color?: AirColorString
 
   /**
    * # 是否被禁用
    * ---
-   * ### 💡  如禁用, 下拉选项中将显示但无法选中
+   * 💡  如禁用, 下拉选项中将显示但无法选中
    */
   disabled?: boolean
 
@@ -79,7 +79,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param defaultColor 默认Color
    */
   static getColor(key: AirEnumKey, defaultColor: AirColorString = AirColor.NORMAL): AirColorString {
-    return (this as any).get(key).color || defaultColor
+    return this.get(key)?.color || defaultColor
   }
 
   /**
@@ -87,7 +87,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key Key
    */
   static isDisabled(key: AirEnumKey): boolean | undefined {
-    return (this as any).get(key).disabled
+    return this.get(key)?.disabled
   }
 
   /**
@@ -95,7 +95,8 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key Key
    */
   static get<E extends AirEnum<AirEnumKey>>(this: new (...args: any[]) => E, key: AirEnumKey): E | null {
-    return (this as any).toArray().find((item: E) => item.key === key) || null
+    return (this as any).toArray()
+      .find((item: E) => item.key === key) || null
   }
 
   /**
