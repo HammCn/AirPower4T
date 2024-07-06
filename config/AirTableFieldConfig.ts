@@ -1,6 +1,6 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirFieldConfig } from './AirFieldConfig'
-import { ITableFieldConfig } from '../interface/ITableFieldConfig'
+import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirSortable, AirTableAlign, AirTableFixed } from '../type/AirType'

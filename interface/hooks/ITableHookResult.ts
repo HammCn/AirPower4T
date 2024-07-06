@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Ref } from 'vue'
-import { AirEntity } from '../base/AirEntity'
-import { AirPage } from '../model/AirPage'
-import { AirRequestPage } from '../model/AirRequestPage'
-import { AirResponsePage } from '../model/AirResponsePage'
-import { AirSort } from '../model/AirSort'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import { AirEntity } from '../../base/AirEntity'
+import { AirPage } from '../../model/AirPage'
+import { AirRequestPage } from '../../model/AirRequestPage'
+import { AirResponsePage } from '../../model/AirResponsePage'
+import { AirSort } from '../../model/AirSort'
+import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
  * # TableHook的基础返回结构

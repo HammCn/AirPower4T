@@ -5,7 +5,7 @@ import {
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
 import { IFile } from '../interface/IFile'
-import { INormalTreeProps } from '../interface/INormalTreeProps'
+import { INormalTreeProps } from '../interface/props/INormalTreeProps'
 import { IUser } from '../interface/IUser'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
@@ -23,7 +23,7 @@ export class AirConfig {
   /**
    * # AirPower版本号
    */
-  static readonly version = 'v2.1.3'
+  static readonly version = 'v2.1.4'
 
   /**
    * # AppKey

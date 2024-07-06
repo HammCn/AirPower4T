@@ -21,7 +21,7 @@ const DICTIONARY_KEY = 'Dictionary'
  * # 标记属性的枚举字典
  * @param dictionary 字典数组或枚举类
  * ---
- * ### 💡 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
+ * 💡 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
  */
 export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>): Function {
   return (target: any, key: string) => {
@@ -148,7 +148,7 @@ const DEFAULT_KEY = 'Default'
 /**
  * # 标记JSON转换到模型时属性的默认值
  * ---
- * ### 💡 如标记了 ```@Type(?, true)``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
+ * 💡 如标记了 ```@Type(?, true)``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
  *
  * @param value 默认值
  */

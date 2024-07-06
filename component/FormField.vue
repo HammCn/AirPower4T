@@ -55,7 +55,7 @@ const props = defineProps({
   /**
    * # 实体类
    * ---
-   * ### 💡 传入表单内容的类型，如传入则覆盖自动注入的类
+   * 💡 传入表单内容的类型，如传入则覆盖自动注入的类
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<E>>,
@@ -65,7 +65,7 @@ const props = defineProps({
   /**
    * # 字段的名称
    * ---
-   * ### 💡 `field` 和 `fieldList` 必传一个
+   * 💡 `field` 和 `fieldList` 必传一个
    */
   field: {
     type: String,
@@ -83,7 +83,7 @@ const props = defineProps({
   /**
    * # 字段的名称数组
    * ---
-   * ### 💡 `field` 和 `fieldList` 必传一个
+   * 💡 `field` 和 `fieldList` 必传一个
    */
   fieldList: {
     type: Array<string>,

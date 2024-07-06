@@ -5,7 +5,7 @@
  * @author Hamm.cn
  */
 import { AirDecorator } from '../helper/AirDecorator'
-import { IEntityConfig } from '../interface/IEntityConfig'
+import { IEntityConfig } from '../interface/decorators/IEntityConfig'
 
 /**
  * # 实体配置Key

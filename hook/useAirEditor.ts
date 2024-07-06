@@ -1,13 +1,13 @@
 import {
-  Ref, computed, ref, watch,
+  computed, Ref, ref, watch,
 } from 'vue'
 import { AirFormInstance } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirEntity } from '../base/AirEntity'
-import { IUseEditorOption } from '../interface/IUseEditorOption'
-import { IUseEditorResult } from '../interface/IUseEditorResult'
+import { IUseEditorOption } from '../interface/hooks/IUseEditorOption'
+import { IUseEditorResult } from '../interface/hooks/IUseEditorResult'
 import { useAirDetail } from './useAirDetail'
 import { IJson } from '../interface/IJson'
 import { AirConfig } from '../config/AirConfig'
@@ -36,7 +36,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * # 自动生成的验证规则
    */
-  const rules : IValidateRule<E> = result.service.createValidator(props.param, option.customRules || {})
+  const rules: IValidateRule<E> = result.service.createValidator(props.param, option.customRules || {})
 
   /**
    * # 表单实例

@@ -49,16 +49,16 @@ const props = defineProps({
   },
 
   /**
- * # 选择按钮文案
- */
+   * # 选择按钮文案
+   */
   selectLabel: {
     type: String,
     default: '选择',
   },
 
   /**
- * # 清除按钮文案
- */
+   * # 清除按钮文案
+   */
   clearLabel: {
     type: String,
     default: '清除',

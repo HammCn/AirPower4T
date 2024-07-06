@@ -1,6 +1,6 @@
 import { provide, Ref, ref } from 'vue'
-import { IUseDetailOption } from '../interface/IUseDetailOption'
-import { IUseDetailResult } from '../interface/IUseDetailResult'
+import { IUseDetailOption } from '../interface/hooks/IUseDetailOption'
+import { IUseDetailResult } from '../interface/hooks/IUseDetailResult'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'

@@ -56,6 +56,7 @@
           <template #default="scope">
             <!-- 支持自定义插槽 -->
             <slot
+              v-if="scope.$index >= 0"
               :data="getRowEntity(scope)"
               :index="scope.$index"
               :name="item.key"
@@ -454,7 +455,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
-import { ITreeProps } from '../interface/ITreeProps'
+import { ITreeProps } from '../interface/props/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 const emits = defineEmits<{

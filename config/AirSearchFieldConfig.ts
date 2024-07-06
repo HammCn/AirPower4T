@@ -1,7 +1,7 @@
 import { AirBetweenType } from '../enum/AirBetweenType'
 import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
-import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
+import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 /**

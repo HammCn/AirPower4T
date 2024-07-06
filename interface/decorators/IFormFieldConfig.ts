@@ -1,10 +1,10 @@
-import { AirEnum } from '../base/AirEnum'
-import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirDateTimeType } from '../enum/AirDateTimeType'
-import { AirTrim } from '../enum/AirTrim'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnumKey } from '../type/AirType'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { AirEnum } from '../../base/AirEnum'
+import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
+import { AirDateTimeType } from '../../enum/AirDateTimeType'
+import { AirTrim } from '../../enum/AirTrim'
+import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
+import { AirEnumKey } from '../../type/AirType'
+import { ClassConstructor } from '../../type/ClassConstructor'
 import { IFieldConfig } from './IFieldConfig'
 
 /**

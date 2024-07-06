@@ -46,7 +46,7 @@ export class AirMenuEntity extends AirEntity implements IMenu {
   /**
    * # 设置菜单路径
    * ---
-   * ### 💡 同步设置 ```component``` 如需手动设置 请继续调用 ```setComponent()```
+   * 💡 同步设置 ```component``` 如需手动设置 请继续调用 ```setComponent()```
    * @param path 路径
    */
   setPath(path: string): this {

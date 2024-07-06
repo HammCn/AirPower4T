@@ -7,7 +7,7 @@
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IJson } from '../interface/IJson'
-import { ITableFieldConfig } from '../interface/ITableFieldConfig'
+import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { getFieldName } from './Custom'
 
@@ -59,8 +59,10 @@ export function getTableFieldList(target: any): string[] {
  * @param keyList 字段列表
  */
 export function getTableConfigList(target: any, keyList: string[]) {
-  return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirTableFieldConfig).sort((a, b) => b.orderNumber - a.orderNumber).map((item) => {
-    item.label = item.label || getFieldName(target, item.key)
-    return item
-  })
+  return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirTableFieldConfig)
+    .sort((a, b) => b.orderNumber - a.orderNumber)
+    .map((item) => {
+      item.label = item.label || getFieldName(target, item.key)
+      return item
+    })
 }

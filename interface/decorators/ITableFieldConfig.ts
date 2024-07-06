@@ -1,11 +1,11 @@
-import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
+import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
 import {
   AirEnumKey, AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
-} from '../type/AirType'
-import { AirEnum } from '../base/AirEnum'
-import { ClassConstructor } from '../type/ClassConstructor'
+} from '../../type/AirType'
+import { AirEnum } from '../../base/AirEnum'
+import { ClassConstructor } from '../../type/ClassConstructor'
 
 /**
  * # 表格的字段配置接口

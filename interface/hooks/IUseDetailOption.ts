@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { AirEntity } from '../base/AirEntity'
+import { AirEntity } from '../../base/AirEntity'
 
 /**
  * # Detail的Hook可选配置
@@ -15,5 +15,4 @@ export interface IUseDetailOption<E extends AirEntity> {
    * @param detailData 实体
    */
   afterGetDetail?: (detailData: E) => E | void
-
 }

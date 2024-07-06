@@ -74,12 +74,13 @@ export class AirAlert {
   }
 
   /**
-   * # 将确认按钮设置为危险颜色
-   * ### 💡 请注意,设置了危险按钮后, 所有的图标都将失效
+   * # 显示成功消息提醒
+   * @param content (可选) 消息内容
+   * @param title (可选) 消息标题
    */
-  dangerButton(): this {
-    this.confirmButtonClass = 'danger'
-    return this
+  static success(content?: string, title?: string): Promise<void> {
+    return this.create()
+      .success(content, title)
   }
 
   /**
@@ -191,21 +192,13 @@ export class AirAlert {
   }
 
   /**
-   * # 显示成功消息提醒
-   * @param content (可选) 消息内容
-   * @param title (可选) 消息标题
-   */
-  static success(content?: string, title?: string): Promise<void> {
-    return this.create().success(content, title)
-  }
-
-  /**
    * # 显示警告消息提醒
    * @param content (可选) 消息内容
    * @param title (可选) 消息标题
    */
   static warning(content?: string, title?: string): Promise<void> {
-    return this.create().warning(content, title)
+    return this.create()
+      .warning(content, title)
   }
 
   /**
@@ -214,7 +207,8 @@ export class AirAlert {
    * @param title (可选) 消息标题
    */
   static show(content?: string, title?: string): Promise<void> {
-    return this.create().show(content, title)
+    return this.create()
+      .show(content, title)
   }
 
   /**
@@ -223,7 +217,8 @@ export class AirAlert {
    * @param title (可选) 消息标题
    */
   static error(content?: string, title?: string): Promise<void> {
-    return this.create().error(content, title)
+    return this.create()
+      .error(content, title)
   }
 
   /**
@@ -232,7 +227,17 @@ export class AirAlert {
    * @param title (可选) 消息标题
    */
   static info(content?: string, title?: string): Promise<void> {
-    return this.create().info(content, title)
+    return this.create()
+      .info(content, title)
+  }
+
+  /**
+   * # 将确认按钮设置为危险颜色
+   * 💡 请注意,设置了危险按钮后, 所有的图标都将失效
+   */
+  dangerButton(): this {
+    this.confirmButtonClass = 'danger'
+    return this
   }
 
   /**

@@ -71,7 +71,7 @@ const props = defineProps({
   /**
    * # 自定义图标类名
    * ---
-   * ### 💡 如传入了 ```type``` 则此项配置无效
+   * 💡 如传入了 ```type``` 则此项配置无效
    */
   icon: {
     type: String,
@@ -81,7 +81,7 @@ const props = defineProps({
   /**
    * # 常用图标
    * ---
-   * ### 💡 仅支持传入 ```AirIconType``` 支持的图标类型
+   * 💡 仅支持传入 ```AirIconType``` 支持的图标类型
    */
   type: {
     type: String as PropType<AirIconType>,
@@ -107,7 +107,7 @@ const props = defineProps({
   /**
    * # 是否是主按钮
    * ---
-   * ### 💡 仅在 ```icon-button``` 为 ```false``` 时生效
+   * 💡 仅在 ```icon-button``` 为 ```false``` 时生效
    */
   primary: {
     type: Boolean,
@@ -117,7 +117,7 @@ const props = defineProps({
   /**
    * # 是否是危险按钮
    * ---
-   * ### 💡 ```danger``` 设置为 ```true``` 时, ```primary``` 失效
+   * 💡 ```danger``` 设置为 ```true``` 时, ```primary``` 失效
    */
   danger: {
     type: Boolean,
@@ -127,7 +127,7 @@ const props = defineProps({
   /**
    * # 是否禁用按钮
    * ---
-   * ### 💡 如不禁用，且传入了 ```permission``` 则按权限判断是否禁用 否则不禁用
+   * 💡 如不禁用，且传入了 ```permission``` 则按权限判断是否禁用 否则不禁用
    */
   disabled: {
     type: Boolean,

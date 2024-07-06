@@ -51,7 +51,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   /**
    * # 获取一个字典选项
    * ---
-   * ### 💡 可能返回一个空字典 但你可以放心的点属性
+   * 💡 可能返回一个空字典 但你可以放心的点属性
    * @param key Key
    */
   get(key: AirEnumKey): T {
@@ -61,7 +61,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   /**
    * # 查找一个字典选项 可能找不到
    * ---
-   * ### 💡 可以尝试 ```.get()``` 后放心大胆的点属性
+   * 💡 可以尝试 ```.get()``` 后放心大胆的点属性
    * @param key Key
    */
   findByKey(key: AirEnumKey): T | undefined {

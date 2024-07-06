@@ -19,7 +19,7 @@ defineProps({
   /**
    * # 菜单列表
    * ---
-   * ### 💡 请确保传入的数组类型为 ```IMenu``` 的实现类
+   * 💡 请确保传入的数组类型为 ```IMenu``` 的实现类
    */
   menuList: {
     type: Array<IMenu>,
@@ -52,7 +52,7 @@ const route = useRoute()
 watch(
   () => route,
   // eslint-disable-next-line
-    (newVal) => {
+  (newVal) => {
     // eslint-disable-next-line no-restricted-globals
     defaultMenu.value = newVal.path || location.pathname
   },
@@ -72,7 +72,7 @@ watch(
   user-select: none;
 
   .is-opened {
-    > .el-sub-menu__title {
+    >.el-sub-menu__title {
       background-color: var(--el-menu-hover-bg-color);
     }
   }

@@ -4,7 +4,7 @@
  * # 搜索字段的注解
  * @author Hamm.cn
  */
-import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
+import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
@@ -59,8 +59,10 @@ export function getSearchFieldList(target: any): string[] {
  * @param keyList 选择字段列表
  */
 export function getSearchConfigList(target: any, keyList: string[]) {
-  return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirSearchFieldConfig).sort((a, b) => b.orderNumber - a.orderNumber).map((item) => {
-    item.label = item.label || getFieldName(target, item.key)
-    return item
-  })
+  return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirSearchFieldConfig)
+    .sort((a, b) => b.orderNumber - a.orderNumber)
+    .map((item) => {
+      item.label = item.label || getFieldName(target, item.key)
+      return item
+    })
 }
