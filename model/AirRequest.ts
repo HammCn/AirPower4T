@@ -11,22 +11,22 @@ import { AirSort } from './AirSort'
  */
 export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   /**
-   * # 查询信息
+   * ## 查询信息
    */
   filter!: E
 
   /**
-   * # 关键词搜索
+   * ## 关键词搜索
    */
   @Type(String) keyword!: string
 
   /**
-   * # 排序信息
+   * ## 排序信息
    */
   @Type(AirSort) sort!: AirSort
 
   /**
-   * # 初始化一个请求类
+   * ## 初始化一个请求类
    * @param filterClass 如传入filter的类 将自动初始化一个空filter
    */
   constructor(filterClass: ClassConstructor<E>) {
@@ -35,7 +35,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   }
 
   /**
-   * # 设置排序对象
+   * ## 设置排序对象
    * @param sort 排序对象
    */
   setSort(sort: AirSort): this {

@@ -4,7 +4,7 @@
  */
 export class AirConsole {
   /**
-   * # 控制台显示分组调试信息
+   * ## 控制台显示分组调试信息
    * @param title 分组标题
    */
   static title(title: string): void {
@@ -14,7 +14,7 @@ export class AirConsole {
   }
 
   /**
-   * # 成功输出
+   * ## 成功输出
    * @param message
    */
   static success(message: string): void {
@@ -24,7 +24,7 @@ export class AirConsole {
   }
 
   /**
-   * # 警告输出
+   * ## 警告输出
    * @param message
    */
   static warning(message: string): void {
@@ -34,7 +34,7 @@ export class AirConsole {
   }
 
   /**
-   * # 错误输出
+   * ## 错误输出
    * @param message
    */
   static error(message: string): void {
@@ -44,7 +44,7 @@ export class AirConsole {
   }
 
   /**
-   * # 信息输出
+   * ## 信息输出
    * @param message
    */
   static info(message: string): void {
@@ -54,7 +54,7 @@ export class AirConsole {
   }
 
   /**
-   * # 普通输出
+   * ## 普通输出
    * @param message
    */
   static log(message: string): void {
@@ -64,7 +64,7 @@ export class AirConsole {
   }
 
   /**
-   * # 输出
+   * ## 输出
    * @param content 内容
    * @param css (可选)样式
    */

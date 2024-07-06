@@ -168,8 +168,7 @@ const emits = defineEmits<{
 const props = defineProps({
   /**
    * # 左侧添加按钮的权限标识
-   * ---
-   * 则默认使用 ```EntityConfig``` 的 ```addPermission``` 配置
+   * 则默认使用 `EntityConfig` 的 `addPermission` 配置
    */
   addPermission: {
     type: String,
@@ -178,8 +177,7 @@ const props = defineProps({
 
   /**
    * # 右侧导出按钮的权限标识
-   * ---
-   * 则默认使用 ```EntityConfig``` 的 ```exportPermission``` 配置
+   * 则默认使用 `EntityConfig` 的 `exportPermission` 配置
    */
   exportPermission: {
     type: String,
@@ -188,8 +186,7 @@ const props = defineProps({
 
   /**
    * # 左侧导入按钮的权限标识
-   * ---
-   * 则默认使用 ```EntityConfig``` 的 ```importPermission``` 配置
+   * 则默认使用 `EntityConfig` 的 `importPermission` 配置
    */
   importPermission: {
     type: String,
@@ -198,7 +195,6 @@ const props = defineProps({
 
   /**
    * # 搜索的对象
-   * ---
    * 则覆盖自动生成的条件
    */
   searchParams: {
@@ -224,8 +220,7 @@ const props = defineProps({
 
   /**
    * # 是否显示搜索框
-   * ---
-   * 💡 优先级: Entity配置 > 组件传入
+   * 优先级: Entity配置 > 组件传入
    */
   showSearch: {
     type: Boolean,
@@ -234,8 +229,7 @@ const props = defineProps({
 
   /**
    * # 是否显示更多筛选器
-   * ---
-   * 💡 优先级: 组件传入 > EntityConfig配置
+   * 优先级: 组件传入 > EntityConfig配置
    */
   showFilter: {
     type: Boolean,
@@ -260,8 +254,7 @@ const props = defineProps({
 
   /**
    * # 是否显示导出按钮
-   * ---
-   * 💡 如传入 则需要再传入 ```:service```
+   * 如传入 则需要再传入 `:service`
    */
   showExport: {
     type: Boolean,
@@ -270,8 +263,7 @@ const props = defineProps({
 
   /**
    * # 导入接口地址
-   * ---
-   * 💡 默认按传入的service自动生成
+   * 默认按传入的service自动生成
    */
   importUrl: {
     type: String,
@@ -280,8 +272,7 @@ const props = defineProps({
 
   /**
    * # 导入模板下载地址
-   * ---
-   * 💡 默认按传入的service自动生成
+   * 默认按传入的service自动生成
    */
   importTemplateUrl: {
     type: String,
@@ -290,8 +281,7 @@ const props = defineProps({
 
   /**
    * # 导入上传的标题
-   * ---
-   * 💡 默认按传入的service自动生成
+   * 默认按传入的service自动生成
    */
   importTitle: {
     type: String,
@@ -300,9 +290,8 @@ const props = defineProps({
 
   /**
    * # 是否显示导入按钮
-   * ---
-   * - ```import-url``` (可选)导入的API接口地址
-   * - ```import-title``` (可选)指定上传框的标题
+   * - `import-url` (可选)导入的API接口地址
+   * - `import-title` (可选)指定上传框的标题
    */
   showImport: {
     type: Boolean,
@@ -311,8 +300,7 @@ const props = defineProps({
 
   /**
    * # 导入的文件实体类
-   * ---
-   * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
+   * 可通过 `AirConfig.fileEntityClass` 配置, 默认为 `AirFileEntity`
    */
   fileEntity: {
     type: Function as unknown as PropType<ClassConstructor<IFile>>,
@@ -329,8 +317,7 @@ const props = defineProps({
 
   /**
    * # 搜索框提示文案
-   * ---
-   * 💡 优先级: 组件传入 > EntityConfig配置 > AirConfig默认值
+   * 优先级: 组件传入 > EntityConfig配置 > AirConfig默认值
    */
   searchPlaceholder: {
     type: String,
@@ -533,7 +520,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -568,7 +555,7 @@ defineExpose({
       width: 240px;
     }
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 

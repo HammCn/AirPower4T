@@ -13,15 +13,14 @@ import { AirEnumKey } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
- * # 字典配置Key
+ * ## 字典配置Key
  */
 const DICTIONARY_KEY = 'Dictionary'
 
 /**
- * # 标记属性的枚举字典
+ * ## 标记属性的枚举字典
  * @param dictionary 字典数组或枚举类
- * ---
- * 💡 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
+ * 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
  */
 export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>): Function {
   return (target: any, key: string) => {
@@ -34,7 +33,7 @@ export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionar
 }
 
 /**
- * # 获取属性枚举字典
+ * ## 获取属性枚举字典
  * @param target 目标类
  * @param key 属性名
  */
@@ -47,17 +46,17 @@ export function getDictionary(target: any, key: string): AirDictionaryArray | un
 }
 
 /**
- * # 强制类型配置Key
+ * ## 强制类型配置Key
  */
 const TYPE_KEY = 'Type'
 
 /**
- * # 标记为数组Key
+ * ## 标记为数组Key
  */
 const IS_ARRAY_KEY = 'IsArray'
 
 /**
- * # 标记属性强制转换类
+ * ## 标记属性强制转换类
  * @param Clazz 类型
  * @param isArray (可选)是否是数组
  */
@@ -69,7 +68,7 @@ export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
 }
 
 /**
- * # 标记是数组
+ * ## 标记是数组
  * 可在此配置，但更建议在Type中直接配置第二个参数
  */
 export function List(): Function {
@@ -79,7 +78,7 @@ export function List(): Function {
 }
 
 /**
- * # 获取属性强制转换类
+ * ## 获取属性强制转换类
  * @param target 目标类
  * @param key 属性名
  */
@@ -88,7 +87,7 @@ export function getType(target: any, key: string): ClassConstructor<unknown> | u
 }
 
 /**
- * # 获取属性是否数组
+ * ## 获取属性是否数组
  * @param target 目标类
  * @param key 属性名
  */
@@ -97,12 +96,12 @@ export function getIsArray(target: any, key: string): boolean {
 }
 
 /**
- * # 自定义到JSON转换Key
+ * ## 自定义到JSON转换Key
  */
 const TO_JSON_KEY = 'ToJson'
 
 /**
- * # 自定义转换到JSON的方法
+ * ## 自定义转换到JSON的方法
  * @param func 方法
  */
 export function ToJson(func: Function): Function {
@@ -110,7 +109,7 @@ export function ToJson(func: Function): Function {
 }
 
 /**
- * # 获取自定义转换到JSON的方法
+ * ## 获取自定义转换到JSON的方法
  * @param target 目标类
  * @param key 属性名
  */
@@ -119,12 +118,12 @@ export function getToJson(target: any, key: string): Function | undefined {
 }
 
 /**
- * # 自定义到模型转换Key
+ * ## 自定义到模型转换Key
  */
 const TO_MODEL_KEY = 'ToModel'
 
 /**
- * # 自定义转换到Model的方法
+ * ## 自定义转换到Model的方法
  * @param func 方法
  */
 export function ToModel(func: Function): Function {
@@ -132,7 +131,7 @@ export function ToModel(func: Function): Function {
 }
 
 /**
- * # 获取自定义转换到Model的方法
+ * ## 获取自定义转换到Model的方法
  * @param target 目标类
  * @param key 属性名
  */
@@ -141,14 +140,13 @@ export function getToModel(target: any, key: string): Function | undefined {
 }
 
 /**
- * # 默认值Key
+ * ## 默认值Key
  */
 const DEFAULT_KEY = 'Default'
 
 /**
- * # 标记JSON转换到模型时属性的默认值
- * ---
- * 💡 如标记了 ```@Type(?, true)``` 则默认值为 ```[]```, 但仍可以通过此装饰器覆盖
+ * ## 标记JSON转换到模型时属性的默认值
+ * 如标记了 `@Type(?, true)` 则默认值为 `[]`, 但仍可以通过此装饰器覆盖
  *
  * @param value 默认值
  */
@@ -157,7 +155,7 @@ export function Default(value: any): Function {
 }
 
 /**
- * # 获取类的属性默认值
+ * ## 获取类的属性默认值
  * @param target 目标类
  * @param key 属性名
  */
@@ -166,12 +164,12 @@ export function getDefault(target: any, key: string): any {
 }
 
 /**
- * # 类名称Key
+ * ## 类名称Key
  */
 const CLASS_NAME_KEY = 'ClassName'
 
 /**
- * # 为类标记可读名称
+ * ## 为类标记可读名称
  * @param name 类的可读名称
  */
 export function Model(name: string): Function {
@@ -179,7 +177,7 @@ export function Model(name: string): Function {
 }
 
 /**
- * # 获取类的可读名称
+ * ## 获取类的可读名称
  * @param target 目标类
  */
 export function getModelName(target: any): string {
@@ -187,12 +185,12 @@ export function getModelName(target: any): string {
 }
 
 /**
- * # 属性名Key
+ * ## 属性名Key
  */
 const FIELD_NAME_KEY = 'FieldName'
 
 /**
- * # 为属性标记可读名称
+ * ## 为属性标记可读名称
  * @param name 属性的可读名称
  */
 export function Field(name: string): Function {
@@ -200,7 +198,7 @@ export function Field(name: string): Function {
 }
 
 /**
- * # 获取属性可读名称
+ * ## 获取属性可读名称
  * @param target 目标对象
  * @param key 属性名
  */
@@ -209,19 +207,19 @@ export function getFieldName(target: any, key: string): string {
 }
 
 /**
- * # 忽略字段前缀Key
+ * ## 忽略字段前缀Key
  */
 const FIELD_IGNORE_KEY = 'IgnorePrefix'
 
 /**
- * # 标记属性忽略类的别名前缀
+ * ## 标记属性忽略类的别名前缀
  */
 export function NoPrefix(): Function {
   return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_IGNORE_KEY, true)
 }
 
 /**
- * # 获取属性是否忽略别名前缀
+ * ## 获取属性是否忽略别名前缀
  * @param target 目标类
  * @param key 属性名称
  */
@@ -230,12 +228,12 @@ export function getNoPrefix(target: any, key: string): boolean {
 }
 
 /**
- * # 字段前缀Key
+ * ## 字段前缀Key
  */
 const FIELD_PREFIX_KEY = 'FieldPrefix'
 
 /**
- * # 标记属性别名前缀
+ * ## 标记属性别名前缀
  * @param prefix 类的属性别名前缀
  */
 export function FieldPrefix(prefix: string) {
@@ -243,7 +241,7 @@ export function FieldPrefix(prefix: string) {
 }
 
 /**
- * # 获取属性别名前缀
+ * ## 获取属性别名前缀
  * @param target 目标类
  */
 export function getFieldPrefix(target: any): string {
@@ -251,12 +249,12 @@ export function getFieldPrefix(target: any): string {
 }
 
 /**
- * # 别名Key
+ * ## 别名Key
  */
 const ALIAS_KEY = 'Alias'
 
 /**
- * # 为标记属性的转换别名
+ * ## 为标记属性的转换别名
  * @param alias 属性的转换别名
  */
 export function Alias(alias: string) {
@@ -264,7 +262,7 @@ export function Alias(alias: string) {
 }
 
 /**
- * # 获取对象的属性转换别名
+ * ## 获取对象的属性转换别名
  * @param target 目标对象
  * @param key 属性名
  */

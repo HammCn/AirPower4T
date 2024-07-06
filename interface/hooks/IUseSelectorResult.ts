@@ -11,12 +11,12 @@ import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
 
   /**
-   * # Selector的标题
+   * ## Selector的标题
    */
   title: Ref<string>,
 
   /**
-   * # 是否禁用确认按钮
+   * ## 是否禁用确认按钮
    * 多选时当没有选择任何数据时将禁用确认按钮
    */
   disableConfirm: boolean

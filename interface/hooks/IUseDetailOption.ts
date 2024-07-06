@@ -8,9 +8,8 @@ import { AirEntity } from '../../base/AirEntity'
  */
 export interface IUseDetailOption<E extends AirEntity> {
   /**
-   * # 查到详情后的事件
-   * ---
-   * 💡 参数为响应的数据,请处理后返回
+   * ## 查到详情后的事件
+   * 参数为响应的数据,请处理后返回
    *
    * @param detailData 实体
    */

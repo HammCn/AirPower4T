@@ -10,12 +10,12 @@ import { ClassConstructor } from '../type/ClassConstructor'
  */
 export class AirPermission {
   /**
-   * # 下划线
+   * ## 下划线
    */
   private static readonly UNDER_LINE = '_'
 
   /**
-   * # 获取指定实体类在某个场景的权限标识字符串
+   * ## 获取指定实体类在某个场景的权限标识字符串
    * @param EntityClass 实体类
    * @param action 权限场景
    */
@@ -31,7 +31,8 @@ export class AirPermission {
       // 自动处理权限
       if (!entityConfig.permissionPrefix) {
         // 没有配置前缀 从类中获取权限前缀
-        const entityName = EntityClass.name.replace('Entity', '').toString()
+        const entityName = EntityClass.name.replace('Entity', '')
+          .toString()
         entityConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
       }
     } else {
@@ -61,10 +62,10 @@ export class AirPermission {
   }
 
   /**
-   * # 根据配置获取权限后缀
+   * ## 根据配置获取权限后缀
    *
-   * - ```AirConfig.autoPermission=false``` 只取 ```EntityConfig``` 配置的权限, 取不到则认为不校验权限
-   * - ```AirConfig.autoPermission=true```  取 ```EntityConfig``` 配置的权限, 取不到则按 ```action``` 自动取
+   * - `AirConfig.autoPermission=false` 只取 `EntityConfig` 配置的权限, 取不到则认为不校验权限
+   * - `AirConfig.autoPermission=true`  取 `EntityConfig` 配置的权限, 取不到则按 `action` 自动取
    */
   private static getAutoPermissionFlag(permission: string | undefined, action: AirPermissionAction) {
     if (AirConfig.autoPermission) {

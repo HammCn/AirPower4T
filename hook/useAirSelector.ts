@@ -18,12 +18,12 @@ import { AirI18n } from '../helper/AirI18n'
  */
 export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E, S> {
   /**
-   * # 表格Hook返回对象
+   * ## 表格Hook返回对象
    */
   const result = airTableHook(entityClass, serviceClass, option)
 
   /**
-   * # 选择器对话框的标题
+   * ## 选择器对话框的标题
    */
   const title = ref(AirI18n.get().SelectPlease || '请选择')
 

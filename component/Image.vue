@@ -84,8 +84,7 @@ const props = defineProps({
 
   /**
    * # 是否显示删除图标
-   * ---
-   * 💡 仅 ```upload``` 时有效, 如传入```false```, 则上传后不允许删除
+   * 仅 `upload` 时有效, 如传入 `false`, 则上传后不允许删除
    */
   clearable: {
     type: Boolean,
@@ -158,7 +157,6 @@ const props = defineProps({
 
   /**
    * # 上传文件的字段名
-   * ---
    * 默认为 `file`
    */
   uploadFileName: {
@@ -168,8 +166,7 @@ const props = defineProps({
 
   /**
    * # 接收的文件实体类
-   * ---
-   * 💡 可通过 ```AirConfig.fileEntityClass``` 配置, 默认为 ```AirFileEntity```
+   * 可通过 `AirConfig.fileEntityClass` 配置, 默认为 `AirFileEntity`
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<F>>,

@@ -12,67 +12,65 @@ import { AirAbstractService } from './AirAbstractService'
 
 /**
  * # 实体API服务超类
- * ---
- * 💡 包含了常用的增删改查等方法
+ * 包含了常用的增删改查等方法
  *
- * @param E 泛型实体类 ```AirEntity``` 的子类
+ * @param E 泛型实体类
  * @author Hamm.cn
  */
 export abstract class AirAbstractEntityService<E extends AirEntity> extends AirAbstractService {
   /**
-   * # 为基类提供当前的实体类
-   * ---
-   * 💡 请求时会通过这个类进行数据转换
+   * ## 为基类提供当前的实体类
+   * 请求时会通过这个类进行数据转换
    */
   abstract entityClass: ClassConstructor<E>
 
   /**
-   * # 分页查询API地址的默认URL
+   * ## 分页查询API地址的默认URL
    */
   protected urlForGetPage = 'getPage'
 
   /**
-   * # 不分页查询API地址的默认URL
+   * ## 不分页查询API地址的默认URL
    */
   protected urlForGetList = 'getList'
 
   /**
-   * # 不分页树查询API地址的默认URL
+   * ## 不分页树查询API地址的默认URL
    */
   protected urlForGetTreeList = 'getTreeList'
 
   /**
-   * # 查询详情API地址的默认URL
+   * ## 查询详情API地址的默认URL
    */
   protected urlForGetDetail = 'getDetail'
 
   /**
-   * # 添加API地址的默认URL
+   * ## 添加API地址的默认URL
    */
   protected urlForAdd = 'add'
 
   /**
-   * # 启用API地址的默认URL
+   * ## 启用API地址的默认URL
    */
   protected urlForEnable = 'enable'
 
   /**
-   * # 禁用API地址的默认URL
+   * ## 禁用API地址的默认URL
    */
   protected urlForDisable = 'disable'
 
   /**
-   * # 修改API地址的默认URL
+   * ## 修改API地址的默认URL
    */
   protected urlForUpdate = 'update'
 
   /**
-   * # 删除API地址的默认URL
+   * ## 删除API地址的默认URL
    */
   protected urlForDelete = 'delete'
 
   /**
-   * # 查询分页数据列表
+   * ## 查询分页数据列表
    * @param request 请求对象
    */
   async getPage(request: AirRequest<E>): Promise<AirResponsePage<E>> {
@@ -84,7 +82,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 查询不分页数据列表
+   * ## 查询不分页数据列表
    * @param request 请求对象
    */
   async getList(request: AirRequest<E>): Promise<E[]> {
@@ -94,7 +92,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 查询树结构数据数组
+   * ## 查询树结构数据数组
    * @param request 请求对象
    */
   async getTreeList(request: AirRequest<E>): Promise<E[]> {
@@ -104,7 +102,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 根据ID获取详情对象
+   * ## 根据ID获取详情对象
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
@@ -114,10 +112,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 添加一条新的数据
+   * ## 添加一条新的数据
    * @param data 保存的数据
-   * @param message (可选)添加成功的消息提示内容
-   * @param title (可选)添加成功的消息提示标题 默认 '添加成功'
+   * @param message `可选` 添加成功的消息提示内容
+   * @param title `可选` 添加成功的消息提示标题 默认 `添加成功`
    */
   async add(data: E, message?: string, title = '添加成功'): Promise<number> {
     const json = await this.api(this.urlForAdd)
@@ -129,10 +127,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 修改一条数据
+   * ## 修改一条数据
    * @param data 修改的数据实体
-   * @param message (可选)修改成功的消息提示内容
-   * @param title (可选)修改成功的消息提示标题 默认 '修改成功'
+   * @param message `可选` 修改成功的消息提示内容
+   * @param title `可选` 修改成功的消息提示标题 默认 `修改成功`
    */
   async update(data: E, message?: string, title = '修改成功'): Promise<void> {
     await this.api(this.urlForUpdate)
@@ -143,14 +141,12 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 保存一条数据并返回主键ID
+   * ## 保存一条数据并返回主键ID
    *
-   * 💡 如包含ID 则更新 如不包含 则创建
-   * ---
-   *
+   * 如包含ID 则更新 如不包含 则创建
    * @param data 保存的数据实体
-   * @param message (可选)保存成功的消息提示内容
-   * @param title (可选)保存成功的消息提示标题 默认 '保存成功'
+   * @param message `可选` 保存成功的消息提示内容
+   * @param title `可选` 保存成功的消息提示标题 默认 `保存成功`
    */
   async save(data: E, message?: string, title = '保存成功'): Promise<number> {
     if (data.id) {
@@ -161,10 +157,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 根据ID删除一条数据
+   * ## 根据ID删除一条数据
    * @param id 删除的数据ID
-   * @param message (可选)删除成功的消息提示内容
-   * @param title (可选)删除成功的消息提示标题 默认 '删除成功'
+   * @param message `可选` 删除成功的消息提示内容
+   * @param title `可选` 删除成功的消息提示标题 默认 `删除成功`
    */
   async delete(id: number, message?: string, title = '删除成功'): Promise<void> {
     try {
@@ -180,10 +176,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 根据ID禁用一条数据
+   * ## 根据ID禁用一条数据
    * @param id 禁用的数据ID
-   * @param message (可选)禁用成功的消息提示内容
-   * @param title (可选)禁用成功的消息提示标题 默认 '禁用成功'
+   * @param message `可选` 禁用成功的消息提示内容
+   * @param title `可选` 禁用成功的消息提示标题 默认 `禁用成功`
    */
   async disable(id: number, message?: string, title = '禁用成功'): Promise<void> {
     try {
@@ -199,10 +195,10 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 根据ID启用一条数据
+   * ## 根据ID启用一条数据
    * @param id 启用的数据ID
-   * @param message (可选)启用成功的消息提示内容
-   * @param title (可选)启用成功的消息提示标题 默认 '启用成功'
+   * @param message `可选` 启用成功的消息提示内容
+   * @param title `可选` 启用成功的消息提示标题 默认 `启用成功`
    */
   async enable(id: number, message?: string, title = '启用成功'): Promise<void> {
     try {
@@ -218,8 +214,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 创建一个实体的实例
-   * @param id (可选)ID
+   * ## 创建一个实体的实例
+   * @param id `可选` ID
    */
   private newEntityInstance(id?: number): E {
     // eslint-disable-next-line new-cap
@@ -231,9 +227,9 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 创建验证器
+   * ## 创建验证器
    * @param form 表单对象
-   * @param moreRule (可选) 更多的验证规则
+   * @param moreRule `可选` 更多的验证规则
    */
   static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -241,10 +237,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     return AirValidator.createRules(form, this.newInstance(), moreRule)
   }
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   /**
-   * ! 内部使用 请勿调用
+   * ## `内部使用`
    * @deprecated
    */
   createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}) {

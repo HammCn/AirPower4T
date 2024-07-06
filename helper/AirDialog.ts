@@ -18,17 +18,17 @@ import { AirStore } from '../store/AirStore'
  */
 export class AirDialog {
   /**
-   * # 当前对话框ID
+   * ## 当前对话框ID
    */
   public static currentDialogId = 0
 
   /**
-   * # 已弹出的ID数组
+   * ## 已弹出的ID数组
    */
   public static dialogIdList: number[] = []
 
   /**
-   * # 弹出对话框的内部方法
+   * ## 弹出对话框的内部方法
    * @param view 使用的视图组件 传入一个import的vue
    * @param param 弹窗参数 将传入到合并到props上
    */
@@ -102,7 +102,7 @@ export class AirDialog {
   }
 
   /**
-   * # 弹出一个弹窗
+   * ## 弹出一个弹窗
    * @param view 使用的视图组件 传入一个import的vue
    * @param param (可选)参数 将传入到目标对象的props.param参数上
    */
@@ -113,7 +113,7 @@ export class AirDialog {
   }
 
   /**
-   * # 弹出上传文件对话框
+   * ## 弹出上传文件对话框
    * @param config (可选)上传自定义配置
    * @param customConfirm (可选)自定义确认按钮回调方法
    */
@@ -129,7 +129,7 @@ export class AirDialog {
   }
 
   /**
-   * # 创建一个导出任务
+   * ## 创建一个导出任务
    * @param exportModel (可选)导出参数对象
    */
   static async createExportTask(exportModel: AirExportModel): Promise<unknown> {
@@ -137,7 +137,7 @@ export class AirDialog {
   }
 
   /**
-   * # 弹出一个单选选择器
+   * ## 弹出一个单选选择器
    * @param view 使用的视图组件 传入一个import的vue
    * @param param (可选)普通参数 将传入到目标对象的props.param参数上
    */
@@ -148,7 +148,7 @@ export class AirDialog {
   }
 
   /**
-   * # 弹出一个多选选择器
+   * ## 弹出一个多选选择器
    * @param view 使用的视图组件 传入一个import的vue
    * @param selectList (可选)已选列表 将传入到目标对象的props.selectList参数上
    * @param param (可选)普通参数 将传入到目标对象的props.param参数上

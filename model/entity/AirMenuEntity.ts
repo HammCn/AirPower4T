@@ -4,14 +4,10 @@ import { IMenu } from '../../interface/IMenu'
 
 /**
  * # 内置菜单实体
- * ---
- * 💡 如需扩展, 请自行实现 ```IMenu```
+ * 如需扩展, 请自行实现 `IMenu`
  * @author Hamm.cn
  */
 export class AirMenuEntity extends AirEntity implements IMenu {
-  // eslint-disable-next-line no-use-before-define
-  @Type(AirMenuEntity, true) children: this[] = []
-
   name!: string
 
   /**
@@ -34,6 +30,9 @@ export class AirMenuEntity extends AirEntity implements IMenu {
    */
   @Type(Boolean) isDisabled = false
 
+  // eslint-disable-next-line no-use-before-define
+  @Type(AirMenuEntity, true) children: this[] = []
+
   /**
    * # 设置菜单名称
    * @param name 菜单名称
@@ -45,8 +44,7 @@ export class AirMenuEntity extends AirEntity implements IMenu {
 
   /**
    * # 设置菜单路径
-   * ---
-   * 💡 同步设置 ```component``` 如需手动设置 请继续调用 ```setComponent()```
+   * 同步设置 `component` 如需手动设置 请继续调用 `setComponent()`
    * @param path 路径
    */
   setPath(path: string): this {

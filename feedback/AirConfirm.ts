@@ -5,12 +5,12 @@ import { AirI18n } from '../helper/AirI18n'
 
 /**
  * #  确认弹窗类
- * 可通过 ```.create()``` 方法创建自定义实例
+ * 可通过 `.create()` 方法创建自定义实例
  * @author Hamm.cn
  */
 export class AirConfirm extends AirAlert {
   /**
-   * # 设置取消按钮文字
+   * ## 设置取消按钮文字
    * @param cancelText 取消按钮文字
    */
   setCancelText(cancelText: string): this {
@@ -19,7 +19,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 启用ESC关闭
+   * ## 启用ESC关闭
    */
   enableEscClose(): this {
     this.isCloseByEscape = true
@@ -27,7 +27,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 启用遮罩层关闭
+   * ## 启用遮罩层关闭
    */
   enableCoverClose(): this {
     this.isCloseByCover = true
@@ -35,7 +35,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 显示成功图标的确认框
+   * ## 显示成功图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
@@ -45,7 +45,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 显示警告图标的确认框
+   * ## 显示警告图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
@@ -55,7 +55,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 显示错误图标的确认框
+   * ## 显示错误图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
@@ -65,7 +65,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 显示消息图标的确认框
+   * ## 显示消息图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
@@ -75,7 +75,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 显示无图标确认弹窗
+   * ## 显示无图标确认弹窗
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
@@ -96,54 +96,59 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * # 创建实例方法
+   * ## 创建实例方法
    */
   static create(): AirConfirm {
     return new AirConfirm()
   }
 
   /**
-   * # 显示成功图标的确认框
+   * ## 显示成功图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
   static success(content: string, title?: string): Promise<void> {
-    return this.create().success(content, title)
+    return this.create()
+      .success(content, title)
   }
 
   /**
-   * # 显示警告图标的确认框
+   * ## 显示警告图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
   static warning(content: string, title?: string): Promise<void> {
-    return this.create().warning(content, title)
+    return this.create()
+      .warning(content, title)
   }
 
   /**
-   * # 显示错误图标的确认框
+   * ## 显示错误图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
   static error(content: string, title?: string): Promise<void> {
-    return this.create().error(content, title)
+    return this.create()
+      .error(content, title)
   }
 
   /**
-   * # 显示消息图标的确认框
+   * ## 显示消息图标的确认框
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
   static info(content: string, title?: string): Promise<void> {
-    return this.create().info(content, title)
+    return this.create()
+      .info(content, title)
   }
 
   /**
-   * # 显示无图标确认弹窗
+   * ## 显示无图标确认弹窗
    * @param content 确认内容
    * @param title (可选) 确认标题
    */
   static show(content: string, title?: string): Promise<void> {
-    return this.create().show(content, title)
+    return this.create()
+      .show(content, title)
   }
 }

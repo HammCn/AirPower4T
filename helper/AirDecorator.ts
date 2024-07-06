@@ -10,7 +10,7 @@ import { AirClassTransformer } from './AirClassTransformer'
  */
 export class AirDecorator {
   /**
-   * # 反射添加属性
+   * ## 反射添加属性
    * @param target 目标类
    * @param key 配置key
    * @param value 配置值
@@ -25,7 +25,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 设置一个类配置项
+   * ## 设置一个类配置项
    * @param target 目标实体类
    * @param classConfigKey 配置项索引键值
    * @param classConfig 配置的参数
@@ -35,7 +35,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 递归获取指定类的配置项
+   * ## 递归获取指定类的配置项
    * @param target 目标类
    * @param classConfigKey 配置项的Key
    * @param defaultValue (可选)类装饰器请传入配置项实例
@@ -66,7 +66,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 设置一个字段配置项
+   * ## 设置一个字段配置项
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey 配置项索引键值
@@ -81,7 +81,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 设置一个字段的包含装饰器索引
+   * ## 设置一个字段的包含装饰器索引
    * @param target 目标类
    * @param key 字段
    * @param fieldListKey 类配置项列表索引值
@@ -93,7 +93,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取类指定字段的指定类型的配置
+   * ## 获取类指定字段的指定类型的配置
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey FieldConfigKey
@@ -128,7 +128,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取类标记了装饰器的字段列表
+   * ## 获取类标记了装饰器的字段列表
    * @param target 目标类
    * @param fieldConfigKey FieldConfigKey
    * @param list (递归参数)无需传入
@@ -144,7 +144,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取目标类指定字段列表的配置项列表
+   * ## 获取目标类指定字段列表的配置项列表
    * @param target 目标类
    * @param fieldListKey FieldListKey
    * @param fieldConfigKey FieldConfigKey
@@ -183,7 +183,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取目标类上指定字段的某个配置的值
+   * ## 获取目标类上指定字段的某个配置的值
    * @param target 目标类
    * @param fieldConfigKey FieldConfigKey
    * @param key 字段

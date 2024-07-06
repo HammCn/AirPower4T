@@ -9,26 +9,25 @@ import { IValidateRule } from '../IValidateRule'
  */
 export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<E> {
   /**
-   * # 自定义验证
+   * ## 自定义验证
    */
   customRules?: IValidateRule<E>,
 
   /**
-   * # 编辑成功的提示消息
+   * ## 编辑成功的提示消息
    */
   successMessage?: string
 
   /**
-   * # 请求前拦截器
-   * ---
-   * 💡 参数为发起请求的数据,请处理后返回
+   * ## 请求前拦截器
+   * 参数为发起请求的数据,请处理后返回
    *
    * @param submitData 实体
    */
   beforeSubmit?: (submitData: E) => E | null
 
   /**
-   * # 请求要求继续操作
+   * ## 请求要求继续操作
    */
   successAndContinue?: (data: E) => void
 }

@@ -8,17 +8,17 @@ import { AirWebSocketPayload } from './AirWebSocketPayload'
  */
 export class AirWebsocketEvent extends AirModel {
   /**
-   * # 事件ID
+   * ## 事件ID
    */
   id!: string
 
   /**
-   * # 事件时间戳
+   * ## 事件时间戳
    */
   time!: number
 
   /**
-   * # 事件负载
+   * ## 事件负载
    */
   @Type(AirWebSocketPayload) payload!: AirWebSocketPayload
 }

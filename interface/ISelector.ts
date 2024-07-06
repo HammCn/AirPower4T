@@ -6,7 +6,7 @@ import { AirEntity } from '../base/AirEntity'
  */
 export interface ISelector extends AirEntity {
   /**
-   * # 选择器显示内容
+   * ## 选择器显示内容
    */
   getSelectorLabel(): string;
 }

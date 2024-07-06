@@ -12,17 +12,17 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { getFieldName } from './Custom'
 
 /**
- * # 表格字段key
+ * ## 表格字段key
  */
 const FIELD_CONFIG_KEY = 'Table'
 
 /**
- * # 表格字段列表key
+ * ## 表格字段列表key
  */
 const FIELD_LIST_KEY = 'TableList'
 
 /**
- * # 为属性标记是表格字段
+ * ## 为属性标记是表格字段
  * @param config (可选)表格列的配置
  */
 export function Table(config: ITableFieldConfig = {}) {
@@ -37,7 +37,7 @@ export function Table(config: ITableFieldConfig = {}) {
 }
 
 /**
- * # 获取对象的属性表格的配置
+ * ## 获取对象的属性表格的配置
  * @param target 目标对象
  * @param key 属性名
  */
@@ -46,7 +46,7 @@ export function getTableConfig(target: any, key: string): AirTableFieldConfig | 
 }
 
 /**
- * # 获取标记了表格配置的字段列表
+ * ## 获取标记了表格配置的字段列表
  * @param target 目标对象
  */
 export function getTableFieldList(target: any): string[] {
@@ -54,7 +54,7 @@ export function getTableFieldList(target: any): string[] {
 }
 
 /**
- * # 获取字段标记的表格字段配置列表
+ * ## 获取字段标记的表格字段配置列表
  * @param target 目标实体类
  * @param keyList 字段列表
  */

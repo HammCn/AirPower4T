@@ -9,17 +9,17 @@ import { AirNotification } from './AirNotification'
  */
 export class AirError {
   /**
-   * # 错误状态码 默认500
+   * ## 错误状态码 默认500
    */
   private code = AirCode.ERROR
 
   /**
-   * # 错误信息文本
+   * ## 错误信息文本
    */
   private message = AirConfig.errorMessage
 
   /**
-   * # 实例一个错误提示框
+   * ## 实例一个错误提示框
    * @param error (可选)错误信息
    */
   // eslint-disable-next-line
@@ -37,7 +37,7 @@ export class AirError {
   }
 
   /**
-   * # 创建实例方法
+   * ## 创建实例方法
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static create(error?: any): AirError {
@@ -45,7 +45,7 @@ export class AirError {
   }
 
   /**
-   * # 设置错误码
+   * ## 设置错误码
    * @param code 错误状态码
    */
   setCode(code: number): AirError {
@@ -54,7 +54,7 @@ export class AirError {
   }
 
   /**
-   * # 设置错误信息
+   * ## 设置错误信息
    * @param message 错误信息
    */
   setMessage(message: string): AirError {
@@ -63,7 +63,7 @@ export class AirError {
   }
 
   /**
-   * # 显示错误信息提示
+   * ## 显示错误信息提示
    */
   async show(): Promise<void> {
     await new AirNotification().setTitle(AirI18n.get().SystemError || '发生错误')

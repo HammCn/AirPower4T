@@ -8,22 +8,20 @@ import { AirModel } from '../base/AirModel'
  */
 export abstract class AirAbstractService extends AirModel {
   /**
-   * # API目录地址
-   * ---
-   * 💡 一般对应后端的分组/控制器/目录等
+   * ## API目录地址
+   * 一般对应后端的 `分组/控制器/目录` 等
    */
   abstract baseUrl: string
 
   /**
-   * # Loading的ref对象
-   * ---
-   * 💡 你可以将这个传入的对象绑定到你需要Loading的DOM上
+   * ## Loading
+   * 你可以将这个传入的对象绑定到你需要 `Loading` 的 `DOM` 上
    */
   loading!: Ref<boolean>
 
   /**
-   * # 获取一个API服务实例
-   * @param loading (可选)Loading的Ref对象
+   * ## 获取一个API服务实例
+   * @param loading `可选` Loading
    */
   constructor(loading?: Ref<boolean>) {
     super()
@@ -33,9 +31,9 @@ export abstract class AirAbstractService extends AirModel {
   }
 
   /**
-   * # 创建一个AirHttp实例
+   * ## 创建一个AirHttp实例
    * @param url 请求的接口地址
-   * @param baseUrl (可选) 请求的接口目录
+   * @param baseUrl `可选` 请求的接口目录
    */
   api(url: string, baseUrl?: string): AirHttp {
     if (baseUrl) {
@@ -51,8 +49,8 @@ export abstract class AirAbstractService extends AirModel {
   }
 
   /**
-   * # 静态创建一个API服务实例
-   * @param loading (可选)Loading的Ref对象
+   * ## 静态创建一个API服务实例
+   * @param loading `可选` Loading
    */
   static create<S extends AirAbstractService>(this: new () => S, loading?: Ref<boolean>): S {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

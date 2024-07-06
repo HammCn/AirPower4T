@@ -6,32 +6,32 @@
  */
 export enum AirDateTimeType {
   /**
-   * # 时间日期
+   * ## 时间日期
    */
   DATETIME = 'datetime',
 
   /**
-   * # 日期
+   * ## 日期
    */
   DATE = 'date',
 
   /**
-   * # 时间
+   * ## 时间
    */
   TIME = 'time',
 
   /**
-   * # 周
+   * ## 周
    */
   WEEK = 'week',
 
   /**
-   * # 年
+   * ## 年
    */
   YEAR = 'year',
 
   /**
-   * # 月
+   * ## 月
    */
   MONTH = 'month'
 }

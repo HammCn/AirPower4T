@@ -8,22 +8,22 @@ import { AirRequest } from './AirRequest'
  */
 export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel {
   /**
-   * # 创建导出任务的API地址
+   * ## 创建导出任务的API地址
    */
   @Type(String) createExportTaskUrl!: string
 
   /**
-   * # 查询导出结果的API地址
+   * ## 查询导出结果的API地址
    */
   @Type(String) queryExportUrl!: string
 
   /**
-   * # 请求的参数
+   * ## 请求的参数
    */
   param!: R
 
   /**
-   * # 下载导出文件的临时令牌
+   * ## 下载导出文件的临时令牌
    * ! 传参用
    */
   @Type(String) fileCode!: string

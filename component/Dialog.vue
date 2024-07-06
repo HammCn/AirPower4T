@@ -135,8 +135,7 @@ const props = defineProps({
 
   /**
    * # 宽度
-   * ---
-   * 💡 支持像素和百分比
+   * 支持像素和百分比
    */
   width: {
     type: String,
@@ -145,8 +144,7 @@ const props = defineProps({
 
   /**
    * # 高度
-   * ---
-   * 💡 支持像素和百分比
+   * 支持像素和百分比
    */
   height: {
     type: String,
@@ -155,8 +153,7 @@ const props = defineProps({
 
   /**
    * # 最小宽度
-   * ---
-   * 💡 支持像素和百分比
+   * 支持像素和百分比
    */
   minWidth: {
     type: String,
@@ -165,8 +162,7 @@ const props = defineProps({
 
   /**
    * # 最小高度
-   * ---
-   * 💡 支持像素和百分比
+   * 支持像素和百分比
    */
   minHeight: {
     type: String,
@@ -208,7 +204,7 @@ const props = defineProps({
   /**
    * # 隐藏取消按钮
    * -
-   * 💡 默认为 ```AirConfig.dialogHideCancel```
+   * 默认为 `AirConfig.dialogHideCancel`
    */
   hideCancel: {
     type: Boolean,
@@ -257,8 +253,7 @@ const props = defineProps({
 
   /**
    * # Form的Ref实例
-   * ---
-   * 💡 如传入此参数,则自动校验,否则请自行校验
+   * 如传入此参数,则自动校验,否则请自行校验
    */
   formRef: {
     type: Object as PropType<AirFormInstance>,
@@ -275,8 +270,7 @@ const props = defineProps({
 
   /**
    * # 是否支持点击遮罩层关闭
-   * ---
-   * 默认值 ```AirConfig.dialogCloseByCover = false```
+   * 默认值 `AirConfig.dialogCloseByCover = false`
    */
   hoverClose: {
     type: Boolean,
@@ -373,9 +367,9 @@ function dialogMouseDownEvent(event: MouseEvent) {
   isMoving.value = true
   const dom: HTMLDivElement = document.querySelector(`#${dialogIdPrefix}${domId.value}`)!
   trueWidth = window.innerWidth
-    - dom.offsetWidth
+      - dom.offsetWidth
   trueHeight = window.innerHeight
-    - dom.offsetHeight
+      - dom.offsetHeight
 }
 
 /**

@@ -24,27 +24,27 @@ import { IValidateRule } from '../interface/IValidateRule'
  */
 export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseEditorOption<E> = {}): IUseEditorResult<E, S> {
   /**
-   * # 详情Hook返回对象
+   * ## 详情Hook返回对象
    */
   const result = useAirDetail(props, entityClass, serviceClass, option)
 
   /**
-   * # 对话框显示的标题
+   * ## 对话框显示的标题
    */
   const title = computed(() => ((result.formData.value.id ? (AirI18n.get().Edit || '编辑') : (AirI18n.get().Add || '添加'))))
 
   /**
-   * # 自动生成的验证规则
+   * ## 自动生成的验证规则
    */
   const rules: IValidateRule<E> = result.service.createValidator(props.param, option.customRules || {})
 
   /**
-   * # 表单实例
+   * ## 表单实例
    */
   const formRef = ref<AirFormInstance>() as Ref<AirFormInstance>
 
   /**
-   * # 表单提交事件
+   * ## 表单提交事件
    */
   async function onSubmit() {
     let postData = AirClassTransformer.copy(result.formData.value, entityClass)

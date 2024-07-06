@@ -7,42 +7,42 @@ import { AirWebsocketEvent } from './AirWebSocketEvent'
  */
 export class AirWebsocket {
   /**
-   * # PING包的字符串
+   * ## PING包的字符串
    */
   static ping = 'PING'
 
   /**
-   * # PONG包的字符串
+   * ## PONG包的字符串
    */
   static pong = 'PONG'
 
   /**
-   * # WebSocket实例
+   * ## WebSocket实例
    */
   websocket!: WebSocket
 
   /**
-   * # 是否已连接
+   * ## 是否已连接
    */
   isConnected = false
 
   /**
-   * # 同步Timer
+   * ## 同步Timer
    */
   private heartBeatTimer!: number
 
   /**
-   * # 心跳秒
+   * ## 心跳秒
    */
   private heartBeatSecond = 30
 
   /**
-   * # 自动重连
+   * ## 自动重连
    */
   private reconnectWhenClosed = true
 
   /**
-   * # 设置Websocket心跳秒
+   * ## 设置Websocket心跳秒
    * @param second 秒
    */
   setHeartBeatTime(second: number): AirWebsocket {
@@ -64,7 +64,7 @@ export class AirWebsocket {
   }
 
   /**
-   * # 是否自动重连
+   * ## 是否自动重连
    * @param autoConnectWhenClose 是否自动重连
    */
   private autoConnectWhenClosed(autoConnectWhenClose = true) {
@@ -72,7 +72,7 @@ export class AirWebsocket {
   }
 
   /**
-   * # 创建一个WebSocket
+   * ## 创建一个WebSocket
    */
   static create(url: string, handler: {
     // eslint-disable-next-line no-unused-vars
@@ -114,7 +114,7 @@ export class AirWebsocket {
   }
 
   /**
-   * # 关闭WebSocket
+   * ## 关闭WebSocket
    */
   close() {
     this.reconnectWhenClosed = false

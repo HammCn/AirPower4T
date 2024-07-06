@@ -4,27 +4,27 @@
  */
 export class AirRand {
   /**
-   * # 数字集合
+   * ## 数字集合
    */
   private static readonly STRING_OF_NUMBER = '0123456789'
 
   /**
-   * # 小写字母集合
+   * ## 小写字母集合
    */
   private static readonly STRING_OF_LOWER_CHAR = 'abcdefghijklmnopqrstuvwxyz'
 
   /**
-   * # 大写字母集合
+   * ## 大写字母集合
    */
   private static readonly STRING_OF_UPPER_CHAR = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
   /**
-   * # 默认的进制
+   * ## 默认的进制
    */
   private static readonly DEFAULT_RADIX = 10
 
   /**
-   * # 指定范围内获取随机整数
+   * ## 指定范围内获取随机整数
    * @param min 最小
    * @param max 最大
    */
@@ -33,7 +33,7 @@ export class AirRand {
   }
 
   /**
-   * # 获取随机数字字符串
+   * ## 获取随机数字字符串
    * @param length (可选)长度 默认6位
    */
   static getRandNumberString(length = 6): string {
@@ -45,7 +45,7 @@ export class AirRand {
   }
 
   /**
-   * # 获取随机字母字符串
+   * ## 获取随机字母字符串
    * @param length (可选)长度 默认32位
    * @param isUpper (可选)是否大写 默认小写
    */
@@ -58,7 +58,7 @@ export class AirRand {
   }
 
   /**
-   * # 获取大小写混合随机字母字符串
+   * ## 获取大小写混合随机字母字符串
    * @param length (可选)长度 默认32位
    */
   static getRandMixedCharString(length = 32): string {
@@ -71,7 +71,7 @@ export class AirRand {
   }
 
   /**
-   * # 获取字母加数字随机字符串
+   * ## 获取字母加数字随机字符串
    * @param length (可选)长度 默认32位
    * @param isUpper (可选)是否大写 默认false
    */
@@ -85,7 +85,7 @@ export class AirRand {
   }
 
   /**
-   * # 获取大小写字母加数字随机字符串
+   * ## 获取大小写字母加数字随机字符串
    * @param length (可选)长度 默认32位
    */
   static getRandNumberAndMixedCharString(length = 32): string {
@@ -98,10 +98,13 @@ export class AirRand {
   }
 
   /**
-   * # 获取随机颜色
+   * ## 获取随机颜色
    * @returns 随机颜色
    */
   static getRandColor() {
-    return `#${Math.random().toString(16).padEnd(6, '0').slice(2, 8)}`
+    return `#${Math.random()
+      .toString(16)
+      .padEnd(6, '0')
+      .slice(2, 8)}`
   }
 }
