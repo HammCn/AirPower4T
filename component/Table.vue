@@ -56,7 +56,7 @@
           <template #default="scope">
             <!-- 支持自定义插槽 -->
             <slot
-              v-if="scope.$index>=0"
+              v-if="scope.$index >= 0"
               :data="getRowEntity(scope)"
               :index="scope.$index"
               :name="item.key"
