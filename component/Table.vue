@@ -56,7 +56,7 @@
           <template #default="scope">
             <!-- 支持自定义插槽 -->
             <slot
-              v-if="scope.$index>=0"
+              v-if="scope.$index >= 0"
               :data="getRowEntity(scope)"
               :index="scope.$index"
               :name="item.key"
@@ -1293,7 +1293,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 0;
   }
 
@@ -1311,7 +1311,7 @@ init()
   }
 }
 
-.ctrlRow + .el-button {
+.ctrlRow+.el-button {
   margin-left: 12px;
 }
 
@@ -1393,7 +1393,7 @@ init()
   }
 }
 
-.air-table-tool-bar > * {
+.air-table-tool-bar>* {
   margin-bottom: 10px;
 }
 
@@ -1524,7 +1524,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button + .air-button {
+  .air-button+.air-button {
     margin: 0 !important;
   }
 }

@@ -72,7 +72,7 @@ watch(
   user-select: none;
 
   .is-opened {
-    > .el-sub-menu__title {
+    >.el-sub-menu__title {
       background-color: var(--el-menu-hover-bg-color);
     }
   }
