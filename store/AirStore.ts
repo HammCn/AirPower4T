@@ -7,7 +7,7 @@ import { defineStore } from 'pinia'
 export const AirStore = defineStore('AirStore', {
   state: () => ({
     /**
-     * ## 全局的ToolTip的Dom
+     * ## 全局的 `ToolTip` 的 `Dom`
      */
     tooltipRef: null,
 
@@ -24,7 +24,7 @@ export const AirStore = defineStore('AirStore', {
     controlKeyDown: false,
 
     /**
-     * ## ESC被按下
+     * ## `ESC` 被按下
      */
     escKeyDown: false,
   }),

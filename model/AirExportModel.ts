@@ -24,7 +24,6 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
 
   /**
    * ## 下载导出文件的临时令牌
-   * ! 传参用
    */
   @Type(String) fileCode!: string
 }

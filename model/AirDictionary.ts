@@ -19,8 +19,8 @@ export class AirDictionary implements IDictionary {
 
   /**
    * ## 实例化一个标准字典选项
-   * @param key (可选) 记录的key
-   * @param label (可选) 记录的Label
+   * @param key `可选` 记录的key
+   * @param label `可选` 记录的Label
    */
   constructor(key?: AirEnumKey, label?: any) {
     if (key) {
@@ -51,7 +51,7 @@ export class AirDictionary implements IDictionary {
 
   /**
    * ## 设置枚举值是否被禁用
-   * @param disabled (可选)是否禁用
+   * @param disabled `可选` 是否禁用
    */
   setDisabled(disabled = true): this {
     this.disabled = disabled

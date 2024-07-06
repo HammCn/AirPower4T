@@ -51,7 +51,7 @@ export class AirWebsocket {
   }
 
   /**
-   * 心跳
+   * ## 心跳
    */
   private startHeartBeat() {
     clearTimeout(this.heartBeatTimer)

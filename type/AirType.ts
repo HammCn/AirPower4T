@@ -10,22 +10,22 @@ import { AirCode } from '../enum/AirCode'
  */
 
 /**
- * ## el-tree的实例 ref对象
+ * ## el-tree的实例
  */
 export type AirTreeInstance = InstanceType<typeof ElTree>;
 
 /**
- * ## el-form的实例 ref对象
+ * ## el-form的实例
  */
 export type AirFormInstance = InstanceType<typeof ElForm>;
 
 /**
- * ## el-table的实例 ref对象
+ * ## el-table的实例
  */
 export type AirTableInstance = InstanceType<typeof ElTable>;
 
 /**
- * ## tree-node的原始对象
+ * ## tree-node的实例
  */
 export type AirTreeNode = Node;
 
