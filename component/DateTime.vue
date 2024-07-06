@@ -42,7 +42,7 @@ const props = defineProps({
 })
 
 /**
- * 读取友好时间
+ * # 读取友好时间
  */
 const getDateTimeString = computed(() => {
   if (!props.time) {
@@ -55,7 +55,7 @@ const getDateTimeString = computed(() => {
 })
 
 /**
- * 提示信息
+ * # 提示信息
  */
 const toolTips = computed(() => {
   if (!props.time) {
