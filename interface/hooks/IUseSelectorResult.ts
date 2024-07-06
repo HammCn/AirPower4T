@@ -5,13 +5,13 @@ import { ITableHookResult } from './ITableHookResult'
 import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
- * # 选择器Hook的标准返回
+ * # 选择器 `Hook` 的标准返回
  * @author Hamm.cn
  */
 export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
 
   /**
-   * ## Selector的标题
+   * ## `Selector` 的标题
    */
   title: Ref<string>,
 

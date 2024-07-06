@@ -38,8 +38,8 @@ export class AirDecorator {
    * ## 递归获取指定类的配置项
    * @param target 目标类
    * @param classConfigKey 配置项的Key
-   * @param defaultValue (可选)类装饰器请传入配置项实例
-   * @param isObject (可选)是否是对象配置
+   * @param defaultValue `可选` 类装饰器请传入配置项实例
+   * @param isObject `可选` 是否是对象配置
    */
   static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined, isObject = false): any {
     let classConfig = Reflect.get(target, classConfigKey)
@@ -71,7 +71,7 @@ export class AirDecorator {
    * @param key 字段
    * @param fieldConfigKey 配置项索引键值
    * @param fieldConfig 配置的参数
-   * @param fieldListKey (可选)类配置项列表索引值
+   * @param fieldListKey `可选` 类配置项列表索引值
    */
   static setFieldConfig(target: any, key: string, fieldConfigKey: string, fieldConfig: any, fieldListKey?: string) {
     if (fieldListKey) {
@@ -97,7 +97,7 @@ export class AirDecorator {
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey FieldConfigKey
-   * @param isObject (可选)是否对象配置
+   * @param isObject `可选` 是否对象配置
    */
   static getFieldConfig(target: any, key: string, fieldConfigKey: string, isObject = false): any {
     if (typeof target !== 'object') {
@@ -131,7 +131,7 @@ export class AirDecorator {
    * ## 获取类标记了装饰器的字段列表
    * @param target 目标类
    * @param fieldConfigKey FieldConfigKey
-   * @param list (递归参数)无需传入
+   * @param list `递归参数` 无需传入
    */
   static getFieldList(target: any, fieldConfigKey: string, list: string[] = []): string[] {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []

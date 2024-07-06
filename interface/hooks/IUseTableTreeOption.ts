@@ -2,7 +2,7 @@ import { ITree } from '../ITree'
 import { IUseTableOption } from './IUseTableOption'
 
 /**
- * # TableTreeList的Hook可选配置
+ * # `TableTreeList` 的 `Hook` 可选配置
  * @author Hamm.cn
  */
 export interface IUseTableTreeOption<T extends ITree> extends IUseTableOption<T> {

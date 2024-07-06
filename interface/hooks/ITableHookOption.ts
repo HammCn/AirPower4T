@@ -15,17 +15,17 @@ export interface ITableHookOption<E extends AirEntity> {
   unPaginate?: boolean,
 
   /**
-   * ## 请求专用的treeList接口
+   * ## 请求专用的 `treeList` 接口
    */
   treeList?: boolean,
 
   /**
-   * ## 详情的视图Vue文件
+   * ## 详情的视图 `Vue` 文件
    */
   detailView?: Component
 
   /**
-   * ## 新增和编辑视图的Vue文件
+   * ## 新增和编辑视图的 `Vue` 文件
    */
   editView?: Component
 

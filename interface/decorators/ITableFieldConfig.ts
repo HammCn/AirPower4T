@@ -13,12 +13,14 @@ import { ClassConstructor } from '../../type/ClassConstructor'
  */
 export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends AirEnum<K> = AirEnum<K>> extends IFieldConfig {
   /**
-   * ## 默认隐藏 可自行勾选后放出
+   * ## 默认隐藏
+   * `可自行勾选后放出`
    */
   hide?: boolean;
 
   /**
-   * ## 是否从表格列移除 将不显示且无法勾选此列
+   * ## 是否从表格列移除
+   * `将不显示且无法勾选此列`
    */
   removed?: boolean;
 
@@ -38,7 +40,8 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
   fixed?: AirTableFixed;
 
   /**
-   * ## 排序 越大越靠左边
+   * ## 排序
+   * `越大越靠左边`
    */
   orderNumber?: number;
 

@@ -5,19 +5,19 @@
 export interface IEntityConfig {
   /**
    * ## 是否显示搜索框
-   * 优先级: 组件传入 > EntityConfig配置
+   * 优先级: 组件传入 > `EntityConfig` 配置
    */
   showSearch?: boolean;
 
   /**
    * ## 搜索框提示文案
-   * 优先级: 组件传入 > EntityConfig配置 > AirConfig默认值
+   * 优先级: 组件传入 > `EntityConfig` 配置 > `AirConfig` 默认值
    */
   searchPlaceholder?: string;
 
   /**
    * ## 是否显示更多筛选器
-   * 优先级: 组件传入 > EntityConfig配置
+   * 优先级: 组件传入 > `EntityConfig` 配置
    */
   showFilter?: boolean;
 

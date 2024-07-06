@@ -11,9 +11,9 @@ export class AirCrypto {
    * ## AES加密方法
    * @param data 加密数据
    * @param key 密钥
-   * @param mode (可选)加密方式 默认 CBC
-   * @param padding (可选)填充方式 默认Pkcs7
-   * @param iv (可选)向量 默认 `AirConfig.aesCbcIvString`
+   * @param mode `可选` 加密方式 默认 `CBC`
+   * @param padding `可选` 填充方式 默认 `Pkcs7`
+   * @param iv `可选` 向量 默认 `AirConfig.aesCbcIvString`
    */
   static aesEncrypt(
     data: string,
@@ -38,9 +38,9 @@ export class AirCrypto {
    * ## AES解密方法
    * @param data 需要解密的数据
    * @param key 密钥
-   * @param mode (可选)加密方式 默认 CBC
-   * @param padding (可选)填充方式 默认Pkcs7
-   * @param iv (可选)向量 默认 `AirConfig.aesCbcIvString`
+   * @param mode `可选` 加密方式 默认 `CBC`
+   * @param padding `可选` 填充方式 默认 `Pkcs7`
+   * @param iv `可选` 向量 默认 `AirConfig.aesCbcIvString`
    */
   static aesDecrypt(
     data: string,

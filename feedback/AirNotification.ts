@@ -3,7 +3,7 @@ import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirI18n } from '../helper/AirI18n'
 
 /**
- * # 通知基类
+ * # 通知类
  * @author Hamm.cn
  */
 export class AirNotification {
@@ -49,7 +49,7 @@ export class AirNotification {
 
   /**
    * ## 设置自动关闭时间
-   * @param duration 自动关闭时间(毫秒)
+   * @param duration 自动关闭时间 `毫秒`
    */
   setDuration(duration: number): this {
     this.duration = duration
@@ -60,8 +60,8 @@ export class AirNotification {
    * ## 警告通知
    *
    * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   async warning(message?: string, title?: string): Promise<boolean> {
     this.setTitleAndMessage(title, message)
@@ -71,9 +71,9 @@ export class AirNotification {
   /**
    * ## 警告通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   static async warning(message?: string, title?: string): Promise<boolean> {
     return this.create()
@@ -83,9 +83,9 @@ export class AirNotification {
   /**
    * ## 成功通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   async success(message?: string, title?: string): Promise<boolean> {
     return this.setTitleAndMessage(title, message)
@@ -95,9 +95,9 @@ export class AirNotification {
   /**
    * ## 成功通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   static async success(message?: string, title?: string): Promise<boolean> {
     return this.create()
@@ -107,9 +107,9 @@ export class AirNotification {
   /**
    * ## 信息通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   async info(message?: string, title?: string): Promise<boolean> {
     return this.setTitleAndMessage(title, message)
@@ -119,9 +119,9 @@ export class AirNotification {
   /**
    * ## 信息通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   static async info(message?: string, title?: string): Promise<boolean> {
     return this.create()
@@ -131,9 +131,9 @@ export class AirNotification {
   /**
    * ## 错误通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   async error(message?: string, title?: string): Promise<boolean> {
     return this.setTitleAndMessage(title, message)
@@ -143,9 +143,9 @@ export class AirNotification {
   /**
    * ## 错误通知
    *
-   * 如用户点击了通知 返回true 否则false
-   * @param message (可选) 消息
-   * @param title (可选) 标题
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
    */
   static async error(message?: string, title?: string): Promise<boolean> {
     return this.create()
@@ -154,8 +154,8 @@ export class AirNotification {
 
   /**
    * ## ⛔️设置标题和内容
-   * @param title (可选)标题
-   * @param message (可选)内容
+   * @param title `可选` 标题
+   * @param message `可选` 内容
    */
   private setTitleAndMessage(title?: string, message?: string) {
     if (title) {
@@ -168,9 +168,9 @@ export class AirNotification {
   }
 
   /**
-   * ## ⛔️ 显示通知 ⛔️
+   * ## 显示通知
    *
-   * 如用户点击了通知 返回true 否则false
+   * 如用户点击了通知 返回`true` 否则`false`
    * @param type 可选枚举通知类型
    * @see success()
    * @see warning()

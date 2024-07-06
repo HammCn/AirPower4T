@@ -10,15 +10,15 @@ import { AirI18n } from '../helper/AirI18n'
 import { AirConfirm } from '../feedback/AirConfirm'
 
 /**
- * # 引入表格使用的Hook
+ * # 引入表格使用的`Hook`
  * @param entityClass 实体类
- * @param serviceClass 表格使用的Service类
- * @param option (可选) 更多配置
+ * @param serviceClass 表格使用的`Service`类
+ * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function useAirTable<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableOption<E> = {}): IUseTableResult<E, S> {
   /**
-   * ## 表格Hook返回对象
+   * ## 表格`Hook`返回对象
    */
   const result = airTableHook(entityClass, serviceClass, option)
 

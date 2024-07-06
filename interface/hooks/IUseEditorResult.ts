@@ -6,12 +6,12 @@ import { IUseDetailResult } from './IUseDetailResult'
 import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
- * # Editor的Hook标准返回
+ * # `Editor` 的 `Hook` 标准返回
  * @author Hamm.cn
  */
 export interface IUseEditorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends IUseDetailResult<E, S> {
   /**
-   * ## 表单的Ref对象
+   * ## 表单的 `Ref` 对象
    * 你可以绑定到组件中, 它将自动为你验证
    * - `ADialog` 的 `:form-ref`
    * - `el-form` 的 `ref`

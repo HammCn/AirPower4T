@@ -19,8 +19,8 @@ const DICTIONARY_KEY = 'Dictionary'
 
 /**
  * ## 标记属性的枚举字典
- * @param dictionary 字典数组或枚举类
  * 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
+ * @param dictionary 字典数组或枚举类
  */
 export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>): Function {
   return (target: any, key: string) => {
@@ -58,7 +58,7 @@ const IS_ARRAY_KEY = 'IsArray'
 /**
  * ## 标记属性强制转换类
  * @param Clazz 类型
- * @param isArray (可选)是否是数组
+ * @param isArray `可选` 是否是数组
  */
 export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
   return (target: any, key: string) => {
@@ -69,7 +69,7 @@ export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
 
 /**
  * ## 标记是数组
- * 可在此配置，但更建议在Type中直接配置第二个参数
+ * 可在此配置，但更建议在 `@Type` 中直接配置第二个参数
  */
 export function List(): Function {
   return (target: any, key: string) => {

@@ -14,7 +14,7 @@ const ENTITY_CONFIG_KEY = 'EntityConfig'
 
 /**
  * ## 为实体标记一个配置
- * @param config (可选)配置
+ * @param config 配置
  */
 export function EntityConfig(config: IEntityConfig = {}) {
   return (target: any) => AirDecorator.setClassConfig(target, ENTITY_CONFIG_KEY, config)

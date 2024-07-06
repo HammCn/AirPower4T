@@ -3,7 +3,7 @@
 import { AirEntity } from '../../base/AirEntity'
 
 /**
- * # Detail的Hook可选配置
+ * # `Detail` 的 `Hook` 可选配置
  * @author Hamm.cn
  */
 export interface IUseDetailOption<E extends AirEntity> {

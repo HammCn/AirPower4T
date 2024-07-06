@@ -13,10 +13,10 @@ import { ITableHookOption } from '../interface/hooks/ITableHookOption'
 import { ITableHookResult } from '../interface/hooks/ITableHookResult'
 
 /**
- * # 表格基础Hook
+ * # 表格基础`Hook`
  * @param entityClass 实体类
- * @param serviceClass 表格使用的Service类
- * @param option (可选) 更多配置
+ * @param serviceClass 表格使用的 `Service` 类
+ * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: ITableHookOption<E> = {}): ITableHookResult<E, S> {
@@ -46,7 +46,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   const entity = AirClassTransformer.newInstance(entityClass)
 
   /**
-   * ## 传入的Service对象
+   * ## 传入的 `Service` 对象
    */
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading

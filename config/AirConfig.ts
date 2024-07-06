@@ -26,7 +26,7 @@ export class AirConfig {
 
   /**
    * ## AppKey
-   * 用于处理一些唯一场景做项目区分 以及Oauth2的AppKey
+   * 用于处理一些唯一场景做项目区分 以及 `Oauth2` 的 `AppKey`
    */
   static appKey = 'airpower'
 
@@ -167,7 +167,7 @@ export class AirConfig {
   static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
 
   /**
-   * ## 😠超时时间 毫秒
+   * ## 超时时间 毫秒
    * 超时后请求会自动断开并抛出异常
    */
   static timeout = 5000
@@ -207,12 +207,12 @@ export class AirConfig {
   static numberPrecision = 2
 
   /**
-   * ## 💰金额的小数精度
+   * ## 金额的小数精度
    */
   static moneyPrecision = AirConfig.numberPrecision
 
   /**
-   * ## 💰金额的舍弃方向
+   * ## 金额的舍弃方向
    */
   static moneyDirection: AirMoneyDirection = 'down'
 
@@ -247,14 +247,14 @@ export class AirConfig {
   static textareaMaxRows = 6
 
   /**
-   * ## 普通文本输入是否默认显示长度限制标签(默认false)
-   * 此项仅为默认, 如在装饰器中配置, 此项将无效
+   * ## 普通文本输入是否默认显示长度限制标签
+   * `默认false` 此项仅为默认, 如在装饰器中配置, 此项将无效
    */
   static showLengthLimitInput = false
 
   /**
-   * ## TextArea是否默认显示长度限制标签(默认true)
-   * 此项仅为默认, 如在装饰器中配置, 此项将无效
+   * ## TextArea是否默认显示长度限制标签
+   * `默认true` 此项仅为默认, 如在装饰器中配置, 此项将无效
    */
   static showLengthLimitTextarea = true
 
@@ -323,7 +323,7 @@ export class AirConfig {
 
   /**
    * ## 默认的表格空数据兜底字符串
-   * `@TableField` 装饰器中可以单独配置 `emptyValue`,
+   * `@Table` 装饰器中可以单独配置 `emptyValue`,
    */
   static tableEmptyValue = '-'
 
@@ -402,14 +402,14 @@ export class AirConfig {
   static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
 
   /**
-   * ## Oauth2的authorize地址
+   * ## `Oauth2` 的 `authorize` 地址
    */
   static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
 
   /**
    * ## 默认的导入数据的URL
    *
-   * 😈 请注意 请勿包含 `baseUrl` 和 `apiUrl`
+   * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
    *
    * 将自动拼接 `apiUrl` + `baseUrl` + `importUrl`
    */
@@ -418,7 +418,7 @@ export class AirConfig {
   /**
    * ## 默认下载导入模板的URL
    *
-   * 😈 请注意 请勿包含 `baseUrl` 和 `apiUrl`
+   * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
    *
    * 将自动拼接 `apiUrl` + `baseUrl` + `importTemplateUrl`
    */

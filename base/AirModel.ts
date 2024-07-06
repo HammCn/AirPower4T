@@ -183,7 +183,7 @@ export class AirModel {
 
   /**
    * ## 获取类的可阅读名字
-   * 可使用 @Model 装饰器修饰 如无修饰 则直接返回类名
+   * 可使用 `@Model` 装饰器修饰 如无修饰 则直接返回类名
    */
   static getModelName() {
     return this.newInstance()
@@ -192,8 +192,8 @@ export class AirModel {
 
   /**
    * ## 获取属性的可阅读名字
+   * 可使用 `@Field` 装饰器修饰 如无修饰 则直接返回属性名
    * @param fieldKey 属性名
-   * 可使用 @FieldName 装饰器修饰 如无修饰 则直接返回属性名
    */
   static getFieldName(fieldKey: string): string {
     return this.newInstance()
@@ -202,7 +202,7 @@ export class AirModel {
 
   /**
    * ## 创建一个当前类的实例
-   * @param recoverBy (可选)初始化用于覆盖对象实例的JSON
+   * @param recoverBy `可选` 初始化用于覆盖对象实例的JSON
    */
   // eslint-disable-next-line no-unused-vars
   static newInstance<T extends AirModel>(this: new () => T, recoverBy?: IJson): T {
@@ -218,7 +218,7 @@ export class AirModel {
   /**
    * ## 获取表单配置的Label
    *
-   * 依次读取 `表单配置的label` > `@FieldName` > `fieldKey`
+   * 依次读取 `表单配置的label` > `@Field` > `fieldKey`
    * @param fieldKey 字段名
    */
   static getFormFieldLabel(fieldKey: string): string {
@@ -247,7 +247,7 @@ export class AirModel {
   /**
    * ## 获取搜索字段的配置列表
    * 如不传入参数 则默认取所有标记了注解的字段
-   * @param fieldNameList (可选)字段列表
+   * @param fieldNameList `可选` 字段列表
    */
   static getSearchFieldConfigList(...fieldNameList: string[]): AirSearchFieldConfig[] {
     return this.newInstance()
@@ -265,8 +265,8 @@ export class AirModel {
 
   /**
    * ## 用指定的数据对当前实例进行覆盖
-   * @param obj 覆盖对象
    * 相同字段才会覆盖上去
+   * @param obj 覆盖对象
    */
   recoverBy(obj: IJson | AirModel): this {
     return Object.assign(this, obj)
@@ -323,7 +323,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -332,7 +332,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -341,7 +341,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -350,7 +350,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -359,7 +359,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -368,7 +368,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -377,7 +377,7 @@ export class AirModel {
   }
 
   /**
-   * ## 请直接调用静态方法获取
+   * ## `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */

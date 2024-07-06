@@ -17,7 +17,7 @@ export interface ITree extends AirEntity {
   children: this[]
 
   /**
-   * ## 父节点ID
+   * ## 父节点 `ID`
    */
   parentId?: number
 }

@@ -52,8 +52,8 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * ## 实例化创建一个枚举项目
    * @param key 枚举值
    * @param label 枚举描述
-   * @param color (可选)枚举扩展的颜色
-   * @param disable (可选)是否禁用
+   * @param color `可选` 枚举扩展的颜色
+   * @param disable `可选` 是否禁用
    */
   constructor(key: K, label: string, color?: AirColorString, disable?: boolean) {
     this.key = key
@@ -65,23 +65,23 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**
    * ## 获取枚举的Label
    * @param key Key
-   * @param defaultLabel 默认Label
+   * @param defaultLabel `可选` 默认Label
    */
   static getLabel(key: AirEnumKey, defaultLabel = '-'): string {
     return this.get(key)?.label || defaultLabel
   }
 
   /**
-   * ## 获取枚举的Color
+   * ## 获取枚举的颜色
    * @param key Key
-   * @param defaultColor 默认Color
+   * @param defaultColor `可选` 默认颜色
    */
   static getColor(key: AirEnumKey, defaultColor: AirColorString = AirColor.NORMAL): AirColorString {
     return this.get(key)?.color || defaultColor
   }
 
   /**
-   * ## 获取枚举的Disabled
+   * ## 获取枚举是否禁用
    * @param key Key
    */
   static isDisabled(key: AirEnumKey): boolean | undefined {

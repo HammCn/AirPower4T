@@ -39,8 +39,8 @@ export class AirLoading {
   private isLock = false
 
   /**
-   * ## 实例一个LoadingService
-   * @param domId (可选)DomId 可选参数
+   * ## 实例一个 `Loading`
+   * @param domId `可选` DomId 可选参数
    */
   constructor(domId?: string) {
     if (domId) {
@@ -57,7 +57,7 @@ export class AirLoading {
 
   /**
    * ## 弹出这个Loading
-   * @param message (可选)Loading文案 弹出Loading
+   * @param message `可选` Loading文案
    */
   static show(message?: string): AirLoading {
     return this.create()
@@ -66,7 +66,7 @@ export class AirLoading {
 
   /**
    * ## 设置是否全屏
-   * @param isFullScreen 是否全屏 默认true
+   * @param isFullScreen 是否全屏
    */
   setFullScreen(isFullScreen: boolean): this {
     this.fullscreen = isFullScreen
@@ -75,7 +75,7 @@ export class AirLoading {
 
   /**
    * ## 设置背景色
-   * @param background 背景色 RGB/RGBA/#333
+   * @param background 背景色 `RGB/RGBA/#333`
    */
   setBackground(background: string): this {
     this.background = background
@@ -84,7 +84,7 @@ export class AirLoading {
 
   /**
    * ## 设置加载文字
-   * @param message 文字 实例
+   * @param message 文字
    */
   setMessage(message: string): this {
     this.message = message
@@ -102,7 +102,7 @@ export class AirLoading {
 
   /**
    * ## 弹出这个Loading
-   * @param message (可选)Loading文案 弹出Loading
+   * @param message `可选` Loading文案
    */
   show(message?: string): this {
     if (message) {

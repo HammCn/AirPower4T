@@ -16,7 +16,7 @@ export enum AirHttpStatus {
   BAD_REQUEST = 400,
 
   /**
-   * ## 传入的authorization失效或缺失
+   * ## 传入的身份令牌失效或缺失
    */
   UNAUTHORIZED = 401,
 

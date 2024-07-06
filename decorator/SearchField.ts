@@ -23,7 +23,7 @@ const FIELD_LIST_KEY = 'SearchList'
 
 /**
  * ## 标记该字段可用于搜索
- * @param config (可选)搜索配置项
+ * @param config 搜索配置项
  */
 export function Search(config: ISearchFieldConfig = {}) {
   if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {

@@ -4,7 +4,7 @@ import { IUseDetailOption } from './IUseDetailOption'
 import { IValidateRule } from '../IValidateRule'
 
 /**
- * # Editor的Hook可选配置
+ * # `Editor` 的 `Hook` 可选配置
  * @author Hamm.cn
  */
 export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<E> {

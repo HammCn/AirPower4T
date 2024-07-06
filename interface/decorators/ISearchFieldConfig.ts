@@ -17,7 +17,8 @@ export interface ISearchFieldConfig<K extends AirEnumKey = AirEnumKey, E extends
   hide?: boolean;
 
   /**
-   * ## 排序 越大越靠上边
+   * ## 排序
+   * `越大越靠上边`
    */
   orderNumber?: number;
 

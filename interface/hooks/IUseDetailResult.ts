@@ -3,7 +3,7 @@ import { AirEntity } from '../../base/AirEntity'
 import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
- * # 详情的Hook标准返回
+ * # 详情的 `Hook` 标准返回
  * @author Hamm.cn
  */
 export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEntityService<E>> {
@@ -18,13 +18,13 @@ export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEnti
   formData: Ref<E>,
 
   /**
-   * ## 当前绑定的Loading状态
+   * ## 当前绑定的 `Loading` 状态
    * 请随意 `v-loading` 到你需要的地方
    */
   isLoading: Ref<boolean>,
 
   /**
-   * ## 当前Hook使用的Service实例
+   * ## 当前 `Hook` 使用的 `Service` 实例
    */
   service: S
 

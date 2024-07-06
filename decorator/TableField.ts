@@ -23,7 +23,7 @@ const FIELD_LIST_KEY = 'TableList'
 
 /**
  * ## 为属性标记是表格字段
- * @param config (可选)表格列的配置
+ * @param config 表格列的配置
  */
 export function Table(config: ITableFieldConfig = {}) {
   if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {

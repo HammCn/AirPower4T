@@ -32,8 +32,8 @@ export class AirVersion {
   /**
    * ## 获取版本号数字
    * @param version 版本号字符串
-   * @param splitor (可选)分隔符 默认 `.`
-   * @param padding (可选)填充位数 默认 `2`
+   * @param splitor `可选` 分隔符 默认 `.`
+   * @param padding `可选` 填充位数 默认 `2`
    * @returns 版本号数字
    */
   static parseVersion(version: string, splitor = '.', padding = 2): number {
@@ -45,8 +45,8 @@ export class AirVersion {
   /**
    * ## 解析版本号数字
    * @param version 版本号数字
-   * @param splitor (可选)分隔符 默认 `.`
-   * @param padding (可选)填充位数 默认 `2`
+   * @param splitor `可选` 分隔符 默认 `.`
+   * @param padding `可选` 填充位数 默认 `2`
    * @returns 版本号字符串
    */
   static formatVersion(version: number, splitor = '.', padding = 2): string {

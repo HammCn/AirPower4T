@@ -15,16 +15,16 @@ import { AirI18n } from '../helper/AirI18n'
 import { IValidateRule } from '../interface/IValidateRule'
 
 /**
- * # 引入Editor的Hook
- * @param props defineProps的返回值
- * @param entityClass Editor使用的实体类
- * @param serviceClass Editor使用的Service
- * @param option (可选)更多的配置
+ * # 引入`Editor`的`Hook`
+ * @param props `defineProps`的返回值
+ * @param entityClass `Editor`使用的实体类
+ * @param serviceClass `Editor`使用的`Service`
+ * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
 export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseEditorOption<E> = {}): IUseEditorResult<E, S> {
   /**
-   * ## 详情Hook返回对象
+   * ## 详情`Hook`返回对象
    */
   const result = useAirDetail(props, entityClass, serviceClass, option)
 

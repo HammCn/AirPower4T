@@ -10,8 +10,6 @@ import { AirI18nDefault } from '../model/AirI18nDefault'
  *
  * 初始化语言包并设置语言
  *
- * @example
- *
  * ```typescript
  * AirI18n.init(ChineseSimplified, English)
  * AirI18n.setCurrentLanguage(AirLanguage.ChineseSimplified)

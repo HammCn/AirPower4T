@@ -8,12 +8,12 @@ import { AirSort } from '../../model/AirSort'
 import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
- * # TableHook的基础返回结构
+ * # `TableHook` 的基础返回结构
  * @author Hamm.cn
  */
 export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEntityService<E>> {
   /**
-   * ## 当前绑定的Loading状态
+   * ## 当前绑定的 `Loading` 状态
    * 请随意 `v-loading` 到你需要的地方
    */
   isLoading: Ref<boolean>,

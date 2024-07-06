@@ -18,8 +18,8 @@ export interface IUploadProps {
   maxSize?: number
 
   /**
-   * ## 如传入数组包含 * 则直接允许所有格式
-   * 允许上传文件后缀数组 不要加'.'
+   * ## 如传入数组包含 `*` 则直接允许所有格式
+   * 允许上传文件后缀数组 不要加 `·`
    */
   exts?: string[],
 

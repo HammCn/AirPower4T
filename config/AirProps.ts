@@ -10,7 +10,7 @@ export function airProps() {
   return {
     /**
      * ## 弹窗的确认按钮被点击事件
-     * 如果给ADialog传入了form表单的ref实体对象, 则校验通过之后才会回调此方法
+     * 如果给 `ADialog` 传入了 `form` 表单的 `ref` 实体对象, 则校验通过之后才会回调此方法
      */
     onConfirm: {
       type: Function,
@@ -42,9 +42,9 @@ export function airProps() {
 }
 
 /**
- * ## 使用实体的DialogProps配置
- * (可选)泛型: Param的类型
- * @param value (可选)默认参数
+ * ## 使用实体的 `DialogProps` 配置
+ * - `P` Param的类型
+ * @param value `可选` 默认参数
  */
 export function airPropsParam<P>(value: P | null = null) {
   return Object.assign(airProps(), {
@@ -59,17 +59,17 @@ export function airPropsParam<P>(value: P | null = null) {
 }
 
 /**
- * ## 使用ID的DialogProps配置
- * 传入的 `param` 参数为 `Number` 类型的ID
+ * ## 使用 `ID` 的 `DialogProps` 配置
+ * 传入的 `param` 参数为 `Number` 类型的 `ID`
  */
 export function airPropsId() {
   return airPropsParam<number>(0)
 }
 
 /**
- * ## 使用选择器的DialogProps配置
- * - `S`: selectList参数的类型
- * - `P`: param参数的类型(默认同 `selectList` 类型一致)
+ * ## 使用选择器的 `DialogProps` 配置
+ * - `S`: `selectList` 参数的类型
+ * - `P`: `param` 参数的类型(默认同 `selectList` 类型一致)
  *
  * @param param 选择器的参数
  */

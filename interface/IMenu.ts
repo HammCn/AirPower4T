@@ -6,7 +6,7 @@ import { ITree } from './ITree'
  */
 export interface IMenu extends ITree {
   /**
-   * ## 菜单URL
+   * ## 菜单 `URL`
    */
   path: string
 

@@ -4,7 +4,7 @@ import { ITableHookResult } from './ITableHookResult'
 import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
 
 /**
- * # 表格的Hook标准返回
+ * # 表格的 `Hook` 标准返回
  * @author Hamm.cn
  */
 export interface IUseTableResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {

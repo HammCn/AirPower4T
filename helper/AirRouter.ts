@@ -6,15 +6,15 @@ import { AirConsole } from './AirConsole'
 const modules = import.meta.glob('../../view/**/*.vue')
 
 /**
- * # Vue路由助手
+ * # `Vue` 路由助手
  * @author Hamm.cn
  */
 export class AirRouter {
   /**
-   * ## 将AirMenu菜单列表初始化到Vue路由中
+   * ## 将 `AirMenu` 菜单列表初始化到 `Vue` 路由中
    * @param menuList 菜单列表
-   * @param parentRouter (可选) 父级路由 默认 admin
-   * @param menuCacheKey (可选) 缓存Key 默认 AirPowerMenuList
+   * @param parentRouter `可选` 父级路由 默认 `admin`
+   * @param menuCacheKey `可选` 缓存Key 默认 `AirPowerMenuList`
    */
   static initVueRouter(menuList: IMenu[], parentRouter = 'admin', menuCacheKey = 'AirPowerMenuList'): void {
     localStorage.setItem(menuCacheKey, JSON.stringify(menuList))
@@ -60,7 +60,7 @@ export class AirRouter {
   /**
    * ## 重载缓存中的路由
    * @param menuCacheKey 提供缓存的Key
-   * @param menuList (可选)子菜单,好兄弟,你不用传。
+   * @param menuList `可选 子菜单,好兄弟,你不用传`
    */
   private static reloadCacheMenuList(menuCacheKey: string, menuList?: IMenu[]): void {
     if (!AirConfig.router) {

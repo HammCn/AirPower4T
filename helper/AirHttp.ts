@@ -64,7 +64,7 @@ export class AirHttp {
 
   /**
    * ## 创建一个HTTP实例
-   * @param url (可选) 请求的地址
+   * @param url `可选` 请求的地址
    */
   constructor(url?: string) {
     if (url) {
@@ -95,8 +95,8 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置Loading的Ref对象
-   * @param loading Loading的Ref
+   * ## 设置Loading
+   * @param loading Loading
    *
    */
   setLoading(loading: Ref<boolean>): this {
@@ -129,8 +129,8 @@ export class AirHttp {
 
   /**
    * ## 添加一个请求头
-   * @param key 请求头key
-   * @param value 请求头value
+   * @param key 请求头 `key`
+   * @param value 请求头 `value`
    */
   addHttpHeader(key: string, value: string): this {
     this.axiosRequestConfig.headers = this.axiosRequestConfig.headers || {}
@@ -149,8 +149,8 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置请求content-type
-   * @param contentType content-type
+   * ## 设置请求`content-type`
+   * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
     this.axiosRequestConfig.headers = {
@@ -163,7 +163,7 @@ export class AirHttp {
   /**
    * ## 发送请求
    *
-   * @param body (可选)请求体
+   * @param body `可选` 请求体
    * @see post() 直接发送POST
    * @see get() 直接发送GET
    */
@@ -259,7 +259,7 @@ export class AirHttp {
 
   /**
    * ## 发送GET请求 只支持简单一维数据
-   * @param params (可选)可携带的参数
+   * @param params `可选` 可携带的参数
    */
   get(params?: IJson): Promise<any> {
     if (params) {

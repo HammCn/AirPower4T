@@ -23,7 +23,7 @@ const FIELD_LIST_KEY = 'FormList'
 
 /**
  * ## 标记该字段可用于表单配置
- * @param config (可选)配置项
+ * @param config 配置项
  */
 export function Form(config: IFormFieldConfig = {}) {
   if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {

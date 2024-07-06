@@ -54,7 +54,7 @@ export class AirValidator {
 
   /**
    * ## 通过指定错误信息来创建一个验证器
-   * @param message (可选)验证失败的提示
+   * @param message `可选` 验证失败的提示
    */
   static show(message?: string): AirValidator {
     return new AirValidator().show(message)
@@ -225,7 +225,7 @@ export class AirValidator {
    * ## 创建验证器
    * @param form 表单对象
    * @param service 接口服务对象
-   * @param rules (可选)表单验证规则
+   * @param rules `可选` 表单验证规则
    */
   static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(form: T, service: S, rules: IValidateRule<T> = {}) {
     const formRules: IJson = rules

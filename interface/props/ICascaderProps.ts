@@ -16,7 +16,7 @@ export interface ICascaderProps extends INormalTreeProps {
   checkStrictly?: boolean,
 
   /**
-   * ## 是否动态加载子节点，需与 lazyLoad 方法结合使用
+   * ## 是否动态加载子节点，需与 `lazyLoad` 方法结合使用
    */
   lazy?: boolean,
 

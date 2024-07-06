@@ -34,7 +34,7 @@ export class AirRand {
 
   /**
    * ## 获取随机数字字符串
-   * @param length (可选)长度 默认6位
+   * @param length `可选` 长度 `默认6位`
    */
   static getRandNumberString(length = 6): string {
     let str = ''
@@ -46,8 +46,8 @@ export class AirRand {
 
   /**
    * ## 获取随机字母字符串
-   * @param length (可选)长度 默认32位
-   * @param isUpper (可选)是否大写 默认小写
+   * @param length `可选` 长度 `默认32位`
+   * @param isUpper `可选` 是否大写 `默认小写`
    */
   static getRandCharString(length = 32, isUpper = false): string {
     let str = ''
@@ -59,7 +59,7 @@ export class AirRand {
 
   /**
    * ## 获取大小写混合随机字母字符串
-   * @param length (可选)长度 默认32位
+   * @param length `可选` 长度 `默认32位`
    */
   static getRandMixedCharString(length = 32): string {
     let str = ''
@@ -72,8 +72,8 @@ export class AirRand {
 
   /**
    * ## 获取字母加数字随机字符串
-   * @param length (可选)长度 默认32位
-   * @param isUpper (可选)是否大写 默认false
+   * @param length `可选` 长度 `默认32位`
+   * @param isUpper `可选` 是否大写 `默认false`
    */
   static getRandNumberAndCharString(length = 32, isUpper = false): string {
     let str = ''
@@ -86,7 +86,7 @@ export class AirRand {
 
   /**
    * ## 获取大小写字母加数字随机字符串
-   * @param length (可选)长度 默认32位
+   * @param length `可选` 长度 `默认32位`
    */
   static getRandNumberAndMixedCharString(length = 32): string {
     let str = ''
