@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
@@ -29,7 +29,7 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
 
   result.selectList.value = props.selectList
 
-  const disableConfirm = props.mult && result.selectList.value.length === 0
+  const disableConfirm = computed(() => props.mult && result.selectList.value.length === 0)
 
   return Object.assign(result, {
     title,
