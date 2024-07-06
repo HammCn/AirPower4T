@@ -70,7 +70,7 @@ import { AirI18n } from '../helper/AirI18n'
 
 const emits = defineEmits<{
   onUpload: [file: F],
-  onRemove:[]
+  onRemove: []
 }>()
 
 const props = defineProps({

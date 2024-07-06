@@ -15,5 +15,4 @@ export interface IUseDetailOption<E extends AirEntity> {
    * @param detailData 实体
    */
   afterGetDetail?: (detailData: E) => E | void
-
 }
