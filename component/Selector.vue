@@ -15,7 +15,7 @@
       :loading="isLoading"
       :entity="entity"
       :service="service"
-      :search-params="searchs"
+      :search-params="searchParamList"
       :add-permission="addPermission"
       @on-search="onSearch"
       @on-add="onAdd"
@@ -222,7 +222,7 @@ const fields = computed(() => {
   return AirClassTransformer.parse({}, props.entity).getTableFieldConfigList()
 })
 
-const searchs = computed(() => {
+const searchParamList = computed(() => {
   if (props.fieldList) {
     return props.searchParams
   }
