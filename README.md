@@ -157,9 +157,17 @@ yarn l
 
 > ☕️Java: 加瓦? 什么Java?
 
+## 服务中的企业/用户
+
+**AirPower4T** 正在为以下的公司/用户提供技术支持:
+
+- **杭州某财税网络科技有限公司**
+
+- **重庆某工业互联网科技有限公司**
+
+> 如果你的公司/企业正在使用我们的服务，欢迎通过 `Issues` 提交，我们将在上面的列表中列出。
 
 ---
-
 
 <p align="center">
 ATTENTION: Contributor list is just for fun!!!
