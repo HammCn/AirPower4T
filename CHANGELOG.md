@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v2.2.1
+
+### 🎉 Features:
+
+- feat(AirModel): 支持了`sass types` 转换
+- feat(ASelector): 添加一个更方便的选择器
+
+### 🐞 Bug fixes:
+
+- fix(useAirSelector): 修复`disableConfirm`不是响应式的BUG
+- docs(airpower): 添加用户列表到README以展示服务支持
+
 ## v2.2.0
 
 ### 🎉 Docs:
