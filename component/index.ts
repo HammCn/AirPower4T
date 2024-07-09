@@ -20,6 +20,7 @@ import ATab from './Tab.vue'
 import APhone from './Phone.vue'
 import AQrcode from './Qrcode.vue'
 import ASelect from './Select.vue'
+import ASelector from './Selector.vue'
 import AMoney from './Money.vue'
 import AFormField from './FormField.vue'
 
@@ -46,6 +47,7 @@ export {
   APhone,
   AQrcode,
   ASelect,
+  ASelector,
   AMoney,
   AFormField,
 }
