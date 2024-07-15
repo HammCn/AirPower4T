@@ -520,7 +520,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 5px;
   }
 
@@ -555,7 +555,7 @@ defineExpose({
       width: 240px;
     }
 
-    > * {
+    >* {
       margin: 0 2px 5px;
     }
 
