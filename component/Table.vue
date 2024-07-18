@@ -58,7 +58,7 @@
             <slot
               v-if="scope.$index >= 0"
               :data="getRowEntity(scope)"
-              :index="scope.$index"
+              :index="scope.$index as number"
               :name="item.key"
             >
               <span
@@ -211,6 +211,7 @@
           <div class="ctrlRow">
             <!-- 自定义操作列前置插槽 -->
             <slot
+              v-if="scope.$index >= 0"
               :data="getRowEntity(scope)"
               :index="scope.$index as number"
               name="customRow"
@@ -296,8 +297,9 @@
             </template>
             <!-- 自定义操作列后置插槽 -->
             <slot
+              v-if="scope.$index >= 0"
               :data="getRowEntity(scope)"
-              :index="scope.$index"
+              :index="scope.$index as number"
               name="endRow"
             />
             <el-dropdown
@@ -310,8 +312,9 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <slot
+                    v-if="scope.$index >= 0"
                     :data="getRowEntity(scope)"
-                    :index="scope.$index"
+                    :index="scope.$index as number"
                     name="moreButtons"
                   />
                   <AButton
