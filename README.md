@@ -100,7 +100,7 @@
   VITE_APP_STATIC_URL = "/static/"
   ```
 
-如需跨域代理，可修改 `vite.config.ts`
+如需跨域代理，可修改 `vite.config.mts`
 
 ### 5.4. 启动项目
 
