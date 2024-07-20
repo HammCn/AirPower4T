@@ -8,7 +8,7 @@ import { AirConfig } from '../config/AirConfig'
  */
 export class AirCrypto {
   /**
-   * ## AES加密方法
+   * ## `AES` 加密方法
    * @param data 加密数据
    * @param key 密钥
    * @param mode `可选` 加密方式 默认 `CBC`
@@ -35,7 +35,7 @@ export class AirCrypto {
   }
 
   /**
-   * ## AES解密方法
+   * ## `AES` 解密方法
    * @param data 需要解密的数据
    * @param key 密钥
    * @param mode `可选` 加密方式 默认 `CBC`
@@ -62,7 +62,7 @@ export class AirCrypto {
   }
 
   /**
-   * ## SHA1散列摘要
+   * ## `SHA1` 散列摘要
    * @param data 源字符串
    */
   static sha1(data: string): string {
@@ -71,7 +71,7 @@ export class AirCrypto {
   }
 
   /**
-   * ## MD5散列摘要
+   * ## `MD5` 散列摘要
    * @param data 源字符串
    */
   static md5(data: string): string {
@@ -80,7 +80,7 @@ export class AirCrypto {
   }
 
   /**
-   * ## Base64编码
+   * ## `Base64` 编码
    * @param data
    */
   static base64Encode(data: string): string {
@@ -88,7 +88,7 @@ export class AirCrypto {
   }
 
   /**
-   * ## Base64解码
+   * ## `Base64` 解码
    * @param data
    */
   static base64Decode(data: string): string {

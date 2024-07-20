@@ -13,7 +13,7 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
   @Type(String) createExportTaskUrl!: string
 
   /**
-   * ## 查询导出结果的API地址
+   * ## 查询导出结果的 `API` 地址
    */
   @Type(String) queryExportUrl!: string
 

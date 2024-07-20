@@ -25,7 +25,8 @@ export class AirAlert {
   protected icon = AirFeedbackType.NONE
 
   /**
-   * ## 是否启用HTML富文本
+   * ## 是否启用 `HTML` 富文本
+   * @deprecated 请注意安全使用
    */
   protected isHtmlEnabled = false
 
@@ -84,7 +85,8 @@ export class AirAlert {
   }
 
   /**
-   * ## 允许使用不安全的HTML富文本
+   * ## 允许使用 `不安全` 的 `HTML` 富文本
+   * @deprecated 请注意安全使用
    */
   enableHtml(): this {
     this.isHtmlEnabled = true

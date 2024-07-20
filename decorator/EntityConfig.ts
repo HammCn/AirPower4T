@@ -8,7 +8,7 @@ import { AirDecorator } from '../helper/AirDecorator'
 import { IEntityConfig } from '../interface/decorators/IEntityConfig'
 
 /**
- * ## 实体配置Key
+ * ## 实体配置 `Key`
  */
 const ENTITY_CONFIG_KEY = 'EntityConfig'
 

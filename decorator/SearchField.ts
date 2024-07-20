@@ -10,12 +10,12 @@ import { getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
 
 /**
- * ## 搜索字段key
+ * ## 搜索字段 `key`
  */
 const FIELD_CONFIG_KEY = 'Search'
 
 /**
- * ## 搜索字段列表key
+ * ## 搜索字段列表 `key`
  */
 const FIELD_LIST_KEY = 'SearchList'
 

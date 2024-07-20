@@ -172,10 +172,10 @@ export class AirNotification {
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param type 可选枚举通知类型
-   * @see success()
-   * @see warning()
-   * @see error()
-   * @see info()
+   * @see success() 成功通知
+   * @see warning() 警告通知
+   * @see error() 错误通知
+   * @see info() 信息通知
    */
   private async show(type: AirFeedbackType): Promise<boolean> {
     return new Promise<boolean>((resolve) => {

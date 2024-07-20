@@ -2,12 +2,12 @@ import { AirApi } from '../config/AirApi'
 import { AirLanguage } from '../enum/AirLanguage'
 
 /**
- * # 内置的一些i18n文案
+ * # 内置的一些 `i18n` 文案
  * @author Hamm.cn
  */
 export class AirI18nDefault {
   /**
-   * ## 缓存Key
+   * ## 缓存 `Key`
    */
   protected static readonly languageCacheKey = 'air-language'
 

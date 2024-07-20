@@ -13,7 +13,7 @@ import { AirEnumKey } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
- * ## 字典配置Key
+ * ## 字典配置 `Key`
  */
 const DICTIONARY_KEY = 'Dictionary'
 
@@ -96,12 +96,12 @@ export function getIsArray(target: any, key: string): boolean {
 }
 
 /**
- * ## 自定义到JSON转换Key
+ * ## 自定义到 `JSON` 转换 `Key`
  */
 const TO_JSON_KEY = 'ToJson'
 
 /**
- * ## 自定义转换到JSON的方法
+ * ## 自定义转换到 `JSON` 的方法
  * @param func 方法
  */
 export function ToJson(func: Function): Function {
@@ -109,7 +109,7 @@ export function ToJson(func: Function): Function {
 }
 
 /**
- * ## 获取自定义转换到JSON的方法
+ * ## 获取自定义转换到 `JSON` 的方法
  * @param target 目标类
  * @param key 属性名
  */
@@ -118,12 +118,12 @@ export function getToJson(target: any, key: string): Function | undefined {
 }
 
 /**
- * ## 自定义到模型转换Key
+ * ## 自定义到模型转换 `Key`
  */
 const TO_MODEL_KEY = 'ToModel'
 
 /**
- * ## 自定义转换到Model的方法
+ * ## 自定义转换到 `Model` 的方法
  * @param func 方法
  */
 export function ToModel(func: Function): Function {
@@ -131,7 +131,7 @@ export function ToModel(func: Function): Function {
 }
 
 /**
- * ## 获取自定义转换到Model的方法
+ * ## 获取自定义转换到 `Model` 的方法
  * @param target 目标类
  * @param key 属性名
  */
@@ -140,12 +140,12 @@ export function getToModel(target: any, key: string): Function | undefined {
 }
 
 /**
- * ## 默认值Key
+ * ## 默认值 `Key`
  */
 const DEFAULT_KEY = 'Default'
 
 /**
- * ## 标记JSON转换到模型时属性的默认值
+ * ## 标记 `JSON` 转换到模型时属性的默认值
  * 如标记了 `@Type(?, true)` 则默认值为 `[]`, 但仍可以通过此装饰器覆盖
  *
  * @param value 默认值
@@ -164,7 +164,7 @@ export function getDefault(target: any, key: string): any {
 }
 
 /**
- * ## 类名称Key
+ * ## 类名称 `Key`
  */
 const CLASS_NAME_KEY = 'ClassName'
 
@@ -185,7 +185,7 @@ export function getModelName(target: any): string {
 }
 
 /**
- * ## 属性名Key
+ * ## 属性名 `Key`
  */
 const FIELD_NAME_KEY = 'FieldName'
 
@@ -207,7 +207,7 @@ export function getFieldName(target: any, key: string): string {
 }
 
 /**
- * ## 忽略字段前缀Key
+ * ## 忽略字段前缀 `Key`
  */
 const FIELD_IGNORE_KEY = 'IgnorePrefix'
 
@@ -228,7 +228,7 @@ export function getNoPrefix(target: any, key: string): boolean {
 }
 
 /**
- * ## 字段前缀Key
+ * ## 字段前缀 `Key`
  */
 const FIELD_PREFIX_KEY = 'FieldPrefix'
 
@@ -249,7 +249,7 @@ export function getFieldPrefix(target: any): string {
 }
 
 /**
- * ## 别名Key
+ * ## 别名 `Key`
  */
 const ALIAS_KEY = 'Alias'
 

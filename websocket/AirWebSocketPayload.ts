@@ -1,7 +1,7 @@
 import { AirModel } from '../base/AirModel'
 
 /**
- * # WebSocket事件负载
+ * # `WebSocket` 事件负载
  * @author Hamm.cn
  */
 export class AirWebSocketPayload extends AirModel {

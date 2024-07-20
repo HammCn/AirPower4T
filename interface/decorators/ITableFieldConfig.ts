@@ -63,7 +63,7 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
   showColor?: boolean;
 
   /**
-   * ## 是否字段允许排序 默认不排序
+   * ## 是否字段允许排序 `默认不排序`
    * `custom` 为自定义排序, `ATable` 组件将触发 `onSortChange` 事件
    */
   sortable?: AirSortable;
@@ -115,17 +115,17 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
   image?: boolean;
 
   /**
-   * ## 图片的宽度 默认60
+   * ## 图片的宽度 `默认60`
    */
   imageWidth?: number;
 
   /**
-   * ## 图片的高度 默认60
+   * ## 图片的高度 `默认60`
    */
   imageHeight?: number;
 
   /**
-   * ## 图片圆角 默认10px
+   * ## 图片圆角 `默认10px`
    */
   imageRadius?: string
 

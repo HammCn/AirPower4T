@@ -27,7 +27,7 @@ export interface ICascaderProps extends INormalTreeProps {
 
   /**
    * ## 在选中节点改变时，是否返回由该节点所在的各级菜单的值所组成的数组
-   * 若设置 false，则只返回该节点的值
+   * 若设置 `false`，则只返回该节点的值
    */
   emitPath?: boolean,
 

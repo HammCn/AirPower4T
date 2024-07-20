@@ -11,7 +11,7 @@ export class AirMenuEntity extends AirEntity implements IMenu {
   name!: string
 
   /**
-   * # 菜单URL
+   * # 菜单`URL`
    */
   path!: string
 

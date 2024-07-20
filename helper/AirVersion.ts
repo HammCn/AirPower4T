@@ -10,7 +10,7 @@ export class AirVersion {
   private static readonly elementPlusRequired = '2.6.0'
 
   /**
-   * ## 检查 Element Plus
+   * ## 检查 `Element Plus`
    */
   static checkElementPlus() {
     if (this.parseVersion(ElementPlus.version) < this.parseVersion(this.elementPlusRequired)) {

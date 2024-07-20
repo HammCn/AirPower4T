@@ -14,24 +14,24 @@ import { AirCodeNumber, AirMoneyDirection } from '../type/AirType'
 import { AirApi } from './AirApi'
 
 /**
- * # AirPower 全局配置
+ * # `AirPower` 全局配置
  * 可自行在 `main.ts` 中覆盖此类中的配置
  * @author Hamm.cn
  */
 export class AirConfig {
   /**
-   * ## AirPower版本号
+   * ## `AirPower` 版本号
    */
   static readonly version = 'v2.2.2'
 
   /**
-   * ## AppKey
+   * ## `AppKey`
    * 用于处理一些唯一场景做项目区分 以及 `Oauth2` 的 `AppKey`
    */
   static appKey = 'airpower'
 
   /**
-   * ## AppKey Header
+   * ## `AppKey Header`
    */
   static appKeyHeader = 'appkey'
 
@@ -64,38 +64,38 @@ export class AirConfig {
   static uploadFileName = 'file'
 
   /**
-   * ## AccessToken对应的Key
+   * ## `AccessToken` 对应的 `Key`
    * `缓存的名称` 和 `Api传输的Header` 都叫这个名字
    */
   static authorizationHeaderKey = 'Authorization'
 
   /**
-   * ## Http返回状态码的字段
+   * ## `Http` 返回状态码的字段
    */
   static httpCodeKey = 'code'
 
   /**
-   * ## Http返回错误信息的字段
+   * ## `Http` 返回错误信息的字段
    */
   static httpMessageKey = 'message'
 
   /**
-   * ## Http返回数据的字段
+   * ## `Http` 返回数据的字段
    */
   static httpDataKey = 'data'
 
   /**
-   * ## 全局http请求返回 成功状态码
+   * ## 全局 `http` 请求返回 成功状态码
    */
   static successCode: AirCodeNumber = AirCode.SUCCESS
 
   /**
-   * ## 全局http请求返回 继续状态码
+   * ## 全局 `http` 请求返回 继续状态码
    */
   static continueCode: AirCodeNumber = AirCode.CONTINUE
 
   /**
-   * ## 全局http请求返回 登录状态码
+   * ## 全局 `http` 请求返回 登录状态码
    */
   static unAuthorizeCode: AirCodeNumber = AirCode.UNAUTHORIZED
 
@@ -105,7 +105,7 @@ export class AirConfig {
   private static permissionList: string[] = []
 
   /**
-   * ## 权限缓存Key
+   * ## 权限缓存 `Key`
    */
   private static readonly permissionKey = '_permissions'
 
@@ -253,7 +253,7 @@ export class AirConfig {
   static showLengthLimitInput = false
 
   /**
-   * ## TextArea是否默认显示长度限制标签
+   * ## `TextArea` 是否默认显示长度限制标签
    * `默认true` 此项仅为默认, 如在装饰器中配置, 此项将无效
    */
   static showLengthLimitTextarea = true
@@ -275,13 +275,13 @@ export class AirConfig {
   static userEntityClass: ClassConstructor<IUser> = AirUserEntity
 
   /**
-   * ## ESC是否可关闭掉所有的弹窗
+   * ## `ESC` 是否可关闭掉所有的弹窗
    */
   static dialogCloseByEsc = true
 
   /**
-   * ## 弹窗是否默认显示全屏按钮(默认true)
-   * 此项仅为默认, 如手动传入, 此项将无效
+   * ## 弹窗是否默认显示全屏按钮
+   * 此项仅为默认, 如手动传入, 此项将无效 (默认true)
    */
   static dialogFullable = true
 
@@ -345,7 +345,7 @@ export class AirConfig {
   static hideTableIndex = false
 
   /**
-   * ## Vue 路由对象
+   * ## `Vue` 路由对象
    */
   static router: Router
 
@@ -370,7 +370,7 @@ export class AirConfig {
   }
 
   /**
-   * ## 创建Vue路由实例
+   * ## 创建 `Vue` 路由实例
    * @param routes 路由配置文件
    * @param ignoreGuard 不使用守卫
    */
@@ -396,7 +396,7 @@ export class AirConfig {
   }
 
   /**
-   * ## WebSocketUrl
+   * ## `WebSocketUrl`
    * 以 `/` 结尾
    */
   static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
@@ -407,7 +407,7 @@ export class AirConfig {
   static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
 
   /**
-   * ## 默认的导入数据的URL
+   * ## 默认的导入数据的 `URL`
    *
    * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
    *
@@ -416,7 +416,7 @@ export class AirConfig {
   static importUrl = 'import'
 
   /**
-   * ## 默认下载导入模板的URL
+   * ## 默认下载导入模板的 `URL`
    *
    * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
    *

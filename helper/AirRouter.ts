@@ -25,7 +25,7 @@ export class AirRouter {
   }
 
   /**
-   * ## 将菜单添加到Vue路由中
+   * ## 将菜单添加到 `Vue` 路由中
    * @param menuList 菜单列表
    * @param parentRouter 父级路由名称
    */

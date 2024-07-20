@@ -10,12 +10,12 @@ import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
 import { getFieldName } from './Custom'
 
 /**
- * ## 表单字段key
+ * ## 表单字段 `key`
  */
 const FIELD_CONFIG_KEY = 'Form'
 
 /**
- * ## 表单字段列表key
+ * ## 表单字段列表 `key`
  */
 const FIELD_LIST_KEY = 'FormList'
 

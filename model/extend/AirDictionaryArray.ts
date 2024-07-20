@@ -31,7 +31,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   }
 
   /**
-   * ## 获取字典指定Key的Label
+   * ## 获取字典指定`Key`的`Label`
    * @param key Key
    * @param defaultLabel 默认Label
    */
@@ -40,7 +40,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
   }
 
   /**
-   * ## 获取字典指定Key的Color
+   * ## 获取字典指定`Key`的`Color`
    * @param key Key
    * @param defaultColor 默认Color
    */

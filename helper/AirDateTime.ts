@@ -23,16 +23,16 @@ export class AirDateTime {
   }
 
   /**
-   * ## 格式化到Unix秒时间戳(默认当前时间)
-   * @param date `可选` Date对象/时间字符串
+   * ## 格式化到`Unix`秒时间戳
+   * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getUnixTimeStamps(date?: Date | string): number {
     return Math.round(this.getMilliTimeStamps(date) / 1000)
   }
 
   /**
-   * ## 格式化到毫秒时间戳(默认当前时间)
-   * @param date `可选` Date对象/时间字符串
+   * ## 格式化到毫秒时间戳
+   * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getMilliTimeStamps(date?: Date | string): number {
     if (!date) {

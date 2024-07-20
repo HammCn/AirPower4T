@@ -10,7 +10,7 @@ import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { getFieldName } from './Custom'
 
 /**
- * ## 表格字段key
+ * ## 表格字段 `key`
  */
 const FIELD_CONFIG_KEY = 'Table'
 

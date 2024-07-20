@@ -29,14 +29,14 @@ export class AirValidator {
   message!: string
 
   /**
-   * ## 类型 默认string
-   * 可通过 `toString` `toNumber` `toArray` 设置
+   * ## 类型
+   * 可通过 `toString` `toNumber` `toArray` 设置 (默认`string`)
    */
   private type!: string
 
   /**
-   * ## 触发方式(默认blur)
-   * 不建议直接设置哦~
+   * ## 触发方式
+   * 不建议直接设置哦~ (默认blur)
    */
   private trigger: 'blur' | 'change' = 'change'
 
