@@ -8,8 +8,6 @@ import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { IJson } from '../interface/IJson'
 
 /**
  * ## 搜索字段key
@@ -26,10 +24,7 @@ const FIELD_LIST_KEY = 'SearchList'
  * @param config 搜索配置项
  */
 export function Search(config: ISearchFieldConfig = {}) {
-  if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
-    // 如果不是字典 转为字典
-    config.dictionary = AirDictionaryArray.create((config.dictionary as IJson).toDictionary())
-  }
+  config.dictionary = AirDecorator.getDictionary(config.dictionary)
   return (target: any, key: string) => {
     config.key = key
     return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
