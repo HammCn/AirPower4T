@@ -113,7 +113,7 @@ const props = defineProps<{
   fieldList?: AirTableFieldConfig[],
 
   /**
-   * ## Editor
+   * ## `Editor`
    * 传入后方可开启选择器快捷添加功能
    */
   editor?: Component
@@ -188,7 +188,10 @@ const props = defineProps<{
   }
 }>()
 
-const { entity, service } = props
+const {
+  entity,
+  service,
+} = props
 
 const hookOptions: IUseSelectorOption<E> = {}
 if (props.beforeSearch) {
@@ -202,8 +205,15 @@ if (props.treeList) {
 }
 
 const {
-  title, selectList, isLoading, response, disableConfirm,
-  onSearch, onPageChanged, onSelected, onReloadData,
+  title,
+  selectList,
+  isLoading,
+  response,
+  disableConfirm,
+  onSearch,
+  onPageChanged,
+  onSelected,
+  onReloadData,
 } = useAirSelector(props.props, entity, service, hookOptions)
 
 const entityInstance = AirClassTransformer.parse({}, props.entity)
@@ -219,7 +229,8 @@ const fields = computed(() => {
   if (props.fieldList) {
     return props.fieldList
   }
-  return AirClassTransformer.parse({}, props.entity).getTableFieldConfigList()
+  return AirClassTransformer.parse({}, props.entity)
+    .getTableFieldConfigList()
 })
 
 const searchParamList = computed(() => {

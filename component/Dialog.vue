@@ -178,7 +178,7 @@ const props = defineProps({
   },
 
   /**
-   * # 隐藏Footer
+   * # 隐藏 `Footer`
    */
   hideFooter: {
     type: Boolean,
@@ -220,7 +220,7 @@ const props = defineProps({
   },
 
   /**
-   * # 是否正在Loading
+   * # 是否正在 `Loading`
    */
   loading: {
     type: Boolean,
