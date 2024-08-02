@@ -203,6 +203,11 @@ if (props.unPaginate) {
 if (props.treeList) {
   hookOptions.treeList = props.treeList
 }
+if (props.props.param) {
+  hookOptions.beforeSearch = (requestData: AirRequestPage<E>) => {
+    requestData.filter = Object.assign(requestData.filter, props.props.param)
+  }
+}
 
 const {
   title,
