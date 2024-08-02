@@ -188,7 +188,10 @@ const props = defineProps<{
   }
 }>()
 
-const { entity, service } = props
+const {
+  entity,
+  service,
+} = props
 
 const hookOptions: IUseSelectorOption<E> = {}
 if (props.beforeSearch) {
@@ -200,10 +203,22 @@ if (props.unPaginate) {
 if (props.treeList) {
   hookOptions.treeList = props.treeList
 }
+if (props.props.param) {
+  hookOptions.beforeSearch = (requestData: AirRequestPage<E>) => {
+    requestData.filter = Object.assign(requestData.filter, props.props.param)
+  }
+}
 
 const {
-  title, selectList, isLoading, response, disableConfirm,
-  onSearch, onPageChanged, onSelected, onReloadData,
+  title,
+  selectList,
+  isLoading,
+  response,
+  disableConfirm,
+  onSearch,
+  onPageChanged,
+  onSelected,
+  onReloadData,
 } = useAirSelector(props.props, entity, service, hookOptions)
 
 const entityInstance = AirClassTransformer.parse({}, props.entity)
@@ -219,7 +234,8 @@ const fields = computed(() => {
   if (props.fieldList) {
     return props.fieldList
   }
-  return AirClassTransformer.parse({}, props.entity).getTableFieldConfigList()
+  return AirClassTransformer.parse({}, props.entity)
+    .getTableFieldConfigList()
 })
 
 const searchParamList = computed(() => {
