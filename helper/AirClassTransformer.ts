@@ -9,7 +9,7 @@ import { ITree } from '../interface/ITree'
  */
 export class AirClassTransformer {
   /**
-   * ## 复制一个新的JSON对象
+   * ## 复制一个新的 `JSON` 对象
    * @param json JSON
    */
   static copyJson<T extends IJson>(json: T): T {
@@ -35,7 +35,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 转换JSON数据到指定类的对象
+   * ## 转换 `JSON` 数据到指定类的对象
    * @param json JSON
    * @param TargetClass 目标类
    */
@@ -45,7 +45,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 转换JSON数组数据到指定类的对象数组
+   * ## 转换 `JSON` 数组数据到指定类的对象数组
    * @param jsonArray JSON数组
    * @param TargetClass 目标类
    */

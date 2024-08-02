@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 /**
- * # HTTP状态码枚举
+ * # `HTTP` 状态码枚举
  * @author Hamm.cn
  */
 export enum AirHttpStatus {

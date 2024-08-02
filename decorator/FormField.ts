@@ -7,17 +7,15 @@
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
-import { IJson } from '../interface/IJson'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { getFieldName } from './Custom'
 
 /**
- * ## 表单字段key
+ * ## 表单字段 `key`
  */
 const FIELD_CONFIG_KEY = 'Form'
 
 /**
- * ## 表单字段列表key
+ * ## 表单字段列表 `key`
  */
 const FIELD_LIST_KEY = 'FormList'
 
@@ -26,10 +24,7 @@ const FIELD_LIST_KEY = 'FormList'
  * @param config 配置项
  */
 export function Form(config: IFormFieldConfig = {}) {
-  if (config && config.dictionary && !(config.dictionary instanceof AirDictionaryArray)) {
-    // 如果不是字典 转为字典
-    config.dictionary = AirDictionaryArray.create((config.dictionary as IJson).toDictionary())
-  }
+  config.dictionary = AirDecorator.getDictionary(config.dictionary)
   return (target: any, key: string) => {
     config.key = key
     return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)

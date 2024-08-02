@@ -44,7 +44,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
   entity: E,
 
   /**
-   * ## Service的实例
+   * ## `Service`的实例
    */
   service: S,
 

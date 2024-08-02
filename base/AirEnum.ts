@@ -21,7 +21,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   label!: string
 
   /**
-   * ## 标准 **AirColor** 颜色或自定义颜色
+   * ## 标准 `AirColor` 颜色或自定义颜色
    * 支持 `AirColor` `标准色` `十六进制` `HTML标准色`
    */
   color?: AirColorString
@@ -33,16 +33,16 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   disabled?: boolean
 
   /**
-   * ## 判断Key是否相等
-   * @param key Key
+   * ## 判断 `Key` 是否相等
+   * @param key `Key`
    */
   equalsKey(key: K): boolean {
     return this.key === key
   }
 
   /**
-   * ## 判断Key是否不相等
-   * @param key Key
+   * ## 判断 `Key` 是否不相等
+   * @param key `Key`
    */
   notEqualsKey(key: K): boolean {
     return this.key !== key
@@ -63,9 +63,9 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 获取枚举的Label
-   * @param key Key
-   * @param defaultLabel `可选` 默认Label
+   * ## 获取枚举的 `Label`
+   * @param key `Key`
+   * @param defaultLabel `可选` 默认 `Label`
    */
   static getLabel(key: AirEnumKey, defaultLabel = '-'): string {
     return this.get(key)?.label || defaultLabel
@@ -73,7 +73,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
 
   /**
    * ## 获取枚举的颜色
-   * @param key Key
+   * @param key `Key`
    * @param defaultColor `可选` 默认颜色
    */
   static getColor(key: AirEnumKey, defaultColor: AirColorString = AirColor.NORMAL): AirColorString {
@@ -82,7 +82,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
 
   /**
    * ## 获取枚举是否禁用
-   * @param key Key
+   * @param key `Key`
    */
   static isDisabled(key: AirEnumKey): boolean | undefined {
     return this.get(key)?.disabled
@@ -90,7 +90,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
 
   /**
    * ## 查找一个枚举选项
-   * @param key Key
+   * @param key `Key`
    */
   static get<E extends AirEnum<AirEnumKey>>(this: new (...args: any[]) => E, key: AirEnumKey): E | null {
     return (this as any).toArray()

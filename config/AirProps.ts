@@ -3,7 +3,7 @@ import { PropType } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 
 /**
- * # 使用无参DialogProps配置
+ * # 使用无参 `DialogProps` 配置
  * @author Hamm.cn
  */
 export function airProps() {

@@ -112,7 +112,8 @@ const props = defineProps({
   },
 
   /**
-   * # 上传允许的最大文件大小 默认10m
+   * # 上传允许的最大文件大小
+   * 默认 `10m`
    */
   maxSize: {
     type: Number,
@@ -120,7 +121,7 @@ const props = defineProps({
   },
 
   /**
-   * # 上传文件使用的name属性
+   * # 上传文件使用的`name`属性
    */
   uploadName: {
     type: String,
@@ -169,7 +170,7 @@ const props = defineProps({
   },
 
   /**
-   * # 上传文件同时发送的header
+   * # 上传文件同时发送的 `header`
    */
   header: {
     type: Object as PropType<IJson>,

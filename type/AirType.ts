@@ -10,22 +10,22 @@ import { AirCode } from '../enum/AirCode'
  */
 
 /**
- * ## el-tree的实例
+ * ## `el-tree` 的实例
  */
 export type AirTreeInstance = InstanceType<typeof ElTree>;
 
 /**
- * ## el-form的实例
+ * ## `el-form` 的实例
  */
 export type AirFormInstance = InstanceType<typeof ElForm>;
 
 /**
- * ## el-table的实例
+ * ## `el-table` 的实例
  */
 export type AirTableInstance = InstanceType<typeof ElTable>;
 
 /**
- * ## tree-node的实例
+ * ## `tree-node` 的实例
  */
 export type AirTreeNode = Node;
 
@@ -35,7 +35,7 @@ export type AirTreeNode = Node;
 export type AirMoneyDirection = 'up' | 'down'
 
 /**
- * ## 枚举Key的类型
+ * ## 枚举 `Key` 的类型
  */
 export type AirEnumKey = string | number | boolean;
 

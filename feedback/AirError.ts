@@ -9,7 +9,8 @@ import { AirNotification } from './AirNotification'
  */
 export class AirError {
   /**
-   * ## 错误状态码 默认500
+   * ## 错误状态码
+   * 默认 `500`
    */
   private code = AirCode.ERROR
 

@@ -347,7 +347,7 @@ const props = defineProps({
 
   /**
    * # 是否显示清空的图标
-   * 仅在普通输入框的readonly下有效
+   * 仅在普通输入框的 `readonly` 下有效
    */
   showClear: {
     type: Boolean,

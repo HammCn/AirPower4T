@@ -19,7 +19,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 启用ESC关闭
+   * ## 启用 `ESC` 关闭
    */
   enableEscClose(): this {
     this.isCloseByEscape = true

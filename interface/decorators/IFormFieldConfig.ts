@@ -196,23 +196,23 @@ export interface IFormFieldConfig<K extends AirEnumKey = AirEnumKey, E extends A
   maxRows?: number;
 
   /**
-   * ## 使用Switch控件
+   * ## 使用 `Switch` 控件
    */
   switch?: boolean;
 
   /**
-   * ## 使用Switch控件时是否隐藏Label文字
+   * ## 使用 `Switch` 控件时是否隐藏 `Label` 文字
    * `@Form` 的 `isSwitch` 配置为 `true` 时生效
    */
   hideSwitchLabel?: boolean;
 
   /**
-   * ## 使用Radio控件
+   * ## 使用 `Radio` 控件
    */
   radio?: boolean;
 
   /**
-   * ## 使用Radio控件时用按钮的样式
+   * ## 使用 `Radio` 控件时用按钮的样式
    * `@Form` 的 `isRadio` 配置为 `true` 时生效
    */
   radioButton?: boolean;
@@ -223,7 +223,7 @@ export interface IFormFieldConfig<K extends AirEnumKey = AirEnumKey, E extends A
   defaultValue?: boolean | string | number;
 
   /**
-   * ## switch不使用枚举配置的颜色
+   * ## `switch` 不使用枚举配置的颜色
    * `@Form` 的 `isSwitch` 配置为 `true` 时生效
    */
   disableSwitchColor?: boolean;

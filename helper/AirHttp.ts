@@ -16,12 +16,12 @@ import { AirI18n } from './AirI18n'
  */
 export class AirHttp {
   /**
-   * ## 访问的接口URL
+   * ## 访问的接口 `URL`
    */
   private url = ''
 
   /**
-   * ## Loading
+   * ## `Loading`
    */
   private loading!: Ref<boolean>
 
@@ -63,7 +63,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 创建一个HTTP实例
+   * ## 创建一个 `AirHttp` 实例
    * @param url `可选` 请求的地址
    */
   constructor(url?: string) {
@@ -87,15 +87,15 @@ export class AirHttp {
   }
 
   /**
-   * ## 创建一个AirHttp客户端
-   * @param url 请求的URL
+   * ## 创建一个 `AirHttp` 客户端
+   * @param url 请求的 `URL`
    */
   static create(url: string): AirHttp {
     return new AirHttp(url)
   }
 
   /**
-   * ## 设置Loading
+   * ## 设置 `Loading`
    * @param loading Loading
    *
    */
@@ -120,7 +120,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 允许携带Cookies
+   * ## 允许携带 `Cookies`
    */
   withCredentials(): this {
     this.axiosRequestConfig.withCredentials = true
@@ -164,8 +164,8 @@ export class AirHttp {
    * ## 发送请求
    *
    * @param body `可选` 请求体
-   * @see post() 直接发送POST
-   * @see get() 直接发送GET
+   * @see post() 直接发送 `POST`
+   * @see get() 直接发送 `GET`
    */
   send(body?: any): Promise<any> {
     /**
@@ -241,7 +241,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 发送POST
+   * ## 发送 `POST`
    * @param model 发送的数据模型(数组)
    */
   post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
@@ -258,7 +258,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 发送GET请求 只支持简单一维数据
+   * ## 发送 `GET` 请求 只支持简单一维数据
    * @param params `可选` 可携带的参数
    */
   get(params?: IJson): Promise<any> {

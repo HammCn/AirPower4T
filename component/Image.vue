@@ -116,7 +116,7 @@ const props = defineProps({
   },
 
   /**
-   * # 显示上传tips
+   * # 显示上传 `tips`
    */
   showTips: {
     type: Boolean,

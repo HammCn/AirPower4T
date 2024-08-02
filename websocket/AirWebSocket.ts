@@ -2,22 +2,22 @@ import { AirAlert } from '../feedback/AirAlert'
 import { AirWebsocketEvent } from './AirWebSocketEvent'
 
 /**
- * # 内置的Websocket助手
+ * # 内置的 `Websocket` 助手
  * @author Hamm.cn
  */
 export class AirWebsocket {
   /**
-   * ## PING包的字符串
+   * ## `PING` 包的字符串
    */
   static ping = 'PING'
 
   /**
-   * ## PONG包的字符串
+   * ## `PONG` 包的字符串
    */
   static pong = 'PONG'
 
   /**
-   * ## WebSocket实例
+   * ## `WebSocket` 实例
    */
   websocket!: WebSocket
 
@@ -27,7 +27,7 @@ export class AirWebsocket {
   isConnected = false
 
   /**
-   * ## 同步Timer
+   * ## 同步 `Timer`
    */
   private heartBeatTimer!: number
 
@@ -42,7 +42,7 @@ export class AirWebsocket {
   private reconnectWhenClosed = true
 
   /**
-   * ## 设置Websocket心跳秒
+   * ## 设置心跳秒
    * @param second 秒
    */
   setHeartBeatTime(second: number): AirWebsocket {
@@ -72,7 +72,7 @@ export class AirWebsocket {
   }
 
   /**
-   * ## 创建一个WebSocket
+   * ## 创建一个 `WebSocket`
    */
   static create(url: string, handler: {
     // eslint-disable-next-line no-unused-vars
@@ -114,7 +114,7 @@ export class AirWebsocket {
   }
 
   /**
-   * ## 关闭WebSocket
+   * ## 关闭 `WebSocket`
    */
   close() {
     this.reconnectWhenClosed = false

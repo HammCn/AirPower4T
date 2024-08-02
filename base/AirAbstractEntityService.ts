@@ -11,7 +11,7 @@ import { IJson } from '../interface/IJson'
 import { AirAbstractService } from './AirAbstractService'
 
 /**
- * # 实体API服务超类
+ * # 实体 `API` 服务超类
  * 包含了常用的增删改查等方法
  *
  * @param E 泛型实体类
@@ -25,47 +25,47 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   abstract entityClass: ClassConstructor<E>
 
   /**
-   * ## 分页查询API地址的默认URL
+   * ## 分页查询默认 `URL`
    */
   protected urlForGetPage = 'getPage'
 
   /**
-   * ## 不分页查询API地址的默认URL
+   * ## 不分页查询默认 `URL`
    */
   protected urlForGetList = 'getList'
 
   /**
-   * ## 不分页树查询API地址的默认URL
+   * ## 不分页树查询默认 `URL`
    */
   protected urlForGetTreeList = 'getTreeList'
 
   /**
-   * ## 查询详情API地址的默认URL
+   * ## 查询详情默认 `URL`
    */
   protected urlForGetDetail = 'getDetail'
 
   /**
-   * ## 添加API地址的默认URL
+   * ## 添加默认 `URL`
    */
   protected urlForAdd = 'add'
 
   /**
-   * ## 启用API地址的默认URL
+   * ## 启用默认 `URL`
    */
   protected urlForEnable = 'enable'
 
   /**
-   * ## 禁用API地址的默认URL
+   * ## 禁用默认 `URL`
    */
   protected urlForDisable = 'disable'
 
   /**
-   * ## 修改API地址的默认URL
+   * ## 修改默认 `URL`
    */
   protected urlForUpdate = 'update'
 
   /**
-   * ## 删除API地址的默认URL
+   * ## 删除默认 `URL`
    */
   protected urlForDelete = 'delete'
 
@@ -102,7 +102,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据ID获取详情对象
+   * ## 根据 `ID` 获取详情对象
    * @param id ID
    */
   async getDetail(id: number): Promise<E> {
@@ -141,9 +141,9 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 保存一条数据并返回主键ID
+   * ## 保存一条数据并返回主键 `ID`
    *
-   * 如包含ID 则更新 如不包含 则创建
+   * 如包含 `ID` 则更新 如不包含 则创建
    * @param data 保存的数据实体
    * @param message `可选` 保存成功的消息提示内容
    * @param title `可选` 保存成功的消息提示标题 默认 `保存成功`
@@ -157,8 +157,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据ID删除一条数据
-   * @param id 删除的数据ID
+   * ## 根据 `ID` 删除一条数据
+   * @param id 删除的数据 `ID`
    * @param message `可选` 删除成功的消息提示内容
    * @param title `可选` 删除成功的消息提示标题 默认 `删除成功`
    */
@@ -176,8 +176,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据ID禁用一条数据
-   * @param id 禁用的数据ID
+   * ## 根据 `ID` 禁用一条数据
+   * @param id 禁用的数据 `ID`
    * @param message `可选` 禁用成功的消息提示内容
    * @param title `可选` 禁用成功的消息提示标题 默认 `禁用成功`
    */
@@ -195,8 +195,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据ID启用一条数据
-   * @param id 启用的数据ID
+   * ## 根据 `ID` 启用一条数据
+   * @param id 启用的数据 `ID`
    * @param message `可选` 启用成功的消息提示内容
    * @param title `可选` 启用成功的消息提示标题 默认 `启用成功`
    */
@@ -215,7 +215,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
 
   /**
    * ## 创建一个实体的实例
-   * @param id `可选` ID
+   * @param id `可选` `ID`
    */
   private newEntityInstance(id?: number): E {
     // eslint-disable-next-line new-cap

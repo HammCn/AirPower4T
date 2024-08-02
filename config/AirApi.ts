@@ -1,5 +1,5 @@
 /**
- * # API兼容类
+ * # `API` 兼容类
  * @author Hamm.cn
  */
 export class AirApi {

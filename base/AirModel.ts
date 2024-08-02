@@ -25,9 +25,9 @@ import { IJson } from '../interface/IJson'
  */
 export class AirModel {
   /**
-   * ## 从JSON转换到当前类的对象
+   * ## 从 `JSON` 转换到当前类的对象
    * 会自动进行数据别名转换
-   * @param json JSON
+   * @param json `JSON`
    */
   static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
     const instance: T = (Object.assign(new this()) as T)
@@ -71,9 +71,9 @@ export class AirModel {
   }
 
   /**
-   * ## 从JSON数组转换到当前类的对象数组
+   * ## 从 `JSON` 数组转换到当前类的对象数组
    * 会自动进行数据别名转换
-   * @param jsonArray JSON数组
+   * @param jsonArray `JSON`数组
    */
   static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
     const instanceList: T[] = []
@@ -90,10 +90,10 @@ export class AirModel {
   }
 
   /**
-   * ## 转换JSON为实体
+   * ## 转换 `JSON` 为实体
    * 会自动进行数据别名转换
    * @param instance 实体
-   * @param json JSON
+   * @param json `JSON`
    */
   static parse<T extends AirModel>(instance: T, json: IJson = {}): T {
     const fieldKeyList = Object.keys(instance)
@@ -205,7 +205,7 @@ export class AirModel {
 
   /**
    * ## 创建一个当前类的实例
-   * @param recoverBy `可选` 初始化用于覆盖对象实例的JSON
+   * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
   // eslint-disable-next-line no-unused-vars
   static newInstance<T extends AirModel>(this: new () => T, recoverBy?: IJson): T {
@@ -219,7 +219,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取表单配置的Label
+   * ## 获取表单配置的 `Label`
    *
    * 依次读取 `表单配置的label` > `@Field` > `fieldKey`
    * @param fieldKey 字段名
@@ -276,7 +276,7 @@ export class AirModel {
   }
 
   /**
-   * ## 转换到JSON
+   * ## 转换到 `JSON`
    * 会自动进行数据别名转换
    */
   toJson(): IJson {

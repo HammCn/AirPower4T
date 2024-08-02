@@ -220,7 +220,7 @@ const props = defineProps({
 
   /**
    * # 是否显示搜索框
-   * 优先级: Entity配置 > 组件传入
+   * 优先级: `Entity` 配置 > 组件传入
    */
   showSearch: {
     type: Boolean,
@@ -229,7 +229,7 @@ const props = defineProps({
 
   /**
    * # 是否显示更多筛选器
-   * 优先级: 组件传入 > EntityConfig配置
+   * 优先级: 组件传入 > `EntityConfig` 配置
    */
   showFilter: {
     type: Boolean,
@@ -263,7 +263,7 @@ const props = defineProps({
 
   /**
    * # 导入接口地址
-   * 默认按传入的service自动生成
+   * 默认按传入的 `service` 自动生成
    */
   importUrl: {
     type: String,
@@ -272,7 +272,7 @@ const props = defineProps({
 
   /**
    * # 导入模板下载地址
-   * 默认按传入的service自动生成
+   * 默认按传入的 `service` 自动生成
    */
   importTemplateUrl: {
     type: String,
@@ -281,7 +281,7 @@ const props = defineProps({
 
   /**
    * # 导入上传的标题
-   * 默认按传入的service自动生成
+   * 默认按传入的 `service` 自动生成
    */
   importTitle: {
     type: String,
@@ -317,7 +317,7 @@ const props = defineProps({
 
   /**
    * # 搜索框提示文案
-   * 优先级: 组件传入 > EntityConfig配置 > AirConfig默认值
+   * 优先级: 组件传入 > `EntityConfig` 配置 > `AirConfig` 默认值
    */
   searchPlaceholder: {
     type: String,
@@ -326,7 +326,7 @@ const props = defineProps({
 })
 
 /**
- * # Entity的实例
+ * # `Entity` 的实例
  */
 const entityInstance = computed(() => {
   if (props.entity) {
@@ -520,7 +520,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -555,7 +555,7 @@ defineExpose({
       width: 240px;
     }
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 

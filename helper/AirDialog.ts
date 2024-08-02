@@ -18,12 +18,12 @@ import { AirStore } from '../store/AirStore'
  */
 export class AirDialog {
   /**
-   * ## 当前对话框ID
+   * ## 当前对话框 `ID`
    */
   public static currentDialogId = 0
 
   /**
-   * ## 已弹出的ID数组
+   * ## 已弹出的 `ID` 数组
    */
   public static dialogIdList: number[] = []
 

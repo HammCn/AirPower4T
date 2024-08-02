@@ -52,8 +52,8 @@ const props = defineProps({
   },
 
   /**
-   * # 权限标识 如无权限 将禁用
-   * disabled tooltip自动失效
+   * # 权限标识
+   * `disabled` `tooltip` 自动失效 (如无权限 将禁用)
    */
   permission: {
     type: String,
@@ -61,7 +61,8 @@ const props = defineProps({
   },
 
   /**
-   * # 提示文字 如不提供 不显示tooltip
+   * # 提示文字
+   * 如不提供 不显示 `tooltip`
    */
   tooltip: {
     type: String,

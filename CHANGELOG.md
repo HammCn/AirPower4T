@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v2.2.3
+
+### 🎉 Features:
+
+- feat(AirDecorator): 支持了一个获取装饰器字典的方法
+
+### 🐞 Bug fixes:
+
+- fix(ASelector): 修复查询参数没有生效的BUG
+- fix(Decorator): 优化了装饰器处理字典的方法
+- fix(vite): 修改`vite.config.ts`到`vite.config.mts`
+
 ## v2.2.2
 
 ### 🐞 Bug fixes:
