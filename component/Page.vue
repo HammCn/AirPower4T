@@ -13,7 +13,7 @@
     />
     <el-popover
       v-if="page.pageNum && response.pageCount"
-      :width="226"
+      :width="pageBoxWidth[pageCountList[pageCountList.length - 1].length]"
       trigger="click"
       @hide="pageChanged(page.pageNum)"
     >
@@ -48,6 +48,7 @@
             <el-button
               v-for="item in pageCountList"
               :key="item"
+              :style="{width: pageItemWidth[pageCountList[pageCountList.length - 1].length]+'px'}"
               round
               :disabled="item === disablePageLabel"
               :type="page.pageNum == parseInt(item, 10) ? 'primary' : 'default'"
@@ -160,6 +161,7 @@ const pageCountList = computed(() => {
   }
   for (let i = 1; i <= showPageCount; i += 1) {
     if (i === 1) {
+      // 第一页
       list.push(i.toString())
       continue
     }
@@ -169,11 +171,13 @@ const pageCountList = computed(() => {
     }
     if (page.value.pageNum > mid) {
       if (i === 2) {
+        // 第二页
         list.push(disablePageLabel)
         continue
       }
 
       if (page.value.pageNum > props.response.pageCount - mid) {
+        // 最后一页选中 前面的
         list.push(String(props.response.pageCount - mid + 1 + i - mid))
         continue
       }
@@ -182,16 +186,17 @@ const pageCountList = computed(() => {
         list.push(disablePageLabel)
         continue
       }
-
+      // 中间页码 两头禁用和起始
       list.push((page.value.pageNum - mid + i).toString())
       continue
     }
 
     if (endSecondPage === i) {
+      // 倒数第二页
       list.push(disablePageLabel)
       continue
     }
-    list.push((i.toString()))
+    list.push(i.toString())
   }
   return list
 })
@@ -206,6 +211,10 @@ function currentPageChanged() {
     emitChange()
   }
 }
+
+const pageItemWidth = [30, 30, 30, 30, 40, 52, 58, 64, 70]
+const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
+
 </script>
 
 <style lang="scss">
@@ -289,7 +298,7 @@ function currentPageChanged() {
     align-content: flex-start;
 
     .el-button {
-      width: 30px;
+      width: 50px;
       height: 30px;
       margin: 5px;
       padding: 0;
