@@ -168,9 +168,9 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * # 根据ID禁用一条数据
-   * @param id 禁用的数据ID
-   * @param message (可选)禁用成功的消息提示内容
+   * ## 根据 `ID` 禁用一条数据
+   * @param id 禁用的数据 `ID`
+   * @param message `可选` 禁用成功的消息提示内容
    */
   async disable(id: number, message?: string): Promise<void> {
     try {
