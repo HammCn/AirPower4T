@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v2.2.4
+
+### 🐞 Bug fixes:
+
+- fix(Page): 优化了分页组件动态计算按钮宽度
+
 ## v2.2.3
 
 ### 🎉 Features:
