@@ -4,7 +4,7 @@ import { AirAlert } from './AirAlert'
 import { AirI18n } from '../helper/AirI18n'
 
 /**
- * #  确认弹窗类
+ * # 确认弹窗类
  * 可通过 `.create()` 方法创建自定义实例
  * @author Hamm.cn
  */
