@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AirFieldConfig } from '../config/AirFieldConfig'
-import { IJson } from '../interface/IJson'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
@@ -158,45 +156,6 @@ export class AirDecorator {
       return list
     }
     return this.getFieldList(superClass, fieldConfigKey, list)
-  }
-
-  /**
-   * ## 获取目标类指定字段列表的配置项列表
-   * @param target 目标类
-   * @param fieldListKey FieldListKey
-   * @param fieldConfigKey FieldConfigKey
-   * @param keyList 指定的字段数组
-   * @param FieldConfigClass 指定的返回类
-   */
-  static getFieldConfigList<T extends AirFieldConfig>(target: any, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>) {
-    const fieldConfigList: T[] = []
-    if (keyList.length === 0) {
-      keyList = this.getFieldList(target, fieldListKey)
-    }
-    for (const fieldName of keyList) {
-      const config = this.getFieldConfig(target, fieldName, fieldConfigKey)
-      if (config) {
-        const defaultConfig = new FieldConfigClass()
-        const result: IJson = {}
-        Object.keys({
-          ...defaultConfig,
-          config,
-        })
-          .forEach((configKey) => {
-            if (configKey !== 'key') {
-              if (this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === null || this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === undefined) {
-                result[configKey] = (defaultConfig as IJson)[configKey]
-              } else {
-                result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
-              }
-            }
-          })
-        result.key = config.key
-        result.label = config.label
-        fieldConfigList.push(result as T)
-      }
-    }
-    return fieldConfigList
   }
 
   /**

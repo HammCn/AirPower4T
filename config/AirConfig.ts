@@ -151,7 +151,6 @@ export class AirConfig {
 
   /**
    * ## 默认的格式化时间
-   * `ADateTime` `ATable` 的格式化都将默认使用这个配置
    * ```
    */
   static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss

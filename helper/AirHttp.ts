@@ -158,8 +158,8 @@ export class AirHttp {
         if (this.loading) {
           AirLoading.show(this.loading)
         }
-        console.warn('[HTTP HEADER]', this.header)
-        console.warn('[HTTP BODY]', json)
+        console.log('[HTTP HEADER]', this.header)
+        console.log('[HTTP BODY]', json)
         wx.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
@@ -170,11 +170,11 @@ export class AirHttp {
             try {
               switch (json[AirConfig.httpCodeKey]) {
                 case AirConfig.successCode:
-                  console.warn('[HTTP DATA]', json[AirConfig.httpDataKey])
+                  console.log('[HTTP DATA]', json[AirConfig.httpDataKey])
                   success(json[AirConfig.httpDataKey])
                   break
                 case AirConfig.unAuthorizeCode:
-                  console.warn('[HTTP LOGIN]', res.data)
+                  console.log('[HTTP LOGIN]', res.data)
                   if (this.errorCallback) {
                     fail(json)
                     return
@@ -182,7 +182,7 @@ export class AirHttp {
                   AirConfig.login()
                   break
                 default:
-                  console.warn('[HTTP ERROR]', res.data)
+                  console.log('[HTTP ERROR]', res.data)
                   if (this.errorCallback) {
                     fail(json)
                     return
@@ -190,7 +190,7 @@ export class AirHttp {
                   AirAlert.show(AirI18n.get().SystemError || '系统错误', json[AirConfig.httpMessageKey] as string || AirI18n.get().SystemErrorAndRetryPlease || '系统发生了一些错误，请稍候再试')
               }
             } catch (e) {
-              console.warn('[HTTP ERROR]', res.data, e)
+              console.log('[HTTP ERROR]', res.data, e)
               if (this.errorCallback) {
                 fail(e)
                 return
@@ -230,7 +230,7 @@ export class AirHttp {
           },
         })
       } catch (e) {
-        console.warn('net work error', e)
+        console.warn('Network error', e)
       }
     })
   }
