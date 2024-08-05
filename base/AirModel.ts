@@ -106,7 +106,7 @@ export class AirModel {
           ? getFieldPrefix(instance)
           : ''
         )
-      + (fieldAliasName || fieldKey)]
+        + (fieldAliasName || fieldKey)]
       if (fieldData === undefined) {
         // 没有值尝试获取默认值
         fieldData = getDefault(instance, fieldKey)

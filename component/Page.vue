@@ -48,7 +48,7 @@
             <el-button
               v-for="item in pageCountList"
               :key="item"
-              :style="{width: pageItemWidth[pageCountList[pageCountList.length - 1].length]+'px'}"
+              :style="{ width: pageItemWidth[pageCountList[pageCountList.length - 1].length] + 'px' }"
               round
               :disabled="item === disablePageLabel"
               :type="page.pageNum == parseInt(item, 10) ? 'primary' : 'default'"

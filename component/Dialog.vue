@@ -367,9 +367,9 @@ function dialogMouseDownEvent(event: MouseEvent) {
   isMoving.value = true
   const dom: HTMLDivElement = document.querySelector(`#${dialogIdPrefix}${domId.value}`)!
   trueWidth = window.innerWidth
-      - dom.offsetWidth
+    - dom.offsetWidth
   trueHeight = window.innerHeight
-      - dom.offsetHeight
+    - dom.offsetHeight
 }
 
 /**

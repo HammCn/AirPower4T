@@ -873,10 +873,10 @@ const entityInstance = computed(() => {
  */
 watch(() => AirStore().controlKeyDown, () => {
   isForceDelete.value = !!(AirStore().controlKeyDown
-      && !props.customDelete
-      && !props.hideDelete
-      && props.dataList
-      && props.dataList.length > 0)
+    && !props.customDelete
+    && !props.hideDelete
+    && props.dataList
+    && props.dataList.length > 0)
 })
 
 /**
@@ -1291,7 +1291,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 0;
   }
 
@@ -1309,7 +1309,7 @@ init()
   }
 }
 
-.ctrlRow + .el-button {
+.ctrlRow+.el-button {
   margin-left: 12px;
 }
 
@@ -1391,7 +1391,7 @@ init()
   }
 }
 
-.air-table-tool-bar > * {
+.air-table-tool-bar>* {
   margin-bottom: 10px;
 }
 
@@ -1522,7 +1522,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button + .air-button {
+  .air-button+.air-button {
     margin: 0 !important;
   }
 }
