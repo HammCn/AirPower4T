@@ -17,38 +17,38 @@ import { AirI18n } from './AirI18n'
  */
 export class AirHttp {
   /**
-   * # 访问的接口URL
+   * ## 访问的接口 `URL`
    */
   private url = ''
 
   /**
-   * # Loading
+   * ## `Loading`
    */
   private loading = ''
 
   /**
-   * # 请求方式 默认POST
+   * ## 请求方式 默认POST
    */
   private method: 'GET' | 'POST' = 'POST'
 
   /**
-   * # 回调失败信息
+   * ## 是否隐藏自动错误提示
    */
   private errorCallback = false
 
   /**
-   * # 请求头
+   * ## 请求头
    */
   private header: IJson = {}
 
   /**
-   * # 操作重试次数
+   * ## 操作重试次数
    */
   private triedTimes = 0
 
   /**
-   * # 创建一个HTTP实例
-   * @param url (可选) 请求的地址
+   * ## 创建一个 `AirHttp` 客户端
+   * @param url 请求的 `URL`
    */
   constructor(url?: string) {
     if (url) {
@@ -78,7 +78,7 @@ export class AirHttp {
   }
 
   /**
-   * # 是否回调错误信息
+   * ## 是否回调错误信息
    */
   callbackError(): this {
     this.errorCallback = true
@@ -147,11 +147,11 @@ export class AirHttp {
   }
 
   /**
-   * # 发送请求
+   * ## 发送请求
    *
-   * @param body (可选)请求体
-   * @see post() 直接发送POST
-   * @see get() 直接发送GET
+   * @param body `可选` 请求体
+   * @see post() 直接发送 `POST`
+   * @see get() 直接发送 `GET`
    */
   async send(json: IJson): Promise<any> {
     return new Promise((success, fail) => {
@@ -159,9 +159,9 @@ export class AirHttp {
         if (this.loading) {
           AirLoading.show(this.loading)
         }
-        console.warn('[HTTP HEADER]', this.header)
-        console.warn('[HTTP BODY]', json)
-        console.warn('[HTTP URL]', AirConfig.apiUrl + this.url)
+        console.log('[HTTP HEADER]', this.header)
+        console.log('[HTTP BODY]', json)
+        console.log('[HTTP URL]', AirConfig.apiUrl + this.url)
         uni.request({
           url: AirConfig.apiUrl + this.url,
           data: json,
@@ -172,11 +172,11 @@ export class AirHttp {
             try {
               switch (json[AirConfig.httpCodeKey]) {
                 case AirConfig.successCode:
-                  console.warn('[HTTP DATA]', json[AirConfig.httpDataKey])
+                  console.log('[HTTP DATA]', json[AirConfig.httpDataKey])
                   success(json[AirConfig.httpDataKey])
                   break
                 case AirConfig.unAuthorizeCode:
-                  console.warn('[HTTP LOGIN]', res.data)
+                  console.log('[HTTP LOGIN]', res.data)
                   if (this.errorCallback) {
                     fail(json)
                     return
@@ -193,7 +193,7 @@ export class AirHttp {
                   plus.runtime.openURL(json[AirConfig.httpDataKey] || AirConfig.updateUrl)
                   break
                 default:
-                  console.warn('[HTTP ERROR]', res.data)
+                  console.log('[HTTP ERROR]', res.data)
                   if (this.errorCallback) {
                     fail(json)
                     return
@@ -201,7 +201,7 @@ export class AirHttp {
                   AirAlert.show(AirI18n.get().SystemError || '系统错误', json[AirConfig.httpMessageKey] as string || AirI18n.get().SystemErrorAndRetryPlease || '系统发生了一些错误，请稍候再试')
               }
             } catch (e) {
-              console.warn('[HTTP ERROR]', res.data, e)
+              console.log('[HTTP ERROR]', res.data, e)
               if (this.errorCallback) {
                 fail(e)
                 return
@@ -241,13 +241,13 @@ export class AirHttp {
           },
         })
       } catch (e) {
-        console.warn('net work error', e)
+        console.warn('Network error', e)
       }
     })
   }
 
   /**
-   * # 发送POST
+   * ## 发送 `POST`
    * @param model 发送的数据模型(数组)
    */
   async post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
@@ -264,8 +264,8 @@ export class AirHttp {
   }
 
   /**
-   * # 发送GET请求 只支持简单一维数据
-   * @param params (可选)可携带的参数
+   * ## 发送 `GET` 请求 只支持简单一维数据
+   * @param params `可选` 可携带的参数
    */
   get(params?: IJson): Promise<any> {
     if (params) {
