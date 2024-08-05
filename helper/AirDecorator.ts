@@ -3,6 +3,9 @@ import { AirFieldConfig } from '../config/AirFieldConfig'
 import { IJson } from '../interface/IJson'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
+import { AirDictionaryArray } from '@/airpower/model/extend/AirDictionaryArray'
+import { AirEnumKey } from '@/airpower/type/AirType'
+import { AirEnum } from '@/airpower/base/AirEnum'
 
 /**
  * # 装饰器助手类
@@ -10,7 +13,21 @@ import { AirClassTransformer } from './AirClassTransformer'
  */
 export class AirDecorator {
   /**
-   * # 反射添加属性
+   * ## 获取一个字典
+   * @param dictionary
+   */
+  static getDictionary(dictionary: ClassConstructor<AirEnum<AirEnumKey>> | AirDictionaryArray | undefined) {
+    if (!dictionary) {
+      return dictionary
+    }
+    if (dictionary instanceof AirDictionaryArray) {
+      return dictionary
+    }
+    return dictionary
+  }
+
+  /**
+   * ## 反射添加属性
    * @param target 目标类
    * @param key 配置key
    * @param value 配置值
@@ -25,7 +42,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 设置一个类配置项
+   * ## 设置一个类配置项
    * @param target 目标实体类
    * @param classConfigKey 配置项索引键值
    * @param classConfig 配置的参数
@@ -35,11 +52,11 @@ export class AirDecorator {
   }
 
   /**
-   * # 递归获取指定类的配置项
+   * ## 递归获取指定类的配置项
    * @param target 目标类
    * @param classConfigKey 配置项的Key
-   * @param defaultValue (可选)类装饰器请传入配置项实例
-   * @param isObject (可选)是否是对象配置
+   * @param defaultValue `可选` 类装饰器请传入配置项实例
+   * @param isObject `可选` 是否是对象配置
    */
   static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined, isObject = false): any {
     let classConfig = Reflect.get(target, classConfigKey)
@@ -66,12 +83,12 @@ export class AirDecorator {
   }
 
   /**
-   * # 设置一个字段配置项
+   * ## 设置一个字段配置项
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey 配置项索引键值
    * @param fieldConfig 配置的参数
-   * @param fieldListKey (可选)类配置项列表索引值
+   * @param fieldListKey `可选` 类配置项列表索引值
    */
   static setFieldConfig(target: any, key: string, fieldConfigKey: string, fieldConfig: any, fieldListKey?: string) {
     if (fieldListKey) {
@@ -81,7 +98,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 设置一个字段的包含装饰器索引
+   * ## 设置一个字段的包含装饰器索引
    * @param target 目标类
    * @param key 字段
    * @param fieldListKey 类配置项列表索引值
@@ -93,11 +110,11 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取类指定字段的指定类型的配置
+   * ## 获取类指定字段的指定类型的配置
    * @param target 目标类
    * @param key 字段
    * @param fieldConfigKey FieldConfigKey
-   * @param isObject (可选)是否对象配置
+   * @param isObject `可选` 是否对象配置
    */
   static getFieldConfig(target: any, key: string, fieldConfigKey: string, isObject = false): any {
     if (typeof target !== 'object') {
@@ -128,10 +145,10 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取类标记了装饰器的字段列表
+   * ## 获取类标记了装饰器的字段列表
    * @param target 目标类
    * @param fieldConfigKey FieldConfigKey
-   * @param list (递归参数)无需传入
+   * @param list `递归参数` 无需传入
    */
   static getFieldList(target: any, fieldConfigKey: string, list: string[] = []): string[] {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
@@ -144,7 +161,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取目标类指定字段列表的配置项列表
+   * ## 获取目标类指定字段列表的配置项列表
    * @param target 目标类
    * @param fieldListKey FieldListKey
    * @param fieldConfigKey FieldConfigKey
@@ -183,7 +200,7 @@ export class AirDecorator {
   }
 
   /**
-   * # 获取目标类上指定字段的某个配置的值
+   * ## 获取目标类上指定字段的某个配置的值
    * @param target 目标类
    * @param fieldConfigKey FieldConfigKey
    * @param key 字段

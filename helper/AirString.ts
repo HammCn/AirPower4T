@@ -4,12 +4,12 @@
  */
 export class AirString {
   /**
-   * # 单码元长度
+   * ## 单码元长度
    */
   private static SINGLE_POINT_LENGTH = 65535
 
   /**
-   * # 获取字符串可视化长度
+   * ## 获取字符串可视化长度
    */
   static getLength(str: string): number {
     let len = 0
@@ -22,7 +22,7 @@ export class AirString {
   }
 
   /**
-   * # 获取字符串可视化位置的内容
+   * ## 获取字符串可视化位置的内容
    * @param str 字符串
    * @param index 所在位置
    * @returns 字符串
@@ -44,7 +44,7 @@ export class AirString {
   }
 
   /**
-   * # 字符串可视化截取
+   * ## 字符串可视化截取
    * @param str 字符串
    * @param from 截取开始位置
    * @param to 截取结束位置

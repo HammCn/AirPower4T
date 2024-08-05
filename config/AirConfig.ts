@@ -12,7 +12,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.1.3'
+  static readonly version = 'v2.2.3'
 
   /**
    * ## `AppKey`

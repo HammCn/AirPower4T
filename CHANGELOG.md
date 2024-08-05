@@ -1,5 +1,47 @@
 # AirPower4T 版本发布日志
 
+## v2.2.3
+
+### 🎉 Features:
+
+- feat(AirDecorator): 支持了一个获取装饰器字典的方法
+
+### 🐞 Bug fixes:
+
+- fix(ASelector): 修复查询参数没有生效的BUG
+- fix(Decorator): 优化了装饰器处理字典的方法
+- fix(vite): 修改`vite.config.ts`到`vite.config.mts`
+
+## v2.2.2
+
+### 🐞 Bug fixes:
+
+- fix(Table): 优化了表格插槽索引的数据类型为`Number`
+
+## v2.2.1
+
+### 🎉 Features:
+
+- feat(AirModel): 支持了`sass types` 转换
+- feat(ASelector): 添加一个更方便的选择器
+
+### 🐞 Bug fixes:
+
+- fix(useAirSelector): 修复`disableConfirm`不是响应式的BUG
+- docs(airpower): 添加用户列表到README以展示服务支持
+
+## v2.2.0
+
+### 🎉 Docs:
+
+- docs(注释): 修改了大量的注释代码,规范了注释风格
+
+## v2.1.4
+
+### 🎉 Features:
+
+- feat(useAirSelector): 当多选且未选择任何数据禁用确认按钮
+
 ## v2.1.3
 
 ### 🎉 Features:
@@ -505,15 +547,15 @@
 
 ### 🎉 Features:
 
-- feat(Hook): ```useAirEditor``` 支持传入操作成功的提示信息
-- feat(Hook): 提供了一个标准 ```useAirDetail``` 的Hook
+- feat(Hook): `useAirEditor` 支持传入操作成功的提示信息
+- feat(Hook): 提供了一个标准 `useAirDetail` 的Hook
 - feat(Image): 支持了是否允许移除已上传文件的prop参数
 - feat(Image): 支持了一个placeholder的prop参数
 - feat(Table): 翻转了部分表格prop参数项的含义
 
 ### 🐞 Bug fixes:
 
-- fix(AirProps): 修复 ```airPropsXXX``` 没有显性返回值类型的BUG
+- fix(AirProps): 修复 `airPropsXXX` 没有显性返回值类型的BUG
 
 ### 🐔 Styles:
 
@@ -524,9 +566,9 @@
 
 ### 🎉 Features:
 
-- feat(useAirEditor): 支持了一个通用编辑表单内置的```useAirEditor```Hook
-- feat(useAirTable): 支持了一个通用表格内置的```useAirTable```Hook
-- feat(useAirSelector): 支持了一个通用选择器内置的```useAirSelector```Hook
+- feat(useAirEditor): 支持了一个通用编辑表单内置的`useAirEditor`Hook
+- feat(useAirTable): 支持了一个通用表格内置的`useAirTable`Hook
+- feat(useAirSelector): 支持了一个通用选择器内置的`useAirSelector`Hook
 
 ## v1.0.0
 
