@@ -257,8 +257,8 @@ function onUploadSuccess(result: IJson) {
       props.onConfirm(null)
     } else {
       const entity = AirClassTransformer.parse(
-          result.data as IJson,
-          props.entity,
+        result.data as IJson,
+        props.entity,
       )
       props.onConfirm(entity)
     }
@@ -297,7 +297,7 @@ function onUploadSuccess(result: IJson) {
           display: flex;
           flex-direction: column;
 
-          > b {
+          >b {
             font-size: 18px;
           }
 

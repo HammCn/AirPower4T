@@ -51,7 +51,7 @@ const route = useRoute()
 watch(
   () => route,
   // eslint-disable-next-line
-    (newVal) => {
+  (newVal) => {
     // eslint-disable-next-line no-restricted-globals
     defaultMenu.value = newVal.path || location.pathname
   },
@@ -71,7 +71,7 @@ watch(
   user-select: none;
 
   .is-opened {
-    > .el-sub-menu__title {
+    >.el-sub-menu__title {
       background-color: var(--el-menu-hover-bg-color);
     }
   }

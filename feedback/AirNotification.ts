@@ -15,7 +15,7 @@ export class AirNotification {
   /**
    * ## 通知内容
    */
-  private message = AirI18n.get().NoErrorMessageGiven || '你并没有传入具体的错误信息：）'
+  private message = AirI18n.get().NoErrorMessageGiven || '你并没有传入具体的通知信息：）'
 
   /**
    * ## 通知默认保留时长

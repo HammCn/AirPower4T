@@ -652,7 +652,7 @@ function init() {
 
     if (!placeholderRef.value) {
       const field = fieldConfig.value?.label
-          || entityInstance.value.getFieldName(fieldName.value)
+        || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
@@ -660,9 +660,9 @@ function init() {
         // 装饰了FormField
         if (
           dictionary.value || fieldConfig.value.dictionary
-            || props.list
-            || props.tree
-            || fieldConfig.value.dateType !== undefined
+          || props.list
+          || props.tree
+          || fieldConfig.value.dateType !== undefined
         ) {
           // 传入了枚举值
           placeholderRef.value = AirI18n.get().SelectPlease || '请选择'
