@@ -3,9 +3,9 @@ import { AirFieldConfig } from '../config/AirFieldConfig'
 import { IJson } from '../interface/IJson'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
-import { AirDictionaryArray } from '@/airpower/model/extend/AirDictionaryArray'
-import { AirEnumKey } from '@/airpower/type/AirType'
-import { AirEnum } from '@/airpower/base/AirEnum'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirEnumKey } from '../type/AirType'
+import { AirEnum } from '../base/AirEnum'
 
 /**
  * # 装饰器助手类
