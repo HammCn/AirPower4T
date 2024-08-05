@@ -8,18 +8,21 @@ import { AirDisableDictionary } from '../model/AirDisableDictionary'
  */
 export class AirEntity extends AirModel {
   /**
-   * # 主键ID
+   * ## 主键 `ID`
    */
   @Type(Number)
   @Field('ID') id!: number
 
+  /**
+   * ## 是否禁用
+   */
   @Type(Boolean)
   @Dictionary(AirDisableDictionary)
   @Field('禁用') isDisabled!: boolean
 
   /**
-   * # 实例化一个实体
-   * @param id (可选) 主键ID
+   * ## 实例化一个实体
+   * @param id `可选` 主键 `ID`
    */
   constructor(id?: number) {
     super()
@@ -31,7 +34,7 @@ export class AirEntity extends AirModel {
   private static readonly ID = 'id'
 
   /**
-   * # 复制一个只包含ID的实体
+   * ## 复制一个只包含 `ID` 的实体
    * @returns 仅包含ID的实体
    */
   copyExposeId() {
@@ -40,14 +43,14 @@ export class AirEntity extends AirModel {
   }
 
   /**
-   * # 只暴露ID
+   * ## 只暴露 `ID`
    */
   exposeId() {
     return this.expose(AirEntity.ID)
   }
 
   /**
-   * # 排除ID
+   * ## 排除 `ID`
    */
   excludeId() {
     return this.exclude(AirEntity.ID)
