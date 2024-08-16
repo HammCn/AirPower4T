@@ -94,7 +94,6 @@ defineProps({
     justify-content: center;
     background-color: #fff;
     height: 50px;
-    border-bottom: 1px solid var(--el-color-primary-light-8);
 
     .air-logo {
       word-break: keep-all;
