@@ -87,19 +87,20 @@ defineProps({
   flex-direction: column;
 
   .air-header {
-    padding: 0 15px;
+    padding: 5px 15px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     background-color: #fff;
-    height: 50px;
+    height: 40px;
 
     .air-logo {
       word-break: keep-all;
       text-align: center;
       cursor: pointer;
       user-select: none;
+      height: 100%;
 
       span {
         margin-left: 16px;
