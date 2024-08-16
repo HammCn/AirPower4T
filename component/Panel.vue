@@ -79,7 +79,7 @@ defineProps({
    */
   showTitle: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 
   /**
