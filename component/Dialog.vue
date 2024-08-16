@@ -532,6 +532,7 @@ async function confirmEvent() {
       .title {
         font-weight: normal;
         flex: 1;
+        font-weight: 16px;
       }
 
       .airpower {
@@ -539,7 +540,8 @@ async function confirmEvent() {
         cursor: pointer;
         transition: all 0.5s;
         margin-left: 12px;
-        font-size: 18px;
+        font-size: 16px;
+        font-weight: bold;
       }
 
       .airpower:hover {

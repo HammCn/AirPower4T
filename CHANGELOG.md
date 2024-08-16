@@ -1,5 +1,16 @@
 # AirPower4T 版本发布日志
 
+## v2.2.5
+
+### 🐞 Bug fixes:
+
+- fix(component): 调整Frame组件菜单宽度的默认值
+- fix(Empty): 更新了空状态的图片
+- fix(element-ui): 调整表格单元格内链接的间距
+- fix(Dialog): 优化Dialog的标题样式
+- fix(Frame): 优化顶部的边距和边框线
+- fix(Panel): 标题默认为显示
+
 ## v2.2.4
 
 ### 🐞 Bug fixes:
