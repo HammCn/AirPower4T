@@ -45,7 +45,7 @@ defineProps({
    */
   menuWidth: {
     type: Number,
-    default: 250,
+    default: 220,
   },
 
   /**
