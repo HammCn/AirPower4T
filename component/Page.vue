@@ -257,14 +257,14 @@ const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
   .air-page-total {
     color: #aaa;
 
+    padding: 3px 8px;
+
     span {
       cursor: pointer;
       font-weight: bold;
       color: #666;
       margin: 0 3px;
     }
-
-    padding: 3px 8px;
   }
 }
 
