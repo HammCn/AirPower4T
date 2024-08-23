@@ -1,5 +1,13 @@
 # AirPower4T 版本发布日志
 
+## v2.3.0
+
+### 🐞 Bug fixes:
+
+- fix(Page): 要求`element-plus`升级至`v2.8.0`
+- fix(helper): 更新Element Plus最低版本
+- fix(page): 调整页码padding以优化UI对齐
+
 ## v2.2.5
 
 ### 🐞 Bug fixes:
