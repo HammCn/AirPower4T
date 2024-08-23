@@ -7,7 +7,7 @@ import { AirAlert } from '../feedback/AirAlert'
  * @author Hamm.cn
  */
 export class AirVersion {
-  private static readonly elementPlusRequired = '2.6.0'
+  private static readonly elementPlusRequired = '2.8.0'
 
   /**
    * ## 检查 `Element Plus`
