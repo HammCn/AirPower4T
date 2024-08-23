@@ -8,7 +8,7 @@
       :page-sizes="AirConfig.pageSizes"
       layout=" prev, next"
       :total="response.total"
-      small
+      size="small"
       @current-change="pageChanged($event)"
     />
     <el-popover
