@@ -196,7 +196,7 @@ export class AirHttp {
       this.axiosResponse.then(({ data }) => {
         if (AirHttp.isSuccess(data)) {
           // 成功
-          resolve(data[AirConfig.httpDataKey])
+          resolve(AirHttp.getResponseData(data))
           return
         }
         if (this.errorCallback) {
