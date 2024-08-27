@@ -190,53 +190,50 @@ export class AirHttp {
       default:
         this.axiosResponse = axios.get(this.url, this.axiosRequestConfig)
     }
-    return new Promise((data, error) => {
-      this.axiosResponse.then((res) => {
+    return new Promise((resolve, reject) => {
+      const errorTitle = AirI18n.get().SystemError || AirConfig.errorTitle
+      const defaultErrorMessage = AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage
+      this.axiosResponse.then(({ data }) => {
+        if (data[AirConfig.httpCodeKey] === AirConfig.successCode) {
+          // 成功
+          resolve(data[AirConfig.httpDataKey])
+          return
+        }
+        if (this.errorCallback) {
+          reject(data)
+          return
+        }
+        if (data[AirConfig.httpCodeKey] === AirConfig.continueCode) {
+          // 需要继续操作
+          AirAlert.success(data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
+          reject(data)
+          return
+        }
+        if (data[AirConfig.httpCodeKey] === AirConfig.unAuthorizeCode) {
+          // 需要登录
+          if (!AirConfig.router) {
+            AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
+            reject(data)
+            return
+          }
+          AirConfig.router.push('/login')
+          reject(data)
+          return
+        }
+        // 其他业务错误
+        AirNotification.error(data[AirConfig.httpMessageKey] || defaultErrorMessage, errorTitle)
+        reject(data)
+      }).catch((err) => {
+        // 其他错误
+        if (!this.errorCallback) {
+          AirNotification.error(defaultErrorMessage, errorTitle)
+        }
+        reject(err)
+      }).finally(() => {
         if (this.loading) {
           this.loading.value = false
         }
-        switch (res.data[AirConfig.httpCodeKey]) {
-          case AirConfig.successCode:
-            // 成功
-            data(res.data[AirConfig.httpDataKey])
-            break
-          case AirConfig.continueCode:
-            // 需要继续操作
-            if (!this.errorCallback) {
-              AirAlert.success(res.data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
-            }
-            error(res.data)
-            break
-          case AirConfig.unAuthorizeCode:
-            // 需要登录
-            if (AirConfig.router) {
-              if (this.errorCallback) {
-                error(res.data)
-              } else {
-                AirConfig.router.push('/login')
-              }
-            } else {
-              AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
-            }
-            break
-          default:
-            // 其他业务错误
-            if (!this.errorCallback) {
-              AirNotification.error(res.data[AirConfig.httpMessageKey] || AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
-            }
-            error(res.data)
-        }
       })
-        .catch((err) => {
-          // 其他错误
-          if (this.loading) {
-            this.loading.value = false
-          }
-          if (!this.errorCallback) {
-            AirNotification.error(AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
-          }
-          error(err)
-        })
     })
   }
 
