@@ -197,6 +197,14 @@ export class AirConfig {
   static autoPermission = true
 
   /**
+   * ## 是否禁用权限
+   *
+   * - 如此项配置为 `true`, 则所有自动处理权限的功能都将失效。
+   * - 如需处理权限，则需要手动通过 `v-if="AirConfig.hasPermission('')"` 来操作
+   */
+  static disablePermission = false
+
+  /**
    * ## AES加解密使用默认向量
    */
   static aesCbcIvString = '0000000000000000'
