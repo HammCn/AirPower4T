@@ -239,8 +239,6 @@ export class AirHttp {
 
   /**
    * ## 跳转到登录页面
-   * @param data 返回的数据
-   * @param callback 自定义的回调方法
    */
   // eslint-disable-next-line class-methods-use-this
   private redirectToLogin(): void {
