@@ -190,54 +190,82 @@ export class AirHttp {
       default:
         this.axiosResponse = axios.get(this.url, this.axiosRequestConfig)
     }
-    return new Promise((data, error) => {
-      this.axiosResponse.then((res) => {
-        if (this.loading) {
-          this.loading.value = false
+    return new Promise((response, error) => {
+      this.axiosResponse.then(({ data }) => {
+        if (AirHttp.isSuccess(data)) {
+          response(AirHttp.getResponseData(data))
+          return
         }
-        switch (res.data[AirConfig.httpCodeKey]) {
-          case AirConfig.successCode:
-            // 成功
-            data(res.data[AirConfig.httpDataKey])
-            break
-          case AirConfig.continueCode:
-            // 需要继续操作
-            if (!this.errorCallback) {
-              AirAlert.success(res.data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
-            }
-            error(res.data)
-            break
-          case AirConfig.unAuthorizeCode:
-            // 需要登录
-            if (AirConfig.router) {
-              if (this.errorCallback) {
-                error(res.data)
-              } else {
-                AirConfig.router.push('/login')
-              }
-            } else {
-              AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
-            }
-            break
-          default:
-            // 其他业务错误
-            if (!this.errorCallback) {
-              AirNotification.error(res.data[AirConfig.httpMessageKey] || AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
-            }
-            error(res.data)
+        if (AirHttp.isContinue(data)) {
+          if (!this.errorCallback) {
+            AirAlert.success(data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
+          }
+          error(AirHttp.getResponseData(data))
+          return
         }
+        if (AirHttp.isUnAuthorize(data)) {
+          this.redirectToLogin(data, error)
+          return
+        }
+        // 其他业务错误
+        if (!this.errorCallback) {
+          AirNotification.error(data[AirConfig.httpMessageKey] || AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
+        }
+        error(data)
       })
         .catch((err) => {
-          // 其他错误
-          if (this.loading) {
-            this.loading.value = false
+          if (AirHttp.isUnAuthorize(err)) {
+            this.redirectToLogin(err, error)
+            return
           }
+
+          // 其他错误
           if (!this.errorCallback) {
             AirNotification.error(AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
           }
           error(err)
         })
+        .finally(() => {
+          if (this.loading) {
+            this.loading.value = false
+          }
+        })
     })
+  }
+
+  /**
+   * ## 跳转到登录页面
+   * @param data 返回的数据
+   * @param callback 自定义的回调方法
+   */
+  // eslint-disable-next-line no-unused-vars
+  private redirectToLogin(data: IJson, callback: (data?: any) => void): void {
+    // 需要登录
+    if (AirConfig.router) {
+      if (this.errorCallback) {
+        callback(data)
+      } else {
+        AirConfig.router.push('/login')
+      }
+    } else {
+      AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
+    }
+  }
+
+  public static getResponseData(data: IJson): any {
+    return data[AirConfig.httpDataKey]
+  }
+
+  public static isSuccess(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.successCode
+  }
+
+  public static isUnAuthorize(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.unAuthorizeCode
+  }
+
+  public static isContinue(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.continueCode
   }
 
   /**
