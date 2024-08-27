@@ -250,6 +250,11 @@ export class AirHttp {
     AirConfig.router.push('/login')
   }
 
+  /**
+   * ## 获取请求返回的数据
+   * @param data 请求返回的数据
+   * @returns 数据
+   */
   public static getResponseData(data: IJson): any {
     return data[AirConfig.httpDataKey]
   }
