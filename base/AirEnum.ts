@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
@@ -94,6 +93,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key `Key`
    */
   static get<E extends AirEnum<AirEnumKey>>(this: ClassConstructor<E>, key: AirEnumKey): E | null {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this as any).toArray()
       .find((item: E) => item.key === key) || null
   }

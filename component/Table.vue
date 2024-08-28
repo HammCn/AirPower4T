@@ -1048,7 +1048,6 @@ function isFieldSelected(item: AirTableFieldConfig) {
  * @param row 行
  * @param config 配置信息
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getPayloadRowData(row: IJson, config: AirTableFieldConfig) {
   if (config.key && config.payloadField && row[config.key]) {
     if (!config.payloadArray) {
@@ -1057,8 +1056,7 @@ function getPayloadRowData(row: IJson, config: AirTableFieldConfig) {
     }
     if (row[config.key] && row[config.key].length > 0) {
       // 对象数组挂载
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return row[config.key].map((i: any) => i[config.payloadField || ''])
+      return row[config.key].map((i: IJson) => i[config.payloadField || ''])
         .join(config.arraySplitor)
     }
   }

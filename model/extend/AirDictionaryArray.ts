@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirColorString, AirEnumKey } from '../../type/AirType'
 import { AirColor } from '../../enum/AirColor'
 import { IDictionary } from '../../interface/IDictionary'
