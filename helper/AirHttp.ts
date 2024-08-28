@@ -190,54 +190,100 @@ export class AirHttp {
       default:
         this.axiosResponse = axios.get(this.url, this.axiosRequestConfig)
     }
-    return new Promise((data, error) => {
-      this.axiosResponse.then((res) => {
+    return new Promise((resolve, reject) => {
+      const errorTitle = AirI18n.get().SystemError || AirConfig.errorTitle
+      const defaultErrorMessage = AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage
+      this.axiosResponse.then(({ data }) => {
+        if (AirHttp.isSuccess(data)) {
+          // 成功
+          resolve(AirHttp.getResponseData(data))
+          return
+        }
+        if (this.errorCallback) {
+          reject(data)
+          return
+        }
+        if (AirHttp.isContinue(data)) {
+          // 需要继续操作
+          AirAlert.success(data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
+          reject(data)
+          return
+        }
+        if (AirHttp.isUnAuthorize(data)) {
+          // 需要登录
+          this.redirectToLogin()
+          return
+        }
+        // 其他业务错误
+        AirNotification.error(data[AirConfig.httpMessageKey] || defaultErrorMessage, errorTitle)
+        reject(data)
+      }).catch((err) => {
+        if (this.errorCallback) {
+          reject(err)
+          return
+        }
+        if (AirHttp.isUnAuthorize(err)) {
+          // 一般不会使用这种方式
+          this.redirectToLogin()
+          return
+        }
+        AirNotification.error(defaultErrorMessage, errorTitle)
+        reject(err)
+      }).finally(() => {
         if (this.loading) {
           this.loading.value = false
         }
-        switch (res.data[AirConfig.httpCodeKey]) {
-          case AirConfig.successCode:
-            // 成功
-            data(res.data[AirConfig.httpDataKey])
-            break
-          case AirConfig.continueCode:
-            // 需要继续操作
-            if (!this.errorCallback) {
-              AirAlert.success(res.data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
-            }
-            error(res.data)
-            break
-          case AirConfig.unAuthorizeCode:
-            // 需要登录
-            if (AirConfig.router) {
-              if (this.errorCallback) {
-                error(res.data)
-              } else {
-                AirConfig.router.push('/login')
-              }
-            } else {
-              AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
-            }
-            break
-          default:
-            // 其他业务错误
-            if (!this.errorCallback) {
-              AirNotification.error(res.data[AirConfig.httpMessageKey] || AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
-            }
-            error(res.data)
-        }
       })
-        .catch((err) => {
-          // 其他错误
-          if (this.loading) {
-            this.loading.value = false
-          }
-          if (!this.errorCallback) {
-            AirNotification.error(AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage, AirI18n.get().SystemError || AirConfig.errorTitle)
-          }
-          error(err)
-        })
     })
+  }
+
+  /**
+   * ## 跳转到登录页面
+   */
+  // eslint-disable-next-line class-methods-use-this
+  private redirectToLogin(): void {
+    // 需要登录
+    if (!AirConfig.router) {
+      AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
+      return
+    }
+    AirConfig.router.push('/login')
+  }
+
+  /**
+   * ## 获取请求返回的数据
+   * @param data 请求返回的数据
+   * @returns 数据
+   */
+  public static getResponseData(data: IJson): any {
+    return data[AirConfig.httpDataKey]
+  }
+
+  /**
+   * ## 是否操作成功
+   * @param data 请求返回的数据
+   * @returns `true` 操作成功
+   */
+  public static isSuccess(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.successCode
+  }
+
+  /**
+   * ## 是否需要登录
+   * @param data 请求返回的数据
+   * @returns `true` 需要登录
+   */
+  public static isUnAuthorize(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.unAuthorizeCode
+  }
+
+  /**
+   * ## 是否需要继续操作
+   * @param data 请求返回的数据
+   * @returns `true` 继续操作
+   */
+  public static isContinue(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.continueCode
   }
 
   /**

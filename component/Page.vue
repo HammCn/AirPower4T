@@ -253,6 +253,10 @@ const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
     }
   }
 
+  .air-page-count {
+    border-radius: 3px;
+  }
+
   .air-page-count,
   .air-page-total {
     color: #aaa;

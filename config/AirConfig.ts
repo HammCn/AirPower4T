@@ -22,7 +22,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.3.0'
+  static readonly version = 'v2.3.1'
 
   /**
    * ## `AppKey`
@@ -195,6 +195,14 @@ export class AirConfig {
    * 若此时 `EntityConfig` 没有配置其他的权限标识, 则认为不校验权限
    */
   static autoPermission = true
+
+  /**
+   * ## 是否禁用权限
+   *
+   * - 如此项配置为 `true`, 则所有自动处理权限的功能都将失效。
+   * - 如需处理权限，则需要手动通过 `v-if="AirConfig.hasPermission('')"` 来操作
+   */
+  static disablePermission = false
 
   /**
    * ## AES加解密使用默认向量
