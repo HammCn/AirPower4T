@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import { Ref } from 'vue'
 import { AirNotification } from '../feedback/AirNotification'
@@ -9,6 +8,7 @@ import { AirModel } from '../base/AirModel'
 import { IJson } from '../interface/IJson'
 import { AirAlert } from '../feedback/AirAlert'
 import { AirI18n } from './AirI18n'
+import { AirAny } from '../type/AirType'
 
 /**
  * # 网络请求类
@@ -28,7 +28,7 @@ export class AirHttp {
   /**
    * ## 基础返回对象
    */
-  private axiosResponse!: Promise<AxiosResponse<any, any>>
+  private axiosResponse!: Promise<AxiosResponse<AirAny, AirAny>>
 
   /**
    * ## 基础请求配置
@@ -167,7 +167,7 @@ export class AirHttp {
    * @see post() 直接发送 `POST`
    * @see get() 直接发送 `GET`
    */
-  send(body?: any): Promise<any> {
+  send(body?: unknown): Promise<AirAny> {
     /**
      * 如传入了自定义的loading, 则标记loading
      */
@@ -255,7 +255,7 @@ export class AirHttp {
    * @param data 请求返回的数据
    * @returns 数据
    */
-  public static getResponseData(data: IJson): any {
+  public static getResponseData(data: IJson): AirAny {
     return data[AirConfig.httpDataKey]
   }
 
@@ -307,7 +307,7 @@ export class AirHttp {
    * ## 发送 `GET` 请求 只支持简单一维数据
    * @param params `可选` 可携带的参数
    */
-  get(params?: IJson): Promise<any> {
+  get(params?: IJson): Promise<AirAny> {
     if (params) {
       const queryArray: string[] = []
       // eslint-disable-next-line guard-for-in

@@ -1,7 +1,7 @@
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirColorString, AirEnumKey } from '../type/AirType'
+import { AirAny, AirColorString, AirEnumKey } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
@@ -92,8 +92,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key `Key`
    */
   static get<E extends AirEnum<AirEnumKey>>(this: ClassConstructor<E>, key: AirEnumKey): E | null {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (this as any).toArray()
+    return (this as AirAny).toArray()
       .find((item: E) => item.key === key) || null
   }
 

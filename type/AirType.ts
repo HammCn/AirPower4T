@@ -10,6 +10,13 @@ import { AirCode } from '../enum/AirCode'
  */
 
 /**
+ * ## 😡 慎用 Any
+ * @deprecated
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AirAny = any
+
+/**
  * ## `el-tree` 的实例
  */
 export type AirTreeInstance = InstanceType<typeof ElTree>;
@@ -67,8 +74,23 @@ export type AirSortable = boolean | 'custom'
 /**
  * ## 装饰器目标类
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AirDecoratorTarget = any
+export type AirDecoratorTarget = AirAny
+
+/**
+ * ## 装饰器存储的数据类型
+ */
+export type AirDecoratorData = AirAny
+
+/**
+ * ## 验证器回调函数类型
+ */
+// eslint-disable-next-line no-unused-vars
+export type AirValidatorCallback = (error?: string) => void
+
+/**
+ * ## 验证器规则类型
+ */
+export type AirValidatorRule = AirAny
 
 /**
  * ##  图标类型字符串类型

@@ -152,8 +152,7 @@ const DEFAULT_KEY = 'Default'
  *
  * @param value 默认值
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Default(value: any) {
+export function Default(value: unknown) {
   return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, DEFAULT_KEY, value)
 }
 
@@ -162,7 +161,6 @@ export function Default(value: any) {
  * @param target 目标类
  * @param key 属性名
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getDefault(target: AirDecoratorTarget, key: string) {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
 }

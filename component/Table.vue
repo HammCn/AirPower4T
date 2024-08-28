@@ -439,7 +439,7 @@ import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { AirTableInstance } from '../type/AirType'
+import { AirAny, AirTableInstance } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
@@ -1226,8 +1226,7 @@ function getRowEntity(scope: IJson): E {
  * @param scope Scope
  * @param key 字段
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getRowEntityField(scope: IJson, key: string): any {
+function getRowEntityField(scope: IJson, key: string): AirAny {
   return scope.row[key]
 }
 

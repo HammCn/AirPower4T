@@ -29,6 +29,7 @@ import App from './App.vue'
 import { AirConfig } from './config/AirConfig'
 import { AirStore } from './store/AirStore'
 import { AirVersion } from './helper/AirVersion'
+import { AirAny } from './type/AirType'
 
 // Vue初始化
 const app = createApp(App)
@@ -84,8 +85,7 @@ if (!import.meta.env.DEV) {
 AirVersion.check()
 
 app.directive('tip', {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mounted(el: any, binding: any) {
+  mounted(el: AirAny, binding: AirAny) {
     el.addEventListener('mouseover', () => {
       if (binding.value) {
         AirStore().tooltipRef = el
