@@ -62,14 +62,14 @@ export class AirDecorator {
     let classConfig = Reflect.get(target, classConfigKey)
     if (!isObject) {
       // 普通配置
-      if (classConfig === undefined) {
-        const superClass = Reflect.getPrototypeOf(target)
-        if (!superClass || superClass.constructor.name === 'AirModel') {
-          return undefined
-        }
-        return this.getClassConfig(superClass, classConfigKey)
+      if (classConfig) {
+        return classConfig
       }
-      return classConfig
+      const superClass = Reflect.getPrototypeOf(target)
+      if (!superClass || superClass.constructor.name === 'AirModel') {
+        return undefined
+      }
+      return this.getClassConfig(superClass, classConfigKey)
     }
 
     classConfig = classConfig || {}
@@ -175,26 +175,30 @@ export class AirDecorator {
     }
     for (const fieldName of keyList) {
       const config = this.getFieldConfig(target, fieldName, fieldConfigKey)
-      if (config) {
-        const defaultConfig = new FieldConfigClass()
-        const result: IJson = {}
-        Object.keys({
-          ...defaultConfig,
-          config,
-        })
-          .forEach((configKey) => {
-            if (configKey !== 'key') {
-              if (this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === null || this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === undefined) {
-                result[configKey] = (defaultConfig as IJson)[configKey]
-              } else {
-                result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
-              }
-            }
-          })
-        result.key = config.key
-        result.label = config.label
-        fieldConfigList.push(result as T)
+      if (!config) {
+        // eslint-disable-next-line no-continue
+        continue
       }
+      const defaultConfig = new FieldConfigClass()
+      const result: IJson = {}
+      const configKeyList = Object.keys({
+        ...defaultConfig,
+        config,
+      })
+      configKeyList.forEach((configKey) => {
+        if (configKey === 'key') {
+          return
+        }
+        const fieldConfigValue = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
+        if (fieldConfigValue === null || fieldConfigValue === undefined) {
+          result[configKey] = (defaultConfig as IJson)[configKey]
+          return
+        }
+        result[configKey] = fieldConfigValue
+      })
+      result.key = config.key
+      result.label = config.label
+      fieldConfigList.push(result as T)
     }
     return fieldConfigList
   }
