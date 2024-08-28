@@ -18,6 +18,7 @@ import { getFormConfig, getFormConfigList } from '../decorator/FormField'
 import { getSearchConfigList } from '../decorator/SearchField'
 import { getTableConfigList } from '../decorator/TableField'
 import { IJson } from '../interface/IJson'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 模型超类
@@ -29,7 +30,7 @@ export class AirModel {
    * 会自动进行数据别名转换
    * @param json `JSON`
    */
-  static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
+  static fromJson<T extends AirModel>(this: ClassConstructor<T>, json: IJson = {}): T {
     const instance: T = (Object.assign(new this()) as T)
     return AirModel.parse<T>(instance, json)
   }
@@ -75,7 +76,7 @@ export class AirModel {
    * 会自动进行数据别名转换
    * @param jsonArray `JSON`数组
    */
-  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
+  static fromJsonArray<T extends AirModel>(this: ClassConstructor<T>, jsonArray: IJson | IJson[] = []): T[] {
     const instanceList: T[] = []
     if (Array.isArray(jsonArray)) {
       for (let i = 0; i < jsonArray.length; i += 1) {
@@ -208,7 +209,7 @@ export class AirModel {
    * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
   // eslint-disable-next-line no-unused-vars
-  static newInstance<T extends AirModel>(this: new () => T, recoverBy?: IJson): T {
+  static newInstance<T extends AirModel>(this: ClassConstructor<T>, recoverBy?: IJson): T {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const instance = (Object.assign(new this(), null)) as T
