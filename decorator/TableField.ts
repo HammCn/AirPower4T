@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * # 表格字段的注解
  * @author Hamm.cn
@@ -7,6 +5,7 @@
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
+import { AirDecoratorTarget } from '../type/AirType'
 import { getFieldName } from './Custom'
 
 /**
@@ -25,7 +24,7 @@ const FIELD_LIST_KEY = 'TableList'
  */
 export function Table(config: ITableFieldConfig = {}) {
   config.dictionary = AirDecorator.getDictionary(config.dictionary)
-  return (target: any, key: string) => {
+  return (target: AirDecoratorTarget, key: string) => {
     config.key = key
     return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
   }
@@ -36,7 +35,7 @@ export function Table(config: ITableFieldConfig = {}) {
  * @param target 目标对象
  * @param key 属性名
  */
-export function getTableConfig(target: any, key: string): AirTableFieldConfig | null {
+export function getTableConfig(target: AirDecoratorTarget, key: string): AirTableFieldConfig | null {
   return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
 
@@ -44,7 +43,7 @@ export function getTableConfig(target: any, key: string): AirTableFieldConfig | 
  * ## 获取标记了表格配置的字段列表
  * @param target 目标对象
  */
-export function getTableFieldList(target: any): string[] {
+export function getTableFieldList(target: AirDecoratorTarget): string[] {
   return AirDecorator.getFieldList(target, FIELD_LIST_KEY)
 }
 
@@ -53,7 +52,7 @@ export function getTableFieldList(target: any): string[] {
  * @param target 目标实体类
  * @param keyList 字段列表
  */
-export function getTableConfigList(target: any, keyList: string[]) {
+export function getTableConfigList(target: AirDecoratorTarget, keyList: string[]) {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirTableFieldConfig)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * # 表单字段的注解
  * @author Hamm.cn
@@ -7,6 +5,7 @@
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
+import { AirDecoratorTarget } from '../type/AirType'
 import { getFieldName } from './Custom'
 
 /**
@@ -25,7 +24,7 @@ const FIELD_LIST_KEY = 'FormList'
  */
 export function Form(config: IFormFieldConfig = {}) {
   config.dictionary = AirDecorator.getDictionary(config.dictionary)
-  return (target: any, key: string) => {
+  return (target: AirDecoratorTarget, key: string) => {
     config.key = key
     return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
   }
@@ -36,7 +35,7 @@ export function Form(config: IFormFieldConfig = {}) {
  * @param target 目标类或对象
  * @param key 属性名
  */
-export function getFormConfig(target: any, key: string): AirFormFieldConfig | null {
+export function getFormConfig(target: AirDecoratorTarget, key: string): AirFormFieldConfig | null {
   return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
 
@@ -44,7 +43,7 @@ export function getFormConfig(target: any, key: string): AirFormFieldConfig | nu
  * ## 获取标记了表单配置的字段列表
  * @param target 目标对象
  */
-export function getFormFieldList(target: any): string[] {
+export function getFormFieldList(target: AirDecoratorTarget): string[] {
   return AirDecorator.getFieldList(target, FIELD_LIST_KEY)
 }
 
@@ -53,7 +52,7 @@ export function getFormFieldList(target: any): string[] {
  * @param target 目标类或对象
  * @param keyList 选择字段列表
  */
-export function getFormConfigList(target: any, keyList: string[]) {
+export function getFormConfigList(target: AirDecoratorTarget, keyList: string[]) {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirFormFieldConfig)
     .filter((item) => !item.hide)
     .sort((a, b) => b.orderNumber - a.orderNumber)

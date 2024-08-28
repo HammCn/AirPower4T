@@ -5,6 +5,6 @@
  * # 类包装
  * @author Hamm.cn
  */
-export type ClassConstructor<T> = {
+export type ClassConstructor<T = any> = {
   new(...args: any[]): T;
 };

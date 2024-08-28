@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PropType } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 

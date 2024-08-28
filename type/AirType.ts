@@ -65,6 +65,12 @@ export type AirTableFixed = 'left' | 'right'
 export type AirSortable = boolean | 'custom'
 
 /**
+ * ## 装饰器目标类
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AirDecoratorTarget = any
+
+/**
  * ##  图标类型字符串类型
  */
 export type AirIconType =
