@@ -284,6 +284,10 @@ export class AirModel {
     const json: IJson = {}
     for (const fieldKey of fieldKeyList) {
       const fieldData = (this as IJson)[fieldKey]
+      if (fieldData === null || fieldData === undefined) {
+        // 如果属性值为 null 或 undefined 则不转换到JSON
+        continue
+      }
       let fieldAliasName = getAlias(this, fieldKey) || fieldKey
       if (!getNoPrefix(this, fieldKey) && getFieldPrefix(this)) {
         // 按忽略前缀规则获取别名
