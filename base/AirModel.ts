@@ -177,10 +177,10 @@ export class AirModel {
     // 最后删除无用的数据
     for (const fieldKey of fieldKeyList) {
       const fieldAliasName = getAlias(instance, fieldKey)
-
-      if (fieldAliasName && fieldAliasName !== fieldKey) {
-        delete (instance as IJson)[fieldAliasName]
+      if (fieldAliasName === fieldKey) {
+        continue
       }
+      delete (instance as IJson)[fieldAliasName]
     }
     return instance
   }
