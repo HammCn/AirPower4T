@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { App, Component, createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import * as Icons from '@element-plus/icons-vue'
@@ -117,7 +116,7 @@ export class AirDialog {
    * @param config `可选` 上传自定义配置
    * @param customConfirm `可选` 自定义确认按钮回调方法
    */
-  static async showUpload<F extends IFile>(config?: IUploadProps, customConfirm?: Function): Promise<F> {
+  static async showUpload<F extends IFile>(config?: IUploadProps, customConfirm?: () => void): Promise<F> {
     return this.build<F>(AUpload, {
       onCustomConfirm: () => {
         if (customConfirm) {
