@@ -37,8 +37,7 @@ defineProps({
 /**
  * 菜单状态激活
  */
-// eslint-disable-next-line no-restricted-globals
-const defaultMenu = ref(location.pathname)
+const defaultMenu = ref(window.location.pathname)
 
 /**
  * 路由
@@ -50,10 +49,8 @@ const route = useRoute()
  */
 watch(
   () => route,
-  // eslint-disable-next-line
   (newVal) => {
-    // eslint-disable-next-line no-restricted-globals
-    defaultMenu.value = newVal.path || location.pathname
+    defaultMenu.value = newVal.path || window.location.pathname
   },
   {
     deep: true,

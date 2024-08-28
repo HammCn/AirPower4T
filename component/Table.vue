@@ -1073,7 +1073,6 @@ function selectRow(list: ITree[]) {
       // 遍历每一行
       if (selectedRow.id === row.id) {
         airTableRef.value?.toggleRowSelection(row, true)
-        // eslint-disable-next-line no-continue
       }
     }
     if (row.children && row.children.length > 0) {

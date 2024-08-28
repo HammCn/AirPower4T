@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Ref } from 'vue'
 import { AirEntity } from '../../base/AirEntity'
 import { AirPage } from '../../model/AirPage'
@@ -58,6 +57,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param request 请求对象
    */
+  // eslint-disable-next-line no-unused-vars
   onSearch: (request: AirRequestPage<E>) => void,
 
   /**
@@ -65,6 +65,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param page 分页对象
    */
+  // eslint-disable-next-line no-unused-vars
   onPageChanged: (page: AirPage) => void,
 
   /**
@@ -72,6 +73,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param row 选择的行
    */
+  // eslint-disable-next-line no-unused-vars
   onDetail: (row: E) => void,
 
   /**
@@ -84,6 +86,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param sort 排序对象
    */
+  // eslint-disable-next-line no-unused-vars
   onSortChanged: (sort: AirSort) => void,
 
   /**
@@ -91,6 +94,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param list 选择的行列表
    */
+  // eslint-disable-next-line no-unused-vars
   onSelected: (list: E[]) => void,
 
   /**

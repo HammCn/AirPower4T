@@ -78,12 +78,10 @@ export class AirRouter {
         // eslint-disable-next-line no-continue
         continue
       }
-      // eslint-disable-next-line no-restricted-globals
-      const locationPathName = location.pathname
+      const locationPathName = window.location.pathname
       if (item.path === locationPathName) {
         localStorage.removeItem(menuCacheKey)
-        // eslint-disable-next-line no-restricted-globals
-        AirConfig.router.replace(locationPathName + location.search)
+        AirConfig.router.replace(locationPathName + window.location.search)
         break
       }
     }

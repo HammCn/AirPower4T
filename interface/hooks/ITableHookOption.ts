@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Component } from 'vue'
 import { AirEntity } from '../../base/AirEntity'
 import { AirRequestPage } from '../../model/AirRequestPage'
@@ -35,5 +34,6 @@ export interface ITableHookOption<E extends AirEntity> {
    *
    * @param requestData 请求对象
    */
+  // eslint-disable-next-line no-unused-vars
   beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E> | void
 }

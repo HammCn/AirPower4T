@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable no-restricted-globals */
 import './config/AirGlobal'
 
 // 引入Vue createApp
