@@ -216,7 +216,6 @@ export class AirHttp {
         }
         // 其他业务错误
         AirNotification.error(data[AirConfig.httpMessageKey] || defaultErrorMessage, errorTitle)
-        reject(data)
       }).catch((err) => {
         if (this.errorCallback) {
           reject(err)
@@ -228,7 +227,6 @@ export class AirHttp {
           return
         }
         AirNotification.error(defaultErrorMessage, errorTitle)
-        reject(err)
       }).finally(() => {
         if (this.loading) {
           this.loading.value = false
