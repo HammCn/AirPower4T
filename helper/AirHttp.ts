@@ -109,12 +109,6 @@ export class AirHttp {
    * @param header 请求头
    */
   setHttpHeader(header: IJson): this {
-    if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers['content-type']) {
-      header = {
-        ...header,
-        'content-type': this.axiosRequestConfig.headers['content-type'],
-      }
-    }
     this.axiosRequestConfig.headers = header
     return this
   }
@@ -153,11 +147,7 @@ export class AirHttp {
    * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
-    if (!this.axiosRequestConfig.headers) {
-      this.axiosRequestConfig.headers = {}
-    }
-    this.axiosRequestConfig.headers['Content-Type'] = contentType
-    return this
+    return this.addHttpHeader('Content-Type', contentType)
   }
 
   /**
