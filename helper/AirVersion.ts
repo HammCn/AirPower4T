@@ -16,7 +16,7 @@ export class AirVersion {
    * ## 检查 `Element Plus`
    */
   static checkElementPlus() {
-    if (this.parseVersion(this.elementPlusRequired) >= this.parseVersion(ElementPlus.version)) {
+    if (this.parseVersion(ElementPlus.version) >= this.parseVersion(this.elementPlusRequired)) {
       return
     }
     if (import.meta.env.DEV) {
