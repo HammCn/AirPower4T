@@ -1,5 +1,6 @@
 import { PropType } from 'vue'
 import { AirEntity } from '../base/AirEntity'
+import { AirAny } from '../type/AirType'
 
 /**
  * # 使用无参 `DialogProps` 配置
@@ -12,7 +13,8 @@ export function airProps() {
      * 如果给 `ADialog` 传入了 `form` 表单的 `ref` 实体对象, 则校验通过之后才会回调此方法
      */
     onConfirm: {
-      type: Function,
+      // eslint-disable-next-line no-unused-vars
+      type: Function as PropType<(data?: AirAny) => void>,
       default: () => () => {
         // console.log('On Confirm')
       },
@@ -22,7 +24,7 @@ export function airProps() {
      * ## 弹窗的取消或关闭按钮被点击事件
      */
     onCancel: {
-      type: Function,
+      type: Function as PropType<() => void>,
       default: () => () => {
         // console.log('On Cancel')
       },
@@ -32,7 +34,7 @@ export function airProps() {
      * ## 弹窗的回调事件,不关闭弹窗
      */
     onCallback: {
-      type: Function,
+      type: Function as PropType<() => void>,
       default: () => () => {
         // console.log('On Cancel')
       },
