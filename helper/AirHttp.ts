@@ -72,7 +72,7 @@ export class AirHttp {
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL = AirConfig.apiUrl
+    this.axiosRequestConfig.baseURL = this.url.indexOf('http://') === 0 || this.url.indexOf('https://') === 0 ? '' : AirConfig.apiUrl
     this.axiosRequestConfig.timeout = this.timeout
     this.axiosRequestConfig.headers = {
       'content-type': AirHttpContentType.JSON,
