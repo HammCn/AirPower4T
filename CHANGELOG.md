@@ -1,6 +1,32 @@
 # AirPower4T 版本发布日志
 
 
+## v2.3.2
+
+### 🎉 Features:
+
+- feat(AirTree): 实现AirTree类转换树形数据结构
+
+### 🐞 Bug fixes:
+
+- fix(Core): 保证类型安全，移除不必要的any类型用法
+- fix(AirProps): 优化事件类型定义
+- fix(AirHttp): 保证设置正确的内容类型header
+- fix(config): 将控制台输出从表格格式更改为日志格式
+- fix(AirHttp): 防止在已包含协议时意外地附加baseUrl
+- fix(AirHttp): 确保AirHttp错误处理后不再reject Promise
+- fix(Service): 简化AirAbstractService中的http请求创建
+- fix(Validator): 优化身份证验证逻辑
+- fix(Decorator): 优化AirDecorator中的配置检索和字段配置逻辑
+- fix(AirModel): 修正删除无用的数据字段的逻辑
+- fix(Decorator): 添加类型装饰器参数目标类约束
+- fix(Model): 在toJSON时跳过null或undefined的属性
+
+### 📖 Docs
+
+- docs(selector): 文档化onConfirm和onCancel回调函数
+- docs(AirTree): 添加类注释，增强文档清晰度
+
 ## v2.3.1
 
 ### 🎉 Features:

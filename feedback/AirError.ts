@@ -1,6 +1,7 @@
 import { AirConfig } from '../config/AirConfig'
 import { AirCode } from '../enum/AirCode'
 import { AirI18n } from '../helper/AirI18n'
+import { AirAny } from '../type/AirType'
 import { AirNotification } from './AirNotification'
 
 /**
@@ -23,8 +24,7 @@ export class AirError {
    * ## 实例一个错误提示框
    * @param error `可选` 错误信息
    */
-  // eslint-disable-next-line
-  constructor(error?: any) {
+  constructor(error?: AirAny) {
     switch (typeof error) {
       case 'object':
         this.code = error?.code || AirCode.ERROR
@@ -40,8 +40,7 @@ export class AirError {
   /**
    * ## 创建实例方法
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static create(error?: any): AirError {
+  static create(error?: AirAny): AirError {
     return new AirError(error)
   }
 

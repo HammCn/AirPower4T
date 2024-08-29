@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import { Ref } from 'vue'
 import { AirNotification } from '../feedback/AirNotification'
@@ -9,6 +8,7 @@ import { AirModel } from '../base/AirModel'
 import { IJson } from '../interface/IJson'
 import { AirAlert } from '../feedback/AirAlert'
 import { AirI18n } from './AirI18n'
+import { AirAny } from '../type/AirType'
 
 /**
  * # 网络请求类
@@ -28,7 +28,7 @@ export class AirHttp {
   /**
    * ## 基础返回对象
    */
-  private axiosResponse!: Promise<AxiosResponse<any, any>>
+  private axiosResponse!: Promise<AxiosResponse<AirAny, AirAny>>
 
   /**
    * ## 基础请求配置
@@ -72,7 +72,7 @@ export class AirHttp {
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL = AirConfig.apiUrl
+    this.axiosRequestConfig.baseURL = this.url.indexOf('http://') === 0 || this.url.indexOf('https://') === 0 ? '' : AirConfig.apiUrl
     this.axiosRequestConfig.timeout = this.timeout
     this.axiosRequestConfig.headers = {
       'content-type': AirHttpContentType.JSON,
@@ -109,12 +109,6 @@ export class AirHttp {
    * @param header 请求头
    */
   setHttpHeader(header: IJson): this {
-    if (this.axiosRequestConfig.headers && this.axiosRequestConfig.headers['content-type']) {
-      header = {
-        ...header,
-        'content-type': this.axiosRequestConfig.headers['content-type'],
-      }
-    }
     this.axiosRequestConfig.headers = header
     return this
   }
@@ -153,11 +147,7 @@ export class AirHttp {
    * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
-    this.axiosRequestConfig.headers = {
-      ...this.axiosRequestConfig.headers,
-      'content-type': contentType,
-    }
-    return this
+    return this.addHttpHeader('Content-Type', contentType)
   }
 
   /**
@@ -167,7 +157,7 @@ export class AirHttp {
    * @see post() 直接发送 `POST`
    * @see get() 直接发送 `GET`
    */
-  send(body?: any): Promise<any> {
+  send(body?: unknown): Promise<AirAny> {
     /**
      * 如传入了自定义的loading, 则标记loading
      */
@@ -216,7 +206,6 @@ export class AirHttp {
         }
         // 其他业务错误
         AirNotification.error(data[AirConfig.httpMessageKey] || defaultErrorMessage, errorTitle)
-        reject(data)
       }).catch((err) => {
         if (this.errorCallback) {
           reject(err)
@@ -228,7 +217,6 @@ export class AirHttp {
           return
         }
         AirNotification.error(defaultErrorMessage, errorTitle)
-        reject(err)
       }).finally(() => {
         if (this.loading) {
           this.loading.value = false
@@ -255,7 +243,7 @@ export class AirHttp {
    * @param data 请求返回的数据
    * @returns 数据
    */
-  public static getResponseData(data: IJson): any {
+  public static getResponseData(data: IJson): AirAny {
     return data[AirConfig.httpDataKey]
   }
 
@@ -307,7 +295,7 @@ export class AirHttp {
    * ## 发送 `GET` 请求 只支持简单一维数据
    * @param params `可选` 可携带的参数
    */
-  get(params?: IJson): Promise<any> {
+  get(params?: IJson): Promise<AirAny> {
     if (params) {
       const queryArray: string[] = []
       // eslint-disable-next-line guard-for-in

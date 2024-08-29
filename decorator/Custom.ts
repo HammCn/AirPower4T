@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * # 自定义类和属性名注解
  * @author Hamm.cn
  */
 import { AirEnum } from '../base/AirEnum'
+import { AirModel } from '../base/AirModel'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnumKey } from '../type/AirType'
+import { AirDecoratorTarget, AirEnumKey } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
@@ -22,8 +20,8 @@ const DICTIONARY_KEY = 'Dictionary'
  * 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
  * @param dictionary 字典数组或枚举类
  */
-export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>): Function {
-  return (target: any, key: string) => {
+export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>) {
+  return (target: AirDecoratorTarget, key: string) => {
     if (!(dictionary instanceof AirDictionaryArray)) {
       // 如果不是字典 转为字典
       dictionary = AirDictionaryArray.create((dictionary as IJson).toDictionary())
@@ -37,7 +35,7 @@ export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionar
  * @param target 目标类
  * @param key 属性名
  */
-export function getDictionary(target: any, key: string): AirDictionaryArray | undefined {
+export function getDictionary(target: AirDecoratorTarget, key: string): AirDictionaryArray | undefined {
   const config = AirDecorator.getFieldConfig(target, key, DICTIONARY_KEY)
   if (config) {
     return AirDictionaryArray.create(config)
@@ -60,8 +58,8 @@ const IS_ARRAY_KEY = 'IsArray'
  * @param Clazz 类型
  * @param isArray `可选` 是否是数组
  */
-export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
-  return (target: any, key: string) => {
+export function Type(Clazz: ClassConstructor, isArray = false) {
+  return (target: AirDecoratorTarget, key: string) => {
     AirDecorator.setFieldConfig(target, key, TYPE_KEY, Clazz)
     AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, isArray)
   }
@@ -71,8 +69,8 @@ export function Type(Clazz: ClassConstructor<any>, isArray = false): Function {
  * ## 标记是数组
  * 可在此配置，但更建议在 `@Type` 中直接配置第二个参数
  */
-export function List(): Function {
-  return (target: any, key: string) => {
+export function List() {
+  return (target: AirDecoratorTarget, key: string) => {
     AirDecorator.setFieldConfig(target, key, IS_ARRAY_KEY, true)
   }
 }
@@ -82,7 +80,7 @@ export function List(): Function {
  * @param target 目标类
  * @param key 属性名
  */
-export function getType(target: any, key: string): ClassConstructor<unknown> | undefined {
+export function getType(target: AirDecoratorTarget, key: string): ClassConstructor<unknown> | undefined {
   return AirDecorator.getFieldConfig(target, key, TYPE_KEY) || undefined
 }
 
@@ -91,7 +89,7 @@ export function getType(target: any, key: string): ClassConstructor<unknown> | u
  * @param target 目标类
  * @param key 属性名
  */
-export function getIsArray(target: any, key: string): boolean {
+export function getIsArray(target: AirDecoratorTarget, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, IS_ARRAY_KEY)
 }
 
@@ -104,8 +102,9 @@ const TO_JSON_KEY = 'ToJson'
  * ## 自定义转换到 `JSON` 的方法
  * @param func 方法
  */
-export function ToJson(func: Function): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TO_JSON_KEY, func)
+// eslint-disable-next-line no-unused-vars
+export function ToJson<M extends AirModel>(func: (model: M) => IJson) {
+  return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, TO_JSON_KEY, func)
 }
 
 /**
@@ -113,7 +112,8 @@ export function ToJson(func: Function): Function {
  * @param target 目标类
  * @param key 属性名
  */
-export function getToJson(target: any, key: string): Function | undefined {
+// eslint-disable-next-line no-unused-vars
+export function getToJson<M extends AirModel>(target: AirDecoratorTarget, key: string): (model: M) => IJson | undefined {
   return AirDecorator.getFieldConfig(target, key, TO_JSON_KEY)
 }
 
@@ -126,8 +126,9 @@ const TO_MODEL_KEY = 'ToModel'
  * ## 自定义转换到 `Model` 的方法
  * @param func 方法
  */
-export function ToModel(func: Function): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, TO_MODEL_KEY, func)
+// eslint-disable-next-line no-unused-vars
+export function ToModel<M extends AirModel>(func: (json: IJson) => M) {
+  return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, TO_MODEL_KEY, func)
 }
 
 /**
@@ -135,7 +136,8 @@ export function ToModel(func: Function): Function {
  * @param target 目标类
  * @param key 属性名
  */
-export function getToModel(target: any, key: string): Function | undefined {
+// eslint-disable-next-line no-unused-vars
+export function getToModel<M extends AirModel>(target: AirDecoratorTarget, key: string): (json: IJson) => M | undefined {
   return AirDecorator.getFieldConfig(target, key, TO_MODEL_KEY)
 }
 
@@ -150,8 +152,8 @@ const DEFAULT_KEY = 'Default'
  *
  * @param value 默认值
  */
-export function Default(value: any): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, DEFAULT_KEY, value)
+export function Default(value: unknown) {
+  return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, DEFAULT_KEY, value)
 }
 
 /**
@@ -159,7 +161,7 @@ export function Default(value: any): Function {
  * @param target 目标类
  * @param key 属性名
  */
-export function getDefault(target: any, key: string): any {
+export function getDefault(target: AirDecoratorTarget, key: string) {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
 }
 
@@ -172,15 +174,15 @@ const CLASS_NAME_KEY = 'ClassName'
  * ## 为类标记可读名称
  * @param name 类的可读名称
  */
-export function Model(name: string): Function {
-  return (target: any) => AirDecorator.setClassConfig(target, CLASS_NAME_KEY, name)
+export function Model(name: string) {
+  return (target: AirDecoratorTarget) => AirDecorator.setClassConfig(target, CLASS_NAME_KEY, name)
 }
 
 /**
  * ## 获取类的可读名称
  * @param target 目标类
  */
-export function getModelName(target: any): string {
+export function getModelName(target: AirDecoratorTarget): string {
   return AirDecorator.getClassConfig(target, CLASS_NAME_KEY)
 }
 
@@ -193,8 +195,8 @@ const FIELD_NAME_KEY = 'FieldName'
  * ## 为属性标记可读名称
  * @param name 属性的可读名称
  */
-export function Field(name: string): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_NAME_KEY, name)
+export function Field(name: string) {
+  return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_NAME_KEY, name)
 }
 
 /**
@@ -202,7 +204,7 @@ export function Field(name: string): Function {
  * @param target 目标对象
  * @param key 属性名
  */
-export function getFieldName(target: any, key: string): string {
+export function getFieldName(target: AirDecoratorTarget, key: string): string {
   return AirDecorator.getFieldConfig(target, key, FIELD_NAME_KEY) || key
 }
 
@@ -214,8 +216,8 @@ const FIELD_IGNORE_KEY = 'IgnorePrefix'
 /**
  * ## 标记属性忽略类的别名前缀
  */
-export function NoPrefix(): Function {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_IGNORE_KEY, true)
+export function NoPrefix() {
+  return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_IGNORE_KEY, true)
 }
 
 /**
@@ -223,7 +225,7 @@ export function NoPrefix(): Function {
  * @param target 目标类
  * @param key 属性名称
  */
-export function getNoPrefix(target: any, key: string): boolean {
+export function getNoPrefix(target: AirDecoratorTarget, key: string): boolean {
   return AirDecorator.getFieldConfig(target, key, FIELD_IGNORE_KEY) || false
 }
 
@@ -237,14 +239,14 @@ const FIELD_PREFIX_KEY = 'FieldPrefix'
  * @param prefix 类的属性别名前缀
  */
 export function FieldPrefix(prefix: string) {
-  return (target: any) => AirDecorator.setClassConfig(target, FIELD_PREFIX_KEY, prefix)
+  return (target: AirDecoratorTarget) => AirDecorator.setClassConfig(target, FIELD_PREFIX_KEY, prefix)
 }
 
 /**
  * ## 获取属性别名前缀
  * @param target 目标类
  */
-export function getFieldPrefix(target: any): string {
+export function getFieldPrefix(target: AirDecoratorTarget): string {
   return AirDecorator.getClassConfig(target, FIELD_PREFIX_KEY) || ''
 }
 
@@ -258,7 +260,7 @@ const ALIAS_KEY = 'Alias'
  * @param alias 属性的转换别名
  */
 export function Alias(alias: string) {
-  return (target: any, key: string) => AirDecorator.setFieldConfig(target, key, ALIAS_KEY, getFieldPrefix(target) + alias)
+  return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, ALIAS_KEY, getFieldPrefix(target) + alias)
 }
 
 /**
@@ -266,6 +268,6 @@ export function Alias(alias: string) {
  * @param target 目标对象
  * @param key 属性名
  */
-export function getAlias(target: any, key: string): string {
+export function getAlias(target: AirDecoratorTarget, key: string): string {
   return AirDecorator.getFieldConfig(target, key, ALIAS_KEY) || ''
 }

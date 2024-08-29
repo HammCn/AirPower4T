@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirColorString, AirEnumKey } from '../type/AirType'
+import { AirAny, AirColorString, AirEnumKey } from '../type/AirType'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 枚举基类
@@ -92,8 +91,8 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * ## 查找一个枚举选项
    * @param key `Key`
    */
-  static get<E extends AirEnum<AirEnumKey>>(this: new (...args: any[]) => E, key: AirEnumKey): E | null {
-    return (this as any).toArray()
+  static get<E extends AirEnum<AirEnumKey>>(this: ClassConstructor<E>, key: AirEnumKey): E | null {
+    return (this as AirAny).toArray()
       .find((item: E) => item.key === key) || null
   }
 
@@ -101,7 +100,8 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * ## 将枚举转为数组
    * @returns 枚举数组
    */
-  static toArray<K extends AirEnumKey, E extends AirEnum<K>>(this: new (...args: any[]) => E): E[] {
+  // eslint-disable-next-line no-unused-vars
+  static toArray<K extends AirEnumKey, E extends AirEnum<K>>(this: ClassConstructor<E>): E[] {
     return Object.values(this)
       .filter((item) => item instanceof this)
   }
@@ -110,7 +110,8 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * ## 将枚举转为字典
    * @returns 枚举字典
    */
-  static toDictionary<D extends IDictionary>(this: new (...args: any[]) => D): AirDictionaryArray<D> {
+  // eslint-disable-next-line no-unused-vars
+  static toDictionary<D extends IDictionary>(this: ClassConstructor<D>): AirDictionaryArray<D> {
     return AirDictionaryArray.createCustom<D>(Object.values(this)
       .filter((item) => item instanceof this))
   }

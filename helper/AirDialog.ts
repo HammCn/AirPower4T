@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { App, Component, createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import * as Icons from '@element-plus/icons-vue'
@@ -32,7 +31,7 @@ export class AirDialog {
    * @param view 使用的视图组件 传入一个 `import` 的 `vue`
    * @param param 弹窗参数 将传入到合并到 `props` 上
    */
-  static async build<RES>(view: Component, param: IJson): Promise<RES> {
+  static async build<T>(view: Component, param: IJson): Promise<T> {
     const parentNode = document.createElement('div')
     const domId = `dialog_${Math.random()}`
     parentNode.setAttribute('id', domId)
@@ -53,11 +52,11 @@ export class AirDialog {
       }
 
       const dialogParam = {
-        onConfirm: async (p: RES) => {
+        onConfirm: (p: T) => {
           unmount()
           resolve(p)
         },
-        onCallback: async (result: IJson) => {
+        onCallback: (result: IJson) => {
           reject(result)
         },
         onCancel: (error: IJson) => {
@@ -106,8 +105,8 @@ export class AirDialog {
    * @param view 使用的视图组件 传入一个 `import` 的 `vue`
    * @param param `可选` 参数 将传入到目标对象的 `props.param` 参数上
    */
-  static async show<RES>(view: Component, param?: unknown): Promise<RES> {
-    return this.build<RES>(view, {
+  static async show<T>(view: Component, param?: unknown): Promise<T> {
+    return this.build<T>(view, {
       param,
     })
   }
@@ -117,7 +116,7 @@ export class AirDialog {
    * @param config `可选` 上传自定义配置
    * @param customConfirm `可选` 自定义确认按钮回调方法
    */
-  static async showUpload<F extends IFile>(config?: IUploadProps, customConfirm?: Function): Promise<F> {
+  static async showUpload<F extends IFile>(config?: IUploadProps, customConfirm?: () => void): Promise<F> {
     return this.build<F>(AUpload, {
       onCustomConfirm: () => {
         if (customConfirm) {

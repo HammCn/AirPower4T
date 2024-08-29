@@ -180,14 +180,19 @@ const props = defineProps<{
      */
     selectList: E[],
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onConfirm: Function
+    /**
+     * ## 确认按钮的回调事件
+     * @param data [可选] 回调的数据
+     */
+    // eslint-disable-next-line no-unused-vars
+    onConfirm: (data?: E | E[]) => void
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onCancel: Function
+    /**
+     * ## 取消按钮的回调事件
+     */
+    onCancel: () => void
   }
 }>()
-
 const {
   entity,
   service,

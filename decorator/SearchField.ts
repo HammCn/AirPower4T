@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * # 搜索字段的注解
  * @author Hamm.cn
@@ -8,6 +6,7 @@ import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
+import { AirDecoratorTarget } from '../type/AirType'
 
 /**
  * ## 搜索字段 `key`
@@ -25,7 +24,7 @@ const FIELD_LIST_KEY = 'SearchList'
  */
 export function Search(config: ISearchFieldConfig = {}) {
   config.dictionary = AirDecorator.getDictionary(config.dictionary)
-  return (target: any, key: string) => {
+  return (target: AirDecoratorTarget, key: string) => {
     config.key = key
     return AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config, FIELD_LIST_KEY)
   }
@@ -36,7 +35,7 @@ export function Search(config: ISearchFieldConfig = {}) {
  * @param target 目标类或对象
  * @param key 属性名
  */
-export function getSearchConfig(target: any, key: string): AirSearchFieldConfig | null {
+export function getSearchConfig(target: AirDecoratorTarget, key: string): AirSearchFieldConfig | null {
   return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
 }
 
@@ -44,7 +43,7 @@ export function getSearchConfig(target: any, key: string): AirSearchFieldConfig 
  * ## 获取标记了搜索配置的字段列表
  * @param target 目标对象
  */
-export function getSearchFieldList(target: any): string[] {
+export function getSearchFieldList(target: AirDecoratorTarget): string[] {
   return AirDecorator.getFieldList(target, FIELD_LIST_KEY)
 }
 
@@ -53,7 +52,7 @@ export function getSearchFieldList(target: any): string[] {
  * @param target 目标类或对象
  * @param keyList 选择字段列表
  */
-export function getSearchConfigList(target: any, keyList: string[]) {
+export function getSearchConfigList(target: AirDecoratorTarget, keyList: string[]) {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirSearchFieldConfig)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {

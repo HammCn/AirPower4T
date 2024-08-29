@@ -1,6 +1,7 @@
 import { ElLoading } from 'element-plus'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
+import { AirAny } from '../type/AirType'
 
 /**
  * # 通知基类
@@ -10,8 +11,7 @@ export class AirLoading {
   /**
    * ## `Loading` 实例
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private instance: any
+  private instance: AirAny
 
   /**
    * ## `Loading` 文字

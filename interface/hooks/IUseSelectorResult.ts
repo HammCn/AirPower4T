@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Ref } from 'vue'
 import { AirEntity } from '../../base/AirEntity'
 import { ITableHookResult } from './ITableHookResult'

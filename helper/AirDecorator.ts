@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirFieldConfig } from '../config/AirFieldConfig'
 import { IJson } from '../interface/IJson'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnumKey } from '../type/AirType'
+import { AirDecoratorData, AirDecoratorTarget, AirEnumKey } from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 
 /**
@@ -32,7 +31,7 @@ export class AirDecorator {
    * @param key 配置key
    * @param value 配置值
    */
-  private static setProperty(target: any, key: string, value: any) {
+  private static setProperty(target: AirDecoratorTarget, key: string, value: unknown) {
     Reflect.defineProperty(target, key, {
       enumerable: false,
       value,
@@ -47,7 +46,7 @@ export class AirDecorator {
    * @param classConfigKey 配置项索引键值
    * @param classConfig 配置的参数
    */
-  static setClassConfig(target: any, classConfigKey: string, classConfig: any) {
+  static setClassConfig(target: AirDecoratorTarget, classConfigKey: string, classConfig: unknown) {
     this.setProperty(target.prototype, classConfigKey, classConfig)
   }
 
@@ -58,18 +57,18 @@ export class AirDecorator {
    * @param defaultValue `可选` 类装饰器请传入配置项实例
    * @param isObject `可选` 是否是对象配置
    */
-  static getClassConfig(target: any, classConfigKey: string, defaultValue: any = undefined, isObject = false): any {
+  static getClassConfig(target: AirDecoratorTarget, classConfigKey: string, defaultValue: unknown = undefined, isObject = false): AirDecoratorData {
     let classConfig = Reflect.get(target, classConfigKey)
     if (!isObject) {
       // 普通配置
-      if (classConfig === undefined) {
-        const superClass = Reflect.getPrototypeOf(target)
-        if (!superClass || superClass.constructor.name === 'AirModel') {
-          return undefined
-        }
-        return this.getClassConfig(superClass, classConfigKey)
+      if (classConfig) {
+        return classConfig
       }
-      return classConfig
+      const superClass = Reflect.getPrototypeOf(target)
+      if (!superClass || superClass.constructor.name === 'AirModel') {
+        return undefined
+      }
+      return this.getClassConfig(superClass, classConfigKey)
     }
 
     classConfig = classConfig || {}
@@ -90,7 +89,7 @@ export class AirDecorator {
    * @param fieldConfig 配置的参数
    * @param fieldListKey `可选` 类配置项列表索引值
    */
-  static setFieldConfig(target: any, key: string, fieldConfigKey: string, fieldConfig: any, fieldListKey?: string) {
+  static setFieldConfig(target: AirDecoratorTarget, key: string, fieldConfigKey: string, fieldConfig: unknown, fieldListKey?: string) {
     if (fieldListKey) {
       this.addFieldDecoratorKey(target, key, fieldListKey)
     }
@@ -103,7 +102,7 @@ export class AirDecorator {
    * @param key 字段
    * @param fieldListKey 类配置项列表索引值
    */
-  private static addFieldDecoratorKey(target: any, key: string, fieldListKey: string) {
+  private static addFieldDecoratorKey(target: AirDecoratorTarget, key: string, fieldListKey: string) {
     const list: string[] = Reflect.get(target, fieldListKey) || []
     list.push(key)
     this.setProperty(target, fieldListKey, list)
@@ -116,7 +115,7 @@ export class AirDecorator {
    * @param fieldConfigKey FieldConfigKey
    * @param isObject `可选` 是否对象配置
    */
-  static getFieldConfig(target: any, key: string, fieldConfigKey: string, isObject = false): any {
+  static getFieldConfig(target: AirDecoratorTarget, key: string, fieldConfigKey: string, isObject = false): AirDecoratorData {
     if (typeof target !== 'object') {
       target = target.prototype
     }
@@ -150,7 +149,7 @@ export class AirDecorator {
    * @param fieldConfigKey FieldConfigKey
    * @param list `递归参数` 无需传入
    */
-  static getFieldList(target: any, fieldConfigKey: string, list: string[] = []): string[] {
+  static getFieldList(target: AirDecoratorTarget, fieldConfigKey: string, list: string[] = []): string[] {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
     fieldList.forEach((item) => list.includes(item) || list.push(item))
     const superClass = Reflect.getPrototypeOf(target)
@@ -168,33 +167,37 @@ export class AirDecorator {
    * @param keyList 指定的字段数组
    * @param FieldConfigClass 指定的返回类
    */
-  static getFieldConfigList<T extends AirFieldConfig>(target: any, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>) {
+  static getFieldConfigList<T extends AirFieldConfig>(target: AirDecoratorTarget, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>) {
     const fieldConfigList: T[] = []
     if (keyList.length === 0) {
       keyList = this.getFieldList(target, fieldListKey)
     }
     for (const fieldName of keyList) {
       const config = this.getFieldConfig(target, fieldName, fieldConfigKey)
-      if (config) {
-        const defaultConfig = new FieldConfigClass()
-        const result: IJson = {}
-        Object.keys({
-          ...defaultConfig,
-          config,
-        })
-          .forEach((configKey) => {
-            if (configKey !== 'key') {
-              if (this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === null || this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey) === undefined) {
-                result[configKey] = (defaultConfig as IJson)[configKey]
-              } else {
-                result[configKey] = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
-              }
-            }
-          })
-        result.key = config.key
-        result.label = config.label
-        fieldConfigList.push(result as T)
+      if (!config) {
+        // eslint-disable-next-line no-continue
+        continue
       }
+      const defaultConfig = new FieldConfigClass()
+      const result: IJson = {}
+      const configKeyList = Object.keys({
+        ...defaultConfig,
+        config,
+      })
+      configKeyList.forEach((configKey) => {
+        if (configKey === 'key') {
+          return
+        }
+        const fieldConfigValue = this.getFieldConfigValue(target, fieldConfigKey, config.key, configKey)
+        if (fieldConfigValue === null || fieldConfigValue === undefined) {
+          result[configKey] = (defaultConfig as IJson)[configKey]
+          return
+        }
+        result[configKey] = fieldConfigValue
+      })
+      result.key = config.key
+      result.label = config.label
+      fieldConfigList.push(result as T)
     }
     return fieldConfigList
   }
@@ -206,7 +209,7 @@ export class AirDecorator {
    * @param key 字段
    * @param configKey 配置Key
    */
-  static getFieldConfigValue(target: any, fieldConfigKey: string, key: string, configKey: string): any {
+  static getFieldConfigValue(target: AirDecoratorTarget, fieldConfigKey: string, key: string, configKey: string): AirDecoratorData {
     const fieldConfig = AirClassTransformer.copyJson(Reflect.get(target, `${fieldConfigKey}[${key}]`))
     if (fieldConfig && fieldConfig[configKey] !== undefined) {
       return fieldConfig[configKey]

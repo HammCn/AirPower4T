@@ -439,7 +439,7 @@ import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { AirTableInstance } from '../type/AirType'
+import { AirAny, AirTableInstance } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
@@ -1048,7 +1048,6 @@ function isFieldSelected(item: AirTableFieldConfig) {
  * @param row 行
  * @param config 配置信息
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getPayloadRowData(row: IJson, config: AirTableFieldConfig) {
   if (config.key && config.payloadField && row[config.key]) {
     if (!config.payloadArray) {
@@ -1057,8 +1056,7 @@ function getPayloadRowData(row: IJson, config: AirTableFieldConfig) {
     }
     if (row[config.key] && row[config.key].length > 0) {
       // 对象数组挂载
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return row[config.key].map((i: any) => i[config.payloadField || ''])
+      return row[config.key].map((i: IJson) => i[config.payloadField || ''])
         .join(config.arraySplitor)
     }
   }
@@ -1075,7 +1073,6 @@ function selectRow(list: ITree[]) {
       // 遍历每一行
       if (selectedRow.id === row.id) {
         airTableRef.value?.toggleRowSelection(row, true)
-        // eslint-disable-next-line no-continue
       }
     }
     if (row.children && row.children.length > 0) {
@@ -1228,8 +1225,7 @@ function getRowEntity(scope: IJson): E {
  * @param scope Scope
  * @param key 字段
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getRowEntityField(scope: IJson, key: string): any {
+function getRowEntityField(scope: IJson, key: string): AirAny {
   return scope.row[key]
 }
 

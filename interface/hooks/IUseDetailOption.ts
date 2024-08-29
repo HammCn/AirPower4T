@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { AirEntity } from '../../base/AirEntity'
 
 /**
@@ -13,5 +11,6 @@ export interface IUseDetailOption<E extends AirEntity> {
    *
    * @param detailData 实体
    */
+  // eslint-disable-next-line no-unused-vars
   afterGetDetail?: (detailData: E) => E | void
 }
