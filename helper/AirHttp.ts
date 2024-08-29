@@ -153,10 +153,10 @@ export class AirHttp {
    * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
-    this.axiosRequestConfig.headers = {
-      ...this.axiosRequestConfig.headers,
-      'content-type': contentType,
+    if (!this.axiosRequestConfig.headers) {
+      this.axiosRequestConfig.headers = {}
     }
+    this.axiosRequestConfig.headers['Content-Type'] = contentType
     return this
   }
 
