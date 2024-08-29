@@ -42,11 +42,11 @@ export abstract class AirAbstractService extends AirModel {
     } else {
       url = `${this.baseUrl}/${url}`
     }
+    const http = AirHttp.create(url)
     if (this.loading) {
-      return AirHttp.create(url)
-        .setLoading(this.loading)
+      http.setLoading(this.loading)
     }
-    return AirHttp.create(url)
+    return http
   }
 
   /**
