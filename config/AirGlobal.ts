@@ -20,7 +20,7 @@ Window.prototype.airConfig = () => {
     airConfig[item] = (AirConfig as IJson)[item]
   })
   // eslint-disable-next-line no-console
-  console.table(airConfig, ['value'])
+  console.log(airConfig)
 }
 let controlKeyDownTimer: number
 document.onkeydown = (e: KeyboardEvent) => {
