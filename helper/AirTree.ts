@@ -1,5 +1,9 @@
 import { ITree } from '@/airpower/interface/ITree'
 
+/**
+ * # 树结构工具类
+ * @author Hamm.cn
+ */
 export class AirTree {
   /**
    * ## 平树列表转层级树列表
