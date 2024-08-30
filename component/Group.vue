@@ -132,6 +132,7 @@ function getBodyClass() {
     flex-direction: row;
     flex-wrap: wrap;
     display: flex;
+    position: relative;
 
     .el-cascader,
     .el-select {
