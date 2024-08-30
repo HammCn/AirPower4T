@@ -34,19 +34,12 @@ export class AirDateTime {
    */
   static getMilliTimeStamps(date?: Date | string): number {
     if (!date) {
-      date = new Date()
+      return new Date().valueOf()
     }
-    switch (typeof date) {
-      case 'string':
-        return new Date(date).valueOf()
-      case 'object':
-        if (date instanceof Date) {
-          return date.valueOf()
-        }
-        break
-      default:
+    if (typeof data === 'object') {
+      return date.valueOf()
     }
-    return 0
+    return new Date(date).valueOf()
   }
 
   /**
@@ -76,16 +69,8 @@ export class AirDateTime {
     if (!formatString) {
       formatString = AirConfig.dateTimeFormatter
     }
-    switch (typeof date) {
-      case 'string':
-        date = new Date(date)
-        break
-      case 'object':
-        if (!(date instanceof Date)) {
-          date = new Date()
-        }
-        break
-      default:
+    if (typeof date !== 'object') {
+      date = new Date(date)
     }
     const dict: IJson = {
       YYYY: date.getFullYear(),
