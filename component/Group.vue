@@ -30,7 +30,7 @@
       v-show="!isCollapse"
       :class="getBodyClass()"
       class="group-body"
-      :style="{ paddingTop: hideTitle ? '0' : '10px' }"
+      :style="{ paddingTop: hideTitle ? '0' : '10px', minHeight: minHeight || 'auto', flexDirection: column === 1 ? 'column' : 'row' }"
     >
       <slot />
     </div>
@@ -42,6 +42,14 @@ import { ref } from 'vue'
 import { ArrowDown, ArrowRight } from '@element-plus/icons-vue'
 
 const props = defineProps({
+  /**
+   * ## 最低高度
+   */
+  minHeight: {
+    type: String,
+    default: undefined,
+  },
+
   /**
    * # 隐藏标题
    */
