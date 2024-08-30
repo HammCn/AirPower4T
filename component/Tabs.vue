@@ -7,18 +7,10 @@
   </el-tabs>
 </template>
 <script setup lang="ts">
-
 </script>
 <style lang="scss" scoped>
 .air-tabs {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-
+  min-height: 100px;
   ::v-deep(.el-tabs__content) {
     display: flex;
     flex-direction: column;
