@@ -11,6 +11,9 @@
 <style lang="scss" scoped>
 .air-tabs {
   min-height: 100px;
+  flex: 1;
+  height: 0;
+
   ::v-deep(.el-tabs__content) {
     display: flex;
     flex-direction: column;
