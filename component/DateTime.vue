@@ -71,9 +71,5 @@ const toolTips = computed(() => {
 .air-friend-datetime,
 .air-friend-datetime * {
   user-select: none !important;
-
-  .is-disabled {
-    color: #333;
-  }
 }
 </style>
