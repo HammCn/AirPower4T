@@ -1,6 +1,20 @@
 # AirPower4T 版本发布日志
 
 
+## v2.3.3
+
+### 🎉 Features:
+
+- feat(Service): 新增可选的自定义请求URL参数
+
+### 🐞 Bug fixes:
+
+- fix(DateTime): 移除DateTime组件中不必要的CSS规则
+- fix(Dialog): 优化Dialog组件字体和按钮的CSS
+- fix(AirModel): 移除AirModel内处理'Sass.types'的代码行
+- fix(DateTime): 优化`AirDateTime`中时间戳和日期格式化的逻辑
+- fix(Group): 只有一列时自动方向改为纵向且支持最小高度
+
 ## v2.3.2
 
 ### 🎉 Features:
