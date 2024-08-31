@@ -43,7 +43,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
    */
   async function getDetail() {
     if (formData.value.id) {
-      formData.value = await service.getDetail(formData.value.id)
+      formData.value = await service.getDetail(formData.value.id, option.apiUrl)
 
       if (option.afterGetDetail) {
         const result = option.afterGetDetail(formData.value)

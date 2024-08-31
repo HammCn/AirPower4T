@@ -154,16 +154,13 @@ export class AirModel {
         continue
       }
       switch (FieldTypeClass.name) {
-        case 'sass.types.String':
         case 'String':
           (instance as IJson)[fieldKey] = fieldData.toString()
           break
-        case 'sass.types.Number':
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
           (instance as IJson)[fieldKey] = (Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData))
           break
-        case 'sass.types.Boolean':
         case 'Boolean':
           // 强制转换为布尔型
           (instance as IJson)[fieldKey] = !!fieldData

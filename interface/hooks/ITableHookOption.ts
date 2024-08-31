@@ -29,6 +29,13 @@ export interface ITableHookOption<E extends AirEntity> {
   editView?: Component
 
   /**
+   * ## 请求的URL
+   *
+   * 如不传入，则默认为 `Service` 的 `urlForGetXXX`
+   */
+  apiUrl?: string
+
+  /**
    * ## 搜索前的拦截方法
    * 参数为发起请求的数据,请处理后返回
    *

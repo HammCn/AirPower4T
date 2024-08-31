@@ -68,12 +68,12 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
       }
     }
     if (option.treeList) {
-      list.value = await service.getTreeList(req)
+      list.value = await service.getTreeList(req, option.apiUrl)
     } else if (!option.unPaginate) {
-      response.value = await service.getPage(req)
+      response.value = await service.getPage(req, option.apiUrl)
       list.value = response.value.list
     } else {
-      list.value = await service.getList(req)
+      list.value = await service.getList(req, option.apiUrl)
     }
   }
 
