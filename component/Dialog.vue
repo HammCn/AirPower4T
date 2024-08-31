@@ -532,7 +532,6 @@ async function confirmEvent() {
       .title {
         font-weight: normal;
         flex: 1;
-        font-weight: 16px;
       }
 
       .airpower {
@@ -575,7 +574,7 @@ async function confirmEvent() {
         display: flex;
         flex-direction: row;
 
-        .el-button {
+        ::v-deep(.el-button) {
           padding: 6px 30px;
           margin-left: 15px;
         }
