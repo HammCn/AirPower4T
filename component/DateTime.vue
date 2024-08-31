@@ -65,7 +65,6 @@ const toolTips = computed(() => {
   }
   return AirDateTime.formatFromMilliSecond(props.time, props.formatter)
 })
-
 </script>
 <style lang="scss">
 .air-friend-datetime,
