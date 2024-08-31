@@ -8,7 +8,7 @@
       :page-sizes="AirConfig.pageSizes"
       layout=" prev, next"
       :total="response.total"
-      small
+      size="small"
       @current-change="pageChanged($event)"
     />
     <el-popover
@@ -113,8 +113,8 @@ const currentPage = ref(page.value.pageNum)
  */
 function emitChange() {
   currentPage.value = page.value.pageNum
-  emits('change')
-  emits('onChange')
+  emits('change', page.value)
+  emits('onChange', page.value)
 }
 
 /**
@@ -198,6 +198,7 @@ function currentPageChanged() {
   .air-page-count,
   .air-page-total {
     color: #aaa;
+    padding: 3px 8px;
 
     span {
       cursor: pointer;
@@ -205,8 +206,6 @@ function currentPageChanged() {
       color: #666;
       margin: 0 3px;
     }
-
-    padding: 3px 8px;
   }
 }
 
