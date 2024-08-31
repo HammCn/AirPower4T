@@ -59,6 +59,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
       if (postData.id) {
         const id = await result.service.update(postData, option.successMessage || (AirI18n.get().EditSuccess || '编辑成功'), option.apiUrlUpdate)
         props.onConfirm(id)
+        return
       }
       const id = await result.service.add(postData, option.successMessage || (AirI18n.get().AddSuccess || '添加成功'), option.apiUrlAdd)
       props.onConfirm(id)
