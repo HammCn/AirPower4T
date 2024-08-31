@@ -31,7 +31,7 @@ export interface ITableHookOption<E extends AirEntity> {
   /**
    * ## 请求的URL
    *
-   * 如不传入，则默认为 `Service` 的 `urlForGetPage` / `urlForGetList` / `urlForGetTreeList`
+   * 如不传入，则默认为 `Service` 的 `urlForGetXXX`
    */
   apiUrl?: string
 

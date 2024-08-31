@@ -13,4 +13,11 @@ export interface IUseDetailOption<E extends AirEntity> {
    */
   // eslint-disable-next-line no-unused-vars
   afterGetDetail?: (detailData: E) => E | void
+
+  /**
+   * ## 请求查询详情的URL
+   *
+   * 如不传入，则默认为 `Service` 的 `urlForGetDetail`
+   */
+  apiUrl?: string
 }

@@ -30,4 +30,18 @@ export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<
    * ## 请求要求继续操作
    */
   successAndContinue?: (data: E) => void
+
+  /**
+   * ## 请求添加的URL
+   *
+   * 如不传入，则默认为 `Service` 的 `urlForAdd`
+   */
+  apiUrlAdd?: string
+
+  /**
+   * ## 请求更新的URL
+   *
+   * 如不传入，则默认为 `Service` 的 `urlForUpdate`
+   */
+  apiUrlUpdate?: string
 }
