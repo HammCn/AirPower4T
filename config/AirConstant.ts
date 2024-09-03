@@ -53,4 +53,9 @@ export class AirConstant {
    * ## 默认进制
    */
   static readonly DEFAULT_RADIX = 10
+
+  /**
+   * ## `.` 点
+   */
+  static readonly DOT = '.'
 }
