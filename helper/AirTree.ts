@@ -1,4 +1,4 @@
-import { ITree } from '@/airpower/interface/ITree'
+import { ITree } from '../interface/ITree'
 
 /**
  * # 树结构工具类
