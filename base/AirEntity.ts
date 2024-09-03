@@ -47,7 +47,7 @@ export class AirEntity extends AirModel {
    */
   copyExposeId() {
     return this.copy()
-      .expose(AirEntity.ID)
+      .exposeId()
   }
 
   /**
