@@ -22,26 +22,30 @@ Window.prototype.airConfig = () => {
   // eslint-disable-next-line no-console
   console.log(airConfig)
 }
+
+const CONTROL_KEYS = ['Meta', 'Alt']
+const ESC_KEY = 'Escape'
+
 let controlKeyDownTimer: number
 document.onkeydown = (e: KeyboardEvent) => {
-  if (e.key === 'Meta' || e.key === 'Alt') {
+  if (CONTROL_KEYS.includes(e.key)) {
     clearTimeout(controlKeyDownTimer)
     AirStore().controlKeyDown = true
     controlKeyDownTimer = setTimeout(() => {
       AirStore().controlKeyDown = false
     }, 5000)
   }
-  if (e.key === 'Escape') {
+  if (e.key === ESC_KEY) {
     AirStore().escKeyDown = true
   }
 }
 
 document.onkeyup = (e: KeyboardEvent) => {
-  if (e.key === 'Meta' || e.key === 'Alt') {
+  if (CONTROL_KEYS.includes(e.key)) {
     AirStore().controlKeyDown = false
     clearTimeout(controlKeyDownTimer)
   }
-  if (e.key === 'Escape') {
+  if (e.key === ESC_KEY) {
     AirStore().escKeyDown = false
   }
 }
