@@ -39,6 +39,9 @@ export class AirEntity extends AirModel {
     }
   }
 
+  /**
+   * ## 实体 `ID` 字段名
+   */
   private static readonly ID = 'id'
 
   /**
@@ -47,7 +50,7 @@ export class AirEntity extends AirModel {
    */
   copyExposeId() {
     return this.copy()
-      .expose(AirEntity.ID)
+      .exposeId()
   }
 
   /**
