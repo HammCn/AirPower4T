@@ -7,17 +7,13 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirI18n } from './AirI18n'
 import { IJson } from '../interface/IJson'
 import { AirAny, AirValidatorCallback, AirValidatorRule } from '../type/AirType'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 表单验证工具
  * @author Hamm.cn
  * */
 export class AirValidator {
-  /**
-   * ## 默认的进制
-   */
-  private static readonly DEFAULT_RADIX = 10
-
   /**
    * ## 错误提醒
    * 请通过 `.show()` 传入
@@ -165,21 +161,21 @@ export class AirValidator {
       return false
     }
 
-    const year = parseInt(str.substring(6), this.DEFAULT_RADIX)
+    const year = parseInt(str.substring(6), AirConstant.DEFAULT_RADIX)
     if (year > new Date().getFullYear() || year < 1900) {
       return false
     }
-    const month = parseInt(str.substring(10, 12), this.DEFAULT_RADIX)
+    const month = parseInt(str.substring(10, 12), AirConstant.DEFAULT_RADIX)
     if (month > 12 || month < 1) {
       return false
     }
-    const day = parseInt(str.substring(12, 14), this.DEFAULT_RADIX)
+    const day = parseInt(str.substring(12, 14), AirConstant.DEFAULT_RADIX)
     if (day > 31 || month < 1) {
       return false
     }
     let sum = 0
     for (let i = 0; i < 17; i += 1) {
-      sum += parseInt(str[i], this.DEFAULT_RADIX) * (validArray[0][i] as number)
+      sum += parseInt(str[i], AirConstant.DEFAULT_RADIX) * (validArray[0][i] as number)
     }
     // eslint-disable-next-line eqeqeq
     return validArray[1][(sum % 11)] == str[17]

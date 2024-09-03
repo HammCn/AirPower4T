@@ -3,17 +3,13 @@ import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 权限标识处理类
  * @author Hamm.cn
  */
 export class AirPermission {
-  /**
-   * ## 下划线
-   */
-  private static readonly UNDER_LINE = '_'
-
   /**
    * ## 获取指定实体类在某个场景的权限标识字符串
    * @param EntityClass 实体类
@@ -39,7 +35,7 @@ export class AirPermission {
       // 如不自动配置权限, 则将权限前缀清空
       entityConfig.permissionPrefix = ''
     }
-    const permissionPrefix = entityConfig.permissionPrefix + this.UNDER_LINE
+    const permissionPrefix = entityConfig.permissionPrefix + AirConstant.UNDER_LINE
 
     switch (action) {
       case AirPermissionAction.ADD:

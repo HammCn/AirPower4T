@@ -9,6 +9,7 @@ import { IJson } from '../interface/IJson'
 import { AirAlert } from '../feedback/AirAlert'
 import { AirI18n } from './AirI18n'
 import { AirAny } from '../type/AirType'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 网络请求类
@@ -18,7 +19,7 @@ export class AirHttp {
   /**
    * ## 访问的接口 `URL`
    */
-  private url = ''
+  private url = AirConstant.EMPTY_STRING
 
   /**
    * ## `Loading`
@@ -72,11 +73,10 @@ export class AirHttp {
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL = this.url.indexOf('http://') === 0 || this.url.indexOf('https://') === 0 ? '' : AirConfig.apiUrl
+    this.axiosRequestConfig.baseURL = this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0 ? AirConstant.EMPTY_STRING : AirConfig.apiUrl
     this.axiosRequestConfig.timeout = this.timeout
-    this.axiosRequestConfig.headers = {
-      'content-type': AirHttpContentType.JSON,
-    }
+    this.axiosRequestConfig.headers = {}
+    this.axiosRequestConfig.headers[AirConstant.CONTENT_TYPE] = AirHttpContentType.JSON
     const accessToken = AirConfig.getAccessToken()
     if (accessToken) {
       this.axiosRequestConfig.headers[AirConfig.authorizationHeaderKey] = accessToken
@@ -302,10 +302,10 @@ export class AirHttp {
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
       }
-      if (this.url.includes('?')) {
-        this.url += `&${queryArray.join('&')}`
+      if (this.url.includes(AirConstant.QUESTION_MARK)) {
+        this.url += `&${queryArray.join(AirConstant.AND_MARK)}`
       } else {
-        this.url += `?${queryArray.join('&')}`
+        this.url += `?${queryArray.join(AirConstant.AND_MARK)}`
       }
     }
     this.setHttpMethod(AirHttpMethod.GET)
