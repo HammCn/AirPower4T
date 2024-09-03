@@ -5,6 +5,11 @@
  */
 export class AirConstant {
   /**
+   * ## `id`
+   */
+  static readonly ID = 'id'
+
+  /**
    * ## `http://`
    */
   static readonly PREFIX_HTTP = 'http://'
