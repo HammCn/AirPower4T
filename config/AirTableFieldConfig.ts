@@ -46,9 +46,9 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   image = false
 
-  imageWidth = 60
+  imageWidth = 30
 
-  imageHeight = 60
+  imageHeight = 30
 
   imageRadius = '10px'
 
