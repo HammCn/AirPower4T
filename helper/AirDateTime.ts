@@ -36,7 +36,7 @@ export class AirDateTime {
     if (!date) {
       return new Date().valueOf()
     }
-    if (typeof data === 'object') {
+    if (typeof date === 'object') {
       return date.valueOf()
     }
     return new Date(date).valueOf()
