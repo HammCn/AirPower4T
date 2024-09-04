@@ -1,4 +1,5 @@
 import { AirConfig } from '../config/AirConfig'
+import { AirConstant } from '../config/AirConstant'
 import { AirI18n } from './AirI18n'
 
 /**
@@ -41,7 +42,7 @@ export class AirFile {
     if (!url) {
       return ''
     }
-    if (url.includes('https://') || url.includes('http://')) {
+    if (url.includes(AirConstant.PREFIX_HTTP) || url.includes(AirConstant.PREFIX_HTTPS)) {
       return url
     }
     return AirConfig.staticUrl + url
