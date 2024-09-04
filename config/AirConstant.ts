@@ -78,4 +78,59 @@ export class AirConstant {
    * ## 横线 `-`
    */
   static readonly HYPHEN = '-'
+
+  /**
+   * ## 时间进制
+   */
+  static readonly TIME_RADIX = 60
+
+  /**
+   * ## 千
+   */
+  static readonly THOUSAND = 1000
+
+  /**
+   * ## 1024
+   */
+  static readonly KILO = 1024
+
+  /**
+   * ## 每月最大天数
+   */
+  static readonly DAY_OF_MONTH = 31
+
+  /**
+   * ## 每年月份
+   */
+  static readonly MONTH_OF_YEAR = 12
+
+  /**
+   * ## 每年天数
+   */
+  static readonly DAY_OF_YEAR = 365
+
+  /**
+   * ## 每周天数
+   */
+  static readonly DAY_OF_WEEK = 7
+
+  /**
+   * ## 每年平均周
+   */
+  static readonly WEEK_OF_YEAR = 52
+
+  /**
+   * ## 每月平均周
+   */
+  static readonly WEEK_OF_MONTH = 4
+
+  /**
+   * ## 每天秒数
+   */
+  static readonly SECONDS_OF_DAY = 86400
+
+  /**
+   * ## 一世纪年数
+   */
+  static readonly YEARS_OF_CENTURY = 100
 }
