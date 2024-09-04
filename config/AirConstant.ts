@@ -68,4 +68,14 @@ export class AirConstant {
    * ## `'0'`
    */
   static readonly ZERO_STRING = '0'
+
+  /**
+   * ## 半角逗号 `,`
+   */
+  static readonly COMMA = ','
+
+  /**
+   * ## 横线 `-`
+   */
+  static readonly HYPHEN = '-'
 }
