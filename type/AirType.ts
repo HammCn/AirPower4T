@@ -93,6 +93,16 @@ export type AirValidatorCallback = (error?: string) => void
 export type AirValidatorRule = AirAny
 
 /**
+ * ## 验证器数据类型
+ */
+export type AirValidatorType = 'string' | 'number' | 'date' | 'array'
+
+/**
+ * ## 验证器触发类型
+ */
+export type AirValidatorTrigger = 'blur' | 'change'
+
+/**
  * ##  图标类型字符串类型
  */
 export type AirIconType =

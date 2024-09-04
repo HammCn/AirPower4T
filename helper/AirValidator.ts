@@ -6,7 +6,9 @@ import { AirEntity } from '../base/AirEntity'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirI18n } from './AirI18n'
 import { IJson } from '../interface/IJson'
-import { AirAny, AirValidatorCallback, AirValidatorRule } from '../type/AirType'
+import {
+  AirAny, AirValidatorCallback, AirValidatorRule, AirValidatorTrigger, AirValidatorType,
+} from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
 
 /**
@@ -24,13 +26,13 @@ export class AirValidator {
    * ## 类型
    * 可通过 `toString` `toNumber` `toArray` 设置 (默认`string`)
    */
-  private type!: string
+  private type!: AirValidatorType
 
   /**
    * ## 触发方式
    * 不建议直接设置哦~ (默认blur)
    */
-  private trigger: 'blur' | 'change' = 'change'
+  private trigger: AirValidatorTrigger = 'change'
 
   /**
    * ## 是否必填
@@ -187,7 +189,7 @@ export class AirValidator {
    * @param list 验证器
    */
   static validate(str: string, ...list: AirInputType[]) {
-    let regString = ''
+    let regString = AirConstant.EMPTY_STRING
     for (let i = 0; i < list.length; i += 1) {
       regString += list[i]
     }
@@ -209,6 +211,15 @@ export class AirValidator {
   }
 
   /**
+   * ## 获取一个验证器
+   * @param configValue 验证器配置的值
+   * @returns
+   */
+  private static getValidator(configValue: string | boolean): AirValidator {
+    return AirValidator.show(typeof configValue === 'string' ? configValue : AirConstant.EMPTY_STRING)
+  }
+
+  /**
    * ## 创建验证器
    * @param form 表单对象
    * @param service 接口服务对象
@@ -225,21 +236,16 @@ export class AirValidator {
         formRules[fieldKey] = []
       }
       if (config.requiredString) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredString === 'string' ? config.requiredString : '')
-          .ifEmpty())
+        (formRules[fieldKey]).push(this.getValidator(config.requiredString).ifEmpty())
       }
       if (config.requiredNumber) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredNumber === 'string' ? config.requiredNumber : '')
-          .toNumber()
-          .ifEmpty())
+        (formRules[fieldKey]).push(this.getValidator(config.requiredNumber).toNumber().ifEmpty())
       }
       if (config.requiredPayload) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.requiredPayload === 'string' ? config.requiredPayload : '')
-          .ifPayloadEmpty())
+        (formRules[fieldKey]).push(this.getValidator(config.requiredPayload).ifPayloadEmpty())
       }
       if (config.minLength) {
-        (formRules[fieldKey]).push(AirValidator.show()
-          .ifLengthLessThan(config.minLength))
+        (formRules[fieldKey]).push(AirValidator.show().ifLengthLessThan(config.minLength))
       }
       if (config.number) {
         if (config.min) {
@@ -252,27 +258,22 @@ export class AirValidator {
         }
       }
       if (config.chinese) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.chinese === 'string' ? config.chinese : '')
-          .ifNotChinese())
+        (formRules[fieldKey]).push(this.getValidator(config.chinese).ifNotChinese())
       }
       if (config.telPhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.telPhone === 'string' ? config.telPhone : '')
-          .ifNotTelPhone())
+        (formRules[fieldKey]).push(this.getValidator(config.telPhone).ifNotTelPhone())
       }
       if (config.mobilePhone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.mobilePhone === 'string' ? config.mobilePhone : '')
-          .ifNotMobilePhone())
+        (formRules[fieldKey]).push(this.getValidator(config.mobilePhone).ifNotMobilePhone())
       }
       if (config.phone) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.phone === 'string' ? config.phone : '')
-          .ifNotPhone())
+        (formRules[fieldKey]).push(this.getValidator(config.phone).ifNotPhone())
       }
       if (config.email) {
-        (formRules[fieldKey]).push(AirValidator.show(typeof config.email === 'string' ? config.email : '')
-          .ifNotEmail())
+        (formRules[fieldKey]).push(this.getValidator(config.email).ifNotEmail())
       }
       if (config.regExp) {
-        (formRules[fieldKey]).push(AirValidator.show('')
+        (formRules[fieldKey]).push(AirValidator.show(AirConstant.EMPTY_STRING)
           .ifNotTest(config.regExp))
       }
     }
@@ -490,20 +491,20 @@ export class AirValidator {
    * @param whats 字符串数组
    */
   ifContain(...whats: string[]): this {
-    let error = ''
+    let error = AirConstant.EMPTY_STRING
     this.validator = (_: AirValidatorRule, value: string, callback: AirValidatorCallback) => {
       if (!value) {
         callback()
         return
       }
       for (const what of whats) {
-        error = ''
+        error = AirConstant.EMPTY_STRING
         if (value.indexOf(what) >= 0) {
           error = what
           break
         }
       }
-      if (error !== '') {
+      if (error !== AirConstant.EMPTY_STRING) {
         callback(this.message || `不允许输入中包含 ${error} `)
       } else {
         callback()
