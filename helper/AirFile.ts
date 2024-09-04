@@ -1,4 +1,5 @@
 import { AirConfig } from '../config/AirConfig'
+import { AirConstant } from '../config/AirConstant'
 import { AirI18n } from './AirI18n'
 
 /**
@@ -6,11 +7,6 @@ import { AirI18n } from './AirI18n'
  * @author Hamm.cn
  */
 export class AirFile {
-  /**
-   * ## 文件大小计算常量
-   */
-  static readonly FILE_SIZE_CALCULATION_CONSTANT = 1024
-
   /**
    * ## 文件单位列表
    */
@@ -26,8 +22,8 @@ export class AirFile {
       return AirI18n.get().FileUnknownSize || '未知大小'
     }
     for (let i = 0; i < this.FILE_UNIT_LIST.length; i += 1) {
-      if (size < this.FILE_SIZE_CALCULATION_CONSTANT ** (i + 1)) {
-        return `${(size / (this.FILE_SIZE_CALCULATION_CONSTANT ** i)).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
+      if (size < AirConstant.ONE_ZERO_TWO_FOUR ** (i + 1)) {
+        return `${(size / (AirConstant.ONE_ZERO_TWO_FOUR ** i)).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
       }
     }
     return AirI18n.get().FileTooLarge || '文件过大'
@@ -41,7 +37,7 @@ export class AirFile {
     if (!url) {
       return ''
     }
-    if (url.includes('https://') || url.includes('http://')) {
+    if (url.includes(AirConstant.PREFIX_HTTP) || url.includes(AirConstant.PREFIX_HTTPS)) {
       return url
     }
     return AirConfig.staticUrl + url

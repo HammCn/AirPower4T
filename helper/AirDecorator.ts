@@ -5,6 +5,7 @@ import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirDecoratorData, AirDecoratorTarget, AirEnumKey } from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 装饰器助手类
@@ -65,7 +66,7 @@ export class AirDecorator {
         return classConfig
       }
       const superClass = Reflect.getPrototypeOf(target)
-      if (!superClass || superClass.constructor.name === 'AirModel') {
+      if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
         return undefined
       }
       return this.getClassConfig(superClass, classConfigKey)
@@ -74,7 +75,7 @@ export class AirDecorator {
     classConfig = classConfig || {}
     // 对象配置
     const superClass = Reflect.getPrototypeOf(target)
-    if (!superClass || superClass.constructor.name === 'AirModel') {
+    if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
       return defaultValue
     }
 
@@ -127,7 +128,7 @@ export class AirDecorator {
       }
       // 没有查询到配置
       const superClass = Reflect.getPrototypeOf(target)
-      if (!superClass || superClass.constructor.name === 'AirModel') {
+      if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
         return undefined
       }
       return this.getFieldConfig(superClass, key, fieldConfigKey)
@@ -137,7 +138,7 @@ export class AirDecorator {
     fieldConfig = fieldConfig || {}
     // 没有查询到配置
     const superClass = Reflect.getPrototypeOf(target)
-    if (!superClass || superClass.constructor.name === 'AirModel') {
+    if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
       return {}
     }
     return { ...this.getFieldConfig(superClass, key, fieldConfigKey, true), ...fieldConfig }
@@ -153,7 +154,7 @@ export class AirDecorator {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
     fieldList.forEach((item) => list.includes(item) || list.push(item))
     const superClass = Reflect.getPrototypeOf(target)
-    if (!superClass || superClass.constructor.name === 'AirModel') {
+    if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
       return list
     }
     return this.getFieldList(superClass, fieldConfigKey, list)
@@ -215,7 +216,7 @@ export class AirDecorator {
       return fieldConfig[configKey]
     }
     const superClass = Object.getPrototypeOf(target)
-    if (!superClass || superClass.constructor.name === 'AirModel') {
+    if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
       return undefined
     }
     return this.getFieldConfigValue(superClass, fieldConfigKey, key, configKey)

@@ -10,6 +10,7 @@ import { IFile } from '../interface/IFile'
 import { AirEntity } from '../base/AirEntity'
 import { IJson } from '../interface/IJson'
 import { AirStore } from '../store/AirStore'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 弹窗助手类
@@ -34,7 +35,7 @@ export class AirDialog {
   static async build<T>(view: Component, param: IJson): Promise<T> {
     const parentNode = document.createElement('div')
     const domId = `dialog_${Math.random()}`
-    parentNode.setAttribute('id', domId)
+    parentNode.setAttribute(AirConstant.ID, domId)
     let app: App<Element> | undefined
 
     // 卸载dom的方法

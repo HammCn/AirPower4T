@@ -3,6 +3,7 @@ import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirEntity } from '../base/AirEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 权限标识处理类
@@ -10,36 +11,31 @@ import { ClassConstructor } from '../type/ClassConstructor'
  */
 export class AirPermission {
   /**
-   * ## 下划线
-   */
-  private static readonly UNDER_LINE = '_'
-
-  /**
    * ## 获取指定实体类在某个场景的权限标识字符串
    * @param EntityClass 实体类
    * @param action 权限场景
    */
   static getPermission(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
     if (!EntityClass) {
-      return ''
+      return AirConstant.EMPTY_STRING
     }
     const entityConfig = getEntityConfig(new EntityClass())
     if (!entityConfig) {
-      return ''
+      return AirConstant.EMPTY_STRING
     }
     if (AirConfig.autoPermission) {
       // 自动处理权限
       if (!entityConfig.permissionPrefix) {
         // 没有配置前缀 从类中获取权限前缀
-        const entityName = EntityClass.name.replace('Entity', '')
+        const entityName = EntityClass.name.replace('Entity', AirConstant.EMPTY_STRING)
           .toString()
         entityConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
       }
     } else {
       // 如不自动配置权限, 则将权限前缀清空
-      entityConfig.permissionPrefix = ''
+      entityConfig.permissionPrefix = AirConstant.EMPTY_STRING
     }
-    const permissionPrefix = entityConfig.permissionPrefix + this.UNDER_LINE
+    const permissionPrefix = entityConfig.permissionPrefix + AirConstant.UNDER_LINE
 
     switch (action) {
       case AirPermissionAction.ADD:
@@ -58,7 +54,7 @@ export class AirPermission {
         return permissionPrefix + this.getAutoPermissionFlag(entityConfig.importPermission, action)
       default:
     }
-    return ''
+    return AirConstant.EMPTY_STRING
   }
 
   /**
@@ -71,6 +67,6 @@ export class AirPermission {
     if (AirConfig.autoPermission) {
       return permission || action
     }
-    return permission || ''
+    return permission || AirConstant.EMPTY_STRING
   }
 }

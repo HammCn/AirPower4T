@@ -12,6 +12,7 @@ import { AirUserEntity } from '../model/entity/AirUserEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirCodeNumber, AirMoneyDirection } from '../type/AirType'
 import { AirApi } from './AirApi'
+import { AirConstant } from './AirConstant'
 
 /**
  * # `AirPower` 全局配置
@@ -22,7 +23,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.3.3'
+  static readonly version = 'v2.3.4'
 
   /**
    * ## `AppKey`
@@ -39,7 +40,7 @@ export class AirConfig {
    * ## 项目名称
    * 会显示在浏览器标题上
    */
-  static product = ''
+  static product = AirConstant.EMPTY_STRING
 
   /**
    * ## 接口根地址
@@ -309,7 +310,7 @@ export class AirConfig {
    * ## 默认树结构配置数据
    */
   static treeProps: INormalTreeProps = {
-    children: 'children',
+    children: AirConstant.CHILDREN,
     label: 'name',
   }
 
@@ -333,7 +334,7 @@ export class AirConfig {
    * ## 默认的表格空数据兜底字符串
    * `@Table` 装饰器中可以单独配置 `emptyValue`,
    */
-  static tableEmptyValue = '-'
+  static tableEmptyValue = AirConstant.HYPHEN
 
   /**
    * ## 表格是否默认开启禁用和启用按钮
@@ -344,7 +345,7 @@ export class AirConfig {
    * ## 默认的表格数组显示分割字符
    * `@Table` 装饰器中可以单独配置 `arraySplitor`
    */
-  static arraySplitor = ','
+  static arraySplitor = AirConstant.COMMA
 
   /**
    * ## 隐藏表格序号列

@@ -1,4 +1,5 @@
-import { ITree } from '@/airpower/interface/ITree'
+import { AirConstant } from '../config/AirConstant'
+import { ITree } from '../interface/ITree'
 
 /**
  * # 树结构工具类
@@ -27,7 +28,7 @@ export class AirTree {
   static treeList2List<E extends ITree>(treeList: E[]): E[] {
     const list: E[] = []
     treeList.forEach((item) => {
-      const i = item.copy().exclude('children')
+      const i = item.copy().exclude(AirConstant.CHILDREN)
       list.push(i)
       if (item.children && item.children.length > 0) {
         list.push(...this.treeList2List(item.children))

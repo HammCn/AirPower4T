@@ -1,3 +1,4 @@
+import { AirConstant } from '../config/AirConstant'
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
@@ -66,7 +67,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key `Key`
    * @param defaultLabel `可选` 默认 `Label`
    */
-  static getLabel(key: AirEnumKey, defaultLabel = '-'): string {
+  static getLabel(key: AirEnumKey, defaultLabel = AirConstant.HYPHEN): string {
     return this.get(key)?.label || defaultLabel
   }
 

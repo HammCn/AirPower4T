@@ -2,6 +2,7 @@ import { AirColorString, AirEnumKey } from '../../type/AirType'
 import { AirColor } from '../../enum/AirColor'
 import { IDictionary } from '../../interface/IDictionary'
 import { AirDictionary } from '../AirDictionary'
+import { AirConstant } from '@/airpower/config/AirConstant'
 
 /**
  * # 字典数组
@@ -34,7 +35,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
    * @param key Key
    * @param defaultLabel 默认Label
    */
-  getLabel(key: AirEnumKey, defaultLabel = '-'): string {
+  getLabel(key: AirEnumKey, defaultLabel = AirConstant.HYPHEN): string {
     return this.get(key).label || defaultLabel
   }
 

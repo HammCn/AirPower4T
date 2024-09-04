@@ -1,4 +1,5 @@
 /* eslint-disable no-continue */
+import { AirConstant } from '../config/AirConstant'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
@@ -105,7 +106,7 @@ export class AirModel {
       let fieldData = json[
         (!getNoPrefix(instance, fieldKey)
           ? getFieldPrefix(instance)
-          : ''
+          : AirConstant.EMPTY_STRING
         )
         + (fieldAliasName || fieldKey)]
       if (fieldData === undefined) {
@@ -139,7 +140,7 @@ export class AirModel {
         (instance as IJson)[fieldKey] = fieldValueList
         continue
       }
-      if (defaultValue !== undefined && (fieldData === undefined || fieldData === null || fieldData === '')) {
+      if (defaultValue !== undefined && (fieldData === undefined || fieldData === null || fieldData === AirConstant.EMPTY_STRING)) {
         // 如果有默认值 则先给上默认值
         (instance as IJson)[fieldKey] = defaultValue
       }

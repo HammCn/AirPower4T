@@ -4,6 +4,7 @@
  */
 import { AirEnum } from '../base/AirEnum'
 import { AirModel } from '../base/AirModel'
+import { AirConstant } from '../config/AirConstant'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
@@ -247,7 +248,7 @@ export function FieldPrefix(prefix: string) {
  * @param target 目标类
  */
 export function getFieldPrefix(target: AirDecoratorTarget): string {
-  return AirDecorator.getClassConfig(target, FIELD_PREFIX_KEY) || ''
+  return AirDecorator.getClassConfig(target, FIELD_PREFIX_KEY) || AirConstant.EMPTY_STRING
 }
 
 /**
@@ -269,5 +270,5 @@ export function Alias(alias: string) {
  * @param key 属性名
  */
 export function getAlias(target: AirDecoratorTarget, key: string): string {
-  return AirDecorator.getFieldConfig(target, key, ALIAS_KEY) || ''
+  return AirDecorator.getFieldConfig(target, key, ALIAS_KEY) || AirConstant.EMPTY_STRING
 }

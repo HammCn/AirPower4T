@@ -2,6 +2,7 @@ import { ElMessageBox, ElMessageBoxOptions } from 'element-plus'
 import { CSSProperties } from 'vue'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirI18n } from '../helper/AirI18n'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 消息弹窗类
@@ -53,17 +54,17 @@ export class AirAlert {
   /**
    * ## 弹窗宽度
    */
-  protected width = ''
+  protected width = AirConstant.EMPTY_STRING
 
   /**
    * ## 弹窗高度
    */
-  protected height = ''
+  protected height = AirConstant.EMPTY_STRING
 
   /**
    * ## 确认按钮样式类名
    */
-  protected confirmButtonClass = ''
+  protected confirmButtonClass = AirConstant.EMPTY_STRING
 
   /**
    * ## 设置确认按钮文字
@@ -282,7 +283,7 @@ export class AirAlert {
       type: this.confirmButtonClass ? AirFeedbackType.NONE : this.icon,
       draggable: true,
       dangerouslyUseHTMLString: this.isHtmlEnabled,
-      customClass: this.isHtmlEnabled ? 'rich-text' : '',
+      customClass: this.isHtmlEnabled ? 'rich-text' : AirConstant.EMPTY_STRING,
       customStyle,
       showClose: this.isCloseButtonShow,
       closeOnClickModal: this.isCloseByCover,
