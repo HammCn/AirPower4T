@@ -147,7 +147,7 @@ export class AirHttp {
    * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
-    return this.addHttpHeader('Content-Type', contentType)
+    return this.addHttpHeader(AirConstant.CONTENT_TYPE, contentType)
   }
 
   /**
