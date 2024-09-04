@@ -48,7 +48,7 @@ export class AirVersion {
    */
   static parseVersion(version: string, splitor = AirConstant.DOT, padding = this.VERSION_LENGTH): number {
     return parseInt(version.split(splitor)
-      .map((item) => item.padStart(padding, '0'))
+      .map((item) => item.padStart(padding, AirConstant.ZERO_STRING))
       .join(AirConstant.EMPTY_STRING), 10)
   }
 

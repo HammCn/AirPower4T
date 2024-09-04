@@ -58,4 +58,14 @@ export class AirConstant {
    * ## `.` 点
    */
   static readonly DOT = '.'
+
+  /**
+   * ## `children`
+   */
+  static readonly CHILREN = 'children'
+
+  /**
+   * ## `'0'`
+   */
+  static readonly ZERO_STRING = '0'
 }

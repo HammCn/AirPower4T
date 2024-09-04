@@ -101,7 +101,7 @@ export class AirRand {
   static getRandColor() {
     return `#${Math.random()
       .toString(16)
-      .padEnd(6, '0')
+      .padEnd(6, AirConstant.ZERO_STRING)
       .slice(2, 8)}`
   }
 }
