@@ -1,6 +1,21 @@
 # AirPower4T 版本发布日志
 
 
+## v2.3.4
+
+### 🎉 Features:
+
+- feat(Keys): 支持了一个键盘值枚举
+- feat(Constant): 支持了一个AirConstant静态常量类
+
+### 🐞 Bug fixes:
+
+- fix(Constant): 使用常量替换树结构中的硬编码字符串
+- fix(Validator): 优化了验证器的类型和生成逻辑
+- fix(DateTime): 修复AirDateTime对象类型检查错误
+- fix(Table): 更新AirTable字段配置中的默认图像大小
+- fix(Entity): 简化AirEntity中的copyExposeId方法
+
 ## v2.3.3
 
 ### 🎉 Features:
