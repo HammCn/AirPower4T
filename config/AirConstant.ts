@@ -62,7 +62,7 @@ export class AirConstant {
   /**
    * ## `children`
    */
-  static readonly CHILREN = 'children'
+  static readonly CHILDREN = 'children'
 
   /**
    * ## `'0'`

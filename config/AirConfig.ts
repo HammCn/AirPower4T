@@ -310,7 +310,7 @@ export class AirConfig {
    * ## 默认树结构配置数据
    */
   static treeProps: INormalTreeProps = {
-    children: 'children',
+    children: AirConstant.CHILDREN,
     label: 'name',
   }
 
