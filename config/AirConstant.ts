@@ -91,8 +91,9 @@ export class AirConstant {
 
   /**
    * ## 1024
+   * 😄
    */
-  static readonly KILO = 1024
+  static readonly ONE_ZERO_TWO_FOUR = 1024
 
   /**
    * ## 每月最大天数
