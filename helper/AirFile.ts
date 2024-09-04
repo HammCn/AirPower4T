@@ -8,11 +8,6 @@ import { AirI18n } from './AirI18n'
  */
 export class AirFile {
   /**
-   * ## 文件大小计算常量
-   */
-  static readonly FILE_SIZE_CALCULATION_CONSTANT = 1024
-
-  /**
    * ## 文件单位列表
    */
   static readonly FILE_UNIT_LIST = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
