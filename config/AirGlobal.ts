@@ -1,6 +1,7 @@
 import { AirConfig } from './AirConfig'
 import { IJson } from '../interface/IJson'
 import { AirStore } from '../store/AirStore'
+import { AirKeys } from '../enum/AirKeys'
 
 /**
  * # 一些全局使用的扩展方法
@@ -23,8 +24,7 @@ Window.prototype.airConfig = () => {
   console.log(airConfig)
 }
 
-const CONTROL_KEYS = ['Meta', 'Alt']
-const ESC_KEY = 'Escape'
+const CONTROL_KEYS: string[] = [AirKeys.META, AirKeys.ALT]
 
 let controlKeyDownTimer: number
 document.onkeydown = (e: KeyboardEvent) => {
@@ -35,7 +35,7 @@ document.onkeydown = (e: KeyboardEvent) => {
       AirStore().controlKeyDown = false
     }, 5000)
   }
-  if (e.key === ESC_KEY) {
+  if (e.key === AirKeys.ESC) {
     AirStore().escKeyDown = true
   }
 }
@@ -45,7 +45,7 @@ document.onkeyup = (e: KeyboardEvent) => {
     AirStore().controlKeyDown = false
     clearTimeout(controlKeyDownTimer)
   }
-  if (e.key === ESC_KEY) {
+  if (e.key === AirKeys.ESC) {
     AirStore().escKeyDown = false
   }
 }
