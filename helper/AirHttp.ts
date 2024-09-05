@@ -47,23 +47,6 @@ export class AirHttp {
   private timeout = AirConfig.timeout
 
   /**
-   * ## 设置请求超时时间
-   * @param timeout 超时毫秒数
-   */
-  setTimeout(timeout: number) {
-    this.timeout = timeout
-    return this
-  }
-
-  /**
-   * ## 是否回调错误信息
-   */
-  callbackError(): this {
-    this.errorCallback = true
-    return this
-  }
-
-  /**
    * ## 创建一个 `AirHttp` 实例
    * @param url `可选` 请求的地址
    */
@@ -92,6 +75,59 @@ export class AirHttp {
    */
   static create(url: string): AirHttp {
     return new AirHttp(url)
+  }
+
+  /**
+   * ## 获取请求返回的数据
+   * @param data 请求返回的数据
+   * @returns 数据
+   */
+  public static getResponseData(data: IJson): AirAny {
+    return data[AirConfig.httpDataKey]
+  }
+
+  /**
+   * ## 是否操作成功
+   * @param data 请求返回的数据
+   * @returns `true` 操作成功
+   */
+  public static isSuccess(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.successCode
+  }
+
+  /**
+   * ## 是否需要登录
+   * @param data 请求返回的数据
+   * @returns `true` 需要登录
+   */
+  public static isUnAuthorize(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.unAuthorizeCode
+  }
+
+  /**
+   * ## 是否需要继续操作
+   * @param data 请求返回的数据
+   * @returns `true` 继续操作
+   */
+  public static isContinue(data: IJson): boolean {
+    return data[AirConfig.httpCodeKey] === AirConfig.continueCode
+  }
+
+  /**
+   * ## 设置请求超时时间
+   * @param timeout 超时毫秒数
+   */
+  setTimeout(timeout: number) {
+    this.timeout = timeout
+    return this
+  }
+
+  /**
+   * ## 是否回调错误信息
+   */
+  callbackError(): this {
+    this.errorCallback = true
+    return this
   }
 
   /**
@@ -206,72 +242,25 @@ export class AirHttp {
         }
         // 其他业务错误
         AirNotification.error(data[AirConfig.httpMessageKey] || defaultErrorMessage, errorTitle)
-      }).catch((err) => {
-        if (this.errorCallback) {
-          reject(err)
-          return
-        }
-        if (AirHttp.isUnAuthorize(err)) {
-          // 一般不会使用这种方式
-          this.redirectToLogin()
-          return
-        }
-        AirNotification.error(defaultErrorMessage, errorTitle)
-      }).finally(() => {
-        if (this.loading) {
-          this.loading.value = false
-        }
       })
+        .catch((err) => {
+          if (this.errorCallback) {
+            reject(err)
+            return
+          }
+          if (AirHttp.isUnAuthorize(err)) {
+            // 一般不会使用这种方式
+            this.redirectToLogin()
+            return
+          }
+          AirNotification.error(defaultErrorMessage, errorTitle)
+        })
+        .finally(() => {
+          if (this.loading) {
+            this.loading.value = false
+          }
+        })
     })
-  }
-
-  /**
-   * ## 跳转到登录页面
-   */
-  // eslint-disable-next-line class-methods-use-this
-  private redirectToLogin(): void {
-    // 需要登录
-    if (!AirConfig.router) {
-      AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
-      return
-    }
-    AirConfig.router.push('/login')
-  }
-
-  /**
-   * ## 获取请求返回的数据
-   * @param data 请求返回的数据
-   * @returns 数据
-   */
-  public static getResponseData(data: IJson): AirAny {
-    return data[AirConfig.httpDataKey]
-  }
-
-  /**
-   * ## 是否操作成功
-   * @param data 请求返回的数据
-   * @returns `true` 操作成功
-   */
-  public static isSuccess(data: IJson): boolean {
-    return data[AirConfig.httpCodeKey] === AirConfig.successCode
-  }
-
-  /**
-   * ## 是否需要登录
-   * @param data 请求返回的数据
-   * @returns `true` 需要登录
-   */
-  public static isUnAuthorize(data: IJson): boolean {
-    return data[AirConfig.httpCodeKey] === AirConfig.unAuthorizeCode
-  }
-
-  /**
-   * ## 是否需要继续操作
-   * @param data 请求返回的数据
-   * @returns `true` 继续操作
-   */
-  public static isContinue(data: IJson): boolean {
-    return data[AirConfig.httpCodeKey] === AirConfig.continueCode
   }
 
   /**
@@ -310,5 +299,18 @@ export class AirHttp {
     }
     this.setHttpMethod(AirHttpMethod.GET)
     return this.send()
+  }
+
+  /**
+   * ## 跳转到登录页面
+   */
+  // eslint-disable-next-line class-methods-use-this
+  private redirectToLogin(): void {
+    // 需要登录
+    if (!AirConfig.router) {
+      AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
+      return
+    }
+    AirConfig.router.push('/login')
   }
 }

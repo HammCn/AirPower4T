@@ -33,5 +33,4 @@ export enum AirInputType {
    * `#@#$%^&*()_+!-=;',./<>?:"`
    */
   NORMAL_HALF_CODE = '@#$%^&*()_+!-=;\\\',./<>?:"',
-
 }

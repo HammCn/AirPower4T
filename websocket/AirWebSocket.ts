@@ -42,36 +42,6 @@ export class AirWebsocket {
   private reconnectWhenClosed = true
 
   /**
-   * ## 设置心跳秒
-   * @param second 秒
-   */
-  setHeartBeatTime(second: number): AirWebsocket {
-    this.heartBeatSecond = second
-    return this
-  }
-
-  /**
-   * ## 心跳
-   */
-  private startHeartBeat() {
-    clearTimeout(this.heartBeatTimer)
-    if (this.isConnected) {
-      this.websocket.send(AirWebsocket.ping)
-      this.heartBeatTimer = setTimeout(() => {
-        this.startHeartBeat()
-      }, this.heartBeatSecond * 1000)
-    }
-  }
-
-  /**
-   * ## 是否自动重连
-   * @param autoConnectWhenClose 是否自动重连
-   */
-  private autoConnectWhenClosed(autoConnectWhenClose = true) {
-    this.reconnectWhenClosed = autoConnectWhenClose
-  }
-
-  /**
    * ## 创建一个 `WebSocket`
    */
   static create(url: string, handler: {
@@ -114,10 +84,40 @@ export class AirWebsocket {
   }
 
   /**
+   * ## 设置心跳秒
+   * @param second 秒
+   */
+  setHeartBeatTime(second: number): AirWebsocket {
+    this.heartBeatSecond = second
+    return this
+  }
+
+  /**
    * ## 关闭 `WebSocket`
    */
   close() {
     this.reconnectWhenClosed = false
     this.websocket.close()
+  }
+
+  /**
+   * ## 心跳
+   */
+  private startHeartBeat() {
+    clearTimeout(this.heartBeatTimer)
+    if (this.isConnected) {
+      this.websocket.send(AirWebsocket.ping)
+      this.heartBeatTimer = setTimeout(() => {
+        this.startHeartBeat()
+      }, this.heartBeatSecond * 1000)
+    }
+  }
+
+  /**
+   * ## 是否自动重连
+   * @param autoConnectWhenClose 是否自动重连
+   */
+  private autoConnectWhenClosed(autoConnectWhenClose = true) {
+    this.reconnectWhenClosed = autoConnectWhenClose
   }
 }

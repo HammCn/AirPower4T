@@ -35,7 +35,7 @@ export class AirFile {
    */
   static getStaticFileUrl(url: string): string {
     if (!url) {
-      return ''
+      return AirConstant.EMPTY_STRING
     }
     if (url.includes(AirConstant.PREFIX_HTTP) || url.includes(AirConstant.PREFIX_HTTPS)) {
       return url
