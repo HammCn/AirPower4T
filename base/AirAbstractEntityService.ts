@@ -247,7 +247,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * ## 创建一个实体的实例
    * @param id `可选` `ID`
    */
-  private newEntityInstance(id?: number): E {
+  protected newEntityInstance(id?: number): E {
     // eslint-disable-next-line new-cap
     const entity = new this.entityClass()
     if (id) {
