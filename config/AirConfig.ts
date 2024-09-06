@@ -281,6 +281,11 @@ export class AirConfig {
   static tableShowEnableAndDisable = false
 
   /**
+   * ## 是否默认显示表格斑马纹
+   */
+  static tableStripe = false
+
+  /**
    * ## 默认的表格数组显示分割字符
    * `@Table` 装饰器中可以单独配置 `arraySplitor`
    */
