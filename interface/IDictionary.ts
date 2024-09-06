@@ -14,8 +14,7 @@ export interface IDictionary {
   /**
    * ## 字典的显示标题
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  label: any
+  label: string
 
   /**
    * ## 标准 `AirColor` 颜色或自定义颜色

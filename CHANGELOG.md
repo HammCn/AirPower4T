@@ -1,5 +1,90 @@
 # AirPower4T 版本发布日志
 
+## v2.3.4
+
+### 🎉 Features:
+
+- feat(Keys): 支持了一个键盘值枚举
+- feat(Constant): 支持了一个AirConstant静态常量类
+
+### 🐞 Bug fixes:
+
+- fix(Constant): 使用常量替换树结构中的硬编码字符串
+- fix(Validator): 优化了验证器的类型和生成逻辑
+- fix(DateTime): 修复AirDateTime对象类型检查错误
+- fix(Table): 更新AirTable字段配置中的默认图像大小
+- fix(Entity): 简化AirEntity中的copyExposeId方法
+
+## v2.3.3
+
+### 🎉 Features:
+
+- feat(Service): 新增可选的自定义请求URL参数
+
+### 🐞 Bug fixes:
+
+- fix(DateTime): 移除DateTime组件中不必要的CSS规则
+- fix(Dialog): 优化Dialog组件字体和按钮的CSS
+- fix(AirModel): 移除AirModel内处理'Sass.types'的代码行
+- fix(DateTime): 优化`AirDateTime`中时间戳和日期格式化的逻辑
+- fix(Group): 只有一列时自动方向改为纵向且支持最小高度
+
+## v2.3.2
+
+### 🎉 Features:
+
+- feat(AirTree): 实现AirTree类转换树形数据结构
+
+### 🐞 Bug fixes:
+
+- fix(Core): 保证类型安全，移除不必要的any类型用法
+- fix(AirProps): 优化事件类型定义
+- fix(AirHttp): 保证设置正确的内容类型header
+- fix(config): 将控制台输出从表格格式更改为日志格式
+- fix(AirHttp): 防止在已包含协议时意外地附加baseUrl
+- fix(AirHttp): 确保AirHttp错误处理后不再reject Promise
+- fix(Service): 简化AirAbstractService中的http请求创建
+- fix(Validator): 优化身份证验证逻辑
+- fix(Decorator): 优化AirDecorator中的配置检索和字段配置逻辑
+- fix(AirModel): 修正删除无用的数据字段的逻辑
+- fix(Decorator): 添加类型装饰器参数目标类约束
+- fix(Model): 在toJSON时跳过null或undefined的属性
+
+### 📖 Docs
+
+- docs(selector): 文档化onConfirm和onCancel回调函数
+- docs(AirTree): 添加类注释，增强文档清晰度
+
+## v2.3.1
+
+### 🎉 Features:
+
+- feat(Config): 支持禁用自动权限处理的配置
+
+### 🐞 Bug fixes:
+
+- style(Page): 优化了分页组件的样式
+- fix(AirHttp): 修正AirHttp响应数据的解析方式
+
+## v2.3.0
+
+### 🐞 Bug fixes:
+
+- fix(Page): 要求`element-plus`升级至`v2.8.0`
+- fix(helper): 更新Element Plus最低版本
+- fix(page): 调整页码padding以优化UI对齐
+
+## v2.2.5
+
+### 🐞 Bug fixes:
+
+- fix(component): 调整Frame组件菜单宽度的默认值
+- fix(Empty): 更新了空状态的图片
+- fix(element-ui): 调整表格单元格内链接的间距
+- fix(Dialog): 优化Dialog的标题样式
+- fix(Frame): 优化顶部的边距和边框线
+- fix(Panel): 标题默认为显示
+
 ## v2.2.4
 
 ### 🐞 Bug fixes:

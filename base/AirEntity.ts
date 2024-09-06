@@ -1,6 +1,7 @@
 import { Dictionary, Field, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 实体超类
@@ -31,28 +32,26 @@ export class AirEntity extends AirModel {
     }
   }
 
-  private static readonly ID = 'id'
-
   /**
    * ## 复制一个只包含 `ID` 的实体
    * @returns 仅包含ID的实体
    */
   copyExposeId() {
     return this.copy()
-      .expose(AirEntity.ID)
+      .exposeId()
   }
 
   /**
    * ## 只暴露 `ID`
    */
   exposeId() {
-    return this.expose(AirEntity.ID)
+    return this.expose(AirConstant.ID)
   }
 
   /**
    * ## 排除 `ID`
    */
   excludeId() {
-    return this.exclude(AirEntity.ID)
+    return this.exclude(AirConstant.ID)
   }
 }

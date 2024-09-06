@@ -1,10 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AirAny } from './AirType'
 
 /**
  * # 类包装
  * @author Hamm.cn
  */
-export type ClassConstructor<T> = {
-  new(...args: any[]): T;
-};
+export type ClassConstructor<T = AirAny> = {
+  // eslint-disable-next-line no-unused-vars
+  new(...args: AirAny[]): T;
+}

@@ -1,3 +1,5 @@
+import { AirConstant } from './AirConstant'
+
 /**
  * # `API` 兼容类
  * @author Hamm.cn
@@ -87,7 +89,7 @@ export class AirApi {
    */
   public static getStorage(key: string): string {
     const value = uni.getStorageSync(key)
-    return value ? value.toString() : ''
+    return value ? value.toString() : AirConstant.EMPTY_STRING
   }
 
   /**

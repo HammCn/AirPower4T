@@ -1,4 +1,5 @@
 /* eslint-disable no-continue */
+import { AirConstant } from '../config/AirConstant'
 import {
   getAlias,
   getDefault,
@@ -12,6 +13,7 @@ import {
   getType,
 } from '../decorator/Custom'
 import { IJson } from '../interface/IJson'
+import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
  * # 模型超类
@@ -23,9 +25,154 @@ export class AirModel {
    * 会自动进行数据别名转换
    * @param json `JSON`
    */
-  static fromJson<T extends AirModel>(this: new () => T, json: IJson = {}): T {
+  static fromJson<T extends AirModel>(this: ClassConstructor<T>, json: IJson = {}): T {
     const instance: T = (Object.assign(new this()) as T)
     return AirModel.parse<T>(instance, json)
+  }
+
+  /**
+   * ## 从 `JSON` 数组转换到当前类的对象数组
+   * 会自动进行数据别名转换
+   * @param jsonArray `JSON`数组
+   */
+  static fromJsonArray<T extends AirModel>(this: ClassConstructor<T>, jsonArray: IJson | IJson[] = []): T[] {
+    const instanceList: T[] = []
+    if (Array.isArray(jsonArray)) {
+      for (let i = 0; i < jsonArray.length; i += 1) {
+        const instance: T = (Object.assign(new this()) as T)
+        instanceList.push(AirModel.parse(instance, jsonArray[i]))
+      }
+    } else {
+      const instance: T = (Object.assign(new this()) as T)
+      instanceList.push(AirModel.parse(instance, jsonArray))
+    }
+    return instanceList
+  }
+
+  /**
+   * ## 转换 `JSON` 为实体
+   * 会自动进行数据别名转换
+   * @param instance 实体
+   * @param json `JSON`
+   */
+  static parse<T extends AirModel>(instance: T, json: IJson = {}): T {
+    const fieldKeyList = Object.keys(instance)
+    for (const fieldKey of fieldKeyList) {
+      const defaultValue = getDefault(instance, fieldKey)
+      const FieldTypeClass = getType(instance, fieldKey)
+      const fieldAliasName = getAlias(instance, fieldKey)
+      let fieldData = json[
+        (!getNoPrefix(instance, fieldKey)
+          ? getFieldPrefix(instance)
+          : AirConstant.EMPTY_STRING
+        )
+        + (fieldAliasName || fieldKey)]
+      if (fieldData === undefined) {
+        // 没有值尝试获取默认值
+        fieldData = getDefault(instance, fieldKey)
+      }
+      (instance as IJson)[fieldKey] = fieldData
+
+      const toModelFunction = getToModel(instance, fieldKey)
+      if (toModelFunction !== undefined) {
+        // 标记了手动转换到模型的自定义方法
+        try {
+          (instance as IJson)[fieldKey] = toModelFunction(json as IJson)
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.warn('ToModel Function Error', e)
+          continue
+        }
+      }
+      if (getIsArray(instance, fieldKey)) {
+        // 是数组 循环转换
+        const fieldValueList: IJson[] = []
+        if (typeof fieldData === 'object' && Array.isArray(fieldData)) {
+          for (let i = 0; i < fieldData.length; i += 1) {
+            // 如果标记了类 需要递归处理
+            if (FieldTypeClass) {
+              fieldValueList[i] = this.parse(new FieldTypeClass() as AirModel, fieldData[i])
+            }
+          }
+        }
+        (instance as IJson)[fieldKey] = fieldValueList
+        continue
+      }
+      if (defaultValue !== undefined && (fieldData === undefined || fieldData === null || fieldData === AirConstant.EMPTY_STRING)) {
+        // 如果有默认值 则先给上默认值
+        (instance as IJson)[fieldKey] = defaultValue
+      }
+
+      if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
+        // 属性值为非 undefined 和 null 时不转换
+        continue
+      }
+
+      if (!FieldTypeClass) {
+        // 无需强制转换
+        continue
+      }
+      switch (FieldTypeClass.name) {
+        case 'String':
+          (instance as IJson)[fieldKey] = fieldData.toString()
+          break
+        case 'Number':
+          // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
+          (instance as IJson)[fieldKey] = (Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData))
+          break
+        case 'Boolean':
+          // 强制转换为布尔型
+          (instance as IJson)[fieldKey] = !!fieldData
+          break
+        default:
+          // 是对象 需要递归转换
+          (instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
+      }
+    }
+
+    // 最后删除无用的数据
+    for (const fieldKey of fieldKeyList) {
+      const fieldAliasName = getAlias(instance, fieldKey)
+      if (fieldAliasName === fieldKey) {
+        continue
+      }
+      delete (instance as IJson)[fieldAliasName]
+    }
+    return instance
+  }
+
+  /**
+   * ## 获取类的可阅读名字
+   * 可使用 `@Model` 装饰器修饰 如无修饰 则直接返回类名
+   */
+  static getModelName() {
+    return this.newInstance()
+      .getModelName()
+  }
+
+  /**
+   * ## 获取属性的可阅读名字
+   * 可使用 `@Field` 装饰器修饰 如无修饰 则直接返回属性名
+   * @param fieldKey 属性名
+   */
+  static getFieldName(fieldKey: string): string {
+    return this.newInstance()
+      .getFieldName(fieldKey)
+  }
+
+  /**
+   * ## 创建一个当前类的实例
+   * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
+   */
+  // eslint-disable-next-line no-unused-vars
+  static newInstance<T extends AirModel>(this: ClassConstructor<T>, recoverBy?: IJson): T {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const instance = (Object.assign(new this(), null)) as T
+    if (recoverBy) {
+      return instance.recoverBy(recoverBy)
+    }
+    return instance
   }
 
   /**
@@ -65,154 +212,6 @@ export class AirModel {
   }
 
   /**
-   * ## 从 `JSON` 数组转换到当前类的对象数组
-   * 会自动进行数据别名转换
-   * @param jsonArray `JSON`数组
-   */
-  static fromJsonArray<T extends AirModel>(this: new () => T, jsonArray: IJson | IJson[] = []): T[] {
-    const instanceList: T[] = []
-    if (Array.isArray(jsonArray)) {
-      for (let i = 0; i < jsonArray.length; i += 1) {
-        const instance: T = (Object.assign(new this()) as T)
-        instanceList.push(AirModel.parse(instance, jsonArray[i]))
-      }
-    } else {
-      const instance: T = (Object.assign(new this()) as T)
-      instanceList.push(AirModel.parse(instance, jsonArray))
-    }
-    return instanceList
-  }
-
-  /**
-   * ## 转换 `JSON` 为实体
-   * 会自动进行数据别名转换
-   * @param instance 实体
-   * @param json `JSON`
-   */
-  static parse<T extends AirModel>(instance: T, json: IJson = {}): T {
-    const fieldKeyList = Object.keys(instance)
-    for (const fieldKey of fieldKeyList) {
-      const defaultValue = getDefault(instance, fieldKey)
-      const FieldTypeClass = getType(instance, fieldKey)
-      const fieldAliasName = getAlias(instance, fieldKey)
-      let fieldData = json[
-        (!getNoPrefix(instance, fieldKey)
-          ? getFieldPrefix(instance)
-          : ''
-        )
-        + (fieldAliasName || fieldKey)]
-      if (fieldData === undefined) {
-        // 没有值尝试获取默认值
-        fieldData = getDefault(instance, fieldKey)
-      }
-      (instance as IJson)[fieldKey] = fieldData
-
-      const toModelFunction = getToModel(instance, fieldKey)
-      if (toModelFunction !== undefined) {
-        // 标记了手动转换到模型的自定义方法
-        try {
-          (instance as IJson)[fieldKey] = toModelFunction(json as IJson)
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.warn('ToModel Function Error', e)
-          continue
-        }
-      }
-      if (getIsArray(instance, fieldKey)) {
-        // 是数组 循环转换
-        const fieldValueList: IJson[] = []
-        if (typeof fieldData === 'object' && Array.isArray(fieldData)) {
-          for (let i = 0; i < fieldData.length; i += 1) {
-            // 如果标记了类 需要递归处理
-            if (FieldTypeClass) {
-              fieldValueList[i] = this.parse(new FieldTypeClass() as AirModel, fieldData[i])
-            }
-          }
-        }
-        (instance as IJson)[fieldKey] = fieldValueList
-        continue
-      }
-      if (defaultValue !== undefined && (fieldData === undefined || fieldData === null || fieldData === '')) {
-        // 如果有默认值 则先给上默认值
-        (instance as IJson)[fieldKey] = defaultValue
-      }
-
-      if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
-        // 属性值为非 undefined 和 null 时不转换
-        continue
-      }
-
-      if (!FieldTypeClass) {
-        // 无需强制转换
-        continue
-      }
-      switch (FieldTypeClass.name) {
-        case 'sass.types.String':
-        case 'String':
-          (instance as IJson)[fieldKey] = fieldData.toString()
-          break
-        case 'sass.types.Number':
-        case 'Number':
-          // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          (instance as IJson)[fieldKey] = (Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData))
-          break
-        case 'sass.types.Boolean':
-        case 'Boolean':
-          // 强制转换为布尔型
-          (instance as IJson)[fieldKey] = !!fieldData
-          break
-        default:
-          // 是对象 需要递归转换
-          (instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
-      }
-    }
-
-    // 最后删除无用的数据
-    for (const fieldKey of fieldKeyList) {
-      const fieldAliasName = getAlias(instance, fieldKey)
-
-      if (fieldAliasName && fieldAliasName !== fieldKey) {
-        delete (instance as IJson)[fieldAliasName]
-      }
-    }
-    return instance
-  }
-
-  /**
-   * ## 获取类的可阅读名字
-   * 可使用 `@Model` 装饰器修饰 如无修饰 则直接返回类名
-   */
-  static getModelName() {
-    return this.newInstance()
-      .getModelName()
-  }
-
-  /**
-   * ## 获取属性的可阅读名字
-   * 可使用 `@Field` 装饰器修饰 如无修饰 则直接返回属性名
-   * @param fieldKey 属性名
-   */
-  static getFieldName(fieldKey: string): string {
-    return this.newInstance()
-      .getFieldName(fieldKey)
-  }
-
-  /**
-   * ## 创建一个当前类的实例
-   * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
-   */
-  // eslint-disable-next-line no-unused-vars
-  static newInstance<T extends AirModel>(this: new () => T, recoverBy?: IJson): T {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const instance = (Object.assign(new this(), null)) as T
-    if (recoverBy) {
-      return instance.recoverBy(recoverBy)
-    }
-    return instance
-  }
-
-  /**
    * ## 用指定的数据对当前实例进行覆盖
    * 相同字段才会覆盖上去
    * @param obj 覆盖对象
@@ -230,6 +229,10 @@ export class AirModel {
     const json: IJson = {}
     for (const fieldKey of fieldKeyList) {
       const fieldData = (this as IJson)[fieldKey]
+      if (fieldData === null || fieldData === undefined) {
+        // 如果属性值为 null 或 undefined 则不转换到JSON
+        continue
+      }
       let fieldAliasName = getAlias(this, fieldKey) || fieldKey
       if (!getNoPrefix(this, fieldKey) && getFieldPrefix(this)) {
         // 按忽略前缀规则获取别名

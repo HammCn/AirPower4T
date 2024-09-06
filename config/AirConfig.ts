@@ -2,6 +2,7 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
 import { AirApi } from './AirApi'
 import { AirCodeNumber } from '../type/AirType'
+import { AirConstant } from './AirConstant'
 
 /**
  * # `AirPower` 全局配置
@@ -12,7 +13,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.2.4'
+  static readonly version = 'v2.3.4'
 
   /**
    * ## `AppKey`
@@ -28,7 +29,7 @@ export class AirConfig {
   /**
    * ## 项目名称
    */
-  static product = ''
+  static product = AirConstant.EMPTY_STRING
 
   /**
    * ## 接口根地址
@@ -101,42 +102,19 @@ export class AirConfig {
   /**
    * ## 权限列表
    */
-  private static permissionList: string[] = []
+  static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
 
   /**
-   * ## 权限缓存 `Key`
+   * ## 网络请求失败最大重试次数
    */
-  private static readonly permissionKey = '_permissions'
+  static retryTimesWhenNetworkError = 3
 
   /**
-   * ## 保存权限列表
-   * @param permissions 权限列表
+   * ## 跳转登录的方法
    */
-  static savePermissionList(permissions: string[]) {
-    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
-    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
+  static login = () => {
+    AirApi.redirect('/view/login')
   }
-
-  /**
-   * ## 获取缓存的权限列表
-   */
-  static getPermissionList(): string[] {
-    const str = AirApi.getStorage(this.appKey + this.permissionKey) || '[]'
-    try {
-      return JSON.parse(str)
-    } catch (e) {
-      return []
-    }
-  }
-
-  /**
-   * ## 是否有权限
-   * @param permission 权限标识
-   */
-  static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission.toLowerCase())
-  }
-
   /**
    * ## 保存身份令牌
    * @param accessToken 身份令牌
@@ -157,23 +135,5 @@ export class AirConfig {
    */
   static removeAccessToken(): void {
     AirApi.removeStorage(this.authorizationHeaderKey)
-  }
-
-  /**
-   * ## 默认的格式化时间
-   * ```
-   */
-  static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
-
-  /**
-   * ## 网络请求失败最大重试次数
-   */
-  static retryTimesWhenNetworkError = 3
-
-  /**
-   * ## 跳转登录的方法
-   */
-  static login = () => {
-    AirApi.redirect('/view/login')
   }
 }
