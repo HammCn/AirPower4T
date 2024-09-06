@@ -2,7 +2,7 @@ import { AirColorString, AirEnumKey } from '../../type/AirType'
 import { AirColor } from '../../enum/AirColor'
 import { IDictionary } from '../../interface/IDictionary'
 import { AirDictionary } from '../AirDictionary'
-import { AirConstant } from '@/airpower/config/AirConstant'
+import { AirConstant } from '../../config/AirConstant'
 
 /**
  * # 字典数组
