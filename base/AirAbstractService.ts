@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirHttp } from '../helper/AirHttp'
+import { ClassConstructor } from '../type/ClassConstructor'
 import { AirModel } from './AirModel'
 
 /**
@@ -47,7 +48,7 @@ export abstract class AirAbstractService extends AirModel {
    * ## 静态创建一个 `API` 服务实例
    * @param loading `可选` Loading
    */
-  static create<S extends AirAbstractService>(this: new () => S, loading?: string): S {
+  static create<S extends AirAbstractService>(this: ClassConstructor<S>, loading?: string): S {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const service = Object.assign(new this()) as S

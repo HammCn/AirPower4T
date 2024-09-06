@@ -39,7 +39,6 @@ export class AirClassTransformer {
    * @param json JSON
    * @param TargetClass 目标类
    */
-  // eslint-disable-next-line class-methods-use-this
   static parse<T extends AirModel>(json: IJson, TargetClass: ClassConstructor<T>): T {
     return AirModel.parse(new TargetClass(), json)
   }

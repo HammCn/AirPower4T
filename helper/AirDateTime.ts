@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable camelcase */
 import { AirConfig } from '../config/AirConfig'
+import { AirConstant } from '../config/AirConstant'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { IJson } from '../interface/IJson'
 
@@ -27,7 +26,7 @@ export class AirDateTime {
    * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getUnixTimeStamps(date?: Date | string): number {
-    return Math.round(this.getMilliTimeStamps(date) / 1000)
+    return Math.round(this.getMilliTimeStamps(date) / AirConstant.THOUSAND)
   }
 
   /**
@@ -36,19 +35,12 @@ export class AirDateTime {
    */
   static getMilliTimeStamps(date?: Date | string): number {
     if (!date) {
-      date = new Date()
+      return new Date().valueOf()
     }
-    switch (typeof date) {
-      case 'string':
-        return new Date(date).valueOf()
-      case 'object':
-        if (date instanceof Date) {
-          return date.valueOf()
-        }
-        break
-      default:
+    if (typeof date === 'object') {
+      return date.valueOf()
     }
-    return 0
+    return new Date(date).valueOf()
   }
 
   /**
@@ -57,7 +49,7 @@ export class AirDateTime {
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromSecond(timeStamp: number, formatString?: AirDateTimeFormatter | string): string {
-    return this.formatFromDate(new Date(timeStamp * 1000), formatString)
+    return this.formatFromDate(new Date(timeStamp * AirConstant.THOUSAND), formatString)
   }
 
   /**
@@ -78,16 +70,8 @@ export class AirDateTime {
     if (!formatString) {
       formatString = AirConfig.dateTimeFormatter
     }
-    switch (typeof date) {
-      case 'string':
-        date = new Date(date)
-        break
-      case 'object':
-        if (!(date instanceof Date)) {
-          date = new Date()
-        }
-        break
-      default:
+    if (typeof date !== 'object') {
+      date = new Date(date)
     }
     const dict: IJson = {
       YYYY: date.getFullYear(),
@@ -113,59 +97,57 @@ export class AirDateTime {
     const nowTimeStamps: number = this.getUnixTimeStamps(new Date())
     let oldTimeStamp: number
     if (typeof date === 'number') {
-      oldTimeStamp = parseInt((date / 1000).toString(), 10)
+      oldTimeStamp = parseInt((date / AirConstant.THOUSAND).toString(), 10)
     } else {
       oldTimeStamp = this.getUnixTimeStamps(date)
     }
     const diffTimeStamp = Math.abs(nowTimeStamps - oldTimeStamp)
+    const secondOfYear = AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_YEAR
+    const secondOfMonth = AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_MONTH
+    const secondOfWeek = AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_WEEK
+    const secondOfHour = AirConstant.TIME_RADIX * AirConstant.TIME_RADIX
     if (oldTimeStamp > nowTimeStamps) {
       // after
-      if (diffTimeStamp > 86400 * 36500) {
-        return `${Math.floor(diffTimeStamp / 86400 / 100 / 31)}世纪后`
+      if (diffTimeStamp > secondOfYear) {
+        return `${Math.floor(diffTimeStamp / secondOfYear)}年后`
       }
-      if (diffTimeStamp > 86400 * 365) {
-        return `${Math.floor(diffTimeStamp / 86400 / 365)}年后`
+      if (diffTimeStamp > secondOfMonth) {
+        return `${Math.floor(diffTimeStamp / secondOfMonth)}月后`
       }
-      if (diffTimeStamp > 86400 * 31) {
-        return `${Math.floor(diffTimeStamp / 86400 / 31)}月后`
+      if (diffTimeStamp > secondOfWeek) {
+        return `${Math.floor(diffTimeStamp / secondOfWeek)}周后`
       }
-      if (diffTimeStamp > 86400 * 7) {
-        return `${Math.floor(diffTimeStamp / 86400 / 7)}周后`
+      if (diffTimeStamp > AirConstant.SECONDS_OF_DAY) {
+        return `${Math.floor(diffTimeStamp / AirConstant.SECONDS_OF_DAY)}天后`
       }
-      if (diffTimeStamp > 86400) {
-        return `${Math.floor(diffTimeStamp / 86400)}天后`
+      if (diffTimeStamp > secondOfHour) {
+        return `${Math.floor(diffTimeStamp / secondOfHour)}小时后`
       }
-      if (diffTimeStamp > 3600) {
-        return `${Math.floor(diffTimeStamp / 3600)}小时后`
-      }
-      if (diffTimeStamp > 60) {
-        return `${Math.floor(diffTimeStamp / 60)}分钟后`
+      if (diffTimeStamp > AirConstant.TIME_RADIX) {
+        return `${Math.floor(diffTimeStamp / AirConstant.TIME_RADIX)}分钟后`
       }
       if (diffTimeStamp > 0) {
         return `${diffTimeStamp}秒后`
       }
     } else {
       // before
-      if (diffTimeStamp > 86400 * 36500) {
-        return `${Math.floor(diffTimeStamp / 86400 / 100 / 365)}世纪前`
+      if (diffTimeStamp > secondOfYear) {
+        return `${Math.floor(diffTimeStamp / secondOfYear)}年前`
       }
-      if (diffTimeStamp > 86400 * 365) {
-        return `${Math.floor(diffTimeStamp / 86400 / 365)}年前`
+      if (diffTimeStamp > secondOfMonth) {
+        return `${Math.floor(diffTimeStamp / secondOfMonth)}月前`
       }
-      if (diffTimeStamp > 86400 * 30) {
-        return `${Math.floor(diffTimeStamp / 86400 / 30)}月前`
+      if (diffTimeStamp > secondOfWeek) {
+        return `${Math.floor(diffTimeStamp / secondOfWeek)}周前`
       }
-      if (diffTimeStamp > 86400 * 7) {
-        return `${Math.floor(diffTimeStamp / 86400 / 7)}周前`
+      if (diffTimeStamp > AirConstant.SECONDS_OF_DAY) {
+        return `${Math.floor(diffTimeStamp / AirConstant.SECONDS_OF_DAY)}天前`
       }
-      if (diffTimeStamp > 86400) {
-        return `${Math.floor(diffTimeStamp / 86400)}天前`
+      if (diffTimeStamp > secondOfHour) {
+        return `${Math.floor(diffTimeStamp / secondOfHour)}小时前`
       }
-      if (diffTimeStamp > 3600) {
-        return `${Math.floor(diffTimeStamp / 3600)}小时前`
-      }
-      if (diffTimeStamp > 60) {
-        return `${Math.floor(diffTimeStamp / 60)}分钟前`
+      if (diffTimeStamp > AirConstant.TIME_RADIX) {
+        return `${Math.floor(diffTimeStamp / AirConstant.TIME_RADIX)}分钟前`
       }
       if (diffTimeStamp >= 0) {
         return '刚刚'

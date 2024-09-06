@@ -10,6 +10,8 @@ import { IJson } from '../interface/IJson'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirI18n } from './AirI18n'
+import { AirAny } from '../type/AirType'
+import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 网络请求类
@@ -19,7 +21,7 @@ export class AirHttp {
   /**
    * ## 访问的接口 `URL`
    */
-  private url = ''
+  private url = AirConstant.EMPTY_STRING
 
   /**
    * ## `Loading`
@@ -256,17 +258,17 @@ export class AirHttp {
    * ## 发送 `GET` 请求 只支持简单一维数据
    * @param params `可选` 可携带的参数
    */
-  get(params?: IJson): Promise<any> {
+  get(params?: IJson): Promise<AirAny> {
     if (params) {
       const queryArray: string[] = []
       // eslint-disable-next-line guard-for-in
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
       }
-      if (this.url.includes('?')) {
-        this.url += `&${queryArray.join('&')}`
+      if (this.url.includes(AirConstant.QUESTION_MARK)) {
+        this.url += `&${queryArray.join(AirConstant.AND_MARK)}`
       } else {
-        this.url += `?${queryArray.join('&')}`
+        this.url += `?${queryArray.join(AirConstant.AND_MARK)}`
       }
     }
     this.method = 'GET'

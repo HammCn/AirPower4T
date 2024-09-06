@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IDictionary } from '../interface/IDictionary'
 import { AirColorString, AirEnumKey } from '../type/AirType'
 
@@ -9,7 +8,7 @@ import { AirColorString, AirEnumKey } from '../type/AirType'
 export class AirDictionary implements IDictionary {
   key!: AirEnumKey
 
-  label!: any
+  label!: string
 
   color?: AirColorString
 
@@ -22,7 +21,7 @@ export class AirDictionary implements IDictionary {
    * @param key `可选` 记录的key
    * @param label `可选` 记录的Label
    */
-  constructor(key?: AirEnumKey, label?: any) {
+  constructor(key?: AirEnumKey, label?: string) {
     if (key) {
       this.key = key
     }
@@ -44,7 +43,7 @@ export class AirDictionary implements IDictionary {
    * ## 设置常量描述
    * @param label 常量的描述
    */
-  setLabel(label: any): this {
+  setLabel(label: string): this {
     this.label = label
     return this
   }
