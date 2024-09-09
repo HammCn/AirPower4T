@@ -27,21 +27,6 @@ export class AirDecorator {
   }
 
   /**
-   * ## 反射添加属性
-   * @param target 目标类
-   * @param key 配置key
-   * @param value 配置值
-   */
-  private static setProperty(target: AirDecoratorTarget, key: string, value: unknown) {
-    Reflect.defineProperty(target, key, {
-      enumerable: false,
-      value,
-      writable: false,
-      configurable: true,
-    })
-  }
-
-  /**
    * ## 设置一个类配置项
    * @param target 目标实体类
    * @param classConfigKey 配置项索引键值
@@ -95,18 +80,6 @@ export class AirDecorator {
       this.addFieldDecoratorKey(target, key, fieldListKey)
     }
     this.setProperty(target, `${fieldConfigKey}[${key}]`, fieldConfig)
-  }
-
-  /**
-   * ## 设置一个字段的包含装饰器索引
-   * @param target 目标类
-   * @param key 字段
-   * @param fieldListKey 类配置项列表索引值
-   */
-  private static addFieldDecoratorKey(target: AirDecoratorTarget, key: string, fieldListKey: string) {
-    const list: string[] = Reflect.get(target, fieldListKey) || []
-    list.push(key)
-    this.setProperty(target, fieldListKey, list)
   }
 
   /**
@@ -220,5 +193,32 @@ export class AirDecorator {
       return undefined
     }
     return this.getFieldConfigValue(superClass, fieldConfigKey, key, configKey)
+  }
+
+  /**
+   * ## 反射添加属性
+   * @param target 目标类
+   * @param key 配置key
+   * @param value 配置值
+   */
+  private static setProperty(target: AirDecoratorTarget, key: string, value: unknown) {
+    Reflect.defineProperty(target, key, {
+      enumerable: false,
+      value,
+      writable: false,
+      configurable: true,
+    })
+  }
+
+  /**
+   * ## 设置一个字段的包含装饰器索引
+   * @param target 目标类
+   * @param key 字段
+   * @param fieldListKey 类配置项列表索引值
+   */
+  private static addFieldDecoratorKey(target: AirDecoratorTarget, key: string, fieldListKey: string) {
+    const list: string[] = Reflect.get(target, fieldListKey) || []
+    list.push(key)
+    this.setProperty(target, fieldListKey, list)
   }
 }

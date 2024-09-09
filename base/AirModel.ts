@@ -37,42 +37,6 @@ export class AirModel {
   }
 
   /**
-   * ## 将当前实例复制到一个新实例上
-   */
-  copy(): this {
-    const newModel = Object.create(Object.getPrototypeOf(this))
-    return Object.assign(newModel, this)
-  }
-
-  /**
-   * ## 暴露部分类的字段
-   * @param fields 字段列表
-   */
-  expose(...fields: string[]): this {
-    const fieldList = Object.keys(this)
-    for (const field of fieldList) {
-      if (!fields.includes(field)) {
-        (this as IJson)[field] = undefined
-      }
-    }
-    return this
-  }
-
-  /**
-   * ## 排除部分类的字段
-   * @param fields 字段列表
-   */
-  exclude(...fields: string[]): this {
-    const fieldList = Object.keys(this)
-    for (const field of fieldList) {
-      if (fields.includes(field)) {
-        (this as IJson)[field] = undefined
-      }
-    }
-    return this
-  }
-
-  /**
    * ## 从 `JSON` 数组转换到当前类的对象数组
    * 会自动进行数据别名转换
    * @param jsonArray `JSON`数组
@@ -263,6 +227,42 @@ export class AirModel {
   static getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
     return this.newInstance()
       .getCustomFormFieldConfig(fieldKey)
+  }
+
+  /**
+   * ## 将当前实例复制到一个新实例上
+   */
+  copy(): this {
+    const newModel = Object.create(Object.getPrototypeOf(this))
+    return Object.assign(newModel, this)
+  }
+
+  /**
+   * ## 暴露部分类的字段
+   * @param fields 字段列表
+   */
+  expose(...fields: string[]): this {
+    const fieldList = Object.keys(this)
+    for (const field of fieldList) {
+      if (!fields.includes(field)) {
+        (this as IJson)[field] = undefined
+      }
+    }
+    return this
+  }
+
+  /**
+   * ## 排除部分类的字段
+   * @param fields 字段列表
+   */
+  exclude(...fields: string[]): this {
+    const fieldList = Object.keys(this)
+    for (const field of fieldList) {
+      if (fields.includes(field)) {
+        (this as IJson)[field] = undefined
+      }
+    }
+    return this
   }
 
   /**

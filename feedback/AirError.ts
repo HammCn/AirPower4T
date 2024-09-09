@@ -45,6 +45,22 @@ export class AirError {
   }
 
   /**
+   * # 显示错误信息提示
+   * @param message 错误信息
+   * @param code `可选` 错误代码
+   */
+  static async show(message: string, code?: number): Promise<void> {
+    if (code) {
+      return this.create()
+        .setCode(code)
+        .setMessage(message)
+        .show()
+    }
+    return this.create(message)
+      .show()
+  }
+
+  /**
    * ## 设置错误码
    * @param code 错误状态码
    */
@@ -69,21 +85,5 @@ export class AirError {
     await new AirNotification().setTitle(AirI18n.get().SystemError || '发生错误')
       .setMessage(this.message)
       .error()
-  }
-
-  /**
-   * # 显示错误信息提示
-   * @param message 错误信息
-   * @param code `可选` 错误代码
-   */
-  static async show(message: string, code?: number): Promise<void> {
-    if (code) {
-      return this.create()
-        .setCode(code)
-        .setMessage(message)
-        .show()
-    }
-    return this.create(message)
-      .show()
   }
 }

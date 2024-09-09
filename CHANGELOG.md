@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## v2.3.5
+
+### 🎉 Features:
+
+- feat(Table): 支持了行斑马纹和禁用状态 
+- feat(Config): 支持配置全局是否显示表格斑马纹 
+
+### 🐞 Bug fixes:
+
+- fix(Dictionary): 修正AirDictionaryArray的导入路径
+- fix(Service): 修改`newEntityInstance`为`protected` 
+- style(Code): 优化了一些代码风格和格式
 
 ## v2.3.4
 

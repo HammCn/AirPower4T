@@ -36,12 +36,16 @@ const app = createApp(App)
 app.use(createPinia())
 
 // Element Plus 初始化
-app.use(ElementPlus, { zIndex: 3000, locale: zhCn })
+app.use(ElementPlus, {
+  zIndex: 3000,
+  locale: zhCn,
+})
 
 // 全局注册Element Plus 图标
-Object.keys(Icons).forEach((key) => {
-  app.component(key, Icons[key as keyof typeof Icons])
-})
+Object.keys(Icons)
+  .forEach((key) => {
+    app.component(key, Icons[key as keyof typeof Icons])
+  })
 
 export { app }
 

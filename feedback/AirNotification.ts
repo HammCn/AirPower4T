@@ -30,6 +30,54 @@ export class AirNotification {
   }
 
   /**
+   * ## 警告通知
+   *
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
+   */
+  static async warning(message?: string, title?: string): Promise<boolean> {
+    return this.create()
+      .warning(message, title)
+  }
+
+  /**
+   * ## 成功通知
+   *
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
+   */
+  static async success(message?: string, title?: string): Promise<boolean> {
+    return this.create()
+      .success(message, title)
+  }
+
+  /**
+   * ## 信息通知
+   *
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
+   */
+  static async info(message?: string, title?: string): Promise<boolean> {
+    return this.create()
+      .info(message, title)
+  }
+
+  /**
+   * ## 错误通知
+   *
+   * 如用户点击了通知 返回`true` 否则`false`
+   * @param message `可选` 消息
+   * @param title `可选` 标题
+   */
+  static async error(message?: string, title?: string): Promise<boolean> {
+    return this.create()
+      .error(message, title)
+  }
+
+  /**
    * ## 设置标题
    * @param title 标题
    */
@@ -69,18 +117,6 @@ export class AirNotification {
   }
 
   /**
-   * ## 警告通知
-   *
-   * 如用户点击了通知 返回`true` 否则`false`
-   * @param message `可选` 消息
-   * @param title `可选` 标题
-   */
-  static async warning(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .warning(message, title)
-  }
-
-  /**
    * ## 成功通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
@@ -90,18 +126,6 @@ export class AirNotification {
   async success(message?: string, title?: string): Promise<boolean> {
     return this.setTitleAndMessage(title, message)
       .show(AirFeedbackType.SUCCESS)
-  }
-
-  /**
-   * ## 成功通知
-   *
-   * 如用户点击了通知 返回`true` 否则`false`
-   * @param message `可选` 消息
-   * @param title `可选` 标题
-   */
-  static async success(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .success(message, title)
   }
 
   /**
@@ -117,18 +141,6 @@ export class AirNotification {
   }
 
   /**
-   * ## 信息通知
-   *
-   * 如用户点击了通知 返回`true` 否则`false`
-   * @param message `可选` 消息
-   * @param title `可选` 标题
-   */
-  static async info(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .info(message, title)
-  }
-
-  /**
    * ## 错误通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
@@ -138,18 +150,6 @@ export class AirNotification {
   async error(message?: string, title?: string): Promise<boolean> {
     return this.setTitleAndMessage(title, message)
       .show(AirFeedbackType.ERROR)
-  }
-
-  /**
-   * ## 错误通知
-   *
-   * 如用户点击了通知 返回`true` 否则`false`
-   * @param message `可选` 消息
-   * @param title `可选` 标题
-   */
-  static async error(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .error(message, title)
   }
 
   /**

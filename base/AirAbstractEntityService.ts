@@ -70,6 +70,17 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   protected urlForDelete = 'delete'
 
   /**
+   * ## 创建验证器
+   * @param form 表单对象
+   * @param moreRule `可选` 更多的验证规则
+   */
+  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return AirValidator.createRules(form, this.newInstance(), moreRule)
+  }
+
+  /**
    * ## 查询分页数据列表
    * @param request 请求对象
    * @param apiUrl `可选` 自定义请求URL
@@ -223,30 +234,6 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 创建一个实体的实例
-   * @param id `可选` `ID`
-   */
-  private newEntityInstance(id?: number): E {
-    // eslint-disable-next-line new-cap
-    const entity = new this.entityClass()
-    if (id) {
-      entity.id = id
-    }
-    return entity
-  }
-
-  /**
-   * ## 创建验证器
-   * @param form 表单对象
-   * @param moreRule `可选` 更多的验证规则
-   */
-  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return AirValidator.createRules(form, this.newInstance(), moreRule)
-  }
-
-  /**
    * ## `内部使用`
    * @deprecated
    */
@@ -254,5 +241,18 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return AirValidator.createRules(form, this, moreRule)
+  }
+
+  /**
+   * ## 创建一个实体的实例
+   * @param id `可选` `ID`
+   */
+  protected newEntityInstance(id?: number): E {
+    // eslint-disable-next-line new-cap
+    const entity = new this.entityClass()
+    if (id) {
+      entity.id = id
+    }
+    return entity
   }
 }

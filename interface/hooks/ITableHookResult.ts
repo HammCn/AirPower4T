@@ -101,5 +101,4 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * ## 刷新数据 保持留在当页
    */
   onGetList: () => void,
-
 }

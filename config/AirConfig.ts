@@ -23,7 +23,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.3.4'
+  static readonly version = 'v2.3.5'
 
   /**
    * ## `AppKey`
@@ -99,67 +99,6 @@ export class AirConfig {
    * ## 全局 `http` 请求返回 登录状态码
    */
   static unAuthorizeCode: AirCodeNumber = AirCode.UNAUTHORIZED
-
-  /**
-   * ## 权限列表
-   */
-  private static permissionList: string[] = []
-
-  /**
-   * ## 权限缓存 `Key`
-   */
-  private static readonly permissionKey = '_permissions'
-
-  /**
-   * ## 保存权限列表
-   * @param permissions 权限列表
-   */
-  static savePermissionList(permissions: string[]) {
-    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
-    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
-  }
-
-  /**
-   * ## 获取缓存的权限列表
-   */
-  static getPermissionList(): string[] {
-    const str = AirApi.getStorage(this.appKey + this.permissionKey) || '[]'
-    try {
-      return JSON.parse(str)
-    } catch (e) {
-      return []
-    }
-  }
-
-  /**
-   * ## 是否有权限
-   * @param permission 权限标识
-   */
-  static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission.toLowerCase())
-  }
-
-  /**
-   * ## 保存身份令牌
-   * @param accessToken 身份令牌
-   */
-  static saveAccessToken(accessToken: string): void {
-    AirApi.setStorage(this.authorizationHeaderKey, accessToken)
-  }
-
-  /**
-   * ## 获取身份令牌
-   */
-  static getAccessToken(): string {
-    return AirApi.getStorage(this.authorizationHeaderKey)
-  }
-
-  /**
-   * ## 移除本地存储的身份令牌
-   */
-  static removeAccessToken(): void {
-    AirApi.removeStorage(this.authorizationHeaderKey)
-  }
 
   /**
    * ## 默认的格式化时间
@@ -342,6 +281,11 @@ export class AirConfig {
   static tableShowEnableAndDisable = false
 
   /**
+   * ## 是否默认显示表格斑马纹
+   */
+  static tableStripe = false
+
+  /**
    * ## 默认的表格数组显示分割字符
    * `@Table` 装饰器中可以单独配置 `arraySplitor`
    */
@@ -362,6 +306,96 @@ export class AirConfig {
    * ## 最近访问的路径
    */
   static lastPathKey = 'air_last_path'
+
+  /**
+   * ## `WebSocketUrl`
+   * 以 `/` 结尾
+   */
+  static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
+
+  /**
+   * ## `Oauth2` 的 `authorize` 地址
+   */
+  static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
+
+  /**
+   * ## 默认的导入数据的 `URL`
+   *
+   * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
+   *
+   * 将自动拼接 `apiUrl` + `baseUrl` + `importUrl`
+   */
+  static importUrl = 'import'
+
+  /**
+   * ## 默认下载导入模板的 `URL`
+   *
+   * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
+   *
+   * 将自动拼接 `apiUrl` + `baseUrl` + `importTemplateUrl`
+   */
+  static importTemplateUrl = 'importTemplate'
+
+  /**
+   * ## 权限列表
+   */
+  private static permissionList: string[] = []
+
+  /**
+   * ## 权限缓存 `Key`
+   */
+  private static readonly permissionKey = '_permissions'
+
+  /**
+   * ## 保存权限列表
+   * @param permissions 权限列表
+   */
+  static savePermissionList(permissions: string[]) {
+    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
+    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
+  }
+
+  /**
+   * ## 获取缓存的权限列表
+   */
+  static getPermissionList(): string[] {
+    const str = AirApi.getStorage(this.appKey + this.permissionKey) || '[]'
+    try {
+      return JSON.parse(str)
+    } catch (e) {
+      return []
+    }
+  }
+
+  /**
+   * ## 是否有权限
+   * @param permission 权限标识
+   */
+  static hasPermission(permission: string): boolean {
+    return this.permissionList.includes(permission.toLowerCase())
+  }
+
+  /**
+   * ## 保存身份令牌
+   * @param accessToken 身份令牌
+   */
+  static saveAccessToken(accessToken: string): void {
+    AirApi.setStorage(this.authorizationHeaderKey, accessToken)
+  }
+
+  /**
+   * ## 获取身份令牌
+   */
+  static getAccessToken(): string {
+    return AirApi.getStorage(this.authorizationHeaderKey)
+  }
+
+  /**
+   * ## 移除本地存储的身份令牌
+   */
+  static removeAccessToken(): void {
+    AirApi.removeStorage(this.authorizationHeaderKey)
+  }
 
   /**
    * ## 设置上次访问的路径
@@ -403,33 +437,4 @@ export class AirConfig {
     AirConfig.router = router
     return router
   }
-
-  /**
-   * ## `WebSocketUrl`
-   * 以 `/` 结尾
-   */
-  static websocketUrl = import.meta.env.VITE_APP_WEBSOCKET_URL
-
-  /**
-   * ## `Oauth2` 的 `authorize` 地址
-   */
-  static oauthUrl = import.meta.env.VITE_APP_OAUTH_URL || '/oauth2/authorize'
-
-  /**
-   * ## 默认的导入数据的 `URL`
-   *
-   * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
-   *
-   * 将自动拼接 `apiUrl` + `baseUrl` + `importUrl`
-   */
-  static importUrl = 'import'
-
-  /**
-   * ## 默认下载导入模板的 `URL`
-   *
-   * 请注意 请勿包含 `baseUrl` 和 `apiUrl`
-   *
-   * 将自动拼接 `apiUrl` + `baseUrl` + `importTemplateUrl`
-   */
-  static importTemplateUrl = 'importTemplate'
 }

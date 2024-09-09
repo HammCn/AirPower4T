@@ -67,15 +67,6 @@ export class AirAlert {
   protected confirmButtonClass = AirConstant.EMPTY_STRING
 
   /**
-   * ## 设置确认按钮文字
-   * @param confirmText 确认按钮文字
-   */
-  setConfirmText(confirmText: string): this {
-    this.confirmText = confirmText
-    return this
-  }
-
-  /**
    * ## 显示成功消息提醒
    * @param content `可选` 消息内容
    * @param title `可选` 消息标题
@@ -83,6 +74,62 @@ export class AirAlert {
   static success(content?: string, title?: string): Promise<void> {
     return this.create()
       .success(content, title)
+  }
+
+  /**
+   * ## 创建实例方法
+   */
+  static create(): AirAlert {
+    return new AirAlert()
+  }
+
+  /**
+   * ## 显示警告消息提醒
+   * @param content `可选` 消息内容
+   * @param title `可选` 消息标题
+   */
+  static warning(content?: string, title?: string): Promise<void> {
+    return this.create()
+      .warning(content, title)
+  }
+
+  /**
+   * ## 显示无图标的消息提醒
+   * @param content `可选` 消息内容
+   * @param title `可选` 消息标题
+   */
+  static show(content?: string, title?: string): Promise<void> {
+    return this.create()
+      .show(content, title)
+  }
+
+  /**
+   * ## 显示错误消息提醒
+   * @param content `可选` 消息内容
+   * @param title `可选` 消息标题
+   */
+  static error(content?: string, title?: string): Promise<void> {
+    return this.create()
+      .error(content, title)
+  }
+
+  /**
+   * ## 显示信息类消息提醒
+   * @param content `可选` 消息内容
+   * @param title `可选` 消息标题
+   */
+  static info(content?: string, title?: string): Promise<void> {
+    return this.create()
+      .info(content, title)
+  }
+
+  /**
+   * ## 设置确认按钮文字
+   * @param confirmText 确认按钮文字
+   */
+  setConfirmText(confirmText: string): this {
+    this.confirmText = confirmText
+    return this
   }
 
   /**
@@ -188,81 +235,12 @@ export class AirAlert {
   }
 
   /**
-   * ## 创建实例方法
-   */
-  static create(): AirAlert {
-    return new AirAlert()
-  }
-
-  /**
-   * ## 显示警告消息提醒
-   * @param content `可选` 消息内容
-   * @param title `可选` 消息标题
-   */
-  static warning(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .warning(content, title)
-  }
-
-  /**
-   * ## 显示无图标的消息提醒
-   * @param content `可选` 消息内容
-   * @param title `可选` 消息标题
-   */
-  static show(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .show(content, title)
-  }
-
-  /**
-   * ## 显示错误消息提醒
-   * @param content `可选` 消息内容
-   * @param title `可选` 消息标题
-   */
-  static error(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .error(content, title)
-  }
-
-  /**
-   * ## 显示信息类消息提醒
-   * @param content `可选` 消息内容
-   * @param title `可选` 消息标题
-   */
-  static info(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .info(content, title)
-  }
-
-  /**
    * ## 将确认按钮设置为危险颜色
    * 请注意,设置了危险按钮后, 所有的图标都将失效
    */
   dangerButton(): this {
     this.confirmButtonClass = 'danger'
     return this
-  }
-
-  /**
-   * ## 弹出提示
-   * @param content `可选` 消息内容
-   * @param title `可选` 消息标题
-   *
-   */
-  private alert(content = '操作成功', title = '温馨提示'): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      ElMessageBox.alert(
-        content,
-        title,
-        this.getConfig(),
-      )
-        .then(() => {
-          resolve()
-        })
-        .catch(() => {
-          reject()
-        })
-    })
   }
 
   /**
@@ -290,5 +268,27 @@ export class AirAlert {
       closeOnPressEscape: this.isCloseByEscape,
       confirmButtonClass: this.confirmButtonClass,
     }
+  }
+
+  /**
+   * ## 弹出提示
+   * @param content `可选` 消息内容
+   * @param title `可选` 消息标题
+   *
+   */
+  private alert(content = '操作成功', title = '温馨提示'): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      ElMessageBox.alert(
+        content,
+        title,
+        this.getConfig(),
+      )
+        .then(() => {
+          resolve()
+        })
+        .catch(() => {
+          reject()
+        })
+    })
   }
 }

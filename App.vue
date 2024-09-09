@@ -8,6 +8,7 @@
     <el-tooltip
       ref="tooltipRef"
       v-model:visible="isShowTooltip"
+      :content="AirStore().$state.tooltip"
       :disabled="AirStore().$state.tooltip === ''"
       :popper-options="{
         modifiers: [
@@ -21,12 +22,11 @@
         ],
       }"
       :virtual-ref="AirStore().$state.tooltipRef"
-      virtual-triggering
-      trigger="hover"
       effect="customized"
-      :content="AirStore().$state.tooltip"
       placement="top"
       popper-class="air-tooltip"
+      trigger="hover"
+      virtual-triggering
     />
   </div>
 </template>
@@ -62,7 +62,7 @@ watch(() => AirStore().tooltipRef, () => {
   }, 2000)
 })
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .airpower {
   position: fixed;
   left: 0;

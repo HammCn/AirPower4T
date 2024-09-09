@@ -14,7 +14,9 @@
       :default-expand-all="defaultExpandAll"
       :lazy="lazy"
       :load="load"
+      :row-class-name="tableRowClassName"
       :row-key="(row: E) => row.id"
+      :stripe="stripe"
       :tree-props="treeProps"
       class="air-table"
       flexible
@@ -429,7 +431,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity">
+<script generic="E extends AirEntity" lang="ts" setup>
 import {
   computed, ComputedRef, nextTick, PropType, ref, watch,
 } from 'vue'
@@ -622,6 +624,16 @@ const props = defineProps({
   },
 
   /**
+   * # 控制是否整行显示禁用状态
+   * 如禁用了行，则行将被模糊并显示灰色背景色
+   */
+  disableRow: {
+    // eslint-disable-next-line no-unused-vars
+    type: Function as PropType<(row: E) => boolean>,
+    default: null,
+  },
+
+  /**
    * # 是否隐藏删除按钮
    */
   hideDelete: {
@@ -712,6 +724,14 @@ const props = defineProps({
   showDetail: {
     type: Boolean,
     default: false,
+  },
+
+  /**
+   * # 是否显示表格斑马纹
+   */
+  stripe: {
+    type: Boolean,
+    default: AirConfig.tableStripe,
   },
 
   /**
@@ -1229,6 +1249,18 @@ function getRowEntityField(scope: IJson, key: string): AirAny {
   return scope.row[key]
 }
 
+const tableRowClassName = ({
+  row,
+}: {
+  row: E
+  rowIndex: number
+}) => {
+  if (props.disableRow && props.disableRow(row)) {
+    return 'disable-row'
+  }
+  return ''
+}
+
 // 初始化
 function init() {
   // 初始更新
@@ -1287,7 +1319,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
@@ -1305,7 +1337,7 @@ init()
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1387,7 +1419,7 @@ init()
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1397,6 +1429,17 @@ init()
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  .disable-row {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    position: relative;
+
+    > * {
+      user-select: none;
+      filter: blur(1px);
+    }
+  }
 
   thead .cell {
     overflow: hidden;
@@ -1518,7 +1561,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0 !important;
   }
 }

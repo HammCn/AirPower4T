@@ -7,4 +7,4 @@ import { AirAny } from './AirType'
 export type ClassConstructor<T = AirAny> = {
   // eslint-disable-next-line no-unused-vars
   new(...args: AirAny[]): T;
-};
+}

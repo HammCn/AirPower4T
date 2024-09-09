@@ -211,15 +211,6 @@ export class AirValidator {
   }
 
   /**
-   * ## 获取一个验证器
-   * @param configValue 验证器配置的值
-   * @returns
-   */
-  private static getValidator(configValue: string | boolean): AirValidator {
-    return AirValidator.show(typeof configValue === 'string' ? configValue : AirConstant.EMPTY_STRING)
-  }
-
-  /**
    * ## 创建验证器
    * @param form 表单对象
    * @param service 接口服务对象
@@ -236,16 +227,21 @@ export class AirValidator {
         formRules[fieldKey] = []
       }
       if (config.requiredString) {
-        (formRules[fieldKey]).push(this.getValidator(config.requiredString).ifEmpty())
+        (formRules[fieldKey]).push(this.getValidator(config.requiredString)
+          .ifEmpty())
       }
       if (config.requiredNumber) {
-        (formRules[fieldKey]).push(this.getValidator(config.requiredNumber).toNumber().ifEmpty())
+        (formRules[fieldKey]).push(this.getValidator(config.requiredNumber)
+          .toNumber()
+          .ifEmpty())
       }
       if (config.requiredPayload) {
-        (formRules[fieldKey]).push(this.getValidator(config.requiredPayload).ifPayloadEmpty())
+        (formRules[fieldKey]).push(this.getValidator(config.requiredPayload)
+          .ifPayloadEmpty())
       }
       if (config.minLength) {
-        (formRules[fieldKey]).push(AirValidator.show().ifLengthLessThan(config.minLength))
+        (formRules[fieldKey]).push(AirValidator.show()
+          .ifLengthLessThan(config.minLength))
       }
       if (config.number) {
         if (config.min) {
@@ -258,19 +254,24 @@ export class AirValidator {
         }
       }
       if (config.chinese) {
-        (formRules[fieldKey]).push(this.getValidator(config.chinese).ifNotChinese())
+        (formRules[fieldKey]).push(this.getValidator(config.chinese)
+          .ifNotChinese())
       }
       if (config.telPhone) {
-        (formRules[fieldKey]).push(this.getValidator(config.telPhone).ifNotTelPhone())
+        (formRules[fieldKey]).push(this.getValidator(config.telPhone)
+          .ifNotTelPhone())
       }
       if (config.mobilePhone) {
-        (formRules[fieldKey]).push(this.getValidator(config.mobilePhone).ifNotMobilePhone())
+        (formRules[fieldKey]).push(this.getValidator(config.mobilePhone)
+          .ifNotMobilePhone())
       }
       if (config.phone) {
-        (formRules[fieldKey]).push(this.getValidator(config.phone).ifNotPhone())
+        (formRules[fieldKey]).push(this.getValidator(config.phone)
+          .ifNotPhone())
       }
       if (config.email) {
-        (formRules[fieldKey]).push(this.getValidator(config.email).ifNotEmail())
+        (formRules[fieldKey]).push(this.getValidator(config.email)
+          .ifNotEmail())
       }
       if (config.regExp) {
         (formRules[fieldKey]).push(AirValidator.show(AirConstant.EMPTY_STRING)
@@ -278,6 +279,15 @@ export class AirValidator {
       }
     }
     return formRules as IValidateRule<T>
+  }
+
+  /**
+   * ## 获取一个验证器
+   * @param configValue 验证器配置的值
+   * @returns
+   */
+  private static getValidator(configValue: string | boolean): AirValidator {
+    return AirValidator.show(typeof configValue === 'string' ? configValue : AirConstant.EMPTY_STRING)
   }
 
   /**

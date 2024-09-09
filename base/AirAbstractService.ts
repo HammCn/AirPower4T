@@ -32,6 +32,20 @@ export abstract class AirAbstractService extends AirModel {
   }
 
   /**
+   * ## 静态创建一个 `API` 服务实例
+   * @param loading `可选` Loading
+   */
+  static create<S extends AirAbstractService>(this: ClassConstructor<S>, loading?: Ref<boolean>): S {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const service = Object.assign(new this()) as S
+    if (loading) {
+      service.loading = loading
+    }
+    return service
+  }
+
+  /**
    * ## 创建一个 `AirHttp` 实例
    * @param url 请求的接口地址
    * @param baseUrl `可选` 请求的接口目录
@@ -47,19 +61,5 @@ export abstract class AirAbstractService extends AirModel {
       http.setLoading(this.loading)
     }
     return http
-  }
-
-  /**
-   * ## 静态创建一个 `API` 服务实例
-   * @param loading `可选` Loading
-   */
-  static create<S extends AirAbstractService>(this: ClassConstructor<S>, loading?: Ref<boolean>): S {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const service = Object.assign(new this()) as S
-    if (loading) {
-      service.loading = loading
-    }
-    return service
   }
 }
