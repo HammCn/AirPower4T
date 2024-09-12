@@ -246,22 +246,23 @@ function onUploadError() {
  */
 function onUploadSuccess(result: IJson) {
   loading.value = false
+  if (props.onCustomSuccess) {
+    props.onCustomSuccess(result)
+    props.onConfirm(null)
+    return
+  }
   if (result.code === undefined || result.code === null) {
     onUploadError()
     return
   }
   if (result.code === AirConfig.successCode) {
     AirNotification.success(props.uploadSuccess, AirI18n.get().UploadSuccess || '上传成功')
-    if (props.onCustomSuccess) {
-      props.onCustomSuccess(result.data)
-      props.onConfirm(null)
-    } else {
-      const entity = AirClassTransformer.parse(
+
+    const entity = AirClassTransformer.parse(
         result.data as IJson,
         props.entity,
-      )
-      props.onConfirm(entity)
-    }
+    )
+    props.onConfirm(entity)
   } else {
     AirNotification.error(result.message as string || '好家伙,后端的拉垮哥们连Message都没返回???', AirI18n.get().UploadError || '上传失败')
     props.onCancel()
