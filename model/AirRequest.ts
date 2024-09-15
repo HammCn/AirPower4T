@@ -16,11 +16,6 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   filter!: E
 
   /**
-   * ## 关键词搜索
-   */
-  @Type(String) keyword!: string
-
-  /**
    * ## 排序信息
    */
   @Type(AirSort) sort!: AirSort

@@ -433,11 +433,6 @@ const searchFieldList = computed(() => props.searchParams || entityInstance.valu
 const filter = ref<IJson>({})
 
 /**
- * # 查询用的关键词
- */
-const keyword = ref('')
-
-/**
  * # 查询事件
  */
 function onSearch() {
@@ -453,8 +448,6 @@ function onSearch() {
   if (request.value.page) {
     request.value.page.pageNum = 1
   }
-  request.value.keyword = keyword.value.trimEnd()
-    .trimStart()
   emits('onSearch', request.value)
 }
 
@@ -463,7 +456,6 @@ function onSearch() {
  */
 function onResetSearch() {
   filter.value = {}
-  keyword.value = ''
   request.value = new AirRequestPage(props.entity)
   request.value.exclude('filter')
   emits('onReset')
@@ -550,10 +542,6 @@ defineExpose({
     justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap-reverse;
-
-    .keyword {
-      width: 240px;
-    }
 
     >* {
       margin: 0 2px 5px;
