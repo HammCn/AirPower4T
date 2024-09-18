@@ -30,12 +30,12 @@
     </template>
   </el-input>
 </template>
-<script setup lang="ts" generic="T extends ISelector">
+<script setup lang="ts" generic="T extends IPayload">
 import {
   Component, computed, ModelRef, PropType,
 } from 'vue'
 import { AirDialog } from '../helper/AirDialog'
-import { ISelector } from '../interface/ISelector'
+import { IPayload } from '../interface/IPayload'
 
 const result = defineModel<T>() as ModelRef<T | undefined>
 
@@ -114,7 +114,7 @@ function emitClear() {
   emits('onClear')
 }
 
-const label = computed(() => result.value?.getSelectorLabel() || props.default)
+const label = computed(() => result.value?.getPayloadLabel() || props.default)
 
 async function onSelect() {
   result.value = await AirDialog.show<T>(props.selector, props.param)

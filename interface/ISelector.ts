@@ -1,10 +1,11 @@
-import { AirEntity } from '../base/AirEntity'
+import { IPayload } from './IPayload'
 
 /**
  * # 标准公共选择器接口
  * @author Hamm.cn
+ * @deprecated
  */
-export interface ISelector extends AirEntity {
+export interface ISelector extends IPayload {
   /**
    * ## 选择器显示内容
    */

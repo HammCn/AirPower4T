@@ -23,6 +23,7 @@ import ASelect from './Select.vue'
 import ASelector from './Selector.vue'
 import AMoney from './Money.vue'
 import AFormField from './FormField.vue'
+import ATablePayload from './table/Payload.vue'
 
 export {
   ACopy,
@@ -50,4 +51,5 @@ export {
   ASelector,
   AMoney,
   AFormField,
+  ATablePayload,
 }
