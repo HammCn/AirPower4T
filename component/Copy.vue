@@ -1,11 +1,11 @@
 <template>
   <el-link
     v-tip="copyTips"
-    class="air-copy"
     :underline="false"
+    class="air-copy"
     @click="copy"
   >
-    <slot>{{ content || "-" }}</slot>
+    <slot>{{ content || '-' }}</slot>
   </el-link>
 </template>
 <script lang="ts" setup>
@@ -59,8 +59,6 @@ async function copy() {
 
 <style lang="scss" scoped>
 .air-copy {
-  flex: 1;
-
   ::v-deep(.el-link__inner) {
     flex: 1;
   }
