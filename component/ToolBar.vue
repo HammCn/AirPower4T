@@ -111,9 +111,9 @@
                 v-model="data[item.key]"
                 :placeholder="item.label + '...'"
                 clearable
+                @blur="onSearch()"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
-                @blur="onSearch()"
               />
             </slot>
           </div>
@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity,S extends AirAbstractEntityService<E>">
+<script generic="E extends AirEntity,S extends AirAbstractEntityService<E>" lang="ts" setup>
 import {
   computed, PropType, Ref, ref,
 } from 'vue'
@@ -323,6 +323,15 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
+
+  /**
+   * # 默认的筛选器
+   */
+  defaultFilter: {
+    type: Object as PropType<E>,
+    default: () => {
+    },
+  },
 })
 
 /**
@@ -343,7 +352,7 @@ const entityInstance = computed(() => {
 /**
  * # 查询数据
  */
-const data = ref<IJson>({})
+const data = ref<IJson>(props.defaultFilter as IJson)
 
 /**
  * # 内部使用的配置
@@ -512,7 +521,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -543,7 +552,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 
