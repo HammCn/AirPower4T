@@ -64,4 +64,9 @@ export interface ISearchFieldConfig<K extends AirEnumKey = AirEnumKey, E extends
    * ## 搜索宽度
    */
   width?: number
+
+  /**
+   * ## 是否可移除
+   */
+  clearable?: boolean
 }

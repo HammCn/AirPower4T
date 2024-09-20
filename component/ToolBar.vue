@@ -93,7 +93,7 @@
                 v-model="data[item.key]"
                 :filterable="item.filterable"
                 :placeholder="item.label + '...'"
-                clearable
+                :clearable="item.clearable"
                 @change="onSearch()"
                 @clear=" data[item.key] = undefined"
               >
@@ -110,7 +110,7 @@
                 v-else
                 v-model="data[item.key]"
                 :placeholder="item.label + '...'"
-                clearable
+                :clearable="item.clearable"
                 @blur="onSearch()"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
