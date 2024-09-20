@@ -2,16 +2,14 @@ import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
 import {
-  AirEnumKey, AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
+  AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
 } from '../../type/AirType'
-import { AirEnum } from '../../base/AirEnum'
-import { ClassConstructor } from '../../type/ClassConstructor'
 
 /**
  * # 表格的字段配置接口
  * @author Hamm.cn
  */
-export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends AirEnum<K> = AirEnum<K>> extends IFieldConfig {
+export interface ITableFieldConfig extends IFieldConfig {
   /**
    * ## 默认隐藏
    * `可自行勾选后放出`
@@ -49,7 +47,7 @@ export interface ITableFieldConfig<K extends AirEnumKey = AirEnumKey, E extends 
    * ## 枚举字典
    * 如字典配置了 `color`, 可使用 `showColor` 配置项显示颜色
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<E>;
+  dictionary?: AirDictionaryArray;
 
   /**
    * ## 如是日期 可传入转换规则
