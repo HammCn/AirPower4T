@@ -1,5 +1,19 @@
 # AirPower4T 版本发布日志
 
+## v2.3.6
+
+### 🎉 Features:
+
+- feat(IPayload): 提供了一个`Payload`标准接口 
+
+### 🐞 Bug fixes:
+
+- fix(ISelector): 统一到 `IPayload` 接口
+- fix(Copy): 优化`Copy`组件的行内展示样式
+- fix(TableField): 移除泛型支持和冗余属性
+- fix(ToolBar): 移除关键词搜索，更新搜索逻辑 
+- fix(Upload): 修改自定义上传成功的返回事件优先级 
+
 ## v2.3.5
 
 ### 🎉 Features:
