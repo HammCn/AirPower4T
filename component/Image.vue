@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="{ width: props.imageConfig.width + 'px', height: props.imageConfig.height + 'px' }"
+    :style="{ width: width + 'px', height: height + 'px' }"
     class="air-image"
   >
     <el-image
@@ -52,13 +52,12 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="F extends IFile">
+<script generic="F extends IFile" lang="ts" setup>
 import {
   computed, PropType, ref, watch,
 } from 'vue'
 
 import { CircleCloseFilled } from '@element-plus/icons-vue'
-import { AirImageConfig } from '../config/AirImageConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
@@ -124,11 +123,19 @@ const props = defineProps({
   },
 
   /**
-   * # 图片配置
+   * # 图片宽度
    */
-  imageConfig: {
-    type: AirImageConfig,
-    default: () => new AirImageConfig(),
+  width: {
+    type: Number,
+    default: 100,
+  },
+
+  /**
+   * # 图片高度
+   */
+  height: {
+    type: Number,
+    default: 100,
   },
 
   /**
