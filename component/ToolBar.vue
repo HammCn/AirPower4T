@@ -329,8 +329,7 @@ const props = defineProps({
    */
   defaultFilter: {
     type: Object as PropType<E>,
-    default: () => {
-    },
+    default: undefined,
   },
 })
 
@@ -352,7 +351,7 @@ const entityInstance = computed(() => {
 /**
  * # 查询数据
  */
-const data = ref<IJson>(props.defaultFilter as IJson)
+const data = ref<IJson>(props.defaultFilter ? (props.defaultFilter as IJson) : {})
 
 /**
  * # 内部使用的配置
@@ -511,7 +510,6 @@ defineExpose({
   resetSearch: onResetSearch,
   search: onSearch,
 })
-
 </script>
 
 <style lang="scss">
