@@ -29,5 +29,5 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
 
   width = 150
 
-  clearable = false
+  clearable = true
 }
