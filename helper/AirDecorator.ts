@@ -18,7 +18,7 @@ export class AirDecorator {
    * ## 获取一个字典
    * @param dictionary
    */
-  static getDictionary(dictionary: ClassConstructor<AirEnum> | AirDictionaryArray | undefined):AirDictionaryArray|undefined {
+  static getDictionary(dictionary: ClassConstructor<AirEnum> | AirDictionaryArray | undefined): AirDictionaryArray | undefined {
     if (!dictionary) {
       return dictionary
     }
