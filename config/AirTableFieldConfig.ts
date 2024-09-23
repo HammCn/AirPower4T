@@ -4,6 +4,8 @@ import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirSortable, AirTableAlign, AirTableFixed } from '../type/AirType'
+import { ClassConstructor } from '../type/ClassConstructor'
+import { AirEnum } from '../base/AirEnum'
 
 /**
  * # 表格的字段配置实现类
@@ -22,7 +24,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   orderNumber = 1
 
-  dictionary?: AirDictionaryArray
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>
 
   dateTimeFormatter?: AirDateTimeFormatter | string
 
