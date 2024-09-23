@@ -28,4 +28,6 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
   filterable = true
 
   width = 150
+
+  clearable = true
 }

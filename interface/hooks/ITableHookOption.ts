@@ -19,6 +19,11 @@ export interface ITableHookOption<E extends AirEntity> {
   treeList?: boolean,
 
   /**
+   * ## 默认的筛选器
+   */
+  defaultFilter?: E,
+
+  /**
    * ## 详情的视图 `Vue` 文件
    */
   detailView?: Component

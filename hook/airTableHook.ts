@@ -30,6 +30,11 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
    */
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
 
+  if (option.defaultFilter) {
+    // 如果提供了默认筛选器 则使用它
+    request.value.filter = option.defaultFilter
+  }
+
   /**
    * ## 响应对象
    */
