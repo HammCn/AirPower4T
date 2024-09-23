@@ -436,6 +436,7 @@ function onDownloadTemplate() {
  */
 const searchFieldList = computed(() => (props.searchParams || entityInstance.value.getSearchFieldConfigList()).map((item) => {
   if (!item.dictionary) {
+    // 装饰器没有单独配置 则读取 @Dictionary 标记的
     item.dictionary = getDictionary(entityInstance.value, item.key)
   }
   return item

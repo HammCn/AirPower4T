@@ -397,6 +397,7 @@ const dictionary = computed(() => {
     return AirDecorator.getDictionary(fieldConfig.value.dictionary)
   }
   if (props.entity && fieldName.value) {
+    // 装饰器没有单独配置 则读取 @Dictionary 标记的
     return getDictionary(entityInstance.value, fieldName.value)
   }
   return undefined

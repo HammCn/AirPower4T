@@ -9,6 +9,9 @@
 ### 🐞 Bug fixes:
 
 - fix(Decorator): 修复获取字典数组的正确数据类型 
+- fix(Input): 优化了获取列配置字典数据的逻辑
+- fix(Table): 优化了获取列配置字典数据的逻辑
+- fix(ToolBar): 优化了获取列配置字典数据的逻辑
 
 ## v2.3.7
 
