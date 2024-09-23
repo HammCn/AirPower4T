@@ -143,7 +143,7 @@ export class AirDecorator {
    * @param keyList 指定的字段数组
    * @param FieldConfigClass 指定的返回类
    */
-  static getFieldConfigList<T extends AirFieldConfig>(target: AirDecoratorTarget, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>) {
+  static getFieldConfigList<T extends AirFieldConfig>(target: AirDecoratorTarget, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>): T[] {
     const fieldConfigList: T[] = []
     if (keyList.length === 0) {
       keyList = this.getFieldList(target, fieldListKey)

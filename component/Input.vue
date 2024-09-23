@@ -445,7 +445,7 @@ const getShowFormatter = computed(() => {
  * # 获取switch的颜色
  * @param status
  */
-function getSwitchColor(status: boolean) {
+function getSwitchColor(status: boolean): string {
   return dictionary.value?.find((item) => item.key === status)?.color || AirConstant.EMPTY_STRING
 }
 
@@ -453,14 +453,14 @@ function getSwitchColor(status: boolean) {
  * 获取Switch的文案
  * @param status
  */
-function getSwitchLabel(status: boolean) {
+function getSwitchLabel(status: boolean): string {
   return dictionary.value?.find((item) => item.key === status)?.label || AirConstant.EMPTY_STRING
 }
 
 /**
  * # 获取是否显示字符长度的显示label
  */
-function getShowWordLimit() {
+function getShowWordLimit(): boolean {
   if (!fieldConfig.value) {
     // 没有配置装饰器 直接不显示
     return false

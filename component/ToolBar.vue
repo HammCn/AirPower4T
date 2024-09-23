@@ -378,7 +378,7 @@ const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.sh
  * # 为URL拼接AccessToken
  * @param url
  */
-function getUrlWithAccessToken(url: string) {
+function getUrlWithAccessToken(url: string): string {
   const accessToken = AirConfig.getAccessToken()
   if (url.indexOf(`?${AirConfig.authorizationHeaderKey}=`) < 0 && url.indexOf(`&${AirConfig.authorizationHeaderKey}=`) < 0) {
     if (url.indexOf('?') < 0) {

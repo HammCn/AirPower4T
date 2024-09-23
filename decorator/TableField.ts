@@ -52,7 +52,7 @@ export function getTableFieldList(target: AirDecoratorTarget): string[] {
  * @param target 目标实体类
  * @param keyList 字段列表
  */
-export function getTableConfigList(target: AirDecoratorTarget, keyList: string[]) {
+export function getTableConfigList(target: AirDecoratorTarget, keyList: string[]): AirTableFieldConfig[] {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirTableFieldConfig)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {

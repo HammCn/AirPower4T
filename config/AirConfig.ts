@@ -417,7 +417,7 @@ export class AirConfig {
    * @param routes 路由配置文件
    * @param ignoreGuard 不使用守卫
    */
-  static createRouter(routes: RouteRecordRaw[], ignoreGuard = false) {
+  static createRouter(routes: RouteRecordRaw[], ignoreGuard = false): Router {
     // 创建路由
     const router = createRouter({
       history: createWebHistory(),

@@ -82,7 +82,8 @@
                   class="light"
                 />
                 {{
-                  AirDecorator.getDictionary(item.dictionary)?.getLabel(getRowEntityField(scope, item.key), item.emptyValue)
+                  AirDecorator.getDictionary(item.dictionary)?.getLabel(getRowEntityField(scope, item.key),
+                                                                        item.emptyValue)
                 }}
               </div>
               <!-- 是手机字段 -->
@@ -1000,7 +1001,7 @@ const isDetailShowInline = computed(() => {
  * # 获取字符串值
  * @param data 数据
  */
-function getStringValue(data: string | number | object | undefined | null) {
+function getStringValue(data: string | number | object | undefined | null): string {
   if (data === undefined || data === null) {
     return ''
   }
@@ -1062,7 +1063,7 @@ function isFieldSelected(item: AirTableFieldConfig) {
  * @param row 行
  * @param config 配置信息
  */
-function getPayloadRowData(row: IJson, config: AirTableFieldConfig) {
+function getPayloadRowData(row: IJson, config: AirTableFieldConfig): AirAny {
   if (config.key && config.payloadField && row[config.key]) {
     if (!config.payloadArray) {
       // 对象挂载

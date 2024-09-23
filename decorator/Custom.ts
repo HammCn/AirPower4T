@@ -8,7 +8,7 @@ import { AirConstant } from '../config/AirConstant'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirDecoratorTarget } from '../type/AirType'
+import { AirAny, AirDecoratorTarget } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
@@ -158,7 +158,7 @@ export function Default(value: unknown) {
  * @param target 目标类
  * @param key 属性名
  */
-export function getDefault(target: AirDecoratorTarget, key: string) {
+export function getDefault(target: AirDecoratorTarget, key: string): AirAny {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
 }
 

@@ -74,7 +74,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param form 表单对象
    * @param moreRule `可选` 更多的验证规则
    */
-  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}) {
+  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return AirValidator.createRules(form, this.newInstance(), moreRule)
@@ -237,7 +237,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * ## `内部使用`
    * @deprecated
    */
-  createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}) {
+  createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return AirValidator.createRules(form, this, moreRule)
