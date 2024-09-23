@@ -8,7 +8,7 @@ import { AirConstant } from '../config/AirConstant'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IJson } from '../interface/IJson'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirDecoratorTarget, AirEnumKey } from '../type/AirType'
+import { AirAny, AirDecoratorTarget } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 
 /**
@@ -21,13 +21,9 @@ const DICTIONARY_KEY = 'Dictionary'
  * 如直接传入枚举类，该属性的类型则必须为对应枚举类`Key`的类型
  * @param dictionary 字典数组或枚举类
  */
-export function Dictionary<K extends AirEnumKey, E extends AirEnum<K>>(dictionary: AirDictionaryArray | ClassConstructor<E>) {
+export function Dictionary(dictionary: AirDictionaryArray | ClassConstructor<AirEnum>) {
   return (target: AirDecoratorTarget, key: string) => {
-    if (!(dictionary instanceof AirDictionaryArray)) {
-      // 如果不是字典 转为字典
-      dictionary = AirDictionaryArray.create((dictionary as IJson).toDictionary())
-    }
-    AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, dictionary)
+    AirDecorator.setFieldConfig(target, key, DICTIONARY_KEY, AirDecorator.getDictionary(dictionary))
   }
 }
 
@@ -162,7 +158,7 @@ export function Default(value: unknown) {
  * @param target 目标类
  * @param key 属性名
  */
-export function getDefault(target: AirDecoratorTarget, key: string) {
+export function getDefault(target: AirDecoratorTarget, key: string): AirAny {
   return AirDecorator.getFieldConfig(target, key, DEFAULT_KEY)
 }
 

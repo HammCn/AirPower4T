@@ -3,7 +3,6 @@ import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../../enum/AirDateTimeType'
 import { AirTrim } from '../../enum/AirTrim'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
-import { AirEnumKey } from '../../type/AirType'
 import { ClassConstructor } from '../../type/ClassConstructor'
 import { IFieldConfig } from './IFieldConfig'
 
@@ -11,7 +10,7 @@ import { IFieldConfig } from './IFieldConfig'
  * # 表单的字段配置接口
  * @author Hamm.cn
  */
-export interface IFormFieldConfig<K extends AirEnumKey = AirEnumKey, E extends AirEnum<K> = AirEnum<K>> extends IFieldConfig {
+export interface IFormFieldConfig extends IFieldConfig {
   /**
    * ## 时间日期真实数据的格式
    * 仅在传入了 `dateType` 时有效
@@ -155,7 +154,7 @@ export interface IFormFieldConfig<K extends AirEnumKey = AirEnumKey, E extends A
    * ## 下拉选择枚举字典
    * 如 `AInput` 传入了自定义的数据 `list` 或 `tree`, 则此项失效
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<E>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>;
 
   /**
    * ## 是否显示枚举字典的颜色灯

@@ -151,7 +151,7 @@ export class AirModel {
    * ## 获取类的可阅读名字
    * 可使用 `@Model` 装饰器修饰 如无修饰 则直接返回类名
    */
-  static getModelName() {
+  static getModelName(): string {
     return this.newInstance()
       .getModelName()
   }

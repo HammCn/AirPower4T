@@ -207,7 +207,7 @@ function treeSelectChanged(row: T) {
  * @param value 输入的内容
  * @param node 节点
  */
-function filterNode(value: string, node: ITree) {
+function filterNode(value: string, node: ITree): boolean {
   if (!value) return true
   return node.name?.indexOf(value) !== -1
 }

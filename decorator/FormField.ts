@@ -52,7 +52,7 @@ export function getFormFieldList(target: AirDecoratorTarget): string[] {
  * @param target 目标类或对象
  * @param keyList 选择字段列表
  */
-export function getFormConfigList(target: AirDecoratorTarget, keyList: string[]) {
+export function getFormConfigList(target: AirDecoratorTarget, keyList: string[]): AirFormFieldConfig[] {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirFormFieldConfig)
     .filter((item) => !item.hide)
     .sort((a, b) => b.orderNumber - a.orderNumber)

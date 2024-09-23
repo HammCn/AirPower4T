@@ -44,7 +44,7 @@ export class AirEntity extends AirModel {
    * ## 复制一个只包含 `ID` 的实体
    * @returns 仅包含ID的实体
    */
-  copyExposeId() {
+  copyExposeId(): this {
     return this.copy()
       .exposeId()
   }
@@ -52,14 +52,14 @@ export class AirEntity extends AirModel {
   /**
    * ## 只暴露 `ID`
    */
-  exposeId() {
+  exposeId(): this {
     return this.expose(AirConstant.ID)
   }
 
   /**
    * ## 排除 `ID`
    */
-  excludeId() {
+  excludeId(): this {
     return this.exclude(AirConstant.ID)
   }
 }

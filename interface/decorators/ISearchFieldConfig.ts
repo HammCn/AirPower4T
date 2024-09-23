@@ -3,14 +3,13 @@ import { IFieldConfig } from './IFieldConfig'
 import { AirSearchDataType } from '../../enum/AirSearchDataType'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { AirEnum } from '../../base/AirEnum'
-import { AirEnumKey } from '../../type/AirType'
 import { ClassConstructor } from '../../type/ClassConstructor'
 
 /**
  * # 表格的字段配置接口
  * @author Hamm.cn
  */
-export interface ISearchFieldConfig<K extends AirEnumKey = AirEnumKey, E extends AirEnum<K> = AirEnum<K>> extends IFieldConfig {
+export interface ISearchFieldConfig extends IFieldConfig {
   /**
    * ## 隐藏搜索
    */
@@ -26,7 +25,7 @@ export interface ISearchFieldConfig<K extends AirEnumKey = AirEnumKey, E extends
    * ## 枚举字典
    * 可配置 `filterable` 等参数
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<E>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>;
 
   /**
    * ## 可筛选

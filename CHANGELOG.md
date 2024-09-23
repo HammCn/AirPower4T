@@ -1,5 +1,19 @@
 # AirPower4T 版本发布日志
 
+## v2.3.8
+
+### 🎉 Features:
+
+- feat(Field): 支持了配置枚举类到字典属性上
+
+### 🐞 Bug fixes:
+
+- fix(Decorator): 修复获取字典数组的正确数据类型 
+- fix(Input): 优化了获取列配置字典数据的逻辑
+- fix(Table): 优化了获取列配置字典数据的逻辑
+- fix(ToolBar): 优化了获取列配置字典数据的逻辑
+- fix(Type): 显式定义了一些方法返回值类型
+
 ## v2.3.7
 
 ### 🎉 Features:

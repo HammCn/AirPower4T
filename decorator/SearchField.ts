@@ -52,7 +52,7 @@ export function getSearchFieldList(target: AirDecoratorTarget): string[] {
  * @param target 目标类或对象
  * @param keyList 选择字段列表
  */
-export function getSearchConfigList(target: AirDecoratorTarget, keyList: string[]) {
+export function getSearchConfigList(target: AirDecoratorTarget, keyList: string[]): AirSearchFieldConfig[] {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirSearchFieldConfig)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {

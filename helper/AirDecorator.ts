@@ -3,7 +3,9 @@ import { IJson } from '../interface/IJson'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirDecoratorData, AirDecoratorTarget, AirEnumKey } from '../type/AirType'
+import {
+  AirAny, AirDecoratorData, AirDecoratorTarget,
+} from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { AirConstant } from '../config/AirConstant'
 
@@ -16,14 +18,14 @@ export class AirDecorator {
    * ## 获取一个字典
    * @param dictionary
    */
-  static getDictionary(dictionary: ClassConstructor<AirEnum<AirEnumKey>> | AirDictionaryArray | undefined) {
+  static getDictionary(dictionary: ClassConstructor<AirEnum> | AirDictionaryArray | undefined): AirDictionaryArray | undefined {
     if (!dictionary) {
       return dictionary
     }
     if (dictionary instanceof AirDictionaryArray) {
       return dictionary
     }
-    return dictionary
+    return (dictionary as AirAny).toDictionary()
   }
 
   /**
@@ -141,7 +143,7 @@ export class AirDecorator {
    * @param keyList 指定的字段数组
    * @param FieldConfigClass 指定的返回类
    */
-  static getFieldConfigList<T extends AirFieldConfig>(target: AirDecoratorTarget, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>) {
+  static getFieldConfigList<T extends AirFieldConfig>(target: AirDecoratorTarget, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>): T[] {
     const fieldConfigList: T[] = []
     if (keyList.length === 0) {
       keyList = this.getFieldList(target, fieldListKey)
@@ -173,6 +175,7 @@ export class AirDecorator {
       result.label = config.label
       fieldConfigList.push(result as T)
     }
+
     return fieldConfigList
   }
 

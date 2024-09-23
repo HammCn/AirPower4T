@@ -89,7 +89,7 @@
                 />
               </template>
               <el-select
-                v-else-if="item.dictionary || getDictionary(entityInstance, item.key)"
+                v-else-if="AirDecorator.getDictionary(item.dictionary)"
                 v-model="data[item.key]"
                 :filterable="item.filterable"
                 :placeholder="item.label + '...'"
@@ -97,7 +97,7 @@
                 @change="onSearch()"
                 @clear=" data[item.key] = undefined"
               >
-                <template v-for="enumItem of item.dictionary || getDictionary(entityInstance, item.key)">
+                <template v-for="enumItem of AirDecorator.getDictionary(item.dictionary)">
                   <el-option
                     v-if="!enumItem.disabled"
                     :key="enumItem.key.toString()"
@@ -158,6 +158,7 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { getDictionary } from '../decorator/Custom'
 import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
+import { AirDecorator } from '../helper/AirDecorator'
 
 const emits = defineEmits<{
   onSearch: [request: AirRequestPage<E>],
@@ -377,7 +378,7 @@ const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.sh
  * # 为URL拼接AccessToken
  * @param url
  */
-function getUrlWithAccessToken(url: string) {
+function getUrlWithAccessToken(url: string): string {
   const accessToken = AirConfig.getAccessToken()
   if (url.indexOf(`?${AirConfig.authorizationHeaderKey}=`) < 0 && url.indexOf(`&${AirConfig.authorizationHeaderKey}=`) < 0) {
     if (url.indexOf('?') < 0) {
@@ -433,7 +434,13 @@ function onDownloadTemplate() {
 /**
  * # 高级搜索字段列表
  */
-const searchFieldList = computed(() => props.searchParams || entityInstance.value.getSearchFieldConfigList())
+const searchFieldList = computed(() => (props.searchParams || entityInstance.value.getSearchFieldConfigList()).map((item) => {
+  if (!item.dictionary) {
+    // 装饰器没有单独配置 则读取 @Dictionary 标记的
+    item.dictionary = getDictionary(entityInstance.value, item.key)
+  }
+  return item
+}))
 
 /**
  * # 查询用的临时JSON
@@ -519,7 +526,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 5px;
   }
 
@@ -550,7 +557,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    > * {
+    >* {
       margin: 0 2px 5px;
     }
 

@@ -3,6 +3,8 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { ClassConstructor } from '../type/ClassConstructor'
+import { AirEnum } from '../base/AirEnum'
 
 /**
  * # 查询字段配置实现类
@@ -13,7 +15,7 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
 
   orderNumber = 1
 
-  dictionary?: AirDictionaryArray
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>
 
   between = false
 
