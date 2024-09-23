@@ -175,6 +175,7 @@ export class AirDecorator {
       result.label = config.label
       fieldConfigList.push(result as T)
     }
+
     return fieldConfigList
   }
 

@@ -69,7 +69,7 @@
               >{{ item.prefixText }}</span>
               <!-- 自动读取枚举 -->
               <div
-                v-if="item.dictionary || getDictionary(entityInstance, item.key)"
+                v-if="AirDecorator.getDictionary(item.dictionary)"
                 class="status"
               >
                 <!-- 显示状态灯 -->
@@ -77,19 +77,12 @@
                   v-if="item.showColor"
                   :style="{
                     backgroundColor:
-                      (item.dictionary || getDictionary(entityInstance, item.key) || new AirDictionaryArray())
-                        .getColor(getRowEntityField(scope, item.key), AirColor.NORMAL)
+                      AirDecorator.getDictionary(item.dictionary)?.getColor(getRowEntityField(scope, item.key), AirColor.NORMAL)
                   }"
                   class="light"
                 />
                 {{
-                  (
-                    item.dictionary ||
-                    getDictionary(entityInstance, item.key) ||
-                    new AirDictionaryArray()
-                  )
-
-                    .getLabel(getRowEntityField(scope, item.key), item.emptyValue)
+                  AirDecorator.getDictionary(item.dictionary)?.getLabel(getRowEntityField(scope, item.key), item.emptyValue)
                 }}
               </div>
               <!-- 是手机字段 -->
@@ -456,12 +449,12 @@ import { ITree } from '../interface/ITree'
 import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { getDictionary } from '../decorator/Custom'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirI18n } from '../helper/AirI18n'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
+import { AirDecorator } from '../helper/AirDecorator'
 
 const emits = defineEmits<{
   onDetail: [row: E],
@@ -933,8 +926,9 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   }
   return (entityInstance.value.getTableFieldConfigList()
     .filter((item) => !item.removed) || []).map((item) => {
-    if (item.dictionary) {
-      item.dictionary = AirDictionaryArray.create(item.dictionary)
+    if (!item.dictionary) {
+      // 装饰器没有单独配置 则读取 @Dictionary 标记的
+      item.dictionary = getDictionary(entityInstance.value, item.key)
     }
     if (item.money && !item.align) {
       item.align = 'right'
@@ -1319,7 +1313,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 0;
   }
 
@@ -1337,7 +1331,7 @@ init()
   }
 }
 
-.ctrlRow + .el-button {
+.ctrlRow+.el-button {
   margin-left: 12px;
 }
 
@@ -1419,7 +1413,7 @@ init()
   }
 }
 
-.air-table-tool-bar > * {
+.air-table-tool-bar>* {
   margin-bottom: 10px;
 }
 
@@ -1435,7 +1429,7 @@ init()
     cursor: not-allowed;
     position: relative;
 
-    > * {
+    >* {
       user-select: none;
       filter: blur(1px);
     }
@@ -1561,7 +1555,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button + .air-button {
+  .air-button+.air-button {
     margin: 0 !important;
   }
 }
