@@ -4,6 +4,8 @@ import { IFieldConfig } from './IFieldConfig'
 import {
   AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
 } from '../../type/AirType'
+import { ClassConstructor } from '@/airpower/type/ClassConstructor'
+import { AirEnum } from '@/airpower/base/AirEnum'
 
 /**
  * # 表格的字段配置接口
@@ -47,7 +49,7 @@ export interface ITableFieldConfig extends IFieldConfig {
    * ## 枚举字典
    * 如字典配置了 `color`, 可使用 `showColor` 配置项显示颜色
    */
-  dictionary?: AirDictionaryArray;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>;
 
   /**
    * ## 如是日期 可传入转换规则
