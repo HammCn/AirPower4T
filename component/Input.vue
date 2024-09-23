@@ -35,71 +35,43 @@
         @focus="emits('focus')"
       />
     </template>
-    <template v-else-if="dictionary || (fieldConfig && fieldConfig.dictionary) || list">
+    <template v-else-if="list || dictionary">
       <el-switch
         v-if="fieldConfig?.switch"
         v-model="value"
         :readonly="readonly"
         :style="{
-          '--el-switch-on-color': getSwitchColor('on'),
-          '--el-switch-off-color': getSwitchColor('off')
+          '--el-switch-on-color': getSwitchColor(true),
+          '--el-switch-off-color': getSwitchColor(false)
         }"
-        :active-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.dictionary || dictionary)?.find(
-          item => item.key === true
-        )?.label
-          || ''"
-        :inactive-text="!fieldConfig.hideSwitchLabel && (fieldConfig?.dictionary || dictionary)?.find(
-          item => item.key === false
-        )?.label
-          || ''"
+        :active-text="getSwitchLabel(true)"
+        :inactive-text="getSwitchLabel(false)"
       />
       <el-radio-group
         v-else-if="fieldConfig?.radioButton"
         v-model="value"
         :readonly="readonly"
       >
-        <template v-if="list">
-          <el-radio-button
-            v-for="item in list"
-            :key="item.key"
-            :value="item.key"
-          >
-            {{ item.label }}
-          </el-radio-button>
-        </template>
-        <template v-else>
-          <el-radio-button
-            v-for="item in (fieldConfig.dictionary || dictionary)"
-            :key="item.key"
-            :value="item.key"
-          >
-            {{ item.label }}
-          </el-radio-button>
-        </template>
+        <el-radio-button
+          v-for="item in dictionary"
+          :key="item.key"
+          :value="item.key"
+        >
+          {{ item.label }}
+        </el-radio-button>
       </el-radio-group>
       <el-radio-group
         v-else-if="fieldConfig?.radio"
         v-model="value"
         :readonly="readonly"
       >
-        <template v-if="list">
-          <el-radio
-            v-for="item in list"
-            :key="item.key"
-            :value="item.key"
-          >
-            {{ item.label }}
-          </el-radio>
-        </template>
-        <template v-else>
-          <el-radio
-            v-for="item in (fieldConfig.dictionary || dictionary)"
-            :key="item.key"
-            :value="item.key"
-          >
-            {{ item.label }}
-          </el-radio>
-        </template>
+        <el-radio
+          v-for="item in dictionary"
+          :key="item.key"
+          :value="item.key"
+        >
+          {{ item.label }}
+        </el-radio>
       </el-radio-group>
       <el-select
         v-else
@@ -123,7 +95,7 @@
         @focus="emits('focus')"
       >
         <el-option
-          v-for="item in list || dictionary || fieldConfig?.dictionary || []"
+          v-for="item in dictionary"
           :key="item.key.toString()"
           :label="item.label"
           :value="item.key"
@@ -195,10 +167,7 @@
       @blur="onBlur"
       @focus="emits('focus')"
     >
-      <template
-        v-for="(index, name) in $slots"
-        #[name]
-      >
+      <template v-for="(index, name) in $slots">
         <slot :name="name">
           <template v-if="name === 'append'">
             {{ customAppend() }}
@@ -248,6 +217,9 @@ import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
 import { AirColor } from '../enum/AirColor'
+import { AirConstant } from '../config/AirConstant'
+import { AirDecorator } from '../helper/AirDecorator'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 
 const isCustomAppend = ref(false)
 
@@ -418,6 +390,12 @@ const fieldName = ref('')
  * 枚举数据
  */
 const dictionary = computed(() => {
+  if (props.list) {
+    return AirDictionaryArray.create(props.list)
+  }
+  if (fieldConfig.value && fieldConfig.value.dictionary) {
+    return AirDecorator.getDictionary(fieldConfig.value.dictionary)
+  }
   if (props.entity && fieldName.value) {
     return getDictionary(entityInstance.value, fieldName.value)
   }
@@ -466,18 +444,16 @@ const getShowFormatter = computed(() => {
  * # 获取switch的颜色
  * @param status
  */
-function getSwitchColor(status: 'on' | 'off') {
-  if (fieldConfig.value?.disableSwitchColor) {
-    return ''
-  }
-  if (fieldConfig.value?.dictionary) {
-    return fieldConfig.value?.dictionary.find((item) => item.key === (status === 'on'))?.color || ''
-  }
+function getSwitchColor(status: boolean) {
+  return dictionary.value?.find((item) => item.key === status)?.color || AirConstant.EMPTY_STRING
+}
 
-  if (dictionary.value) {
-    return dictionary.value.find((item) => item.key === (status === 'on'))?.color || ''
-  }
-  return ''
+/**
+ * 获取Switch的文案
+ * @param status
+ */
+function getSwitchLabel(status: boolean) {
+  return dictionary.value?.find((item) => item.key === status)?.label || AirConstant.EMPTY_STRING
 }
 
 /**
