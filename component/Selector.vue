@@ -17,6 +17,7 @@
       :service="service"
       :search-params="searchParamList"
       :add-permission="addPermission"
+      :default-filter="props.props.param"
       @on-search="onSearch"
       @on-add="onAdd"
     >
@@ -28,7 +29,7 @@
       </template>
     </AToolBar>
     <ATable
-      :data-list="response.list"
+      :data-list="(unPaginate || treeList) ? list : response.list"
       :show-select="props.props.mult"
       :field-list="fields"
       hide-delete
@@ -73,7 +74,7 @@
   </ADialog>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity,S extends AirAbstractEntityService<E>,P extends AirEntity = E">
+<script lang="ts" setup generic="E extends AirEntity,S extends AirAbstractEntityService<E>">
 import { Component, computed } from 'vue'
 import {
   AButton, ADialog, APage, ATable, AToolBar,
@@ -89,6 +90,7 @@ import { AirDialog } from '../helper/AirDialog'
 import { AirNotification } from '../feedback/AirNotification'
 import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
 import { AirRequestPage } from '../model/AirRequestPage'
+import { AirAny } from '../type/AirType'
 
 const props = defineProps<{
   /**
@@ -137,6 +139,7 @@ const props = defineProps<{
    * ## 选择器标题
    */
   title?: string
+
   /**
    * ## 不分页
    * 默认请求分页接口 如配置了 `treeList` 则此项自动失效
@@ -168,7 +171,7 @@ const props = defineProps<{
     /**
      * ## 查询参数
      */
-    param: P
+    param: AirAny
 
     /**
      * ## 是否多选
@@ -209,9 +212,7 @@ if (props.treeList) {
   hookOptions.treeList = props.treeList
 }
 if (props.props.param) {
-  hookOptions.beforeSearch = (requestData: AirRequestPage<E>) => {
-    requestData.filter = Object.assign(requestData.filter, props.props.param)
-  }
+  hookOptions.defaultFilter = props.props.param
 }
 
 const {
@@ -219,6 +220,7 @@ const {
   selectList,
   isLoading,
   response,
+  list,
   disableConfirm,
   onSearch,
   onPageChanged,

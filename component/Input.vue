@@ -167,13 +167,13 @@
       @blur="onBlur"
       @focus="emits('focus')"
     >
-      <template v-for="(index, name) in $slots">
+      <template
+        v-for="(index, name) in $slots"
+        #[name]
+      >
         <slot :name="name">
           <template v-if="name === 'append'">
-            {{ customAppend() }}
-            <template v-if="fieldConfig && fieldConfig.suffixText">
-              {{ fieldConfig?.suffixText }}
-            </template>
+            {{ fieldConfig?.suffixText }}
           </template>
           <template v-if="name == 'suffix'">
             <el-icon
@@ -186,10 +186,10 @@
         </slot>
       </template>
       <template
-        v-if="!isCustomAppend && fieldConfig && fieldConfig.suffixText"
+        v-if="!$slots.append && fieldConfig?.suffixText"
         #append
       >
-        {{ fieldConfig?.suffixText }}
+        {{ fieldConfig.suffixText }}
       </template>
     </el-input>
   </div>
@@ -220,12 +220,6 @@ import { AirColor } from '../enum/AirColor'
 import { AirConstant } from '../config/AirConstant'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-
-const isCustomAppend = ref(false)
-
-function customAppend() {
-  isCustomAppend.value = true
-}
 
 const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 

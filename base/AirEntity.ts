@@ -62,4 +62,13 @@ export class AirEntity extends AirModel {
   excludeId(): this {
     return this.exclude(AirConstant.ID)
   }
+
+  /**
+   * ## 设置禁用
+   * @param isDisabled 禁用
+   */
+  setDisable(isDisabled = true): this {
+    this.isDisabled = isDisabled
+    return this
+  }
 }

@@ -1,5 +1,19 @@
 # AirPower4T 版本发布日志
 
+## v2.3.9
+
+### 🎉 Features:
+
+- feat(Selector): 支持了传入选择器默认筛选器
+- feat(Entity): 支持了一个链式调用的setDisable()方法
+
+### 🐞 Bug fixes:
+
+- fix(Selector): 修复树列表和不分页列表渲染失败的BUG
+- fix(Input): 修复具名插槽不生效的BUG
+- fix(Input): 修复`AInput`的`append`插槽和装饰器优先级
+- fix(TableField): 修复ITableFieldConfig的绝对导入路径
+
 ## v2.3.8
 
 ### 🎉 Features:
