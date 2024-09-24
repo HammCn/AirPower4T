@@ -186,10 +186,10 @@
         </slot>
       </template>
       <template
-        v-if="!$slots.append"
+        v-if="!$slots.append && fieldConfig?.suffixText"
         #append
       >
-        {{ fieldConfig?.suffixText }}
+        {{ fieldConfig.suffixText }}
       </template>
     </el-input>
   </div>
