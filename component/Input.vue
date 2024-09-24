@@ -167,7 +167,10 @@
       @blur="onBlur"
       @focus="emits('focus')"
     >
-      <template v-for="(index, name) in $slots">
+      <template
+        v-for="(index, name) in $slots"
+        #[name]
+      >
         <slot :name="name">
           <template v-if="name === 'append'">
             {{ customAppend() }}

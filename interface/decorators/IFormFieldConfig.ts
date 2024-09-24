@@ -109,6 +109,7 @@ export interface IFormFieldConfig extends IFieldConfig {
 
   /**
    * ## 后置文字
+   * 优先级高于 `AInput` 的 `append` 插槽
    */
   suffixText?: string;
 
