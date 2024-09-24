@@ -28,7 +28,7 @@
       </template>
     </AToolBar>
     <ATable
-      :data-list="response.list"
+      :data-list="(unPaginate || treeList) ? list : response.list"
       :show-select="props.props.mult"
       :field-list="fields"
       hide-delete
@@ -137,6 +137,7 @@ const props = defineProps<{
    * ## 选择器标题
    */
   title?: string
+
   /**
    * ## 不分页
    * 默认请求分页接口 如配置了 `treeList` 则此项自动失效
@@ -219,6 +220,7 @@ const {
   selectList,
   isLoading,
   response,
+  list,
   disableConfirm,
   onSearch,
   onPageChanged,
