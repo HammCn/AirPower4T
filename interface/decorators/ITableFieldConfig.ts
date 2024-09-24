@@ -4,8 +4,8 @@ import { IFieldConfig } from './IFieldConfig'
 import {
   AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
 } from '../../type/AirType'
-import { ClassConstructor } from '@/airpower/type/ClassConstructor'
-import { AirEnum } from '@/airpower/base/AirEnum'
+import { ClassConstructor } from '../../type/ClassConstructor'
+import { AirEnum } from '../../base/AirEnum'
 
 /**
  * # 表格的字段配置接口
