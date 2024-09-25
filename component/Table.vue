@@ -449,7 +449,6 @@ import { AirEntity } from '../base/AirEntity'
 import { ITree } from '../interface/ITree'
 import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { getDictionary } from '../decorator/Custom'
 import { AirI18n } from '../helper/AirI18n'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
@@ -927,10 +926,6 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   }
   return (entityInstance.value.getTableFieldConfigList()
     .filter((item) => !item.removed) || []).map((item) => {
-    if (!item.dictionary) {
-      // 装饰器没有单独配置 则读取 @Dictionary 标记的
-      item.dictionary = getDictionary(entityInstance.value, item.key)
-    }
     if (item.money && !item.align) {
       item.align = 'right'
     }

@@ -6,7 +6,7 @@ import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
 import { AirDecoratorTarget } from '../type/AirType'
-import { getFieldName } from './Custom'
+import { getDictionary, getFieldName } from './Custom'
 
 /**
  * ## 表单字段 `key`
@@ -58,6 +58,9 @@ export function getFormConfigList(target: AirDecoratorTarget, keyList: string[])
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
       item.label = item.label || getFieldName(target, item.key)
+      if (!item.dictionary) {
+        item.dictionary = getDictionary(target, item.key)
+      }
       return item
     })
 }

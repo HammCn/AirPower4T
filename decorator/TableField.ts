@@ -6,7 +6,7 @@ import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirDecoratorTarget } from '../type/AirType'
-import { getFieldName } from './Custom'
+import { getDictionary, getFieldName } from './Custom'
 
 /**
  * ## 表格字段 `key`
@@ -57,6 +57,9 @@ export function getTableConfigList(target: AirDecoratorTarget, keyList: string[]
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
       item.label = item.label || getFieldName(target, item.key)
+      if (!item.dictionary) {
+        item.dictionary = getDictionary(target, item.key)
+      }
       return item
     })
 }

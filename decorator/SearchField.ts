@@ -4,7 +4,7 @@
  */
 import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { getFieldName } from './Custom'
+import { getDictionary, getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDecoratorTarget } from '../type/AirType'
 
@@ -57,6 +57,9 @@ export function getSearchConfigList(target: AirDecoratorTarget, keyList: string[
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
       item.label = item.label || getFieldName(target, item.key)
+      if (!item.dictionary) {
+        item.dictionary = getDictionary(target, item.key)
+      }
       return item
     })
 }

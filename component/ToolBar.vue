@@ -155,7 +155,6 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { IJson } from '../interface/IJson'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { getDictionary } from '../decorator/Custom'
 import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
 import { AirDecorator } from '../helper/AirDecorator'
@@ -434,13 +433,7 @@ function onDownloadTemplate() {
 /**
  * # 高级搜索字段列表
  */
-const searchFieldList = computed(() => (props.searchParams || entityInstance.value.getSearchFieldConfigList()).map((item) => {
-  if (!item.dictionary) {
-    // 装饰器没有单独配置 则读取 @Dictionary 标记的
-    item.dictionary = getDictionary(entityInstance.value, item.key)
-  }
-  return item
-}))
+const searchFieldList = computed(() => (props.searchParams || entityInstance.value.getSearchFieldConfigList()))
 
 /**
  * # 查询用的临时JSON
