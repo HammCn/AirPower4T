@@ -2,6 +2,7 @@ import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IFieldConfig } from './IFieldConfig'
 import {
+  AirEnumKey,
   AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
 } from '../../type/AirType'
 import { ClassConstructor } from '../../type/ClassConstructor'
@@ -49,7 +50,7 @@ export interface ITableFieldConfig extends IFieldConfig {
    * ## 枚举字典
    * 如字典配置了 `color`, 可使用 `showColor` 配置项显示颜色
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>;
 
   /**
    * ## 如是日期 可传入转换规则
