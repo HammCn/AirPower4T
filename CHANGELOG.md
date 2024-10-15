@@ -1,5 +1,15 @@
 # AirPower4T 版本发布日志
 
+## v2.4.0
+
+### 🎉 Features:
+
+- feat(Dictionary): 支持了string和number类枚举的装饰器标注
+
+### 🐞 Bug fixes:
+
+- fix(Dictionary): 将获取配置时字典的优先级提前
+
 ## v2.3.9
 
 ### 🎉 Features:
