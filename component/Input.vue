@@ -213,7 +213,6 @@ import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
-import { getDictionary } from '../decorator/Custom'
 import { ITree } from '../interface/ITree'
 import { AirI18n } from '../helper/AirI18n'
 import { AirColor } from '../enum/AirColor'
@@ -389,10 +388,6 @@ const dictionary = computed(() => {
   }
   if (fieldConfig.value && fieldConfig.value.dictionary) {
     return AirDecorator.getDictionary(fieldConfig.value.dictionary)
-  }
-  if (props.entity && fieldName.value) {
-    // 装饰器没有单独配置 则读取 @Dictionary 标记的
-    return getDictionary(entityInstance.value, fieldName.value)
   }
   return undefined
 })

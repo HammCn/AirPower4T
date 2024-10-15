@@ -4,6 +4,7 @@ import { AirSearchDataType } from '../../enum/AirSearchDataType'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { AirEnum } from '../../base/AirEnum'
 import { ClassConstructor } from '../../type/ClassConstructor'
+import { AirEnumKey } from '@/airpower/type/AirType'
 
 /**
  * # 表格的字段配置接口
@@ -25,7 +26,7 @@ export interface ISearchFieldConfig extends IFieldConfig {
    * ## 枚举字典
    * 可配置 `filterable` 等参数
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>;
 
   /**
    * ## 可筛选

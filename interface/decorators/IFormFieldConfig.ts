@@ -1,3 +1,4 @@
+import { AirEnumKey } from '@/airpower/type/AirType'
 import { AirEnum } from '../../base/AirEnum'
 import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../../enum/AirDateTimeType'
@@ -155,7 +156,7 @@ export interface IFormFieldConfig extends IFieldConfig {
    * ## 下拉选择枚举字典
    * 如 `AInput` 传入了自定义的数据 `list` 或 `tree`, 则此项失效
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>;
 
   /**
    * ## 是否显示枚举字典的颜色灯

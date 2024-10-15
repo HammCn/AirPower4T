@@ -5,6 +5,7 @@ import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import {
   AirAny, AirDecoratorData, AirDecoratorTarget,
+  AirEnumKey,
 } from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { AirConstant } from '../config/AirConstant'
@@ -18,7 +19,7 @@ export class AirDecorator {
    * ## 获取一个字典
    * @param dictionary
    */
-  static getDictionary(dictionary: ClassConstructor<AirEnum> | AirDictionaryArray | undefined): AirDictionaryArray | undefined {
+  static getDictionary(dictionary: ClassConstructor<AirEnum<AirEnumKey>> | AirDictionaryArray | undefined): AirDictionaryArray | undefined {
     if (!dictionary) {
       return dictionary
     }
