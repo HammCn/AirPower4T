@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v2.4.1
+
+### 🎉 Features:
+
+### 🐞 Bug fixes:
+
 ## v2.4.0
 
 ### 🎉 Features:
@@ -32,7 +38,7 @@
 
 ### 🐞 Bug fixes:
 
-- fix(Decorator): 修复获取字典数组的正确数据类型 
+- fix(Decorator): 修复获取字典数组的正确数据类型
 - fix(Input): 优化了获取列配置字典数据的逻辑
 - fix(Table): 优化了获取列配置字典数据的逻辑
 - fix(ToolBar): 优化了获取列配置字典数据的逻辑
@@ -47,33 +53,33 @@
 
 ### 🐞 Bug fixes:
 
-- fix(Image): 直接提供了宽度和高度的配置替代类配置 
+- fix(Image): 直接提供了宽度和高度的配置替代类配置
 
 ## v2.3.6
 
 ### 🎉 Features:
 
-- feat(IPayload): 提供了一个`Payload`标准接口 
+- feat(IPayload): 提供了一个`Payload`标准接口
 
 ### 🐞 Bug fixes:
 
 - fix(ISelector): 统一到 `IPayload` 接口
 - fix(Copy): 优化`Copy`组件的行内展示样式
 - fix(TableField): 移除泛型支持和冗余属性
-- fix(ToolBar): 移除关键词搜索，更新搜索逻辑 
-- fix(Upload): 修改自定义上传成功的返回事件优先级 
+- fix(ToolBar): 移除关键词搜索，更新搜索逻辑
+- fix(Upload): 修改自定义上传成功的返回事件优先级
 
 ## v2.3.5
 
 ### 🎉 Features:
 
-- feat(Table): 支持了行斑马纹和禁用状态 
-- feat(Config): 支持配置全局是否显示表格斑马纹 
+- feat(Table): 支持了行斑马纹和禁用状态
+- feat(Config): 支持配置全局是否显示表格斑马纹
 
 ### 🐞 Bug fixes:
 
 - fix(Dictionary): 修正AirDictionaryArray的导入路径
-- fix(Service): 修改`newEntityInstance`为`protected` 
+- fix(Service): 修改`newEntityInstance`为`protected`
 - style(Code): 优化了一些代码风格和格式
 
 ## v2.3.4
