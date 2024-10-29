@@ -334,16 +334,25 @@ const props = defineProps({
  */
 const value: Ref<string | number | boolean | Array<unknown> | IJson | undefined> = ref(props.modelValue)
 
+/**
+ * # 触发 change 事件
+ */
 function emitChange() {
   emits('onChange', value.value)
   emits('change', value.value)
 }
 
+/**
+ * # 触发 blur 事件
+ */
 function emitBlur() {
   emits('blur')
   emits('onBlur')
 }
 
+/**
+ * # 触发 clear 事件
+ */
 function emitClear() {
   emits('clear')
   emits('onClear')
@@ -360,17 +369,17 @@ const entityInstance = computed(() => {
 })
 
 /**
- * 是否显示清空按钮
+ * # 是否显示清空按钮
  */
 const isClearButtonShow = ref(props.showClear)
 
 /**
- * 占位内容
+ * # 占位内容
  */
 const placeholderRef = ref(props.placeholder)
 
 /**
- * 字段的表单配置信息
+ * # 字段的表单配置信息
  */
 const fieldConfig: Ref<AirFormFieldConfig | null> = ref(null)
 
@@ -380,7 +389,7 @@ const fieldConfig: Ref<AirFormFieldConfig | null> = ref(null)
 const fieldName = ref('')
 
 /**
- * 枚举数据
+ * # 枚举数据
  */
 const dictionary = computed(() => {
   if (props.list) {
@@ -393,7 +402,7 @@ const dictionary = computed(() => {
 })
 
 /**
- * Props的value变化
+ * # Props的value变化
  */
 function onPropsValueUpdated(newProps?: typeof props) {
   if (newProps) {
@@ -439,7 +448,7 @@ function getSwitchColor(status: boolean): string {
 }
 
 /**
- * 获取Switch的文案
+ * # 获取Switch的文案
  * @param status
  */
 function getSwitchLabel(status: boolean): string {
@@ -465,7 +474,7 @@ function getShowWordLimit(): boolean {
 }
 
 /**
- * 获取输入类型的字符串
+ * # 获取输入类型的字符串
  */
 const getInputType = computed(() => {
   if (fieldConfig.value?.textarea) {
@@ -481,7 +490,7 @@ const getInputType = computed(() => {
 })
 
 /**
- * 监听Props变化, 同步数据
+ * # 监听Props变化, 同步数据
  */
 watch(props, (newProps) => {
   isClearButtonShow.value = props.showClear
@@ -489,7 +498,7 @@ watch(props, (newProps) => {
 })
 
 /**
- * 验证输入的值
+ * # 验证输入的值
  */
 function checkNumberValue() {
   if (fieldConfig.value?.number) {
@@ -515,7 +524,7 @@ function checkNumberValue() {
 }
 
 /**
- * 清空事件
+ * # 清空事件
  */
 function onClear() {
   emitClear()
@@ -523,7 +532,7 @@ function onClear() {
 }
 
 /**
- * 将数据丢出去
+ * # 将数据丢出去
  */
 function emitValue() {
   if (fieldConfig.value && value.value) {
@@ -544,7 +553,7 @@ function emitValue() {
 }
 
 /**
- * 输入键盘按下事件
+ * # 输入键盘按下事件
  * @param event
  */
 function onKeyDown(event: KeyboardEvent) {
@@ -566,7 +575,7 @@ function onKeyDown(event: KeyboardEvent) {
 }
 
 /**
- * 输入框失去焦点
+ * # 输入框失去焦点
  */
 function onBlur() {
   if (fieldConfig.value && value.value) {
@@ -592,14 +601,14 @@ function onBlur() {
 }
 
 /**
- * 监听Value变化, 同步数据
+ * # 监听Value变化, 同步数据
  */
 watch(value, () => {
   emitValue()
 })
 
 /**
- * 初始化
+ * # 初始化
  */
 function init() {
   if (props.modifier) {

@@ -34,8 +34,14 @@ const props = defineProps({
   },
 })
 
+/**
+ * # 二维码内容
+ */
 const qr = ref('')
 
+/**
+ * # 监听二维码内容变化
+ */
 watch(() => props.content, () => {
   qr.value = props.content || ''
 })

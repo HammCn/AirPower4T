@@ -156,27 +156,27 @@ const props = defineProps({
 })
 
 /**
- * 树的实例
+ * # 树的实例
  */
 const treeRef = ref<AirTreeInstance>()
 
 /**
- * 当前选中的数据
+ * # 当前选中的数据
  */
 const currentData: Ref<T | undefined> = ref()
 
 /**
- * 当前搜索关键词
+ * # 当前搜索关键词
  */
 const searchKeyword = ref('')
 
 /**
- * 是否显示树
+ * # 是否显示树
  */
 const isShow = ref(!props.defaultCollapse)
 
 /**
- * 关键词变更事件
+ * # 关键词变更事件
  */
 watch(searchKeyword, (val) => {
   if (treeRef.value) {
@@ -187,7 +187,7 @@ watch(searchKeyword, (val) => {
 const showWidth = computed(() => (isShow.value ? (`${props.width}px`) : 'auto'))
 
 /**
- * 树节点选中事件
+ * # 树节点选中事件
  * @param row
  */
 function treeSelectChanged(row: T) {
@@ -203,7 +203,7 @@ function treeSelectChanged(row: T) {
 }
 
 /**
- * 节点过滤
+ * # 节点过滤
  * @param value 输入的内容
  * @param node 节点
  */

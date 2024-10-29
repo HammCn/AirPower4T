@@ -45,6 +45,9 @@ const props = defineProps({
   },
 })
 
+/**
+ * # 💰显示金额
+ */
 const showMoney = computed(() => {
   const precision = 10 ** props.precision
   let number = props.money * precision

@@ -131,6 +131,9 @@ const props = defineProps({
   },
 })
 
+/**
+ * # 权限提示
+ */
 const permissionTips = computed(() => {
   if (AirConfig.disablePermission) {
     return props.tooltip
@@ -139,7 +142,7 @@ const permissionTips = computed(() => {
 })
 
 /**
- * 是否禁用
+ * # 是否禁用
  */
 const isDisabled = computed(() => {
   if (props.disabled) {
@@ -152,7 +155,7 @@ const isDisabled = computed(() => {
 })
 
 /**
- * 显示的图标
+ * # 显示的图标
  */
 const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
 </script>
