@@ -36,7 +36,11 @@ export function Form(config: IFormFieldConfig = {}) {
  * @param key 属性名
  */
 export function getFormConfig(target: AirDecoratorTarget, key: string): AirFormFieldConfig | null {
-  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
+  const formConfig = AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
+  if (!formConfig.dictionary) {
+    formConfig.dictionary = getDictionary(target, formConfig.key)
+  }
+  return formConfig
 }
 
 /**

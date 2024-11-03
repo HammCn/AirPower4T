@@ -36,7 +36,11 @@ export function Table(config: ITableFieldConfig = {}) {
  * @param key 属性名
  */
 export function getTableConfig(target: AirDecoratorTarget, key: string): AirTableFieldConfig | null {
-  return AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
+  const formConfig = AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
+  if (!formConfig.dictionary) {
+    formConfig.dictionary = getDictionary(target, formConfig.key)
+  }
+  return formConfig
 }
 
 /**
