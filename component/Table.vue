@@ -159,9 +159,19 @@
                     class="air-table-column"
                   >
                     <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
-                      {{
-                        desensitize(getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue, item)
-                      }}
+                      <template v-if="item.desensitize">
+                        <ADesensitize
+                          :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
+                          :desensitize="item.desensitize"
+                          :desensitize-head="item.desensitizeHead"
+                          :desensitize-tail="item.desensitizeTail"
+                        />
+                      </template>
+                      <template v-else>
+                        {{
+                          getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
+                        }}
+                      </template>
                     </ACopy>
                   </div>
                 </template>
@@ -170,9 +180,19 @@
                     :class="item.nowrap ? 'nowrap' : ''"
                     class="air-table-column"
                   >
-                    {{
-                      desensitize(getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue,item)
-                    }}
+                    <template v-if="item.desensitize">
+                      <ADesensitize
+                        :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
+                        :desensitize="item.desensitize"
+                        :desensitize-head="item.desensitizeHead"
+                        :desensitize-tail="item.desensitizeTail"
+                      />
+                    </template>
+                    <template v-else>
+                      {{
+                        getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
+                      }}
+                    </template>
                   </div>
                 </template>
               </template>
@@ -445,7 +465,7 @@ import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
 import {
-  AButton, ACopy, ADateTime, AMoney, APhone,
+  AButton, ACopy, ADateTime, ADesensitize, AMoney, APhone,
 } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
@@ -460,8 +480,6 @@ import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirDecorator } from '../helper/AirDecorator'
-import { AirDesensitize } from '../helper/AirDesensitize'
-import { AirConstant } from '../config/AirConstant'
 
 const emits = defineEmits<{
   onDetail: [row: E],
@@ -1008,21 +1026,6 @@ function getStringValue(data: string | number | object | undefined | null): stri
     return ''
   }
   return data.toString()
-}
-
-/**
- * # 脱敏
- * @param str 数据
- * @param config 行配置
- */
-function desensitize(str: string, config:AirTableFieldConfig) {
-  if (str === config.emptyValue) {
-    return str
-  }
-  if (config.desensitize) {
-    return AirDesensitize.desensitize(str, config.desensitize, config.desensitizeHead || 0, config.desensitizeTail || 0, config.desensitizeSymbol || AirConstant.ASTERISK)
-  }
-  return str
 }
 
 /**
