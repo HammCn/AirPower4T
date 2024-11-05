@@ -6,6 +6,8 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirSortable, AirTableAlign, AirTableFixed } from '../type/AirType'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEnum } from '../base/AirEnum'
+import { AirDesensitizeType } from '../enum/AirDesensitizeType'
+import { AirConstant } from './AirConstant'
 
 /**
  * # 表格的字段配置实现类
@@ -69,4 +71,12 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
   moneyPrecision = AirConfig.moneyPrecision
 
   moneyDirection? = AirConfig.moneyDirection
+
+  desensitize?: AirDesensitizeType
+
+  desensitizeHead?: number = 0
+
+  desensitizeTail?: number = 0
+
+  desensitizeSymbol?: string = AirConstant.ASTERISK
 }

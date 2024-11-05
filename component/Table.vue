@@ -88,7 +88,12 @@
               </div>
               <!-- 是手机字段 -->
               <template v-else-if="item.phone">
-                <APhone :phone="getStringValue(getRowEntityField(scope, item.key))" />
+                <APhone
+                  :phone="getStringValue(getRowEntityField(scope, item.key))"
+                  :desensitize="item.desensitize"
+                  :desensitize-head="item.desensitizeHead"
+                  :desensitize-tail="item.desensitizeTail"
+                />
               </template>
               <!-- 是金额字段 -->
               <template v-else-if="item.money">
@@ -155,7 +160,7 @@
                   >
                     <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
                       {{
-                        getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
+                        desensitize(getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue, item)
                       }}
                     </ACopy>
                   </div>
@@ -166,7 +171,7 @@
                     class="air-table-column"
                   >
                     {{
-                      getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
+                      desensitize(getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue,item)
                     }}
                   </div>
                 </template>
@@ -455,6 +460,8 @@ import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirDecorator } from '../helper/AirDecorator'
+import { AirDesensitize } from '../helper/AirDesensitize'
+import { AirConstant } from '../config/AirConstant'
 
 const emits = defineEmits<{
   onDetail: [row: E],
@@ -1001,6 +1008,21 @@ function getStringValue(data: string | number | object | undefined | null): stri
     return ''
   }
   return data.toString()
+}
+
+/**
+ * # 脱敏
+ * @param str 数据
+ * @param config 行配置
+ */
+function desensitize(str: string, config:AirTableFieldConfig) {
+  if (str === config.emptyValue) {
+    return str
+  }
+  if (config.desensitize) {
+    return AirDesensitize.desensitize(str, config.desensitize, config.desensitizeHead || 0, config.desensitizeTail || 0, config.desensitizeSymbol || AirConstant.ASTERISK)
+  }
+  return str
 }
 
 /**
