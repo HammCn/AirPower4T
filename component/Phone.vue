@@ -42,18 +42,20 @@ const props = defineProps({
 
   /**
    * # 脱敏开始保留
+   * 默认使用传入的参数
    */
   desensitizeHead: {
     type: Number,
-    default: 3,
+    default: 0,
   },
 
   /**
    * # 脱敏末尾保留
+   * 默认使用传入的参数
    */
   desensitizeTail: {
     type: Number,
-    default: 4,
+    default: 0,
   },
 })
 
