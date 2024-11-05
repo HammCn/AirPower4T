@@ -138,7 +138,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
    * ## 排序变更事件
    * @param sort 排序对象
    */
-  async function onSortChanged(sort: AirSort) {
+  async function onSortChanged(sort?: AirSort) {
     request.value.sort = sort
     request.value.page = new AirPage()
     onGetList()
