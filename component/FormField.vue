@@ -147,24 +147,38 @@ if (props.fieldList.length === 0 && !props.field) {
   throw new Error('field和fieldList必传一个！！！')
 }
 
+/**
+ * # 注入的表单数据
+ */
 const injectFormData = inject<IJson>('formData')
 
-// 手动绑定的 v-model 覆盖 自动注入的表单对象
+/**
+ * # 手动绑定的 v-model 覆盖 自动注入的表单对象
+ */
 const formData = props.modelValue ? ref<IJson>(props.modelValue) : injectFormData
 
 if (!formData) {
   throw new Error('请手动为AFormField绑定v-model或使用useAirEditor创建表单对象(推荐)！！！')
 }
 
-// 手动传入的实体类 覆盖 自动注入的实体类
+/**
+ * # 手动传入的实体类 覆盖 自动注入的实体类
+ */
 const entityClass = inject('entityClass') as ClassConstructor<E> || props.entity
 
 if (!entityClass) {
   throw new Error('请手动传入到AFormField的entity属性或使用useAirEditor创建表单对象(推荐)！！！')
 }
 
+/**
+ * # 实例化实体类
+ */
 const entityInstance = computed(() => AirClassTransformer.newInstance(entityClass))
 
+/**
+ * # 监听值变化
+ * @param val 值
+ */
 function onChange(val: unknown) {
   (formData!.value)[props.field] = val
   emits('update:modelValue', formData!.value)

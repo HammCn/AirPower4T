@@ -35,17 +35,17 @@ defineProps({
 })
 
 /**
- * 菜单状态激活
+ * # 菜单状态激活
  */
 const defaultMenu = ref(window.location.pathname)
 
 /**
- * 路由
+ * # 路由
  */
 const route = useRoute()
 
 /**
- * 监听路由
+ * # 监听路由
  */
 watch(
   () => route,

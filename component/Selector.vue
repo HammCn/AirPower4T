@@ -94,12 +94,12 @@ import { AirAny } from '../type/AirType'
 
 const props = defineProps<{
   /**
-   * ## 选择器使用的实体类
+   * # 选择器使用的实体类
    */
   entity: ClassConstructor<E>,
 
   /**
-   * ## 选择器使用的服务类
+   * # 选择器使用的服务类
    */
   service: ClassConstructor<S>,
 
@@ -110,49 +110,49 @@ const props = defineProps<{
   addPermission?: string
 
   /**
-   * ## 选择器使用的字段列表
+   * # 选择器使用的字段列表
    */
   fieldList?: AirTableFieldConfig[],
 
   /**
-   * ## `Editor`
+   * # `Editor`
    * 传入后方可开启选择器快捷添加功能
    */
   editor?: Component
 
   /**
-   * ## 搜索使用的字段列表
+   * # 搜索使用的字段列表
    */
   searchParams?: AirSearchFieldConfig[],
 
   /**
-   * ## 选择器宽度
+   * # 选择器宽度
    */
   width?: string,
 
   /**
-   * ## 选择器的高度
+   * # 选择器的高度
    */
   height?: string,
 
   /**
-   * ## 选择器标题
+   * # 选择器标题
    */
   title?: string
 
   /**
-   * ## 不分页
+   * # 不分页
    * 默认请求分页接口 如配置了 `treeList` 则此项自动失效
    */
   unPaginate?: boolean,
 
   /**
-   * ## 请求专用的 `treeList` 接口
+   * # 请求专用的 `treeList` 接口
    */
   treeList?: boolean,
 
   /**
-   * ## 搜索前的拦截方法
+   * # 搜索前的拦截方法
    * 参数为发起请求的数据,请处理后返回
    *
    * @param requestData 请求对象
@@ -161,7 +161,7 @@ const props = defineProps<{
   beforeSearch?:(requestData: AirRequestPage<E>) => AirRequestPage<E> | void
 
   /**
-   * ## Props参数
+   * # Props参数
    * ```typescript
    * const props = defineProps(airPropsSelector<?>())
    * ```
@@ -169,29 +169,29 @@ const props = defineProps<{
    */
   props: {
     /**
-     * ## 查询参数
+     * # 查询参数
      */
     param: AirAny
 
     /**
-     * ## 是否多选
+     * # 是否多选
      */
     mult: boolean,
 
     /**
-     * ## 已选中的列表
+     * # 已选中的列表
      */
     selectList: E[],
 
     /**
-     * ## 确认按钮的回调事件
+     * # 确认按钮的回调事件
      * @param data [可选] 回调的数据
      */
     // eslint-disable-next-line no-unused-vars
     onConfirm: (data?: E | E[]) => void
 
     /**
-     * ## 取消按钮的回调事件
+     * # 取消按钮的回调事件
      */
     onCancel: () => void
   }
@@ -230,6 +230,9 @@ const {
 
 const entityInstance = AirClassTransformer.parse({}, props.entity)
 
+/**
+ * # 弹窗标题
+ */
 const dialogTitle = computed(() => {
   if (props.title) {
     return props.title
@@ -237,6 +240,9 @@ const dialogTitle = computed(() => {
   return title.value
 })
 
+/**
+ * # 列定义
+ */
 const fields = computed(() => {
   if (props.fieldList) {
     return props.fieldList
@@ -245,6 +251,9 @@ const fields = computed(() => {
     .getTableFieldConfigList()
 })
 
+/**
+ * # 搜索参数
+ */
 const searchParamList = computed(() => {
   if (props.fieldList) {
     return props.searchParams
@@ -252,6 +261,9 @@ const searchParamList = computed(() => {
   return entityInstance.getSearchFieldConfigList()
 })
 
+/**
+ * # 弹出编辑器
+ */
 async function onAdd() {
   if (!props.editor) {
     AirNotification.error('请先配置编辑器')

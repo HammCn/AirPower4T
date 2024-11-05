@@ -9,7 +9,7 @@
 <script setup lang="ts">
 defineProps({
   /**
-   * ## Tab标题
+   * # Tab标题
    */
   label: {
     type: String,

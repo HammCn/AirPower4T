@@ -43,7 +43,7 @@ import { ArrowDown, ArrowRight } from '@element-plus/icons-vue'
 
 const props = defineProps({
   /**
-   * ## 最低高度
+   * # 最低高度
    */
   minHeight: {
     type: String,
@@ -108,7 +108,7 @@ const props = defineProps({
 })
 
 /**
- * 获取合理列数
+ * # 获取合理列数
  */
 function getColumn() {
   if (!props.column || props.column < 1) {
@@ -118,12 +118,12 @@ function getColumn() {
 }
 
 /**
- * 当前展开收起的状态
+ * # 当前展开收起的状态
  */
 const isCollapse = ref(props.collapse)
 
 /**
- * 获取body的样式类
+ * # 获取body的样式类
  */
 function getBodyClass() {
   return props.autoCol ? 'column-auto ' : `column-${getColumn()} `
