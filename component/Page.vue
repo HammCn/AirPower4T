@@ -112,7 +112,14 @@ const props = defineProps({
   },
 })
 
+/**
+ * # 页码对象
+ */
 const page = ref(new AirPage())
+
+/**
+ * # 当前页码
+ */
 const currentPage = ref(page.value.pageNum)
 
 /**
@@ -142,6 +149,9 @@ function sizeChanged(size: number): void {
   emitChange()
 }
 
+/**
+ * # 禁用页码标签
+ */
 const disablePageLabel = '...'
 
 /**
@@ -212,7 +222,14 @@ function currentPageChanged() {
   }
 }
 
+/**
+ * # 页码宽度
+ */
 const pageItemWidth = [30, 30, 30, 30, 40, 52, 58, 64, 70]
+
+/**
+ * # 页码容器宽度
+ */
 const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
 
 </script>

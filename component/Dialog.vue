@@ -289,47 +289,47 @@ const cursorRef = ref('grab')
 const domId = ref(AirDialog.currentDialogId)
 
 /**
- * 窗体偏移的x
+ * # 窗体偏移的x
  */
 const x = ref(0)
 
 /**
- * 窗体偏移的y
+ * # 窗体偏移的y
  */
 const y = ref(0)
 
 /**
- * 是否正在移动
+ * # 是否正在移动
  */
 const isMoving = ref(false)
 
 /**
- * 开始移动的鼠标x
+ * # 开始移动的鼠标x
  */
 let startX = 0
 
 /**
- * 开始移动的鼠标Y
+ * # 开始移动的鼠标Y
  */
 let startY = 0
 
 /**
- * 窗口的真实宽度
+ * # 窗口的真实宽度
  */
 let trueWidth = 0
 
 /**
- * 窗口的真实高度
+ * # 窗口的真实高度
  */
 let trueHeight = 0
 
 /**
- * 是否全屏
+ * # 是否全屏
  */
 const isFullScreen = ref(props.fullable && props.fullScreen)
 
 /**
- * 强制焦点丢失
+ * # 强制焦点丢失
  */
 onMounted(() => {
   document.getElementById(`hidden-button-${domId.value}`)
@@ -337,7 +337,7 @@ onMounted(() => {
 })
 
 /**
- * 抛出全屏切换的事件
+ * # 抛出全屏切换的事件
  */
 watch(isFullScreen, () => {
   emits('onFull', isFullScreen.value)
@@ -354,7 +354,7 @@ watch(() => AirStore().escKeyDown, () => {
 const dialogIdPrefix = 'dialog_'
 
 /**
- * 鼠标按下的事件
+ * # 鼠标按下的事件
  * @param event
  */
 function dialogMouseDownEvent(event: MouseEvent) {
@@ -373,7 +373,7 @@ function dialogMouseDownEvent(event: MouseEvent) {
 }
 
 /**
- * 双击标题事件
+ * # 双击标题事件
  */
 function headerDoubleClicked() {
   if (!props.fullable) {
@@ -386,7 +386,7 @@ function headerDoubleClicked() {
 }
 
 /**
- * 鼠标放开事件
+ * # 鼠标放开事件
  */
 function dialogMouseUpEvent() {
   if (isMoving.value) {
@@ -396,7 +396,7 @@ function dialogMouseUpEvent() {
 }
 
 /**
- * 鼠标移动事件
+ * # 鼠标移动事件
  * @param event event
  */
 function dialogMouseMoveEvent(event: MouseEvent) {
@@ -421,12 +421,12 @@ function dialogMouseMoveEvent(event: MouseEvent) {
 }
 
 /**
- * 当前抖动状态
+ * # 当前抖动状态
  */
 const isShaking = ref(false)
 
 /**
- * 获取样式
+ * # 获取样式
  */
 const getDialogClass = computed(() => {
   const arr: string[] = []
@@ -440,7 +440,7 @@ const getDialogClass = computed(() => {
 })
 
 /**
- * 点击背景后的抖动
+ * # 点击背景后的抖动
  */
 function dialogBgClicked() {
   if (props.hoverClose) {
@@ -456,7 +456,9 @@ function dialogBgClicked() {
   }, 400)
 }
 
-// 表单提交
+/**
+ * # 表单提交
+ */
 async function confirmEvent() {
   if (!props.formRef) {
     // 无需校验

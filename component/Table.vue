@@ -1212,7 +1212,7 @@ function handleSelectChanged(list: E[]) {
  * @param data
  */
 function handleSortChanged(data: { prop: string; order: string }) {
-  if (data.prop) {
+  if (data.prop && data.order) {
     const sort = new AirSort()
     sort.field = data.prop
     sort.direction = data.order === 'descending' ? AirSortType.DESC : AirSortType.ASC

@@ -114,8 +114,14 @@ function emitClear() {
   emits('onClear')
 }
 
+/**
+ * # 显示标签
+ */
 const label = computed(() => result.value?.getPayloadLabel() || props.default)
 
+/**
+ * # 选择事件
+ */
 async function onSelect() {
   result.value = await AirDialog.show<T>(props.selector, props.param)
   emitChange()

@@ -108,7 +108,7 @@ defineProps({
 })
 
 /**
- * 是否全屏
+ * # 是否全屏
  */
 const isFullScreen = ref(false)
 </script>

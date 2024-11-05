@@ -87,7 +87,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * @param sort 排序对象
    */
   // eslint-disable-next-line no-unused-vars
-  onSortChanged: (sort: AirSort) => void,
+  onSortChanged: (sort?: AirSort) => void | Promise<void>,
 
   /**
    * ## 多选事件

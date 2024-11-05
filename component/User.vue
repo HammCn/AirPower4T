@@ -94,7 +94,7 @@ const userAvatar = computed(() => {
 })
 
 /**
- * 退出登录
+ * # 退出登录
  */
 async function logout() {
   await AirConfirm.create()

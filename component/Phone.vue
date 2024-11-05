@@ -30,6 +30,9 @@ const props = defineProps({
   },
 })
 
+/**
+ * # 显示拨打电话弹窗
+ */
 async function callPhone() {
   await AirDialog.show(Call, props.phone)
 }
