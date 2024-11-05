@@ -17,7 +17,7 @@ export class AirDesensitize {
    * @return 替换后的字符串
    */
   public static replace(text: string, head: number, tail: number, symbol: string): string {
-    if (head <= 0 || tail <= 0 || head + tail >= text.length) {
+    if (head < 0 || tail < 0 || head + tail >= text.length) {
       return text
     }
     let str = ''
