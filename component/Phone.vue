@@ -73,7 +73,7 @@ const desensitizePhone = computed(() => {
   if (!props.desensitize) {
     return props.phone
   }
-  return AirDesensitize.desensitize(props.phone, props.desensitize)
+  return AirDesensitize.desensitize(props.phone, props.desensitize, props.desensitizeHead, props.desensitizeTail)
 })
 
 </script>
