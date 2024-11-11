@@ -88,7 +88,12 @@
               </div>
               <!-- 是手机字段 -->
               <template v-else-if="item.phone">
-                <APhone :phone="getStringValue(getRowEntityField(scope, item.key))" />
+                <APhone
+                  :phone="getStringValue(getRowEntityField(scope, item.key))"
+                  :desensitize="item.desensitize"
+                  :desensitize-head="item.desensitizeHead"
+                  :desensitize-tail="item.desensitizeTail"
+                />
               </template>
               <!-- 是金额字段 -->
               <template v-else-if="item.money">
@@ -154,9 +159,19 @@
                     class="air-table-column"
                   >
                     <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
-                      {{
-                        getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
-                      }}
+                      <template v-if="item.desensitize">
+                        <ADesensitize
+                          :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
+                          :desensitize="item.desensitize"
+                          :desensitize-head="item.desensitizeHead"
+                          :desensitize-tail="item.desensitizeTail"
+                        />
+                      </template>
+                      <template v-else>
+                        {{
+                          getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
+                        }}
+                      </template>
                     </ACopy>
                   </div>
                 </template>
@@ -165,9 +180,19 @@
                     :class="item.nowrap ? 'nowrap' : ''"
                     class="air-table-column"
                   >
-                    {{
-                      getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
-                    }}
+                    <template v-if="item.desensitize">
+                      <ADesensitize
+                        :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
+                        :desensitize="item.desensitize"
+                        :desensitize-head="item.desensitizeHead"
+                        :desensitize-tail="item.desensitizeTail"
+                      />
+                    </template>
+                    <template v-else>
+                      {{
+                        getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
+                      }}
+                    </template>
                   </div>
                 </template>
               </template>
@@ -440,7 +465,7 @@ import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
 import {
-  AButton, ACopy, ADateTime, AMoney, APhone,
+  AButton, ACopy, ADateTime, ADesensitize, AMoney, APhone,
 } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'

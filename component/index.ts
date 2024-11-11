@@ -24,6 +24,7 @@ import ASelector from './Selector.vue'
 import AMoney from './Money.vue'
 import AFormField from './FormField.vue'
 import ATablePayload from './table/Payload.vue'
+import ADesensitize from './Desensitize.vue'
 
 export {
   ACopy,
@@ -52,4 +53,5 @@ export {
   AMoney,
   AFormField,
   ATablePayload,
+  ADesensitize,
 }
