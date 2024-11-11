@@ -7,6 +7,7 @@ import {
 } from '../../type/AirType'
 import { ClassConstructor } from '../../type/ClassConstructor'
 import { AirEnum } from '../../base/AirEnum'
+import { AirDesensitizeType } from '@/airpower/enum/AirDesensitizeType'
 
 /**
  * # 表格的字段配置接口
@@ -179,4 +180,24 @@ export interface ITableFieldConfig extends IFieldConfig {
    * 默认为 `AirConfig.moneyDirection` 可手动在 `main.ts` 中覆盖全局默认值
    */
   moneyDirection?: AirMoneyDirection
+
+  /**
+   * ## 脱敏
+   */
+  desensitize?: AirDesensitizeType
+
+  /**
+   * ## 脱敏开始保留
+   */
+  desensitizeHead?: number
+
+  /**
+   * ## 脱敏结尾保留
+   */
+  desensitizeTail?: number
+
+  /**
+   * ## 脱敏符号
+   */
+  desensitizeSymbol?: string
 }

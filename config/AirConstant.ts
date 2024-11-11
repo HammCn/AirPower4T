@@ -40,6 +40,11 @@ export class AirConstant {
   static readonly AND_MARK = '&'
 
   /**
+   * ## 星号 `*`
+   */
+  static readonly ASTERISK = '*'
+
+  /**
    * ## `AirModel`
    */
   static readonly AIR_MODEL = 'AirModel'
