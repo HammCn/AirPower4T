@@ -1,5 +1,11 @@
 # AirPower4T 版本发布日志
 
+## v2.4.3
+
+### 🎉 Features:
+
+### 🐞 Bug fixes:
+
 ## v2.4.2
 
 ### 🎉 Features:
