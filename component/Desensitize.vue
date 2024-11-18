@@ -15,6 +15,7 @@
 import { computed, ref } from 'vue'
 import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 import { AirDesensitize } from '../helper/AirDesensitize'
+import { AirConstant } from '../config/AirConstant'
 
 const props = defineProps({
   /**
@@ -50,6 +51,14 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+
+  /**
+   * # 脱敏符号
+   */
+  desensitizeSymbol: {
+    type: String,
+    default: AirConstant.ASTERISK,
+  },
 })
 
 const isDesensitize = ref(true)
@@ -64,7 +73,7 @@ const desensitized = computed(() => {
   if (!props.desensitize) {
     return props.content
   }
-  return AirDesensitize.desensitize(props.content, props.desensitize, props.desensitizeHead, props.desensitizeTail)
+  return AirDesensitize.desensitize(props.content, props.desensitize, props.desensitizeHead, props.desensitizeTail, props.desensitizeSymbol)
 })
 </script>
 

@@ -93,6 +93,7 @@
                   :desensitize="item.desensitize"
                   :desensitize-head="item.desensitizeHead"
                   :desensitize-tail="item.desensitizeTail"
+                  :desensitize-symbol="item.desensitizeSymbol"
                 />
               </template>
               <!-- 是金额字段 -->
@@ -165,6 +166,7 @@
                           :desensitize="item.desensitize"
                           :desensitize-head="item.desensitizeHead"
                           :desensitize-tail="item.desensitizeTail"
+                          :desensitize-symbol="item.desensitizeSymbol"
                         />
                       </template>
                       <template v-else>
@@ -186,6 +188,7 @@
                         :desensitize="item.desensitize"
                         :desensitize-head="item.desensitizeHead"
                         :desensitize-tail="item.desensitizeTail"
+                        :desensitize-symbol="item.desensitizeSymbol"
                       />
                     </template>
                     <template v-else>
