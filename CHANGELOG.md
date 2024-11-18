@@ -4,6 +4,8 @@
 
 ### 🎉 Features:
 
+- feat(Desensitize): 增加自定义脱敏符号功能
+
 ### 🐞 Bug fixes:
 
 ## v2.4.2
