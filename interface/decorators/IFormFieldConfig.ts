@@ -1,4 +1,4 @@
-import { AirEnumKey } from '@/airpower/type/AirType'
+import { AirEnumKey } from '../../type/AirType'
 import { AirEnum } from '../../base/AirEnum'
 import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../../enum/AirDateTimeType'

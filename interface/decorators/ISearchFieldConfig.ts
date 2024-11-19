@@ -4,7 +4,7 @@ import { AirSearchDataType } from '../../enum/AirSearchDataType'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { AirEnum } from '../../base/AirEnum'
 import { ClassConstructor } from '../../type/ClassConstructor'
-import { AirEnumKey } from '@/airpower/type/AirType'
+import { AirEnumKey } from '../../type/AirType'
 
 /**
  * # 表格的字段配置接口
