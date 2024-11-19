@@ -150,7 +150,6 @@ import { AirPermission } from '../helper/AirPermission'
 import { IFile } from '../interface/IFile'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequestPage } from '../model/AirRequestPage'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { IJson } from '../interface/IJson'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
@@ -158,6 +157,7 @@ import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
 import { AirDecorator } from '../helper/AirDecorator'
 import { getModelConfig } from '../decorator/Model'
+import { ClassConstructor } from '../type/AirType'
 
 const emits = defineEmits<{
   onSearch: [request: AirRequestPage<E>],
@@ -519,7 +519,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 5px;
   }
 
@@ -550,7 +550,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    > * {
+    >* {
       margin: 0 2px 5px;
     }
 

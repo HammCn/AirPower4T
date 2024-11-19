@@ -1,8 +1,7 @@
 import {
   computed, Ref, ref, watch,
 } from 'vue'
-import { AirFormInstance } from '../type/AirType'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { AirFormInstance, ClassConstructor } from '../type/AirType'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirEntity } from '../base/AirEntity'

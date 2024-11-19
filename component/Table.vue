@@ -462,7 +462,7 @@ import { Setting } from '@element-plus/icons-vue'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { AirAny, AirTableInstance } from '../type/AirType'
+import { AirAny, AirTableInstance, ClassConstructor } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
@@ -480,7 +480,6 @@ import { AirI18n } from '../helper/AirI18n'
 import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirDecorator } from '../helper/AirDecorator'
 import { getModelConfig } from '../decorator/Model'
 
@@ -1337,7 +1336,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 0;
   }
 
@@ -1355,7 +1354,7 @@ init()
   }
 }
 
-.ctrlRow + .el-button {
+.ctrlRow+.el-button {
   margin-left: 12px;
 }
 
@@ -1437,7 +1436,7 @@ init()
   }
 }
 
-.air-table-tool-bar > * {
+.air-table-tool-bar>* {
   margin-bottom: 10px;
 }
 
@@ -1453,7 +1452,7 @@ init()
     cursor: not-allowed;
     position: relative;
 
-    > * {
+    >* {
       user-select: none;
       filter: blur(1px);
     }
@@ -1579,7 +1578,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button + .air-button {
+  .air-button+.air-button {
     margin: 0 !important;
   }
 }

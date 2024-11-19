@@ -1,6 +1,5 @@
 import { AirEnum } from '../../base/AirEnum'
-import { ClassConstructor } from '../../type/ClassConstructor'
-import { AirAny } from '../../type/AirType'
+import { AirAny, ClassConstructor } from '../../type/AirType'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IField } from './IField'
 

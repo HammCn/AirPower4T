@@ -63,9 +63,9 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
 import { AirConfig } from '../config/AirConfig'
 import { IFile } from '../interface/IFile'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
+import { ClassConstructor } from '../type/AirType'
 
 const emits = defineEmits<{
   onUpload: [file: F],

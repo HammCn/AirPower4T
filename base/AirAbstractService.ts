@@ -1,7 +1,7 @@
 import { Ref } from 'vue'
 import { AirHttp } from '../helper/AirHttp'
 import { AirModel } from '../base/AirModel'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # `API` 服务超类

@@ -1,9 +1,9 @@
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirConfig } from '../config/AirConfig'
 import { AirEntity } from '../base/AirEntity'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirConstant } from '../config/AirConstant'
 import { getModelConfig } from '../decorator/Model'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 权限标识处理类

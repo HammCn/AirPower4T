@@ -57,9 +57,9 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
 import { IFile } from '../interface/IFile'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
+import { ClassConstructor } from '../type/AirType'
 
 const props = defineProps({
   /**
@@ -259,8 +259,8 @@ function onUploadSuccess(result: IJson) {
     AirNotification.success(props.uploadSuccess, AirI18n.get().UploadSuccess || '上传成功')
 
     const entity = AirClassTransformer.parse(
-        result.data as IJson,
-        props.entity,
+      result.data as IJson,
+      props.entity,
     )
     props.onConfirm(entity)
   } else {

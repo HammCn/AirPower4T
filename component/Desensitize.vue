@@ -3,7 +3,7 @@
     <el-icon
       :class="!isDesensitize ? 'desensitize' : ''"
       class="icon"
-      @click.stop="isDesensitize=!isDesensitize"
+      @click.stop="isDesensitize = !isDesensitize"
     >
       <View v-if="isDesensitize" />
       <Hide v-else />

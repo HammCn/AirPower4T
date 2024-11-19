@@ -10,8 +10,8 @@ import { getSearchConfigList } from '../decorator/SearchField'
 import { getTableConfigList } from '../decorator/TableField'
 import { IFieldConfig } from '../interface/decorators/IFieldConfig'
 import { IJson } from '../interface/IJson'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { IModelConfig } from '../interface/decorators/IModelConfig'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 模型超类
@@ -60,7 +60,7 @@ export class AirModel {
       const props = getFieldConfig(instance, fieldKey)
       let fieldData = json[
         (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
-      + (props.alias || fieldKey)]
+        + (props.alias || fieldKey)]
 
       if (fieldData === undefined) {
         // 没有值尝试获取默认值

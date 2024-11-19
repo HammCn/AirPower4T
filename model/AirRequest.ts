@@ -2,7 +2,7 @@ import { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
 import { Field } from '../decorator/Field'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { ClassConstructor } from '../type/AirType'
 import { AirSort } from './AirSort'
 
 /**

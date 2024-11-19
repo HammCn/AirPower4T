@@ -1,12 +1,12 @@
 import { computed, ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
 import { IUseSelectorResult } from '../interface/hooks/IUseSelectorResult'
 import { IJson } from '../interface/IJson'
 import { airTableHook } from './airTableHook'
 import { AirI18n } from '../helper/AirI18n'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 引入`Selector`使用的`Hook`

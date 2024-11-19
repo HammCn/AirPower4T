@@ -1,10 +1,9 @@
-import { AirEnumKey } from '../../type/AirType'
+import { AirEnumKey, ClassConstructor } from '../../type/AirType'
 import { AirEnum } from '../../base/AirEnum'
 import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../../enum/AirDateTimeType'
 import { AirTrim } from '../../enum/AirTrim'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
-import { ClassConstructor } from '../../type/ClassConstructor'
 import { IField } from './IField'
 
 /**

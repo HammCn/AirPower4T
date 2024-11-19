@@ -3,12 +3,12 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirValidator } from '../helper/AirValidator'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 import { AirAbstractService } from './AirAbstractService'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 实体 `API` 服务超类

@@ -3,8 +3,8 @@ import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IField } from './IField'
 import {
   AirEnumKey, AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
+  ClassConstructor,
 } from '../../type/AirType'
-import { ClassConstructor } from '../../type/ClassConstructor'
 import { AirEnum } from '../../base/AirEnum'
 import { AirDesensitizeType } from '../../enum/AirDesensitizeType'
 

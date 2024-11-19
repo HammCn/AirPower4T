@@ -83,14 +83,13 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { useAirSelector } from '../hook/useAirSelector'
 import { AirEntity } from '../base/AirEntity'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirDialog } from '../helper/AirDialog'
 import { AirNotification } from '../feedback/AirNotification'
 import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
 import { AirRequestPage } from '../model/AirRequestPage'
-import { AirAny } from '../type/AirType'
+import { AirAny, ClassConstructor } from '../type/AirType'
 
 const props = defineProps<{
   /**

@@ -1,7 +1,7 @@
 import { AirModel } from '../base/AirModel'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { ITree } from '../interface/ITree'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 转换类型助手

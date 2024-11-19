@@ -1,4 +1,4 @@
-import { ClassConstructor } from '../../type/ClassConstructor'
+import { ClassConstructor } from '../../type/AirType'
 import { IFile } from '../IFile'
 import { IJson } from '../IJson'
 
