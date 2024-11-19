@@ -1,5 +1,13 @@
 # AirPower4T 版本发布日志
 
+## v2.4.3
+
+### 🎉 Features:
+
+- feat(Desensitize): 增加自定义脱敏符号功能
+
+### 🐞 Bug fixes:
+
 ## v2.4.2
 
 ### 🎉 Features:

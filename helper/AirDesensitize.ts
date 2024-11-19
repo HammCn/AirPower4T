@@ -1,6 +1,11 @@
 import { AirConstant } from '../config/AirConstant'
 import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 
+/**
+ * # 脱敏助手类
+ *
+ * @author Hamm.cn
+ */
 export class AirDesensitize {
   /**
    * ## `IPv4` 的块长度
