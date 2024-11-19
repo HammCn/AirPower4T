@@ -5,13 +5,13 @@ import { AirDateTimeType } from '../../enum/AirDateTimeType'
 import { AirTrim } from '../../enum/AirTrim'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../../type/ClassConstructor'
-import { IFieldConfig } from './IFieldConfig'
+import { IField } from './IField'
 
 /**
  * # 表单的字段配置接口
  * @author Hamm.cn
  */
-export interface IFormFieldConfig extends IFieldConfig {
+export interface IFormFieldConfig extends IField {
   /**
    * ## 时间日期真实数据的格式
    * 仅在传入了 `dateType` 时有效

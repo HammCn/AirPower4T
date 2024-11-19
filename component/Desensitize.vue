@@ -1,8 +1,8 @@
 <template>
   <div class="air-desensitize">
     <el-icon
-      class="icon"
       :class="!isDesensitize ? 'desensitize' : ''"
+      class="icon"
       @click.stop="isDesensitize=!isDesensitize"
     >
       <View v-if="isDesensitize" />
@@ -13,6 +13,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { Hide, View } from '@element-plus/icons-vue'
 import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 import { AirDesensitize } from '../helper/AirDesensitize'
 import { AirConstant } from '../config/AirConstant'
@@ -27,17 +28,17 @@ const props = defineProps({
   },
 
   /**
- * # 是否脱敏
- */
+   * # 是否脱敏
+   */
   desensitize: {
     type: AirDesensitizeType,
     default: undefined,
   },
 
   /**
- * # 脱敏开始保留
- * 默认使用传入的参数
- */
+   * # 脱敏开始保留
+   * 默认使用传入的参数
+   */
   desensitizeHead: {
     type: Number,
     default: 0,
@@ -79,14 +80,16 @@ const desensitized = computed(() => {
 
 <style lang="scss" scoped>
 .air-desensitize {
-  display: flex!important;
+  display: flex !important;
   flex-direction: row;
   align-items: center;
-  .icon{
+
+  .icon {
     margin-right: 3px;
     font-weight: bold;
   }
-  .desensitize{
+
+  .desensitize {
     color: red;
   }
 }

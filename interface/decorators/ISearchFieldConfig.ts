@@ -1,5 +1,5 @@
 import { AirBetweenType } from '../../enum/AirBetweenType'
-import { IFieldConfig } from './IFieldConfig'
+import { IField } from './IField'
 import { AirSearchDataType } from '../../enum/AirSearchDataType'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { AirEnum } from '../../base/AirEnum'
@@ -10,7 +10,7 @@ import { AirEnumKey } from '@/airpower/type/AirType'
  * # 表格的字段配置接口
  * @author Hamm.cn
  */
-export interface ISearchFieldConfig extends IFieldConfig {
+export interface ISearchFieldConfig extends IField {
   /**
    * ## 隐藏搜索
    */

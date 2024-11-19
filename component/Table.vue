@@ -89,11 +89,11 @@
               <!-- 是手机字段 -->
               <template v-else-if="item.phone">
                 <APhone
-                  :phone="getStringValue(getRowEntityField(scope, item.key))"
                   :desensitize="item.desensitize"
                   :desensitize-head="item.desensitizeHead"
-                  :desensitize-tail="item.desensitizeTail"
                   :desensitize-symbol="item.desensitizeSymbol"
+                  :desensitize-tail="item.desensitizeTail"
+                  :phone="getStringValue(getRowEntityField(scope, item.key))"
                 />
               </template>
               <!-- 是金额字段 -->
@@ -165,8 +165,8 @@
                           :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
                           :desensitize="item.desensitize"
                           :desensitize-head="item.desensitizeHead"
-                          :desensitize-tail="item.desensitizeTail"
                           :desensitize-symbol="item.desensitizeSymbol"
+                          :desensitize-tail="item.desensitizeTail"
                         />
                       </template>
                       <template v-else>
@@ -187,8 +187,8 @@
                         :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
                         :desensitize="item.desensitize"
                         :desensitize-head="item.desensitizeHead"
-                        :desensitize-tail="item.desensitizeTail"
                         :desensitize-symbol="item.desensitizeSymbol"
+                        :desensitize-tail="item.desensitizeTail"
                       />
                     </template>
                     <template v-else>
@@ -418,7 +418,7 @@
           src="../assets/img/empty.svg"
           style="width: 80px;"
         >
-        <div>{{ emptyText || entityConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
+        <div>{{ emptyText || modelConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
       </template>
     </el-table>
     <div class="air-field-selector">
@@ -459,7 +459,6 @@ import {
 } from 'vue'
 
 import { Setting } from '@element-plus/icons-vue'
-import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
@@ -483,6 +482,7 @@ import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
 import { ClassConstructor } from '../type/ClassConstructor'
 import { AirDecorator } from '../helper/AirDecorator'
+import { getModelConfig } from '../decorator/Model'
 
 const emits = defineEmits<{
   onDetail: [row: E],
@@ -923,13 +923,13 @@ watch(() => AirStore().controlKeyDown, () => {
 /**
  * # 内部使用的配置
  */
-const entityConfig = computed(() => getEntityConfig(entityInstance.value))
+const modelConfig = computed(() => getModelConfig(entityInstance.value))
 
 /**
  * # 字段选择器是否启用
  */
 const isFieldSelectorEnabled = computed(() => {
-  if (entityConfig.value.hideFieldSelector) {
+  if (modelConfig.value.hideFieldSelector) {
     // 全局标记了隐藏
     return false
   }
@@ -1182,7 +1182,7 @@ async function handleDelete(item: E) {
       // 如果实体传入 则尝试自动获取
 
       title = AirI18n.get().DeleteConfirm || '确认删除'
-      content = AirI18n.get().AreYouConfirmToDelete || '是否确认删除选择的数据'
+      content = AirI18n.get().AreYouConfirmToDelete || '是否确认删除选择这行的数据？'
 
       // 如果传入配置项 则覆盖实体标注的内容
       if (props.deleteTitle) {
@@ -1337,7 +1337,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
@@ -1355,7 +1355,7 @@ init()
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1437,7 +1437,7 @@ init()
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1453,7 +1453,7 @@ init()
     cursor: not-allowed;
     position: relative;
 
-    >* {
+    > * {
       user-select: none;
       filter: blur(1px);
     }
@@ -1579,7 +1579,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0 !important;
   }
 }

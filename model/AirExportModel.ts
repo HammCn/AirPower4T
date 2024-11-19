@@ -1,5 +1,4 @@
 import { AirModel } from '../base/AirModel'
-import { Type } from '../decorator/Custom'
 import { AirRequest } from './AirRequest'
 
 /**
@@ -10,12 +9,12 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
   /**
    * ## 创建导出任务的API地址
    */
-  @Type(String) createExportTaskUrl!: string
+  createExportTaskUrl!: string
 
   /**
    * ## 查询导出结果的 `API` 地址
    */
-  @Type(String) queryExportUrl!: string
+  queryExportUrl!: string
 
   /**
    * ## 请求的参数
@@ -25,5 +24,5 @@ export class AirExportModel<R extends AirRequest = AirRequest> extends AirModel 
   /**
    * ## 下载导出文件的临时令牌
    */
-  @Type(String) fileCode!: string
+  fileCode!: string
 }

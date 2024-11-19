@@ -40,7 +40,7 @@ export class AirDesensitize {
    * ## `IPv4` 地址脱敏
    *
    * @param ipv4   `IPv4` 地址
-   * @param symbol [可选]符号
+   * @param symbol 脱敏符号
    * @return 脱敏后的 `IPv4` 地址
    */
   public static desensitizeIpv4Address(ipv4: string, symbol = AirConstant.ASTERISK): string {

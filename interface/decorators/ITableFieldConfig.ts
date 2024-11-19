@@ -1,6 +1,6 @@
 import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
-import { IFieldConfig } from './IFieldConfig'
+import { IField } from './IField'
 import {
   AirEnumKey,
   AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
@@ -13,7 +13,7 @@ import { AirDesensitizeType } from '@/airpower/enum/AirDesensitizeType'
  * # 表格的字段配置接口
  * @author Hamm.cn
  */
-export interface ITableFieldConfig extends IFieldConfig {
+export interface ITableFieldConfig extends IField {
   /**
    * ## 默认隐藏
    * `可自行勾选后放出`

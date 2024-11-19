@@ -91,9 +91,9 @@
               <el-select
                 v-else-if="AirDecorator.getDictionary(item.dictionary)"
                 v-model="data[item.key]"
+                :clearable="item.clearable"
                 :filterable="item.filterable"
                 :placeholder="item.label + '...'"
-                :clearable="item.clearable"
                 @change="onSearch()"
                 @clear=" data[item.key] = undefined"
               >
@@ -109,8 +109,8 @@
               <el-input
                 v-else
                 v-model="data[item.key]"
-                :placeholder="item.label + '...'"
                 :clearable="item.clearable"
+                :placeholder="item.label + '...'"
                 @blur="onSearch()"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
@@ -140,7 +140,6 @@ import {
 
 import { AButton } from '../component'
 import { AirDialog } from '../helper/AirDialog'
-import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -158,6 +157,7 @@ import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
 import { AirDecorator } from '../helper/AirDecorator'
+import { getModelConfig } from '../decorator/Model'
 
 const emits = defineEmits<{
   onSearch: [request: AirRequestPage<E>],
@@ -356,7 +356,7 @@ const data = ref<IJson>(props.defaultFilter ? (props.defaultFilter as IJson) : {
 /**
  * # 内部使用的配置
  */
-const entityConfig = computed(() => getEntityConfig(entityInstance.value))
+const modelConfig = computed(() => getModelConfig(entityInstance.value))
 
 /**
  * # 查询对象
@@ -366,12 +366,12 @@ const request = ref(new AirRequestPage(props.entity)) as Ref<AirRequestPage<E>>
 /**
  * # 添加按钮的标题
  */
-const addTitle = computed(() => entityConfig.value.addTitle || (AirI18n.get().Add || '添加'))
+const addTitle = computed(() => modelConfig.value.addTitle || (AirI18n.get().Add || '添加'))
 
 /**
  * # 是否显示搜索框
  */
-const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.showSearch ?? true)
+const isSearchEnabled = computed(() => props.showSearch ?? modelConfig.value.showSearch ?? true)
 
 /**
  * # 为URL拼接AccessToken
@@ -519,7 +519,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -550,7 +550,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 
