@@ -246,7 +246,7 @@ function showLocalFile(file: File) {
 function beforeUpload(file: File): boolean {
   const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1)
   if (!props.exts.includes(fileExt.toLocaleLowerCase())) {
-    AirNotification.warning(`${AirI18n.get().ImageSupportExts || '支持的图片格式为: '} ${props.exts.join('/')}`, AirI18n.get().ImageExtNotSupported || '图片格式不支持')
+    AirNotification.warning(`${AirI18n.get().ImageSupportExtensions || '支持的图片格式为: '} ${props.exts.join('/')}`, AirI18n.get().ImageExtNotSupported || '图片格式不支持')
     return false
   }
   if (file.size > props.limit) {
