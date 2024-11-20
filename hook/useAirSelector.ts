@@ -29,7 +29,7 @@ export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityS
 
   result.selectList.value = props.selectList
 
-  const disableConfirm = computed(() => props.mult && result.selectList.value.length === 0)
+  const disableConfirm = computed(() => props.isMultiple && result.selectList.value.length === 0)
 
   return Object.assign(result, {
     title,
