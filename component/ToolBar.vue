@@ -158,6 +158,7 @@ import { AirExportModel } from '../model/AirExportModel'
 import { AirDecorator } from '../helper/AirDecorator'
 import { getModelConfig } from '../decorator/Model'
 import { ClassConstructor } from '../type/AirType'
+import { AirConstant } from '@/airpower/config/AirConstant'
 
 const emits = defineEmits<{
   onSearch: [request: AirRequestPage<E>],
@@ -407,6 +408,17 @@ function onExport() {
 }
 
 /**
+ * # 获取API地址
+ * @param url
+ */
+function getApiUrl(url: string): string {
+  if (url.indexOf(AirConstant.PREFIX_HTTP) < 0 && url.indexOf(AirConstant.PREFIX_HTTPS) <= 0) {
+    url = AirConfig.apiUrl + url
+  }
+  return url
+}
+
+/**
  * # 下载导入的模板
  */
 function onDownloadTemplate() {
@@ -424,9 +436,7 @@ function onDownloadTemplate() {
 
   const service = AirClassTransformer.newInstance(props.service)
   url = `${service.baseUrl}/${AirConfig.importTemplateUrl}`
-  if (url.indexOf('https://') < 0 && url.indexOf('http://') <= 0) {
-    url = AirConfig.apiUrl + url
-  }
+  url = getApiUrl(url)
   window.open(getUrlWithAccessToken(url))
 }
 
@@ -483,9 +493,7 @@ async function onImport() {
     }
     const service = AirClassTransformer.newInstance(props.service)
     url = `${service.baseUrl}/${AirConfig.importUrl}`
-    if (url.indexOf('https://') < 0 && url.indexOf('http://') <= 0) {
-      url = AirConfig.apiUrl + url
-    }
+    url = getApiUrl(url)
   }
   await AirDialog.showUpload(
     {
@@ -519,7 +527,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -550,7 +558,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 
