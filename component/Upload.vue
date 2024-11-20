@@ -1,12 +1,12 @@
 <template>
   <ADialog
-    :title="title"
+    :confirm-text="confirmText"
     :fullable="false"
+    :hide-footer="!confirmText"
+    :title="title"
+    class="upload-dialog"
     hide-cancel
     min-height="220px"
-    :hide-footer="!confirmText"
-    :confirm-text="confirmText"
-    class="upload-dialog"
     @on-cancel="onCancel()"
     @on-confirm="onCustomConfirm()"
   >
@@ -16,16 +16,16 @@
     >
       <el-upload
         v-if="entity"
+        :action="url"
+        :before-upload="uploadReady"
+        :data="data"
+        :headers="uploadHeader"
+        :name="uploadName"
+        :on-error="onUploadError"
+        :on-success="onUploadSuccess"
+        :show-file-list="false"
         class="upload"
         drag
-        :show-file-list="false"
-        :action="url"
-        :headers="uploadHeader"
-        :before-upload="uploadReady"
-        :on-success="onUploadSuccess"
-        :on-error="onUploadError"
-        :name="uploadName"
-        :data="data"
       >
         <div class="el-upload__text">
           <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
@@ -33,8 +33,8 @@
             {{ AirI18n.get().FileSize || '文件大小: ' }}
             <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
             {{ AirI18n.get().FileExt || '文件格式: ' }}
-            <template v-if="!exts.includes('*')">
-              <b>{{ exts.join('/') }}</b>
+            <template v-if="!extensions.includes('*')">
+              <b>{{ extensions.join('/') }}</b>
             </template>
           </span>
           <div
@@ -49,7 +49,7 @@
   </ADialog>
 </template>
 
-<script lang="ts" setup generic="F extends IFile">
+<script generic="F extends IFile" lang="ts" setup>
 import { computed, PropType, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -147,7 +147,7 @@ const props = defineProps({
   /**
    * # 允许上传的后缀
    */
-  exts: {
+  extensions: {
     type: Array<string>,
     default: () => ['jpg', 'jpeg', 'png'],
   },
@@ -212,10 +212,10 @@ if (props.header) {
  */
 function uploadReady(file: { name: string; size: number; }): boolean {
   // 文件类型验证
-  if (!props.exts.includes('*')) {
+  if (!props.extensions.includes('*')) {
     const arr = file.name.split('.')
     const fileExt = arr && arr.length > 1 ? arr[arr.length - 1] : ''
-    const isFileTypeInLimited = !(props.exts.indexOf(fileExt.toLowerCase()) < 0)
+    const isFileTypeInLimited = !(props.extensions.indexOf(fileExt.toLowerCase()) < 0)
     if (!isFileTypeInLimited) {
       AirNotification.error(`${AirI18n.get().FileExtNotSupported || '文件格式不支持 '}${fileExt}`, AirI18n.get().UploadError || '上传失败')
       return false
@@ -298,7 +298,7 @@ function onUploadSuccess(result: IJson) {
           display: flex;
           flex-direction: column;
 
-          >b {
+          > b {
             font-size: 18px;
           }
 

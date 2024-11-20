@@ -511,7 +511,7 @@ async function onImport() {
   await AirDialog.showUpload(
     {
       uploadUrl: url,
-      exts: ['xls', 'xlsx'],
+      extensions: ['xls', 'xlsx'],
       title: props.importTitle || AirI18n.get().Import || '导入',
       uploadSuccess: AirI18n.get().ImportSuccess || '数据导入成功',
       confirmText: AirI18n.get().DownloadTemplate || '下载模板',
