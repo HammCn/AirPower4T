@@ -68,10 +68,7 @@ const isDesensitize = ref(true)
  * # 脱敏
  */
 const desensitized = computed(() => {
-  if (!isDesensitize.value) {
-    return props.content
-  }
-  if (!props.desensitize) {
+  if (!isDesensitize.value || !props.desensitize) {
     return props.content
   }
   return AirDesensitize.desensitize(props.content, props.desensitize, props.desensitizeHead, props.desensitizeTail, props.desensitizeSymbol)
