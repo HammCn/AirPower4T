@@ -41,16 +41,12 @@
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATE"
                   v-model="data[item.key]"
-                  :default-time="[
-                    new Date(1991, 10, 3, 0, 0, 0),
-                    new Date(1991, 10, 3, 23, 59, 59),
-                  ]
-                  "
+                  :default-time="defaultTime"
                   :editable="false"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  :range-separator="AirI18n.get().To || '至'"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :format="YYYY_MM_DD"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
-                  format="YYYY/MM/DD"
                   type="daterange"
                   value-format="x"
                   @change="onSearch()"
@@ -60,28 +56,24 @@
                   v-if="item.betweenType === AirBetweenType.TIME"
                   v-model="data[item.key]"
                   :editable="false"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  :range-separator="AirI18n.get().To || '至'"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
+                  :value-format="HH_MM_SS"
                   arrow-control
                   is-range
-                  value-format="HH:mm:ss"
                   @change="onSearch()"
                   @clear=" data[item.key] = undefined"
                 />
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATETIME"
                   v-model="data[item.key]"
-                  :default-time="[
-                    new Date(1991, 10, 3, 0, 0, 0),
-                    new Date(1991, 10, 3, 23, 59, 59),
-                  ]
-                  "
+                  :default-time="defaultTime"
                   :editable="false"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  :range-separator="AirI18n.get().To || '至'"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :format="YYYY_MM_DD+' '+HH_MM_SS"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
-                  format="YYYY/MM/DD HH:mm:ss"
                   type="datetimerange"
                   value-format="x"
                   @change="onSearch()"
@@ -333,6 +325,27 @@ const props = defineProps({
     default: undefined,
   },
 })
+
+/**
+ * # 默认时间
+ */
+const defaultTime = ref([
+  new Date(1991, 10, 3, 0, 0, 0),
+  new Date(1991, 10, 3, 23, 59, 59),
+])
+
+/**
+ * # 格式化年月日
+ */
+const YYYY_MM_DD = 'YYYY/MM/DD'
+
+/**
+ * # 格式化时分秒
+ */
+const HH_MM_SS = 'HH:mm:ss'
+
+const LABEL_TO = '至'
+const LABEL_END = '结束'
 
 /**
  * # `Entity` 的实例
