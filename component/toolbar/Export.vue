@@ -1,28 +1,28 @@
 <template>
   <ADialog
-    title="数据导出"
-    :fullable="false"
+    :allow-fullscreen="false"
     class="export-dialog"
     hide-footer
     min-height="300px"
+    title="数据导出"
     width="400px"
     @on-cancel="cancelExport"
   >
     <div class="tips">
       <template v-if="isLoading">
         <el-progress
-          :percentage="100"
-          :indeterminate="true"
           :duration="1"
-          :stroke-width="10"
           :format="() => { }"
+          :indeterminate="true"
+          :percentage="100"
+          :stroke-width="10"
         />
         {{ AirI18n.get().ExportLoadingAndWaitPlease || '数据准备中,请稍后...' }}
       </template>
       <template v-else>
         <el-result
-          icon="success"
           :title="AirI18n.get().ExportSuccess || '数据导出成功'"
+          icon="success"
         >
           <template #extra>
             <el-button

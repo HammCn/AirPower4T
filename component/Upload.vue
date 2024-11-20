@@ -1,7 +1,7 @@
 <template>
   <ADialog
+    :allow-fullscreen="false"
     :confirm-text="confirmText"
-    :fullable="false"
     :hide-footer="!confirmText"
     :title="title"
     class="upload-dialog"

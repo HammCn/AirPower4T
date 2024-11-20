@@ -61,7 +61,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   payloadArray = false
 
-  arraySplitor = AirConfig.arraySplitor
+  arraySeparator = AirConfig.arraySeparator
 
   nowrap = true
 

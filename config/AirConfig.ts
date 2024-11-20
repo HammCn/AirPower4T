@@ -230,7 +230,7 @@ export class AirConfig {
    * ## 弹窗是否默认显示全屏按钮
    * 此项仅为默认, 如手动传入, 此项将无效 (默认true)
    */
-  static dialogFullable = true
+  static dialogAllowFullscreen = true
 
   /**
    * ## 弹窗是否隐藏取消按钮
@@ -286,9 +286,9 @@ export class AirConfig {
 
   /**
    * ## 默认的表格数组显示分割字符
-   * `@Table` 装饰器中可以单独配置 `arraySplitor`
+   * `@Table` 装饰器中可以单独配置 `arraySeparator`
    */
-  static arraySplitor = AirConstant.COMMA
+  static arraySeparator = AirConstant.COMMA
 
   /**
    * ## 隐藏表格序号列

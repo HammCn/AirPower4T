@@ -1104,7 +1104,7 @@ function getPayloadRowData(row: IJson, config: AirTableFieldConfig): AirAny {
     if (row[config.key] && row[config.key].length > 0) {
       // 对象数组挂载
       return row[config.key].map((i: IJson) => i[config.payloadField || ''])
-        .join(config.arraySplitor)
+        .join(config.arraySeparator)
     }
   }
   return config.emptyValue
@@ -1312,8 +1312,8 @@ watch(
 
       // 分页后滚动条置顶
       const table = document.querySelector(`#${tableId}`)
-      const bodyWrapp = table?.querySelector('.el-scrollbar__wrap') as HTMLElement
-      bodyWrapp.scrollTop = 0
+      const bodyWrap = table?.querySelector('.el-scrollbar__wrap') as HTMLElement
+      bodyWrap.scrollTop = 0
     })
   },
 )

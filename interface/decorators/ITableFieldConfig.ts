@@ -2,7 +2,11 @@ import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IField } from './IField'
 import {
-  AirEnumKey, AirMoneyDirection, AirSortable, AirTableAlign, AirTableFixed,
+  AirEnumKey,
+  AirMoneyDirection,
+  AirSortable,
+  AirTableAlign,
+  AirTableFixed,
   ClassConstructor,
 } from '../../type/AirType'
 import { AirEnum } from '../../base/AirEnum'
@@ -139,15 +143,15 @@ export interface ITableFieldConfig extends IField {
   /**
    * ## 挂载的是数组数据
    * 仅当配置了 `payloadField` 时有效
-   * 如需修改数组显示的分隔符 可以自定义 `arraySplitor` 配置
+   * 如需修改数组显示的分隔符 可以自定义 `arraySeparator` 配置
    */
   payloadArray?: boolean
 
   /**
    * ## 显示数组数据的分隔符
-   * 可在 `AirConfig.defaultArraySplitor` 进行全局配置 如不配置 默认为 `，`
+   * 可在 `AirConfig.arraySeparator` 进行全局配置 如不配置 默认为 `，`
    */
-  arraySplitor?: string
+  arraySeparator?: string
 
   /**
    * ## 配置列换行省略

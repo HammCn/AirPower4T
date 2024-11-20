@@ -1,23 +1,23 @@
 <template>
   <ADialog
-    :width="width || '70%'"
-    :height="height || '70%'"
-    :hide-footer="!props.props.mult"
-    :title="dialogTitle"
-    is-selector
-    :loading="isLoading"
     :disable-confirm="disableConfirm"
+    :height="height || '70%'"
+    :hide-footer="!props.props.isMultiple"
+    :loading="isLoading"
+    :title="dialogTitle"
+    :width="width || '70%'"
+    is-selector
     @on-confirm="props.props.onConfirm(selectList.filter(item => !item.isDisabled))"
     @on-cancel="props.props.onCancel()"
   >
     <AToolBar
-      :hide-add="!editor"
-      :loading="isLoading"
-      :entity="entity"
-      :service="service"
-      :search-params="searchParamList"
       :add-permission="addPermission"
       :default-filter="props.props.param"
+      :entity="entity"
+      :hide-add="!editor"
+      :loading="isLoading"
+      :search-params="searchParamList"
+      :service="service"
       @on-search="onSearch"
       @on-add="onAdd"
     >
@@ -29,16 +29,16 @@
       </template>
     </AToolBar>
     <ATable
+      :ctrl-width="80"
       :data-list="(unPaginate || treeList) ? list : response.list"
-      :show-select="props.props.mult"
+      :entity="entity"
       :field-list="fields"
+      :hide-ctrl="props.props.isMultiple"
+      :select-list="selectList"
+      :show-select="props.props.isMultiple"
       hide-delete
       hide-edit
-      :select-list="selectList"
-      :entity="entity"
-      :ctrl-width="80"
       hide-field-selector
-      :hide-ctrl="props.props.mult"
       @on-select="onSelected"
     >
       <template
@@ -46,18 +46,18 @@
         #[name]="row"
       >
         <slot
-          :name="name"
-          :index="row.index"
           :data="row.data"
+          :index="row.index"
+          :name="name"
         />
       </template>
       <template
-        v-if="!props.props.mult"
+        v-if="!props.props.isMultiple"
         #customRow="{ data }"
       >
         <AButton
-          link-button
           :disabled="data.isDisabled"
+          link-button
           tooltip="选择"
           @click="props.props.onConfirm(data)"
         >
@@ -74,7 +74,7 @@
   </ADialog>
 </template>
 
-<script lang="ts" setup generic="E extends AirEntity,S extends AirAbstractEntityService<E>">
+<script generic="E extends AirEntity,S extends AirAbstractEntityService<E>" lang="ts" setup>
 import { Component, computed } from 'vue'
 import {
   AButton, ADialog, APage, ATable, AToolBar,
@@ -175,7 +175,7 @@ const props = defineProps<{
     /**
      * # 是否多选
      */
-    mult: boolean,
+    isMultiple: boolean,
 
     /**
      * # 已选中的列表
@@ -273,4 +273,4 @@ async function onAdd() {
 }
 
 </script>
-<style scoped lang="scss"></style>
+<style lang="scss" scoped></style>

@@ -156,7 +156,7 @@ export class AirDialog {
   static async selectList<E extends AirEntity>(view: Component, selectList: E[] = [], param: E | undefined = undefined): Promise<E[]> {
     return this.build(view, {
       selectList,
-      mult: true,
+      isMultiple: true,
       param,
     })
   }

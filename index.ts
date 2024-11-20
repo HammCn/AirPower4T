@@ -52,7 +52,7 @@ export { app }
 console.clear()
 
 console.log(
-  `%c©%cAirPower%c4T%c${AirConfig.version}%c\n已支持: Web、微信小程序、uniapp\n\n%c🔥🔥🔥AirPower系列开源项目推荐\n
+  `%c©%cAirPower%c4T%c${AirConfig.version}%c\n已支持: Web、微信小程序、uni-app\n\n%c🔥🔥🔥AirPower系列开源项目推荐\n
 %c前端: https://github.com/HammCn/AirPower4T
 %c后端: https://github.com/HammCn/AirPower4J
   `,

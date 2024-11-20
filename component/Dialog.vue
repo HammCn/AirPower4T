@@ -14,7 +14,7 @@
       />
       <div
         :id="dialogIdPrefix + domId"
-        :class="isFullScreen && fullable ? 'fullscreen' : ''"
+        :class="isFullScreen && allowFullscreen ? 'fullscreen' : ''"
         :style="{
           width: width,
           height: height,
@@ -37,7 +37,7 @@
             {{ title }}
           </div>
           <i
-            v-if="fullable"
+            v-if="allowFullscreen"
             :class="isFullScreen ? 'icon-commonicon_suoxiao' : 'icon-commonicon_quanping'"
             class="airpower"
             @click="headerDoubleClicked"
@@ -230,9 +230,9 @@ const props = defineProps({
   /**
    * # 允许显示全屏按钮
    */
-  fullable: {
+  allowFullscreen: {
     type: Boolean,
-    default: AirConfig.dialogFullable,
+    default: AirConfig.dialogAllowFullscreen,
   },
 
   /**
@@ -277,6 +277,26 @@ const props = defineProps({
     default: AirConfig.dialogCloseByCover,
   },
 })
+
+/**
+ * # 对话框ID前缀
+ */
+const dialogIdPrefix = 'dialog_'
+
+/**
+ * # 移动时的鼠标样式
+ */
+const CURSOR_MOVING = 'grabbing'
+
+/**
+ * # 可移动的鼠标样式
+ */
+const CURSOR_CAN_MOVE = 'grab'
+
+/**
+ * # 普通鼠标样式
+ */
+const CURSOR_NORMAL = 'pointer'
 
 /**
  * # 标题的鼠标样式
@@ -326,7 +346,7 @@ let trueHeight = 0
 /**
  * # 是否全屏
  */
-const isFullScreen = ref(props.fullable && props.fullScreen)
+const isFullScreen = ref(props.allowFullscreen && props.fullScreen)
 
 /**
  * # 强制焦点丢失
@@ -352,26 +372,6 @@ watch(() => AirStore().escKeyDown, () => {
 })
 
 /**
- * # 对话框ID前缀
- */
-const dialogIdPrefix = 'dialog_'
-
-/**
- * # 移动时的鼠标样式
- */
-const CURSOR_MOVING = 'grabbing'
-
-/**
- * # 可移动的鼠标样式
- */
-const CURSOR_CAN_MOVE = 'grab'
-
-/**
- * # 普通鼠标样式
- */
-const CURSOR_NORMAL = 'pointer'
-
-/**
  * # 鼠标按下的事件
  * @param event
  */
@@ -394,7 +394,7 @@ function dialogMouseDownEvent(event: MouseEvent) {
  * # 双击标题事件
  */
 function headerDoubleClicked() {
-  if (!props.fullable) {
+  if (!props.allowFullscreen) {
     return
   }
   isFullScreen.value = !isFullScreen.value

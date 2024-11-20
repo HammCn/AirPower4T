@@ -1,7 +1,7 @@
 <template>
   <div
-    class="air-panel"
     :class="isFullScreen ? 'fullscreen' : ''"
+    class="air-panel"
   >
     <div
       v-if="showTitle"
@@ -24,7 +24,7 @@
       <div class="panel-right">
         <slot name="headerRight" />
         <div
-          v-if="fullable"
+          v-if="allowFullscreen"
           class="panel-full"
           @click="isFullScreen = !isFullScreen"
         >
@@ -101,7 +101,7 @@ defineProps({
   /**
    * # 是否允许全屏
    */
-  fullable: {
+  allowFullscreen: {
     type: Boolean,
     default: false,
   },
@@ -113,7 +113,7 @@ defineProps({
 const isFullScreen = ref(false)
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .air-panel {
   display: flex;
   flex: 1;
