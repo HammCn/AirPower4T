@@ -135,8 +135,7 @@
               <template v-else-if="item.payloadField">
                 <template v-if="item.copyField">
                   <div
-                    :class="item.nowrap ? 'nowrap' : ''"
-                    class="air-table-column"
+                    :class="getTableColumnClass(item)"
                   >
                     <ACopy :content="getPayloadRowData(getRowEntity(scope), item)">
                       {{ getPayloadRowData(getRowEntity(scope), item) }}
@@ -145,8 +144,7 @@
                 </template>
                 <template v-else>
                   <div
-                    :class="item.nowrap ? 'nowrap' : ''"
-                    class="air-table-column"
+                    :class="getTableColumnClass(item)"
                   >
                     {{ getPayloadRowData(getRowEntity(scope), item) }}
                   </div>
@@ -156,8 +154,7 @@
               <template v-else>
                 <template v-if="item.copyField">
                   <div
-                    :class="item.nowrap ? 'nowrap' : ''"
-                    class="air-table-column"
+                    :class="getTableColumnClass(item)"
                   >
                     <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
                       <template v-if="item.desensitize">
@@ -482,6 +479,7 @@ import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
 import { AirDecorator } from '../helper/AirDecorator'
 import { getModelConfig } from '../decorator/Model'
+import { ITableFieldConfig } from '@/airpower/interface/decorators/ITableFieldConfig'
 
 const emits = defineEmits<{
   onDetail: [row: E],
@@ -867,6 +865,18 @@ const props = defineProps({
     default: true,
   },
 })
+
+/**
+ * # 获取表格列的样式
+ * @param config
+ */
+function getTableColumnClass(config: ITableFieldConfig) {
+  let clazz = 'air-table-column'
+  if (config.nowrap) {
+    clazz += ' nowrap'
+  }
+  return clazz
+}
 
 /**
  * 表格dom
@@ -1336,7 +1346,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
@@ -1354,7 +1364,7 @@ init()
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1436,7 +1446,7 @@ init()
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1452,7 +1462,7 @@ init()
     cursor: not-allowed;
     position: relative;
 
-    >* {
+    > * {
       user-select: none;
       filter: blur(1px);
     }
@@ -1578,7 +1588,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0 !important;
   }
 }
