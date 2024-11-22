@@ -1,5 +1,24 @@
 # AirPower4T 版本发布日志
 
+## v3.0.0
+
+### 🎉 Features:
+
+- feat(Field): 提供了一个全新的 `@Field` 装饰器 
+
+### 🐞 Bug fixes:
+
+- refactor(type): 将 ClassConstructor 类型迁移至 AirType
+- refactor(component): 重构工具栏组件中的 API 地址处理逻辑
+- refactor(Service): 重构成功提示逻辑 
+- docs(payload): 优化 Payload组件脚本标签属性顺序
+- perf(component): 优化脱敏逻辑
+- refactor(Dialog): 优化对话框组件的样式和功能
+- refactor(ToolBar): 优化日期选择器的代码结构和配置
+- refactor(Table): 优化 Table组件代码结构
+- refactor(upload): 将 exts 属性重命名为 extensions
+- refactor(selector): 重构选择器组件
+
 ## v2.4.3
 
 ### 🎉 Features:
