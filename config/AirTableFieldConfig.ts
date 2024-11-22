@@ -3,8 +3,9 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirSortable, AirTableAlign, AirTableFixed } from '../type/AirType'
-import { ClassConstructor } from '../type/ClassConstructor'
+import {
+  AirSortable, AirTableAlign, AirTableFixed, ClassConstructor,
+} from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 import { AirConstant } from './AirConstant'
@@ -60,7 +61,7 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   payloadArray = false
 
-  arraySplitor = AirConfig.arraySplitor
+  arraySeparator = AirConfig.arraySeparator
 
   nowrap = true
 

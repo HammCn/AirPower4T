@@ -41,16 +41,12 @@
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATE"
                   v-model="data[item.key]"
-                  :default-time="[
-                    new Date(1991, 10, 3, 0, 0, 0),
-                    new Date(1991, 10, 3, 23, 59, 59),
-                  ]
-                  "
+                  :default-time="defaultTime"
                   :editable="false"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  :range-separator="AirI18n.get().To || '至'"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :format="YYYY_MM_DD"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
-                  format="YYYY/MM/DD"
                   type="daterange"
                   value-format="x"
                   @change="onSearch()"
@@ -60,28 +56,24 @@
                   v-if="item.betweenType === AirBetweenType.TIME"
                   v-model="data[item.key]"
                   :editable="false"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  :range-separator="AirI18n.get().To || '至'"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
+                  :value-format="HH_MM_SS"
                   arrow-control
                   is-range
-                  value-format="HH:mm:ss"
                   @change="onSearch()"
                   @clear=" data[item.key] = undefined"
                 />
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATETIME"
                   v-model="data[item.key]"
-                  :default-time="[
-                    new Date(1991, 10, 3, 0, 0, 0),
-                    new Date(1991, 10, 3, 23, 59, 59),
-                  ]
-                  "
+                  :default-time="defaultTime"
                   :editable="false"
-                  :end-placeholder="AirI18n.get().End || '结束'"
-                  :range-separator="AirI18n.get().To || '至'"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :format="YYYY_MM_DD+' '+HH_MM_SS"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
-                  format="YYYY/MM/DD HH:mm:ss"
                   type="datetimerange"
                   value-format="x"
                   @change="onSearch()"
@@ -91,9 +83,9 @@
               <el-select
                 v-else-if="AirDecorator.getDictionary(item.dictionary)"
                 v-model="data[item.key]"
+                :clearable="item.clearable"
                 :filterable="item.filterable"
                 :placeholder="item.label + '...'"
-                :clearable="item.clearable"
                 @change="onSearch()"
                 @clear=" data[item.key] = undefined"
               >
@@ -109,8 +101,8 @@
               <el-input
                 v-else
                 v-model="data[item.key]"
-                :placeholder="item.label + '...'"
                 :clearable="item.clearable"
+                :placeholder="item.label + '...'"
                 @blur="onSearch()"
                 @clear="onSearch"
                 @keydown.enter="onSearch"
@@ -140,7 +132,6 @@ import {
 
 import { AButton } from '../component'
 import { AirDialog } from '../helper/AirDialog'
-import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -151,13 +142,15 @@ import { AirPermission } from '../helper/AirPermission'
 import { IFile } from '../interface/IFile'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequestPage } from '../model/AirRequestPage'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { IJson } from '../interface/IJson'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirI18n } from '../helper/AirI18n'
 import { AirExportModel } from '../model/AirExportModel'
 import { AirDecorator } from '../helper/AirDecorator'
+import { getModelConfig } from '../decorator/Model'
+import { ClassConstructor } from '../type/AirType'
+import { AirConstant } from '@/airpower/config/AirConstant'
 
 const emits = defineEmits<{
   onSearch: [request: AirRequestPage<E>],
@@ -334,6 +327,27 @@ const props = defineProps({
 })
 
 /**
+ * # 默认时间
+ */
+const defaultTime = ref([
+  new Date(1991, 10, 3, 0, 0, 0),
+  new Date(1991, 10, 3, 23, 59, 59),
+])
+
+/**
+ * # 格式化年月日
+ */
+const YYYY_MM_DD = 'YYYY/MM/DD'
+
+/**
+ * # 格式化时分秒
+ */
+const HH_MM_SS = 'HH:mm:ss'
+
+const LABEL_TO = '至'
+const LABEL_END = '结束'
+
+/**
  * # `Entity` 的实例
  */
 const entityInstance = computed(() => {
@@ -356,7 +370,7 @@ const data = ref<IJson>(props.defaultFilter ? (props.defaultFilter as IJson) : {
 /**
  * # 内部使用的配置
  */
-const entityConfig = computed(() => getEntityConfig(entityInstance.value))
+const modelConfig = computed(() => getModelConfig(entityInstance.value))
 
 /**
  * # 查询对象
@@ -366,12 +380,12 @@ const request = ref(new AirRequestPage(props.entity)) as Ref<AirRequestPage<E>>
 /**
  * # 添加按钮的标题
  */
-const addTitle = computed(() => entityConfig.value.addTitle || (AirI18n.get().Add || '添加'))
+const addTitle = computed(() => modelConfig.value.addTitle || (AirI18n.get().Add || '添加'))
 
 /**
  * # 是否显示搜索框
  */
-const isSearchEnabled = computed(() => props.showSearch ?? entityConfig.value.showSearch ?? true)
+const isSearchEnabled = computed(() => props.showSearch ?? modelConfig.value.showSearch ?? true)
 
 /**
  * # 为URL拼接AccessToken
@@ -407,6 +421,17 @@ function onExport() {
 }
 
 /**
+ * # 获取API地址
+ * @param url
+ */
+function getApiUrl(url: string): string {
+  if (url.indexOf(AirConstant.PREFIX_HTTP) < 0 && url.indexOf(AirConstant.PREFIX_HTTPS) <= 0) {
+    url = AirConfig.apiUrl + url
+  }
+  return url
+}
+
+/**
  * # 下载导入的模板
  */
 function onDownloadTemplate() {
@@ -424,9 +449,7 @@ function onDownloadTemplate() {
 
   const service = AirClassTransformer.newInstance(props.service)
   url = `${service.baseUrl}/${AirConfig.importTemplateUrl}`
-  if (url.indexOf('https://') < 0 && url.indexOf('http://') <= 0) {
-    url = AirConfig.apiUrl + url
-  }
+  url = getApiUrl(url)
   window.open(getUrlWithAccessToken(url))
 }
 
@@ -483,14 +506,12 @@ async function onImport() {
     }
     const service = AirClassTransformer.newInstance(props.service)
     url = `${service.baseUrl}/${AirConfig.importUrl}`
-    if (url.indexOf('https://') < 0 && url.indexOf('http://') <= 0) {
-      url = AirConfig.apiUrl + url
-    }
+    url = getApiUrl(url)
   }
   await AirDialog.showUpload(
     {
       uploadUrl: url,
-      exts: ['xls', 'xlsx'],
+      extensions: ['xls', 'xlsx'],
       title: props.importTitle || AirI18n.get().Import || '导入',
       uploadSuccess: AirI18n.get().ImportSuccess || '数据导入成功',
       confirmText: AirI18n.get().DownloadTemplate || '下载模板',
@@ -519,7 +540,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -550,7 +571,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 

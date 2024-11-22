@@ -209,7 +209,6 @@ import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { IDictionary } from '../interface/IDictionary'
 import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
@@ -219,6 +218,7 @@ import { AirColor } from '../enum/AirColor'
 import { AirConstant } from '../config/AirConstant'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { ClassConstructor } from '../type/AirType'
 
 const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
 

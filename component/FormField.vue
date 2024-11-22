@@ -45,11 +45,11 @@ import {
 } from 'vue'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AFormField, AInput } from '.'
 import { IJson } from '../interface/IJson'
 import { IDictionary } from '../interface/IDictionary'
 import { ITree } from '../interface/ITree'
+import { ClassConstructor } from '../type/AirType'
 
 const props = defineProps({
   /**

@@ -9,8 +9,7 @@ import { INormalTreeProps } from '../interface/props/INormalTreeProps'
 import { IUser } from '../interface/IUser'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirUserEntity } from '../model/entity/AirUserEntity'
-import { ClassConstructor } from '../type/ClassConstructor'
-import { AirCodeNumber, AirMoneyDirection } from '../type/AirType'
+import { AirCodeNumber, AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
 
@@ -23,7 +22,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.4.3'
+  static readonly version = 'v3.0.0'
 
   /**
    * ## `AppKey`
@@ -231,7 +230,7 @@ export class AirConfig {
    * ## 弹窗是否默认显示全屏按钮
    * 此项仅为默认, 如手动传入, 此项将无效 (默认true)
    */
-  static dialogFullable = true
+  static dialogAllowFullscreen = true
 
   /**
    * ## 弹窗是否隐藏取消按钮
@@ -287,9 +286,9 @@ export class AirConfig {
 
   /**
    * ## 默认的表格数组显示分割字符
-   * `@Table` 装饰器中可以单独配置 `arraySplitor`
+   * `@Table` 装饰器中可以单独配置 `arraySeparator`
    */
-  static arraySplitor = AirConstant.COMMA
+  static arraySeparator = AirConstant.COMMA
 
   /**
    * ## 隐藏表格序号列

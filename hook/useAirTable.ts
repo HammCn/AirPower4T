@@ -1,6 +1,5 @@
 import { AirEntity } from '../base/AirEntity'
 import { AirDialog } from '../helper/AirDialog'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { IUseTableOption } from '../interface/hooks/IUseTableOption'
 import { AirNotification } from '../feedback/AirNotification'
@@ -8,6 +7,7 @@ import { IUseTableResult } from '../interface/hooks/IUseTableResult'
 import { airTableHook } from './airTableHook'
 import { AirI18n } from '../helper/AirI18n'
 import { AirConfirm } from '../feedback/AirConfirm'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 引入表格使用的`Hook`

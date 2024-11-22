@@ -3,12 +3,12 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirValidator } from '../helper/AirValidator'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEntity } from '../base/AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 import { AirAbstractService } from './AirAbstractService'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 实体 `API` 服务超类
@@ -136,9 +136,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async add(data: E, message?: string, title = '添加成功', apiUrl = this.urlForAdd): Promise<number> {
     const json = await this.api(apiUrl)
       .post(data)
-    if (message) {
-      AirNotification.success(message, title)
-    }
+    this.showSuccessMessageIfProvided(title, message)
     return AirClassTransformer.parse(json, this.entityClass).id
   }
 
@@ -152,9 +150,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async update(data: E, message?: string, title = '修改成功', apiUrl = this.urlForUpdate): Promise<void> {
     await this.api(apiUrl)
       .post(data)
-    if (message) {
-      AirNotification.success(message, title)
-    }
+    this.showSuccessMessageIfProvided(title, message)
   }
 
   /**
@@ -185,9 +181,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       await this.api(apiUrl)
         .callbackError()
         .post(this.newEntityInstance(id))
-      if (message) {
-        AirNotification.success(message, title)
-      }
+      this.showSuccessMessageIfProvided(title, message)
     } catch (err) {
       await AirAlert.error((err as Error).message, '删除失败')
     }
@@ -205,9 +199,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       await this.api(apiUrl)
         .callbackError()
         .post(this.newEntityInstance(id))
-      if (message) {
-        AirNotification.success(message, title)
-      }
+      this.showSuccessMessageIfProvided(title, message)
     } catch (err) {
       await AirAlert.error((err as Error).message, '禁用失败')
     }
@@ -225,9 +217,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       await this.api(apiUrl)
         .callbackError()
         .post(this.newEntityInstance(id))
-      if (message) {
-        AirNotification.success(message, title)
-      }
+      this.showSuccessMessageIfProvided(title, message)
     } catch (err) {
       await AirAlert.error((err as Error).message, '启用失败')
     }
@@ -254,5 +244,18 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       entity.id = id
     }
     return entity
+  }
+
+  /**
+   * ## 如果提供了信息，则显示成功提醒
+   * @param title 成功信息标题
+   * @param message 成功信息内容
+   * @private
+   */
+  // eslint-disable-next-line class-methods-use-this
+  private showSuccessMessageIfProvided(title: string, message?: string) {
+    if (message) {
+      AirNotification.success(message, title)
+    }
   }
 }
