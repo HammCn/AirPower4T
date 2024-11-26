@@ -12,6 +12,8 @@ import { AirUserEntity } from '../model/entity/AirUserEntity'
 import { AirCodeNumber, AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
+import AirEvent from '../event/AirEvent'
+import { AirEventType } from '../event/AirEventType'
 
 /**
  * # `AirPower` 全局配置
@@ -434,6 +436,11 @@ export class AirConfig {
       })
     }
     AirConfig.router = router
+
+    AirEvent.on(AirEventType.UNAUTHORIZED, () => {
+      AirConfig.router.replace('/login')
+    })
+
     return router
   }
 }

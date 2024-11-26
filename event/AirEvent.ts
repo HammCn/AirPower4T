@@ -52,7 +52,7 @@ class AirEvent {
    * @param type 事件类型
    * @param args 参数
    */
-  emit(type: AirEventType, ...args: AirAny[]) {
+  emit(type: AirEventType | string, ...args: AirAny[]) {
     if (this.listeners.has(type)) {
       this.listeners.get(type)?.forEach((callback) => {
         callback(...args)

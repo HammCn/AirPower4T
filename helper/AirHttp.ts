@@ -1,15 +1,14 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import { Ref } from 'vue'
-import { AirNotification } from '../feedback/AirNotification'
 import { AirHttpContentType } from '../enum/AirHttpContentType'
 import { AirHttpMethod } from '../enum/AirHttpMethod'
 import { AirConfig } from '../config/AirConfig'
 import { AirModel } from '../base/AirModel'
 import { IJson } from '../interface/IJson'
-import { AirAlert } from '../feedback/AirAlert'
-import { AirI18n } from './AirI18n'
 import { AirAny } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
+import AirEvent from '../event/AirEvent'
+import { AirEventType } from '../event/AirEventType'
 
 /**
  * # 网络请求类
@@ -217,8 +216,6 @@ export class AirHttp {
         this.axiosResponse = axios.get(this.url, this.axiosRequestConfig)
     }
     return new Promise((resolve, reject) => {
-      const errorTitle = AirI18n.get().SystemError || AirConfig.errorTitle
-      const defaultErrorMessage = AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage
       this.axiosResponse.then(({ data }) => {
         if (AirHttp.isSuccess(data)) {
           // 成功
@@ -231,17 +228,17 @@ export class AirHttp {
         }
         if (AirHttp.isContinue(data)) {
           // 需要继续操作
-          AirAlert.success(data[AirConfig.httpMessageKey] || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
+          AirEvent.emit(AirEventType.REQUEST_CONTINUE)
           reject(data)
           return
         }
         if (AirHttp.isUnAuthorize(data)) {
           // 需要登录
-          this.redirectToLogin()
+          AirEvent.emit(AirEventType.UNAUTHORIZED)
           return
         }
         // 其他业务错误
-        AirNotification.error(data[AirConfig.httpMessageKey] || defaultErrorMessage, errorTitle)
+        AirEvent.emit(AirEventType.REQUEST_ERROR, data[AirConfig.httpMessageKey])
       })
         .catch((err) => {
           if (this.errorCallback) {
@@ -250,10 +247,10 @@ export class AirHttp {
           }
           if (AirHttp.isUnAuthorize(err)) {
             // 一般不会使用这种方式
-            this.redirectToLogin()
+            AirEvent.emit(AirEventType.UNAUTHORIZED)
             return
           }
-          AirNotification.error(defaultErrorMessage, errorTitle)
+          AirEvent.emit(AirEventType.NETWORK_ERROR, err.message)
         })
         .finally(() => {
           if (this.loading) {
@@ -299,18 +296,5 @@ export class AirHttp {
     }
     this.setHttpMethod(AirHttpMethod.GET)
     return this.send()
-  }
-
-  /**
-   * ## 跳转到登录页面
-   */
-  // eslint-disable-next-line class-methods-use-this
-  private redirectToLogin(): void {
-    // 需要登录
-    if (!AirConfig.router) {
-      AirNotification.error('请为 airpower/app 的 AirConfig 注入当前项目的路由', '请先登录')
-      return
-    }
-    AirConfig.router.push('/login')
   }
 }

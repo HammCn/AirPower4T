@@ -1,5 +1,3 @@
-import { AirAlert } from '../feedback/AirAlert'
-import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirValidator } from '../helper/AirValidator'
@@ -9,6 +7,8 @@ import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 import { AirAbstractService } from './AirAbstractService'
 import { ClassConstructor } from '../type/AirType'
+import AirEvent from '../event/AirEvent'
+import { AirEventType } from '../event/AirEventType'
 
 /**
  * # 实体 `API` 服务超类
@@ -136,8 +136,9 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async add(data: E, message?: string, title = '添加成功', apiUrl = this.urlForAdd): Promise<number> {
     const json = await this.api(apiUrl)
       .post(data)
-    this.showSuccessMessageIfProvided(title, message)
-    return AirClassTransformer.parse(json, this.entityClass).id
+    const saved = AirClassTransformer.parse(json, this.entityClass)
+    AirEvent.emit(AirEventType.ADD_SUCCESS, title, message, saved)
+    return saved.id
   }
 
   /**
@@ -150,7 +151,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   async update(data: E, message?: string, title = '修改成功', apiUrl = this.urlForUpdate): Promise<void> {
     await this.api(apiUrl)
       .post(data)
-    this.showSuccessMessageIfProvided(title, message)
+    AirEvent.emit(AirEventType.UPDATE_SUCCESS, title, message, data)
   }
 
   /**
@@ -177,13 +178,14 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async delete(id: number, message?: string, title = '删除成功', apiUrl = this.urlForDelete): Promise<void> {
+    const instance = this.newEntityInstance(id)
     try {
       await this.api(apiUrl)
         .callbackError()
-        .post(this.newEntityInstance(id))
-      this.showSuccessMessageIfProvided(title, message)
+        .post(instance)
+      AirEvent.emit(AirEventType.DELETE_SUCCESS, title, message, instance)
     } catch (err) {
-      await AirAlert.error((err as Error).message, '删除失败')
+      AirEvent.emit(AirEventType.DELETE_FAIL, '删除失败', (err as Error).message, instance)
     }
   }
 
@@ -195,13 +197,14 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async disable(id: number, message?: string, title = '禁用成功', apiUrl = this.urlForDisable): Promise<void> {
+    const instance = this.newEntityInstance(id)
     try {
       await this.api(apiUrl)
         .callbackError()
-        .post(this.newEntityInstance(id))
-      this.showSuccessMessageIfProvided(title, message)
+        .post(instance)
+      AirEvent.emit(AirEventType.DISABLE_SUCCESS, title, message, instance)
     } catch (err) {
-      await AirAlert.error((err as Error).message, '禁用失败')
+      AirEvent.emit(AirEventType.ENABLE_FAIL, '禁用失败', (err as Error).message, instance)
     }
   }
 
@@ -213,13 +216,14 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async enable(id: number, message?: string, title = '启用成功', apiUrl = this.urlForEnable): Promise<void> {
+    const instance = this.newEntityInstance(id)
     try {
       await this.api(apiUrl)
         .callbackError()
         .post(this.newEntityInstance(id))
-      this.showSuccessMessageIfProvided(title, message)
+      AirEvent.emit(AirEventType.ENABLE_SUCCESS, title, message, instance)
     } catch (err) {
-      await AirAlert.error((err as Error).message, '启用失败')
+      AirEvent.emit(AirEventType.ENABLE_FAIL, '启用失败', (err as Error).message, instance)
     }
   }
 
@@ -244,18 +248,5 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       entity.id = id
     }
     return entity
-  }
-
-  /**
-   * ## 如果提供了信息，则显示成功提醒
-   * @param title 成功信息标题
-   * @param message 成功信息内容
-   * @private
-   */
-  // eslint-disable-next-line class-methods-use-this
-  private showSuccessMessageIfProvided(title: string, message?: string) {
-    if (message) {
-      AirNotification.success(message, title)
-    }
   }
 }
