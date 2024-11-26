@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import ElementPlus from 'element-plus'
-import { AirAlert } from '../feedback/AirAlert'
 import { AirConstant } from '../config/AirConstant'
 
 /**
@@ -25,11 +24,7 @@ export class AirVersion {
     if (this.parseVersion(ElementPlus.version) >= this.parseVersion(this.elementPlusRequired)) {
       return
     }
-    if (import.meta.env.DEV) {
-      AirAlert.error(`当前版本过低，请升级到 ${this.elementPlusRequired} 或以上版本`, '升级 Element Plus')
-      return
-    }
-    console.warn(`%cElement Plus 版本过低，请升级至 ${this.elementPlusRequired} 或以上版本`, 'color:red;font-size:12px;')
+    console.error(`%cElement Plus 版本过低，请升级至 ${this.elementPlusRequired} 或以上版本`, 'color:red;font-size:12px;')
   }
 
   /**
