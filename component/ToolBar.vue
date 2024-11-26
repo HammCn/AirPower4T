@@ -4,7 +4,7 @@
       <slot name="beforeButton" />
       <AButton
         v-if="props.entity && !hideAdd"
-        :permission="addPermission || AirPermission.getPermission(entity, AirPermissionAction.ADD)"
+        :permission="addPermission || AirPermission.get(entity, AirPermissionAction.ADD)"
         primary
         type="ADD"
         @click="emits('onAdd')"
@@ -13,7 +13,7 @@
       </AButton>
       <AButton
         v-if="showImport"
-        :permission="importPermission || AirPermission.getPermission(entity, AirPermissionAction.IMPORT)"
+        :permission="importPermission || AirPermission.get(entity, AirPermissionAction.IMPORT)"
         type="IMPORT"
         @click="onImport()"
       >
@@ -113,7 +113,7 @@
       </template>
       <AButton
         v-if="showExport"
-        :permission="exportPermission || AirPermission.getPermission(entity, AirPermissionAction.EXPORT)"
+        :permission="exportPermission || AirPermission.get(entity, AirPermissionAction.EXPORT)"
         custom-class="export-button"
         type="EXPORT"
         @click=" onExport()"

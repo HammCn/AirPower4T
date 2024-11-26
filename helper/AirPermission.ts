@@ -16,7 +16,7 @@ export class AirPermission {
    * @param EntityClass 实体类
    * @param action 权限场景
    */
-  static getPermission(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
+  static get(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
     if (!EntityClass) {
       return AirConstant.EMPTY_STRING
     }
@@ -85,7 +85,7 @@ export class AirPermission {
    * ## 保存权限列表
    * @param permissions 权限列表
    */
-  static save(permissions: string[]) {
+  static saveList(permissions: string[]) {
     this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
     AirApi.setStorage(AirConfig.appKey + this.permissionKey, JSON.stringify(this.permissionList))
   }
@@ -93,7 +93,7 @@ export class AirPermission {
   /**
    * ## 获取缓存的权限列表
    */
-  static get(): string[] {
+  static getList(): string[] {
     const str = AirApi.getStorage(AirConfig.appKey + this.permissionKey) || '[]'
     try {
       return JSON.parse(str)
