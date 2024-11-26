@@ -27,11 +27,9 @@ class AirEvent {
    * @param callback 回调方法
    */
   on(type: AirEventType | string, callback: Function) {
-    if (this.listeners.has(type)) {
-      this.listeners.get(type)?.push(callback)
-    } else {
-      this.listeners.set(type, [callback])
-    }
+    const callbacks = this.listeners.get(type) || []
+    callbacks.push(callback)
+    this.listeners.set(type, callbacks)
   }
 
   /**
@@ -53,11 +51,10 @@ class AirEvent {
    * @param args 参数
    */
   emit(type: AirEventType | string, ...args: AirAny[]) {
-    if (this.listeners.has(type)) {
-      this.listeners.get(type)?.forEach((callback) => {
-        callback(...args)
-      })
-    }
+    const callbacks = this.listeners.get(type) || []
+    callbacks.forEach((callback) => {
+      callback(args)
+    })
   }
 
   /**
@@ -66,12 +63,10 @@ class AirEvent {
    * @param callback 回调方法
    */
   off(type: AirEventType | string, callback: Function) {
-    if (this.listeners.has(type)) {
-      const callbacks = this.listeners.get(type)
-      const index = callbacks?.indexOf(callback)
-      if (index !== undefined && index !== -1) {
-        callbacks?.splice(index, 1)
-      }
+    const callbacks = this.listeners.get(type) || []
+    const index = callbacks.indexOf(callback)
+    if (index !== -1) {
+      callbacks.splice(index, 1)
     }
   }
 }
