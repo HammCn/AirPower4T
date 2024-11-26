@@ -4,6 +4,7 @@ import { AirEntity } from '../base/AirEntity'
 import { AirConstant } from '../config/AirConstant'
 import { getModelConfig } from '../decorator/Model'
 import { ClassConstructor } from '../type/AirType'
+import { AirApi } from '../config/AirApi'
 
 /**
  * # 权限标识处理类
@@ -68,5 +69,44 @@ export class AirPermission {
       return permission || action
     }
     return permission || AirConstant.EMPTY_STRING
+  }
+
+  /**
+   * ## 权限列表
+   */
+  private static permissionList: string[] = []
+
+  /**
+   * ## 权限缓存 `Key`
+   */
+  private static readonly permissionKey = '_permissions'
+
+  /**
+   * ## 保存权限列表
+   * @param permissions 权限列表
+   */
+  static save(permissions: string[]) {
+    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
+    AirApi.setStorage(AirConfig.appKey + this.permissionKey, JSON.stringify(this.permissionList))
+  }
+
+  /**
+   * ## 获取缓存的权限列表
+   */
+  static get(): string[] {
+    const str = AirApi.getStorage(AirConfig.appKey + this.permissionKey) || '[]'
+    try {
+      return JSON.parse(str)
+    } catch (e) {
+      return []
+    }
+  }
+
+  /**
+   * ## 是否有权限
+   * @param permission 权限标识
+   */
+  static has(permission: string): boolean {
+    return this.permissionList.includes(permission.toLowerCase())
   }
 }

@@ -54,7 +54,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { FullScreen } from '@element-plus/icons-vue'
-import { AirConfig } from '../config/AirConfig'
+import { AirRouter } from '../helper/AirRouter'
 
 defineProps({
   /**
@@ -63,7 +63,7 @@ defineProps({
    */
   title: {
     type: String,
-    default: () => AirConfig.router.currentRoute.value.meta.name as string || '',
+    default: () => AirRouter.router.currentRoute.value.meta.name as string || '',
   },
 
   /**

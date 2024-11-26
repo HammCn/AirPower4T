@@ -1,7 +1,3 @@
-import {
-  createRouter, createWebHistory, Router, RouteRecordRaw,
-} from 'vue-router'
-
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
 import { IFile } from '../interface/IFile'
@@ -12,8 +8,6 @@ import { AirUserEntity } from '../model/entity/AirUserEntity'
 import { AirCodeNumber, AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
-import AirEvent from '../event/AirEvent'
-import { AirEventType } from '../event/AirEventType'
 
 /**
  * # `AirPower` 全局配置
@@ -299,11 +293,6 @@ export class AirConfig {
   static hideTableIndex = false
 
   /**
-   * ## `Vue` 路由对象
-   */
-  static router: Router
-
-  /**
    * ## 最近访问的路径
    */
   static lastPathKey = 'air_last_path'
@@ -338,45 +327,6 @@ export class AirConfig {
   static importTemplateUrl = 'importTemplate'
 
   /**
-   * ## 权限列表
-   */
-  private static permissionList: string[] = []
-
-  /**
-   * ## 权限缓存 `Key`
-   */
-  private static readonly permissionKey = '_permissions'
-
-  /**
-   * ## 保存权限列表
-   * @param permissions 权限列表
-   */
-  static savePermissionList(permissions: string[]) {
-    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
-    AirApi.setStorage(this.appKey + this.permissionKey, JSON.stringify(this.permissionList))
-  }
-
-  /**
-   * ## 获取缓存的权限列表
-   */
-  static getPermissionList(): string[] {
-    const str = AirApi.getStorage(this.appKey + this.permissionKey) || '[]'
-    try {
-      return JSON.parse(str)
-    } catch (e) {
-      return []
-    }
-  }
-
-  /**
-   * ## 是否有权限
-   * @param permission 权限标识
-   */
-  static hasPermission(permission: string): boolean {
-    return this.permissionList.includes(permission.toLowerCase())
-  }
-
-  /**
    * ## 保存身份令牌
    * @param accessToken 身份令牌
    */
@@ -396,51 +346,5 @@ export class AirConfig {
    */
   static removeAccessToken(): void {
     AirApi.removeStorage(this.authorizationHeaderKey)
-  }
-
-  /**
-   * ## 设置上次访问的路径
-   * @param path
-   */
-  static setLastPath(path: string): void {
-    AirApi.setStorage(this.lastPathKey, path)
-  }
-
-  /**
-   * ## 获取上次访问的路径
-   */
-  static getLastPath(): string {
-    return AirApi.getStorage(this.lastPathKey)
-  }
-
-  /**
-   * ## 创建 `Vue` 路由实例
-   * @param routes 路由配置文件
-   * @param ignoreGuard 不使用守卫
-   */
-  static createRouter(routes: RouteRecordRaw[], ignoreGuard = false): Router {
-    // 创建路由
-    const router = createRouter({
-      history: createWebHistory(),
-      routes,
-    })
-    router.afterEach(() => {
-      window.scrollTo(0, 0)
-    })
-    if (!ignoreGuard) {
-      router.beforeEach((to, _, next) => {
-        if (to.meta.name || to.name) {
-          window.document.title = `${to.meta.name || to.name} - ${AirConfig.product}` || AirConfig.product
-        }
-        next()
-      })
-    }
-    AirConfig.router = router
-
-    AirEvent.on(AirEventType.UNAUTHORIZED, () => {
-      AirConfig.router.replace('/login')
-    })
-
-    return router
   }
 }
