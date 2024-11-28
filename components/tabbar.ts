@@ -1,4 +1,5 @@
 import { AirApi } from '../config/AirApi'
+import { AirAny } from '../type/AirType'
 
 Component({
   data: {
@@ -21,7 +22,7 @@ Component({
     },
   },
   methods: {
-    switchTab(e: any) {
+    switchTab(e: AirAny) {
       const data = e.currentTarget.dataset
       this.setData({
         selected: data.index,
