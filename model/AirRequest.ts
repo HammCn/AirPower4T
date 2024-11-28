@@ -1,8 +1,8 @@
 import { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
-import { Type } from '../decorator/Custom'
+import { Field } from '../decorator/Field'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { ClassConstructor } from '../type/AirType'
 import { AirSort } from './AirSort'
 
 /**
@@ -16,14 +16,12 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   filter!: E
 
   /**
-   * ## 关键词搜索
-   */
-  @Type(String) keyword!: string
-
-  /**
    * ## 排序信息
    */
-  @Type(AirSort) sort!: AirSort
+  @Field({
+    type: AirSort,
+  })
+    sort?: AirSort
 
   /**
    * ## 初始化一个请求类

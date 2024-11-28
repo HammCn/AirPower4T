@@ -132,7 +132,7 @@ export class AirI18nDefault {
   ImageExtNotSupported?: string
 
   /** ## 支持的图片格式为 */
-  ImageSupportExts?: string
+  ImageSupportExtensions?: string
 
   /** ## 文件最大允许 */
   FileMaxSizeAllowed?: string

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AirHttp } from '../helper/AirHttp'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirModel } from './AirModel'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # `API` 服务超类

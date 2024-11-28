@@ -8,9 +8,8 @@ import { AirLoading } from '../feedback/AirLoading'
 import { IFile } from '../interface/IFile'
 import { IJson } from '../interface/IJson'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirI18n } from './AirI18n'
-import { AirAny } from '../type/AirType'
+import { AirAny, ClassConstructor } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
 
 /**
@@ -150,11 +149,11 @@ export class AirHttp {
   /**
    * ## 发送请求
    *
-   * @param body `可选` 请求体
+   * @param json `可选` 请求体
    * @see post() 直接发送 `POST`
    * @see get() 直接发送 `GET`
    */
-  async send(json: IJson): Promise<any> {
+  async send(json: IJson = {}): Promise<any> {
     return new Promise((success, fail) => {
       try {
         if (this.loading) {

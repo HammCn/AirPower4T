@@ -1,16 +1,130 @@
 # AirPower4T 版本发布日志
 
+## v3.0.1
+
+### 🎉 Features:
+
+### 🐞 Bug fixes:
+
+## v3.0.0
+
+### 🎉 Features:
+
+- feat(Field): 提供了一个全新的 `@Field` 装饰器 
+
+### 🐞 Bug fixes:
+
+- refactor(type): 将 ClassConstructor 类型迁移至 AirType
+- refactor(component): 重构工具栏组件中的 API 地址处理逻辑
+- refactor(Service): 重构成功提示逻辑 
+- docs(payload): 优化 Payload组件脚本标签属性顺序
+- perf(component): 优化脱敏逻辑
+- refactor(Dialog): 优化对话框组件的样式和功能
+- refactor(ToolBar): 优化日期选择器的代码结构和配置
+- refactor(Table): 优化 Table组件代码结构
+- refactor(upload): 将 exts 属性重命名为 extensions
+- refactor(selector): 重构选择器组件
+
+## v2.4.3
+
+### 🎉 Features:
+
+- feat(Desensitize): 增加自定义脱敏符号功能
+
+### 🐞 Bug fixes:
+
+## v2.4.2
+
+### 🎉 Features:
+
+- feat(Table): 支持了表格列中脱敏数据的配置属性
+- feat(Component): 提供了一个脱敏组件`ADesensitize`
+- feat(Phone): 增强手机/固话号码中间位数隐藏功能 
+
+## v2.4.1
+
+### 🎉 Features:
+
+- feat(Sort): ATable组件支持了清空排序
+
+### 🐞 Bug fixes:
+
+- fix(Dictionary): 修复获取全局配置字典失败的问题
+
+## v2.4.0
+
+### 🎉 Features:
+
+- feat(Dictionary): 支持了string和number类枚举的装饰器标注
+
+### 🐞 Bug fixes:
+
+- fix(Dictionary): 将获取配置时字典的优先级提前
+
+## v2.3.9
+
+### 🎉 Features:
+
+- feat(Selector): 支持了传入选择器默认筛选器
+- feat(Entity): 支持了一个链式调用的setDisable()方法
+
+### 🐞 Bug fixes:
+
+- fix(Selector): 修复树列表和不分页列表渲染失败的BUG
+- fix(Input): 修复具名插槽不生效的BUG
+- fix(Input): 修复`AInput`的`append`插槽和装饰器优先级
+- fix(TableField): 修复ITableFieldConfig的绝对导入路径
+
+## v2.3.8
+
+### 🎉 Features:
+
+- feat(Field): 支持了配置枚举类到字典属性上
+
+### 🐞 Bug fixes:
+
+- fix(Decorator): 修复获取字典数组的正确数据类型
+- fix(Input): 优化了获取列配置字典数据的逻辑
+- fix(Table): 优化了获取列配置字典数据的逻辑
+- fix(ToolBar): 优化了获取列配置字典数据的逻辑
+- fix(Type): 显式定义了一些方法返回值类型
+
+## v2.3.7
+
+### 🎉 Features:
+
+- feat(Search): 支持了一个配置是否可清空筛选的参数
+- feat(ToolBar): 支持了默认的筛选器参数
+
+### 🐞 Bug fixes:
+
+- fix(Image): 直接提供了宽度和高度的配置替代类配置
+
+## v2.3.6
+
+### 🎉 Features:
+
+- feat(IPayload): 提供了一个`Payload`标准接口
+
+### 🐞 Bug fixes:
+
+- fix(ISelector): 统一到 `IPayload` 接口
+- fix(Copy): 优化`Copy`组件的行内展示样式
+- fix(TableField): 移除泛型支持和冗余属性
+- fix(ToolBar): 移除关键词搜索，更新搜索逻辑
+- fix(Upload): 修改自定义上传成功的返回事件优先级
+
 ## v2.3.5
 
 ### 🎉 Features:
 
-- feat(Table): 支持了行斑马纹和禁用状态 
-- feat(Config): 支持配置全局是否显示表格斑马纹 
+- feat(Table): 支持了行斑马纹和禁用状态
+- feat(Config): 支持配置全局是否显示表格斑马纹
 
 ### 🐞 Bug fixes:
 
 - fix(Dictionary): 修正AirDictionaryArray的导入路径
-- fix(Service): 修改`newEntityInstance`为`protected` 
+- fix(Service): 修改`newEntityInstance`为`protected`
 - style(Code): 优化了一些代码风格和格式
 
 ## v2.3.4

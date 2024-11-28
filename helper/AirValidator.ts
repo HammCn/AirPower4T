@@ -66,7 +66,7 @@ export class AirValidator {
   /**
    * ## 字符串是否是数字 正负整数小数和0
    * @param str 字符串
-     */
+   */
   static isNumber(str: string): boolean {
     return /^(-)?[0-9]+((.)[0-9]+)?$/.test(str)
   }

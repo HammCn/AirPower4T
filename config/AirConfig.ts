@@ -1,7 +1,7 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
-import { AirApi } from './AirApi'
 import { AirCodeNumber } from '../type/AirType'
+import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
 
 /**
@@ -13,7 +13,7 @@ export class AirConfig {
   /**
    * ## `AirPower` 版本号
    */
-  static readonly version = 'v2.3.5'
+  static readonly version = 'v3.0.0'
 
   /**
    * ## `AppKey`
@@ -91,7 +91,7 @@ export class AirConfig {
 
   /**
    * ## 默认的格式化时间
-   * ```
+   * `ADateTime` `ATable` 的格式化都将默认使用这个配置
    */
   static dateTimeFormatter = AirDateTimeFormatter.YYYY_MM_DD_HH_mm_ss
 
@@ -106,6 +106,7 @@ export class AirConfig {
   static login = () => {
     AirApi.redirect('/view/login')
   }
+
   /**
    * ## 保存身份令牌
    * @param accessToken 身份令牌

@@ -54,8 +54,8 @@ export class AirConfirm extends AirAlert {
   private confirm(content: string, title = '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       wx.showModal({
-        title: title,
-        content: content,
+        title,
+        content,
         confirmText: this.confirmText,
         confirmColor: this.confirmColor,
         cancelText: this.cancelText,

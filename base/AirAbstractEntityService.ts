@@ -1,12 +1,12 @@
-import { AirAlert } from '../feedback/AirAlert'
-import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
 import { AirAbstractService } from './AirAbstractService'
 import { AirEntity } from './AirEntity'
+import { ClassConstructor } from '../type/AirType'
+import { AirNotification } from '../feedback/AirNotification'
+import { AirAlert } from '../feedback/AirAlert'
 
 /**
  * # 实体 `API` 服务超类
@@ -120,11 +120,11 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async add(data: E, message?: string, apiUrl = this.urlForAdd): Promise<number> {
-    const json = await this.api(apiUrl).post(data)
-    if (message) {
-      AirNotification.success(message)
-    }
-    return AirClassTransformer.parse(json, this.entityClass).id
+    const json = await this.api(apiUrl)
+      .post(data)
+    const saved = AirClassTransformer.parse(json, this.entityClass)
+    this.showSuccessIfProvide(message)
+    return saved.id
   }
 
   /**
@@ -134,10 +134,9 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async update(data: E, message?: string, apiUrl = this.urlForUpdate): Promise<void> {
-    await this.api(apiUrl).post(data)
-    if (message) {
-      AirNotification.success(message)
-    }
+    await this.api(apiUrl)
+      .post(data)
+    this.showSuccessIfProvide(message)
   }
 
   /**
@@ -162,16 +161,15 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async delete(id: number, message?: string, apiUrl = this.urlForDelete): Promise<void> {
-    await this.api(apiUrl).callbackError()
-      .post(this.newEntityInstance(id))
-      .then(async () => {
-        if (message) {
-          AirNotification.success(message)
-        }
-      })
-      .catch(async (err) => {
-        await AirAlert.show((err as Error).message, '删除失败')
-      })
+    const instance = this.newEntityInstance(id)
+    try {
+      await this.api(apiUrl)
+        .callbackError()
+        .post(instance)
+      this.showSuccessIfProvide(message)
+    } catch (err) {
+      AirAlert.show('删除失败', (err as Error).message)
+    }
   }
 
   /**
@@ -181,15 +179,14 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async disable(id: number, message?: string, apiUrl = this.urlForDisable): Promise<void> {
+    const instance = this.newEntityInstance(id)
     try {
       await this.api(apiUrl)
         .callbackError()
-        .post(this.newEntityInstance(id))
-      if (message) {
-        AirNotification.success(message)
-      }
+        .post(instance)
+      this.showSuccessIfProvide(message)
     } catch (err) {
-      await AirAlert.show((err as Error).message, '禁用失败')
+      AirAlert.show('禁用失败', (err as Error).message)
     }
   }
 
@@ -200,15 +197,14 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async enable(id: number, message?: string, apiUrl = this.urlForEnable): Promise<void> {
+    const instance = this.newEntityInstance(id)
     try {
       await this.api(apiUrl)
         .callbackError()
-        .post(this.newEntityInstance(id))
-      if (message) {
-        AirNotification.success(message)
-      }
+        .post(instance)
+      this.showSuccessIfProvide(message)
     } catch (err) {
-      await AirAlert.show((err as Error).message, '启用失败')
+      AirAlert.show('启用失败', (err as Error).message)
     }
   }
 
@@ -223,5 +219,12 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
       entity.id = id
     }
     return entity
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private showSuccessIfProvide(message?: string): void {
+    if (message) {
+      AirNotification.success(message)
+    }
   }
 }

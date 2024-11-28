@@ -2,8 +2,9 @@ import { AirConstant } from '../config/AirConstant'
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirAny, AirColorString, AirEnumKey } from '../type/AirType'
-import { ClassConstructor } from '../type/ClassConstructor'
+import {
+  AirAny, AirColorString, AirEnumKey, ClassConstructor,
+} from '../type/AirType'
 
 /**
  * # 枚举基类
@@ -49,7 +50,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**
    * ## 获取枚举的 `Label`
    * @param key `Key`
-   * @param defaultLabel `可选` 默认 `Label`
+   * @param defaultLabel `可选` 默认的标签
    */
   static getLabel(key: AirEnumKey, defaultLabel = AirConstant.HYPHEN): string {
     return this.get(key)?.label || defaultLabel
