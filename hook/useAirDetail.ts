@@ -2,11 +2,11 @@ import { provide, Ref, ref } from 'vue'
 import { IUseDetailOption } from '../interface/hooks/IUseDetailOption'
 import { IUseDetailResult } from '../interface/hooks/IUseDetailResult'
 import { AirEntity } from '../base/AirEntity'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 引入详情的`Hook`

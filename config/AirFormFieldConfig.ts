@@ -5,8 +5,8 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEnum } from '../base/AirEnum'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 表单字段配置实现类

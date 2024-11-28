@@ -2,8 +2,9 @@ import { AirConstant } from '../config/AirConstant'
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirAny, AirColorString, AirEnumKey } from '../type/AirType'
-import { ClassConstructor } from '../type/ClassConstructor'
+import {
+  AirAny, AirColorString, AirEnumKey, ClassConstructor,
+} from '../type/AirType'
 
 /**
  * # 枚举基类

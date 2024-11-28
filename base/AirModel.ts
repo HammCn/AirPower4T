@@ -3,23 +3,15 @@ import { AirConstant } from '../config/AirConstant'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import {
-  getAlias,
-  getDefault,
-  getFieldName,
-  getFieldPrefix,
-  getIsArray,
-  getModelName,
-  getNoPrefix,
-  getToJson,
-  getToModel,
-  getType,
-} from '../decorator/Custom'
+import { getModelConfig } from '../decorator/Model'
 import { getFormConfig, getFormConfigList } from '../decorator/FormField'
+import { getFieldConfig, getToJson, getToModel } from '../decorator/Field'
 import { getSearchConfigList } from '../decorator/SearchField'
 import { getTableConfigList } from '../decorator/TableField'
+import { IFieldConfig } from '../interface/decorators/IFieldConfig'
 import { IJson } from '../interface/IJson'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { IModelConfig } from '../interface/decorators/IModelConfig'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 模型超类
@@ -63,19 +55,16 @@ export class AirModel {
    */
   static parse<T extends AirModel>(instance: T, json: IJson = {}): T {
     const fieldKeyList = Object.keys(instance)
+    const modelConfig = getModelConfig(instance)
     for (const fieldKey of fieldKeyList) {
-      const defaultValue = getDefault(instance, fieldKey)
-      const FieldTypeClass = getType(instance, fieldKey)
-      const fieldAliasName = getAlias(instance, fieldKey)
+      const props = getFieldConfig(instance, fieldKey)
       let fieldData = json[
-        (!getNoPrefix(instance, fieldKey)
-          ? getFieldPrefix(instance)
-          : AirConstant.EMPTY_STRING
-        )
-        + (fieldAliasName || fieldKey)]
+        (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
+        + (props.alias || fieldKey)]
+
       if (fieldData === undefined) {
         // 没有值尝试获取默认值
-        fieldData = getDefault(instance, fieldKey)
+        fieldData = props.default
       }
       (instance as IJson)[fieldKey] = fieldData
 
@@ -90,7 +79,8 @@ export class AirModel {
           continue
         }
       }
-      if (getIsArray(instance, fieldKey)) {
+      const FieldTypeClass = props.type
+      if (props.array) {
         // 是数组 循环转换
         const fieldValueList: IJson[] = []
         if (typeof fieldData === 'object' && Array.isArray(fieldData)) {
@@ -104,9 +94,9 @@ export class AirModel {
         (instance as IJson)[fieldKey] = fieldValueList
         continue
       }
-      if (defaultValue !== undefined && (fieldData === undefined || fieldData === null || fieldData === AirConstant.EMPTY_STRING)) {
+      if (props.default !== undefined && (fieldData === undefined || fieldData === null || fieldData === AirConstant.EMPTY_STRING)) {
         // 如果有默认值 则先给上默认值
-        (instance as IJson)[fieldKey] = defaultValue
+        (instance as IJson)[fieldKey] = props.default
       }
 
       if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
@@ -138,7 +128,8 @@ export class AirModel {
 
     // 最后删除无用的数据
     for (const fieldKey of fieldKeyList) {
-      const fieldAliasName = getAlias(instance, fieldKey)
+      const props = getFieldConfig(instance, fieldKey)
+      const fieldAliasName = props.alias || fieldKey
       if (fieldAliasName === fieldKey) {
         continue
       }
@@ -148,22 +139,36 @@ export class AirModel {
   }
 
   /**
-   * ## 获取类的可阅读名字
-   * 可使用 `@Model` 装饰器修饰 如无修饰 则直接返回类名
+   * ## 获取模型类配置项
+   */
+  static getModelConfig<M extends IModelConfig = IModelConfig>(): M {
+    return this.newInstance()
+      .getModelConfig<M>()
+  }
+
+  /**
+   * ## 获取模型类的可阅读名字
    */
   static getModelName(): string {
-    return this.newInstance()
-      .getModelName()
+    return this.newInstance().getModelName()
   }
 
   /**
    * ## 获取属性的可阅读名字
-   * 可使用 `@Field` 装饰器修饰 如无修饰 则直接返回属性名
    * @param fieldKey 属性名
    */
   static getFieldName(fieldKey: string): string {
+    return this.newInstance().getFieldName(fieldKey)
+  }
+
+  /**
+   * ## 获取属性的配置
+   * @param fieldKey 属性名
+   * @returns 配置对象
+   */
+  static getFieldConfig<P extends IFieldConfig = IFieldConfig>(fieldKey: string): P {
     return this.newInstance()
-      .getFieldName(fieldKey)
+      .getFieldConfig<P>(fieldKey)
   }
 
   /**
@@ -280,6 +285,7 @@ export class AirModel {
    */
   toJson(): IJson {
     const fieldKeyList = Object.keys(this)
+    const modelConfig = getModelConfig(this)
     const json: IJson = {}
     for (const fieldKey of fieldKeyList) {
       const fieldData = (this as IJson)[fieldKey]
@@ -287,10 +293,11 @@ export class AirModel {
         // 如果属性值为 null 或 undefined 则不转换到JSON
         continue
       }
-      let fieldAliasName = getAlias(this, fieldKey) || fieldKey
-      if (!getNoPrefix(this, fieldKey) && getFieldPrefix(this)) {
+      const fieldConfig = getFieldConfig(this, fieldKey)
+      let fieldAliasName = fieldConfig.alias || fieldKey
+      if (!fieldConfig.ignorePrefix && modelConfig.fieldPrefix) {
         // 按忽略前缀规则获取别名
-        fieldAliasName = getFieldPrefix(this) + fieldAliasName
+        fieldAliasName = modelConfig.fieldPrefix + fieldAliasName
       }
       const toJsonFunction = getToJson(this, fieldKey)
       json[fieldAliasName || fieldKey] = fieldData
@@ -333,8 +340,26 @@ export class AirModel {
    * ! 内部使用的保留方法
    * @deprecated
    */
+  getModelConfig<M extends IModelConfig = IModelConfig>(): M {
+    return getModelConfig<M>(this)
+  }
+
+  /**
+   * ## `请直接调用静态方法获取`
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
   getModelName(): string {
-    return getModelName(this) || this.constructor.name
+    return getModelConfig(this).label || this.constructor.name
+  }
+
+  /**
+   * ## `请直接调用静态方法获取`
+   * ! 内部使用的保留方法
+   * @deprecated
+   */
+  getFieldConfig<P extends IFieldConfig = IFieldConfig>(fieldKey: string): P {
+    return getFieldConfig<P>(this, fieldKey)
   }
 
   /**
@@ -343,7 +368,7 @@ export class AirModel {
    * @deprecated
    */
   getFieldName(fieldKey: string): string {
-    return getFieldName(this, fieldKey)
+    return getFieldConfig(this, fieldKey).label || fieldKey
   }
 
   /**
@@ -361,7 +386,8 @@ export class AirModel {
    * @deprecated
    */
   getFormFieldLabel(fieldKey: string): string {
-    return this.getCustomFormFieldConfig(fieldKey)?.label || this.getFieldName(fieldKey)
+    const props = getFieldConfig(this, fieldKey)
+    return this.getCustomFormFieldConfig(fieldKey)?.label || props.label || fieldKey
   }
 
   /**

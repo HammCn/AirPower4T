@@ -5,7 +5,7 @@ import { AirDialog } from '../helper/AirDialog'
 import { ITree } from '../interface/ITree'
 import { IUseTableTreeOption } from '../interface/hooks/IUseTableTreeOption'
 import { IUseTableTreeResult } from '../interface/hooks/IUseTableTreeResult'
-import { ClassConstructor } from '../type/ClassConstructor'
+import { ClassConstructor } from '../type/AirType'
 import { useAirTable } from './useAirTable'
 
 /**

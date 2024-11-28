@@ -2,10 +2,10 @@
   <transition name="dialog">
     <div
       v-if="true"
-      class="dialog air-dialog"
       :class="getDialogClass"
-      @mouseup="dialogMouseUpEvent"
+      class="dialog air-dialog"
       @mousemove="dialogMouseMoveEvent"
+      @mouseup="dialogMouseUpEvent"
       @click.self="dialogBgClicked"
     >
       <button
@@ -14,7 +14,7 @@
       />
       <div
         :id="dialogIdPrefix + domId"
-        class="main"
+        :class="isFullScreen && allowFullscreen ? 'fullscreen' : ''"
         :style="{
           width: width,
           height: height,
@@ -23,23 +23,23 @@
           transform: 'translate(' + x + 'px, ' + y + 'px)',
           borderRadius: isFullScreen ? '0px' : '4px',
         }"
-        :class="isFullScreen && fullable ? 'fullscreen' : ''"
+        class="main"
       >
         <div
-          class="header"
           :style="{
             cursor: cursorRef,
           }"
-          @mousedown="dialogMouseDownEvent"
+          class="header"
           @dblclick="headerDoubleClicked"
+          @mousedown="dialogMouseDownEvent"
         >
           <div class="title">
             {{ title }}
           </div>
           <i
-            v-if="fullable"
-            class="airpower"
+            v-if="allowFullscreen"
             :class="isFullScreen ? 'icon-commonicon_suoxiao' : 'icon-commonicon_quanping'"
+            class="airpower"
             @click="headerDoubleClicked"
           />
           <i
@@ -68,8 +68,8 @@
             <slot name="leftCtrl" />
             <AButton
               v-if="!hideConfirm"
-              primary
               :disabled="disableConfirm || loading"
+              primary
               @click="confirmEvent"
             >
               {{ confirmText }}
@@ -230,9 +230,9 @@ const props = defineProps({
   /**
    * # 允许显示全屏按钮
    */
-  fullable: {
+  allowFullscreen: {
     type: Boolean,
-    default: AirConfig.dialogFullable,
+    default: AirConfig.dialogAllowFullscreen,
   },
 
   /**
@@ -279,9 +279,29 @@ const props = defineProps({
 })
 
 /**
+ * # 对话框ID前缀
+ */
+const dialogIdPrefix = 'dialog_'
+
+/**
+ * # 移动时的鼠标样式
+ */
+const CURSOR_MOVING = 'grabbing'
+
+/**
+ * # 可移动的鼠标样式
+ */
+const CURSOR_CAN_MOVE = 'grab'
+
+/**
+ * # 普通鼠标样式
+ */
+const CURSOR_NORMAL = 'pointer'
+
+/**
  * # 标题的鼠标样式
  */
-const cursorRef = ref('grab')
+const cursorRef = ref(CURSOR_CAN_MOVE)
 
 /**
  * # 随机ID
@@ -326,7 +346,7 @@ let trueHeight = 0
 /**
  * # 是否全屏
  */
-const isFullScreen = ref(props.fullable && props.fullScreen)
+const isFullScreen = ref(props.allowFullscreen && props.fullScreen)
 
 /**
  * # 强制焦点丢失
@@ -351,8 +371,6 @@ watch(() => AirStore().escKeyDown, () => {
   }
 })
 
-const dialogIdPrefix = 'dialog_'
-
 /**
  * # 鼠标按下的事件
  * @param event
@@ -361,7 +379,7 @@ function dialogMouseDownEvent(event: MouseEvent) {
   if (isFullScreen.value || !props.movable) {
     return
   }
-  cursorRef.value = 'grabbing'
+  cursorRef.value = CURSOR_MOVING
   startX = event.clientX - x.value
   startY = event.clientY - y.value
   isMoving.value = true
@@ -376,13 +394,13 @@ function dialogMouseDownEvent(event: MouseEvent) {
  * # 双击标题事件
  */
 function headerDoubleClicked() {
-  if (!props.fullable) {
+  if (!props.allowFullscreen) {
     return
   }
   isFullScreen.value = !isFullScreen.value
   x.value = 0
   y.value = 0
-  cursorRef.value = isFullScreen.value ? 'pointer' : 'grab'
+  cursorRef.value = isFullScreen.value ? CURSOR_NORMAL : CURSOR_CAN_MOVE
 }
 
 /**
@@ -390,7 +408,7 @@ function headerDoubleClicked() {
  */
 function dialogMouseUpEvent() {
   if (isMoving.value) {
-    cursorRef.value = 'grab'
+    cursorRef.value = CURSOR_CAN_MOVE
     isMoving.value = false
   }
 }
@@ -487,7 +505,7 @@ async function confirmEvent() {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .dialog {
   z-index: 99;
   position: fixed;

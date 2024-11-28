@@ -63,9 +63,9 @@ import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
 import { AirConfig } from '../config/AirConfig'
 import { IFile } from '../interface/IFile'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
+import { ClassConstructor } from '../type/AirType'
 
 const emits = defineEmits<{
   onUpload: [file: F],
@@ -149,7 +149,7 @@ const props = defineProps({
   /**
    * # 允许上传的格式
    */
-  exts: {
+  extensions: {
     type: Array,
     default: () => ['jpg', 'jpeg', 'png'],
   },
@@ -245,8 +245,8 @@ function showLocalFile(file: File) {
  */
 function beforeUpload(file: File): boolean {
   const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1)
-  if (!props.exts.includes(fileExt.toLocaleLowerCase())) {
-    AirNotification.warning(`${AirI18n.get().ImageSupportExts || '支持的图片格式为: '} ${props.exts.join('/')}`, AirI18n.get().ImageExtNotSupported || '图片格式不支持')
+  if (!props.extensions.includes(fileExt.toLocaleLowerCase())) {
+    AirNotification.warning(`${AirI18n.get().ImageSupportExtensions || '支持的图片格式为: '} ${props.extensions.join('/')}`, AirI18n.get().ImageExtNotSupported || '图片格式不支持')
     return false
   }
   if (file.size > props.limit) {

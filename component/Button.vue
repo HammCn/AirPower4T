@@ -39,6 +39,7 @@ import { AirIcon } from '../enum/AirIcon'
 import { AirIconType } from '../type/AirType'
 import { AirConfig } from '../config/AirConfig'
 import { AirI18n } from '../helper/AirI18n'
+import { AirPermission } from '../helper/AirPermission'
 
 defineEmits(['click', 'onClick'])
 
@@ -138,7 +139,7 @@ const permissionTips = computed(() => {
   if (AirConfig.disablePermission) {
     return props.tooltip
   }
-  return (props.permission && !AirConfig.hasPermission(props.permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : props.tooltip)
+  return (props.permission && !AirPermission.has(props.permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : props.tooltip)
 })
 
 /**
@@ -149,7 +150,7 @@ const isDisabled = computed(() => {
     return true
   }
   if (props.permission) {
-    return !AirConfig.hasPermission(props.permission) && !AirConfig.disablePermission
+    return !AirPermission.has(props.permission) && !AirConfig.disablePermission
   }
   return false
 })

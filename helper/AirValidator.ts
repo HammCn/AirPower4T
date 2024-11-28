@@ -1,5 +1,4 @@
 import { AirInputType } from '../enum/AirInputType'
-import { AirNotification } from '../feedback/AirNotification'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirEntity } from '../base/AirEntity'
@@ -196,8 +195,8 @@ export class AirValidator {
     try {
       return new RegExp(String.raw`^[${regString}]+$`).test(str)
     } catch (e) {
-      AirNotification.error('开发者自己的正则都写错了...')
-      return false
+      // 抛出错误的正则表达式
+      throw new Error('What the fuck your regexp is?')
     }
   }
 

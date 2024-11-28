@@ -29,6 +29,11 @@ import { AirConfig } from './config/AirConfig'
 import { AirStore } from './store/AirStore'
 import { AirVersion } from './helper/AirVersion'
 import { AirAny } from './type/AirType'
+import AirEvent from './event/AirEvent'
+import { AirEventType } from './event/AirEventType'
+import { AirAlert } from './feedback/AirAlert'
+import { AirNotification } from './feedback/AirNotification'
+import { AirI18n } from './helper/AirI18n'
 
 // Vue初始化
 const app = createApp(App)
@@ -52,7 +57,7 @@ export { app }
 console.clear()
 
 console.log(
-  `%c©%cAirPower%c4T%c${AirConfig.version}%c\n已支持: Web、微信小程序、uniapp\n\n%c🔥🔥🔥AirPower系列开源项目推荐\n
+  `%c©%cAirPower%c4T%c${AirConfig.version}%c\n已支持: Web、微信小程序、uni-app\n\n%c🔥🔥🔥AirPower系列开源项目推荐\n
 %c前端: https://github.com/HammCn/AirPower4T
 %c后端: https://github.com/HammCn/AirPower4J
   `,
@@ -96,4 +101,41 @@ app.directive('tip', {
       }
     })
   },
+})
+
+const errorTitle = AirI18n.get().SystemError || AirConfig.errorTitle
+const defaultErrorMessage = AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage
+
+// 网络错误和请求错误弹出错误
+AirEvent.onAll([
+  AirEventType.NETWORK_ERROR,
+  AirEventType.REQUEST_ERROR,
+], (message: string) => {
+  AirNotification.error(message || defaultErrorMessage, errorTitle)
+})
+
+AirEvent.on(AirEventType.REQUEST_CONTINUE, (message: string) => {
+  AirAlert.success(message || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
+})
+
+// 各种操作成功提示
+AirEvent.onAll([
+  AirEventType.UPDATE_SUCCESS,
+  AirEventType.ADD_SUCCESS,
+  AirEventType.ENABLE_SUCCESS,
+  AirEventType.DISABLE_SUCCESS,
+  AirEventType.DELETE_SUCCESS,
+], (title: string, message: string) => {
+  if (message) {
+    AirNotification.success(message, title)
+  }
+})
+
+// 各种操作失败的业务提示
+AirEvent.onAll([
+  AirEventType.DELETE_FAIL,
+  AirEventType.ENABLE_FAIL,
+  AirEventType.DISABLE_FAIL,
+], (title: string, message: string) => {
+  AirNotification.error(message || defaultErrorMessage, title)
 })

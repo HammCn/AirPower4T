@@ -1,4 +1,9 @@
+import {
+  RouteRecordRaw, Router, createRouter, createWebHistory,
+} from 'vue-router'
 import { AirConfig } from '../config/AirConfig'
+import AirEvent from '../event/AirEvent'
+import { AirEventType } from '../event/AirEventType'
 import { AirNotification } from '../feedback/AirNotification'
 import { IMenu } from '../interface/IMenu'
 import { AirConsole } from './AirConsole'
@@ -10,6 +15,11 @@ const modules = import.meta.glob('../../view/**/*.vue')
  * @author Hamm.cn
  */
 export class AirRouter {
+  /**
+   * ## 当前路由
+   */
+  static router: Router
+
   /**
    * ## 将 `AirMenu` 菜单列表初始化到 `Vue` 路由中
    * @param menuList 菜单列表
@@ -35,7 +45,7 @@ export class AirRouter {
         this.addRouterAsync(item.children, parentRouter)
         return
       }
-      if (!AirConfig.router) {
+      if (!this.router) {
         AirNotification.error('请先向AirConfig注入当前路由对象', '配置错误')
         return
       }
@@ -43,10 +53,10 @@ export class AirRouter {
         AirConsole.error('路由初始化失败，缺少参数')
         return
       }
-      if (AirConfig.router.hasRoute(item.id.toString())) {
+      if (this.router.hasRoute(item.id.toString())) {
         return
       }
-      AirConfig.router.addRoute(parentRouter, {
+      this.router.addRoute(parentRouter, {
         path: item.path,
         name: item.id.toString(),
         meta: {
@@ -63,7 +73,7 @@ export class AirRouter {
    * @param menuList `可选 子菜单,好兄弟,你不用传`
    */
   private static reloadCacheMenuList(menuCacheKey: string, menuList?: IMenu[]): void {
-    if (!AirConfig.router) {
+    if (!this.router) {
       return
     }
     if (!menuList && localStorage.getItem(menuCacheKey)) {
@@ -81,9 +91,40 @@ export class AirRouter {
       const locationPathName = window.location.pathname
       if (item.path === locationPathName) {
         localStorage.removeItem(menuCacheKey)
-        AirConfig.router.replace(locationPathName + window.location.search)
+        this.router.replace(locationPathName + window.location.search)
         break
       }
     }
+  }
+
+  /**
+   * ## 创建 `Vue` 路由实例
+   * @param routes 路由配置文件
+   * @param ignoreGuard 不使用守卫
+   */
+  static createRouter(routes: RouteRecordRaw[], ignoreGuard = false): Router {
+    // 创建路由
+    const router = createRouter({
+      history: createWebHistory(),
+      routes,
+    })
+    router.afterEach(() => {
+      window.scrollTo(0, 0)
+    })
+    if (!ignoreGuard) {
+      router.beforeEach((to, _, next) => {
+        if (to.meta.name || to.name) {
+          window.document.title = `${to.meta.name || to.name} - ${AirConfig.product}` || AirConfig.product
+        }
+        next()
+      })
+    }
+    this.router = router
+
+    AirEvent.on(AirEventType.UNAUTHORIZED, () => {
+      this.router.replace('/login')
+    })
+
+    return router
   }
 }

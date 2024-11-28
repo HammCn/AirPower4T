@@ -6,7 +6,7 @@ import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirDecoratorTarget } from '../type/AirType'
-import { getDictionary, getFieldName } from './Custom'
+import { getFieldConfig } from './Field'
 
 /**
  * ## 表格字段 `key`
@@ -38,7 +38,8 @@ export function Table(config: ITableFieldConfig = {}) {
 export function getTableConfig(target: AirDecoratorTarget, key: string): AirTableFieldConfig | null {
   const formConfig = AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
   if (!formConfig.dictionary) {
-    formConfig.dictionary = getDictionary(target, formConfig.key)
+    const props = getFieldConfig(target, key)
+    formConfig.dictionary = AirDecorator.getDictionary(props.dictionary)
   }
   return formConfig
 }
@@ -60,9 +61,10 @@ export function getTableConfigList(target: AirDecoratorTarget, keyList: string[]
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirTableFieldConfig)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
-      item.label = item.label || getFieldName(target, item.key)
+      const props = getFieldConfig(target, item.key)
+      item.label = item.label || props.label || item.key
       if (!item.dictionary) {
-        item.dictionary = getDictionary(target, item.key)
+        item.dictionary = AirDecorator.getDictionary(props.dictionary)
       }
       return item
     })

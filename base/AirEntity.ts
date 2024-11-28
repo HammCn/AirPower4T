@@ -1,8 +1,8 @@
-import { Dictionary, Field, Type } from '../decorator/Custom'
 import { AirModel } from './AirModel'
 import { Table } from '../decorator/TableField'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'
 import { AirConstant } from '../config/AirConstant'
+import { Field } from '../decorator/Field'
 
 /**
  * # 实体超类
@@ -12,14 +12,15 @@ export class AirEntity extends AirModel {
   /**
    * ## 主键 `ID`
    */
-  @Type(Number)
-  @Field('ID') id!: number
+  @Field({
+    label: 'ID',
+    type: Number,
+  })
+    id!: number
 
   /**
    * ## 是否禁用
    */
-  @Type(Boolean)
-  @Dictionary(AirDisableDictionary)
   @Table({
     showColor: true,
     width: 80,
@@ -27,7 +28,12 @@ export class AirEntity extends AirModel {
     forceShow: true,
     removed: true,
   })
-  @Field('禁用') isDisabled!: boolean
+  @Field({
+    label: '是否禁用',
+    type: Boolean,
+    dictionary: AirDisableDictionary,
+  })
+    isDisabled!: boolean
 
   /**
    * ## 实例化一个实体

@@ -1,4 +1,4 @@
-import { ClassConstructor } from '../../type/ClassConstructor'
+import { ClassConstructor } from '../../type/AirType'
 import { IFile } from '../IFile'
 import { IJson } from '../IJson'
 
@@ -21,7 +21,7 @@ export interface IUploadProps {
    * ## 如传入数组包含 `*` 则直接允许所有格式
    * 允许上传文件后缀数组 不要加 `·`
    */
-  exts?: string[],
+  extensions?: string[],
 
   /**
    * ## 上传表单的字段名 默认 `file`
