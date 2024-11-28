@@ -1,9 +1,10 @@
 import { AirPermissionAction } from '../enum/AirPermissionAction'
-import { getEntityConfig } from '../decorator/EntityConfig'
 import { AirConfig } from '../config/AirConfig'
 import { AirEntity } from '../base/AirEntity'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirConstant } from '../config/AirConstant'
+import { getModelConfig } from '../decorator/Model'
+import { ClassConstructor } from '../type/AirType'
+import { AirApi } from '../config/AirApi'
 
 /**
  * # 权限标识处理类
@@ -15,43 +16,43 @@ export class AirPermission {
    * @param EntityClass 实体类
    * @param action 权限场景
    */
-  static getPermission(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
+  static get(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
     if (!EntityClass) {
       return AirConstant.EMPTY_STRING
     }
-    const entityConfig = getEntityConfig(new EntityClass())
-    if (!entityConfig) {
+    const modelConfig = getModelConfig(new EntityClass())
+    if (!modelConfig) {
       return AirConstant.EMPTY_STRING
     }
     if (AirConfig.autoPermission) {
       // 自动处理权限
-      if (!entityConfig.permissionPrefix) {
+      if (!modelConfig.permissionPrefix) {
         // 没有配置前缀 从类中获取权限前缀
         const entityName = EntityClass.name.replace('Entity', AirConstant.EMPTY_STRING)
           .toString()
-        entityConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
+        modelConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
       }
     } else {
       // 如不自动配置权限, 则将权限前缀清空
-      entityConfig.permissionPrefix = AirConstant.EMPTY_STRING
+      modelConfig.permissionPrefix = AirConstant.EMPTY_STRING
     }
-    const permissionPrefix = entityConfig.permissionPrefix + AirConstant.UNDER_LINE
+    const permissionPrefix = modelConfig.permissionPrefix + AirConstant.UNDER_LINE
 
     switch (action) {
       case AirPermissionAction.ADD:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.addPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.addPermission, action)
       case AirPermissionAction.DELETE:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.deletePermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.deletePermission, action)
       case AirPermissionAction.EDIT:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.editPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.editPermission, action)
       case AirPermissionAction.DETAIL:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.detailPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.detailPermission, action)
       case AirPermissionAction.ADD_CHILD:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.addChildPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.addChildPermission, action)
       case AirPermissionAction.EXPORT:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.exportPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.exportPermission, action)
       case AirPermissionAction.IMPORT:
-        return permissionPrefix + this.getAutoPermissionFlag(entityConfig.importPermission, action)
+        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.importPermission, action)
       default:
     }
     return AirConstant.EMPTY_STRING
@@ -68,5 +69,44 @@ export class AirPermission {
       return permission || action
     }
     return permission || AirConstant.EMPTY_STRING
+  }
+
+  /**
+   * ## 权限列表
+   */
+  private static permissionList: string[] = []
+
+  /**
+   * ## 权限缓存 `Key`
+   */
+  private static readonly permissionKey = '_permissions'
+
+  /**
+   * ## 保存权限列表
+   * @param permissions 权限列表
+   */
+  static saveList(permissions: string[]) {
+    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
+    AirApi.setStorage(AirConfig.appKey + this.permissionKey, JSON.stringify(this.permissionList))
+  }
+
+  /**
+   * ## 获取缓存的权限列表
+   */
+  static getList(): string[] {
+    const str = AirApi.getStorage(AirConfig.appKey + this.permissionKey) || '[]'
+    try {
+      return JSON.parse(str)
+    } catch (e) {
+      return []
+    }
+  }
+
+  /**
+   * ## 是否有权限
+   * @param permission 权限标识
+   */
+  static has(permission: string): boolean {
+    return this.permissionList.includes(permission.toLowerCase())
   }
 }

@@ -6,7 +6,7 @@ import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
 import { AirDecoratorTarget } from '../type/AirType'
-import { getDictionary, getFieldName } from './Custom'
+import { getFieldConfig } from './Field'
 
 /**
  * ## 表单字段 `key`
@@ -38,7 +38,8 @@ export function Form(config: IFormFieldConfig = {}) {
 export function getFormConfig(target: AirDecoratorTarget, key: string): AirFormFieldConfig | null {
   const formConfig = AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
   if (!formConfig.dictionary) {
-    formConfig.dictionary = getDictionary(target, formConfig.key)
+    const props = getFieldConfig(target, key)
+    formConfig.dictionary = AirDecorator.getDictionary(props.dictionary)
   }
   return formConfig
 }
@@ -61,9 +62,10 @@ export function getFormConfigList(target: AirDecoratorTarget, keyList: string[])
     .filter((item) => !item.hide)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
-      item.label = item.label || getFieldName(target, item.key)
+      const props = getFieldConfig(target, item.key)
+      item.label = item.label || props.label || item.key
       if (!item.dictionary) {
-        item.dictionary = getDictionary(target, item.key)
+        item.dictionary = AirDecorator.getDictionary(props.dictionary)
       }
       return item
     })

@@ -3,7 +3,6 @@ import { AirEntity } from '../base/AirEntity'
 import { AirDialog } from '../helper/AirDialog'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { AirResponsePage } from '../model/AirResponsePage'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirSort } from '../model/AirSort'
@@ -11,6 +10,7 @@ import { AirPage } from '../model/AirPage'
 import { AirNotification } from '../feedback/AirNotification'
 import { ITableHookOption } from '../interface/hooks/ITableHookOption'
 import { ITableHookResult } from '../interface/hooks/ITableHookResult'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 表格基础`Hook`

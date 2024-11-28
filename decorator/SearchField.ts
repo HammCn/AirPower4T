@@ -4,9 +4,9 @@
  */
 import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { getDictionary, getFieldName } from './Custom'
 import { AirDecorator } from '../helper/AirDecorator'
 import { AirDecoratorTarget } from '../type/AirType'
+import { getFieldConfig } from './Field'
 
 /**
  * ## 搜索字段 `key`
@@ -38,7 +38,8 @@ export function Search(config: ISearchFieldConfig = {}) {
 export function getSearchConfig(target: AirDecoratorTarget, key: string): AirSearchFieldConfig | null {
   const formConfig = AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
   if (!formConfig.dictionary) {
-    formConfig.dictionary = getDictionary(target, formConfig.key)
+    const props = getFieldConfig(target, key)
+    formConfig.dictionary = AirDecorator.getDictionary(props.dictionary)
   }
   return formConfig
 }
@@ -60,9 +61,10 @@ export function getSearchConfigList(target: AirDecoratorTarget, keyList: string[
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirSearchFieldConfig)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
-      item.label = item.label || getFieldName(target, item.key)
+      const props = getFieldConfig(target, item.key)
+      item.label = item.label || props.label || item.key
       if (!item.dictionary) {
-        item.dictionary = getDictionary(target, item.key)
+        item.dictionary = AirDecorator.getDictionary(props.dictionary)
       }
       return item
     })

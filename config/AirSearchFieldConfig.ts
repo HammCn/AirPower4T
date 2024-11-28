@@ -3,8 +3,8 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
 import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirEnum } from '../base/AirEnum'
+import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 查询字段配置实现类

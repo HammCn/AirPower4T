@@ -32,9 +32,9 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue'
-import { AirConfig } from './config/AirConfig'
 import { AirAlert } from './feedback/AirAlert'
 import { AirStore } from './store/AirStore'
+import { AirRouter } from './helper/AirRouter'
 
 const isLoading = ref(true)
 
@@ -47,7 +47,7 @@ onMounted(() => {
 })
 
 const airpowerInit = () => {
-  if (!AirConfig.router) {
+  if (!AirRouter.router) {
     AirAlert.error('请在main.ts中配置 AirConfig.router', '请先配置')
   }
 }

@@ -81,14 +81,14 @@ export function airPropsSelector<
     /**
      * ## 是否使用多选
      */
-    mult: {
+    isMultiple: {
       type: Boolean,
       default: false,
     },
 
     /**
      * ## 已经选择了的实体列表数组
-     * ! 仅在mult为true时会有值
+     * ! 仅在 `isMultiple` 为true时会有值
      * 请放心使用ID属性, 其他的属性不一定有
      */
     selectList: {

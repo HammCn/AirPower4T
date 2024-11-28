@@ -1,11 +1,11 @@
 import { AirFieldConfig } from '../config/AirFieldConfig'
 import { IJson } from '../interface/IJson'
-import { ClassConstructor } from '../type/ClassConstructor'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import {
   AirAny, AirDecoratorData, AirDecoratorTarget,
   AirEnumKey,
+  ClassConstructor,
 } from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { AirConstant } from '../config/AirConstant'

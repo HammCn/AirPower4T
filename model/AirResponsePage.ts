@@ -1,6 +1,6 @@
 import { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
-import { Type } from '../decorator/Custom'
+import { Field } from '../decorator/Field'
 import { AirPage } from './AirPage'
 import { AirSort } from './AirSort'
 
@@ -17,20 +17,32 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   /**
    * ## 返回的页码信息
    */
-  @Type(AirPage) page = new AirPage()
+  @Field({
+    type: AirPage,
+  })
+    page = new AirPage()
 
   /**
    * ## 返回的排序信息
    */
-  @Type(AirSort) sort = new AirSort()
+  @Field({
+    type: AirSort,
+  })
+    sort = new AirSort()
 
   /**
    * ## 返回总条数
    */
-  @Type(Number) total = 0
+  @Field({
+    type: Number,
+  })
+    total = 0
 
   /**
    * ## 返回总页数
    */
-  @Type(Number) pageCount = 0
+  @Field({
+    type: Number,
+  })
+    pageCount = 0
 }

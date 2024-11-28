@@ -1,20 +1,37 @@
-/**
- * # 字段配置接口
- * @author Hamm.cn
- */
-export interface IFieldConfig {
+import { AirEnum } from '../../base/AirEnum'
+import { AirAny, ClassConstructor } from '../../type/AirType'
+import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
+import { IField } from './IField'
+
+export interface IFieldConfig<E extends AirEnum<AirAny> = AirEnum<AirAny>> extends IField {
   /**
-   * ## 字段标题
-   * 此字段无需传入, 将自动从被标记类的属性上读取
-   * @deprecated
+   * ## 配置字典
    */
-  key?: string;
+  dictionary?: ClassConstructor<E> | AirDictionaryArray
 
   /**
-   * ## 字段标题
-   * 如传入 则将覆盖 `@Field` 的声明
-   *
-   * 实体可通过 `.getFormFieldLabel()` 方法获取 `@Form()`装饰器中的这个配置
+   * ## 默认值
    */
-  label?: string;
+  default?: unknown
+
+  /**
+   * ## 是否忽略类上的前缀
+   */
+  ignorePrefix?: boolean
+
+  /**
+   * ## 转换别名
+   */
+  alias?: string
+
+  /**
+   * ## 是否是数组
+   * 😡 更建议在 `@Type` 中直接配置第二个参数
+   */
+  array?: boolean
+
+  /**
+   * ## 强制类型转换的目标类
+   */
+  type?: ClassConstructor
 }

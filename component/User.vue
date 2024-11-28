@@ -57,6 +57,8 @@ import { AirUserEntity } from '../model/entity/AirUserEntity'
 import defaultAvatar from '../assets/img/avatar.svg'
 import { AirFile } from '../helper/AirFile'
 import { AirI18n } from '../helper/AirI18n'
+import { AirRouter } from '../helper/AirRouter'
+import { AirPermission } from '../helper/AirPermission'
 
 const props = defineProps({
   /**
@@ -102,9 +104,9 @@ async function logout() {
     .setConfirmText(AirI18n.get().LogoutConfirm || '退出确认')
     .show(AirI18n.get().AreYouConfirmToLogout || '是否确认退出当前登录的用户?', AirI18n.get().LogoutConfirm || '退出确认')
   AirConfig.removeAccessToken()
-  AirConfig.savePermissionList([])
-  if (AirConfig.router) {
-    AirConfig.router.replace('/login')
+  AirPermission.saveList([])
+  if (AirRouter.router) {
+    AirRouter.router.replace('/login')
   }
 }
 </script>
