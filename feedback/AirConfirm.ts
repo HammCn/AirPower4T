@@ -14,7 +14,7 @@ export class AirConfirm extends AirAlert {
 
   /**
    * ## 设置取消按钮文字
-   * @param confirmText 取消按钮文字
+   * @param cancelText 取消按钮文字
    */
   setCancelText(cancelText: string): this {
     this.cancelText = cancelText

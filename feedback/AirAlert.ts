@@ -37,8 +37,8 @@ export class AirAlert {
   }
 
   /**
-   * ## 设置确认按钮文字
-   * @param confirmText 确认按钮文字
+   * ## 设置确认按钮颜色
+   * @param confirmColor 设置确认按钮颜色
    */
   setConfirmColor(confirmColor: string): this {
     this.confirmColor = confirmColor
@@ -91,7 +91,7 @@ export class AirAlert {
   /**
    * # 弹出提示
    * @param content 消息内容
-   * @param description [可选] 消息描述
+   * @param description `可选` 消息描述
    */
   private alert(content: string, description = AirConstant.EMPTY_STRING): Promise<void> {
     return new Promise<void>((resolve) => {

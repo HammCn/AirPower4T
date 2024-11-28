@@ -2,33 +2,33 @@ Component({
   properties: {
     tabbar: {
       type: Boolean,
-      value: false
+      value: false,
     },
     footer: {
       type: Boolean,
-      value: false
-    }
+      value: false,
+    },
   },
   data: {
-    clazz: ""
+    clazz: '',
   },
   lifetimes: {
     ready() {
       this.initClassName()
-    }
+    },
   },
   methods: {
     initClassName() {
-      const clazzArr: string[] = ["a-body"]
+      const clazzArr: string[] = ['a-body']
       if (this.properties.tabbar) {
-        clazzArr.push("has-tabbar")
+        clazzArr.push('has-tabbar')
       }
       if (this.properties.footer) {
-        clazzArr.push("has-footer")
+        clazzArr.push('has-footer')
       }
       this.setData({
-        clazz: clazzArr.join(" ")
+        clazz: clazzArr.join(' '),
       })
-    }
-  }
+    },
+  },
 })

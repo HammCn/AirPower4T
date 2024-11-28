@@ -14,7 +14,7 @@ export class AirAssert {
   static when(condition: boolean, message: string, description?: string) {
     if (condition) {
       AirAlert.show(message, description)
-      throw new Error(`\n\n[AirAssert Faild]: ${message || ''}\n${description}\n\n\n`)
+      throw new Error(`\n\n[AirAssert Failed]: ${message || ''}\n${description}\n\n\n`)
     }
   }
 
