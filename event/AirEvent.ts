@@ -53,7 +53,7 @@ class AirEvent {
   emit(type: AirEventType | string, ...args: AirAny[]) {
     const callbacks = this.listeners.get(type) || []
     callbacks.forEach((callback) => {
-      callback(args)
+      callback(...args)
     })
   }
 
