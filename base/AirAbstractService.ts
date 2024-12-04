@@ -51,7 +51,7 @@ export abstract class AirAbstractService extends AirModel {
    * @param baseUrl `可选` 请求的接口目录
    */
   api(url: string, baseUrl?: string): AirHttp {
-    const http = AirHttp.create((baseUrl || this.baseUrl) + url)
+    const http = AirHttp.create(`${baseUrl || this.baseUrl}/${url}`)
     if (this.loading) {
       http.setLoading(this.loading)
     }
