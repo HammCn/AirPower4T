@@ -1,5 +1,5 @@
-import { AirAlert } from '../feedback/AirAlert'
 import { AirWebsocketEvent } from './AirWebSocketEvent'
+import { AirWebSocketPayload } from './AirWebSocketPayload'
 
 /**
  * # 内置的 `Websocket` 助手
@@ -19,7 +19,7 @@ export class AirWebsocket {
   /**
    * ## `WebSocket` 实例
    */
-  websocket!: WebSocket
+  private websocket!: WebSocket
 
   /**
    * ## 是否已连接
@@ -48,10 +48,9 @@ export class AirWebsocket {
     // eslint-disable-next-line no-unused-vars
     onMessage?: (event: AirWebsocketEvent) => void,
     onConnect?: () => void
-  }): void {
+  }): AirWebsocket {
     if (!url) {
-      AirAlert.error('请传入WebSocket连接的URL')
-      return
+      throw new Error('请传入WebSocket连接的URL')
     }
     const instance = new AirWebsocket()
     instance.websocket = new WebSocket(url)
@@ -81,6 +80,7 @@ export class AirWebsocket {
         }, 1000)
       }
     }
+    return instance
   }
 
   /**
@@ -90,6 +90,17 @@ export class AirWebsocket {
   setHeartBeatTime(second: number): AirWebsocket {
     this.heartBeatSecond = second
     return this
+  }
+
+  /**
+   * <h2>发送消息</h2>
+   * @param payload 消息体
+   */
+  send(payload: AirWebSocketPayload): void {
+    if (!this.isConnected) {
+      throw new Error('WebSocket未连接')
+    }
+    this.websocket.send(JSON.stringify(payload.toJson()))
   }
 
   /**
