@@ -13,7 +13,7 @@ const FIELD_CONFIG_KEY = 'Field'
  * ## 为属性标记配置
  * @param config 配置项
  */
-export function Field<P extends IFieldConfig = IFieldConfig>(config: P = {} as P) {
+export function Field(config: IFieldConfig = {}) {
   return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, FIELD_CONFIG_KEY, config)
 }
 
@@ -23,8 +23,8 @@ export function Field<P extends IFieldConfig = IFieldConfig>(config: P = {} as P
  * @param target 目标类
  * @param key 属性名
  */
-export function getFieldConfig<P extends IFieldConfig = IFieldConfig>(target: AirDecoratorTarget, key: string): P {
-  return (AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true) || {}) as P
+export function getFieldConfig(target: AirDecoratorTarget, key: string): IFieldConfig {
+  return (AirDecorator.getFieldConfig(target, key, FIELD_CONFIG_KEY, true) || {}) as IFieldConfig
 }
 
 /**
