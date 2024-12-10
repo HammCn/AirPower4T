@@ -4,7 +4,13 @@
 
 ### 🎉 Features:
 
+- feat(websocket): 优化 WebSocket 连接和消息发送功能 
+
 ### 🐞 Bug fixes:
+
+- refactor(event): 修复事件回调函数参数传递问题
+- refactor(base): 优化 AirAbstractService 中的 api 方法
+- refactor(decorator): 调整 Field 装饰器的类型定义
 
 ## v3.0.0
 
