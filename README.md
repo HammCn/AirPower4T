@@ -56,8 +56,8 @@
 
 ## 5️⃣ 开始开发你的应用程序
 
-**AirPower4T** 目前使用子目录的方式提供，你可以将 **AirPower4T** 源代码下载或克隆后命名为 **airpower** 添加到你的项目的 *
-*src** 目录下，然后使用 **Vite** 构建你的项目。
+**AirPower4T** 目前使用子目录的方式提供，你可以将 **AirPower4T** 源代码下载或克隆后命名为 **airpower** 添加到你的项目的 
+**src** 目录下，然后使用 **Vite** 构建你的项目。
 
 推荐你直接使用我们提供的 **WebStarter**
 模板来快速开启一个项目：via [Github](https://github.com/HammCn/AirPowerWebStarter/blob/main/README.md) / [Gitee](https://gitee.com/air-power/AirPowerWebStarter/blob/main/README.md)
