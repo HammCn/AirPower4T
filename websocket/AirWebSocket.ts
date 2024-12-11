@@ -17,14 +17,14 @@ export class AirWebsocket {
   static pong = 'PONG'
 
   /**
-   * ## `WebSocket` 实例
-   */
-  private websocket!: WebSocket
-
-  /**
    * ## 是否已连接
    */
   isConnected = false
+
+  /**
+   * ## `WebSocket` 实例
+   */
+  private websocket!: WebSocket
 
   /**
    * ## 同步 `Timer`
@@ -122,13 +122,5 @@ export class AirWebsocket {
         this.startHeartBeat()
       }, this.heartBeatSecond * 1000)
     }
-  }
-
-  /**
-   * ## 是否自动重连
-   * @param autoConnectWhenClose 是否自动重连
-   */
-  private autoConnectWhenClosed(autoConnectWhenClose = true) {
-    this.reconnectWhenClosed = autoConnectWhenClose
   }
 }
