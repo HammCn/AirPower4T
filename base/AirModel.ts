@@ -58,14 +58,9 @@ export class AirModel {
     const modelConfig = getModelConfig(instance)
     for (const fieldKey of fieldKeyList) {
       const props = getFieldConfig(instance, fieldKey)
-      let fieldData = json[
+      const fieldData = json[
         (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
-        + (props.alias || fieldKey)]
-
-      if (fieldData === undefined) {
-        // 没有值尝试获取默认值
-        fieldData = props.default
-      }
+      + (props.alias || fieldKey)];
       (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
@@ -93,10 +88,6 @@ export class AirModel {
         }
         (instance as IJson)[fieldKey] = fieldValueList
         continue
-      }
-      if (props.default !== undefined && (fieldData === undefined || fieldData === null || fieldData === AirConstant.EMPTY_STRING)) {
-        // 如果有默认值 则先给上默认值
-        (instance as IJson)[fieldKey] = props.default
       }
 
       if (!FieldTypeClass || fieldData === undefined || fieldData === null) {

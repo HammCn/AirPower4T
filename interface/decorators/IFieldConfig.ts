@@ -10,11 +10,6 @@ export interface IFieldConfig<E extends AirEnum<AirAny> = AirEnum<AirAny>> exten
   dictionary?: ClassConstructor<E> | AirDictionaryArray
 
   /**
-   * ## 默认值
-   */
-  default?: unknown
-
-  /**
    * ## 是否忽略类上的前缀
    */
   ignorePrefix?: boolean
