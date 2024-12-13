@@ -1,6 +1,9 @@
 <template>
   <div class="air-frame">
-    <div class="air-header">
+    <div
+      class="air-header"
+      :style="{height: headerHeight+'px'}"
+    >
       <div class="air-logo">
         <slot name="logo">
           <span>AirPower4T</span>
@@ -54,7 +57,7 @@ defineProps({
    */
   menuList: {
     type: Array<IMenu>,
-    required: true,
+    default: () => [],
   },
 
   /**
@@ -71,6 +74,11 @@ defineProps({
   hideMenu: {
     type: Boolean,
     default: false,
+  },
+
+  headerHeight: {
+    type: Number,
+    default: 40,
   },
 })
 
