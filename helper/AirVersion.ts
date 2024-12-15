@@ -8,17 +8,17 @@ import { AirConstant } from '../config/AirConstant'
  */
 export class AirVersion {
   /**
-   * ## `Element Plus` 最低版本
+   * ### `Element Plus` 最低版本
    */
   private static readonly elementPlusRequired = '2.8.0'
 
   /**
-   * ## 版本号长度
+   * ### 版本号长度
    */
   private static readonly VERSION_LENGTH = 2
 
   /**
-   * ## 检查 `Element Plus`
+   * ### 检查 `Element Plus`
    */
   static checkElementPlus() {
     if (this.parseVersion(ElementPlus.version) >= this.parseVersion(this.elementPlusRequired)) {
@@ -28,14 +28,14 @@ export class AirVersion {
   }
 
   /**
-   * ## 检查依赖版本
+   * ### 检查依赖版本
    */
   static check() {
     this.checkElementPlus()
   }
 
   /**
-   * ## 获取版本号数字
+   * ### 获取版本号数字
    * @param version 版本号字符串
    * @param separator `可选` 分隔符 默认 `.`
    * @param padding `可选` 填充位数 默认 `2`
@@ -48,7 +48,7 @@ export class AirVersion {
   }
 
   /**
-   * ## 解析版本号数字
+   * ### 解析版本号数字
    * @param version 版本号数字
    * @param separator `可选` 分隔符 默认 `.`
    * @param padding `可选` 填充位数 默认 `2`

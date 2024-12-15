@@ -8,12 +8,12 @@ import { AirI18n } from './AirI18n'
  */
 export class AirFile {
   /**
-   * ## 文件单位列表
+   * ### 文件单位列表
    */
   static readonly FILE_UNIT_LIST = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
   /**
-   * ## 字节数转可读文件大小
+   * ### 字节数转可读文件大小
    * @param size 字节数
    * @param fractionDigits 小数位数
    */
@@ -30,7 +30,7 @@ export class AirFile {
   }
 
   /**
-   * ## 获取静态文件的绝对地址
+   * ### 获取静态文件的绝对地址
    * @param url 地址
    */
   static getStaticFileUrl(url: string): string {

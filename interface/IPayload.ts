@@ -6,7 +6,7 @@ import { AirEntity } from '../base/AirEntity'
  */
 export interface IPayload extends AirEntity {
   /**
-   * ## 获取负载显示的文本
+   * ### 获取负载显示的文本
    */
   getPayloadLabel(): string
 }

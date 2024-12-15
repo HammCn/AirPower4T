@@ -1,5 +1,18 @@
 # AirPower4T 版本发布日志
 
+## v3.0.2
+
+### 🎉 Features:
+
+- feat(Frame): 支持了配置header高度
+- feat(Logo): 更新了一个全新的Logo
+
+### 🐞 Bug fixes:
+
+- refactor(core): 移除模型转换中的默认值逻辑
+- docs(README): 优化开始开发应用程序说明的排版格式
+- fix(websocket): 删除了 autoConnectWhenClosed 方法
+
 ## v3.0.1
 
 ### 🎉 Features:

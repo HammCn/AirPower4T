@@ -6,7 +6,7 @@ import { AirEntity } from '../base/AirEntity'
  */
 export interface IFile extends AirEntity {
   /**
-   * ## 文件地址
+   * ### 文件地址
    */
   url: string
 }

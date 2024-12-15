@@ -10,14 +10,14 @@ import { AirI18n } from '../helper/AirI18n'
  */
 export class AirConfirm extends AirAlert {
   /**
-   * ## 创建实例方法
+   * ### 创建实例方法
    */
   static create(): AirConfirm {
     return new AirConfirm()
   }
 
   /**
-   * ## 显示成功图标的确认框
+   * ### 显示成功图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -27,7 +27,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示警告图标的确认框
+   * ### 显示警告图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -37,7 +37,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示错误图标的确认框
+   * ### 显示错误图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -47,7 +47,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示消息图标的确认框
+   * ### 显示消息图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -57,7 +57,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示无图标确认弹窗
+   * ### 显示无图标确认弹窗
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -67,7 +67,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 设置取消按钮文字
+   * ### 设置取消按钮文字
    * @param cancelText 取消按钮文字
    */
   setCancelText(cancelText: string): this {
@@ -76,7 +76,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 启用 `ESC` 关闭
+   * ### 启用 `ESC` 关闭
    */
   enableEscClose(): this {
     this.isCloseByEscape = true
@@ -84,7 +84,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 启用遮罩层关闭
+   * ### 启用遮罩层关闭
    */
   enableCoverClose(): this {
     this.isCloseByCover = true
@@ -92,7 +92,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示成功图标的确认框
+   * ### 显示成功图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -102,7 +102,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示警告图标的确认框
+   * ### 显示警告图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -112,7 +112,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示错误图标的确认框
+   * ### 显示错误图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -122,7 +122,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示消息图标的确认框
+   * ### 显示消息图标的确认框
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -132,7 +132,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示无图标确认弹窗
+   * ### 显示无图标确认弹窗
    * @param content 确认内容
    * @param title `可选` 确认标题
    */

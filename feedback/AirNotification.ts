@@ -8,29 +8,29 @@ import { AirI18n } from '../helper/AirI18n'
  */
 export class AirNotification {
   /**
-   * ## 通知标题
+   * ### 通知标题
    */
   private title = AirI18n.get().SystemNotice || '系统提示'
 
   /**
-   * ## 通知内容
+   * ### 通知内容
    */
   private message = AirI18n.get().NoErrorMessageGiven || '你并没有传入具体的通知信息：）'
 
   /**
-   * ## 通知默认保留时长
+   * ### 通知默认保留时长
    */
   private duration = 1500
 
   /**
-   * ## 创建实例方法
+   * ### 创建实例方法
    */
   static create(): AirNotification {
     return new AirNotification()
   }
 
   /**
-   * ## 警告通知
+   * ### 警告通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -42,7 +42,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 成功通知
+   * ### 成功通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -54,7 +54,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 信息通知
+   * ### 信息通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -66,7 +66,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 错误通知
+   * ### 错误通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -78,7 +78,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 设置标题
+   * ### 设置标题
    * @param title 标题
    */
   setTitle(title: string): this {
@@ -87,7 +87,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 设置消息
+   * ### 设置消息
    * @param message 消息
    */
   setMessage(message: string): this {
@@ -96,7 +96,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 设置自动关闭时间
+   * ### 设置自动关闭时间
    * @param duration 自动关闭时间 `毫秒`
    */
   setDuration(duration: number): this {
@@ -105,7 +105,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 警告通知
+   * ### 警告通知
    *
    * 如用户点击了通知 返回true 否则false
    * @param message `可选` 消息
@@ -117,7 +117,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 成功通知
+   * ### 成功通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -129,7 +129,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 信息通知
+   * ### 信息通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -141,7 +141,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 错误通知
+   * ### 错误通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param message `可选` 消息
@@ -153,7 +153,7 @@ export class AirNotification {
   }
 
   /**
-   * ## ⛔️设置标题和内容
+   * ### ⛔️设置标题和内容
    * @param title `可选` 标题
    * @param message `可选` 内容
    */
@@ -168,7 +168,7 @@ export class AirNotification {
   }
 
   /**
-   * ## 显示通知
+   * ### 显示通知
    *
    * 如用户点击了通知 返回`true` 否则`false`
    * @param type 可选枚举通知类型

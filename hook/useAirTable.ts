@@ -18,12 +18,12 @@ import { ClassConstructor } from '../type/AirType'
  */
 export function useAirTable<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableOption<E> = {}): IUseTableResult<E, S> {
   /**
-   * ## 表格`Hook`返回对象
+   * ### 表格`Hook`返回对象
    */
   const result = airTableHook(entityClass, serviceClass, option)
 
   /**
-   * ## 表格行编辑事件
+   * ### 表格行编辑事件
    * @param row 行数据
    */
   async function onEdit(row: E) {
@@ -39,7 +39,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
   }
 
   /**
-   * ## 表格行删除事件
+   * ### 表格行删除事件
    * @param row 行数据
    */
   async function onDelete(row: E) {
@@ -48,7 +48,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
   }
 
   /**
-   * ## 表格行禁用事件
+   * ### 表格行禁用事件
    * @param row 行数据
    */
   async function onDisable(row: E) {
@@ -58,7 +58,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
   }
 
   /**
-   * ## 表格行启用事件
+   * ### 表格行启用事件
    * @param row 行数据
    */
   async function onEnable(row: E) {

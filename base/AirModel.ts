@@ -19,7 +19,7 @@ import { ClassConstructor } from '../type/AirType'
  */
 export class AirModel {
   /**
-   * ## 从 `JSON` 转换到当前类的对象
+   * ### 从 `JSON` 转换到当前类的对象
    * 会自动进行数据别名转换
    * @param json `JSON`
    */
@@ -29,7 +29,7 @@ export class AirModel {
   }
 
   /**
-   * ## 从 `JSON` 数组转换到当前类的对象数组
+   * ### 从 `JSON` 数组转换到当前类的对象数组
    * 会自动进行数据别名转换
    * @param jsonArray `JSON`数组
    */
@@ -48,7 +48,7 @@ export class AirModel {
   }
 
   /**
-   * ## 转换 `JSON` 为实体
+   * ### 转换 `JSON` 为实体
    * 会自动进行数据别名转换
    * @param instance 实体
    * @param json `JSON`
@@ -58,14 +58,9 @@ export class AirModel {
     const modelConfig = getModelConfig(instance)
     for (const fieldKey of fieldKeyList) {
       const props = getFieldConfig(instance, fieldKey)
-      let fieldData = json[
+      const fieldData = json[
         (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
-        + (props.alias || fieldKey)]
-
-      if (fieldData === undefined) {
-        // 没有值尝试获取默认值
-        fieldData = props.default
-      }
+      + (props.alias || fieldKey)];
       (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
@@ -93,10 +88,6 @@ export class AirModel {
         }
         (instance as IJson)[fieldKey] = fieldValueList
         continue
-      }
-      if (props.default !== undefined && (fieldData === undefined || fieldData === null || fieldData === AirConstant.EMPTY_STRING)) {
-        // 如果有默认值 则先给上默认值
-        (instance as IJson)[fieldKey] = props.default
       }
 
       if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
@@ -139,7 +130,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取模型类配置项
+   * ### 获取模型类配置项
    */
   static getModelConfig<M extends IModelConfig = IModelConfig>(): M {
     return this.newInstance()
@@ -147,14 +138,14 @@ export class AirModel {
   }
 
   /**
-   * ## 获取模型类的可阅读名字
+   * ### 获取模型类的可阅读名字
    */
   static getModelName(): string {
     return this.newInstance().getModelName()
   }
 
   /**
-   * ## 获取属性的可阅读名字
+   * ### 获取属性的可阅读名字
    * @param fieldKey 属性名
    */
   static getFieldName(fieldKey: string): string {
@@ -162,7 +153,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取属性的配置
+   * ### 获取属性的配置
    * @param fieldKey 属性名
    * @returns 配置对象
    */
@@ -172,7 +163,7 @@ export class AirModel {
   }
 
   /**
-   * ## 创建一个当前类的实例
+   * ### 创建一个当前类的实例
    * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
   // eslint-disable-next-line no-unused-vars
@@ -187,7 +178,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取表单配置的 `Label`
+   * ### 获取表单配置的 `Label`
    *
    * 依次读取 `表单配置的label` > `@Field` > `fieldKey`
    * @param fieldKey 字段名
@@ -198,7 +189,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取表格字段的配置列表
+   * ### 获取表格字段的配置列表
    * @param fieldNameList 字段列表
    */
   static getTableFieldConfigList(...fieldNameList: string[]): AirTableFieldConfig[] {
@@ -207,7 +198,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取表单字段的配置列表
+   * ### 获取表单字段的配置列表
    * @param fieldNameList 字段列表
    */
   static getFormFieldConfigList(...fieldNameList: string[]): AirFormFieldConfig[] {
@@ -216,7 +207,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取搜索字段的配置列表
+   * ### 获取搜索字段的配置列表
    * 如不传入参数 则默认取所有标记了注解的字段
    * @param fieldNameList `可选` 字段列表
    */
@@ -226,7 +217,7 @@ export class AirModel {
   }
 
   /**
-   * ## 获取属性的表单配置
+   * ### 获取属性的表单配置
    * @param fieldKey 属性名
    */
   static getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
@@ -235,7 +226,7 @@ export class AirModel {
   }
 
   /**
-   * ## 将当前实例复制到一个新实例上
+   * ### 将当前实例复制到一个新实例上
    */
   copy(): this {
     const newModel = Object.create(Object.getPrototypeOf(this))
@@ -243,7 +234,7 @@ export class AirModel {
   }
 
   /**
-   * ## 暴露部分类的字段
+   * ### 暴露部分类的字段
    * @param fields 字段列表
    */
   expose(...fields: string[]): this {
@@ -257,7 +248,7 @@ export class AirModel {
   }
 
   /**
-   * ## 排除部分类的字段
+   * ### 排除部分类的字段
    * @param fields 字段列表
    */
   exclude(...fields: string[]): this {
@@ -271,7 +262,7 @@ export class AirModel {
   }
 
   /**
-   * ## 用指定的数据对当前实例进行覆盖
+   * ### 用指定的数据对当前实例进行覆盖
    * 相同字段才会覆盖上去
    * @param obj 覆盖对象
    */
@@ -280,7 +271,7 @@ export class AirModel {
   }
 
   /**
-   * ## 转换到 `JSON`
+   * ### 转换到 `JSON`
    * 会自动进行数据别名转换
    */
   toJson(): IJson {
@@ -336,7 +327,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -345,7 +336,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -354,7 +345,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -363,7 +354,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -372,7 +363,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -381,7 +372,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -391,7 +382,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -400,7 +391,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */
@@ -409,7 +400,7 @@ export class AirModel {
   }
 
   /**
-   * ## `请直接调用静态方法获取`
+   * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
    * @deprecated
    */

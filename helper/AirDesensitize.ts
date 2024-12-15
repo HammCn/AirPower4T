@@ -8,12 +8,12 @@ import { AirDesensitizeType } from '../enum/AirDesensitizeType'
  */
 export class AirDesensitize {
   /**
-   * ## `IPv4` 的块长度
+   * ### `IPv4` 的块长度
    */
   private static readonly IP_V4_PART_COUNT = 4
 
   /**
-   * ## 字符串替换
+   * ### 字符串替换
    *
    * @param text   原始字符串
    * @param head   头部保留长度
@@ -37,7 +37,7 @@ export class AirDesensitize {
   }
 
   /**
-   * ## `IPv4` 地址脱敏
+   * ### `IPv4` 地址脱敏
    *
    * @param ipv4   `IPv4` 地址
    * @param symbol `可选` 脱敏符号
@@ -55,7 +55,7 @@ export class AirDesensitize {
   }
 
   /**
-   * ## 文本脱敏
+   * ### 文本脱敏
    *
    * @param valueString 原始文本
    * @param type        脱敏类型

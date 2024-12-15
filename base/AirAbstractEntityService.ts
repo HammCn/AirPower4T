@@ -19,58 +19,58 @@ import { AirEventType } from '../event/AirEventType'
  */
 export abstract class AirAbstractEntityService<E extends AirEntity> extends AirAbstractService {
   /**
-   * ## 为基类提供当前的实体类
+   * ### 为基类提供当前的实体类
    * 请求时会通过这个类进行数据转换
    */
   abstract entityClass: ClassConstructor<E>
 
   /**
-   * ## 分页查询默认 `URL`
+   * ### 分页查询默认 `URL`
    */
   protected urlForGetPage = 'getPage'
 
   /**
-   * ## 不分页查询默认 `URL`
+   * ### 不分页查询默认 `URL`
    */
   protected urlForGetList = 'getList'
 
   /**
-   * ## 不分页树查询默认 `URL`
+   * ### 不分页树查询默认 `URL`
    */
   protected urlForGetTreeList = 'getTreeList'
 
   /**
-   * ## 查询详情默认 `URL`
+   * ### 查询详情默认 `URL`
    */
   protected urlForGetDetail = 'getDetail'
 
   /**
-   * ## 添加默认 `URL`
+   * ### 添加默认 `URL`
    */
   protected urlForAdd = 'add'
 
   /**
-   * ## 启用默认 `URL`
+   * ### 启用默认 `URL`
    */
   protected urlForEnable = 'enable'
 
   /**
-   * ## 禁用默认 `URL`
+   * ### 禁用默认 `URL`
    */
   protected urlForDisable = 'disable'
 
   /**
-   * ## 修改默认 `URL`
+   * ### 修改默认 `URL`
    */
   protected urlForUpdate = 'update'
 
   /**
-   * ## 删除默认 `URL`
+   * ### 删除默认 `URL`
    */
   protected urlForDelete = 'delete'
 
   /**
-   * ## 创建验证器
+   * ### 创建验证器
    * @param form 表单对象
    * @param moreRule `可选` 更多的验证规则
    */
@@ -81,7 +81,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 查询分页数据列表
+   * ### 查询分页数据列表
    * @param request 请求对象
    * @param apiUrl `可选` 自定义请求URL
    */
@@ -94,7 +94,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 查询不分页数据列表
+   * ### 查询不分页数据列表
    * @param request 请求对象
    * @param apiUrl `可选` 自定义请求URL
    */
@@ -105,7 +105,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 查询树结构数据数组
+   * ### 查询树结构数据数组
    * @param request 请求对象
    * @param apiUrl `可选` 自定义请求URL
    */
@@ -116,7 +116,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据 `ID` 获取详情对象
+   * ### 根据 `ID` 获取详情对象
    * @param id ID
    * @param apiUrl `可选` 自定义请求URL
    */
@@ -127,7 +127,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 添加一条新的数据
+   * ### 添加一条新的数据
    * @param data 保存的数据
    * @param message `可选` 添加成功的消息提示内容
    * @param title `可选` 添加成功的消息提示标题 默认 `添加成功`
@@ -142,7 +142,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 修改一条数据
+   * ### 修改一条数据
    * @param data 修改的数据实体
    * @param message `可选` 修改成功的消息提示内容
    * @param title `可选` 修改成功的消息提示标题 默认 `修改成功`
@@ -155,7 +155,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 保存一条数据并返回主键 `ID`
+   * ### 保存一条数据并返回主键 `ID`
    *
    * 如包含 `ID` 则更新 如不包含 则创建
    * @param data 保存的数据实体
@@ -171,7 +171,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据 `ID` 删除一条数据
+   * ### 根据 `ID` 删除一条数据
    * @param id 删除的数据 `ID`
    * @param message `可选` 删除成功的消息提示内容
    * @param title `可选` 删除成功的消息提示标题 默认 `删除成功`
@@ -190,7 +190,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据 `ID` 禁用一条数据
+   * ### 根据 `ID` 禁用一条数据
    * @param id 禁用的数据 `ID`
    * @param message `可选` 禁用成功的消息提示内容
    * @param title `可选` 禁用成功的消息提示标题 默认 `禁用成功`
@@ -209,7 +209,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 根据 `ID` 启用一条数据
+   * ### 根据 `ID` 启用一条数据
    * @param id 启用的数据 `ID`
    * @param message `可选` 启用成功的消息提示内容
    * @param title `可选` 启用成功的消息提示标题 默认 `启用成功`
@@ -228,7 +228,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## `内部使用`
+   * ### `内部使用`
    * @deprecated
    */
   createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
@@ -238,7 +238,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
   }
 
   /**
-   * ## 创建一个实体的实例
+   * ### 创建一个实体的实例
    * @param id `可选` `ID`
    */
   protected newEntityInstance(id?: number): E {

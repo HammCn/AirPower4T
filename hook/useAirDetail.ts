@@ -18,28 +18,28 @@ import { ClassConstructor } from '../type/AirType'
  */
 export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
   /**
-   * ## 加载状态
+   * ### 加载状态
    */
   const isLoading = ref(false)
 
   /**
-   * ## 传入的 `Service` 对象
+   * ### 传入的 `Service` 对象
    */
   const service = AirClassTransformer.newInstance(serviceClass)
   service.loading = isLoading
 
   /**
-   * ## 表单对象
+   * ### 表单对象
    */
   const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
 
   /**
-   * ## 显示的对话框标题
+   * ### 显示的对话框标题
    */
   const title = ref(AirI18n.get().Detail || '详情')
 
   /**
-   * ## 查询详情方法
+   * ### 查询详情方法
    */
   async function getDetail() {
     if (formData.value.id) {

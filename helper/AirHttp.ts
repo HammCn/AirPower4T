@@ -16,37 +16,37 @@ import { AirEventType } from '../event/AirEventType'
  */
 export class AirHttp {
   /**
-   * ## 访问的接口 `URL`
+   * ### 访问的接口 `URL`
    */
   private url = AirConstant.EMPTY_STRING
 
   /**
-   * ## `Loading`
+   * ### `Loading`
    */
   private loading!: Ref<boolean>
 
   /**
-   * ## 基础返回对象
+   * ### 基础返回对象
    */
   private axiosResponse!: Promise<AxiosResponse<AirAny, AirAny>>
 
   /**
-   * ## 基础请求配置
+   * ### 基础请求配置
    */
   private axiosRequestConfig: AxiosRequestConfig = {}
 
   /**
-   * ## 是否隐藏自动错误提示
+   * ### 是否隐藏自动错误提示
    */
   private errorCallback = false
 
   /**
-   * ## 请求超时毫秒数
+   * ### 请求超时毫秒数
    */
   private timeout = AirConfig.timeout
 
   /**
-   * ## 创建一个 `AirHttp` 实例
+   * ### 创建一个 `AirHttp` 实例
    * @param url `可选` 请求的地址
    */
   constructor(url?: string) {
@@ -69,7 +69,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 创建一个 `AirHttp` 客户端
+   * ### 创建一个 `AirHttp` 客户端
    * @param url 请求的 `URL`
    */
   static create(url: string): AirHttp {
@@ -77,7 +77,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 获取请求返回的数据
+   * ### 获取请求返回的数据
    * @param data 请求返回的数据
    * @returns 数据
    */
@@ -86,7 +86,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 是否操作成功
+   * ### 是否操作成功
    * @param data 请求返回的数据
    * @returns `true` 操作成功
    */
@@ -95,7 +95,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 是否需要登录
+   * ### 是否需要登录
    * @param data 请求返回的数据
    * @returns `true` 需要登录
    */
@@ -104,7 +104,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 是否需要继续操作
+   * ### 是否需要继续操作
    * @param data 请求返回的数据
    * @returns `true` 继续操作
    */
@@ -113,7 +113,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置请求超时时间
+   * ### 设置请求超时时间
    * @param timeout 超时毫秒数
    */
   setTimeout(timeout: number) {
@@ -122,7 +122,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 是否回调错误信息
+   * ### 是否回调错误信息
    */
   callbackError(): this {
     this.errorCallback = true
@@ -130,7 +130,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置 `Loading`
+   * ### 设置 `Loading`
    * @param loading Loading
    *
    */
@@ -140,7 +140,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置请求头
+   * ### 设置请求头
    * @param header 请求头
    */
   setHttpHeader(header: IJson): this {
@@ -149,7 +149,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 允许携带 `Cookies`
+   * ### 允许携带 `Cookies`
    */
   withCredentials(): this {
     this.axiosRequestConfig.withCredentials = true
@@ -157,7 +157,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 添加一个请求头
+   * ### 添加一个请求头
    * @param key 请求头 `key`
    * @param value 请求头 `value`
    */
@@ -168,7 +168,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置请求方法
+   * ### 设置请求方法
    * - 支持直接调用 `.post()` `.get()`
    * @param method 请求方法
    */
@@ -178,7 +178,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 设置请求`content-type`
+   * ### 设置请求`content-type`
    * @param contentType `content-type`
    */
   setContentType(contentType: AirHttpContentType): this {
@@ -186,7 +186,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 发送请求
+   * ### 发送请求
    *
    * @param body `可选` 请求体
    * @see post() 直接发送 `POST`
@@ -261,7 +261,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 发送 `POST`
+   * ### 发送 `POST`
    * @param model 发送的数据模型(数组)
    */
   post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
@@ -278,7 +278,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 发送 `GET` 请求 只支持简单一维数据
+   * ### 发送 `GET` 请求 只支持简单一维数据
    * @param params `可选` 可携带的参数
    */
   get(params?: IJson): Promise<AirAny> {
