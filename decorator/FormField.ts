@@ -9,17 +9,17 @@ import { AirDecoratorTarget } from '../type/AirType'
 import { getFieldConfig } from './Field'
 
 /**
- * ## 表单字段 `key`
+ * ### 表单字段 `key`
  */
 const FIELD_CONFIG_KEY = 'Form'
 
 /**
- * ## 表单字段列表 `key`
+ * ### 表单字段列表 `key`
  */
 const FIELD_LIST_KEY = 'FormList'
 
 /**
- * ## 标记该字段可用于表单配置
+ * ### 标记该字段可用于表单配置
  * @param config 配置项
  */
 export function Form(config: IFormFieldConfig = {}) {
@@ -31,7 +31,7 @@ export function Form(config: IFormFieldConfig = {}) {
 }
 
 /**
- * ## 获取对象某个字段标记的表单配置项
+ * ### 获取对象某个字段标记的表单配置项
  * @param target 目标类或对象
  * @param key 属性名
  */
@@ -45,7 +45,7 @@ export function getFormConfig(target: AirDecoratorTarget, key: string): AirFormF
 }
 
 /**
- * ## 获取标记了表单配置的字段列表
+ * ### 获取标记了表单配置的字段列表
  * @param target 目标对象
  */
 export function getFormFieldList(target: AirDecoratorTarget): string[] {
@@ -53,7 +53,7 @@ export function getFormFieldList(target: AirDecoratorTarget): string[] {
 }
 
 /**
- * ## 获取指定类的表单字段配置项列表
+ * ### 获取指定类的表单字段配置项列表
  * @param target 目标类或对象
  * @param keyList 选择字段列表
  */

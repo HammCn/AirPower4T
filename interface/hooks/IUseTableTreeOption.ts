@@ -7,7 +7,7 @@ import { IUseTableOption } from './IUseTableOption'
  */
 export interface IUseTableTreeOption<T extends ITree> extends IUseTableOption<T> {
   /**
-   * ## 添加行的子项的前置拦截方法
+   * ### 添加行的子项的前置拦截方法
    * 参数为发起请求的数据,请处理后返回 `param`
    *
    * @param param 添加的数据

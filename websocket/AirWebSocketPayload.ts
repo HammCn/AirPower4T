@@ -6,12 +6,12 @@ import { AirModel } from '../base/AirModel'
  */
 export class AirWebSocketPayload extends AirModel {
   /**
-   * ## 负载类型
+   * ### 负载类型
    */
   type!: string
 
   /**
-   * ## 负载数据
+   * ### 负载数据
    */
   data!: string
 }

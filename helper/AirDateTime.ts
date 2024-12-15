@@ -9,7 +9,7 @@ import { IJson } from '../interface/IJson'
  */
 export class AirDateTime {
   /**
-   * ## 睡会再起来干活
+   * ### 睡会再起来干活
    * 不要忘了`await`，否则没睡醒就起来干活了 :)
    * @param milliSeconds 毫秒数
    */
@@ -22,7 +22,7 @@ export class AirDateTime {
   }
 
   /**
-   * ## 格式化到`Unix`秒时间戳
+   * ### 格式化到`Unix`秒时间戳
    * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getUnixTimeStamps(date?: Date | string): number {
@@ -30,7 +30,7 @@ export class AirDateTime {
   }
 
   /**
-   * ## 格式化到毫秒时间戳
+   * ### 格式化到毫秒时间戳
    * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getMilliTimeStamps(date?: Date | string): number {
@@ -44,7 +44,7 @@ export class AirDateTime {
   }
 
   /**
-   * ## 从秒时间戳格式化时间
+   * ### 从秒时间戳格式化时间
    * @param timeStamp 秒时间戳
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
@@ -53,7 +53,7 @@ export class AirDateTime {
   }
 
   /**
-   * ## 从毫秒时间戳格式化时间
+   * ### 从毫秒时间戳格式化时间
    * @param timeStamp 毫秒时间戳
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
@@ -62,7 +62,7 @@ export class AirDateTime {
   }
 
   /**
-   * ## 从字符串或对象格式化时间
+   * ### 从字符串或对象格式化时间
    * @param date Date对象或字符串
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
@@ -90,7 +90,7 @@ export class AirDateTime {
   }
 
   /**
-   * ## 格式化到友好字符串显示
+   * ### 格式化到友好字符串显示
    * @param date Date对象或时间字符串
    */
   static getFriendlyDateTime(date: Date | string | number): string {

@@ -8,12 +8,12 @@ import { AirEntity } from '../../base/AirEntity'
  */
 export class AirUserEntity extends AirEntity implements IUser {
   /**
-   * ## 用户昵称
+   * ### 用户昵称
    */
   nickname!: string
 
   /**
-   * ## 用户头像
+   * ### 用户头像
    */
   avatar!: string
 }

@@ -6,17 +6,17 @@
  */
 export enum AirSearchDataType {
   /**
-   * ## 普通输入框
+   * ### 普通输入框
    */
   TEXT,
 
   /**
-   * ## 数字输入框
+   * ### 数字输入框
    */
   NUMBER,
 
   /**
-   * ## 文本域
+   * ### 文本域
    */
   TEXTAREA
 }

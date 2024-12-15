@@ -10,12 +10,12 @@ import { AirSort } from './AirSort'
  */
 export class AirResponsePage<E extends AirEntity> extends AirModel {
   /**
-   * ## 返回的当前页数据列表
+   * ### 返回的当前页数据列表
    */
   list: E[] = []
 
   /**
-   * ## 返回的页码信息
+   * ### 返回的页码信息
    */
   @Field({
     type: AirPage,
@@ -23,7 +23,7 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
     page = new AirPage()
 
   /**
-   * ## 返回的排序信息
+   * ### 返回的排序信息
    */
   @Field({
     type: AirSort,
@@ -31,7 +31,7 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
     sort = new AirSort()
 
   /**
-   * ## 返回总条数
+   * ### 返回总条数
    */
   @Field({
     type: Number,
@@ -39,7 +39,7 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
     total = 0
 
   /**
-   * ## 返回总页数
+   * ### 返回总页数
    */
   @Field({
     type: Number,

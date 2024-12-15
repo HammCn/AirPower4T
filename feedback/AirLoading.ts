@@ -9,37 +9,37 @@ import { AirAny } from '../type/AirType'
  */
 export class AirLoading {
   /**
-   * ## `Loading` 实例
+   * ### `Loading` 实例
    */
   private instance: AirAny
 
   /**
-   * ## `Loading` 文字
+   * ### `Loading` 文字
    */
   private message = AirI18n.get().Loading || '加载中'
 
   /**
-   * ## 加载目标
+   * ### 加载目标
    */
   private readonly target: string | unknown = document.body
 
   /**
-   * ## 是否全屏
+   * ### 是否全屏
    */
   private fullscreen = true
 
   /**
-   * ## 背景色
+   * ### 背景色
    */
   private background = 'rgba(255,255,255,0.9)'
 
   /**
-   * ## 是否锁定
+   * ### 是否锁定
    */
   private isLock = false
 
   /**
-   * ## 实例一个 `Loading`
+   * ### 实例一个 `Loading`
    * @param domId `可选` DomId 可选参数
    */
   constructor(domId?: string) {
@@ -49,14 +49,14 @@ export class AirLoading {
   }
 
   /**
-   * ## 创建实例方法
+   * ### 创建实例方法
    */
   static create(): AirLoading {
     return new AirLoading()
   }
 
   /**
-   * ## 弹出这个 `Loading`
+   * ### 弹出这个 `Loading`
    * @param message `可选` Loading文案
    */
   static show(message?: string): AirLoading {
@@ -65,7 +65,7 @@ export class AirLoading {
   }
 
   /**
-   * ## 设置是否全屏
+   * ### 设置是否全屏
    * @param isFullScreen 是否全屏
    */
   setFullScreen(isFullScreen: boolean): this {
@@ -74,7 +74,7 @@ export class AirLoading {
   }
 
   /**
-   * ## 设置背景色
+   * ### 设置背景色
    * @param background 背景色 `RGB/RGBA/#333`
    */
   setBackground(background: string): this {
@@ -83,7 +83,7 @@ export class AirLoading {
   }
 
   /**
-   * ## 设置加载文字
+   * ### 设置加载文字
    * @param message 文字
    */
   setMessage(message: string): this {
@@ -92,7 +92,7 @@ export class AirLoading {
   }
 
   /**
-   * ## 设置锁定
+   * ### 设置锁定
    * @param isLock 是否锁定
    */
   setLock(isLock: boolean): this {
@@ -101,7 +101,7 @@ export class AirLoading {
   }
 
   /**
-   * ## 弹出这个 `Loading`
+   * ### 弹出这个 `Loading`
    * @param message `可选` Loading文案
    */
   show(message?: string): this {
@@ -122,7 +122,7 @@ export class AirLoading {
   }
 
   /**
-   * ## 关闭 `Loading`
+   * ### 关闭 `Loading`
    */
   close(): void {
     if (this.instance) {

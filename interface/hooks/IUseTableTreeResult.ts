@@ -8,7 +8,7 @@ import { IUseTableResult } from './IUseTableResult'
  */
 export interface IUseTableTreeResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends IUseTableResult<E, S> {
   /**
-   * ## 表格行的添加按钮点击事件
+   * ### 表格行的添加按钮点击事件
    */
   // eslint-disable-next-line no-unused-vars
   onAddRow: (row: E) => void

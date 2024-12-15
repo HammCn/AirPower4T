@@ -7,12 +7,12 @@ import { IModelConfig } from '../interface/decorators/IModelConfig'
 import { AirDecoratorTarget } from '../type/AirType'
 
 /**
- * ## 类名称 `Key`
+ * ### 类名称 `Key`
  */
 const MODEL_CONFIG_KEY = 'Model'
 
 /**
- * ## 为模型类标记配置项
+ * ### 为模型类标记配置项
  * @param config 配置项
  */
 export function Model<M extends IModelConfig = IModelConfig>(config: M = {} as M) {
@@ -20,7 +20,7 @@ export function Model<M extends IModelConfig = IModelConfig>(config: M = {} as M
 }
 
 /**
- * ## 获取模型类配置项
+ * ### 获取模型类配置项
  * @param target 目标类
  */
 export function getModelConfig<M extends IModelConfig = IModelConfig>(target: AirDecoratorTarget): M {

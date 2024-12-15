@@ -12,7 +12,7 @@ import { AirApi } from '../config/AirApi'
  */
 export class AirPermission {
   /**
-   * ## 获取指定实体类在某个场景的权限标识字符串
+   * ### 获取指定实体类在某个场景的权限标识字符串
    * @param EntityClass 实体类
    * @param action 权限场景
    */
@@ -59,7 +59,7 @@ export class AirPermission {
   }
 
   /**
-   * ## 根据配置获取权限后缀
+   * ### 根据配置获取权限后缀
    *
    * - `AirConfig.autoPermission=false` 只取 `EntityConfig` 配置的权限, 取不到则认为不校验权限
    * - `AirConfig.autoPermission=true`  取 `EntityConfig` 配置的权限, 取不到则按 `action` 自动取
@@ -72,17 +72,17 @@ export class AirPermission {
   }
 
   /**
-   * ## 权限列表
+   * ### 权限列表
    */
   private static permissionList: string[] = []
 
   /**
-   * ## 权限缓存 `Key`
+   * ### 权限缓存 `Key`
    */
   private static readonly permissionKey = '_permissions'
 
   /**
-   * ## 保存权限列表
+   * ### 保存权限列表
    * @param permissions 权限列表
    */
   static saveList(permissions: string[]) {
@@ -91,7 +91,7 @@ export class AirPermission {
   }
 
   /**
-   * ## 获取缓存的权限列表
+   * ### 获取缓存的权限列表
    */
   static getList(): string[] {
     const str = AirApi.getStorage(AirConfig.appKey + this.permissionKey) || '[]'
@@ -103,7 +103,7 @@ export class AirPermission {
   }
 
   /**
-   * ## 是否有权限
+   * ### 是否有权限
    * @param permission 权限标识
    */
   static has(permission: string): boolean {

@@ -17,7 +17,7 @@ export class AirDictionary implements IDictionary {
   children?: this[]
 
   /**
-   * ## 实例化一个标准字典选项
+   * ### 实例化一个标准字典选项
    * @param key `可选` 记录的key
    * @param label `可选` 记录的Label
    */
@@ -31,7 +31,7 @@ export class AirDictionary implements IDictionary {
   }
 
   /**
-   * ## 设置常量值
+   * ### 设置常量值
    * @param key 常量值
    */
   setKey(key: AirEnumKey): this {
@@ -40,7 +40,7 @@ export class AirDictionary implements IDictionary {
   }
 
   /**
-   * ## 设置常量描述
+   * ### 设置常量描述
    * @param label 常量的描述
    */
   setLabel(label: string): this {
@@ -49,7 +49,7 @@ export class AirDictionary implements IDictionary {
   }
 
   /**
-   * ## 设置枚举值是否被禁用
+   * ### 设置枚举值是否被禁用
    * @param disabled `可选` 是否禁用
    */
   setDisabled(disabled = true): this {
@@ -58,7 +58,7 @@ export class AirDictionary implements IDictionary {
   }
 
   /**
-   * ## 设置子集
+   * ### 设置子集
    * @param children 子集
    */
   setChildren(children: this[]): this {
