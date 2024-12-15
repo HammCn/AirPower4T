@@ -6,22 +6,22 @@ import { ITree } from './ITree'
  */
 export interface IMenu extends ITree {
   /**
-   * ## 菜单 `URL`
+   * ### 菜单 `URL`
    */
   path: string
 
   /**
-   * ## 菜单图标
+   * ### 菜单图标
    */
   icon: string
 
   /**
-   * ## 菜单绑定组件路径
+   * ### 菜单绑定组件路径
    */
   component: string
 
   /**
-   * ## 菜单是否禁用
+   * ### 菜单是否禁用
    */
   isDisabled: boolean
 }

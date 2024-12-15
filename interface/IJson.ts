@@ -6,7 +6,7 @@ import { AirAny } from '../type/AirType'
  */
 export interface IJson<V = AirAny> {
   /**
-   * ## `JSON` 的键
+   * ### `JSON` 的键
    */
   [x: string]: V;
 }

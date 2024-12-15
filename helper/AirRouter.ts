@@ -16,12 +16,12 @@ const modules = import.meta.glob('../../view/**/*.vue')
  */
 export class AirRouter {
   /**
-   * ## 当前路由
+   * ### 当前路由
    */
   static router: Router
 
   /**
-   * ## 将 `AirMenu` 菜单列表初始化到 `Vue` 路由中
+   * ### 将 `AirMenu` 菜单列表初始化到 `Vue` 路由中
    * @param menuList 菜单列表
    * @param parentRouter `可选` 父级路由 默认 `admin`
    * @param menuCacheKey `可选` 缓存Key 默认 `AirPowerMenuList`
@@ -35,7 +35,7 @@ export class AirRouter {
   }
 
   /**
-   * ## 将菜单添加到 `Vue` 路由中
+   * ### 将菜单添加到 `Vue` 路由中
    * @param menuList 菜单列表
    * @param parentRouter 父级路由名称
    */
@@ -68,7 +68,7 @@ export class AirRouter {
   }
 
   /**
-   * ## 重载缓存中的路由
+   * ### 重载缓存中的路由
    * @param menuCacheKey 提供缓存的Key
    * @param menuList `可选 子菜单,好兄弟,你不用传`
    */
@@ -98,7 +98,7 @@ export class AirRouter {
   }
 
   /**
-   * ## 创建 `Vue` 路由实例
+   * ### 创建 `Vue` 路由实例
    * @param routes 路由配置文件
    * @param ignoreGuard 不使用守卫
    */

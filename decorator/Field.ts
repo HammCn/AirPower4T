@@ -5,12 +5,12 @@ import { IJson } from '../interface/IJson'
 import { AirDecoratorTarget } from '../type/AirType'
 
 /**
- * ## 属性参数配置
+ * ### 属性参数配置
  */
 const FIELD_CONFIG_KEY = 'Field'
 
 /**
- * ## 为属性标记配置
+ * ### 为属性标记配置
  * @param config 配置项
  */
 export function Field(config: IFieldConfig = {}) {
@@ -18,7 +18,7 @@ export function Field(config: IFieldConfig = {}) {
 }
 
 /**
- * ## 获取属性的配置
+ * ### 获取属性的配置
  * @returns 配置对象
  * @param target 目标类
  * @param key 属性名
@@ -28,12 +28,12 @@ export function getFieldConfig(target: AirDecoratorTarget, key: string): IFieldC
 }
 
 /**
- * ## 自定义到 `JSON` 转换 `Key`
+ * ### 自定义到 `JSON` 转换 `Key`
  */
 const TO_JSON_KEY = 'ToJson'
 
 /**
- * ## 自定义转换到 `JSON` 的方法
+ * ### 自定义转换到 `JSON` 的方法
  * @param func 方法
  */
 // eslint-disable-next-line no-unused-vars
@@ -42,7 +42,7 @@ export function ToJson<M extends AirModel>(func: (model: M) => IJson) {
 }
 
 /**
- * ## 获取自定义转换到 `JSON` 的方法
+ * ### 获取自定义转换到 `JSON` 的方法
  * @param target 目标类
  * @param key 属性名
  */
@@ -52,12 +52,12 @@ export function getToJson<M extends AirModel>(target: AirDecoratorTarget, key: s
 }
 
 /**
- * ## 自定义到模型转换 `Key`
+ * ### 自定义到模型转换 `Key`
  */
 const TO_MODEL_KEY = 'ToModel'
 
 /**
- * ## 自定义转换到 `Model` 的方法
+ * ### 自定义转换到 `Model` 的方法
  * @param func 方法
  */
 // eslint-disable-next-line no-unused-vars
@@ -66,7 +66,7 @@ export function ToModel<M extends AirModel>(func: (json: IJson) => M) {
 }
 
 /**
- * ## 获取自定义转换到 `Model` 的方法
+ * ### 获取自定义转换到 `Model` 的方法
  * @param target 目标类
  * @param key 属性名
  */

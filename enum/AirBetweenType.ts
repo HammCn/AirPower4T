@@ -6,22 +6,22 @@
  */
 export enum AirBetweenType {
   /**
-   * ## 时间
+   * ### 时间
    */
   TIME,
 
   /**
-   * ## 时间日期
+   * ### 时间日期
    */
   DATETIME,
 
   /**
-   * ## 日期
+   * ### 日期
    */
   DATE,
 
   /**
-   * ## 普通数字
+   * ### 普通数字
    */
   NUMBER
 }
