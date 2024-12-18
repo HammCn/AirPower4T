@@ -2,9 +2,7 @@ import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
 import { IFile } from '../interface/IFile'
 import { INormalTreeProps } from '../interface/props/INormalTreeProps'
-import { IUser } from '../interface/IUser'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
-import { AirUserEntity } from '../model/entity/AirUserEntity'
 import { AirCodeNumber, AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
@@ -202,20 +200,9 @@ export class AirConfig {
   static showLengthLimitTextarea = true
 
   /**
-   * ### 搜索框的提示文案
-   * 此项仅为默认, 如手动传入, 此项将无效
-   */
-  static searchPlaceholder = '搜索...'
-
-  /**
    * ### 默认的文件实现类
    */
   static fileEntityClass: ClassConstructor<IFile> = AirFileEntity
-
-  /**
-   * ### 默认的用户实现类
-   */
-  static userEntityClass: ClassConstructor<IUser> = AirUserEntity
 
   /**
    * ### `ESC` 是否可关闭掉所有的弹窗

@@ -21,7 +21,6 @@ export interface IFieldConfig<E extends AirEnum<AirAny> = AirEnum<AirAny>> exten
 
   /**
    * ### 是否是数组
-   * 😡 更建议在 `@Type` 中直接配置第二个参数
    */
   array?: boolean
 
