@@ -3,6 +3,10 @@ import { AirAny, ClassConstructor } from '../../type/AirType'
 import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
 import { IField } from './IField'
 
+/**
+ * # 字段配置
+ * @author Hamm.cn
+ */
 export interface IFieldConfig<E extends AirEnum<AirAny> = AirEnum<AirAny>> extends IField {
   /**
    * ### 配置字典
