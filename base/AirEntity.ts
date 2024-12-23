@@ -1,5 +1,5 @@
 import { AirModel } from './AirModel'
-import { Table } from '../decorator/TableField'
+import { Table } from '../decorator/Table'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'
 import { AirConstant } from '../config/AirConstant'
 import { Field } from '../decorator/Field'

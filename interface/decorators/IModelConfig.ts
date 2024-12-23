@@ -20,18 +20,6 @@ export interface IModelConfig {
   showSearch?: boolean;
 
   /**
-   * ### 搜索框提示文案
-   * 优先级: 组件传入 > `Model` 配置 > `AirConfig` 默认值
-   */
-  searchPlaceholder?: string;
-
-  /**
-   * ### 是否显示更多筛选器
-   * 优先级: 组件传入 > `Model` 配置
-   */
-  showFilter?: boolean;
-
-  /**
    * ### 添加按钮的标题
    * 优先级: 组件传入 > 自动生成
    */
