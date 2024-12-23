@@ -14,8 +14,8 @@
     <transition name="search">
       <div
         v-if="isDialogShow"
-        class="air-user-dialog"
         :style="{ width: width + 'px', height: height + 'px' }"
+        class="air-user-dialog"
       >
         <div class="air-user-header">
           <div class="air-user-title">
@@ -25,8 +25,8 @@
           </div>
           <div class="air-user-logout">
             <el-button
-              type="danger"
               text
+              type="danger"
               @click="logout"
             >
               <el-icon>
@@ -110,7 +110,7 @@ async function logout() {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .air-user {
   display: flex;
   flex-direction: row;

@@ -4,10 +4,10 @@ import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { getModelConfig } from '../decorator/Model'
-import { getFormConfig, getFormConfigList } from '../decorator/FormField'
+import { getFormConfig, getFormConfigList } from '../decorator/Form'
 import { getFieldConfig, getToJson, getToModel } from '../decorator/Field'
-import { getSearchConfigList } from '../decorator/SearchField'
-import { getTableConfigList } from '../decorator/TableField'
+import { getSearchConfigList } from '../decorator/Search'
+import { getTableConfigList } from '../decorator/Table'
 import { IFieldConfig } from '../interface/decorators/IFieldConfig'
 import { IJson } from '../interface/IJson'
 import { IModelConfig } from '../interface/decorators/IModelConfig'
@@ -157,9 +157,9 @@ export class AirModel {
    * @param fieldKey 属性名
    * @returns 配置对象
    */
-  static getFieldConfig<P extends IFieldConfig = IFieldConfig>(fieldKey: string): P {
+  static getFieldConfig(fieldKey: string): IFieldConfig {
     return this.newInstance()
-      .getFieldConfig<P>(fieldKey)
+      .getFieldConfig(fieldKey)
   }
 
   /**
@@ -349,8 +349,8 @@ export class AirModel {
    * ! 内部使用的保留方法
    * @deprecated
    */
-  getFieldConfig<P extends IFieldConfig = IFieldConfig>(fieldKey: string): P {
-    return getFieldConfig<P>(this, fieldKey)
+  getFieldConfig(fieldKey: string): IFieldConfig {
+    return getFieldConfig(this, fieldKey)
   }
 
   /**

@@ -45,7 +45,7 @@ export class AirError {
   }
 
   /**
-   * # 显示错误信息提示
+   * ### 显示错误信息提示
    * @param message 错误信息
    * @param code `可选` 错误代码
    */
