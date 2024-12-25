@@ -21,113 +21,113 @@ export interface ITableFieldConfig extends IField {
    * ### 默认隐藏
    * `可自行勾选后放出`
    */
-  hide?: boolean;
+  hide?: boolean
 
   /**
    * ### 是否从表格列移除
    * `将不显示且无法勾选此列`
    */
-  removed?: boolean;
+  removed?: boolean
 
   /**
    * ### 表格字段宽度
    */
-  width?: number;
+  width?: number
 
   /**
    * ### 表格字段最小宽度
    */
-  minWidth?: number;
+  minWidth?: number
 
   /**
    * ### 是否表格浮动字段
    */
-  fixed?: AirTableFixed;
+  fixed?: AirTableFixed
 
   /**
    * ### 排序
    * `越大越靠左边`
    */
-  orderNumber?: number;
+  orderNumber?: number
 
   /**
    * ### 枚举字典
    * 如字典配置了 `color`, 可使用 `showColor` 配置项显示颜色
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>
 
   /**
    * ### 如是日期 可传入转换规则
    */
-  dateTimeFormatter?: AirDateTimeFormatter | string;
+  dateTimeFormatter?: AirDateTimeFormatter | string
 
   /**
    * ### 是否显示枚举字典的颜色灯
    * 如果显示 请确保传入的 `dictionary` 配置了 `color`
    */
-  showColor?: boolean;
+  showColor?: boolean
 
   /**
    * ### 是否字段允许排序 `默认不排序`
    * `custom` 为自定义排序, `ATable` 组件将触发 `onSortChange` 事件
    */
-  sortable?: AirSortable;
+  sortable?: AirSortable
 
   /**
    * ### 强制显示到表格列 不允许取消勾选
    */
-  forceShow?: boolean;
+  forceShow?: boolean
 
   /**
    * ### 列对齐方式
    */
-  align?: AirTableAlign;
+  align?: AirTableAlign
 
   /**
    * ### 前置文字
    * 一般用于显示一些类似 ¥ 的文本
    */
-  prefixText?: string;
+  prefixText?: string
 
   /**
    * ### 后置文字
    * 一般用于显示一些类似 单位 的文本
    */
-  suffixText?: string;
+  suffixText?: string
 
   /**
    * ### 挂载对象的属性名称
    * 表格中可以直接指定这个参数来显示挂载对象中的哪个属性
    */
-  payloadField?: string;
+  payloadField?: string
 
   /**
    * ### 显示友好时间
    * 设置为 `true` 则显示友好时间
    */
-  friendlyDateTime?: boolean;
+  friendlyDateTime?: boolean
 
   /**
    * ### 是可复制的字段
    * 该表格列允许一键复制, 仅支持普通字段和挂载字段
    */
-  copyField?: boolean;
+  copyField?: boolean
 
   /**
    * ### 图片字段
    * 可配置 `imageWidth`, `imageHeight` 等
    */
-  image?: boolean;
+  image?: boolean
 
   /**
    * ### 图片的宽度 `默认60`
    */
-  imageWidth?: number;
+  imageWidth?: number
 
   /**
    * ### 图片的高度 `默认60`
    */
-  imageHeight?: number;
+  imageHeight?: number
 
   /**
    * ### 图片圆角 `默认10px`

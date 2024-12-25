@@ -6,7 +6,7 @@ export interface IModelConfig {
   /**
    * ### 模型名称
    */
-  label?: string;
+  label?: string
 
   /**
    * ### 模型属性前缀
@@ -17,13 +17,13 @@ export interface IModelConfig {
    * ### 是否显示搜索框
    * 优先级: 组件传入 > `Model` 配置
    */
-  showSearch?: boolean;
+  showSearch?: boolean
 
   /**
    * ### 添加按钮的标题
    * 优先级: 组件传入 > 自动生成
    */
-  addTitle?: string;
+  addTitle?: string
 
   /**
    * ### 添加权限标识
@@ -32,7 +32,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  addPermission?: string;
+  addPermission?: string
 
   /**
    * ### 导出权限标识
@@ -41,7 +41,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  exportPermission?: string;
+  exportPermission?: string
 
   /**
    * ### 导入权限标识
@@ -50,7 +50,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  importPermission?: string;
+  importPermission?: string
 
   /**
    * ### 表格的没有数据时的提示文本
@@ -59,7 +59,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  tableEmptyText?: string;
+  tableEmptyText?: string
 
   /**
    * ### 编辑权限标识
@@ -68,7 +68,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  editPermission?: string;
+  editPermission?: string
 
   /**
    * ### 详情权限标识
@@ -77,7 +77,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  detailPermission?: string;
+  detailPermission?: string
 
   /**
    * ### 删除权限标识
@@ -86,7 +86,7 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  deletePermission?: string;
+  deletePermission?: string
 
   /**
    * ### 添加子项目权限标识
@@ -95,13 +95,13 @@ export interface IModelConfig {
    *
    * - 如配置 `AirConfig.autoPermission=false`, 则传入 `permissionPrefix` 失效
    */
-  addChildPermission?: string;
+  addChildPermission?: string
 
   /**
    * ### 全局隐藏字段列选择器
    * 如设置 `true`, 则 `ATable` 传入的 `hideFieldSelector` 失效
    */
-  hideFieldSelector?: boolean;
+  hideFieldSelector?: boolean
 
   /**
    * ### 权限标识前缀

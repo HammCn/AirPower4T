@@ -19,22 +19,22 @@ export type AirAny = any
 /**
  * ### `el-tree` 的实例
  */
-export type AirTreeInstance = InstanceType<typeof ElTree>;
+export type AirTreeInstance = InstanceType<typeof ElTree>
 
 /**
  * ### `el-form` 的实例
  */
-export type AirFormInstance = InstanceType<typeof ElForm>;
+export type AirFormInstance = InstanceType<typeof ElForm>
 
 /**
  * ### `el-table` 的实例
  */
-export type AirTableInstance = InstanceType<typeof ElTable>;
+export type AirTableInstance = InstanceType<typeof ElTable>
 
 /**
  * ### `tree-node` 的实例
  */
-export type AirTreeNode = Node;
+export type AirTreeNode = Node
 
 /**
  * ### 💰 金额的舍弃方向类型
@@ -44,7 +44,7 @@ export type AirMoneyDirection = 'up' | 'down'
 /**
  * ### 枚举 `Key` 的类型
  */
-export type AirEnumKey = string | number | boolean;
+export type AirEnumKey = string | number | boolean
 
 /**
  * ### 颜色值
@@ -140,5 +140,5 @@ export type AirIconType =
  */
 export type ClassConstructor<T = AirAny> = {
   // eslint-disable-next-line no-unused-vars
-  new(...args: AirAny[]): T;
+  new(...args: AirAny[]): T
 }
