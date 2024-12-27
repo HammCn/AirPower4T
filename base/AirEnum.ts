@@ -3,7 +3,7 @@ import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { AirColorString, AirEnumKey, ClassConstructor } from '../type/AirType'
-import { IJson } from '@/airpower/interface/IJson'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 枚举基类
