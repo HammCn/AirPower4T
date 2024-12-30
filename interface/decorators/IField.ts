@@ -13,7 +13,7 @@ export interface IField {
   /**
    * ### 字段标题
    * ---
-   * 优先级：`Field.label` > (`Table.label` = `Search.label` = `Form.label`) > `Key`
+   * 优先级：(`Table.label` = `Search.label` = `Form.label`) > `Field.label` > `Key`
    */
   label?: string
 }
