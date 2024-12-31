@@ -8,7 +8,7 @@ import { IJson } from '../interface/IJson'
  */
 export class AirRouter {
   /**
-   * ## 打开子页面
+   * ### 打开子页面
    * @param url 页面
    * @param param `可选` 参数
    */
@@ -26,7 +26,7 @@ export class AirRouter {
   }
 
   /**
-   * ## 重定向页面
+   * ### 重定向页面
    * @param url 页面
    */
   static replace(url: string) {
@@ -36,7 +36,7 @@ export class AirRouter {
   }
 
   /**
-   * # 返回上一页
+   * ### 返回上一页
    */
   static back() {
     wx.navigateBack()

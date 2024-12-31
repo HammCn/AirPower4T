@@ -9,7 +9,7 @@ import { ClassConstructor } from '../type/AirType'
  */
 export class AirClassTransformer {
   /**
-   * ## 复制一个新的 `JSON` 对象
+   * ### 复制一个新的 `JSON` 对象
    * @param json JSON
    */
   static copyJson<T extends IJson>(json: T): T {
@@ -20,7 +20,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 树结构的数组转为普通数组
+   * ### 树结构的数组转为普通数组
    * @param treeList 树结构的数组
    */
   static treeList2List<E extends ITree>(treeList: E[]): E[] {
@@ -35,7 +35,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 转换 `JSON` 数据到指定类的对象
+   * ### 转换 `JSON` 数据到指定类的对象
    * @param json JSON
    * @param TargetClass 目标类
    */
@@ -44,7 +44,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 转换 `JSON` 数组数据到指定类的对象数组
+   * ### 转换 `JSON` 数组数据到指定类的对象数组
    * @param jsonArray JSON数组
    * @param TargetClass 目标类
    */
@@ -53,7 +53,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 复制一个实例
+   * ### 复制一个实例
    * @param from 来源类对象实例
    * @param TargetClass 目标类
    */
@@ -62,7 +62,7 @@ export class AirClassTransformer {
   }
 
   /**
-   * ## 初始化一个指定类型的实例
+   * ### 初始化一个指定类型的实例
    *
    * @param TargetClass 目标类
    */

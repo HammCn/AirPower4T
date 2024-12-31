@@ -1,5 +1,5 @@
 import { AirModel } from '../base/AirModel'
-import { Field } from '../decorator/Field'
+import { Field } from '../decorator'
 
 /**
  * # 分页类
@@ -7,7 +7,7 @@ import { Field } from '../decorator/Field'
  */
 export class AirPage extends AirModel {
   /**
-   * ## 分页页数
+   * ### 分页页数
    */
   @Field({
     type: Number,
@@ -15,7 +15,7 @@ export class AirPage extends AirModel {
     pageNum = 1
 
   /**
-   * ## 每页数量
+   * ### 每页数量
    */
   @Field({
     type: Number,
@@ -23,7 +23,7 @@ export class AirPage extends AirModel {
     pageSize = 20
 
   /**
-   * ## 是否在当前首页
+   * ### 是否在当前首页
    */
   isFirstPage(): boolean {
     return this.pageNum === 1

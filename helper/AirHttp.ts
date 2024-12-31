@@ -11,6 +11,7 @@ import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirI18n } from './AirI18n'
 import { AirAny, ClassConstructor } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
+import { AirClassTransformer } from './AirClassTransformer'
 
 /**
  * # 网络请求类
@@ -18,37 +19,37 @@ import { AirConstant } from '../config/AirConstant'
  */
 export class AirHttp {
   /**
-   * ## 访问的接口 `URL`
+   * ### 访问的接口 `URL`
    */
   private url = AirConstant.EMPTY_STRING
 
   /**
-   * ## `Loading`
+   * ### `Loading`
    */
   private loading = ''
 
   /**
-   * ## 请求方式 默认POST
+   * ### 请求方式 默认POST
    */
   private method: 'GET' | 'POST' = 'POST'
 
   /**
-   * ## 是否隐藏自动错误提示
+   * ### 是否隐藏自动错误提示
    */
   private errorCallback = false
 
   /**
-   * ## 请求头
+   * ### 请求头
    */
   private header: IJson = {}
 
   /**
-   * ## 操作重试次数
+   * ### 操作重试次数
    */
   private triedTimes = 0
 
   /**
-   * ## 创建一个 `AirHttp` 客户端
+   * ### 创建一个 `AirHttp` 客户端
    * @param url 请求的 `URL`
    */
   constructor(url?: string) {
@@ -60,7 +61,7 @@ export class AirHttp {
   }
 
   /**
-   * # 设置请求方法
+   * ### 设置请求方法
    * @param method 请求方法
    */
   setMethod(method: 'GET' | 'POST'): this {
@@ -69,7 +70,7 @@ export class AirHttp {
   }
 
   /**
-   * # 编辑请求头
+   * ### 编辑请求头
    * @param key KEY
    * @param value VALUE
    */
@@ -79,7 +80,7 @@ export class AirHttp {
   }
 
   /**
-   * ## 是否回调错误信息
+   * ### 是否回调错误信息
    */
   callbackError(): this {
     this.errorCallback = true
@@ -87,7 +88,7 @@ export class AirHttp {
   }
 
   /**
-   * # 是否显示加载中状态
+   * ### 是否显示加载中状态
    * @param loading 加载文字
    */
   setLoading(loading: string): this {
@@ -96,7 +97,7 @@ export class AirHttp {
   }
 
   /**
-   * # 上传文件
+   * ### 上传文件
    * @param option 上传配置
    * @param clazz 转换的类
    */
@@ -254,7 +255,27 @@ export class AirHttp {
   }
 
   /**
-   * ## 发送 `GET` 请求 只支持简单一维数据
+   * ### 发送请求并获取转换后的模型
+   * @param postData 请求的数据
+   * @param parseClass 返回的模型
+   */
+  async request<REQ extends AirModel, RES extends AirModel>(postData: REQ | REQ[] | undefined, parseClass: ClassConstructor<RES>): Promise<RES> {
+    const result = await this.post(postData)
+    return AirClassTransformer.parse(result, parseClass)
+  }
+
+  /**
+   * ### 发送请求并获取转换后的模型列表
+   * @param postData 请求的数据
+   * @param parseClass 返回的模型列表
+   */
+  async requestArray<REQ extends AirModel, RES extends AirModel>(postData: REQ | REQ[] | undefined, parseClass: ClassConstructor<RES>): Promise<RES[]> {
+    const result = await this.post(postData)
+    return AirClassTransformer.parseArray(result as IJson[], parseClass)
+  }
+
+  /**
+   * ### 发送 `GET` 请求 只支持简单一维数据
    * @param params `可选` 可携带的参数
    */
   get(params?: IJson): Promise<AirAny> {

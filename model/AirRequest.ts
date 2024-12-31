@@ -1,6 +1,6 @@
 import { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
-import { Field } from '../decorator/Field'
+import { Field } from '../decorator'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { ClassConstructor } from '../type/AirType'
 import { AirSort } from './AirSort'
@@ -11,12 +11,12 @@ import { AirSort } from './AirSort'
  */
 export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   /**
-   * ## 查询信息
+   * ### 查询信息
    */
   filter!: E
 
   /**
-   * ## 排序信息
+   * ### 排序信息
    */
   @Field({
     type: AirSort,
@@ -24,7 +24,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
     sort?: AirSort
 
   /**
-   * ## 初始化一个请求类
+   * ### 初始化一个请求类
    * @param filterClass 如传入 `filter` 的类 将自动初始化一个空 `filter`
    */
   constructor(filterClass: ClassConstructor<E>) {
@@ -33,7 +33,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   }
 
   /**
-   * ## 设置排序对象
+   * ### 设置排序对象
    * @param sort 排序对象
    */
   setSort(sort: AirSort): this {

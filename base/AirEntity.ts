@@ -1,7 +1,7 @@
 import { AirModel } from './AirModel'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'
 import { AirConstant } from '../config/AirConstant'
-import { Field } from '../decorator/Field'
+import { Field } from '../decorator'
 
 /**
  * # 实体超类
@@ -9,7 +9,7 @@ import { Field } from '../decorator/Field'
  */
 export class AirEntity extends AirModel {
   /**
-   * ## 主键 `ID`
+   * ### 主键 `ID`
    */
   @Field({
     label: 'ID',
@@ -18,7 +18,7 @@ export class AirEntity extends AirModel {
     id!: number
 
   /**
-   * ## 是否禁用
+   * ### 是否禁用
    */
   @Field({
     label: '是否禁用',
@@ -28,7 +28,7 @@ export class AirEntity extends AirModel {
     isDisabled!: boolean
 
   /**
-   * ## 实例化一个实体
+   * ### 实例化一个实体
    * @param id `可选` 主键 `ID`
    */
   constructor(id?: number) {
@@ -39,7 +39,7 @@ export class AirEntity extends AirModel {
   }
 
   /**
-   * ## 复制一个只包含 `ID` 的实体
+   * ### 复制一个只包含 `ID` 的实体
    * @returns 仅包含ID的实体
    */
   copyExposeId(): this {
@@ -48,21 +48,21 @@ export class AirEntity extends AirModel {
   }
 
   /**
-   * ## 只暴露 `ID`
+   * ### 只暴露 `ID`
    */
   exposeId(): this {
     return this.expose(AirConstant.ID)
   }
 
   /**
-   * ## 排除 `ID`
+   * ### 排除 `ID`
    */
   excludeId(): this {
     return this.exclude(AirConstant.ID)
   }
 
   /**
-   * ## 设置禁用
+   * ### 设置禁用
    * @param isDisabled 禁用
    */
   setDisable(isDisabled = true): this {

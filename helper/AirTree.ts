@@ -7,7 +7,7 @@ import { ITree } from '../interface/ITree'
  */
 export class AirTree {
   /**
-   * ## 平树列表转层级树列表
+   * ### 平树列表转层级树列表
    * @param list 平树列表
    * @param parentId 父级ID
    * @returns 层级树列表
@@ -21,7 +21,7 @@ export class AirTree {
   }
 
   /**
-   * ## 层级树列表转平树列表
+   * ### 层级树列表转平树列表
    * @param treeList 层级树列表
    * @returns 平树列表
    */

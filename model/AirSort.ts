@@ -7,17 +7,17 @@ import { AirSortType } from '../enum/AirSortType'
  */
 export class AirSort extends AirModel {
   /**
-   * ## 排序字段 默认 `id`
+   * ### 排序字段 默认 `id`
    */
   field = 'id'
 
   /**
-   * ## 排序方式 默认 `desc`
+   * ### 排序方式 默认 `desc`
    */
   direction = AirSortType.DESC
 
   /**
-   * ## 设置排序字段名
+   * ### 设置排序字段名
    * @param field 字段名
    */
   setField(field: string): this {
@@ -26,7 +26,7 @@ export class AirSort extends AirModel {
   }
 
   /**
-   * ## 设置排序方向
+   * ### 设置排序方向
    * @param direction 方向
    */
   setDirection(direction: AirSortType): this {

@@ -2,9 +2,8 @@ import { AirConstant } from '../config/AirConstant'
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import {
-  AirAny, AirColorString, AirEnumKey, ClassConstructor,
-} from '../type/AirType'
+import { AirColorString, AirEnumKey, ClassConstructor } from '../type/AirType'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 枚举基类
@@ -12,29 +11,29 @@ import {
  */
 export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   /**
-   * ## 枚举的值
+   * ### 枚举的值
    */
   key!: K
 
   /**
-   * ## 枚举的描述
+   * ### 枚举的描述
    */
   label!: string
 
   /**
-   * ## 标准 `AirColor` 颜色或自定义颜色
+   * ### 标准 `AirColor` 颜色或自定义颜色
    * 支持 `AirColor` `标准色` `十六进制` `HTML标准色`
    */
   color?: AirColorString
 
   /**
-   * ## 是否被禁用
+   * ### 是否被禁用
    *  如禁用, 下拉选项中将显示但无法选中
    */
   disabled?: boolean
 
   /**
-   * ## 实例化创建一个枚举项目
+   * ### 实例化创建一个枚举项目
    * @param key 枚举值
    * @param label 枚举描述
    * @param color `可选` 枚举扩展的颜色
@@ -48,7 +47,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 获取枚举的 `Label`
+   * ### 获取枚举的 `Label`
    * @param key `Key`
    * @param defaultLabel `可选` 默认的标签
    */
@@ -57,7 +56,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 获取枚举的颜色
+   * ### 获取枚举的颜色
    * @param key `Key`
    * @param defaultColor `可选` 默认颜色
    */
@@ -66,7 +65,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 获取枚举是否禁用
+   * ### 获取枚举是否禁用
    * @param key `Key`
    */
   static isDisabled(key: AirEnumKey): boolean | undefined {
@@ -74,16 +73,16 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 查找一个枚举选项
+   * ### 查找一个枚举选项
    * @param key `Key`
    */
   static get<E extends AirEnum<AirEnumKey>>(this: ClassConstructor<E>, key: AirEnumKey): E | null {
-    return (this as AirAny).toArray()
+    return (this as IJson).toArray()
       .find((item: E) => item.key === key) || null
   }
 
   /**
-   * ## 将枚举转为数组
+   * ### 将枚举转为数组
    * @returns 枚举数组
    */
   // eslint-disable-next-line no-unused-vars
@@ -93,7 +92,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 将枚举转为字典
+   * ### 将枚举转为字典
    * @returns 枚举字典
    */
   // eslint-disable-next-line no-unused-vars
@@ -103,7 +102,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 判断 `Key` 是否相等
+   * ### 判断 `Key` 是否相等
    * @param key `Key`
    */
   equalsKey(key: K): boolean {
@@ -111,7 +110,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
   }
 
   /**
-   * ## 判断 `Key` 是否不相等
+   * ### 判断 `Key` 是否不相等
    * @param key `Key`
    */
   notEqualsKey(key: K): boolean {

@@ -6,12 +6,12 @@ import { AirConstant } from '../config/AirConstant'
  */
 export class AirVersion {
   /**
-   * ## 版本号长度
+   * ### 版本号长度
    */
   private static readonly VERSION_LENGTH = 2
 
   /**
-   * ## 获取版本号数字
+   * ### 获取版本号数字
    * @param version 版本号字符串
    * @param separator `可选` 分隔符 默认 `.`
    * @param padding `可选` 填充位数 默认 `2`
@@ -24,7 +24,7 @@ export class AirVersion {
   }
 
   /**
-   * ## 解析版本号数字
+   * ### 解析版本号数字
    * @param version 版本号数字
    * @param separator `可选` 分隔符 默认 `.`
    * @param padding `可选` 填充位数 默认 `2`

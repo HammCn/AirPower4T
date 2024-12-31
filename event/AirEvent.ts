@@ -8,12 +8,12 @@ import { AirEventType } from './AirEventType'
  */
 class AirEvent {
   /**
-   * ## 监听者
+   * ### 监听者
    */
   private listeners: Map<AirEventType | string, Array<Function>> = new Map()
 
   /**
-   * ## 监听多个事件
+   * ### 监听多个事件
    */
   onAll(types: Array<AirEventType | string>, callback: Function) {
     types.forEach((type) => {
@@ -22,7 +22,7 @@ class AirEvent {
   }
 
   /**
-   * ## 监听事件
+   * ### 监听事件
    * @param type 事件类型
    * @param callback 回调方法
    */
@@ -33,7 +33,7 @@ class AirEvent {
   }
 
   /**
-   * ## 监听一次事件
+   * ### 监听一次事件
    * @param type 事件类型
    * @param callback 回调方法
    */
@@ -46,19 +46,19 @@ class AirEvent {
   }
 
   /**
-   * ## 发出事件
+   * ### 发出事件
    * @param type 事件类型
    * @param args 参数
    */
   emit(type: AirEventType | string, ...args: AirAny[]) {
     const callbacks = this.listeners.get(type) || []
     callbacks.forEach((callback) => {
-      callback(args)
+      callback(...args)
     })
   }
 
   /**
-   * ## 取消监听事件
+   * ### 取消监听事件
    * @param type 事件类型
    * @param callback 回调方法
    */
