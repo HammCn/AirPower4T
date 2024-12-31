@@ -13,51 +13,51 @@ export interface ISearchFieldConfig extends IField {
   /**
    * ### 隐藏搜索
    */
-  hide?: boolean;
+  hide?: boolean
 
   /**
    * ### 排序
    * `越大越靠上边`
    */
-  orderNumber?: number;
+  orderNumber?: number
 
   /**
    * ### 枚举字典
    * 可配置 `filterable` 等参数
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>
 
   /**
    * ### 可筛选
    * 仅枚举字典下拉选择时有效
    */
-  filterable?: boolean;
+  filterable?: boolean
 
   /**
    * ### 区间控件
    * 可配置 `betweenType` , `betweenMin` , `betweenMax` 等参数
    */
-  between?: boolean;
+  between?: boolean
 
   /**
    * ### 区间的类型
    */
-  betweenType?: AirBetweenType;
+  betweenType?: AirBetweenType
 
   /**
    * ### 区间最小值
    */
-  betweenMin?: number;
+  betweenMin?: number
 
   /**
    * ### 区间最大值
    */
-  betweenMax?: number;
+  betweenMax?: number
 
   /**
    * ### 搜索数据类型
    */
-  dataType?: AirSearchDataType;
+  dataType?: AirSearchDataType
 
   /**
    * ### 搜索宽度

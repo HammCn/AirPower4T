@@ -86,9 +86,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async getPage(request: AirRequest<E>, apiUrl = this.urlForGetPage): Promise<AirResponsePage<E>> {
-    const json = await this.api(apiUrl)
-      .post(request)
-    const responsePage = AirClassTransformer.parse<AirResponsePage<E>>(json, AirResponsePage)
+    const responsePage = await this.api(apiUrl).request(request, AirResponsePage<E>)
     responsePage.list = AirClassTransformer.parseArray(responsePage.list as IJson[], this.entityClass)
     return responsePage
   }
@@ -99,9 +97,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async getList(request: AirRequest<E>, apiUrl = this.urlForGetList): Promise<E[]> {
-    const json = await this.api(apiUrl)
-      .post(request) as IJson[]
-    return AirClassTransformer.parseArray(json, this.entityClass)
+    return this.api(apiUrl).requestArray(request, this.entityClass)
   }
 
   /**
@@ -110,9 +106,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async getTreeList(request: AirRequest<E>, apiUrl = this.urlForGetTreeList): Promise<E[]> {
-    const json = await this.api(apiUrl)
-      .post(request) as IJson[]
-    return AirClassTransformer.parseArray(json, this.entityClass)
+    return this.api(apiUrl).requestArray(request, this.entityClass)
   }
 
   /**
@@ -121,9 +115,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async getDetail(id: number, apiUrl = this.urlForGetDetail): Promise<E> {
-    const json = await this.api(apiUrl)
-      .post(this.newEntityInstance(id))
-    return AirClassTransformer.parse(json, this.entityClass)
+    return this.api(apiUrl).request(this.newEntityInstance(id), this.entityClass)
   }
 
   /**
@@ -134,9 +126,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async add(data: E, message?: string, title = '添加成功', apiUrl = this.urlForAdd): Promise<number> {
-    const json = await this.api(apiUrl)
-      .post(data)
-    const saved = AirClassTransformer.parse(json, this.entityClass)
+    const saved = await this.api(apiUrl).request(data, this.entityClass)
     AirEvent.emit(AirEventType.ADD_SUCCESS, title, message, saved)
     return saved.id
   }
@@ -149,8 +139,7 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async update(data: E, message?: string, title = '修改成功', apiUrl = this.urlForUpdate): Promise<void> {
-    await this.api(apiUrl)
-      .post(data)
+    await this.api(apiUrl).post(data)
     AirEvent.emit(AirEventType.UPDATE_SUCCESS, title, message, data)
   }
 

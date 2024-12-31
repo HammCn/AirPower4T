@@ -8,5 +8,5 @@ export interface IJson<V = AirAny> {
   /**
    * ### `JSON` 的键
    */
-  [x: string]: V;
+  [x: string]: V
 }

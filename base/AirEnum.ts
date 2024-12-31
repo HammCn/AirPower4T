@@ -2,9 +2,8 @@ import { AirConstant } from '../config/AirConstant'
 import { AirColor } from '../enum/AirColor'
 import { IDictionary } from '../interface/IDictionary'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import {
-  AirAny, AirColorString, AirEnumKey, ClassConstructor,
-} from '../type/AirType'
+import { AirColorString, AirEnumKey, ClassConstructor } from '../type/AirType'
+import { IJson } from '../interface/IJson'
 
 /**
  * # 枚举基类
@@ -78,7 +77,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key `Key`
    */
   static get<E extends AirEnum<AirEnumKey>>(this: ClassConstructor<E>, key: AirEnumKey): E | null {
-    return (this as AirAny).toArray()
+    return (this as IJson).toArray()
       .find((item: E) => item.key === key) || null
   }
 

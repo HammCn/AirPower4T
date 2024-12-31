@@ -5,10 +5,11 @@ import { AirHttpMethod } from '../enum/AirHttpMethod'
 import { AirConfig } from '../config/AirConfig'
 import { AirModel } from '../base/AirModel'
 import { IJson } from '../interface/IJson'
-import { AirAny } from '../type/AirType'
+import { AirAny, ClassConstructor } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
 import AirEvent from '../event/AirEvent'
 import { AirEventType } from '../event/AirEventType'
+import { AirClassTransformer } from '@/airpower/helper/AirClassTransformer'
 
 /**
  * # 网络请求类
@@ -262,19 +263,39 @@ export class AirHttp {
 
   /**
    * ### 发送 `POST`
-   * @param model 发送的数据模型(数组)
+   * @param postData 发送的数据模型(数组)
    */
-  post<T extends AirModel>(model?: T | T[]): Promise<IJson | IJson[]> {
+  post<T extends AirModel>(postData?: T | T[]): Promise<IJson | IJson[]> {
     let json = {}
-    if (model) {
-      if (Array.isArray(model)) {
-        json = model.map((item) => item.toJson())
+    if (postData) {
+      if (Array.isArray(postData)) {
+        json = postData.map((item) => item.toJson())
       } else {
-        json = model.toJson()
+        json = postData.toJson()
       }
     }
     this.setHttpMethod(AirHttpMethod.POST)
     return this.send(json)
+  }
+
+  /**
+   * ### 发送请求并获取转换后的模型
+   * @param postData 请求的数据
+   * @param parseClass 返回的模型
+   */
+  async request<REQ extends AirModel, RES extends AirModel>(postData: REQ | REQ[] | undefined, parseClass: ClassConstructor<RES>): Promise<RES> {
+    const result = await this.post(postData)
+    return AirClassTransformer.parse(result, parseClass)
+  }
+
+  /**
+   * ### 发送请求并获取转换后的模型列表
+   * @param postData 请求的数据
+   * @param parseClass 返回的模型列表
+   */
+  async requestArray<REQ extends AirModel, RES extends AirModel>(postData: REQ | REQ[] | undefined, parseClass: ClassConstructor<RES>): Promise<RES[]> {
+    const result = await this.post(postData)
+    return AirClassTransformer.parseArray(result as IJson[], parseClass)
   }
 
   /**
