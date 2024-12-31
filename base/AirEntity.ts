@@ -1,7 +1,7 @@
 import { AirModel } from './AirModel'
 import { AirDisableDictionary } from '../model/AirDisableDictionary'
 import { AirConstant } from '../config/AirConstant'
-import { Field } from '../decorator'
+import { Field } from '../decorator/Field'
 
 /**
  * # 实体超类
