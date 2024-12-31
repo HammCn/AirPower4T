@@ -8,12 +8,12 @@ export interface IField {
    * 此字段无需传入, 将自动从被标记类的属性上读取
    * @deprecated
    */
-  key?: string;
+  key?: string
 
   /**
    * ### 字段标题
    * ---
-   * 优先级：`Field.label` > (`Table.label` = `Search.label` = `Form.label`) > `Key`
+   * 优先级：(`Table.label` = `Search.label` = `Form.label`) > `Field.label` > `Key`
    */
-  label?: string;
+  label?: string
 }

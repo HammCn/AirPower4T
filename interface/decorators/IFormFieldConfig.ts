@@ -16,7 +16,7 @@ export interface IFormFieldConfig extends IField {
    * 仅在传入了 `dateType` 时有效
    * 默认值 `AirDateTimeFormatter.TIMESTAMP`
    */
-  dateFormatter?: AirDateTimeFormatter | string;
+  dateFormatter?: AirDateTimeFormatter | string
 
   /**
    * ### 显示到表单中的时间日期格式
@@ -26,56 +26,56 @@ export interface IFormFieldConfig extends IField {
    * - 时间类型默认为 `HH_mm_ss`
    * - `AirConfig.defaultDateTimeFormatter` 可作为全局兜底配置
    */
-  dateShowFormatter?: AirDateTimeFormatter | string;
+  dateShowFormatter?: AirDateTimeFormatter | string
 
   /**
    * ### 配置时间日期控件格式
    * 可配置 `dateValueFormatter` `dateShowFormatter` 等时间日期格式化方式
    */
-  dateType?: AirDateTimeType;
+  dateType?: AirDateTimeType
 
   /**
    * ### 最大数字
    * 默认配置 `AirConfig.maxNumber` 仅在 `number` 时有效
    */
-  max?: number;
+  max?: number
 
   /**
    * ### 最小数字
    */
-  min?: number;
+  min?: number
 
   /**
    * ### 最大允许输入的长度
    * 手动指定后, `AirConfig.maxTextAreaLength` 和 `AirConfig.maxTextLength` 将失效
    */
-  maxLength?: number;
+  maxLength?: number
 
   /**
    * ### 最小长度
    */
-  minLength?: number;
+  minLength?: number
 
   /**
    * ### 排序 越大越靠前
    */
-  orderNumber?: number;
+  orderNumber?: number
 
   /**
    * ### 占位文本
    * 优先级: `AInput` 传入 > `@Form` > 自动生成
    */
-  placeholder?: string;
+  placeholder?: string
 
   /**
    * ### 文本域
    */
-  textarea?: boolean;
+  textarea?: boolean
 
   /**
    * ### 数字输入
    */
-  number?: boolean;
+  number?: boolean
 
   /**
    * ### 数字精度(小数的位数)
@@ -88,57 +88,57 @@ export interface IFormFieldConfig extends IField {
   /**
    * ### 显示清除按钮
    */
-  clearable?: boolean;
+  clearable?: boolean
 
   /**
    * ### 密码输入框
    */
-  password?: boolean;
+  password?: boolean
 
   /**
    * ### 前置图标名称
    * 只支持 [Element Plus内置的图标](https://url.hamm.cn/5yc2d)
    */
-  prefixIcon?: string;
+  prefixIcon?: string
 
   /**
    * ### 后置图标名称
    * 只支持 [Element Plus内置的图标](https://url.hamm.cn/5yc2d)
    */
-  suffixIcon?: string;
+  suffixIcon?: string
 
   /**
    * ### 后置文字
    * 优先级低于 `AInput` 的 `append` 插槽
    */
-  suffixText?: string;
+  suffixText?: string
 
   /**
    * ### 可多选
    */
-  multiple?: boolean;
+  multiple?: boolean
 
   /**
    * ### 收起多选标签
    */
-  collapseTags?: boolean;
+  collapseTags?: boolean
 
   /**
    * ### 可筛选
    * 如同时为 `AInput` 传入了 `onSearch` 回调方法, 则进行自定义的筛选
    */
-  filterable?: boolean;
+  filterable?: boolean
 
   /**
    * ### 限制最多选择多少个
    * 配置 0 不限制, 默认不限制
    */
-  multipleLimit?: number;
+  multipleLimit?: number
 
   /**
    * ### 父子关联
    */
-  checkStrictly?: boolean;
+  checkStrictly?: boolean
 
   /**
    * ### 显示输入限制
@@ -149,13 +149,13 @@ export interface IFormFieldConfig extends IField {
    * AirConfig.defaultTextAreaShowLimit = false
    * ```
    */
-  showLimit?: boolean;
+  showLimit?: boolean
 
   /**
    * ### 下拉选择枚举字典
    * 如 `AInput` 传入了自定义的数据 `list` 或 `tree`, 则此项失效
    */
-  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>;
+  dictionary?: AirDictionaryArray | ClassConstructor<AirEnum<AirEnumKey>>
 
   /**
    * ### 是否显示枚举字典的颜色灯
@@ -166,26 +166,26 @@ export interface IFormFieldConfig extends IField {
   /**
    * ### 返回全路径的值
    */
-  emitPath?: boolean;
+  emitPath?: boolean
 
   /**
    * ### 显示全路径
    */
-  showAllLevels?: boolean;
+  showAllLevels?: boolean
 
   /**
    * ### TextArea是否自适应
    * `AInput`如配置了 `textarea:true` 此项生效, 默认为`true`
    * 如配置为 `false`, 可手动配置 `minRow` `maxRow` 等参数
    */
-  autoSize?: boolean;
+  autoSize?: boolean
 
   /**
    * ### 最小行数
    * 默认为 `AirConfig.defaultTextareaMinRows`
    * 如配置了 `autoSize`, 则此项配置无效
    */
-  minRows?: number;
+  minRows?: number
 
   /**
    * ### 最大行数
@@ -193,40 +193,40 @@ export interface IFormFieldConfig extends IField {
    *
    * 如配置了 `autoSize`, 则此项配置无效
    */
-  maxRows?: number;
+  maxRows?: number
 
   /**
    * ### 使用 `Switch` 控件
    */
-  switch?: boolean;
+  switch?: boolean
 
   /**
    * ### 使用 `Switch` 控件时是否隐藏 `Label` 文字
    * `@Form` 的 `isSwitch` 配置为 `true` 时生效
    */
-  hideSwitchLabel?: boolean;
+  hideSwitchLabel?: boolean
 
   /**
    * ### 使用 `Radio` 控件
    */
-  radio?: boolean;
+  radio?: boolean
 
   /**
    * ### 使用 `Radio` 控件时用按钮的样式
    * `@Form` 的 `isRadio` 配置为 `true` 时生效
    */
-  radioButton?: boolean;
+  radioButton?: boolean
 
   /**
    * ### 表单默认值
    */
-  defaultValue?: boolean | string | number;
+  defaultValue?: boolean | string | number
 
   /**
    * ### `switch` 不使用枚举配置的颜色
    * `@Form` 的 `isSwitch` 配置为 `true` 时生效
    */
-  disableSwitchColor?: boolean;
+  disableSwitchColor?: boolean
 
   /**
    * ### 输入框是否去除空格
