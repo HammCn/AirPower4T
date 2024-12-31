@@ -4,7 +4,14 @@
 
 ### 🎉 Features:
 
+- feat(http): 提供了支持转换类型的request 和 requestArray 
+
 ### 🐞 Bug fixes:
+
+- refactor(core): 修正 IJson 导入路径
+- docs(field): 更新字段标题优先级说明
+- refactor(core): 优化枚举基类的实现 
+- style(interface): 移除接口属性的分号
 
 ## v3.0.3
 
