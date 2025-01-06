@@ -9,7 +9,7 @@ import { AirAny, ClassConstructor } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
 import AirEvent from '../event/AirEvent'
 import { AirEventType } from '../event/AirEventType'
-import { AirClassTransformer } from '@/airpower/helper/AirClassTransformer'
+import { AirClassTransformer } from './AirClassTransformer'
 
 /**
  * # 网络请求类

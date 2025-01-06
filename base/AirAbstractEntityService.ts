@@ -1,7 +1,7 @@
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirValidator } from '../helper/AirValidator'
-import { AirEntity } from '../base/AirEntity'
+import { AirEntity } from './AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'

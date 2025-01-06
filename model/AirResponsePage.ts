@@ -1,6 +1,6 @@
 import { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
-import { Field } from '../decorator/Field'
+import { Field } from '../decorator'
 import { AirPage } from './AirPage'
 import { AirSort } from './AirSort'
 
