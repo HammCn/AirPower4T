@@ -479,7 +479,7 @@ import { AirCrypto } from '../helper/AirCrypto'
 import { ITreeProps } from '../interface/props/ITreeProps'
 import { AirDecorator } from '../helper/AirDecorator'
 import { getModelConfig } from '../decorator/Model'
-import { ITableFieldConfig } from '@/airpower/interface/decorators/ITableFieldConfig'
+import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 
 const emits = defineEmits<{
   onDetail: [row: E],
