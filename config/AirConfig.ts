@@ -1,11 +1,11 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirCode } from '../enum/AirCode'
 import { IFile } from '../interface/IFile'
-import { INormalTreeProps } from '../interface/props/INormalTreeProps'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirCodeNumber, AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
+import { ITreeProps } from '../interface/props/ITreeProps'
 
 /**
  * # `AirPower` 全局配置
@@ -230,7 +230,7 @@ export class AirConfig {
   /**
    * ### 默认树结构配置数据
    */
-  static treeProps: INormalTreeProps = {
+  static treeProps: ITreeProps = {
     children: AirConstant.CHILDREN,
     label: 'name',
   }
