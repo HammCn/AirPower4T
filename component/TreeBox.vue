@@ -2,16 +2,16 @@
   <div class="air-tree-box">
     <div
       v-if="!hideTree"
-      class="air-tree-box-left"
       :style="{ width: showWidth }"
+      class="air-tree-box-left"
     >
       <APanel
         v-show="isShow"
+        :hide-icon="hideIcon"
+        :show-title="!!title"
+        :title="title"
         class="air-tree-box-panel"
         hide-footer
-        :title="title"
-        :show-title="!!title"
-        :hide-icon="hideIcon"
       >
         <template #icon>
           <slot name="icon" />
@@ -29,21 +29,21 @@
         <el-tree
           ref="treeRef"
           v-loading="isTreeLoading"
-          :data="treeData"
-          :props="AirConfig.treeProps"
-          :default-expand-all="defaultExpandAll"
-          highlight-current
           :current-node-key="currentData ? currentData.id : 0"
+          :data="treeData"
+          :default-expand-all="defaultExpandAll"
           :expand-on-click-node="false"
-          node-key="id"
           :filter-node-method="filterNode"
+          :props="AirConfig.treeProps"
+          highlight-current
+          node-key="id"
           @node-click="treeSelectChanged"
         />
       </APanel>
       <div
         v-if="collapse"
-        class="collapse-bar"
         :style="{ marginLeft: isShow ? '5px' : '0px' }"
+        class="collapse-bar"
         @click="isShow = !isShow"
       />
     </div>
@@ -53,7 +53,7 @@
   </div>
 </template>
 
-<script lang="ts" setup="props" generic="T extends ITree">
+<script generic="T extends ITree" lang="ts" setup="props">
 import {
   computed, Ref, ref, watch,
 } from 'vue'
@@ -63,7 +63,8 @@ import { ITree } from '../interface/ITree'
 import { AirTreeInstance } from '../type/AirType'
 
 const emits = defineEmits<{
-  onChange: [data: T | undefined]
+  onChange: [data: T | undefined],
+  change: [data: T | undefined],
 }>()
 
 const props = defineProps({
@@ -200,6 +201,7 @@ function treeSelectChanged(row: T) {
     currentData.value = row
   }
   emits('onChange', currentData.value)
+  emits('change', currentData.value)
 }
 
 /**
