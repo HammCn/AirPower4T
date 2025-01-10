@@ -150,7 +150,7 @@ import { AirExportModel } from '../model/AirExportModel'
 import { AirDecorator } from '../helper/AirDecorator'
 import { getModelConfig } from '../decorator/Model'
 import { ClassConstructor } from '../type/AirType'
-import { AirConstant } from '@/airpower/config/AirConstant'
+import { AirConstant } from '../config/AirConstant'
 
 const emits = defineEmits<{
   onSearch: [request: AirRequestPage<E>],

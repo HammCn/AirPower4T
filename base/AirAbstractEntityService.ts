@@ -1,7 +1,7 @@
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { IValidateRule } from '../interface/IValidateRule'
 import { AirValidator } from '../helper/AirValidator'
-import { AirEntity } from '../base/AirEntity'
+import { AirEntity } from './AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { IJson } from '../interface/IJson'
@@ -86,7 +86,9 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async getPage(request: AirRequest<E>, apiUrl = this.urlForGetPage): Promise<AirResponsePage<E>> {
-    const responsePage = await this.api(apiUrl).request(request, AirResponsePage<E>)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const responsePage: AirResponsePage<E> = await this.api(apiUrl).request(request, AirResponsePage)
     responsePage.list = AirClassTransformer.parseArray(responsePage.list as IJson[], this.entityClass)
     return responsePage
   }

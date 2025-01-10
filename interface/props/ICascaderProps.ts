@@ -1,19 +1,14 @@
-import { INormalTreeProps } from './INormalTreeProps'
+import { ITreeProps } from './ITreeProps'
 
 /**
  * # 级联面板配置项
  * @author Hamm.cn
  */
-export interface ICascaderProps extends INormalTreeProps {
+export interface ICascaderProps extends ITreeProps {
   /**
    * ### 节点是否多选
    */
   multiple?: boolean,
-
-  /**
-   * ### 是否严格的遵守父子节点不互相关联
-   */
-  checkStrictly?: boolean,
 
   /**
    * ### 是否动态加载子节点，需与 `lazyLoad` 方法结合使用

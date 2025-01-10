@@ -1,4 +1,4 @@
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirDictionaryArray } from './extend/AirDictionaryArray'
 import { AirColor } from '../enum/AirColor'
 
 /**

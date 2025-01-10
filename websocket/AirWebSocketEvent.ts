@@ -1,5 +1,5 @@
 import { AirModel } from '../base/AirModel'
-import { Field } from '../decorator/Field'
+import { Field } from '../decorator'
 import { AirWebSocketPayload } from './AirWebSocketPayload'
 
 /**

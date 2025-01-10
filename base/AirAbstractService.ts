@@ -1,6 +1,6 @@
 import { Ref } from 'vue'
 import { AirHttp } from '../helper/AirHttp'
-import { AirModel } from '../base/AirModel'
+import { AirModel } from './AirModel'
 import { ClassConstructor } from '../type/AirType'
 
 /**
