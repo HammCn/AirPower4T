@@ -1234,10 +1234,14 @@ function inCurrentPage(list: E[], find: E): boolean {
  * @param list 选中的列表
  */
 function handleSelectChanged(list: E[]) {
-  // 在当前页面没找到的数据 保持选中
   const selectAll = list.map((item) => item.copy())
   list.forEach((find) => {
-    if (!inCurrentPage(props.dataList, find)) {
+    if (inCurrentPage(props.dataList, find)) {
+      // 在当前页面没找到的数据 保持选中
+      return
+    }
+    const exist = selectAll.find((item) => item.id === find.id)
+    if (!exist) {
       selectAll.push(find)
     }
   })
