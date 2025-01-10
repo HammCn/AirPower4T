@@ -1,4 +1,4 @@
-import { AirConfig } from '../config/AirConfig'
+import { AirConfig } from './AirConfig'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
 import { AirFieldConfig } from './AirFieldConfig'

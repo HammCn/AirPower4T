@@ -10,6 +10,7 @@
       v-model:visible="isShowTooltip"
       :content="AirStore().$state.tooltip"
       :disabled="AirStore().$state.tooltip === ''"
+      :effect="'customized'"
       :popper-options="{
         modifiers: [
           {
@@ -22,7 +23,6 @@
         ],
       }"
       :virtual-ref="AirStore().$state.tooltipRef"
-      effect="customized"
       placement="top"
       popper-class="air-tooltip"
       trigger="hover"

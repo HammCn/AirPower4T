@@ -1,4 +1,4 @@
-import { Field } from '../../decorator/Field'
+import { Field } from '../../decorator'
 import { AirEntity } from '../../base/AirEntity'
 import { IMenu } from '../../interface/IMenu'
 
