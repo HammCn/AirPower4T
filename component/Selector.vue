@@ -259,10 +259,10 @@ const searchParamList = computed(() => {
     list = props.searchParams
   }
   const defaultFilter = props.props.param
-  if(!defaultFilter){
+  if (!defaultFilter) {
     return list
   }
-  return list.filter((item) =>  !(defaultFilter[item?.key] !== null && defaultFilter[item?.key] !== undefined))
+  return list.filter((item) => !(defaultFilter[item?.key] !== null && defaultFilter[item?.key] !== undefined))
 })
 
 /**
