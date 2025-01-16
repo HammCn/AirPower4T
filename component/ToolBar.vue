@@ -71,7 +71,7 @@
                   :default-time="defaultTime"
                   :editable="false"
                   :end-placeholder="AirI18n.get().End || LABEL_END"
-                  :format="YYYY_MM_DD+' '+HH_MM_SS"
+                  :format="YYYY_MM_DD + ' ' + HH_MM_SS"
                   :range-separator="AirI18n.get().To || LABEL_TO"
                   :start-placeholder="item.label + ''"
                   type="datetimerange"
@@ -540,7 +540,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 5px;
   }
 
@@ -571,7 +571,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    > * {
+    >* {
       margin: 0 2px 5px;
     }
 

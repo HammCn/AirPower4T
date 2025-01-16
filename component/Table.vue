@@ -134,18 +134,14 @@
               <!-- 读取挂载数据 -->
               <template v-else-if="item.payloadField">
                 <template v-if="item.copyField">
-                  <div
-                    :class="getTableColumnClass(item)"
-                  >
+                  <div :class="getTableColumnClass(item)">
                     <ACopy :content="getPayloadRowData(getRowEntity(scope), item)">
                       {{ getPayloadRowData(getRowEntity(scope), item) }}
                     </ACopy>
                   </div>
                 </template>
                 <template v-else>
-                  <div
-                    :class="getTableColumnClass(item)"
-                  >
+                  <div :class="getTableColumnClass(item)">
                     {{ getPayloadRowData(getRowEntity(scope), item) }}
                   </div>
                 </template>
@@ -153,9 +149,7 @@
               <!-- 通用字段 -->
               <template v-else>
                 <template v-if="item.copyField">
-                  <div
-                    :class="getTableColumnClass(item)"
-                  >
+                  <div :class="getTableColumnClass(item)">
                     <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
                       <template v-if="item.desensitize">
                         <ADesensitize
@@ -1350,7 +1344,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button + .el-button {
+  .el-button+.el-button {
     margin-left: 0;
   }
 
@@ -1368,7 +1362,7 @@ init()
   }
 }
 
-.ctrlRow + .el-button {
+.ctrlRow+.el-button {
   margin-left: 12px;
 }
 
@@ -1450,7 +1444,7 @@ init()
   }
 }
 
-.air-table-tool-bar > * {
+.air-table-tool-bar>* {
   margin-bottom: 10px;
 }
 
@@ -1466,7 +1460,7 @@ init()
     cursor: not-allowed;
     position: relative;
 
-    > * {
+    >* {
       user-select: none;
       filter: blur(1px);
     }
@@ -1592,7 +1586,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button + .air-button {
+  .air-button+.air-button {
     margin: 0 !important;
   }
 }
