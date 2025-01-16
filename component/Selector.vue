@@ -254,10 +254,15 @@ const fields = computed(() => {
  * # 搜索参数
  */
 const searchParamList = computed(() => {
-  if (props.fieldList) {
-    return props.searchParams
+  let list = entityInstance.getSearchFieldConfigList()
+  if (props.searchParams) {
+    list = props.searchParams
   }
-  return entityInstance.getSearchFieldConfigList()
+  const defaultFilter = props.props.param
+  if (!defaultFilter) {
+    return list
+  }
+  return list.filter((item) => !(defaultFilter[item?.key] !== null && defaultFilter[item?.key] !== undefined))
 })
 
 /**

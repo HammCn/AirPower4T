@@ -2,7 +2,7 @@
   <div class="air-frame">
     <div
       class="air-header"
-      :style="{height: headerHeight+'px'}"
+      :style="{ height: headerHeight + 'px' }"
     >
       <div class="air-logo">
         <slot name="logo">
