@@ -168,7 +168,7 @@
       @focus="emits('focus')"
     >
       <template
-        v-for="(index, name) in $slots"
+        v-for="(index, name) in slots"
         #[name]
       >
         <slot :name="name">
@@ -186,7 +186,7 @@
         </slot>
       </template>
       <template
-        v-if="!$slots.append && fieldConfig?.suffixText"
+        v-if="!slots.append && fieldConfig?.suffixText"
         #append
       >
         {{ fieldConfig.suffixText }}
@@ -197,7 +197,7 @@
 
 <script setup lang="ts" generic="M extends AirModel">
 import {
-  computed, PropType, ref, Ref, watch,
+  computed, PropType, ref, Ref, useSlots, watch,
 } from 'vue'
 
 import { CircleClose } from '@element-plus/icons-vue'
@@ -221,6 +221,7 @@ import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/AirType'
 
 const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
+const slots: IJson = useSlots()
 
 const props = defineProps({
   modelValue: {
