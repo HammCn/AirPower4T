@@ -1,35 +1,19 @@
 * {
-  font-family:
-    system-ui,
-    -apple-system,
-    "Helvetica Neue",
-    sans-serif;
+  font-family: system-ui,
+  -apple-system,
+  "Helvetica Neue",
+  sans-serif;
 }
+
 page,
 uni-app,
-uni-page-body {
-  width: 100%;
+uni-page-body,
+uni-page {
   background-color: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  height: auto;
+  height: 100%;
 }
 
-.weui-cells {
-  width: 100%;
-  border-radius: 10px;
-  border: none;
-  display: inline-block;
-}
-
-.weui-cells:before {
-  border-top: none !important;
-}
-
-.weui-cells:after {
-  border-bottom: none !important;
-}
-
-.weui-page {
-  padding: 10px;
+uni-page {
+  padding-top: env(safe-area-inset-top); /* Newer iOS */
+  padding-bottom: calc(60rpx + env(safe-area-inset-bottom)); /* Newer iOS */
 }

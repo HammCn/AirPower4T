@@ -13,6 +13,22 @@ export class AirConfirm extends AirAlert {
   protected cancelText = '取消'
 
   /**
+   * ### 创建实例方法
+   */
+  static create(): AirConfirm {
+    return new AirConfirm()
+  }
+
+  /**
+   * ### 显示确认消息提醒
+   * @param content 确认内容
+   * @param description `可选` 描述信息
+   */
+  static show(content: string, description?: string): Promise<void> {
+    return this.create().show(content, description)
+  }
+
+  /**
    * ### 设置取消按钮文字
    * @param cancelText 取消按钮文字
    */
@@ -24,38 +40,22 @@ export class AirConfirm extends AirAlert {
   /**
    * ### 显示确认消息提醒
    * @param content 确认内容
-   * @param title `可选` 确认标题
+   * @param description `可选` 描述信息
    */
-  show(content: string, title?: string): Promise<void> {
-    return this.confirm(content, title)
-  }
-
-  /**
-   * ### 创建实例方法
-   */
-  static create(): AirConfirm {
-    return new AirConfirm()
-  }
-
-  /**
-   * ### 显示确认消息提醒
-   * @param content 确认内容
-   * @param title `可选` 确认标题
-   */
-  static show(content: string, title?: string): Promise<void> {
-    return this.create().show(content, title)
+  show(content: string, description?: string): Promise<void> {
+    return this.confirm(content, description)
   }
 
   /**
    * ### 弹出提示
    * @param content 确认内容
-   * @param title `可选` 确认标题
+   * @param description `可选` 描述信息
    */
-  private confirm(content: string, title = '操作提醒'): Promise<void> {
+  private confirm(content: string, description?: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      wx.showModal({
-        title,
-        content,
+      uni.showModal({
+        title: content,
+        content: description,
         confirmText: this.confirmText,
         confirmColor: this.confirmColor,
         cancelText: this.cancelText,
