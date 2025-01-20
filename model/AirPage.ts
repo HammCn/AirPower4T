@@ -1,5 +1,5 @@
-import {AirModel} from '../base/AirModel'
-import {Field} from '../decorator'
+import { AirModel } from '../base/AirModel'
+import { Field } from '../decorator'
 
 /**
  * # 分页类

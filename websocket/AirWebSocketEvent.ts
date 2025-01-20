@@ -1,6 +1,6 @@
-import {AirModel} from '../base/AirModel'
-import {Field} from '../decorator'
-import {AirWebSocketPayload} from './AirWebSocketPayload'
+import { AirModel } from '../base/AirModel'
+import { Field } from '../decorator'
+import { AirWebSocketPayload } from './AirWebSocketPayload'
 
 /**
  * # `WebSocket` 事件
@@ -23,5 +23,5 @@ export class AirWebsocketEvent extends AirModel {
   @Field({
     type: AirWebSocketPayload,
   })
-  payload!: AirWebSocketPayload
+    payload!: AirWebSocketPayload
 }

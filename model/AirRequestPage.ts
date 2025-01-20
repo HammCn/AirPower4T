@@ -1,7 +1,7 @@
-import {AirEntity} from '../base/AirEntity'
-import {Field} from '../decorator'
-import {AirPage} from './AirPage'
-import {AirRequest} from './AirRequest'
+import { AirEntity } from '../base/AirEntity'
+import { Field } from '../decorator'
+import { AirPage } from './AirPage'
+import { AirRequest } from './AirRequest'
 
 /**
  * # 请求分页类
