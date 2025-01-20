@@ -1,5 +1,5 @@
 import { AirModel } from '../base/AirModel'
-import { Field } from '../decorator'
+import { Field } from '../decorator/Field'
 
 /**
  * # 分页类

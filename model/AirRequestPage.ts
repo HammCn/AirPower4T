@@ -1,5 +1,5 @@
 import { AirEntity } from '../base/AirEntity'
-import { Field } from '../decorator'
+import { Field } from '../decorator/Field'
 import { AirPage } from './AirPage'
 import { AirRequest } from './AirRequest'
 
