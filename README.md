@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" src="./assets/img/airpower.svg"/> <b>4T</b>
+  <img width="300" src="./assets/img/logo.png"/> <b>4T</b>
 </p>
 
 <p align="center">
@@ -18,9 +18,9 @@
 > 你当前查看的是 `web` 分支，我们也同时提供了 `wechat`、`uniapp` 等分支：）
 > 你可以先阅读 [掘金专栏](https://juejin.cn/post/7273290114921889807)
 > 的一些文章，也可以体验 [线上示例DEMO](https://service.hamm.cn)，如果你喜欢这个项目，欢迎给我们大大的 ⭐️⭐️⭐️
-
 >
-如需只使用工具包，可以使用我们提供的单独抽离的工具包项目 [AirPower@Github](https://github.com/HammCn/AirPower) / [AirPower@Gitee](https://gitee.com/air-power/AirPower)
+> 如需只使用工具包，可以使用我们提供的单独抽离的工具包项目
+[AirPower@Github](https://github.com/HammCn/AirPower) [AirPower@Gitee](https://gitee.com/air-power/AirPower)
 
 **AirPower4T** 是一个基于 `Vue3` `TypeScript` `Element Plus` `Vite`
 的开发基础库，使用面向对象、装饰器、Hooks等开发模式，内置了数据模型转换、表格表单装饰器配置、加解密和编码解码、网络请求、权限管理等常见后台功能以及页面组件，助力后台类系统的前端开发效率，同时保障了优雅的代码质量。
@@ -56,8 +56,8 @@
 
 ## 5️⃣ 开始开发你的应用程序
 
-**AirPower4T** 目前使用子目录的方式提供，你可以将 **AirPower4T** 源代码下载或克隆后命名为 **airpower** 添加到你的项目的 *
-*src** 目录下，然后使用 **Vite** 构建你的项目。
+**AirPower4T** 目前使用子目录的方式提供，你可以将 **AirPower4T** 源代码下载或克隆后命名为 **airpower** 添加到你的项目的
+**src** 目录下，然后使用 **Vite** 构建你的项目。
 
 推荐你直接使用我们提供的 **WebStarter**
 模板来快速开启一个项目：via [Github](https://github.com/HammCn/AirPowerWebStarter/blob/main/README.md) / [Gitee](https://gitee.com/air-power/AirPowerWebStarter/blob/main/README.md)
@@ -100,7 +100,7 @@
   VITE_APP_STATIC_URL = "/static/"
   ```
 
-如需跨域代理，可修改 `vite.config.mts`
+如需跨域代理，可修改 `vite.config.ts`
 
 ### 5.4. 启动项目
 

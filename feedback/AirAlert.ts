@@ -8,27 +8,27 @@ import { AirConstant } from '../config/AirConstant'
  */
 export class AirAlert {
   /**
-   * ## 确认按钮文字
+   * ### 确认按钮文字
    */
   protected confirmText = AirI18n.get().Confirm || '确定'
 
   /**
-   * ## 取消按钮文字
+   * ### 取消按钮文字
    */
   protected cancelText = AirI18n.get().Cancel || '取消'
 
   /**
-   * ## 确认按钮颜色
+   * ### 确认按钮颜色
    */
   protected confirmColor = AirConstant.EMPTY_STRING
 
   /**
-   * ## 取消按钮颜色
+   * ### 取消按钮颜色
    */
   protected cancelColor = AirConstant.EMPTY_STRING
 
   /**
-   * ## 设置确认按钮文字
+   * ### 设置确认按钮文字
    * @param confirmText 确认按钮文字
    */
   setConfirmText(confirmText: string): this {
@@ -37,8 +37,8 @@ export class AirAlert {
   }
 
   /**
-   * ## 设置确认按钮文字
-   * @param confirmText 确认按钮文字
+   * ### 设置确认按钮颜色
+   * @param confirmColor 设置确认按钮颜色
    */
   setConfirmColor(confirmColor: string): this {
     this.confirmColor = confirmColor
@@ -46,7 +46,7 @@ export class AirAlert {
   }
 
   /**
-   * ## 设置取消按钮文字
+   * ### 设置取消按钮文字
    * @param cancelText 取消按钮文字
    */
   setCancelText(cancelText: string): this {
@@ -55,7 +55,7 @@ export class AirAlert {
   }
 
   /**
-   * ## 设置取消按钮颜色
+   * ### 设置取消按钮颜色
    * @param cancelColor 取消按钮颜色
    */
   setCancelColor(cancelColor: string): this {
@@ -64,7 +64,7 @@ export class AirAlert {
   }
 
   /**
-   * ## 显示弹窗消息提醒
+   * ### 显示弹窗消息提醒
    * @param content 消息内容
    * @param description `可选` 消息描述
    */
@@ -73,14 +73,14 @@ export class AirAlert {
   }
 
   /**
-   * ## 创建实例方法
+   * ### 创建实例方法
    */
   static create(): AirAlert {
     return new AirAlert()
   }
 
   /**
-   * ## 显示弹窗消息提醒
+   * ### 显示弹窗消息提醒
    * @param content 消息内容
    * @param description `可选` 消息描述
    */
@@ -89,9 +89,9 @@ export class AirAlert {
   }
 
   /**
-   * # 弹出提示
+   * ### 弹出提示
    * @param content 消息内容
-   * @param description [可选] 消息描述
+   * @param description `可选` 消息描述
    */
   private alert(content: string, description = AirConstant.EMPTY_STRING): Promise<void> {
     return new Promise<void>((resolve) => {

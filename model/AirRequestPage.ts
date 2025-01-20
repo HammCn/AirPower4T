@@ -1,5 +1,5 @@
 import { AirEntity } from '../base/AirEntity'
-import { Type } from '../decorator/Custom'
+import { Field } from '../decorator/Field'
 import { AirPage } from './AirPage'
 import { AirRequest } from './AirRequest'
 
@@ -9,7 +9,10 @@ import { AirRequest } from './AirRequest'
  */
 export class AirRequestPage<E extends AirEntity> extends AirRequest<E> {
   /**
-   * ## 分页信息
+   * ### 分页信息
    */
-  @Type(AirPage) page = new AirPage()
+  @Field({
+    type: AirPage,
+  })
+    page = new AirPage()
 }

@@ -8,7 +8,7 @@ import { AirInputType } from '../enum/AirInputType'
  * */
 export class AirValidator {
   /**
-   * ## 验证是否手机号或座机号
+   * ### 验证是否手机号或座机号
    * @param phoneNumber 号码
    */
   static isTelephoneOrMobilePhone(phoneNumber: string): boolean {
@@ -16,7 +16,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 验证是否邮箱
+   * ### 验证是否邮箱
    * @param email
    */
   static isEmail(email: string): boolean {
@@ -32,7 +32,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 验证是否座机号
+   * ### 验证是否座机号
    * @param num 号码
    */
   static isTelephone(num: string): boolean {
@@ -48,7 +48,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 字符串是否只包含了字母
+   * ### 字符串是否只包含了字母
    * @param str 字符串
    */
   static isOnlyLetter(str: string): boolean {
@@ -56,7 +56,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 字符串是否只包含了数字
+   * ### 字符串是否只包含了数字
    * @param str 字符串
    */
   static isOnlyNumberAndLetter(str: string): boolean {
@@ -64,15 +64,15 @@ export class AirValidator {
   }
 
   /**
-   * ## 字符串是否是数字 正负整数小数和0
+   * ### 字符串是否是数字 正负整数小数和0
    * @param str 字符串
-     */
+   */
   static isNumber(str: string): boolean {
     return /^(-)?[0-9]+((.)[0-9]+)?$/.test(str)
   }
 
   /**
-   * ## 字符串是否是整数
+   * ### 字符串是否是整数
    * @param str 字符串
    */
   static isInteger(str: string): boolean {
@@ -80,7 +80,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 字符串是否是自然整数小数
+   * ### 字符串是否是自然整数小数
    * @param str 字符串
    */
   static isNaturalNumber(str: string): boolean {
@@ -88,7 +88,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 字符串是否是自然整数数
+   * ### 字符串是否是自然整数数
    * @param str 字符串
    */
   static isNaturalInteger(str: string): boolean {
@@ -96,7 +96,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 字符串是否是合法身份证
+   * ### 字符串是否是合法身份证
    * @param str 字符串
    */
   static isChineseIdCard(str: string): boolean {
@@ -135,7 +135,7 @@ export class AirValidator {
   }
 
   /**
-   * ## 是否满足如下的规则
+   * ### 是否满足如下的规则
    * @param str 被验证字符串
    * @param list 验证器
    */

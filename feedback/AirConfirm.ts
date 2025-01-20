@@ -13,8 +13,8 @@ export class AirConfirm extends AirAlert {
   protected cancelText = '取消'
 
   /**
-   * ## 设置取消按钮文字
-   * @param confirmText 取消按钮文字
+   * ### 设置取消按钮文字
+   * @param cancelText 取消按钮文字
    */
   setCancelText(cancelText: string): this {
     this.cancelText = cancelText
@@ -22,7 +22,7 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 显示确认消息提醒
+   * ### 显示确认消息提醒
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -31,14 +31,14 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 创建实例方法
+   * ### 创建实例方法
    */
   static create(): AirConfirm {
     return new AirConfirm()
   }
 
   /**
-   * ## 显示确认消息提醒
+   * ### 显示确认消息提醒
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
@@ -47,13 +47,13 @@ export class AirConfirm extends AirAlert {
   }
 
   /**
-   * ## 弹出提示
+   * ### 弹出提示
    * @param content 确认内容
    * @param title `可选` 确认标题
    */
   private confirm(content: string, title = '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      uni.showModal({
+      wx.showModal({
         title,
         content,
         confirmText: this.confirmText,
