@@ -1,10 +1,26 @@
 # AirPower4T 版本发布日志
 
+## v3.0.7
+
+### 🎉 Features:
+
+-
+
+### 🐞 Bug fixes:
+
+- 
+
 ## v3.0.6
 
 ### 🎉 Features:
 
+-
+
 ### 🐞 Bug fixes:
+
+- fix(Selector): 增加对 defaultFilter 的空值判断
+- feat(Selector): 优化搜索参数处理逻辑
+- style(component): 格式化 Selector 组件代码
 
 ## v3.0.5
 
