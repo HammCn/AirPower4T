@@ -5,6 +5,7 @@
         {{ title }}
       </view>
       <view
+        v-if="badge"
         :style="{ backgroundColor: badgeColor }"
         class="badge"
       >
@@ -18,7 +19,7 @@
       <slot />
     </view>
     <view
-      v-if="showLink"
+      v-if="!hideLink"
       class="link"
       @click="emits('click')"
     >
@@ -51,9 +52,9 @@ defineProps({
     type: String,
     default: AirColor.NORMAL,
   },
-  showLink: {
+  hideLink: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   linkTip: {
     type: String,
@@ -95,9 +96,15 @@ const emits = defineEmits(['click'])
   }
 
   .desc {
-    font-size: 28rpx;
+    font-size: 26rpx;
     margin-top: 10rpx;
-    color: #999;
+    color: #aaa;
+  }
+
+  .more {
+    font-size: 24rpx;
+    color: #aaa;
+    margin-top: 40rpx;
   }
 
   .link {
