@@ -28,6 +28,21 @@ export interface IUseTableOption<E extends AirEntity> extends ITableHookOption<E
   hideEdit?: boolean
 
   /**
+   * ### 显示详情
+   */
+  showDetail?: boolean
+
+  /**
+   * ### 编辑页面地址
+   */
+  editUrl?: string
+
+  /**
+   * ### 详情页面地址
+   */
+  detailUrl?: string
+
+  /**
    * ### 操作按钮
    */
   actions?: AirEnum[]

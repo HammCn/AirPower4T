@@ -1,4 +1,3 @@
-import { Component } from 'vue'
 import { AirEntity } from '../../base/AirEntity'
 import { AirRequestPage } from '../../model/AirRequestPage'
 
@@ -22,16 +21,6 @@ export interface ITableHookOption<E extends AirEntity> {
    * ### 默认的筛选器
    */
   defaultFilter?: E,
-
-  /**
-   * ### 详情的视图 `Vue` 文件
-   */
-  detailView?: Component
-
-  /**
-   * ### 新增和编辑视图的 `Vue` 文件
-   */
-  editView?: Component
 
   /**
    * ### 请求的URL

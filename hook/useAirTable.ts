@@ -9,6 +9,7 @@ import { AirConfirm } from '../feedback/AirConfirm'
 import { ClassConstructor } from '../type/AirType'
 import { AirTableAction } from '../enum/AirTableAction'
 import { AirEnum } from '../base/AirEnum'
+import { AirApi } from '../config/AirApi'
 
 /**
  * # 引入表格使用的`Hook`
@@ -30,7 +31,15 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
       case AirTableAction.DELETE.key:
         return !option.hideDelete
       case AirTableAction.EDIT.key:
+        if (!option.editUrl) {
+          return false
+        }
         return !option.hideEdit
+      case AirTableAction.DETAIL.key:
+        if (!option.detailUrl) {
+          return false
+        }
+        return option.showDetail
       default:
         return true
     }
@@ -49,8 +58,13 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
       case AirTableAction.ENABLE.key:
         onEnable(bill)
         break
+      case AirTableAction.EDIT.key:
+        AirApi.navigateTo(option.apiUrl || '')
+        break
+      case AirTableAction.DETAIL.key:
+        AirApi.navigateTo(option.detailUrl || '')
+        break
       default:
-        console.log('AirTable事件执行完毕')
         if (onActionEvent) {
           onActionEvent(action, bill)
         }
@@ -96,8 +110,6 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     }
     let { actions } = option
     actions = actions.filter((item) => !item.disabled).filter((item) => {
-      console.log(row)
-
       switch (item.key) {
         case AirTableAction.DISABLE.key:
           return !row.isDisabled
@@ -112,6 +124,9 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     if (option.actionFilter) {
       // 如果传入了过滤函数，再过滤一遍
       actions = option.actionFilter(actions, row)
+    }
+    if (!actions || actions?.length === 0) {
+      return
     }
     const res = await uni.showActionSheet({
       itemList: actions.map((item) => item.label),
