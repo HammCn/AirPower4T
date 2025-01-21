@@ -129,6 +129,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
       return
     }
     const res = await uni.showActionSheet({
+      title: '请选择操作',
       itemList: actions.map((item) => item.label),
     })
     const action = actions[res.tapIndex]

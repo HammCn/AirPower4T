@@ -1,7 +1,7 @@
 <template>
   <view
     class="card"
-    :class="disabled?'disabled':''"
+    :class="disabled ? 'disabled' : ''"
     @click="emits('click')"
   >
     <view class="top">
@@ -19,11 +19,14 @@
     <view class="desc">
       {{ desc }}
     </view>
+    <view class="number">
+      <slot name="numbers" />
+    </view>
     <view class="more">
       <slot />
     </view>
     <view
-      v-if="!hideLink"
+      v-if="linkTip"
       class="link"
       @click="emits('link')"
     >
@@ -56,13 +59,9 @@ defineProps({
     type: String,
     default: AirColor.NORMAL,
   },
-  hideLink: {
-    type: Boolean,
-    default: false,
-  },
   linkTip: {
     type: String,
-    default: '查看详情',
+    default: '',
   },
   disabled: {
     type: Boolean,
@@ -110,6 +109,13 @@ const emits = defineEmits(['click', 'link'])
     color: #aaa;
   }
 
+  .number {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
   .more {
     font-size: 24rpx;
     color: #aaa;
@@ -138,17 +144,18 @@ const emits = defineEmits(['click', 'link'])
   }
 }
 
-.disabled{
+.disabled {
   position: relative;
   opacity: 0.5;
   filter: grayscale(1);
 }
-.disabled::after{
+
+.disabled::after {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  content:'已禁用';
+  content: '已禁用';
   font-weight: bold;
   position: absolute;
   inset: 0;
