@@ -1,5 +1,9 @@
 <template>
-  <view class="card">
+  <view
+    class="card"
+    :class="disabled?'disabled':''"
+    @click="emits('click')"
+  >
     <view class="top">
       <view class="title">
         {{ title }}
@@ -21,7 +25,7 @@
     <view
       v-if="!hideLink"
       class="link"
-      @click="emits('click')"
+      @click="emits('link')"
     >
       <view class="label">
         {{ linkTip }}
@@ -60,9 +64,13 @@ defineProps({
     type: String,
     default: '查看详情',
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const emits = defineEmits(['click'])
+const emits = defineEmits(['click', 'link'])
 
 </script>
 <style lang="scss" scoped>
@@ -71,6 +79,7 @@ const emits = defineEmits(['click'])
   border-radius: 10px;
   padding: 16px;
   margin: 20rpx 10rpx;
+  overflow: hidden;
 
   .top {
     display: flex;
@@ -127,5 +136,25 @@ const emits = defineEmits(['click'])
       color: #ccc;
     }
   }
+}
+
+.disabled{
+  position: relative;
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+.disabled::after{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  content:'已禁用';
+  font-weight: bold;
+  position: absolute;
+  inset: 0;
+  font-size: 88rpx;
+  color: rgba($color: #000, $alpha: 0.1);
+  transform: rotate(-10deg);
+  z-index: 9;
 }
 </style>

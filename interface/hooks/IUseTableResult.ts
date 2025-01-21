@@ -29,4 +29,11 @@ export interface IUseTableResult<E extends AirEntity, S extends AirAbstractEntit
    * @param row 选择的行
    */
   onEnable: (row: E) => void,
+
+  /**
+   * ### 按钮事件
+   *
+   * @param row 选择的行
+   */
+  onAction: (row: E) => void,
 }
