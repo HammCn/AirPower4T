@@ -23,6 +23,8 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
    */
   const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
 
+  let isLoading = false
+
   if (option.defaultFilter) {
     // 如果提供了默认筛选器 则使用它
     request.value.filter = option.defaultFilter
@@ -60,18 +62,33 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     let req = request.value
     if (option.beforeSearch) {
       const result = option.beforeSearch(req)
-      if (result !== undefined) {
+      if (result) {
         req = result
       }
     }
+    if (isLoading) {
+      return
+    }
+    isLoading = true
     uni.stopPullDownRefresh()
+    if (request.value.page.pageNum === 1) {
+      list.value = []
+    }
     if (option.treeList) {
-      list.value = await service.getTreeList(req, option.apiUrl)
+      const temp = await service.getTreeList(req, option.apiUrl).finally(() => {
+        isLoading = false
+      })
+      list.value = list.value.concat(temp)
     } else if (!option.unPaginate) {
-      response.value = await service.getPage(req, option.apiUrl)
-      list.value = response.value.list
+      response.value = await service.getPage(req, option.apiUrl).finally(() => {
+        isLoading = false
+      })
+      list.value = list.value.concat(response.value.list)
     } else {
-      list.value = await service.getList(req, option.apiUrl)
+      const temp = await service.getList(req, option.apiUrl).finally(() => {
+        isLoading = false
+      })
+      list.value = list.value.concat(temp)
     }
   }
 
@@ -123,8 +140,16 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     onGetList()
   }
 
+  /**
+   * ### 加载更多事件
+   */
   async function onLoadMore() {
-    // 判断是否正在加载中
+    if (isLoading) {
+      // 加载中
+      return
+    }
+    request.value.page.pageNum += 1
+    onGetList()
   }
 
   onGetList()

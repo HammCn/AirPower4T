@@ -5,11 +5,14 @@
         {{ title }}
       </view>
       <view
-        class="badge"
         :style="{ backgroundColor: badgeColor }"
+        class="badge"
       >
         {{ badge }}
       </view>
+    </view>
+    <view class="desc">
+      {{ desc }}
     </view>
     <view class="more">
       <slot />
@@ -17,8 +20,14 @@
     <view
       v-if="showLink"
       class="link"
+      @click="emits('click')"
     >
-      {{ linkTip }}
+      <view class="label">
+        {{ linkTip }}
+      </view>
+      <view class="icon">
+        ···
+      </view>
     </view>
   </view>
 </template>
@@ -31,6 +40,10 @@ defineProps({
     required: true,
   },
   badge: {
+    type: String,
+    default: '',
+  },
+  desc: {
     type: String,
     default: '',
   },
@@ -47,6 +60,9 @@ defineProps({
     default: '查看详情',
   },
 })
+
+const emits = defineEmits(['click'])
+
 </script>
 <style lang="scss" scoped>
 .card {
@@ -77,12 +93,32 @@ defineProps({
       border-radius: 16rpx;
     }
   }
-  .link{
+
+  .desc {
+    font-size: 28rpx;
+    margin-top: 10rpx;
+    color: #999;
+  }
+
+  .link {
     border-top: 2rpx solid #f5f5f5;
     margin-top: 40rpx;
     padding-top: 20rpx;
     font-size: 24rpx;
     color: #aaa;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .label {
+      flex: 1;
+      width: 0;
+    }
+
+    .icon {
+      font-size: 28rpx;
+      color: #ccc;
+    }
   }
 }
 </style>
