@@ -8,7 +8,7 @@
     </view>
     <slot>
       <view class="empty">
-        <image src="@/airpower/assets/img/empty.svg" />
+        <image src="../assets/img/empty.svg" />
         <view class="text">
           暂无数据
         </view>

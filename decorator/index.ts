@@ -1,5 +1,5 @@
-import { Field } from '@/airpower/decorator/Field'
-import { Model } from '@/airpower/decorator/Model'
+import { Field } from './Field'
+import { Model } from './Model'
 
 export {
   Field,

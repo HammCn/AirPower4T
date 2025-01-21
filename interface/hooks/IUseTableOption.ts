@@ -1,6 +1,6 @@
 import { AirEntity } from '../../base/AirEntity'
 import { ITableHookOption } from './ITableHookOption'
-import { AirEnum } from '@/airpower/base/AirEnum.ts'
+import { AirEnum } from '../../base/AirEnum'
 
 /**
  * # `TableList` 的 `Hook` 可选配置
@@ -20,12 +20,12 @@ export interface IUseTableOption<E extends AirEntity> extends ITableHookOption<E
   /**
    * ## 隐藏删除
    */
-  hideDelete?:boolean
+  hideDelete?: boolean
 
   /**
    * ## 隐藏编辑
    */
-  hideEdit?:boolean
+  hideEdit?: boolean
 
   /**
    * ### 操作按钮
