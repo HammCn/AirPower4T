@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ref, Ref } from 'vue'
 import { AirHttp } from '../helper/AirHttp'
 import { AirModel } from './AirModel'
 import { ClassConstructor } from '../type/AirType'
@@ -18,13 +19,13 @@ export abstract class AirAbstractService extends AirModel {
    * ### `Loading`
    * 你可以将这个传入的对象绑定到你需要 `Loading` 的 `DOM` 上
    */
-  loading!: string
+  private loading = ref('')
 
   /**
    * ### 获取一个 `API` 服务实例
    * @param loading `可选` Loading
    */
-  constructor(loading?: string) {
+  constructor(loading?: Ref<string>) {
     super()
     if (loading) {
       this.loading = loading
@@ -42,14 +43,14 @@ export abstract class AirAbstractService extends AirModel {
     } else {
       url = `${this.baseUrl}/${url}`
     }
-    return new AirHttp(url).setLoading(this.loading)
+    return new AirHttp(url).setLoading(this.loading.value)
   }
 
   /**
    * ### 静态创建一个 `API` 服务实例
    * @param loading `可选` Loading
    */
-  static create<S extends AirAbstractService>(this: ClassConstructor<S>, loading?: string): S {
+  static create<S extends AirAbstractService>(this: ClassConstructor<S>, loading?: Ref<string>): S {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const service = Object.assign(new this()) as S
