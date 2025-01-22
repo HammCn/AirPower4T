@@ -17,7 +17,7 @@ export abstract class AirAbstractService extends AirModel {
   /**
    * ### `Loading`
    */
-  private loading = ''
+  public loading = ''
 
   /**
    * ### 获取一个 `API` 服务实例

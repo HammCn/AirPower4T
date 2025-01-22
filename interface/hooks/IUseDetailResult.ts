@@ -26,4 +26,11 @@ export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEnti
    * ### 查询详情
    */
   getDetail: () => void,
+
+  /**
+   * ### 设置详情的 `id`
+   * @param id ID
+   */
+  // eslint-disable-next-line no-unused-vars
+  setId: (id: number) => void
 }

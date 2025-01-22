@@ -1,22 +1,20 @@
-import { provide, Ref, ref } from 'vue'
+import { Ref, ref } from 'vue'
 import { IUseDetailOption } from '../interface/hooks/IUseDetailOption'
 import { IUseDetailResult } from '../interface/hooks/IUseDetailResult'
 import { AirEntity } from '../base/AirEntity'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
 import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 引入详情的`Hook`
- * @param props `defineProps` 的返回值
  * @param entityClass 详情使用的实体类
  * @param serviceClass 详情使用的 `Service`
  * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
-export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
+export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
   /**
    * ### 传入的 `Service` 对象
    */
@@ -26,7 +24,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * ### 表单对象
    */
-  const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
+  const formData: Ref<E> = ref(AirClassTransformer.newInstance(entityClass)) as Ref<E>
 
   /**
    * ### 显示的对话框标题
@@ -37,6 +35,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
    * ### 查询详情方法
    */
   async function getDetail() {
+    uni.stopPullDownRefresh()
     if (formData.value.id) {
       formData.value = await service.getDetail(formData.value.id, option.apiUrl)
 
@@ -49,15 +48,16 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  provide('entityClass', entityClass)
-  provide('formData', formData)
-
-  getDetail()
+  async function setId(id: number) {
+    formData.value.id = id
+    getDetail()
+  }
 
   return {
     title,
     formData,
     service,
     getDetail,
+    setId,
   }
 }

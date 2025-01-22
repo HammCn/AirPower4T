@@ -24,7 +24,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * ### 详情`Hook`返回对象
    */
-  const result = useAirDetail(props, entityClass, serviceClass, option)
+  const result = useAirDetail(entityClass, serviceClass, option)
 
   /**
    * ### 对话框显示的标题

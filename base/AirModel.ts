@@ -54,7 +54,7 @@ export class AirModel {
       const props = getFieldConfig(instance, fieldKey)
       const fieldData = json[
         (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
-      + (props.alias || fieldKey)];
+        + (props.alias || fieldKey)];
       (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)

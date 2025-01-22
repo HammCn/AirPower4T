@@ -39,34 +39,34 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
         if (!option.detailUrl) {
           return false
         }
-        return option.showDetail
+        return option.detailUrl
       default:
         return true
     }
   })
 
   const { onActionEvent } = option
-  option.onActionEvent = async (action: AirEnum, bill: E) => {
+  option.onActionEvent = async (action: AirEnum, entity: E) => {
     switch (action.key) {
       case AirTableAction.DELETE.key:
         await AirConfirm.show('删除提醒', '是否确认删除当前选择的数据？')
-        onDelete(bill)
+        onDelete(entity)
         break
       case AirTableAction.DISABLE.key:
-        onDisable(bill)
+        onDisable(entity)
         break
       case AirTableAction.ENABLE.key:
-        onEnable(bill)
+        onEnable(entity)
         break
       case AirTableAction.EDIT.key:
         AirApi.navigateTo(option.apiUrl || '')
         break
       case AirTableAction.DETAIL.key:
-        AirApi.navigateTo(option.detailUrl || '')
+        AirApi.navigateTo(`${option.detailUrl}?id=${entity.id}` || '')
         break
       default:
         if (onActionEvent) {
-          onActionEvent(action, bill)
+          onActionEvent(action, entity)
         }
     }
   }

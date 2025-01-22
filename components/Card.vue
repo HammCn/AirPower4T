@@ -37,6 +37,12 @@
         ···
       </view>
     </view>
+    <view
+      v-if="disabled"
+      class="cover"
+    >
+      {{ disableLabel }}
+    </view>
   </view>
 </template>
 <script lang="ts" setup>
@@ -45,7 +51,7 @@ import { AirColor } from '../enum/AirColor'
 defineProps({
   title: {
     type: String,
-    required: true,
+    default: '',
   },
   badge: {
     type: String,
@@ -67,6 +73,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  disableLabel: {
+    type: String,
+    default: '已禁用',
+  },
 })
 
 const emits = defineEmits(['click', 'link'])
@@ -79,6 +89,11 @@ const emits = defineEmits(['click', 'link'])
   padding: 16px;
   margin: 20rpx 10rpx;
   overflow: hidden;
+
+  .card {
+    margin: 20rpx 0;
+    background: #f5f5f5;
+  }
 
   .top {
     display: flex;
@@ -150,12 +165,11 @@ const emits = defineEmits(['click', 'link'])
   filter: grayscale(1);
 }
 
-.disabled::after {
+.disabled .cover {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  content: '已禁用';
   font-weight: bold;
   position: absolute;
   inset: 0;
