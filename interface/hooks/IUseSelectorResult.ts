@@ -1,4 +1,3 @@
-import { Ref } from 'vue'
 import { AirEntity } from '../../base/AirEntity'
 import { ITableHookResult } from './ITableHookResult'
 import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
@@ -7,16 +6,4 @@ import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
  * # 选择器 `Hook` 的标准返回
  * @author Hamm.cn
  */
-export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
-
-  /**
-   * ### `Selector` 的标题
-   */
-  title: Ref<string>,
-
-  /**
-   * ### 是否禁用确认按钮
-   * 多选时当没有选择任何数据时将禁用确认按钮
-   */
-  disableConfirm: Ref<boolean>
-}
+export type IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> = ITableHookResult<E, S>

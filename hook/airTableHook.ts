@@ -51,11 +51,6 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   const service = AirClassTransformer.newInstance(serviceClass)
 
   /**
-   * ### 选择的列表
-   */
-  const selectList = ref([]) as Ref<E[]>
-
-  /**
    * ### 查询列表事件
    */
   async function onGetList() {
@@ -124,14 +119,6 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   }
 
   /**
-   * ### 选择变更事件
-   * @param list 选择列表
-   */
-  async function onSelected(list: E[]) {
-    selectList.value = list
-  }
-
-  /**
    * ### 分页变更事件
    * @param page 分页对象
    */
@@ -160,11 +147,9 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     response,
     request,
     list,
-    selectList,
     onSearch,
     onPageChanged,
     onSortChanged,
-    onSelected,
     onGetList,
     onReloadData,
     onLoadMore,

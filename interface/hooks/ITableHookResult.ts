@@ -27,11 +27,6 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
   list: Ref<E[]>,
 
   /**
-   * ### 选中的数据列表
-   */
-  selectList: Ref<E[]>,
-
-  /**
    * ### 实体的实例
    */
   entity: E,
@@ -44,7 +39,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
   /**
    * ### 加载更多
    */
-  onLoadMore: ()=>void
+  onLoadMore: () => void
 
   /**
    * ### 刷新数据 返回第一页
@@ -74,14 +69,6 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    */
   // eslint-disable-next-line no-unused-vars
   onSortChanged: (sort?: AirSort) => void | Promise<void>,
-
-  /**
-   * ### 多选事件
-   *
-   * @param list 选择的行列表
-   */
-  // eslint-disable-next-line no-unused-vars
-  onSelected: (list: E[]) => void,
 
   /**
    * ### 刷新数据 保持留在当页

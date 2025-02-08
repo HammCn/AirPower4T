@@ -14,7 +14,7 @@ import { ClassConstructor } from '../type/AirType'
  * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
-export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
+export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E>): IUseDetailResult<E, S> {
   /**
    * ### 传入的 `Service` 对象
    */
@@ -48,16 +48,12 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  async function setId(id: number) {
-    formData.value.id = id
-    getDetail()
-  }
+  formData.value.id = option.id
 
   return {
     title,
     formData,
     service,
     getDetail,
-    setId,
   }
 }

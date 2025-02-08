@@ -20,4 +20,9 @@ export interface IUseDetailOption<E extends AirEntity> {
    * 如不传入，则默认为 `Service` 的 `urlForGetDetail`
    */
   apiUrl?: string
+
+  /**
+   * ### 详情ID
+   */
+  id: number
 }
