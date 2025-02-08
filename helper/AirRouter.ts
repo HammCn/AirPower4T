@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 
 import { IJson } from '../interface/IJson'
+import { AirRand } from '@/airpower/helper/AirRand'
+import { AirAny } from '@/airpower/type/AirType'
 
 /**
  * # 路由助手
@@ -11,17 +13,28 @@ export class AirRouter {
    * ### 打开子页面
    * @param url 页面
    * @param param `可选` 参数
+   * @param animationType
    */
-  static go(url: string, param?: IJson) {
-    if (param) {
-      url += '?'
-      // eslint-disable-next-line guard-for-in
-      for (const key in param) {
-        url += `${key}=${param[key]}`
+  static async go(url: string, param?: IJson, animationType: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in' = 'auto', animationDuration = 300) {
+    return new Promise((resolve) => {
+      if (param) {
+        url += '?'
+        // eslint-disable-next-line guard-for-in
+        for (const key in param) {
+          url += `${key}=${param[key]}`
+        }
       }
-    }
-    uni.navigateTo({
-      url: `/view/${url}`,
+      const eventId = AirRand.getRandMixedCharString()
+      uni.navigateTo({
+        url: `${url}&eventId=${eventId}`,
+        animationType,
+        animationDuration,
+        success: () => {
+          uni.$once(eventId, (data) => {
+            resolve(data)
+          })
+        },
+      })
     })
   }
 
@@ -40,5 +53,15 @@ export class AirRouter {
    */
   static back() {
     uni.navigateBack()
+  }
+
+  /**
+   * ### 回调数据给上一页
+   * @param data 数据
+   * @param eventId 事件ID
+   */
+  static callback(data: AirAny, eventId: string) {
+    uni.$emit(eventId, data)
+    this.back()
   }
 }
