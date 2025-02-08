@@ -1,7 +1,7 @@
 <template>
   <view
-    class="card"
     :class="disabled ? 'disabled' : ''"
+    class="card"
     @click="emits('click')"
   >
     <view class="top">
@@ -16,7 +16,10 @@
         {{ badge }}
       </view>
     </view>
-    <view class="desc">
+    <view
+      v-if="desc"
+      class="desc"
+    >
       {{ desc }}
     </view>
     <view class="number">
@@ -108,6 +111,7 @@ const emits = defineEmits(['click', 'link'])
       text-overflow: ellipsis;
       white-space: nowrap;
       word-break: keep-all;
+      color: #333;
     }
 
     .badge {
@@ -121,6 +125,7 @@ const emits = defineEmits(['click', 'link'])
   .desc {
     font-size: 26rpx;
     margin-top: 10rpx;
+    margin-bottom: 20rpx;
     color: #aaa;
   }
 
