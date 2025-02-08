@@ -42,7 +42,7 @@
       @on-select="onSelected"
     >
       <template
-        v-for="(_, name) in $slots"
+        v-for="(_, name) in slots"
         #[name]="row"
       >
         <slot
@@ -75,7 +75,7 @@
 </template>
 
 <script generic="E extends AirEntity,S extends AirAbstractEntityService<E>" lang="ts" setup>
-import { Component, computed } from 'vue'
+import { Component, computed, useSlots } from 'vue'
 import {
   AButton, ADialog, APage, ATable, AToolBar,
 } from '.'
@@ -90,7 +90,9 @@ import { AirNotification } from '../feedback/AirNotification'
 import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { AirAny, ClassConstructor } from '../type/AirType'
+import { IJson } from '../interface/IJson'
 
+const slots: IJson = useSlots()
 const props = defineProps<{
   /**
    * # 选择器使用的实体类
