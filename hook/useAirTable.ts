@@ -39,11 +39,18 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
         if (!option.detailUrl) {
           return false
         }
+        if (!option.showDetail) {
+          return false
+        }
         return option.detailUrl
       default:
         return true
     }
   })
+
+  function onDetail(id: number) {
+    AirApi.navigateTo(`${option.detailUrl}?param=${id}` || '')
+  }
 
   const { onActionEvent } = option
   option.onActionEvent = async (action: AirEnum, entity: E) => {
@@ -62,7 +69,7 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
         AirApi.navigateTo(option.apiUrl || '')
         break
       case AirTableAction.DETAIL.key:
-        AirApi.navigateTo(`${option.detailUrl}?id=${entity.id}` || '')
+        onDetail(entity.id)
         break
       default:
         if (onActionEvent) {
@@ -141,5 +148,6 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     onDisable,
     onEnable,
     onAction,
+    onDetail,
   })
 }

@@ -36,4 +36,10 @@ export interface IUseTableResult<E extends AirEntity, S extends AirAbstractEntit
    * @param row 选择的行
    */
   onAction: (row: E) => void,
+
+  /**
+   * ### 详情事件
+   * @param id ID
+   */
+  onDetail: (id: number) => void
 }

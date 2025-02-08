@@ -31,7 +31,7 @@
     <view
       v-if="linkTip"
       class="link"
-      @click="emits('link')"
+      @click.stop="emits('link')"
     >
       <view class="label">
         {{ linkTip }}

@@ -13,9 +13,10 @@ export class AirRouter {
    * ### 打开子页面
    * @param url 页面
    * @param param `可选` 参数
-   * @param animationType
+   * @param animationType `可选` 动画类型
+   * @param animationDuration `可选` 动画时长
    */
-  static async go(url: string, param?: IJson, animationType: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in' = 'auto', animationDuration = 300) {
+  static async go(url: string, param?: IJson, animationType: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in' = 'pop-in', animationDuration = 300) {
     return new Promise((resolve) => {
       if (param) {
         url += '?'
