@@ -2,19 +2,12 @@
 
 ## v3.0.7
 
-### 🎉 Features:
-
--
-
 ### 🐞 Bug fixes:
 
-- 
+- fix(Input): 优化 Input 组件的插槽处理 
+- fix(Selector): 优化 Selector 组件的插槽处理 
 
 ## v3.0.6
-
-### 🎉 Features:
-
--
 
 ### 🐞 Bug fixes:
 
