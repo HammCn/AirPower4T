@@ -95,10 +95,10 @@ export class AirConstant {
   static readonly THOUSAND = 1000
 
   /**
-   * ### 1024
+   * ### 文件大小进制
    * 😄
    */
-  static readonly ONE_ZERO_TWO_FOUR = 1024
+  static readonly FILE_SIZE_RADIX = 1024
 
   /**
    * ### 每月最大天数
