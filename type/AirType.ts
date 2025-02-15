@@ -2,7 +2,6 @@ import { ElForm, ElTable, ElTree } from 'element-plus'
 
 import type Node from 'element-plus/es/components/tree/src/model/node'
 import { AirColor } from '../enum/AirColor'
-import { AirCode } from '../enum/AirCode'
 
 /**
  * # 一些定义的类型
@@ -50,11 +49,6 @@ export type AirEnumKey = string | number | boolean
  * ### 颜色值
  */
 export type AirColorString = AirColor | string
-
-/**
- * ### 状态码
- */
-export type AirCodeNumber = AirCode | number
 
 /**
  * ### 表格对齐方式

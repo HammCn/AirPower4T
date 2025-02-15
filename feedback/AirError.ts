@@ -1,5 +1,4 @@
 import { AirConfig } from '../config/AirConfig'
-import { AirCode } from '../enum/AirCode'
 import { AirI18n } from '../helper/AirI18n'
 import { AirAny } from '../type/AirType'
 import { AirNotification } from './AirNotification'
@@ -13,7 +12,7 @@ export class AirError {
    * ### 错误状态码
    * 默认 `500`
    */
-  private code = AirCode.ERROR
+  private code = AirConfig.errorCode
 
   /**
    * ### 错误信息文本
@@ -27,7 +26,7 @@ export class AirError {
   constructor(error?: AirAny) {
     switch (typeof error) {
       case 'object':
-        this.code = error?.code || AirCode.ERROR
+        this.code = error?.code || this.code
         this.message = error?.message || AirI18n.get().ErrorAndSeeConsole || '系统错误,请查看控制台错误信息'
         break
       case 'string':
