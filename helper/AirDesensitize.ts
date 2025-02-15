@@ -65,6 +65,9 @@ export class AirDesensitize {
    * @return 脱敏后的文本
    */
   public static desensitize(source: string, type: AirDesensitizeType, head = 0, tail = 0, symbol = AirConstant.ASTERISK): string {
+    if (!source) {
+      return AirConstant.EMPTY_STRING
+    }
     head = head <= 0 ? type.head : head
     tail = tail <= 0 ? type.tail : tail
     switch (type.key) {
