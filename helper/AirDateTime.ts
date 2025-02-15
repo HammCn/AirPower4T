@@ -26,7 +26,7 @@ export class AirDateTime {
    * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getUnixTimeStamps(date?: Date | string): number {
-    return Math.round(this.getMilliTimeStamps(date) / AirConstant.THOUSAND)
+    return Math.round(this.getMilliTimeStamps(date) / AirConstant.MILLISECONDS_OF_SECOND)
   }
 
   /**
@@ -49,7 +49,7 @@ export class AirDateTime {
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromSecond(timeStamp: number, formatString?: AirDateTimeFormatter | string): string {
-    return this.formatFromDate(new Date(timeStamp * AirConstant.THOUSAND), formatString)
+    return this.formatFromDate(new Date(timeStamp * AirConstant.MILLISECONDS_OF_SECOND), formatString)
   }
 
   /**
@@ -97,7 +97,7 @@ export class AirDateTime {
     const nowTimeStamps: number = this.getUnixTimeStamps(new Date())
     let oldTimeStamp: number
     if (typeof date === 'number') {
-      oldTimeStamp = parseInt((date / AirConstant.THOUSAND).toString(), 10)
+      oldTimeStamp = parseInt((date / AirConstant.MILLISECONDS_OF_SECOND).toString(), 10)
     } else {
       oldTimeStamp = this.getUnixTimeStamps(date)
     }

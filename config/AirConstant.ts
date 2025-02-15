@@ -90,9 +90,9 @@ export class AirConstant {
   static readonly TIME_RADIX = 60
 
   /**
-   * ### 千
+   * ### 每秒的毫秒数
    */
-  static readonly THOUSAND = 1000
+  static readonly MILLISECONDS_OF_SECOND = 1000
 
   /**
    * ### 文件大小进制
