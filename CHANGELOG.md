@@ -1,11 +1,25 @@
 # AirPower4T 版本发布日志
 
+## v3.0.8
+
+### 🎉 Features:
+
+- feat(Dictionary): `IDictionary` 接口定义支持了泛型
+
+### 🐞 Bug fixes:
+
+- fix(Constant): 优化文件大小进制相关代码
+- fix(Config): 重构时间和状态码相关的常量定义
+- fix(Desensitize): 优化脱敏逻辑和参数处理
+- fix(Datetime): 优化 getFriendlyDateTime 方法
+- fix(Field):调整装饰器中的类型定义
+
 ## v3.0.7
 
 ### 🐞 Bug fixes:
 
-- fix(Input): 优化 Input 组件的插槽处理 
-- fix(Selector): 优化 Selector 组件的插槽处理 
+- fix(Input): 优化 Input 组件的插槽处理
+- fix(Selector): 优化 Selector 组件的插槽处理
 
 ## v3.0.6
 
@@ -32,13 +46,13 @@
 
 ### 🎉 Features:
 
-- feat(http): 提供了支持转换类型的request 和 requestArray 
+- feat(http): 提供了支持转换类型的request 和 requestArray
 
 ### 🐞 Bug fixes:
 
 - refactor(core): 修正 IJson 导入路径
 - docs(field): 更新字段标题优先级说明
-- refactor(core): 优化枚举基类的实现 
+- refactor(core): 优化枚举基类的实现
 - style(interface): 移除接口属性的分号
 
 ## v3.0.3

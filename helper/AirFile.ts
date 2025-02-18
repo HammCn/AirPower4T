@@ -22,8 +22,8 @@ export class AirFile {
       return AirI18n.get().FileUnknownSize || '未知大小'
     }
     for (let i = 0; i < this.FILE_UNIT_LIST.length; i += 1) {
-      if (size < AirConstant.ONE_ZERO_TWO_FOUR ** (i + 1)) {
-        return `${(size / (AirConstant.ONE_ZERO_TWO_FOUR ** i)).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
+      if (size < AirConstant.FILE_SIZE_RADIX ** (i + 1)) {
+        return `${(size / (AirConstant.FILE_SIZE_RADIX ** i)).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
       }
     }
     return AirI18n.get().FileTooLarge || '文件过大'

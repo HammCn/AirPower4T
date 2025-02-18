@@ -5,11 +5,11 @@ import { AirColorString, AirEnumKey } from '../type/AirType'
  * 用于全局固定枚举字典的声明
  * @author Hamm.cn
  */
-export interface IDictionary {
+export interface IDictionary<K extends AirEnumKey = AirEnumKey> {
   /**
    * ### 字典的值
    */
-  key: AirEnumKey,
+  key: K,
 
   /**
    * ### 字典的显示标题

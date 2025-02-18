@@ -90,20 +90,25 @@ export class AirConstant {
   static readonly TIME_RADIX = 60
 
   /**
-   * ### 千
+   * ### 每秒的毫秒数
    */
-  static readonly THOUSAND = 1000
+  static readonly MILLISECONDS_OF_SECOND = 1000
 
   /**
-   * ### 1024
+   * ### 文件大小进制
    * 😄
    */
-  static readonly ONE_ZERO_TWO_FOUR = 1024
+  static readonly FILE_SIZE_RADIX = 1024
 
   /**
-   * ### 每月最大天数
+   * ### 每天小时
    */
-  static readonly DAY_OF_MONTH = 31
+  static readonly HOUR_OF_DAY = 24
+
+  /**
+   * ### 每月天数
+   */
+  static readonly DAY_OF_MONTH = 30
 
   /**
    * ### 每年月份
@@ -133,7 +138,7 @@ export class AirConstant {
   /**
    * ### 每天秒数
    */
-  static readonly SECONDS_OF_DAY = 86400
+  static readonly SECONDS_OF_DAY = this.HOUR_OF_DAY * this.TIME_RADIX * this.TIME_RADIX
 
   /**
    * ### 一世纪年数
