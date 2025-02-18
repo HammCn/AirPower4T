@@ -1,6 +1,7 @@
 import { AirConfig } from '../config/AirConfig'
 import { AirConstant } from '../config/AirConstant'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { IDictionary } from '../interface/IDictionary'
 import { IJson } from '../interface/IJson'
 
 /**
@@ -26,7 +27,7 @@ export class AirDateTime {
    * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getUnixTimeStamps(date?: Date | string): number {
-    return Math.round(this.getMilliTimeStamps(date) / AirConstant.THOUSAND)
+    return Math.round(this.getMilliTimeStamps(date) / AirConstant.MILLISECONDS_OF_SECOND)
   }
 
   /**
@@ -49,7 +50,7 @@ export class AirDateTime {
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromSecond(timeStamp: number, formatString?: AirDateTimeFormatter | string): string {
-    return this.formatFromDate(new Date(timeStamp * AirConstant.THOUSAND), formatString)
+    return this.formatFromDate(new Date(timeStamp * AirConstant.MILLISECONDS_OF_SECOND), formatString)
   }
 
   /**
@@ -94,63 +95,50 @@ export class AirDateTime {
    * @param date Date对象或时间字符串
    */
   static getFriendlyDateTime(date: Date | string | number): string {
-    const nowTimeStamps: number = this.getUnixTimeStamps(new Date())
-    let oldTimeStamp: number
+    const currentTimestamp: number = this.getUnixTimeStamps(new Date())
+    let timestamp: number
     if (typeof date === 'number') {
-      oldTimeStamp = parseInt((date / AirConstant.THOUSAND).toString(), 10)
+      timestamp = parseInt((date / AirConstant.MILLISECONDS_OF_SECOND).toString(), 10)
     } else {
-      oldTimeStamp = this.getUnixTimeStamps(date)
+      timestamp = this.getUnixTimeStamps(date)
     }
-    const diffTimeStamp = Math.abs(nowTimeStamps - oldTimeStamp)
-    const secondOfYear = AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_YEAR
-    const secondOfMonth = AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_MONTH
-    const secondOfWeek = AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_WEEK
-    const secondOfHour = AirConstant.TIME_RADIX * AirConstant.TIME_RADIX
-    if (oldTimeStamp > nowTimeStamps) {
-      // after
-      if (diffTimeStamp > secondOfYear) {
-        return `${Math.floor(diffTimeStamp / secondOfYear)}年后`
-      }
-      if (diffTimeStamp > secondOfMonth) {
-        return `${Math.floor(diffTimeStamp / secondOfMonth)}月后`
-      }
-      if (diffTimeStamp > secondOfWeek) {
-        return `${Math.floor(diffTimeStamp / secondOfWeek)}周后`
-      }
-      if (diffTimeStamp > AirConstant.SECONDS_OF_DAY) {
-        return `${Math.floor(diffTimeStamp / AirConstant.SECONDS_OF_DAY)}天后`
-      }
-      if (diffTimeStamp > secondOfHour) {
-        return `${Math.floor(diffTimeStamp / secondOfHour)}小时后`
-      }
-      if (diffTimeStamp > AirConstant.TIME_RADIX) {
-        return `${Math.floor(diffTimeStamp / AirConstant.TIME_RADIX)}分钟后`
-      }
-      if (diffTimeStamp > 0) {
-        return `${diffTimeStamp}秒后`
-      }
-    } else {
-      // before
-      if (diffTimeStamp > secondOfYear) {
-        return `${Math.floor(diffTimeStamp / secondOfYear)}年前`
-      }
-      if (diffTimeStamp > secondOfMonth) {
-        return `${Math.floor(diffTimeStamp / secondOfMonth)}月前`
-      }
-      if (diffTimeStamp > secondOfWeek) {
-        return `${Math.floor(diffTimeStamp / secondOfWeek)}周前`
-      }
-      if (diffTimeStamp > AirConstant.SECONDS_OF_DAY) {
-        return `${Math.floor(diffTimeStamp / AirConstant.SECONDS_OF_DAY)}天前`
-      }
-      if (diffTimeStamp > secondOfHour) {
-        return `${Math.floor(diffTimeStamp / secondOfHour)}小时前`
-      }
-      if (diffTimeStamp > AirConstant.TIME_RADIX) {
-        return `${Math.floor(diffTimeStamp / AirConstant.TIME_RADIX)}分钟前`
-      }
-      if (diffTimeStamp >= 0) {
+    const diff = Math.abs(currentTimestamp - timestamp)
+
+    const suffix = (timestamp > currentTimestamp) ? '后' : '前'
+
+    const stepDictionary: IDictionary<number>[] = [{
+      key: 0,
+      label: '秒',
+    }, {
+      key: AirConstant.TIME_RADIX,
+      label: '分钟',
+    }, {
+      key: AirConstant.TIME_RADIX ** 2,
+      label: '小时',
+    }, {
+      key: AirConstant.SECONDS_OF_DAY,
+      label: '天',
+    }, {
+      key: AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_WEEK,
+      label: '周',
+    }, {
+      key: AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_MONTH,
+      label: '月',
+    }, {
+      key: AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_YEAR,
+      label: '年',
+    }]
+    for (let i = stepDictionary.length - 1; i >= 0; i -= 1) {
+      const step = stepDictionary[i]
+      if (timestamp <= currentTimestamp && diff < AirConstant.TIME_RADIX) {
+        // 过去时间，且小于60s
         return '刚刚'
+      }
+      if (diff > step.key) {
+        if (step.key === 0) {
+          return `${Math.floor(diff)}${step.label}${suffix}`
+        }
+        return `${Math.floor(diff / step.key)}${step.label}${suffix}`
       }
     }
     return '未知时间'

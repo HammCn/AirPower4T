@@ -1,8 +1,7 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirCode } from '../enum/AirCode'
 import { IFile } from '../interface/IFile'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
-import { AirCodeNumber, AirMoneyDirection, ClassConstructor } from '../type/AirType'
+import { AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
 import { ITreeProps } from '../interface/props/ITreeProps'
@@ -16,7 +15,7 @@ export class AirConfig {
   /**
    * ### `AirPower` 版本号
    */
-  static readonly version = 'v3.0.7'
+  static readonly version = 'v3.0.8'
 
   /**
    * ### `AppKey`
@@ -81,17 +80,22 @@ export class AirConfig {
   /**
    * ### 全局 `http` 请求返回 成功状态码
    */
-  static successCode: AirCodeNumber = AirCode.SUCCESS
+  static successCode = 200
 
   /**
    * ### 全局 `http` 请求返回 继续状态码
    */
-  static continueCode: AirCodeNumber = AirCode.CONTINUE
+  static continueCode = 201
+
+  /**
+   * ### 全局 `http` 请求返回 错误状态码
+   */
+  static errorCode = 500
 
   /**
    * ### 全局 `http` 请求返回 登录状态码
    */
-  static unAuthorizeCode: AirCodeNumber = AirCode.UNAUTHORIZED
+  static unAuthorizeCode = 401
 
   /**
    * ### 默认的格式化时间

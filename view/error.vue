@@ -4,7 +4,7 @@
     class="air-error-page big-loading"
   >
     <div
-      v-if="errorCode !== AirHttpStatus.OK"
+      v-if="errorCode !== AirConfig.successCode"
       class="box"
     >
       <div class="code">
@@ -27,13 +27,12 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { AirConfig } from '../config/AirConfig'
-import { AirHttpStatus } from '../enum/AirHttpStatus'
 import { AirI18n } from '../helper/AirI18n'
 
 const isLoading = ref(true)
 const isError = ref(false)
 
-const errorCode = ref(AirHttpStatus.OK)
+const errorCode = ref(AirConfig.successCode)
 
 const errorTitle = ref('')
 
@@ -41,35 +40,39 @@ const errorDesc = ref('')
 
 const route = useRoute()
 
+const FORBIDDEN = 403
+const NOT_FOUND = 404
+const GATEWAY_TIMEOUT = 504
+
 const timer = setTimeout(() => {
   isLoading.value = false
   isError.value = true
-  errorCode.value = AirHttpStatus.GATEWAY_TIMEOUT
+  errorCode.value = GATEWAY_TIMEOUT
   AirConfig.isTimeout = true
 }, AirConfig.timeout)
 
 watch(errorCode, () => {
   switch (errorCode.value) {
-    case AirHttpStatus.FORBIDDEN:
+    case FORBIDDEN:
       errorTitle.value = AirI18n.get().SorryButForbiddenToAccess || '很抱歉,你可能无权访问此服务'
       errorDesc.value = AirI18n.get().CheckYourAccessPlease || '请确认你的身份权限, '
       break
-    case AirHttpStatus.INTERNAL_SERVER_ERROR:
+    case AirConfig.errorCode:
       errorTitle.value = AirI18n.get().SorryButSomeInternalServerError || '很抱歉,服务器发生了一点小错误'
       errorDesc.value = AirI18n.get().ServerMaintaining || '服务器可能正在维护中, '
       isError.value = true
       break
-    case AirHttpStatus.NOT_FOUND:
+    case NOT_FOUND:
       errorTitle.value = AirI18n.get().SorryButResourceNotFound || '很抱歉,没有找到你想访问的资源'
       errorDesc.value = AirI18n.get().ConfirmYourAccessUrlPlease || '请确认你的访问地址是否正确, 或 '
       break
-    case AirHttpStatus.GATEWAY_TIMEOUT:
+    case GATEWAY_TIMEOUT:
       errorTitle.value = AirI18n.get().SorryButServerBusyNow || '很抱歉,服务可能依然还没有正确的响应.'
       errorDesc.value = AirI18n.get().CheckYourNetworkPlease || '建议尝试检查你的网络后刷新重试或 '
       break
     default:
   }
-  if (errorCode.value !== AirHttpStatus.OK) {
+  if (errorCode.value !== AirConfig.successCode) {
     isLoading.value = false
     isError.value = true
   }
@@ -78,16 +81,16 @@ watch(errorCode, () => {
 function checkErrorCode() {
   const code = route.path.replace('/', '')
   switch (code) {
-    case AirHttpStatus.FORBIDDEN.toString():
+    case FORBIDDEN.toString():
       clearTimeout(timer)
-      errorCode.value = AirHttpStatus.FORBIDDEN
+      errorCode.value = FORBIDDEN
       break
-    case AirHttpStatus.NOT_FOUND.toString():
+    case NOT_FOUND.toString():
       clearTimeout(timer)
-      errorCode.value = AirHttpStatus.NOT_FOUND
+      errorCode.value = NOT_FOUND
       break
     default:
-      errorCode.value = AirHttpStatus.OK
+      errorCode.value = AirConfig.successCode
   }
 }
 
