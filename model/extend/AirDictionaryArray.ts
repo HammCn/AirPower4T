@@ -35,7 +35,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
    * @param key Key
    * @param defaultLabel 默认Label
    */
-  getLabel(key: AirEnumKey, defaultLabel = AirConstant.HYPHEN): string {
+  getLabel(key: AirEnumKey, defaultLabel = AirConstant.STRING_LINE): string {
     return this.get(key).label || defaultLabel
   }
 

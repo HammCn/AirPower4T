@@ -19,7 +19,7 @@ export class AirHttp {
   /**
    * ### 访问的接口 `URL`
    */
-  private url = AirConstant.EMPTY_STRING
+  private url = AirConstant.STRING_EMPTY
 
   /**
    * ### `Loading`
@@ -56,7 +56,7 @@ export class AirHttp {
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL = this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0 ? AirConstant.EMPTY_STRING : AirConfig.apiUrl
+    this.axiosRequestConfig.baseURL = this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0 ? AirConstant.STRING_EMPTY : AirConfig.apiUrl
     this.axiosRequestConfig.timeout = this.timeout
     this.axiosRequestConfig.headers = {}
     this.axiosRequestConfig.headers[AirConstant.CONTENT_TYPE] = AirHttpContentType.JSON
@@ -309,10 +309,10 @@ export class AirHttp {
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
       }
-      if (this.url.includes(AirConstant.QUESTION_MARK)) {
-        this.url += `&${queryArray.join(AirConstant.AND_MARK)}`
+      if (this.url.includes(AirConstant.STRING_QUESTION)) {
+        this.url += `&${queryArray.join(AirConstant.STRING_AND)}`
       } else {
-        this.url += `?${queryArray.join(AirConstant.AND_MARK)}`
+        this.url += `?${queryArray.join(AirConstant.STRING_AND)}`
       }
     }
     this.setHttpMethod(AirHttpMethod.GET)

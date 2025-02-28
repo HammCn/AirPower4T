@@ -43,15 +43,15 @@ export class AirDesensitize {
    * @param symbol `可选` 脱敏符号
    * @return 脱敏后的 `IPv4` 地址
    */
-  public static desensitizeIpv4Address(ipv4: string, symbol = AirConstant.ASTERISK): string {
-    const strings = ipv4.split(AirConstant.DOT)
+  public static desensitizeIpv4Address(ipv4: string, symbol = AirConstant.STRING_ASTERISK): string {
+    const strings = ipv4.split(AirConstant.STRING_DOT)
     if (strings.length !== AirDesensitize.IP_V4_PART_COUNT) {
       return ipv4
     }
     const temp = symbol + symbol + symbol
     strings[1] = temp
     strings[2] = temp
-    return strings.join(AirConstant.DOT)
+    return strings.join(AirConstant.STRING_DOT)
   }
 
   /**
@@ -64,9 +64,9 @@ export class AirDesensitize {
    * @param symbol      `可选` 脱敏符号
    * @return 脱敏后的文本
    */
-  public static desensitize(source: string, type: AirDesensitizeType, head = 0, tail = 0, symbol = AirConstant.ASTERISK): string {
+  public static desensitize(source: string, type: AirDesensitizeType, head = 0, tail = 0, symbol = AirConstant.STRING_ASTERISK): string {
     if (!source) {
-      return AirConstant.EMPTY_STRING
+      return AirConstant.STRING_EMPTY
     }
     head = head <= 0 ? type.head : head
     tail = tail <= 0 ? type.tail : tail

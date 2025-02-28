@@ -29,7 +29,7 @@ export class AirTree {
     const list: E[] = []
     treeList.forEach((item) => {
       const i = item.copy()
-        .exclude(AirConstant.CHILDREN)
+        .exclude(AirConstant.STRING_CHILDREN)
       list.push(i)
       if (item.children && item.children.length > 0) {
         list.push(...this.treeList2List(item.children))

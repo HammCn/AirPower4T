@@ -34,7 +34,7 @@ export class AirRand {
    * @param length `可选` 长度 `默认6位`
    */
   static getRandNumberString(length = 6): string {
-    let str = AirConstant.EMPTY_STRING
+    let str = AirConstant.STRING_EMPTY
     for (let i = 0; i < length; i += 1) {
       str += this.STRING_OF_NUMBER[parseInt((Math.random() * this.STRING_OF_NUMBER.length).toString(), AirConstant.DEFAULT_RADIX)]
     }
@@ -47,7 +47,7 @@ export class AirRand {
    * @param isUpper `可选` 是否大写 `默认小写`
    */
   static getRandCharString(length = 32, isUpper = false): string {
-    let str = AirConstant.EMPTY_STRING
+    let str = AirConstant.STRING_EMPTY
     for (let i = 0; i < length; i += 1) {
       str += this.STRING_OF_LOWER_CHAR[parseInt((Math.random() * this.STRING_OF_LOWER_CHAR.length).toString(), AirConstant.DEFAULT_RADIX)]
     }
@@ -59,7 +59,7 @@ export class AirRand {
    * @param length `可选` 长度 `默认32位`
    */
   static getRandMixedCharString(length = 32): string {
-    let str = AirConstant.EMPTY_STRING
+    let str = AirConstant.STRING_EMPTY
     const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_UPPER_CHAR
     for (let i = 0; i < length; i += 1) {
       str += strStorage[parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
@@ -73,7 +73,7 @@ export class AirRand {
    * @param isUpper `可选` 是否大写 `默认false`
    */
   static getRandNumberAndCharString(length = 32, isUpper = false): string {
-    let str = AirConstant.EMPTY_STRING
+    let str = AirConstant.STRING_EMPTY
     const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_NUMBER
     for (let i = 0; i < length; i += 1) {
       str += strStorage[parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
@@ -86,7 +86,7 @@ export class AirRand {
    * @param length `可选` 长度 `默认32位`
    */
   static getRandNumberAndMixedCharString(length = 32): string {
-    let str = AirConstant.EMPTY_STRING
+    let str = AirConstant.STRING_EMPTY
     const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_NUMBER + this.STRING_OF_UPPER_CHAR
     for (let i = 0; i < length; i += 1) {
       str += strStorage[parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
@@ -101,7 +101,7 @@ export class AirRand {
   static getRandColor() {
     return `#${Math.random()
       .toString(16)
-      .padEnd(6, AirConstant.ZERO_STRING)
+      .padEnd(6, AirConstant.STRING_ZERO)
       .slice(2, 8)}`
   }
 }

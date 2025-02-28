@@ -79,5 +79,5 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
   desensitizeTail?: number = 0
 
-  desensitizeSymbol?: string = AirConstant.ASTERISK
+  desensitizeSymbol?: string = AirConstant.STRING_ASTERISK
 }

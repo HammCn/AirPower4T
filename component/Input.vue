@@ -4,48 +4,48 @@
       <el-date-picker
         v-if="fieldConfig.dateType !== AirDateTimeType.TIME"
         v-model="value"
-        :placeholder="placeholderRef"
         :clearable="fieldConfig?.clearable"
         :disabled="disabled"
-        :prefix-icon="fieldConfig?.prefixIcon"
-        :suffix-icon="fieldConfig?.suffixIcon"
         :format="fieldConfig.dateShowFormatter || getShowFormatter"
-        :value-format="fieldConfig.dateFormatter"
-        :type="fieldConfig.dateType"
-        style="width:100%"
+        :placeholder="placeholderRef"
+        :prefix-icon="fieldConfig?.prefixIcon"
         :readonly="readonly"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :type="fieldConfig.dateType"
+        :value-format="fieldConfig.dateFormatter"
+        style="width:100%"
         @clear="onClear"
-        @keydown="onKeyDown"
         @focus="emits('focus')"
+        @keydown="onKeyDown"
       />
       <el-time-picker
         v-else
         v-model="value"
-        style="width:100%"
-        :placeholder="placeholderRef"
         :clearable="fieldConfig?.clearable"
         :disabled="disabled"
-        :prefix-icon="fieldConfig?.prefixIcon"
-        :suffix-icon="fieldConfig?.suffixIcon"
         :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
-        :value-format="fieldConfig.dateFormatter"
+        :placeholder="placeholderRef"
+        :prefix-icon="fieldConfig?.prefixIcon"
         :readonly="readonly"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :value-format="fieldConfig.dateFormatter"
+        style="width:100%"
         @clear="onClear"
-        @keydown="onKeyDown"
         @focus="emits('focus')"
+        @keydown="onKeyDown"
       />
     </template>
     <template v-else-if="list || dictionary">
       <el-switch
         v-if="fieldConfig?.switch"
         v-model="value"
+        :active-text="getSwitchLabel(true)"
+        :inactive-text="getSwitchLabel(false)"
         :readonly="readonly"
         :style="{
           '--el-switch-on-color': getSwitchColor(true),
           '--el-switch-off-color': getSwitchColor(false)
         }"
-        :active-text="getSwitchLabel(true)"
-        :inactive-text="getSwitchLabel(false)"
       />
       <el-radio-group
         v-else-if="fieldConfig?.radioButton"
@@ -76,30 +76,30 @@
       <el-select
         v-else
         v-model="value"
-        :readonly="readonly"
-        :placeholder="placeholderRef"
         :clearable="fieldConfig?.clearable"
+        :collapse-tags="fieldConfig?.collapseTags"
         :disabled="disabled"
-        :prefix-icon="fieldConfig?.prefixIcon"
-        :suffix-icon="fieldConfig?.suffixIcon"
+        :filterable="fieldConfig?.filterable"
         :multiple="fieldConfig?.multiple"
         :multiple-limit="fieldConfig?.multipleLimit"
-        fit-input-width
-        :collapse-tags="fieldConfig?.collapseTags"
-        :filterable="fieldConfig?.filterable"
-        :remote-method="onSearch"
+        :placeholder="placeholderRef"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :readonly="readonly"
         :remote="!!onSearch"
+        :remote-method="onSearch"
+        :suffix-icon="fieldConfig?.suffixIcon"
         collapse-tags-tooltip
-        @keydown="onKeyDown"
+        fit-input-width
         @clear="onClear"
         @focus="emits('focus')"
+        @keydown="onKeyDown"
       >
         <el-option
           v-for="item in dictionary"
           :key="item.key.toString()"
+          :disabled="item.disabled"
           :label="item.label"
           :value="item.key"
-          :disabled="item.disabled"
         >
           <div
             v-if="fieldConfig?.showColor"
@@ -118,13 +118,11 @@
     <el-cascader
       v-else-if="(fieldConfig && tree)"
       v-model="value"
-      class="air-input-cascader"
-      :options="tree"
-      :readonly="readonly"
-      popper-class="air-input-cascader-popper"
-      :placeholder="placeholderRef"
       :clearable="fieldConfig?.clearable"
-      :show-all-levels="fieldConfig?.showAllLevels"
+      :collapse-tags="fieldConfig?.collapseTags"
+      :disabled="disabled"
+      :options="tree"
+      :placeholder="placeholderRef"
       :props="{
         value: 'id',
         label: 'name',
@@ -132,40 +130,42 @@
         emitPath: fieldConfig?.emitPath,
         checkStrictly: fieldConfig?.checkStrictly
       }"
-      :disabled="disabled"
-      :collapse-tags="fieldConfig?.collapseTags"
+      :readonly="readonly"
+      :show-all-levels="fieldConfig?.showAllLevels"
+      class="air-input-cascader"
       collapse-tags-tooltip
+      popper-class="air-input-cascader-popper"
       @clear="onClear"
-      @keydown="onKeyDown"
       @focus="emits('focus')"
+      @keydown="onKeyDown"
     />
     <el-input
       v-else
       v-model="value"
-      :readonly="readonly"
-      :placeholder="placeholderRef"
-      :clearable="fieldConfig?.clearable"
-      :disabled="disabled"
-      :maxlength="fieldConfig?.maxLength || (fieldConfig?.textarea
-        ? AirConfig.maxTextAreaLength :
-          AirConfig.maxTextLength)
-      "
-      :max="fieldConfig?.max"
-      :min="fieldConfig?.min ?? 0"
-      :show-word-limit="getShowWordLimit()"
-      :type="getInputType"
-      :rows="fieldConfig?.textarea ? AirConfig.textareaMinRows : 0"
-      :prefix-icon="fieldConfig?.prefixIcon"
-      :suffix-icon="fieldConfig?.suffixIcon"
       :autosize="fieldConfig?.autoSize ?
         { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
         : false
       "
-      @keydown="onKeyDown"
+      :clearable="fieldConfig?.clearable"
+      :disabled="disabled"
+      :max="fieldConfig?.max"
+      :maxlength="fieldConfig?.maxLength || (fieldConfig?.textarea
+        ? AirConfig.maxTextAreaLength :
+          AirConfig.maxTextLength)
+      "
+      :min="fieldConfig?.min ?? 0"
+      :placeholder="placeholderRef"
+      :prefix-icon="fieldConfig?.prefixIcon"
+      :readonly="readonly"
+      :rows="fieldConfig?.textarea ? AirConfig.textareaMinRows : 0"
+      :show-word-limit="getShowWordLimit()"
+      :suffix-icon="fieldConfig?.suffixIcon"
+      :type="getInputType"
+      @blur="onBlur"
       @change="checkNumberValue"
       @clear="onClear"
-      @blur="onBlur"
       @focus="emits('focus')"
+      @keydown="onKeyDown"
     >
       <template
         v-for="(index, name) in slots"
@@ -195,7 +195,7 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="M extends AirModel">
+<script generic="M extends AirModel" lang="ts" setup>
 import {
   computed, PropType, ref, Ref, useSlots, watch,
 } from 'vue'
@@ -445,7 +445,7 @@ const getShowFormatter = computed(() => {
  * @param status
  */
 function getSwitchColor(status: boolean): string {
-  return dictionary.value?.find((item) => item.key === status)?.color || AirConstant.EMPTY_STRING
+  return dictionary.value?.find((item) => item.key === status)?.color || AirConstant.STRING_EMPTY
 }
 
 /**
@@ -453,7 +453,7 @@ function getSwitchColor(status: boolean): string {
  * @param status
  */
 function getSwitchLabel(status: boolean): string {
-  return dictionary.value?.find((item) => item.key === status)?.label || AirConstant.EMPTY_STRING
+  return dictionary.value?.find((item) => item.key === status)?.label || AirConstant.STRING_EMPTY
 }
 
 /**

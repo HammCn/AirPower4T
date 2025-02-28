@@ -7,7 +7,7 @@ export class AirConstant {
   /**
    * ### `id`
    */
-  static readonly ID = 'id'
+  static readonly STRING_ID = 'id'
 
   /**
    * ### `http://`
@@ -22,7 +22,7 @@ export class AirConstant {
   /**
    * ### 空字符串
    */
-  static readonly EMPTY_STRING = ''
+  static readonly STRING_EMPTY = ''
 
   /**
    * ### `Content-Type`
@@ -32,17 +32,17 @@ export class AirConstant {
   /**
    * ### 半角问号 `?`
    */
-  static readonly QUESTION_MARK = '?'
+  static readonly STRING_QUESTION = '?'
 
   /**
    * ### 连接符号 `&`
    */
-  static readonly AND_MARK = '&'
+  static readonly STRING_AND = '&'
 
   /**
    * ### 星号 `*`
    */
-  static readonly ASTERISK = '*'
+  static readonly STRING_ASTERISK = '*'
 
   /**
    * ### `AirModel`
@@ -52,7 +52,7 @@ export class AirConstant {
   /**
    * ### 下划线 `_`
    */
-  static readonly UNDER_LINE = '_'
+  static readonly STRING_UNDERLINE = '_'
 
   /**
    * ### 默认进制
@@ -62,32 +62,32 @@ export class AirConstant {
   /**
    * ### `.` 点
    */
-  static readonly DOT = '.'
+  static readonly STRING_DOT = '.'
 
   /**
    * ### `children`
    */
-  static readonly CHILDREN = 'children'
+  static readonly STRING_CHILDREN = 'children'
 
   /**
    * ### `'0'`
    */
-  static readonly ZERO_STRING = '0'
+  static readonly STRING_ZERO = '0'
 
   /**
    * ### 半角逗号 `,`
    */
-  static readonly COMMA = ','
+  static readonly STRING_COMMA = ','
 
   /**
    * ### 横线 `-`
    */
-  static readonly HYPHEN = '-'
+  static readonly STRING_LINE = '-'
 
   /**
    * ### 时间进制
    */
-  static readonly TIME_RADIX = 60
+  static readonly SECOND_OF_MINUTE = 60
 
   /**
    * ### 每秒的毫秒数
@@ -98,7 +98,7 @@ export class AirConstant {
    * ### 文件大小进制
    * 😄
    */
-  static readonly FILE_SIZE_RADIX = 1024
+  static readonly RADIX_FILE_SIZE = 1024
 
   /**
    * ### 每天小时
@@ -138,10 +138,5 @@ export class AirConstant {
   /**
    * ### 每天秒数
    */
-  static readonly SECONDS_OF_DAY = this.HOUR_OF_DAY * this.TIME_RADIX * this.TIME_RADIX
-
-  /**
-   * ### 一世纪年数
-   */
-  static readonly YEARS_OF_CENTURY = 100
+  static readonly SECONDS_OF_DAY = this.HOUR_OF_DAY * this.SECOND_OF_MINUTE * this.SECOND_OF_MINUTE
 }

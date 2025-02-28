@@ -32,7 +32,7 @@ export class AirConfig {
    * ### 项目名称
    * 会显示在浏览器标题上
    */
-  static product = AirConstant.EMPTY_STRING
+  static product = AirConstant.STRING_EMPTY
 
   /**
    * ### 接口根地址
@@ -235,7 +235,7 @@ export class AirConfig {
    * ### 默认树结构配置数据
    */
   static treeProps: ITreeProps = {
-    children: AirConstant.CHILDREN,
+    children: AirConstant.STRING_CHILDREN,
     label: 'name',
   }
 
@@ -259,7 +259,7 @@ export class AirConfig {
    * ### 默认的表格空数据兜底字符串
    * `@Table` 装饰器中可以单独配置 `emptyValue`,
    */
-  static tableEmptyValue = AirConstant.HYPHEN
+  static tableEmptyValue = AirConstant.STRING_LINE
 
   /**
    * ### 表格是否默认开启禁用和启用按钮
@@ -275,7 +275,7 @@ export class AirConfig {
    * ### 默认的表格数组显示分割字符
    * `@Table` 装饰器中可以单独配置 `arraySeparator`
    */
-  static arraySeparator = AirConstant.COMMA
+  static arraySeparator = AirConstant.STRING_COMMA
 
   /**
    * ### 隐藏表格序号列

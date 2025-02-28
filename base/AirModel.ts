@@ -59,7 +59,7 @@ export class AirModel {
     for (const fieldKey of fieldKeyList) {
       const props = getFieldConfig(instance, fieldKey)
       const fieldData = json[
-        (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
+        (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.STRING_EMPTY)
       + (props.alias || fieldKey)];
       (instance as IJson)[fieldKey] = fieldData
 

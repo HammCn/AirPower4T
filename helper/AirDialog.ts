@@ -35,7 +35,7 @@ export class AirDialog {
   static async build<T>(view: Component, param: IJson): Promise<T> {
     const parentNode = document.createElement('div')
     const domId = `dialog_${Math.random()}`
-    parentNode.setAttribute(AirConstant.ID, domId)
+    parentNode.setAttribute(AirConstant.STRING_ID, domId)
     let app: App<Element> | undefined
 
     // 卸载dom的方法
