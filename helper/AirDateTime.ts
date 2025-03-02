@@ -110,10 +110,10 @@ export class AirDateTime {
       key: 0,
       label: '秒',
     }, {
-      key: AirConstant.TIME_RADIX,
+      key: AirConstant.SECOND_OF_MINUTE,
       label: '分钟',
     }, {
-      key: AirConstant.TIME_RADIX ** 2,
+      key: AirConstant.SECOND_OF_MINUTE ** 2,
       label: '小时',
     }, {
       key: AirConstant.SECONDS_OF_DAY,
@@ -130,7 +130,7 @@ export class AirDateTime {
     }]
     for (let i = stepDictionary.length - 1; i >= 0; i -= 1) {
       const step = stepDictionary[i]
-      if (timestamp <= currentTimestamp && diff < AirConstant.TIME_RADIX) {
+      if (timestamp <= currentTimestamp && diff < AirConstant.SECOND_OF_MINUTE) {
         // 过去时间，且小于60s
         return '刚刚'
       }

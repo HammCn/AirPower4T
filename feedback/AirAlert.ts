@@ -54,17 +54,17 @@ export class AirAlert {
   /**
    * ### 弹窗宽度
    */
-  protected width = AirConstant.EMPTY_STRING
+  protected width = AirConstant.STRING_EMPTY
 
   /**
    * ### 弹窗高度
    */
-  protected height = AirConstant.EMPTY_STRING
+  protected height = AirConstant.STRING_EMPTY
 
   /**
    * ### 确认按钮样式类名
    */
-  protected confirmButtonClass = AirConstant.EMPTY_STRING
+  protected confirmButtonClass = AirConstant.STRING_EMPTY
 
   /**
    * ### 显示成功消息提醒
@@ -261,7 +261,7 @@ export class AirAlert {
       type: this.confirmButtonClass ? AirFeedbackType.NONE : this.icon,
       draggable: true,
       dangerouslyUseHTMLString: this.isHtmlEnabled,
-      customClass: this.isHtmlEnabled ? 'rich-text' : AirConstant.EMPTY_STRING,
+      customClass: this.isHtmlEnabled ? 'rich-text' : AirConstant.STRING_EMPTY,
       customStyle,
       showClose: this.isCloseButtonShow,
       closeOnClickModal: this.isCloseByCover,

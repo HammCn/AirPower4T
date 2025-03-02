@@ -188,7 +188,7 @@ export class AirValidator {
    * @param list 验证器
    */
   static validate(str: string, ...list: AirInputType[]) {
-    let regString = AirConstant.EMPTY_STRING
+    let regString = AirConstant.STRING_EMPTY
     for (let i = 0; i < list.length; i += 1) {
       regString += list[i]
     }
@@ -273,7 +273,7 @@ export class AirValidator {
           .ifNotEmail())
       }
       if (config.regExp) {
-        (formRules[fieldKey]).push(AirValidator.show(AirConstant.EMPTY_STRING)
+        (formRules[fieldKey]).push(AirValidator.show(AirConstant.STRING_EMPTY)
           .ifNotTest(config.regExp))
       }
     }
@@ -286,7 +286,7 @@ export class AirValidator {
    * @returns
    */
   private static getValidator(configValue: string | boolean): AirValidator {
-    return AirValidator.show(typeof configValue === 'string' ? configValue : AirConstant.EMPTY_STRING)
+    return AirValidator.show(typeof configValue === 'string' ? configValue : AirConstant.STRING_EMPTY)
   }
 
   /**
@@ -500,20 +500,20 @@ export class AirValidator {
    * @param whats 字符串数组
    */
   ifContain(...whats: string[]): this {
-    let error = AirConstant.EMPTY_STRING
+    let error = AirConstant.STRING_EMPTY
     this.validator = (_: AirValidatorRule, value: string, callback: AirValidatorCallback) => {
       if (!value) {
         callback()
         return
       }
       for (const what of whats) {
-        error = AirConstant.EMPTY_STRING
+        error = AirConstant.STRING_EMPTY
         if (value.indexOf(what) >= 0) {
           error = what
           break
         }
       }
-      if (error !== AirConstant.EMPTY_STRING) {
+      if (error !== AirConstant.STRING_EMPTY) {
         callback(this.message || `不允许输入中包含 ${error} `)
       } else {
         callback()
