@@ -58,7 +58,7 @@ const props = defineProps({
    */
   desensitizeSymbol: {
     type: String,
-    default: AirConstant.ASTERISK,
+    default: AirConstant.STRING_ASTERISK,
   },
 })
 

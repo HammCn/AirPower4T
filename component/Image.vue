@@ -30,6 +30,7 @@
         v-if="!imageUrl"
         :action="uploadUrl"
         :before-upload="beforeUpload"
+        :data="data"
         :headers="uploadHeader"
         :name="uploadFileName"
         :on-error="onUploadError"
@@ -97,6 +98,7 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
+
   /**
    * # 允许上传
    */
@@ -109,6 +111,15 @@ const props = defineProps({
    * 请求头
    */
   headers: {
+    type: Object as PropType<IJson>,
+    default: () => {
+    },
+  },
+
+  /**
+   * 请求数据
+   */
+  data: {
     type: Object as PropType<IJson>,
     default: () => {
     },
@@ -270,14 +281,16 @@ function onUploadError() {
  * # 上传成功事件
  * @param response 成功响应
  */
-function onUploadSuccess(response: { data: { url: string } }) {
-  const entityData = AirClassTransformer.parse(response.data, props.entity)
-  if (entityData && entityData.url) {
-    emits('onUpload', entityData)
-    isUploading.value = false
-  } else {
-    onUploadError()
+function onUploadSuccess(response: { code: number, data: { url: string } }) {
+  if (response.code === AirConfig.successCode) {
+    const entityData = AirClassTransformer.parse(response.data, props.entity)
+    if (entityData && entityData.url) {
+      emits('onUpload', entityData)
+      isUploading.value = false
+      return
+    }
   }
+  onUploadError()
 }
 
 init()

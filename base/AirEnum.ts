@@ -51,7 +51,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key `Key`
    * @param defaultLabel `可选` 默认的标签
    */
-  static getLabel(key: AirEnumKey, defaultLabel = AirConstant.HYPHEN): string {
+  static getLabel(key: AirEnumKey, defaultLabel = AirConstant.STRING_LINE): string {
     return this.get(key)?.label || defaultLabel
   }
 
