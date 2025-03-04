@@ -1,5 +1,4 @@
 /* eslint-disable no-continue */
-import { AirConstant } from '../config/AirConstant'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
@@ -58,9 +57,12 @@ export class AirModel {
     const modelConfig = getModelConfig(instance)
     for (const fieldKey of fieldKeyList) {
       const props = getFieldConfig(instance, fieldKey)
-      const fieldData = json[
-        (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.STRING_EMPTY)
-      + (props.alias || fieldKey)];
+      let realKey = ''
+      if (!props.ignorePrefix && modelConfig.fieldPrefix) {
+        realKey += modelConfig.fieldPrefix
+      }
+      realKey += props.alias || fieldKey
+      const fieldData = json[realKey];
       (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
@@ -90,7 +92,7 @@ export class AirModel {
         continue
       }
 
-      if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
+      if (fieldData === undefined || fieldData === null) {
         // 属性值为非 undefined 和 null 时不转换
         continue
       }
