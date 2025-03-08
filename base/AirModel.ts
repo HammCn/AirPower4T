@@ -331,7 +331,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getModelConfig<M extends IModelConfig = IModelConfig>(): M {
     return getModelConfig<M>(this)
@@ -340,7 +339,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getModelName(): string {
     return getModelConfig(this).label || this.constructor.name
@@ -349,7 +347,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getFieldConfig(fieldKey: string): IFieldConfig {
     return getFieldConfig(this, fieldKey)
@@ -358,7 +355,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getFieldName(fieldKey: string): string {
     return getFieldConfig(this, fieldKey).label || fieldKey
@@ -367,7 +363,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
     return { ...new AirFormFieldConfig(), ...getFormConfig(this, fieldKey) }
@@ -376,7 +371,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getFormFieldLabel(fieldKey: string): string {
     const props = getFieldConfig(this, fieldKey)
@@ -386,7 +380,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getTableFieldConfigList(fieldNameList: string[] = []): AirTableFieldConfig[] {
     return getTableConfigList(this, fieldNameList)
@@ -395,7 +388,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getFormFieldConfigList(fieldNameList: string[] = []): AirFormFieldConfig[] {
     return getFormConfigList(this, fieldNameList)
@@ -404,7 +396,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getSearchFieldConfigList(fieldNameList: string[] = []): AirSearchFieldConfig[] {
     const configList = getSearchConfigList(this, fieldNameList)

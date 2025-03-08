@@ -91,6 +91,7 @@
 <script generic="E extends AirEntity" lang="ts" setup="props">
 /* eslint-disable no-continue */
 import { computed, ref } from 'vue'
+import { ElRadioButton, ElRadioGroup } from 'element-plus'
 import { AirConfig } from '../config/AirConfig'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { AirPage } from '../model/AirPage'

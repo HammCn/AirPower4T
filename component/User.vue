@@ -106,7 +106,7 @@ async function logout() {
   AirConfig.removeAccessToken()
   AirPermission.saveList([])
   if (AirRouter.router) {
-    AirRouter.router.replace('/login')
+    await AirRouter.router.replace('/login')
   }
 }
 </script>

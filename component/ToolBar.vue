@@ -130,6 +130,7 @@ import {
   computed, PropType, Ref, ref,
 } from 'vue'
 
+import { ElOption } from 'element-plus'
 import { AButton } from '../component'
 import { AirDialog } from '../helper/AirDialog'
 import { AirConfig } from '../config/AirConfig'
@@ -501,7 +502,7 @@ async function onImport() {
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      AirNotification.error('请为ToolBar传入service或者importUrl', '导入失败')
+      await AirNotification.error('请为ToolBar传入service或者importUrl', '导入失败')
       return
     }
     const service = AirClassTransformer.newInstance(props.service)
@@ -540,7 +541,7 @@ defineExpose({
   flex-direction: row;
   align-items: flex-start;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -571,7 +572,7 @@ defineExpose({
     align-items: center;
     flex-wrap: wrap-reverse;
 
-    >* {
+    > * {
       margin: 0 2px 5px;
     }
 

@@ -1,9 +1,9 @@
 <template>
   <el-input
+    :disabled="disabled"
     :placeholder="placeholder"
     :value="label"
     readonly
-    :disabled="disabled"
   >
     <template
       v-if="!disabled"
@@ -30,7 +30,7 @@
     </template>
   </el-input>
 </template>
-<script setup lang="ts" generic="T extends IPayload">
+<script generic="T extends IPayload" lang="ts" setup>
 import {
   Component, computed, ModelRef, PropType,
 } from 'vue'

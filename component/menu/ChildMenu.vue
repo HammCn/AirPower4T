@@ -11,8 +11,8 @@
       >
         <template #title>
           <i
-            class="iconfont menu-icon"
             :class="menu.icon"
+            class="iconfont menu-icon"
           />
           <span>{{ menu.name }}</span>
         </template>
@@ -25,8 +25,8 @@
       >
         <template #title>
           <i
-            class="iconfont menu-icon"
             :class="menu.icon"
+            class="iconfont menu-icon"
           />
           <span>
             {{ menu.name }}
@@ -38,6 +38,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ElMenuItem, ElSubMenu } from 'element-plus'
 import { IMenu } from '../../interface/IMenu'
 
 defineProps({

@@ -7,18 +7,18 @@
       <slot>
         <AInput
           v-model="formData[field]"
-          :entity="entityClass"
-          :model-modifiers="{ field }"
-          :modifier="field"
           :disabled="disabled"
           :disabled-value="disabledValue"
-          :readonly="readonly"
+          :entity="entityClass"
           :list="list"
+          :model-modifiers="{ field }"
+          :modifier="field"
+          :readonly="readonly"
           :tree="tree"
-          @change="onChange($event)"
           @blur="emits('blur'); emits('onBlur')"
-          @focus="emits('focus'); emits('onFocus')"
+          @change="onChange($event)"
           @clear="emits('clear'); emits('onClear');"
+          @focus="emits('focus'); emits('onFocus')"
         />
       </slot>
     </el-form-item>
@@ -27,22 +27,23 @@
     <AFormField
       v-for="item in fieldList"
       :key="item"
-      :field="item"
       :disabled="disabled"
       :disabled-value="disabledValue"
+      :field="item"
       :readonly="readonly"
       @blur="emits('blur'); emits('onBlur')"
-      @focus="emits('focus'); emits('onFocus')"
-      @clear="emits('clear'); emits('onClear');"
       @change="onChange($event)"
+      @clear="emits('clear'); emits('onClear');"
+      @focus="emits('focus'); emits('onFocus')"
     />
   </template>
 </template>
 
-<script setup lang="ts" generic="E extends AirEntity">
+<script generic="E extends AirEntity" lang="ts" setup>
 import {
   computed, inject, PropType, ref,
 } from 'vue'
+import { ElFormItem } from 'element-plus'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AFormField, AInput } from '.'
