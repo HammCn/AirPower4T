@@ -15,7 +15,7 @@
 
 ## 0️⃣ 语言 Language
 
-[中文](/README.md) | [English](README_EN.md)
+中文(Chinese) | [英文(English)](README_EN.md)
 
 ## 1️⃣ 这是个什么项目
 
