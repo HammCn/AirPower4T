@@ -147,8 +147,8 @@ yarn l
 
 ## 9️⃣ Our Suggestions
 
-We provide some `ESlint rules` `router config` `env config` `tsconfig` `vite.config`, and many **demo** code in our *
-*SPMS-Web** project, which can help you get started quickly.
+We provide some `ESlint rules` `router config` `env config` `tsconfig` `vite.config`, and many **demo** code in our
+**SPMS-Web** project, which can help you get started quickly.
 
 If you have any questions or problems, you can join the developer QQ group (`555156313`) for consultation, of course, we
 recommend you to submit your **issues** in this
