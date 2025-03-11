@@ -13,10 +13,6 @@
   <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> /  <a href="./CHANGELOG.md">CHANGELOG</a> / <a href="./docs/README.md">DOCUMENT</a>
 </p>
 
-## 0️⃣ 语言 Language
-
-[中文](/README.md) | [English](README_EN.md)
-
 ## 1️⃣ 这是个什么项目
 
 > 你当前查看的是 `web` 分支，我们也同时提供了 `wechat`、`uniapp` 等分支：）
