@@ -450,6 +450,7 @@ import {
 } from 'vue'
 
 import { Setting } from '@element-plus/icons-vue'
+import { ElCheckTag, ElDropdown } from 'element-plus'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
@@ -1344,7 +1345,7 @@ init()
     color: var(--primary-color);
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
@@ -1362,7 +1363,7 @@ init()
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -1444,7 +1445,7 @@ init()
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
@@ -1460,7 +1461,7 @@ init()
     cursor: not-allowed;
     position: relative;
 
-    >* {
+    > * {
       user-select: none;
       filter: blur(1px);
     }
@@ -1586,7 +1587,7 @@ init()
     background-color: transparent;
   }
 
-  .air-button+.air-button {
+  .air-button + .air-button {
     margin: 0 !important;
   }
 }

@@ -298,7 +298,7 @@ function onUploadSuccess(result: IJson) {
           display: flex;
           flex-direction: column;
 
-          >b {
+          > b {
             font-size: 18px;
           }
 

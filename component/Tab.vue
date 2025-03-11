@@ -1,12 +1,14 @@
 <template>
   <el-tab-pane
-    class="air-tab"
     :label="label"
+    class="air-tab"
   >
     <slot />
   </el-tab-pane>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
+import { ElTabPane } from 'element-plus'
+
 defineProps({
   /**
    * # Tab标题

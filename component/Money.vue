@@ -1,7 +1,7 @@
 <template>
   <ACopy
-    class="air-money"
     :content="showMoney"
+    class="air-money"
   >
     <div class="prefix">
       ¥
@@ -11,7 +11,7 @@
     </div>
   </ACopy>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, PropType } from 'vue'
 import { ACopy } from '.'
 import { AirConfig } from '../config/AirConfig'

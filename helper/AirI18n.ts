@@ -65,7 +65,6 @@ export class AirI18n extends AirI18nDefault {
   /**
    * ### 获取翻译后的字符串
    * @returns 翻译后的字符串
-   * @deprecated
    */
   static get(): AirI18n {
     return this.currentLanguagePackage || new AirI18n()

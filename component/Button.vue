@@ -2,32 +2,32 @@
   <el-link
     v-if="iconButton"
     v-tip="permissionTips"
-    class="air-button"
     :class="customClass"
+    :disabled="isDisabled"
     :type="danger ? 'danger' : 'default'"
     :underline="false"
-    :disabled="isDisabled"
+    class="air-button"
     @click="$emit('onClick'); $emit('click')"
   >
     <i
-      class="airpower"
       :class="showIcon"
+      class="airpower"
     />
   </el-link>
   <el-button
     v-else
     v-tip="permissionTips"
-    class="air-button"
     :class="customClass"
-    :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
     :disabled="isDisabled"
     :link="linkButton"
+    :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
+    class="air-button"
     @click=" $emit('onClick'); $emit('click')"
   >
     <i
       v-if="showIcon && !linkButton"
-      class="airpower"
       :class="showIcon"
+      class="airpower"
       style="margin-right: 5px;"
     />
     <slot />
@@ -139,7 +139,10 @@ const permissionTips = computed(() => {
   if (AirConfig.disablePermission) {
     return props.tooltip
   }
-  return (props.permission && !AirPermission.has(props.permission) ? (AirI18n.get().NoPermissionToOperate || '无权操作') : props.tooltip)
+  if (props.permission && !AirPermission.has(props.permission)) {
+    return (AirI18n.get().NoPermissionToOperate || '无权操作')
+  }
+  return props.tooltip
 })
 
 /**
@@ -160,4 +163,4 @@ const isDisabled = computed(() => {
  */
 const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
 </script>
-<style scoped lang="scss"></style>
+<style lang="scss" scoped></style>
