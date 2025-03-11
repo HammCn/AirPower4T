@@ -495,7 +495,7 @@ async function confirmEvent() {
     if (keys.length > 0) {
       const list: AirValidator[] = (e as IJson)[keys[0]]
       if (list.length > 0) {
-        AirNotification.warning(list[0].message, AirI18n.get().ValidError || '验证失败')
+        AirNotification.warning(list[0].message, AirI18n.get().ValidError || '验证失败').then()
       }
     }
     dialogBgClicked()

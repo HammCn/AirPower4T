@@ -29,8 +29,8 @@
     <div
       v-show="!isCollapse"
       :class="getBodyClass()"
-      class="group-body"
       :style="{ paddingTop: hideTitle ? '0' : '10px', minHeight: minHeight || 'auto', flexDirection: column === 1 ? 'column' : 'row' }"
+      class="group-body"
     >
       <slot />
     </div>
@@ -149,21 +149,21 @@ function getBodyClass() {
   }
 
   .column-auto {
-    >* {
+    > * {
       width: 320px;
       min-width: 33.333333333%;
       margin: 10px 0;
     }
   }
 
-  .column-1>* {
+  .column-1 > * {
     width: 100%;
   }
 
   .column-2 {
     display: flex;
 
-    >* {
+    > * {
       width: 46%;
       margin: 10px 2%;
     }
@@ -172,7 +172,7 @@ function getBodyClass() {
   .column-3 {
     display: flex;
 
-    >* {
+    > * {
       width: 29.3333333%;
       margin: 10px 2%;
     }
@@ -181,7 +181,7 @@ function getBodyClass() {
   .column-4 {
     display: flex;
 
-    >* {
+    > * {
       width: 24%;
       margin: 10px 0.5%;
     }

@@ -272,7 +272,7 @@ const searchParamList = computed(() => {
  */
 async function onAdd() {
   if (!props.editor) {
-    AirNotification.error('请先配置编辑器')
+    await AirNotification.error('请先配置编辑器')
     return
   }
   await AirDialog.show(props.editor)

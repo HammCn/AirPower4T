@@ -1,13 +1,13 @@
 <template>
   <div class="air-page">
     <el-pagination
-      v-model:currentPage="page.pageNum"
+      v-model:current-page="page.pageNum"
       v-model:page-size="page.pageSize"
-      class="air-page-bar"
-      background
       :page-sizes="AirConfig.pageSizes"
-      layout=" prev, next"
       :total="response.total"
+      background
+      class="air-page-bar"
+      layout=" prev, next"
       size="small"
       @current-change="pageChanged($event)"
     />
@@ -48,10 +48,10 @@
             <el-button
               v-for="item in pageCountList"
               :key="item"
-              :style="{ width: pageItemWidth[pageCountList[pageCountList.length - 1].length] + 'px' }"
-              round
               :disabled="item === disablePageLabel"
+              :style="{ width: pageItemWidth[pageCountList[pageCountList.length - 1].length] + 'px' }"
               :type="page.pageNum == parseInt(item, 10) ? 'primary' : 'default'"
+              round
               @click="pageChanged(item)"
             >
               {{ item }}
@@ -60,10 +60,10 @@
           <div class="air-page-jumper">
             <el-input
               v-model="currentPage"
-              type="number"
+              :max="response.pageCount"
               :placeholder="AirI18n.get().InputPageNumber || '输入页码跳转'"
               min="1"
-              :max="response.pageCount"
+              type="number"
               @change="currentPageChanged"
             >
               <template #append>
@@ -88,9 +88,10 @@
   </div>
 </template>
 
-<script lang="ts" setup="props" generic="E extends AirEntity">
+<script generic="E extends AirEntity" lang="ts" setup="props">
 /* eslint-disable no-continue */
 import { computed, ref } from 'vue'
+import { ElRadioButton, ElRadioGroup } from 'element-plus'
 import { AirConfig } from '../config/AirConfig'
 import { AirResponsePage } from '../model/AirResponsePage'
 import { AirPage } from '../model/AirPage'

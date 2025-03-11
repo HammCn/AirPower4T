@@ -1,8 +1,8 @@
 <template>
   <div class="air-frame">
     <div
-      class="air-header"
       :style="{ height: headerHeight + 'px' }"
+      class="air-header"
     >
       <div class="air-logo">
         <slot name="logo">
@@ -17,8 +17,8 @@
     <div class="air-main">
       <div
         v-if="!hideMenu"
-        class="air-left"
         :style="{ width: menuWidth + 'px' }"
+        class="air-left"
       >
         <div
           v-loading="!menuList"
@@ -84,7 +84,7 @@ defineProps({
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .air-frame {
   position: fixed;
   left: 0;

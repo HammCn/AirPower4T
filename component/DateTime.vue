@@ -1,8 +1,8 @@
 <template>
   <el-link
     v-tip="toolTips"
-    class="air-friend-datetime"
     :underline="false"
+    class="air-friend-datetime"
   >
     {{ getDateTimeString }}
   </el-link>

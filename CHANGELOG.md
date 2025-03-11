@@ -1,5 +1,17 @@
 # AirPower4T 版本发布日志
 
+## 3.1.1
+
+### 🎉 Features:
+
+- feat(English): Provide English Readme File.
+
+### 🐞 Bug fixes:
+
+- refactor(component): 重构 AFormField 组件
+- refactor(page): 优化Page组件布局和属性顺序
+- refactor(model): 优化 AirModel 中的字段处理逻辑
+
 ## v3.1.0
 
 ### 🎉 Features:

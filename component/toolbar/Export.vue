@@ -115,7 +115,7 @@ async function createExportTask() {
     (exportRequest as IJson).page = undefined
     const fileCode: string = await AirHttp.create(props.param.createExportTaskUrl).post(exportRequest) as unknown as string
     // 轮询任务结果
-    startLoop(fileCode)
+    await startLoop(fileCode)
   } catch (e) {
     props.onCancel()
   }

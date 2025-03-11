@@ -13,6 +13,10 @@
   <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> /  <a href="./CHANGELOG.md">CHANGELOG</a> / <a href="./docs/README.md">DOCUMENT</a>
 </p>
 
+## 0️⃣ 语言 Language
+
+中文(Chinese) | [英文(English)](README_EN.md)
+
 ## 1️⃣ 这是个什么项目
 
 > 你当前查看的是 `web` 分支，我们也同时提供了 `wechat`、`uniapp` 等分支：）
@@ -59,8 +63,8 @@
 **AirPower4T** 目前使用子目录的方式提供，你可以将 **AirPower4T** 源代码下载或克隆后命名为 **airpower** 添加到你的项目的
 **src** 目录下，然后使用 **Vite** 构建你的项目。
 
-推荐你直接使用我们提供的 **WebStarter**
-模板来快速开启一个项目：via [Github](https://github.com/HammCn/AirPowerWebStarter/blob/main/README.md) / [Gitee](https://gitee.com/air-power/AirPowerWebStarter/blob/main/README.md)
+推荐你直接使用我们提供的 **SPMS-Web**
+模板来快速开启一个项目：via [Github](https://github.com/s-pms/SPMS-Web/blob/main/README.md) / [Gitee](https://gitee.com/s-pms/SPMS-Web/blob/main/README.md)
 
 我们使用的是 `Vite` 构建, 包管理使用的是 `yarn`, 请先安装前叙的相关工具后继续接下来的操作 ：）
 
@@ -72,11 +76,13 @@
 
 ### 5.2. Clone代码
 
+你可以通过我们的 **SPMS-Web** 项目来初始化一个项目：
+
 - 通过**Github**代码仓库初始化
 
   ```shell
-  git clone https://github.com/HammCn/AirPowerWebStarter.git &&
-  cd AirPowerWebStarter/src && 
+  git clone https://github.com/s-pms/SPMS-Web.git &&
+  cd SPMS-Web/src &&
   git clone https://github.com/HammCn/AirPower4T.git airpower && cd ../ &&
   yarn && cp .env.dev .env && yarn s
   ```
@@ -84,8 +90,8 @@
 - 通过**Gitee**代码仓库初始化(推荐)
 
   ```shell
-  git clone https://gitee.com/air-power/AirPowerWebStarter.git &&
-  cd AirPowerWebStarter/src && 
+  git clone https://gitee.com/s-pms/SPMS-Web.git &&
+  cd SPMS-Web/src &&
   git clone https://gitee.com/air-power/AirPower4T.git airpower && cd ../ &&
   yarn && cp .env.dev .env && yarn s
   ```

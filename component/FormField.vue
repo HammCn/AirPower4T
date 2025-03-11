@@ -1,51 +1,36 @@
 <template>
-  <template v-if="fieldList.length === 0">
-    <el-form-item
-      :label="entityInstance.getFormFieldLabel(field)"
-      :prop="field"
-    >
-      <slot>
-        <AInput
-          v-model="formData[field]"
-          :entity="entityClass"
-          :model-modifiers="{ field }"
-          :modifier="field"
-          :disabled="disabled"
-          :disabled-value="disabledValue"
-          :readonly="readonly"
-          :list="list"
-          :tree="tree"
-          @change="onChange($event)"
-          @blur="emits('blur'); emits('onBlur')"
-          @focus="emits('focus'); emits('onFocus')"
-          @clear="emits('clear'); emits('onClear');"
-        />
-      </slot>
-    </el-form-item>
-  </template>
-  <template v-else>
-    <AFormField
-      v-for="item in fieldList"
-      :key="item"
-      :field="item"
-      :disabled="disabled"
-      :disabled-value="disabledValue"
-      :readonly="readonly"
-      @blur="emits('blur'); emits('onBlur')"
-      @focus="emits('focus'); emits('onFocus')"
-      @clear="emits('clear'); emits('onClear');"
-      @change="onChange($event)"
-    />
-  </template>
+  <el-form-item
+    :label="entityInstance.getFormFieldLabel(field)"
+    :prop="field"
+  >
+    <slot>
+      <AInput
+        v-model="formData[field]"
+        :disabled="disabled"
+        :disabled-value="disabledValue"
+        :entity="entityClass"
+        :list="list"
+        :model-modifiers="{ field }"
+        :modifier="field"
+        :readonly="readonly"
+        :tree="tree"
+        @blur="emits('blur'); emits('onBlur')"
+        @change="onChange($event)"
+        @clear="emits('clear'); emits('onClear');"
+        @focus="emits('focus'); emits('onFocus')"
+      />
+    </slot>
+  </el-form-item>
 </template>
 
-<script setup lang="ts" generic="E extends AirEntity">
+<script generic="E extends AirEntity" lang="ts" setup>
 import {
   computed, inject, PropType, ref,
 } from 'vue'
+import { ElFormItem } from 'element-plus'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { AFormField, AInput } from '.'
+import { AInput } from '.'
 import { IJson } from '../interface/IJson'
 import { IDictionary } from '../interface/IDictionary'
 import { ITree } from '../interface/ITree'
@@ -63,11 +48,10 @@ const props = defineProps({
 
   /**
    * # 字段的名称
-   * `field` 和 `fieldList` 必传一个
    */
   field: {
     type: String,
-    default: '',
+    required: true,
   },
 
   /**
@@ -76,15 +60,6 @@ const props = defineProps({
   modelValue: {
     type: Object as PropType<E>,
     default: null,
-  },
-
-  /**
-   * # 字段的名称数组
-   * `field` 和 `fieldList` 必传一个
-   */
-  fieldList: {
-    type: Array<string>,
-    default: () => [],
   },
 
   /**
@@ -143,8 +118,8 @@ const emits = defineEmits<{
   clear: [],
 }>()
 
-if (props.fieldList.length === 0 && !props.field) {
-  throw new Error('field和fieldList必传一个！！！')
+if (!props.field) {
+  throw new Error('field必传一个！！！')
 }
 
 /**
