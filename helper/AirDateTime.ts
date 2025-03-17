@@ -27,7 +27,7 @@ export class AirDateTime {
    * @param date `可选` Date对象/时间字符串 (默认当前时间)
    */
   static getUnixTimeStamps(date?: Date | string): number {
-    return Math.round(this.getMilliTimeStamps(date) / AirConstant.MILLISECONDS_OF_SECOND)
+    return Math.round(this.getMilliTimeStamps(date) / AirConstant.MILLISECONDS_PER_SECOND)
   }
 
   /**
@@ -50,7 +50,7 @@ export class AirDateTime {
    * @param formatString `可选` 格式化模板 默认为`AirConfig.dateTimeFormatter`
    */
   static formatFromSecond(timeStamp: number, formatString?: AirDateTimeFormatter | string): string {
-    return this.formatFromDate(new Date(timeStamp * AirConstant.MILLISECONDS_OF_SECOND), formatString)
+    return this.formatFromDate(new Date(timeStamp * AirConstant.MILLISECONDS_PER_SECOND), formatString)
   }
 
   /**
@@ -98,7 +98,7 @@ export class AirDateTime {
     const currentTimestamp: number = this.getUnixTimeStamps(new Date())
     let timestamp: number
     if (typeof date === 'number') {
-      timestamp = parseInt((date / AirConstant.MILLISECONDS_OF_SECOND).toString(), 10)
+      timestamp = parseInt((date / AirConstant.MILLISECONDS_PER_SECOND).toString(), 10)
     } else {
       timestamp = this.getUnixTimeStamps(date)
     }
@@ -110,27 +110,27 @@ export class AirDateTime {
       key: 0,
       label: '秒',
     }, {
-      key: AirConstant.SECOND_OF_MINUTE,
+      key: AirConstant.SECOND_PER_MINUTE,
       label: '分钟',
     }, {
-      key: AirConstant.SECOND_OF_MINUTE ** 2,
+      key: AirConstant.SECOND_PER_MINUTE ** 2,
       label: '小时',
     }, {
-      key: AirConstant.SECONDS_OF_DAY,
+      key: AirConstant.SECONDS_PER_DAY,
       label: '天',
     }, {
-      key: AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_WEEK,
+      key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_WEEK,
       label: '周',
     }, {
-      key: AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_MONTH,
+      key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_MONTH,
       label: '月',
     }, {
-      key: AirConstant.SECONDS_OF_DAY * AirConstant.DAY_OF_YEAR,
+      key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_YEAR,
       label: '年',
     }]
     for (let i = stepDictionary.length - 1; i >= 0; i -= 1) {
       const step = stepDictionary[i]
-      if (timestamp <= currentTimestamp && diff < AirConstant.SECOND_OF_MINUTE) {
+      if (timestamp <= currentTimestamp && diff < AirConstant.SECOND_PER_MINUTE) {
         // 过去时间，且小于60s
         return '刚刚'
       }
