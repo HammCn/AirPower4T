@@ -87,12 +87,17 @@ export class AirConstant {
   /**
    * ### 时间进制
    */
-  static readonly SECOND_OF_MINUTE = 60
+  static readonly SECOND_PER_MINUTE = 60
+
+  /**
+   * ### 每小时的秒数
+   */
+  static readonly SECOND_PER_HOUR = AirConstant.SECOND_PER_MINUTE ** 2
 
   /**
    * ### 每秒的毫秒数
    */
-  static readonly MILLISECONDS_OF_SECOND = 1000
+  static readonly MILLISECONDS_PER_SECOND = 1000
 
   /**
    * ### 文件大小进制
@@ -103,40 +108,45 @@ export class AirConstant {
   /**
    * ### 每天小时
    */
-  static readonly HOUR_OF_DAY = 24
+  static readonly HOUR_PER_DAY = 24
 
   /**
    * ### 每月天数
    */
-  static readonly DAY_OF_MONTH = 30
+  static readonly DAY_PER_MONTH = 30
 
   /**
    * ### 每年月份
    */
-  static readonly MONTH_OF_YEAR = 12
+  static readonly MONTH_PER_YEAR = 12
 
   /**
    * ### 每年天数
    */
-  static readonly DAY_OF_YEAR = 365
-
-  /**
-   * ### 每周天数
-   */
-  static readonly DAY_OF_WEEK = 7
-
-  /**
-   * ### 每年平均周
-   */
-  static readonly WEEK_OF_YEAR = 52
-
-  /**
-   * ### 每月平均周
-   */
-  static readonly WEEK_OF_MONTH = 4
+  static readonly DAY_PER_YEAR = 365
 
   /**
    * ### 每天秒数
    */
-  static readonly SECONDS_OF_DAY = this.HOUR_OF_DAY * this.SECOND_OF_MINUTE * this.SECOND_OF_MINUTE
+  static readonly SECOND_PER_DAY = this.SECOND_PER_HOUR * this.HOUR_PER_DAY
+
+  /**
+   * ### 每周天数
+   */
+  static readonly DAY_PER_WEEK = 7
+
+  /**
+   * ### 每年平均周
+   */
+  static readonly WEEK_PER_YEAR = 52
+
+  /**
+   * ### 每月平均周
+   */
+  static readonly WEEK_PER_MONTH = 4
+
+  /**
+   * ### 每天秒数
+   */
+  static readonly SECONDS_PER_DAY = this.HOUR_PER_DAY * this.SECOND_PER_HOUR
 }
