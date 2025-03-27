@@ -1,6 +1,3 @@
-import { ElForm, ElTable, ElTree } from 'element-plus'
-
-import type Node from 'element-plus/es/components/tree/src/model/node'
 import { AirColor } from '../enum/AirColor'
 
 /**
@@ -14,26 +11,6 @@ import { AirColor } from '../enum/AirColor'
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AirAny = any
-
-/**
- * ### `el-tree` 的实例
- */
-export type AirTreeInstance = InstanceType<typeof ElTree>
-
-/**
- * ### `el-form` 的实例
- */
-export type AirFormInstance = InstanceType<typeof ElForm>
-
-/**
- * ### `el-table` 的实例
- */
-export type AirTableInstance = InstanceType<typeof ElTable>
-
-/**
- * ### `tree-node` 的实例
- */
-export type AirTreeNode = Node
 
 /**
  * ### 💰 金额的舍弃方向类型
@@ -74,59 +51,6 @@ export type AirDecoratorTarget = AirAny
  * ### 装饰器存储的数据类型
  */
 export type AirDecoratorData = AirAny
-
-/**
- * ### 验证器回调函数类型
- */
-// eslint-disable-next-line no-unused-vars
-export type AirValidatorCallback = (error?: string) => void
-
-/**
- * ### 验证器规则类型
- */
-export type AirValidatorRule = AirAny
-
-/**
- * ### 验证器数据类型
- */
-export type AirValidatorType = 'string' | 'number' | 'date' | 'array'
-
-/**
- * ### 验证器触发类型
- */
-export type AirValidatorTrigger = 'blur' | 'change'
-
-/**
- * ###  图标类型字符串类型
- */
-export type AirIconType =
-  'DELETE_LIST'
-  | 'DELETE'
-  | 'EDIT'
-  | 'DETAIL'
-  | 'ADD'
-  | 'FINISH'
-  | 'SEARCH'
-  | 'SETTING'
-  | 'PUBLISH'
-  | 'SAVE'
-  | 'EXPORT'
-  | 'IMPORT'
-  | 'MORE'
-  | 'LOCK'
-  | 'UPLOAD'
-  | 'LOGOUT'
-  | 'DOWNLOAD'
-  | 'CHECKIN'
-  | 'SELECT'
-  | 'MOVE_UP'
-  | 'MOVE_DOWN'
-  | 'CONFIRM'
-  | 'CHECKBOX'
-  | 'CLOCK'
-  | 'MONITOR'
-  | 'COMPARE'
-  | 'CLOSE'
 
 /**
  * ### 类包装

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import ElementPlus from 'element-plus'
 import { AirConstant } from '../config/AirConstant'
 
 /**
@@ -8,31 +7,9 @@ import { AirConstant } from '../config/AirConstant'
  */
 export class AirVersion {
   /**
-   * ### `Element Plus` 最低版本
-   */
-  private static readonly elementPlusRequired = '2.8.0'
-
-  /**
    * ### 版本号长度
    */
   private static readonly VERSION_LENGTH = 2
-
-  /**
-   * ### 检查 `Element Plus`
-   */
-  static checkElementPlus() {
-    if (this.parseVersion(ElementPlus.version) >= this.parseVersion(this.elementPlusRequired)) {
-      return
-    }
-    console.error(`%cElement Plus 版本过低，请升级至 ${this.elementPlusRequired} 或以上版本`, 'color:red;font-size:12px;')
-  }
-
-  /**
-   * ### 检查依赖版本
-   */
-  static check() {
-    this.checkElementPlus()
-  }
 
   /**
    * ### 获取版本号数字

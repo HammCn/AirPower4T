@@ -1,6 +1,4 @@
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { IValidateRule } from '../interface/IValidateRule'
-import { AirValidator } from '../helper/AirValidator'
 import { AirEntity } from './AirEntity'
 import { AirRequest } from '../model/AirRequest'
 import { AirResponsePage } from '../model/AirResponsePage'
@@ -68,17 +66,6 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * ### 删除默认 `URL`
    */
   protected urlForDelete = 'delete'
-
-  /**
-   * ### 创建验证器
-   * @param form 表单对象
-   * @param moreRule `可选` 更多的验证规则
-   */
-  static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return AirValidator.createRules(form, this.newInstance(), moreRule)
-  }
 
   /**
    * ### 查询分页数据列表
@@ -216,16 +203,6 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     } catch (err) {
       AirEvent.emit(AirEventType.ENABLE_FAIL, '启用失败', (err as Error).message, instance)
     }
-  }
-
-  /**
-   * ### `内部使用`
-   * @deprecated
-   */
-  createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return AirValidator.createRules(form, this, moreRule)
   }
 
   /**
