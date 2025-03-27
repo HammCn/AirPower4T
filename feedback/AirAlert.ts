@@ -1,4 +1,3 @@
-import { ElMessageBox, ElMessageBoxOptions } from 'element-plus'
 import { CSSProperties } from 'vue'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirI18n } from '../helper/AirI18n'
@@ -246,7 +245,7 @@ export class AirAlert {
   /**
    * ### 获取配置
    */
-  protected getConfig(): ElMessageBoxOptions {
+  protected getConfig() {
     const customStyle: CSSProperties = {}
     if (this.width) {
       customStyle.width = this.width
@@ -278,17 +277,6 @@ export class AirAlert {
    */
   private alert(content = '操作成功', title = '温馨提示'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      ElMessageBox.alert(
-        content,
-        title,
-        this.getConfig(),
-      )
-        .then(() => {
-          resolve()
-        })
-        .catch(() => {
-          reject()
-        })
     })
   }
 }

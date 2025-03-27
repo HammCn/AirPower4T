@@ -1,4 +1,3 @@
-import { ElMessageBox } from 'element-plus'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirAlert } from './AirAlert'
 import { AirI18n } from '../helper/AirI18n'
@@ -138,17 +137,6 @@ export class AirConfirm extends AirAlert {
    */
   show(content: string, title = AirI18n.get().OperateNotice || '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      ElMessageBox.confirm(
-        content,
-        title,
-        this.getConfig(),
-      )
-        .then(() => {
-          resolve()
-        })
-        .catch(() => {
-          reject()
-        })
     })
   }
 }

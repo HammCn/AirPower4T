@@ -1,4 +1,3 @@
-import { ElNotification } from 'element-plus'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirI18n } from '../helper/AirI18n'
 
@@ -179,18 +178,6 @@ export class AirNotification {
    */
   private async show(type: AirFeedbackType): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
-      ElNotification({
-        title: this.title,
-        message: this.message,
-        type,
-        duration: this.duration,
-        onClose: () => {
-          resolve(false)
-        },
-        onClick: () => {
-          resolve(true)
-        },
-      })
     })
   }
 }

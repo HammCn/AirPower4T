@@ -1,4 +1,3 @@
-import { ElLoading } from 'element-plus'
 import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
 import { AirAny } from '../type/AirType'
@@ -117,7 +116,6 @@ export class AirLoading {
     if (this.target) {
       options.target = this.target
     }
-    this.instance = ElLoading.service(options)
     return this
   }
 

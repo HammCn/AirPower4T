@@ -9,5 +9,5 @@
 </p>
 
 <p align="center"><a href="https://github.com/HammCn/AirPower4T">Github</a> /
-  <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> /  <a href="./CHANGELOG.md">CHANGELOG</a> / <a href="./docs/README.md">DOCUMENT</a>
+  <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> /  <a href="CHANGELOG.md">CHANGELOG</a> / <a href="./docs/README.md">DOCUMENT</a>
 </p>
