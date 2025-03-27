@@ -60,9 +60,6 @@
 
 ## 5️⃣ 开始开发你的应用程序
 
-**AirPower4T** 目前使用子目录的方式提供，你可以将 **AirPower4T** 源代码下载或克隆后命名为 **airpower** 添加到你的项目的
-**src** 目录下，然后使用 **Vite** 构建你的项目。
-
 推荐你直接使用我们提供的 **SPMS-Web**
 模板来快速开启一个项目：via [Github](https://github.com/s-pms/SPMS-Web/blob/main/README.md) / [Gitee](https://gitee.com/s-pms/SPMS-Web/blob/main/README.md)
 
@@ -82,8 +79,8 @@
 
   ```shell
   git clone https://github.com/s-pms/SPMS-Web.git &&
-  cd SPMS-Web/src &&
-  git clone https://github.com/HammCn/AirPower4T.git airpower && cd ../ &&
+  cd SPMS-Web &&
+  git clone https://github.com/HammCn/AirPower4T.git airpower &&
   yarn && cp .env.dev .env && yarn s
   ```
 
@@ -91,8 +88,8 @@
 
   ```shell
   git clone https://gitee.com/s-pms/SPMS-Web.git &&
-  cd SPMS-Web/src &&
-  git clone https://gitee.com/air-power/AirPower4T.git airpower && cd ../ &&
+  cd SPMS-Web &&
+  git clone https://gitee.com/air-power/AirPower4T.git airpower &&
   yarn && cp .env.dev .env && yarn s
   ```
 
