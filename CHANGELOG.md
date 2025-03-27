@@ -1,5 +1,13 @@
 # AirPower4T 版本发布日志
 
+## 3.2.0
+
+### 🎉 Features:
+
+### 🐞 Bug fixes:
+
+- refactor(route): 重构 AirRouter 并优化路由处理
+
 ## 3.1.2
 
 ### 🎉 Features:
