@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
-
-import { AirAny } from '@airpower/type/AirType'
 import { IJson } from '../interface/IJson'
+import { AirAny } from '../type/AirType'
 import { AirRand } from './AirRand'
 
 /**
