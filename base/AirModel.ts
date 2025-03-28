@@ -1,5 +1,4 @@
 /* eslint-disable no-continue */
-import { AirConstant } from '../config/AirConstant'
 import { getModelConfig } from '../decorator/Model'
 import { getFieldConfig, getToJson, getToModel } from '../decorator/Field'
 import { IFieldConfig } from '../interface/decorators/IFieldConfig'
