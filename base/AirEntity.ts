@@ -51,14 +51,14 @@ export class AirEntity extends AirModel {
    * ### 只暴露 `ID`
    */
   exposeId(): this {
-    return this.expose(AirConstant.ID)
+    return this.expose(AirConstant.STRING_ID)
   }
 
   /**
    * ### 排除 `ID`
    */
   excludeId(): this {
-    return this.exclude(AirConstant.ID)
+    return this.exclude(AirConstant.STRING_ID)
   }
 
   /**

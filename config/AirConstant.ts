@@ -7,7 +7,7 @@ export class AirConstant {
   /**
    * ### `id`
    */
-  static readonly ID = 'id'
+  static readonly STRING_ID = 'id'
 
   /**
    * ### `http://`
@@ -22,7 +22,7 @@ export class AirConstant {
   /**
    * ### 空字符串
    */
-  static readonly EMPTY_STRING = ''
+  static readonly STRING_EMPTY = ''
 
   /**
    * ### `Content-Type`
@@ -32,17 +32,17 @@ export class AirConstant {
   /**
    * ### 半角问号 `?`
    */
-  static readonly QUESTION_MARK = '?'
+  static readonly STRING_QUESTION = '?'
 
   /**
    * ### 连接符号 `&`
    */
-  static readonly AND_MARK = '&'
+  static readonly STRING_AND = '&'
 
   /**
    * ### 星号 `*`
    */
-  static readonly ASTERISK = '*'
+  static readonly STRING_ASTERISK = '*'
 
   /**
    * ### `AirModel`
@@ -52,7 +52,7 @@ export class AirConstant {
   /**
    * ### 下划线 `_`
    */
-  static readonly UNDER_LINE = '_'
+  static readonly STRING_UNDERLINE = '_'
 
   /**
    * ### 默认进制
@@ -62,81 +62,91 @@ export class AirConstant {
   /**
    * ### `.` 点
    */
-  static readonly DOT = '.'
+  static readonly STRING_DOT = '.'
 
   /**
    * ### `children`
    */
-  static readonly CHILDREN = 'children'
+  static readonly STRING_CHILDREN = 'children'
 
   /**
    * ### `'0'`
    */
-  static readonly ZERO_STRING = '0'
+  static readonly STRING_ZERO = '0'
 
   /**
    * ### 半角逗号 `,`
    */
-  static readonly COMMA = ','
+  static readonly STRING_COMMA = ','
 
   /**
    * ### 横线 `-`
    */
-  static readonly HYPHEN = '-'
+  static readonly STRING_LINE = '-'
 
   /**
    * ### 时间进制
    */
-  static readonly TIME_RADIX = 60
+  static readonly SECOND_PER_MINUTE = 60
 
   /**
-   * ### 千
+   * ### 每小时的秒数
    */
-  static readonly THOUSAND = 1000
+  static readonly SECOND_PER_HOUR = AirConstant.SECOND_PER_MINUTE ** 2
 
   /**
-   * ### 1024
+   * ### 每秒的毫秒数
+   */
+  static readonly MILLISECONDS_PER_SECOND = 1000
+
+  /**
+   * ### 文件大小进制
    * 😄
    */
-  static readonly ONE_ZERO_TWO_FOUR = 1024
+  static readonly RADIX_FILE_SIZE = 1024
 
   /**
-   * ### 每月最大天数
+   * ### 每天小时
    */
-  static readonly DAY_OF_MONTH = 31
+  static readonly HOUR_PER_DAY = 24
+
+  /**
+   * ### 每月天数
+   */
+  static readonly DAY_PER_MONTH = 30
 
   /**
    * ### 每年月份
    */
-  static readonly MONTH_OF_YEAR = 12
+  static readonly MONTH_PER_YEAR = 12
 
   /**
    * ### 每年天数
    */
-  static readonly DAY_OF_YEAR = 365
-
-  /**
-   * ### 每周天数
-   */
-  static readonly DAY_OF_WEEK = 7
-
-  /**
-   * ### 每年平均周
-   */
-  static readonly WEEK_OF_YEAR = 52
-
-  /**
-   * ### 每月平均周
-   */
-  static readonly WEEK_OF_MONTH = 4
+  static readonly DAY_PER_YEAR = 365
 
   /**
    * ### 每天秒数
    */
-  static readonly SECONDS_OF_DAY = 86400
+  static readonly SECOND_PER_DAY = this.SECOND_PER_HOUR * this.HOUR_PER_DAY
 
   /**
-   * ### 一世纪年数
+   * ### 每周天数
    */
-  static readonly YEARS_OF_CENTURY = 100
+  static readonly DAY_PER_WEEK = 7
+
+  /**
+   * ### 每年平均周
+   */
+  static readonly WEEK_PER_YEAR = 52
+
+  /**
+   * ### 每月平均周
+   */
+  static readonly WEEK_PER_MONTH = 4
+
+  /**
+   * ### 每天秒数
+   */
+  static readonly SECONDS_PER_DAY = this.HOUR_PER_DAY * this.SECOND_PER_HOUR
 }

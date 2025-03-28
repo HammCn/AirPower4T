@@ -140,7 +140,7 @@ export class AirValidator {
    * @param list 验证器
    */
   static validate(str: string, ...list: AirInputType[]) {
-    let regString = AirConstant.EMPTY_STRING
+    let regString = AirConstant.STRING_EMPTY
     for (let i = 0; i < list.length; i += 1) {
       regString += list[i]
     }

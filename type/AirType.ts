@@ -1,5 +1,4 @@
 import { AirColor } from '../enum/AirColor'
-import { AirCode } from '../enum/AirCode'
 
 /**
  * # 一些定义的类型
@@ -27,11 +26,6 @@ export type AirEnumKey = string | number | boolean
  * ### 颜色值
  */
 export type AirColorString = AirColor | string
-
-/**
- * ### 状态码
- */
-export type AirCodeNumber = AirCode | number
 
 /**
  * ### 装饰器目标类

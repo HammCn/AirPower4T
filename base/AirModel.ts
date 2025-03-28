@@ -52,9 +52,12 @@ export class AirModel {
     const modelConfig = getModelConfig(instance)
     for (const fieldKey of fieldKeyList) {
       const props = getFieldConfig(instance, fieldKey)
-      const fieldData = json[
-        (!props.ignorePrefix && modelConfig.fieldPrefix ? modelConfig.fieldPrefix : AirConstant.EMPTY_STRING)
-        + (props.alias || fieldKey)];
+      let realKey = ''
+      if (!props.ignorePrefix && modelConfig.fieldPrefix) {
+        realKey += modelConfig.fieldPrefix
+      }
+      realKey += props.alias || fieldKey
+      const fieldData = json[realKey];
       (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
@@ -84,7 +87,7 @@ export class AirModel {
         continue
       }
 
-      if (!FieldTypeClass || fieldData === undefined || fieldData === null) {
+      if (fieldData === undefined || fieldData === null) {
         // 属性值为非 undefined 和 null 时不转换
         continue
       }
@@ -275,7 +278,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getModelConfig<M extends IModelConfig = IModelConfig>(): M {
     return getModelConfig<M>(this)
@@ -284,7 +286,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getModelName(): string {
     return getModelConfig(this).label || this.constructor.name
@@ -293,7 +294,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getFieldConfig(fieldKey: string): IFieldConfig {
     return getFieldConfig(this, fieldKey)
@@ -302,7 +302,6 @@ export class AirModel {
   /**
    * ### `请直接调用静态方法获取`
    * ! 内部使用的保留方法
-   * @deprecated
    */
   getFieldName(fieldKey: string): string {
     return getFieldConfig(this, fieldKey).label || fieldKey

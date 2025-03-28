@@ -89,7 +89,7 @@ export class AirApi {
    */
   public static getStorage(key: string): string {
     const value = uni.getStorageSync(key)
-    return value ? value.toString() : AirConstant.EMPTY_STRING
+    return value ? value.toString() : AirConstant.STRING_EMPTY
   }
 
   /**

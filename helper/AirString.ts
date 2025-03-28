@@ -54,7 +54,7 @@ export class AirString {
    * @param to 截取结束位置
    */
   static slice(str: string, from = 0, to = this.getLength(str) - 1): string {
-    let s = AirConstant.EMPTY_STRING
+    let s = AirConstant.STRING_EMPTY
     if (from < 0) {
       throw new Error('AirString.get() Error: from error')
     }

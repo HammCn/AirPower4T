@@ -2,7 +2,7 @@ import { AirModel } from '../base/AirModel'
 import { AirDecorator } from '../helper/AirDecorator'
 import { IFieldConfig } from '../interface/decorators/IFieldConfig'
 import { IJson } from '../interface/IJson'
-import { AirDecoratorTarget } from '../type/AirType'
+import { AirAny, AirDecoratorTarget } from '../type/AirType'
 
 /**
  * ### 属性参数配置
@@ -37,7 +37,7 @@ const TO_JSON_KEY = 'ToJson'
  * @param func 方法
  */
 // eslint-disable-next-line no-unused-vars
-export function ToJson<M extends AirModel>(func: (model: M) => IJson) {
+export function ToJson<M extends AirModel>(func: (model: M) => AirAny) {
   return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, TO_JSON_KEY, func)
 }
 
@@ -47,7 +47,7 @@ export function ToJson<M extends AirModel>(func: (model: M) => IJson) {
  * @param key 属性名
  */
 // eslint-disable-next-line no-unused-vars
-export function getToJson<M extends AirModel>(target: AirDecoratorTarget, key: string): (model: M) => IJson | undefined {
+export function getToJson<M extends AirModel>(target: AirDecoratorTarget, key: string): (model: M) => AirAny {
   return AirDecorator.getFieldConfig(target, key, TO_JSON_KEY)
 }
 
@@ -61,7 +61,7 @@ const TO_MODEL_KEY = 'ToModel'
  * @param func 方法
  */
 // eslint-disable-next-line no-unused-vars
-export function ToModel<M extends AirModel>(func: (json: IJson) => M) {
+export function ToModel(func: (json: IJson) => AirAny) {
   return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, TO_MODEL_KEY, func)
 }
 
@@ -71,6 +71,6 @@ export function ToModel<M extends AirModel>(func: (json: IJson) => M) {
  * @param key 属性名
  */
 // eslint-disable-next-line no-unused-vars
-export function getToModel<M extends AirModel>(target: AirDecoratorTarget, key: string): (json: IJson) => M | undefined {
+export function getToModel(target: AirDecoratorTarget, key: string): (json: IJson) => AirAny {
   return AirDecorator.getFieldConfig(target, key, TO_MODEL_KEY)
 }

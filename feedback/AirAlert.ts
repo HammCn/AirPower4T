@@ -20,12 +20,12 @@ export class AirAlert {
   /**
    * ### 确认按钮颜色
    */
-  protected confirmColor = AirConstant.EMPTY_STRING
+  protected confirmColor = AirConstant.STRING_EMPTY
 
   /**
    * ### 取消按钮颜色
    */
-  protected cancelColor = AirConstant.EMPTY_STRING
+  protected cancelColor = AirConstant.STRING_EMPTY
 
   /**
    * ### 设置确认按钮文字
@@ -93,7 +93,7 @@ export class AirAlert {
    * @param content 消息内容
    * @param description `可选` 消息描述
    */
-  private alert(content: string, description = AirConstant.EMPTY_STRING): Promise<void> {
+  private alert(content: string, description = AirConstant.STRING_EMPTY): Promise<void> {
     return new Promise<void>((resolve) => {
       uni.showModal({
         title: content,

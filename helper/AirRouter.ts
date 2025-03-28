@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 
+import { AirAny } from '@airpower/type/AirType'
 import { IJson } from '../interface/IJson'
-import { AirRand } from '@/airpower/helper/AirRand'
-import { AirAny } from '@/airpower/type/AirType'
+import { AirRand } from './AirRand'
 
 /**
  * # 路由助手

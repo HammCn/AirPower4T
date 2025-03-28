@@ -43,56 +43,50 @@ export class AirDesensitize {
    * @param symbol `可选` 脱敏符号
    * @return 脱敏后的 `IPv4` 地址
    */
-  public static desensitizeIpv4Address(ipv4: string, symbol = AirConstant.ASTERISK): string {
-    const strings = ipv4.split(AirConstant.DOT)
+  public static desensitizeIpv4Address(ipv4: string, symbol = AirConstant.STRING_ASTERISK): string {
+    const strings = ipv4.split(AirConstant.STRING_DOT)
     if (strings.length !== AirDesensitize.IP_V4_PART_COUNT) {
       return ipv4
     }
     const temp = symbol + symbol + symbol
     strings[1] = temp
     strings[2] = temp
-    return strings.join(AirConstant.DOT)
+    return strings.join(AirConstant.STRING_DOT)
   }
 
   /**
    * ### 文本脱敏
    *
-   * @param valueString 原始文本
+   * @param source 原始文本
    * @param type        脱敏类型
    * @param head        `可选` 头部保留
    * @param tail        `可选` 尾部保留
    * @param symbol      `可选` 脱敏符号
    * @return 脱敏后的文本
    */
-  public static desensitize(valueString: string, type: AirDesensitizeType, head = 0, tail = 0, symbol = AirConstant.ASTERISK): string {
+  public static desensitize(source: string, type: AirDesensitizeType, head = 0, tail = 0, symbol = AirConstant.STRING_ASTERISK): string {
+    if (!source) {
+      return AirConstant.STRING_EMPTY
+    }
+    head = head <= 0 ? type.head : head
+    tail = tail <= 0 ? type.tail : tail
     switch (type.key) {
-      case AirDesensitizeType.BANK_CARD.key:
-      case AirDesensitizeType.ID_CARD.key:
-      case AirDesensitizeType.MOBILE.key:
-      case AirDesensitizeType.ADDRESS.key:
-      case AirDesensitizeType.CAR_NUMBER.key:
-      case AirDesensitizeType.EMAIL.key:
-        head = Math.max(type.head, head)
-        tail = Math.max(type.tail, tail)
-        break
       case AirDesensitizeType.IP_V4.key:
-        return AirDesensitize.desensitizeIpv4Address(valueString, symbol)
+        return AirDesensitize.desensitizeIpv4Address(source, symbol)
       case AirDesensitizeType.CHINESE_NAME.key:
-        head = Math.max(type.head, head)
-        tail = Math.max(type.tail, tail)
-        if (valueString.length <= head + tail) {
+        if (source.length <= head + tail) {
           tail = 0
         }
         break
       case AirDesensitizeType.TELEPHONE.key:
         // 包含区号 前后各留4 不包含则各留2
         // eslint-disable-next-line no-case-declarations
-        const isContainRegionCode = valueString.length > 8 ? 4 : 2
-        head = Math.max(isContainRegionCode, head)
-        tail = Math.max(isContainRegionCode, tail)
+        const isContainRegionCode = source.length > 8 ? 4 : 2
+        head = isContainRegionCode
+        tail = isContainRegionCode
         break
       default:
     }
-    return this.replace(valueString, head, tail, symbol)
+    return this.replace(source, head, tail, symbol)
   }
 }

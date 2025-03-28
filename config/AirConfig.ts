@@ -1,6 +1,4 @@
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirCode } from '../enum/AirCode'
-import { AirCodeNumber } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
 
@@ -13,7 +11,7 @@ export class AirConfig {
   /**
    * ### `AirPower` 版本号
    */
-  static readonly version = 'v3.0.6'
+  static readonly version = 'v3.2.0'
 
   /**
    * ### `AppKey`
@@ -29,7 +27,7 @@ export class AirConfig {
   /**
    * ### 项目名称
    */
-  static product = AirConstant.EMPTY_STRING
+  static product = AirConstant.STRING_EMPTY
 
   /**
    * ### 接口根地址
@@ -82,22 +80,27 @@ export class AirConfig {
   /**
    * ### 全局 `http` 请求返回 成功状态码
    */
-  static successCode: AirCodeNumber = AirCode.SUCCESS
+  static successCode = 200
 
   /**
    * ### 全局 `http` 请求返回 继续状态码
    */
-  static continueCode: AirCodeNumber = AirCode.CONTINUE
+  static continueCode = 201
+
+  /**
+   * ### 全局 `http` 请求返回 错误状态码
+   */
+  static errorCode = 500
 
   /**
    * ### 全局 `http` 请求返回 登录状态码
    */
-  static unAuthorizeCode: AirCodeNumber = AirCode.UNAUTHORIZED
+  static unAuthorizeCode = 401
 
   /**
    * ## 全局http请求返回 要求更新版本
    */
-  static upgradeClientNecssary: AirCode | number = AirCode.UPGRADE_CLIENT_NECESSARY
+  static upgradeClientNecssary = 301
 
   /**
    * ## 权限列表
