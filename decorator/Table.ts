@@ -1,11 +1,11 @@
+import type { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
+import type { AirDecoratorTarget } from '../type/AirType'
 /**
  * # 表格字段的注解
  * @author Hamm.cn
  */
 import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
-import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
-import { AirDecoratorTarget } from '../type/AirType'
 import { getFieldConfig } from './Field'
 
 /**

@@ -1,5 +1,5 @@
+import type { AirWebSocketPayload } from './AirWebSocketPayload'
 import { AirWebsocketEvent } from './AirWebSocketEvent'
-import { AirWebSocketPayload } from './AirWebSocketPayload'
 
 /**
  * # 内置的 `Websocket` 助手
@@ -47,7 +47,7 @@ export class AirWebsocket {
   static create(
     url: string,
     handler: {
-      // eslint-disable-next-line no-unused-vars
+
       onMessage?: (event: AirWebsocketEvent) => void
       onConnect?: () => void
     },

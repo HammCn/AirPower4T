@@ -1,7 +1,7 @@
-import { Ref } from 'vue'
-import { AirEntity } from '../../base/AirEntity'
-import { ITableHookResult } from './ITableHookResult'
-import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { Ref } from 'vue'
+import type { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { AirEntity } from '../../base/AirEntity'
+import type { ITableHookResult } from './ITableHookResult'
 
 /**
  * # 选择器 `Hook` 的标准返回

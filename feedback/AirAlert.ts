@@ -1,8 +1,9 @@
-import { ElMessageBox, ElMessageBoxOptions } from 'element-plus'
-import { CSSProperties } from 'vue'
+import type { ElMessageBoxOptions } from 'element-plus'
+import type { CSSProperties } from 'vue'
+import { ElMessageBox } from 'element-plus'
+import { AirConstant } from '../config/AirConstant'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirI18n } from '../helper/AirI18n'
-import { AirConstant } from '../config/AirConstant'
 
 /**
  * # 消息弹窗类
@@ -160,7 +161,8 @@ export class AirAlert {
   setWidth(width: number, isPercent = false): this {
     if (isPercent) {
       this.width = `${width}%`
-    } else {
+    }
+    else {
       this.width = `${width}px`
     }
     return this
@@ -174,7 +176,8 @@ export class AirAlert {
   setHeight(height: number, isPercent = false): this {
     if (isPercent) {
       this.height = `${height}%`
-    } else {
+    }
+    else {
       this.height = `${height}px`
     }
     return this
@@ -278,7 +281,7 @@ export class AirAlert {
           resolve()
         })
         .catch(() => {
-          reject()
+          reject(new Error('用户取消了操作'))
         })
     })
   }

@@ -1,8 +1,8 @@
+import type { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import type { IDictionary } from '../interface/IDictionary'
+import type { IJson } from '../interface/IJson'
 import { AirConfig } from '../config/AirConfig'
 import { AirConstant } from '../config/AirConstant'
-import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { IDictionary } from '../interface/IDictionary'
-import { IJson } from '../interface/IJson'
 
 /**
  * # 时间日期时间戳格式化类
@@ -87,7 +87,7 @@ export class AirDateTime {
       mm: `${date.getMinutes() + 100}`.substring(1),
       ss: `${date.getSeconds() + 100}`.substring(1),
     }
-    return formatString.replace(/(YYYY|MM|DD|HH|ss|mm)/g, (arg) => dict[arg].toString())
+    return formatString.replace(/(YYYY|MM|DD|HH|ss|mm)/g, arg => dict[arg].toString())
   }
 
   /**
@@ -98,8 +98,9 @@ export class AirDateTime {
     const currentTimestamp: number = this.getUnixTimeStamps(new Date())
     let timestamp: number
     if (typeof date === 'number') {
-      timestamp = parseInt((date / AirConstant.MILLISECONDS_PER_SECOND).toString(), 10)
-    } else {
+      timestamp = Number.parseInt((date / AirConstant.MILLISECONDS_PER_SECOND).toString(), 10)
+    }
+    else {
       timestamp = this.getUnixTimeStamps(date)
     }
     const diff = Math.abs(currentTimestamp - timestamp)

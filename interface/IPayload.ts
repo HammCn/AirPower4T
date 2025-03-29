@@ -1,4 +1,4 @@
-import { AirEntity } from '../base/AirEntity'
+import type { AirEntity } from '../base/AirEntity'
 
 /**
  * # 标准的负载接口
@@ -8,5 +8,5 @@ export interface IPayload extends AirEntity {
   /**
    * ### 获取负载显示的文本
    */
-  getPayloadLabel(): string
+  getPayloadLabel: () => string
 }

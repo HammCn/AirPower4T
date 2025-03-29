@@ -1,3 +1,5 @@
+<script lang="ts" setup></script>
+
 <template>
   <el-tabs
     class="air-tabs"
@@ -6,7 +8,7 @@
     <slot />
   </el-tabs>
 </template>
-<script lang="ts" setup></script>
+
 <style lang="scss" scoped>
 .air-tabs {
   min-height: 100px;

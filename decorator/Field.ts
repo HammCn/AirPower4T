@@ -1,8 +1,8 @@
-import { AirModel } from '../base/AirModel'
+import type { AirModel } from '../base/AirModel'
+import type { IFieldConfig } from '../interface/decorators/IFieldConfig'
+import type { IJson } from '../interface/IJson'
+import type { AirAny, AirDecoratorTarget } from '../type/AirType'
 import { AirDecorator } from '../helper/AirDecorator'
-import { IFieldConfig } from '../interface/decorators/IFieldConfig'
-import { IJson } from '../interface/IJson'
-import { AirAny, AirDecoratorTarget } from '../type/AirType'
 
 /**
  * ### 属性参数配置
@@ -36,7 +36,7 @@ const TO_JSON_KEY = 'ToJson'
  * ### 自定义转换到 `JSON` 的方法
  * @param func 方法
  */
-// eslint-disable-next-line no-unused-vars
+
 export function ToJson<M extends AirModel>(func: (model: M) => AirAny) {
   return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, TO_JSON_KEY, func)
 }
@@ -46,7 +46,7 @@ export function ToJson<M extends AirModel>(func: (model: M) => AirAny) {
  * @param target 目标类
  * @param key 属性名
  */
-// eslint-disable-next-line no-unused-vars
+
 export function getToJson<M extends AirModel>(target: AirDecoratorTarget, key: string): (model: M) => AirAny {
   return AirDecorator.getFieldConfig(target, key, TO_JSON_KEY)
 }
@@ -60,7 +60,7 @@ const TO_MODEL_KEY = 'ToModel'
  * ### 自定义转换到 `Model` 的方法
  * @param func 方法
  */
-// eslint-disable-next-line no-unused-vars
+
 export function ToModel(func: (json: IJson) => AirAny) {
   return (target: AirDecoratorTarget, key: string) => AirDecorator.setFieldConfig(target, key, TO_MODEL_KEY, func)
 }
@@ -70,7 +70,7 @@ export function ToModel(func: (json: IJson) => AirAny) {
  * @param target 目标类
  * @param key 属性名
  */
-// eslint-disable-next-line no-unused-vars
+
 export function getToModel(target: AirDecoratorTarget, key: string): (json: IJson) => AirAny {
   return AirDecorator.getFieldConfig(target, key, TO_MODEL_KEY)
 }

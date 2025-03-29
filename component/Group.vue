@@ -1,49 +1,6 @@
-<template>
-  <div
-    :class="autoHeight ? 'auto-height' : ''"
-    class="air-group"
-  >
-    <div
-      v-if="title && !hideTitle"
-      class="group-title"
-    >
-      <div class="left">
-        <div class="title">
-          <span>{{ title }}</span>
-          <slot name="tips" />
-        </div>
-        <div class="custom">
-          <slot name="custom" />
-        </div>
-      </div>
-      <div
-        v-if="!disableCollapse"
-        class="expand"
-      >
-        <el-icon @click="isCollapse = !isCollapse">
-          <ArrowRight v-if="isCollapse" />
-          <ArrowDown v-else />
-        </el-icon>
-      </div>
-    </div>
-    <div
-      v-show="!isCollapse"
-      :class="getBodyClass()"
-      :style="{
-        paddingTop: hideTitle ? '0' : '10px',
-        minHeight: minHeight || 'auto',
-        flexDirection: column === 1 ? 'column' : 'row',
-      }"
-      class="group-body"
-    >
-      <slot />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup="props">
-import { ref } from 'vue'
 import { ArrowDown, ArrowRight } from '@element-plus/icons-vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   /**
@@ -133,6 +90,49 @@ function getBodyClass() {
   return props.autoCol ? 'column-auto ' : `column-${getColumn()} `
 }
 </script>
+
+<template>
+  <div
+    :class="autoHeight ? 'auto-height' : ''"
+    class="air-group"
+  >
+    <div
+      v-if="title && !hideTitle"
+      class="group-title"
+    >
+      <div class="left">
+        <div class="title">
+          <span>{{ title }}</span>
+          <slot name="tips" />
+        </div>
+        <div class="custom">
+          <slot name="custom" />
+        </div>
+      </div>
+      <div
+        v-if="!disableCollapse"
+        class="expand"
+      >
+        <el-icon @click="isCollapse = !isCollapse">
+          <ArrowRight v-if="isCollapse" />
+          <ArrowDown v-else />
+        </el-icon>
+      </div>
+    </div>
+    <div
+      v-show="!isCollapse"
+      :class="getBodyClass()"
+      :style="{
+        paddingTop: hideTitle ? '0' : '10px',
+        minHeight: minHeight || 'auto',
+        flexDirection: column === 1 ? 'column' : 'row',
+      }"
+      class="group-body"
+    >
+      <slot />
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .air-group {

@@ -1,6 +1,6 @@
+import type { AirAny } from '../type/AirType'
 import { AirConfig } from '../config/AirConfig'
 import { AirI18n } from '../helper/AirI18n'
-import { AirAny } from '../type/AirType'
 import { AirNotification } from './AirNotification'
 
 /**

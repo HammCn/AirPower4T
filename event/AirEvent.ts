@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { AirAny } from '../type/AirType'
-import { AirEventType } from './AirEventType'
+/* eslint-disable ts/no-unsafe-function-type */
+import type { AirAny } from '../type/AirType'
+import type { AirEventType } from './AirEventType'
 
 /**
  * # 事件

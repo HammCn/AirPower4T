@@ -1,10 +1,3 @@
-<template>
-  <div
-    v-loading="isLoading"
-    class="air-login big-loading"
-  />
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
@@ -15,6 +8,14 @@ window.location.replace(
   `${AirConfig.oauthUrl}?appKey=${AirConfig.appKey}&redirectUri=${encodeURIComponent(`${window.location.origin}/callback`)}`,
 )
 </script>
+
+<template>
+  <div
+    v-loading="isLoading"
+    class="air-login big-loading"
+  />
+</template>
+
 <style lang="scss" scoped>
 .air-login {
   position: fixed;

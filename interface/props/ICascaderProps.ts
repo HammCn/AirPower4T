@@ -1,4 +1,4 @@
-import { ITreeProps } from './ITreeProps'
+import type { ITreeProps } from './ITreeProps'
 
 /**
  * # 级联面板配置项

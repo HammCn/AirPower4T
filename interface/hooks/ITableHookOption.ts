@@ -1,6 +1,6 @@
-import { Component } from 'vue'
-import { AirEntity } from '../../base/AirEntity'
-import { AirRequestPage } from '../../model/AirRequestPage'
+import type { Component } from 'vue'
+import type { AirEntity } from '../../base/AirEntity'
+import type { AirRequestPage } from '../../model/AirRequestPage'
 
 /**
  * # 表格相关的根级配置项
@@ -46,6 +46,6 @@ export interface ITableHookOption<E extends AirEntity> {
    *
    * @param requestData 请求对象
    */
-  // eslint-disable-next-line no-unused-vars
+
   beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E> | void
 }

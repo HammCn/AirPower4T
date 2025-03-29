@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-
-/* eslint-disable camelcase */
-
 /**
  * # 标准时间格式化
  * @author Hamm.cn

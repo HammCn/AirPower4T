@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 排序方式枚举
  * @author Hamm.cn

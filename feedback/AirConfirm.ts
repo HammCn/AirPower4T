@@ -1,7 +1,7 @@
 import { ElMessageBox } from 'element-plus'
 import { AirFeedbackType } from '../enum/AirFeedbackType'
-import { AirAlert } from './AirAlert'
 import { AirI18n } from '../helper/AirI18n'
+import { AirAlert } from './AirAlert'
 
 /**
  * # 确认弹窗类
@@ -138,7 +138,7 @@ export class AirConfirm extends AirAlert {
           resolve()
         })
         .catch(() => {
-          reject()
+          reject(new Error('用户取消了操作'))
         })
     })
   }

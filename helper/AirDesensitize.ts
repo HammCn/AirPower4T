@@ -29,7 +29,8 @@ export class AirDesensitize {
     for (let i = 0; i < text.length; i += 1) {
       if (i >= head && i <= text.length - tail - 1) {
         str += symbol
-      } else {
+      }
+      else {
         str += text[i]
       }
     }

@@ -1,19 +1,8 @@
-<template>
-  <el-menu
-    :default-active="defaultMenu"
-    :router="true"
-    :unique-opened="uniqueOpened"
-    class="air-menu-tree"
-  >
-    <ChildMenu :menu-list="menuList" />
-  </el-menu>
-</template>
-
 <script lang="ts" setup>
+import type { IMenu } from '../interface/IMenu'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ChildMenu from './menu/ChildMenu.vue'
-import { IMenu } from '../interface/IMenu'
 
 defineProps({
   /**
@@ -58,6 +47,17 @@ watch(
   },
 )
 </script>
+
+<template>
+  <el-menu
+    :default-active="defaultMenu"
+    :router="true"
+    :unique-opened="uniqueOpened"
+    class="air-menu-tree"
+  >
+    <ChildMenu :menu-list="menuList" />
+  </el-menu>
+</template>
 
 <style lang="scss">
 .air-menu-tree {

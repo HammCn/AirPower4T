@@ -1,14 +1,14 @@
-import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { IValidateRule } from '../interface/IValidateRule'
-import { AirValidator } from '../helper/AirValidator'
-import { AirEntity } from './AirEntity'
-import { AirRequest } from '../model/AirRequest'
-import { AirResponsePage } from '../model/AirResponsePage'
-import { IJson } from '../interface/IJson'
-import { AirAbstractService } from './AirAbstractService'
-import { ClassConstructor } from '../type/AirType'
+import type { IJson } from '../interface/IJson'
+import type { IValidateRule } from '../interface/IValidateRule'
+import type { AirRequest } from '../model/AirRequest'
+import type { ClassConstructor } from '../type/AirType'
+import type { AirEntity } from './AirEntity'
 import AirEvent from '../event/AirEvent'
 import { AirEventType } from '../event/AirEventType'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { AirValidator } from '../helper/AirValidator'
+import { AirResponsePage } from '../model/AirResponsePage'
+import { AirAbstractService } from './AirAbstractService'
 
 /**
  * # 实体 `API` 服务超类
@@ -75,8 +75,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param moreRule `可选` 更多的验证规则
    */
   static createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
     return AirValidator.createRules(form, this.newInstance(), moreRule)
   }
 
@@ -86,8 +86,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @param apiUrl `可选` 自定义请求URL
    */
   async getPage(request: AirRequest<E>, apiUrl = this.urlForGetPage): Promise<AirResponsePage<E>> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
     const responsePage: AirResponsePage<E> = await this.api(apiUrl).request(request, AirResponsePage)
     responsePage.list = AirClassTransformer.parseArray(responsePage.list as IJson[], this.entityClass)
     return responsePage
@@ -173,7 +173,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     try {
       await this.api(apiUrl).callbackError().post(instance)
       AirEvent.emit(AirEventType.DELETE_SUCCESS, title, message, instance)
-    } catch (err) {
+    }
+    catch (err) {
       AirEvent.emit(AirEventType.DELETE_FAIL, '删除失败', (err as Error).message, instance)
     }
   }
@@ -190,7 +191,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     try {
       await this.api(apiUrl).callbackError().addHttpHeader('a', 'b').post(instance)
       AirEvent.emit(AirEventType.DISABLE_SUCCESS, title, message, instance)
-    } catch (err) {
+    }
+    catch (err) {
       AirEvent.emit(AirEventType.ENABLE_FAIL, '禁用失败', (err as Error).message, instance)
     }
   }
@@ -207,7 +209,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
     try {
       await this.api(apiUrl).callbackError().post(this.newEntityInstance(id))
       AirEvent.emit(AirEventType.ENABLE_SUCCESS, title, message, instance)
-    } catch (err) {
+    }
+    catch (err) {
       AirEvent.emit(AirEventType.ENABLE_FAIL, '启用失败', (err as Error).message, instance)
     }
   }
@@ -217,8 +220,8 @@ export abstract class AirAbstractEntityService<E extends AirEntity> extends AirA
    * @deprecated
    */
   createValidator<E extends AirEntity>(form: E, moreRule: IValidateRule<E> = {}): IValidateRule<E> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
     return AirValidator.createRules(form, this, moreRule)
   }
 

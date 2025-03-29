@@ -1,61 +1,15 @@
-<template>
-  <div class="air-user">
-    <div
-      class="air-user-head"
-      @click="isDialogShow = true"
-    >
-      <el-image :src="userAvatar" />
-    </div>
-    <div
-      v-if="isDialogShow"
-      class="air-user-cover"
-      @click.self="isDialogShow = false"
-    />
-    <transition name="search">
-      <div
-        v-if="isDialogShow"
-        :style="{ width: width + 'px', height: height + 'px' }"
-        class="air-user-dialog"
-      >
-        <div class="air-user-header">
-          <div class="air-user-title">
-            <slot name="title">
-              {{ user.nickname }}
-            </slot>
-          </div>
-          <div class="air-user-logout">
-            <el-button
-              text
-              type="danger"
-              @click="logout"
-            >
-              <el-icon>
-                <SwitchButton />
-              </el-icon>
-              {{ AirI18n.get().Logout || '退出登录' }}
-            </el-button>
-          </div>
-        </div>
-        <div class="air-user-body">
-          <slot>
-            <div class="slot">User Profile Card...</div>
-          </slot>
-        </div>
-      </div>
-    </transition>
-  </div>
-</template>
 <script lang="ts" setup>
-import { computed, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import type { IUser } from '../interface/IUser'
 import { SwitchButton } from '@element-plus/icons-vue'
+import { computed, ref } from 'vue'
+import defaultAvatar from '../assets/img/avatar.svg'
 import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
-import { IUser } from '../interface/IUser'
-import defaultAvatar from '../assets/img/avatar.svg'
 import { AirFile } from '../helper/AirFile'
 import { AirI18n } from '../helper/AirI18n'
-import { AirRouter } from '../helper/AirRouter'
 import { AirPermission } from '../helper/AirPermission'
+import { AirRouter } from '../helper/AirRouter'
 
 const props = defineProps({
   /**
@@ -110,6 +64,57 @@ async function logout() {
   }
 }
 </script>
+
+<template>
+  <div class="air-user">
+    <div
+      class="air-user-head"
+      @click="isDialogShow = true"
+    >
+      <el-image :src="userAvatar" />
+    </div>
+    <div
+      v-if="isDialogShow"
+      class="air-user-cover"
+      @click.self="isDialogShow = false"
+    />
+    <transition name="search">
+      <div
+        v-if="isDialogShow"
+        :style="{ width: `${width}px`, height: `${height}px` }"
+        class="air-user-dialog"
+      >
+        <div class="air-user-header">
+          <div class="air-user-title">
+            <slot name="title">
+              {{ user.nickname }}
+            </slot>
+          </div>
+          <div class="air-user-logout">
+            <el-button
+              text
+              type="danger"
+              @click="logout"
+            >
+              <el-icon>
+                <SwitchButton />
+              </el-icon>
+              {{ AirI18n.get().Logout || '退出登录' }}
+            </el-button>
+          </div>
+        </div>
+        <div class="air-user-body">
+          <slot>
+            <div class="slot">
+              User Profile Card...
+            </div>
+          </slot>
+        </div>
+      </div>
+    </transition>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .air-user {
   display: flex;

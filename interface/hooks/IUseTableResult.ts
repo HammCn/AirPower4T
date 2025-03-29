@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { AirEntity } from '../../base/AirEntity'
-import { ITableHookResult } from './ITableHookResult'
-import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { AirEntity } from '../../base/AirEntity'
+import type { ITableHookResult } from './ITableHookResult'
 
 /**
  * # 表格的 `Hook` 标准返回

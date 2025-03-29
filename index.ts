@@ -1,39 +1,39 @@
 /* eslint-disable no-console */
-import './config/AirGlobal'
+import type { AirAny } from './type/AirType'
 
-// 引入Vue createApp
-import { createApp } from 'vue'
-
-import './assets/css/iconfont/iconfont.css'
+import * as Icons from '@element-plus/icons-vue'
 
 // 引入Element Plus
 import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import './assets/css/element.rewrite.scss'
-import * as Icons from '@element-plus/icons-vue'
-
-// 引入样式
-import './assets/css/animation.scss'
-import './assets/css/font.css'
-import './assets/css/global.scss'
 
 // Element Plus 中文
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-
 // 入口视图
 import { createPinia } from 'pinia'
+// 引入Vue createApp
+import { createApp } from 'vue'
 import App from './App.vue'
 
 // AirConfig
 import { AirConfig } from './config/AirConfig'
-import { AirStore } from './store/AirStore'
-import { AirVersion } from './helper/AirVersion'
-import { AirAny } from './type/AirType'
 import AirEvent from './event/AirEvent'
 import { AirEventType } from './event/AirEventType'
+
 import { AirAlert } from './feedback/AirAlert'
+
 import { AirNotification } from './feedback/AirNotification'
 import { AirI18n } from './helper/AirI18n'
+
+import { AirVersion } from './helper/AirVersion'
+import { AirStore } from './store/AirStore'
+import './config/AirGlobal'
+import './assets/css/iconfont/iconfont.css'
+import 'element-plus/dist/index.css'
+import './assets/css/element.rewrite.scss'
+// 引入样式
+import './assets/css/animation.scss'
+import './assets/css/font.css'
+import './assets/css/global.scss'
 
 // Vue初始化
 const app = createApp(App)

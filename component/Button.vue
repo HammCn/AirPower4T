@@ -1,53 +1,11 @@
-<template>
-  <el-link
-    v-if="iconButton"
-    v-tip="permissionTips"
-    :class="customClass"
-    :disabled="isDisabled"
-    :type="danger ? 'danger' : 'default'"
-    :underline="false"
-    class="air-button"
-    @click="
-      $emit('onClick')
-      $emit('click')
-    "
-  >
-    <i
-      :class="showIcon"
-      class="airpower"
-    />
-  </el-link>
-  <el-button
-    v-else
-    v-tip="permissionTips"
-    :class="customClass"
-    :disabled="isDisabled"
-    :link="linkButton"
-    :type="danger ? 'danger' : primary ? 'primary' : 'default'"
-    class="air-button"
-    @click="
-      $emit('onClick')
-      $emit('click')
-    "
-  >
-    <i
-      v-if="showIcon && !linkButton"
-      :class="showIcon"
-      class="airpower"
-      style="margin-right: 5px"
-    />
-    <slot />
-  </el-button>
-</template>
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
-import { AirIcon } from '../enum/AirIcon'
-import { AirIconType } from '../type/AirType'
+import type { PropType } from 'vue'
+import type { AirIconType } from '../type/AirType'
+import { computed } from 'vue'
 import { AirConfig } from '../config/AirConfig'
+import { AirIcon } from '../enum/AirIcon'
 import { AirI18n } from '../helper/AirI18n'
 import { AirPermission } from '../helper/AirPermission'
-
-defineEmits(['click', 'onClick'])
 
 const props = defineProps({
   /**
@@ -138,6 +96,8 @@ const props = defineProps({
   },
 })
 
+defineEmits(['click', 'onClick'])
+
 /**
  * # 权限提示
  */
@@ -169,4 +129,47 @@ const isDisabled = computed(() => {
  */
 const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
 </script>
+
+<template>
+  <el-link
+    v-if="iconButton"
+    v-tip="permissionTips"
+    :class="customClass"
+    :disabled="isDisabled"
+    :type="danger ? 'danger' : 'default'"
+    :underline="false"
+    class="air-button"
+    @click="
+      $emit('onClick')
+      $emit('click')
+    "
+  >
+    <i
+      :class="showIcon"
+      class="airpower"
+    />
+  </el-link>
+  <el-button
+    v-else
+    v-tip="permissionTips"
+    :class="customClass"
+    :disabled="isDisabled"
+    :link="linkButton"
+    :type="danger ? 'danger' : primary ? 'primary' : 'default'"
+    class="air-button"
+    @click="
+      $emit('onClick')
+      $emit('click')
+    "
+  >
+    <i
+      v-if="showIcon && !linkButton"
+      :class="showIcon"
+      class="airpower"
+      style="margin-right: 5px"
+    />
+    <slot />
+  </el-button>
+</template>
+
 <style lang="scss" scoped></style>

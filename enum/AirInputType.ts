@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 允许输入的数据类型枚举
  * @author Hamm.cn
@@ -20,7 +18,7 @@ export enum AirInputType {
   /**
    * ### 汉字
    */
-  CHINESE = '\u4e00-\u9fa5',
+  CHINESE = '\u4E00-\u9FA5',
 
   /**
    * ### 常见全角符号

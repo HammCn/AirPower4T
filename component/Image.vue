@@ -1,75 +1,16 @@
-<template>
-  <div
-    :style="{ width: width + 'px', height: height + 'px' }"
-    class="air-image"
-  >
-    <el-image
-      :preview-src-list="[imageUrl]"
-      :src="imageUrl"
-      :z-index="99"
-      fit="contain"
-      lazy
-      preview-teleported
-    >
-      <template #error>
-        <div class="image-error">
-          {{
-            placeholder ||
-            (upload && entity ? AirI18n.get().UploadImage || '上传图片' : AirI18n.get().NoPicture || '暂无图片')
-          }}
-        </div>
-      </template>
-    </el-image>
-    <div
-      v-if="uploadHeader && upload"
-      v-loading="isUploading"
-      :class="imageUrl ? 'image-preview-color' : ''"
-      class="image-upload"
-    >
-      <el-upload
-        v-if="!imageUrl"
-        :action="uploadUrl"
-        :before-upload="beforeUpload"
-        :data="data"
-        :headers="uploadHeader"
-        :name="uploadFileName"
-        :on-error="onUploadError"
-        :on-success="onUploadSuccess"
-        :show-file-list="false"
-        class="image-upload-box"
-      />
-    </div>
-    <div
-      v-if="imageUrl && upload && entity"
-      class="action"
-    >
-      <el-icon
-        v-if="clearable"
-        @click="imageRemoved"
-      >
-        <CircleCloseFilled />
-      </el-icon>
-    </div>
-  </div>
-</template>
-
 <script generic="F extends IFile" lang="ts" setup>
-import { computed, PropType, ref, watch } from 'vue'
+import type { PropType } from 'vue'
+import type { IFile } from '../interface/IFile'
 
+import type { IJson } from '../interface/IJson'
+import type { ClassConstructor } from '../type/AirType'
 import { CircleCloseFilled } from '@element-plus/icons-vue'
+import { computed, ref, watch } from 'vue'
+import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
-import { AirConfig } from '../config/AirConfig'
-import { IFile } from '../interface/IFile'
-import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
-import { ClassConstructor } from '../type/AirType'
-
-const emits = defineEmits<{
-  onUpload: [file: F]
-  onRemove: []
-}>()
 
 const props = defineProps({
   /**
@@ -110,7 +51,8 @@ const props = defineProps({
    */
   headers: {
     type: Object as PropType<IJson>,
-    default: () => {},
+    default: () => {
+    },
   },
 
   /**
@@ -118,7 +60,8 @@ const props = defineProps({
    */
   data: {
     type: Object as PropType<IJson>,
-    default: () => {},
+    default: () => {
+    },
   },
 
   /**
@@ -187,6 +130,11 @@ const props = defineProps({
     default: AirConfig.fileEntityClass,
   },
 })
+
+const emits = defineEmits<{
+  onUpload: [file: F]
+  onRemove: []
+}>()
 
 /**
  * # 真实上传地址
@@ -285,8 +233,11 @@ function onUploadError() {
 /**
  * # 上传成功事件
  * @param response 成功响应
+ * @param response.code 响应码
+ * @param response.data 响应数据
+ * @param response.data.url 文件地址
  */
-function onUploadSuccess(response: { code: number; data: { url: string } }) {
+function onUploadSuccess(response: { code: number, data: { url: string } }) {
   if (response.code === AirConfig.successCode) {
     const entityData = AirClassTransformer.parse(response.data, props.entity)
     if (entityData && entityData.url) {
@@ -300,6 +251,62 @@ function onUploadSuccess(response: { code: number; data: { url: string } }) {
 
 init()
 </script>
+
+<template>
+  <div
+    :style="{ width: `${width}px`, height: `${height}px` }"
+    class="air-image"
+  >
+    <el-image
+      :preview-src-list="[imageUrl]"
+      :src="imageUrl"
+      :z-index="99"
+      fit="contain"
+      lazy
+      preview-teleported
+    >
+      <template #error>
+        <div class="image-error">
+          {{
+            placeholder
+              || (upload && entity ? AirI18n.get().UploadImage || '上传图片' : AirI18n.get().NoPicture || '暂无图片')
+          }}
+        </div>
+      </template>
+    </el-image>
+    <div
+      v-if="uploadHeader && upload"
+      v-loading="isUploading"
+      :class="imageUrl ? 'image-preview-color' : ''"
+      class="image-upload"
+    >
+      <el-upload
+        v-if="!imageUrl"
+        :action="uploadUrl"
+        :before-upload="beforeUpload"
+        :data="data"
+        :headers="uploadHeader"
+        :name="uploadFileName"
+        :on-error="onUploadError"
+        :on-success="onUploadSuccess"
+        :show-file-list="false"
+        class="image-upload-box"
+      />
+    </div>
+    <div
+      v-if="imageUrl && upload && entity"
+      class="action"
+    >
+      <el-icon
+        v-if="clearable"
+        @click="imageRemoved"
+      >
+        <CircleCloseFilled />
+      </el-icon>
+    </div>
+  </div>
+</template>
+
 <style lang="scss">
 .air-image {
   display: inline-block;

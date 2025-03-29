@@ -1,9 +1,9 @@
-import { Ref } from 'vue'
-import { AirFormInstance } from '../../type/AirType'
-import { IValidateRule } from '../IValidateRule'
-import { AirEntity } from '../../base/AirEntity'
-import { IUseDetailResult } from './IUseDetailResult'
-import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { Ref } from 'vue'
+import type { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { AirEntity } from '../../base/AirEntity'
+import type { AirFormInstance } from '../../type/AirType'
+import type { IValidateRule } from '../IValidateRule'
+import type { IUseDetailResult } from './IUseDetailResult'
 
 /**
  * # `Editor` 的 `Hook` 标准返回

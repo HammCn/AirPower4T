@@ -1,59 +1,6 @@
-<template>
-  <div
-    :class="isFullScreen ? 'fullscreen' : ''"
-    class="air-panel"
-  >
-    <div
-      v-if="showTitle"
-      class="panel-header"
-    >
-      <div class="panel-left">
-        <div
-          v-if="!hideIcon"
-          class="panel-icon"
-        >
-          <slot name="icon" />
-        </div>
-        <div
-          v-if="title"
-          class="panel-title"
-        >
-          {{ title }}
-        </div>
-      </div>
-      <div class="panel-right">
-        <slot name="headerRight" />
-        <div
-          v-if="allowFullscreen"
-          class="panel-full"
-          @click="isFullScreen = !isFullScreen"
-        >
-          <el-icon>
-            <FullScreen />
-          </el-icon>
-        </div>
-      </div>
-    </div>
-    <div class="panel-body">
-      <slot />
-    </div>
-    <div
-      v-if="!hideFooter"
-      class="panel-footer"
-    >
-      <div class="panel-footer-left">
-        <slot name="footerLeft" />
-      </div>
-      <div class="panel-footer-right">
-        <slot name="footerRight" />
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { FullScreen } from '@element-plus/icons-vue'
+import { ref } from 'vue'
 import { AirRouter } from '../helper/AirRouter'
 
 defineProps({
@@ -112,6 +59,59 @@ defineProps({
  */
 const isFullScreen = ref(false)
 </script>
+
+<template>
+  <div
+    :class="isFullScreen ? 'fullscreen' : ''"
+    class="air-panel"
+  >
+    <div
+      v-if="showTitle"
+      class="panel-header"
+    >
+      <div class="panel-left">
+        <div
+          v-if="!hideIcon"
+          class="panel-icon"
+        >
+          <slot name="icon" />
+        </div>
+        <div
+          v-if="title"
+          class="panel-title"
+        >
+          {{ title }}
+        </div>
+      </div>
+      <div class="panel-right">
+        <slot name="headerRight" />
+        <div
+          v-if="allowFullscreen"
+          class="panel-full"
+          @click="isFullScreen = !isFullScreen"
+        >
+          <el-icon>
+            <FullScreen />
+          </el-icon>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <slot />
+    </div>
+    <div
+      v-if="!hideFooter"
+      class="panel-footer"
+    >
+      <div class="panel-footer-left">
+        <slot name="footerLeft" />
+      </div>
+      <div class="panel-footer-right">
+        <slot name="footerRight" />
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .air-panel {

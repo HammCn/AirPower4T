@@ -1,54 +1,3 @@
-<template>
-  <ADialog
-    :allow-fullscreen="false"
-    :confirm-text="confirmText"
-    :hide-footer="!confirmText"
-    :title="title"
-    class="upload-dialog"
-    hide-cancel
-    min-height="220px"
-    @on-cancel="onCancel()"
-    @on-confirm="onCustomConfirm()"
-  >
-    <div
-      v-loading="loading"
-      class="file-upload-pack"
-    >
-      <el-upload
-        v-if="entity"
-        :action="url"
-        :before-upload="uploadReady"
-        :data="data"
-        :headers="uploadHeader"
-        :name="uploadName"
-        :on-error="onUploadError"
-        :on-success="onUploadSuccess"
-        :show-file-list="false"
-        class="upload"
-        drag
-      >
-        <div class="el-upload__text">
-          <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
-          <span>
-            {{ AirI18n.get().FileSize || '文件大小: ' }}
-            <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
-            {{ AirI18n.get().FileExt || '文件格式: ' }}
-            <template v-if="!extensions.includes('*')">
-              <b>{{ extensions.join('/') }}</b>
-            </template>
-          </span>
-          <div
-            v-if="tips"
-            class="tips"
-          >
-            {{ tips }}
-          </div>
-        </div>
-      </el-upload>
-    </div>
-  </ADialog>
-</template>
-
 <script generic="F extends IFile" lang="ts" setup>
 import { computed, PropType, ref } from 'vue'
 import { ADialog } from '.'
@@ -278,6 +227,57 @@ function onUploadSuccess(result: IJson) {
   }
 }
 </script>
+<template>
+  <ADialog
+    :allow-fullscreen="false"
+    :confirm-text="confirmText"
+    :hide-footer="!confirmText"
+    :title="title"
+    class="upload-dialog"
+    hide-cancel
+    min-height="220px"
+    @on-cancel="onCancel()"
+    @on-confirm="onCustomConfirm()"
+  >
+    <div
+      v-loading="loading"
+      class="file-upload-pack"
+    >
+      <el-upload
+        v-if="entity"
+        :action="url"
+        :before-upload="uploadReady"
+        :data="data"
+        :headers="uploadHeader"
+        :name="uploadName"
+        :on-error="onUploadError"
+        :on-success="onUploadSuccess"
+        :show-file-list="false"
+        class="upload"
+        drag
+      >
+        <div class="el-upload__text">
+          <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
+          <span>
+            {{ AirI18n.get().FileSize || '文件大小: ' }}
+            <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
+            {{ AirI18n.get().FileExt || '文件格式: ' }}
+            <template v-if="!extensions.includes('*')">
+              <b>{{ extensions.join('/') }}</b>
+            </template>
+          </span>
+          <div
+            v-if="tips"
+            class="tips"
+          >
+            {{ tips }}
+          </div>
+        </div>
+      </el-upload>
+    </div>
+  </ADialog>
+</template>
+
 <style lang="scss">
 .upload-dialog {
   .body {

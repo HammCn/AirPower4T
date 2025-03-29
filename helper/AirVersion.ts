@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import ElementPlus from 'element-plus'
 import { AirConstant } from '../config/AirConstant'
 
@@ -45,10 +44,10 @@ export class AirVersion {
    * @returns 版本号数字
    */
   static parseVersion(version: string, separator = AirConstant.STRING_DOT, padding = this.VERSION_LENGTH): number {
-    return parseInt(
+    return Number.parseInt(
       version
         .split(separator)
-        .map((item) => item.padStart(padding, AirConstant.STRING_ZERO))
+        .map(item => item.padStart(padding, AirConstant.STRING_ZERO))
         .join(AirConstant.STRING_EMPTY),
       10,
     )

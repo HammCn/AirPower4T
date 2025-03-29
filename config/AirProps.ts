@@ -1,6 +1,6 @@
-import { PropType } from 'vue'
-import { AirEntity } from '../base/AirEntity'
-import { AirAny } from '../type/AirType'
+import type { PropType } from 'vue'
+import type { AirEntity } from '../base/AirEntity'
+import type { AirAny } from '../type/AirType'
 
 /**
  * # 使用无参 `DialogProps` 配置
@@ -13,7 +13,7 @@ export function airProps() {
      * 如果给 `ADialog` 传入了 `form` 表单的 `ref` 实体对象, 则校验通过之后才会回调此方法
      */
     onConfirm: {
-      // eslint-disable-next-line no-unused-vars
+
       type: Function as PropType<(data?: AirAny) => void>,
       default: () => () => {
         // console.log('On Confirm')

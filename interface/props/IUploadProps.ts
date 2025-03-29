@@ -1,6 +1,6 @@
-import { ClassConstructor } from '../../type/AirType'
-import { IFile } from '../IFile'
-import { IJson } from '../IJson'
+import type { ClassConstructor } from '../../type/AirType'
+import type { IFile } from '../IFile'
+import type { IJson } from '../IJson'
 
 /**
  * # 上传配置项
@@ -55,7 +55,7 @@ export interface IUploadProps {
    * 如果传入了回调, `AirDialog.showUpload()` 将返回 `null`
    * 请在此回调中接收数据
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line ts/no-unsafe-function-type
   onCustomSuccess?: Function
 
   /**

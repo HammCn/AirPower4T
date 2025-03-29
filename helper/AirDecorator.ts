@@ -1,10 +1,10 @@
-import { AirFieldConfig } from '../config/AirFieldConfig'
-import { IJson } from '../interface/IJson'
-import { AirClassTransformer } from './AirClassTransformer'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirAny, AirDecoratorData, AirDecoratorTarget, AirEnumKey, ClassConstructor } from '../type/AirType'
-import { AirEnum } from '../base/AirEnum'
+import type { AirEnum } from '../base/AirEnum'
+import type { AirFieldConfig } from '../config/AirFieldConfig'
+import type { IJson } from '../interface/IJson'
+import type { AirAny, AirDecoratorData, AirDecoratorTarget, AirEnumKey, ClassConstructor } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
+import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import { AirClassTransformer } from './AirClassTransformer'
 
 /**
  * # 装饰器助手类
@@ -142,7 +142,7 @@ export class AirDecorator {
    */
   static getFieldList(target: AirDecoratorTarget, fieldConfigKey: string, list: string[] = []): string[] {
     const fieldList: string[] = Reflect.get(target, fieldConfigKey) || []
-    fieldList.forEach((item) => list.includes(item) || list.push(item))
+    fieldList.forEach(item => list.includes(item) || list.push(item))
     const superClass = Reflect.getPrototypeOf(target)
     if (!superClass || superClass.constructor.name === AirConstant.AIR_MODEL) {
       return list
@@ -172,7 +172,6 @@ export class AirDecorator {
     for (const fieldName of keyList) {
       const config = this.getFieldConfig(target, fieldName, fieldConfigKey)
       if (!config) {
-        // eslint-disable-next-line no-continue
         continue
       }
       const defaultConfig = new FieldConfigClass()

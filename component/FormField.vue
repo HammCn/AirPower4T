@@ -1,47 +1,14 @@
-<template>
-  <el-form-item
-    :label="entityInstance.getFormFieldLabel(field)"
-    :prop="field"
-  >
-    <slot>
-      <AInput
-        v-model="formData[field]"
-        :disabled="disabled"
-        :disabled-value="disabledValue"
-        :entity="entityClass"
-        :list="list"
-        :model-modifiers="{ field }"
-        :modifier="field"
-        :readonly="readonly"
-        :tree="tree"
-        @blur="
-          emits('blur')
-          emits('onBlur')
-        "
-        @change="onChange($event)"
-        @clear="
-          emits('clear')
-          emits('onClear')
-        "
-        @focus="
-          emits('focus')
-          emits('onFocus')
-        "
-      />
-    </slot>
-  </el-form-item>
-</template>
-
 <script generic="E extends AirEntity" lang="ts" setup>
-import { computed, inject, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import type { AirEntity } from '../base/AirEntity'
+import type { IDictionary } from '../interface/IDictionary'
+import type { IJson } from '../interface/IJson'
+import type { ITree } from '../interface/ITree'
+import type { ClassConstructor } from '../type/AirType'
 import { ElFormItem } from 'element-plus'
-import { AirEntity } from '../base/AirEntity'
-import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { computed, inject, ref } from 'vue'
 import { AInput } from '.'
-import { IJson } from '../interface/IJson'
-import { IDictionary } from '../interface/IDictionary'
-import { ITree } from '../interface/ITree'
-import { ClassConstructor } from '../type/AirType'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 
 const props = defineProps({
   /**
@@ -114,15 +81,15 @@ const props = defineProps({
 })
 
 const emits = defineEmits<{
-  onChange: [value: E]
-  change: [value: E]
+  'onChange': [value: E]
+  'change': [value: E]
   'update:modelValue': [value: E]
-  blur: []
-  onBlur: []
-  focus: []
-  onFocus: []
-  onClear: []
-  clear: []
+  'blur': []
+  'onBlur': []
+  'focus': []
+  'onFocus': []
+  'onClear': []
+  'clear': []
 }>()
 
 if (!props.field) {
@@ -171,3 +138,37 @@ function onChange(val: unknown) {
   }
 }
 </script>
+
+<template>
+  <ElFormItem
+    :label="entityInstance.getFormFieldLabel(field)"
+    :prop="field"
+  >
+    <slot>
+      <AInput
+        v-model="formData[field]"
+        :disabled="disabled"
+        :disabled-value="disabledValue"
+        :entity="entityClass"
+        :list="list"
+        :model-modifiers="{ field }"
+        :modifier="field"
+        :readonly="readonly"
+        :tree="tree"
+        @blur="
+          emits('blur')
+          emits('onBlur')
+        "
+        @change="onChange($event)"
+        @clear="
+          emits('clear')
+          emits('onClear')
+        "
+        @focus="
+          emits('focus')
+          emits('onFocus')
+        "
+      />
+    </slot>
+  </ElFormItem>
+</template>

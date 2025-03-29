@@ -1,9 +1,10 @@
-import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router'
+import type { Router, RouteRecordRaw } from 'vue-router'
+import type { IMenu } from '../interface/IMenu'
+import { createRouter, createWebHistory } from 'vue-router'
 import { AirConfig } from '../config/AirConfig'
 import AirEvent from '../event/AirEvent'
 import { AirEventType } from '../event/AirEventType'
 import { AirNotification } from '../feedback/AirNotification'
-import { IMenu } from '../interface/IMenu'
 import { AirConsole } from './AirConsole'
 
 const modules = import.meta.glob('/src/view/**/*.vue')
@@ -114,7 +115,7 @@ export class AirRouter {
     for (const item of menuList) {
       if (item.children && item.children.length > 0) {
         this.reloadCacheMenuList(menuCacheKey, item.children)
-        // eslint-disable-next-line no-continue
+
         continue
       }
       const locationPathName = window.location.pathname

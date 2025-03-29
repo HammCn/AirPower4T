@@ -1,28 +1,3 @@
-<template>
-  <div
-    v-loading="isLoading"
-    class="air-error-page big-loading"
-  >
-    <div
-      v-if="errorCode !== AirConfig.successCode"
-      class="box"
-    >
-      <div class="code">
-        {{ errorCode }}
-      </div>
-      <div class="title">
-        {{ errorTitle }}
-      </div>
-      <div class="description">
-        {{ errorDesc }}
-        <router-link to="/">
-          {{ AirI18n.get().ReturnHome || '返回首页' }}
-        </router-link>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -106,6 +81,32 @@ watch(
   },
 )
 </script>
+
+<template>
+  <div
+    v-loading="isLoading"
+    class="air-error-page big-loading"
+  >
+    <div
+      v-if="errorCode !== AirConfig.successCode"
+      class="box"
+    >
+      <div class="code">
+        {{ errorCode }}
+      </div>
+      <div class="title">
+        {{ errorTitle }}
+      </div>
+      <div class="description">
+        {{ errorDesc }}
+        <router-link to="/">
+          {{ AirI18n.get().ReturnHome || '返回首页' }}
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .air-error-page {
   position: fixed;

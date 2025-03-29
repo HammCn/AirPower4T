@@ -1,16 +1,15 @@
-/* eslint-disable no-continue */
+import type { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
+import type { AirTableFieldConfig } from '../config/AirTableFieldConfig'
+import type { IFieldConfig } from '../interface/decorators/IFieldConfig'
+import type { IModelConfig } from '../interface/decorators/IModelConfig'
+import type { IJson } from '../interface/IJson'
+import type { ClassConstructor } from '../type/AirType'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { getModelConfig } from '../decorator/Model'
-import { getFormConfig, getFormConfigList } from '../decorator/Form'
 import { getFieldConfig, getToJson, getToModel } from '../decorator/Field'
+import { getFormConfig, getFormConfigList } from '../decorator/Form'
+import { getModelConfig } from '../decorator/Model'
 import { getSearchConfigList } from '../decorator/Search'
 import { getTableConfigList } from '../decorator/Table'
-import { IFieldConfig } from '../interface/decorators/IFieldConfig'
-import { IJson } from '../interface/IJson'
-import { IModelConfig } from '../interface/decorators/IModelConfig'
-import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 模型超类
@@ -39,7 +38,8 @@ export class AirModel {
         const instance: T = Object.assign(new this()) as T
         instanceList.push(AirModel.parse(instance, jsonArray[i]))
       }
-    } else {
+    }
+    else {
       const instance: T = Object.assign(new this()) as T
       instanceList.push(AirModel.parse(instance, jsonArray))
     }
@@ -70,8 +70,8 @@ export class AirModel {
         // 标记了手动转换到模型的自定义方法
         try {
           ;(instance as IJson)[fieldKey] = toModelFunction(json as IJson)
-        } catch (e) {
-          // eslint-disable-next-line no-console
+        }
+        catch (e) {
           console.warn('ToModel Function Error', e)
           continue
         }
@@ -107,7 +107,7 @@ export class AirModel {
           break
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          ;(instance as IJson)[fieldKey] = Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData)
+          ;(instance as IJson)[fieldKey] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
           break
         case 'Boolean':
           // 强制转换为布尔型
@@ -166,10 +166,8 @@ export class AirModel {
    * ### 创建一个当前类的实例
    * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
-  // eslint-disable-next-line no-unused-vars
+
   static newInstance<T extends AirModel>(this: ClassConstructor<T>, recoverBy?: IJson): T {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const instance = Object.assign(new this(), null) as T
     if (recoverBy) {
       return instance.recoverBy(recoverBy)
@@ -292,8 +290,8 @@ export class AirModel {
         // 如果标记了自定义转换JSON的方法
         try {
           json[fieldAliasName || fieldKey] = toJsonFunction(this)
-        } catch (e) {
-          // eslint-disable-next-line no-console
+        }
+        catch (e) {
           console.warn('ToJson Function Error', e)
         }
         continue

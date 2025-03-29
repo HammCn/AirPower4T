@@ -1,4 +1,4 @@
-import { AirEntity } from '../base/AirEntity'
+import type { AirEntity } from '../base/AirEntity'
 import { AirModel } from '../base/AirModel'
 import { Field } from '../decorator'
 import { AirPage } from './AirPage'

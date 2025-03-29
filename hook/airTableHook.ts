@@ -1,16 +1,17 @@
-import { Ref, ref } from 'vue'
-import { AirEntity } from '../base/AirEntity'
+import type { Ref } from 'vue'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirEntity } from '../base/AirEntity'
+import type { ITableHookOption } from '../interface/hooks/ITableHookOption'
+import type { ITableHookResult } from '../interface/hooks/ITableHookResult'
+import type { AirSort } from '../model/AirSort'
+import type { ClassConstructor } from '../type/AirType'
+import { ref } from 'vue'
+import { AirNotification } from '../feedback/AirNotification'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirDialog } from '../helper/AirDialog'
+import { AirPage } from '../model/AirPage'
 import { AirRequestPage } from '../model/AirRequestPage'
 import { AirResponsePage } from '../model/AirResponsePage'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { AirSort } from '../model/AirSort'
-import { AirPage } from '../model/AirPage'
-import { AirNotification } from '../feedback/AirNotification'
-import { ITableHookOption } from '../interface/hooks/ITableHookOption'
-import { ITableHookResult } from '../interface/hooks/ITableHookResult'
-import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 表格基础`Hook`
@@ -78,10 +79,12 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     }
     if (option.treeList) {
       list.value = await service.getTreeList(req, option.apiUrl)
-    } else if (!option.unPaginate) {
+    }
+    else if (!option.unPaginate) {
       response.value = await service.getPage(req, option.apiUrl)
       list.value = response.value.list
-    } else {
+    }
+    else {
       list.value = await service.getList(req, option.apiUrl)
     }
   }
@@ -117,7 +120,8 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     }
     try {
       await AirDialog.show(option.editView)
-    } finally {
+    }
+    finally {
       onGetList()
     }
   }
@@ -133,7 +137,8 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
     }
     try {
       await AirDialog.show(option.detailView, row)
-    } finally {
+    }
+    finally {
       onReloadData()
     }
   }

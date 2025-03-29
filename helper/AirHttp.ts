@@ -1,12 +1,13 @@
-import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
-import { Ref } from 'vue'
+import type { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
+import type { Ref } from 'vue'
+import type { AirModel } from '../base/AirModel'
+import type { IJson } from '../interface/IJson'
+import type { AirAny, ClassConstructor } from '../type/AirType'
+import axios from 'axios'
+import { AirConfig } from '../config/AirConfig'
+import { AirConstant } from '../config/AirConstant'
 import { AirHttpContentType } from '../enum/AirHttpContentType'
 import { AirHttpMethod } from '../enum/AirHttpMethod'
-import { AirConfig } from '../config/AirConfig'
-import { AirModel } from '../base/AirModel'
-import { IJson } from '../interface/IJson'
-import { AirAny, ClassConstructor } from '../type/AirType'
-import { AirConstant } from '../config/AirConstant'
 import AirEvent from '../event/AirEvent'
 import { AirEventType } from '../event/AirEventType'
 import { AirClassTransformer } from './AirClassTransformer'
@@ -56,8 +57,8 @@ export class AirHttp {
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL =
-      this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0
+    this.axiosRequestConfig.baseURL
+      = this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0
         ? AirConstant.STRING_EMPTY
         : AirConfig.apiUrl
     this.axiosRequestConfig.timeout = this.timeout
@@ -273,8 +274,9 @@ export class AirHttp {
     let json = {}
     if (postData) {
       if (Array.isArray(postData)) {
-        json = postData.map((item) => item.toJson())
-      } else {
+        json = postData.map(item => item.toJson())
+      }
+      else {
         json = postData.toJson()
       }
     }
@@ -315,13 +317,14 @@ export class AirHttp {
   get(params?: IJson): Promise<AirAny> {
     if (params) {
       const queryArray: string[] = []
-      // eslint-disable-next-line guard-for-in
+
       for (const key in params) {
         queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
       }
       if (this.url.includes(AirConstant.STRING_QUESTION)) {
         this.url += `&${queryArray.join(AirConstant.STRING_AND)}`
-      } else {
+      }
+      else {
         this.url += `?${queryArray.join(AirConstant.STRING_AND)}`
       }
     }

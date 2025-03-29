@@ -1,13 +1,13 @@
-import { AirEntity } from '../base/AirEntity'
-import { AirDialog } from '../helper/AirDialog'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { IUseTableOption } from '../interface/hooks/IUseTableOption'
-import { AirNotification } from '../feedback/AirNotification'
-import { IUseTableResult } from '../interface/hooks/IUseTableResult'
-import { airTableHook } from './airTableHook'
-import { AirI18n } from '../helper/AirI18n'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirEntity } from '../base/AirEntity'
+import type { IUseTableOption } from '../interface/hooks/IUseTableOption'
+import type { IUseTableResult } from '../interface/hooks/IUseTableResult'
+import type { ClassConstructor } from '../type/AirType'
 import { AirConfirm } from '../feedback/AirConfirm'
-import { ClassConstructor } from '../type/AirType'
+import { AirNotification } from '../feedback/AirNotification'
+import { AirDialog } from '../helper/AirDialog'
+import { AirI18n } from '../helper/AirI18n'
+import { airTableHook } from './airTableHook'
 
 /**
  * # 引入表格使用的`Hook`
@@ -37,7 +37,8 @@ export function useAirTable<E extends AirEntity, S extends AirAbstractEntityServ
     }
     try {
       await AirDialog.show(option.editView, row)
-    } finally {
+    }
+    finally {
       result.onGetList()
     }
   }

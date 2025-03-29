@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { AirEntity } from '../../base/AirEntity'
-import { IUseDetailOption } from './IUseDetailOption'
-import { IValidateRule } from '../IValidateRule'
+import type { AirEntity } from '../../base/AirEntity'
+import type { IValidateRule } from '../IValidateRule'
+import type { IUseDetailOption } from './IUseDetailOption'
 
 /**
  * # `Editor` 的 `Hook` 可选配置

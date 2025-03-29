@@ -1,7 +1,7 @@
 import { Field } from './Field'
 import { Form } from './Form'
-import { Table } from './Table'
 import { Model } from './Model'
 import { Search } from './Search'
+import { Table } from './Table'
 
-export { Field, Form, Table, Model, Search }
+export { Field, Form, Model, Search, Table }

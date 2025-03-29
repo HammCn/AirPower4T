@@ -1,18 +1,8 @@
-<template>
-  <el-link
-    v-tip="copyTips"
-    :underline="false"
-    class="air-copy"
-    @click="copy"
-  >
-    <slot>{{ content || '-' }}</slot>
-  </el-link>
-</template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { AirStore } from '../store/AirStore'
 import { AirClipboard } from '../helper/AirClipboard'
 import { AirI18n } from '../helper/AirI18n'
+import { AirStore } from '../store/AirStore'
 
 const props = defineProps({
   /**
@@ -56,6 +46,17 @@ async function copy() {
   }, 2000)
 }
 </script>
+
+<template>
+  <el-link
+    v-tip="copyTips"
+    :underline="false"
+    class="air-copy"
+    @click="copy"
+  >
+    <slot>{{ content || '-' }}</slot>
+  </el-link>
+</template>
 
 <style lang="scss" scoped>
 .air-copy {

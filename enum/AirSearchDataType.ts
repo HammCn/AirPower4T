@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 搜索的数据类型
  * @author Hamm.cn

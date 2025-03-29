@@ -1,10 +1,10 @@
-import { Ref } from 'vue'
-import { AirEntity } from '../../base/AirEntity'
-import { AirPage } from '../../model/AirPage'
-import { AirRequestPage } from '../../model/AirRequestPage'
-import { AirResponsePage } from '../../model/AirResponsePage'
-import { AirSort } from '../../model/AirSort'
-import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { Ref } from 'vue'
+import type { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { AirEntity } from '../../base/AirEntity'
+import type { AirPage } from '../../model/AirPage'
+import type { AirRequestPage } from '../../model/AirRequestPage'
+import type { AirResponsePage } from '../../model/AirResponsePage'
+import type { AirSort } from '../../model/AirSort'
 
 /**
  * # `TableHook` 的基础返回结构
@@ -57,7 +57,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param request 请求对象
    */
-  // eslint-disable-next-line no-unused-vars
+
   onSearch: (request: AirRequestPage<E>) => void
 
   /**
@@ -65,7 +65,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param page 分页对象
    */
-  // eslint-disable-next-line no-unused-vars
+
   onPageChanged: (page: AirPage) => void
 
   /**
@@ -73,7 +73,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param row 选择的行
    */
-  // eslint-disable-next-line no-unused-vars
+
   onDetail: (row: E) => void
 
   /**
@@ -86,7 +86,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param sort 排序对象
    */
-  // eslint-disable-next-line no-unused-vars
+
   onSortChanged: (sort?: AirSort) => void | Promise<void>
 
   /**
@@ -94,7 +94,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    *
    * @param list 选择的行列表
    */
-  // eslint-disable-next-line no-unused-vars
+
   onSelected: (list: E[]) => void
 
   /**

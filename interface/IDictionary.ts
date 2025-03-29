@@ -1,4 +1,4 @@
-import { AirColorString, AirEnumKey } from '../type/AirType'
+import type { AirColorString, AirEnumKey } from '../type/AirType'
 
 /**
  * # 标准字典
