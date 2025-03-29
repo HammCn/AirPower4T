@@ -12,7 +12,7 @@
       <template v-if="isLoading">
         <el-progress
           :duration="1"
-          :format="() => { }"
+          :format="() => {}"
           :indeterminate="true"
           :percentage="100"
           :stroke-width="10"
@@ -82,8 +82,9 @@ async function startLoop(fileCode: string) {
   try {
     const exportModel = new AirExportModel()
     exportModel.fileCode = fileCode
-    const downloadPath = await AirHttp.create(props.param.queryExportUrl).callbackError()
-      .post(exportModel) as unknown as string
+    const downloadPath = (await AirHttp.create(props.param.queryExportUrl)
+      .callbackError()
+      .post(exportModel)) as unknown as string
     isLoading.value = false
     exportFilePath.value = AirFile.getStaticFileUrl(downloadPath)
   } catch (e) {
@@ -109,11 +110,13 @@ async function createExportTask() {
   isLoading.value = true
   try {
     // 将请求的param参数发送到url对应的API上 开始创建一个任务
-    const exportRequest = props.param.param;
+    const exportRequest = props.param.param
 
     // 导出数据无需分页
-    (exportRequest as IJson).page = undefined
-    const fileCode: string = await AirHttp.create(props.param.createExportTaskUrl).post(exportRequest) as unknown as string
+    ;(exportRequest as IJson).page = undefined
+    const fileCode: string = (await AirHttp.create(props.param.createExportTaskUrl).post(
+      exportRequest,
+    )) as unknown as string
     // 轮询任务结果
     await startLoop(fileCode)
   } catch (e) {

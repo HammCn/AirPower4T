@@ -81,7 +81,6 @@ defineProps({
     default: 40,
   },
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -158,7 +157,7 @@ defineProps({
         .item {
           padding: 5px 15px;
           cursor: pointer;
-          transition: all .3s;
+          transition: all 0.3s;
           font-size: 14px;
           border-radius: 5px;
           color: var(--el-color-primary);

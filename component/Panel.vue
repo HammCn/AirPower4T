@@ -63,7 +63,7 @@ defineProps({
    */
   title: {
     type: String,
-    default: () => AirRouter.router.currentRoute.value.meta.name as string || '',
+    default: () => (AirRouter.router.currentRoute.value.meta.name as string) || '',
   },
 
   /**
@@ -191,7 +191,7 @@ const isFullScreen = ref(false)
     .panel-footer-left {
       flex-direction: row;
       justify-content: flex-start;
-      align-items: center
+      align-items: center;
     }
 
     .panel-footer-right {

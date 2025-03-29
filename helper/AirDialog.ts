@@ -86,12 +86,11 @@ export class AirDialog {
       app.use(ElementPlus, { locale: zhCn })
 
       // 注册全局组件
-      Object.keys(Icons)
-        .forEach((key) => {
-          if (app) {
-            app.component(key, Icons[key as keyof typeof Icons])
-          }
-        })
+      Object.keys(Icons).forEach((key) => {
+        if (app) {
+          app.component(key, Icons[key as keyof typeof Icons])
+        }
+      })
 
       this.currentDialogId += 1
       this.dialogIdList.unshift(this.currentDialogId)
@@ -153,7 +152,11 @@ export class AirDialog {
    * @param selectList `可选` 已选列表 将传入到目标对象的 `props.selectList` 参数上
    * @param param `可选` 普通参数 将传入到目标对象的 `props.param` 参数上
    */
-  static async selectList<E extends AirEntity>(view: Component, selectList: E[] = [], param: E | undefined = undefined): Promise<E[]> {
+  static async selectList<E extends AirEntity>(
+    view: Component,
+    selectList: E[] = [],
+    param: E | undefined = undefined,
+  ): Promise<E[]> {
     return this.build(view, {
       selectList,
       isMultiple: true,

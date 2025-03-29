@@ -3,9 +3,7 @@ import { AirFieldConfig } from './AirFieldConfig'
 import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import { AirConfig } from './AirConfig'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import {
-  AirSortable, AirTableAlign, AirTableFixed, ClassConstructor,
-} from '../type/AirType'
+import { AirSortable, AirTableAlign, AirTableFixed, ClassConstructor } from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 import { AirConstant } from './AirConstant'

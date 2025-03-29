@@ -13,7 +13,7 @@
         :suffix-icon="fieldConfig?.suffixIcon"
         :type="fieldConfig.dateType"
         :value-format="fieldConfig.dateFormatter"
-        style="width:100%"
+        style="width: 100%"
         @clear="onClear"
         @focus="emits('focus')"
         @keydown="onKeyDown"
@@ -29,7 +29,7 @@
         :readonly="readonly"
         :suffix-icon="fieldConfig?.suffixIcon"
         :value-format="fieldConfig.dateFormatter"
-        style="width:100%"
+        style="width: 100%"
         @clear="onClear"
         @focus="emits('focus')"
         @keydown="onKeyDown"
@@ -44,7 +44,7 @@
         :readonly="readonly"
         :style="{
           '--el-switch-on-color': getSwitchColor(true),
-          '--el-switch-off-color': getSwitchColor(false)
+          '--el-switch-off-color': getSwitchColor(false),
         }"
       />
       <el-radio-group
@@ -116,7 +116,7 @@
     </template>
 
     <el-cascader
-      v-else-if="(fieldConfig && tree)"
+      v-else-if="fieldConfig && tree"
       v-model="value"
       :clearable="fieldConfig?.clearable"
       :collapse-tags="fieldConfig?.collapseTags"
@@ -128,7 +128,7 @@
         label: 'name',
         multiple: fieldConfig?.multiple,
         emitPath: fieldConfig?.emitPath,
-        checkStrictly: fieldConfig?.checkStrictly
+        checkStrictly: fieldConfig?.checkStrictly,
       }"
       :readonly="readonly"
       :show-all-levels="fieldConfig?.showAllLevels"
@@ -142,16 +142,12 @@
     <el-input
       v-else
       v-model="value"
-      :autosize="fieldConfig?.autoSize ?
-        { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
-        : false
-      "
+      :autosize="fieldConfig?.autoSize ? { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows } : false"
       :clearable="fieldConfig?.clearable"
       :disabled="disabled"
       :max="fieldConfig?.max"
-      :maxlength="fieldConfig?.maxLength || (fieldConfig?.textarea
-        ? AirConfig.maxTextAreaLength :
-          AirConfig.maxTextLength)
+      :maxlength="
+        fieldConfig?.maxLength || (fieldConfig?.textarea ? AirConfig.maxTextAreaLength : AirConfig.maxTextLength)
       "
       :min="fieldConfig?.min ?? 0"
       :placeholder="placeholderRef"
@@ -196,9 +192,7 @@
 </template>
 
 <script generic="M extends AirModel" lang="ts" setup>
-import {
-  computed, PropType, ref, Ref, useSlots, watch,
-} from 'vue'
+import { computed, PropType, ref, Ref, useSlots, watch } from 'vue'
 
 import { CircleClose } from '@element-plus/icons-vue'
 import { AirModel } from '../base/AirModel'
@@ -220,7 +214,17 @@ import { AirDecorator } from '../helper/AirDecorator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
 import { ClassConstructor } from '../type/AirType'
 
-const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
+const emits = defineEmits([
+  'blur',
+  'onBlur',
+  'focus',
+  'onFocus',
+  'onChange',
+  'change',
+  'update:modelValue',
+  'onClear',
+  'clear',
+])
 const slots: IJson = useSlots()
 
 const props = defineProps({
@@ -409,9 +413,7 @@ function onPropsValueUpdated(newProps?: typeof props) {
   if (newProps) {
     if (newProps.disabled) {
       // disabled
-      value.value = newProps.disabledValue === undefined
-        ? newProps.modelValue
-        : newProps.disabledValue
+      value.value = newProps.disabledValue === undefined ? newProps.modelValue : newProps.disabledValue
     } else {
       value.value = newProps.modelValue
     }
@@ -434,7 +436,6 @@ const getShowFormatter = computed(() => {
         return 'YYYY'
       case AirDateTimeType.MONTH:
         return 'YYYY-MM'
-      default:
     }
   }
   return AirConfig.dateTimeFormatter
@@ -469,9 +470,7 @@ function getShowWordLimit(): boolean {
     return fieldConfig.value.showLimit
   }
   // 配置了装饰器 但没配置属性 读取默认值
-  return fieldConfig.value.textarea
-    ? AirConfig.showLengthLimitTextarea
-    : AirConfig.showLengthLimitInput
+  return fieldConfig.value.textarea ? AirConfig.showLengthLimitTextarea : AirConfig.showLengthLimitInput
 }
 
 /**
@@ -507,16 +506,17 @@ function checkNumberValue() {
     let tempValue = value.value as number | string | undefined | null
     const max = Math.min(fieldConfig.value.max ?? AirConfig.maxNumber, Number.MAX_SAFE_INTEGER)
     const min = Math.max(fieldConfig.value.min ?? AirConfig.minNumber, Number.MIN_SAFE_INTEGER)
-    if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidator.isNumber(tempValue.toString())) {
+    if (
+      tempValue !== '' &&
+      tempValue !== undefined &&
+      tempValue !== null &&
+      AirValidator.isNumber(tempValue.toString())
+    ) {
       tempValue = parseFloat(tempValue.toString())
       // 按最大值最小值做边界处理
       tempValue = Math.max(tempValue, min)
       tempValue = Math.min(tempValue, max)
-      tempValue = parseFloat(
-        tempValue.toFixed(
-          fieldConfig.value.precision ?? AirConfig.numberPrecision,
-        ),
-      )
+      tempValue = parseFloat(tempValue.toFixed(fieldConfig.value.precision ?? AirConfig.numberPrecision))
       value.value = tempValue
       value.value = parseFloat(value.value?.toString() || '0')
     }
@@ -539,12 +539,10 @@ function emitValue() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
-        value.value = value.value.toString()
-          .trim()
+        value.value = value.value.toString().trim()
         break
       case AirTrim.END:
-        value.value = value.value.toString()
-          .trimEnd()
+        value.value = value.value.toString().trimEnd()
         break
       default:
     }
@@ -582,16 +580,13 @@ function onBlur() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
-        value.value = value.value.toString()
-          .trim()
+        value.value = value.value.toString().trim()
         break
       case AirTrim.START:
-        value.value = value.value.toString()
-          .trimStart()
+        value.value = value.value.toString().trimStart()
         break
       case AirTrim.END:
-        value.value = value.value.toString()
-          .trimEnd()
+        value.value = value.value.toString().trimEnd()
         break
       default:
     }
@@ -627,18 +622,18 @@ function init() {
     fieldConfig.value = entityInstance.value.getCustomFormFieldConfig(fieldName.value)
 
     if (!placeholderRef.value) {
-      const field = fieldConfig.value?.label
-        || entityInstance.value.getFieldName(fieldName.value)
+      const field = fieldConfig.value?.label || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
       if (fieldConfig.value) {
         // 装饰了FormField
         if (
-          dictionary.value || fieldConfig.value.dictionary
-          || props.list
-          || props.tree
-          || fieldConfig.value.dateType !== undefined
+          dictionary.value ||
+          fieldConfig.value.dictionary ||
+          props.list ||
+          props.tree ||
+          fieldConfig.value.dateType !== undefined
         ) {
           // 传入了枚举值
           placeholderRef.value = AirI18n.get().SelectPlease || '请选择'

@@ -20,9 +20,9 @@
         v-else
         :disabled="disabled"
         @click="
-          result = undefined;
-          emitChange();
-          emitClear();
+          result = undefined
+          emitChange()
+          emitClear()
         "
       >
         {{ clearLabel }}
@@ -31,9 +31,7 @@
   </el-input>
 </template>
 <script generic="T extends IPayload" lang="ts" setup>
-import {
-  Component, computed, ModelRef, PropType,
-} from 'vue'
+import { Component, computed, ModelRef, PropType } from 'vue'
 import { AirDialog } from '../helper/AirDialog'
 import { IPayload } from '../interface/IPayload'
 
@@ -98,9 +96,9 @@ const props = defineProps({
 })
 
 const emits = defineEmits<{
-  change: [data: T | undefined],
-  onChange: [data: T | undefined],
-  clear: [],
+  change: [data: T | undefined]
+  onChange: [data: T | undefined]
+  clear: []
   onClear: []
 }>()
 
@@ -126,5 +124,4 @@ async function onSelect() {
   result.value = await AirDialog.show<T>(props.selector, props.param)
   emitChange()
 }
-
 </script>

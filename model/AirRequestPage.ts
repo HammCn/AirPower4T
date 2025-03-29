@@ -14,5 +14,5 @@ export class AirRequestPage<E extends AirEntity> extends AirRequest<E> {
   @Field({
     type: AirPage,
   })
-    page = new AirPage()
+  page = new AirPage()
 }

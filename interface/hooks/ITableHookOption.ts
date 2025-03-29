@@ -11,17 +11,17 @@ export interface ITableHookOption<E extends AirEntity> {
    * ### 不分页
    * 默认请求分页接口 如配置了 `treeList` 则此项自动失效
    */
-  unPaginate?: boolean,
+  unPaginate?: boolean
 
   /**
    * ### 请求专用的 `treeList` 接口
    */
-  treeList?: boolean,
+  treeList?: boolean
 
   /**
    * ### 默认的筛选器
    */
-  defaultFilter?: E,
+  defaultFilter?: E
 
   /**
    * ### 详情的视图 `Vue` 文件

@@ -29,7 +29,11 @@
     <div
       v-show="!isCollapse"
       :class="getBodyClass()"
-      :style="{ paddingTop: hideTitle ? '0' : '10px', minHeight: minHeight || 'auto', flexDirection: column === 1 ? 'column' : 'row' }"
+      :style="{
+        paddingTop: hideTitle ? '0' : '10px',
+        minHeight: minHeight || 'auto',
+        flexDirection: column === 1 ? 'column' : 'row',
+      }"
       class="group-body"
     >
       <slot />
@@ -227,12 +231,11 @@ function getBodyClass() {
         transition: color 0.3s;
 
         &:hover {
-          color: var(--primary-color)
+          color: var(--primary-color);
         }
       }
     }
   }
-
 }
 
 .air-group.auto-height {
@@ -246,7 +249,7 @@ function getBodyClass() {
     overflow: hidden;
     overflow-y: auto;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
   }
 }
 </style>

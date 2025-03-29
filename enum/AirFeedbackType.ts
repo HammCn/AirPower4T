@@ -28,5 +28,5 @@ export enum AirFeedbackType {
   /**
    * ### 不显示任何图标
    */
-  NONE = ''
+  NONE = '',
 }

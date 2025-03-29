@@ -20,7 +20,7 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   @Field({
     type: AirPage,
   })
-    page = new AirPage()
+  page = new AirPage()
 
   /**
    * ### 返回的排序信息
@@ -28,7 +28,7 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   @Field({
     type: AirSort,
   })
-    sort = new AirSort()
+  sort = new AirSort()
 
   /**
    * ### 返回总条数
@@ -36,7 +36,7 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   @Field({
     type: Number,
   })
-    total = 0
+  total = 0
 
   /**
    * ### 返回总页数
@@ -44,5 +44,5 @@ export class AirResponsePage<E extends AirEntity> extends AirModel {
   @Field({
     type: Number,
   })
-    pageCount = 0
+  pageCount = 0
 }

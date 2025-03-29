@@ -15,42 +15,42 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * ### 当前绑定的 `Loading` 状态
    * 请随意 `v-loading` 到你需要的地方
    */
-  isLoading: Ref<boolean>,
+  isLoading: Ref<boolean>
 
   /**
    * ### 响应数据
    */
-  response: Ref<AirResponsePage<E>>,
+  response: Ref<AirResponsePage<E>>
 
   /**
    * ### 请求数据
    */
-  request: Ref<AirRequestPage<E>>,
+  request: Ref<AirRequestPage<E>>
 
   /**
    * ### 返回的单页数据列表
    */
-  list: Ref<E[]>,
+  list: Ref<E[]>
 
   /**
    * ### 选中的数据列表
    */
-  selectList: Ref<E[]>,
+  selectList: Ref<E[]>
 
   /**
    * ### 实体的实例
    */
-  entity: E,
+  entity: E
 
   /**
    * ### `Service`的实例
    */
-  service: S,
+  service: S
 
   /**
    * ### 刷新数据 返回第一页
    */
-  onReloadData: () => void,
+  onReloadData: () => void
 
   /**
    * ### 搜索事件
@@ -58,7 +58,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * @param request 请求对象
    */
   // eslint-disable-next-line no-unused-vars
-  onSearch: (request: AirRequestPage<E>) => void,
+  onSearch: (request: AirRequestPage<E>) => void
 
   /**
    * ### 分页变更事件
@@ -66,7 +66,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * @param page 分页对象
    */
   // eslint-disable-next-line no-unused-vars
-  onPageChanged: (page: AirPage) => void,
+  onPageChanged: (page: AirPage) => void
 
   /**
    * ### 详情事件
@@ -74,12 +74,12 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * @param row 选择的行
    */
   // eslint-disable-next-line no-unused-vars
-  onDetail: (row: E) => void,
+  onDetail: (row: E) => void
 
   /**
    * ### 添加事件
    */
-  onAdd: () => void,
+  onAdd: () => void
 
   /**
    * ### 排序变更事件
@@ -87,7 +87,7 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * @param sort 排序对象
    */
   // eslint-disable-next-line no-unused-vars
-  onSortChanged: (sort?: AirSort) => void | Promise<void>,
+  onSortChanged: (sort?: AirSort) => void | Promise<void>
 
   /**
    * ### 多选事件
@@ -95,10 +95,10 @@ export interface ITableHookResult<E extends AirEntity, S extends AirAbstractEnti
    * @param list 选择的行列表
    */
   // eslint-disable-next-line no-unused-vars
-  onSelected: (list: E[]) => void,
+  onSelected: (list: E[]) => void
 
   /**
    * ### 刷新数据 保持留在当页
    */
-  onGetList: () => void,
+  onGetList: () => void
 }

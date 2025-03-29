@@ -77,8 +77,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    * @param key `Key`
    */
   static get<E extends AirEnum<AirEnumKey>>(this: ClassConstructor<E>, key: AirEnumKey): E | null {
-    return (this as IJson).toArray()
-      .find((item: E) => item.key === key) || null
+    return (this as IJson).toArray().find((item: E) => item.key === key) || null
   }
 
   /**
@@ -87,8 +86,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    */
   // eslint-disable-next-line no-unused-vars
   static toArray<K extends AirEnumKey, E extends AirEnum<K>>(this: ClassConstructor<E>): E[] {
-    return Object.values(this)
-      .filter((item) => item instanceof this)
+    return Object.values(this).filter((item) => item instanceof this)
   }
 
   /**
@@ -97,8 +95,7 @@ export class AirEnum<K extends AirEnumKey = number> implements IDictionary {
    */
   // eslint-disable-next-line no-unused-vars
   static toDictionary<D extends IDictionary>(this: ClassConstructor<D>): AirDictionaryArray<D> {
-    return AirDictionaryArray.createCustom<D>(Object.values(this)
-      .filter((item) => item instanceof this))
+    return AirDictionaryArray.createCustom<D>(Object.values(this).filter((item) => item instanceof this))
   }
 
   /**

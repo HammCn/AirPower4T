@@ -100,7 +100,7 @@ export type AirValidatorTrigger = 'blur' | 'change'
  * ###  图标类型字符串类型
  */
 export type AirIconType =
-  'DELETE_LIST'
+  | 'DELETE_LIST'
   | 'DELETE'
   | 'EDIT'
   | 'DETAIL'
@@ -134,5 +134,5 @@ export type AirIconType =
  */
 export type ClassConstructor<T = AirAny> = {
   // eslint-disable-next-line no-unused-vars
-  new(...args: AirAny[]): T
+  new (...args: AirAny[]): T
 }

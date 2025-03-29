@@ -54,17 +54,15 @@
 </template>
 
 <script generic="T extends ITree" lang="ts" setup="props">
-import {
-  computed, Ref, ref, watch,
-} from 'vue'
+import { computed, Ref, ref, watch } from 'vue'
 import { APanel } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { ITree } from '../interface/ITree'
 import { AirTreeInstance } from '../type/AirType'
 
 const emits = defineEmits<{
-  onChange: [data: T | undefined],
-  change: [data: T | undefined],
+  onChange: [data: T | undefined]
+  change: [data: T | undefined]
 }>()
 
 const props = defineProps({
@@ -185,7 +183,7 @@ watch(searchKeyword, (val) => {
   }
 })
 
-const showWidth = computed(() => (isShow.value ? (`${props.width}px`) : 'auto'))
+const showWidth = computed(() => (isShow.value ? `${props.width}px` : 'auto'))
 
 /**
  * # 树节点选中事件
@@ -235,7 +233,7 @@ function filterNode(value: string, node: ITree): boolean {
       width: 5px;
       margin-left: 5px;
       cursor: pointer;
-      transition: all .3s;
+      transition: all 0.3s;
       border-radius: 3px;
     }
 

@@ -81,11 +81,11 @@ export class AirDateTime {
       H: date.getHours(),
       m: date.getMinutes(),
       s: date.getSeconds(),
-      MM: (`${date.getMonth() + 101}`).substring(1),
-      DD: (`${date.getDate() + 100}`).substring(1),
-      HH: (`${date.getHours() + 100}`).substring(1),
-      mm: (`${date.getMinutes() + 100}`).substring(1),
-      ss: (`${date.getSeconds() + 100}`).substring(1),
+      MM: `${date.getMonth() + 101}`.substring(1),
+      DD: `${date.getDate() + 100}`.substring(1),
+      HH: `${date.getHours() + 100}`.substring(1),
+      mm: `${date.getMinutes() + 100}`.substring(1),
+      ss: `${date.getSeconds() + 100}`.substring(1),
     }
     return formatString.replace(/(YYYY|MM|DD|HH|ss|mm)/g, (arg) => dict[arg].toString())
   }
@@ -104,30 +104,38 @@ export class AirDateTime {
     }
     const diff = Math.abs(currentTimestamp - timestamp)
 
-    const suffix = (timestamp > currentTimestamp) ? '后' : '前'
+    const suffix = timestamp > currentTimestamp ? '后' : '前'
 
-    const stepDictionary: IDictionary<number>[] = [{
-      key: 0,
-      label: '秒',
-    }, {
-      key: AirConstant.SECOND_PER_MINUTE,
-      label: '分钟',
-    }, {
-      key: AirConstant.SECOND_PER_MINUTE ** 2,
-      label: '小时',
-    }, {
-      key: AirConstant.SECONDS_PER_DAY,
-      label: '天',
-    }, {
-      key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_WEEK,
-      label: '周',
-    }, {
-      key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_MONTH,
-      label: '月',
-    }, {
-      key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_YEAR,
-      label: '年',
-    }]
+    const stepDictionary: IDictionary<number>[] = [
+      {
+        key: 0,
+        label: '秒',
+      },
+      {
+        key: AirConstant.SECOND_PER_MINUTE,
+        label: '分钟',
+      },
+      {
+        key: AirConstant.SECOND_PER_MINUTE ** 2,
+        label: '小时',
+      },
+      {
+        key: AirConstant.SECONDS_PER_DAY,
+        label: '天',
+      },
+      {
+        key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_WEEK,
+        label: '周',
+      },
+      {
+        key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_MONTH,
+        label: '月',
+      },
+      {
+        key: AirConstant.SECONDS_PER_DAY * AirConstant.DAY_PER_YEAR,
+        label: '年',
+      },
+    ]
     for (let i = stepDictionary.length - 1; i >= 0; i -= 1) {
       const step = stepDictionary[i]
       if (timestamp <= currentTimestamp && diff < AirConstant.SECOND_PER_MINUTE) {

@@ -14,19 +14,26 @@
         :modifier="field"
         :readonly="readonly"
         :tree="tree"
-        @blur="emits('blur'); emits('onBlur')"
+        @blur="
+          emits('blur')
+          emits('onBlur')
+        "
         @change="onChange($event)"
-        @clear="emits('clear'); emits('onClear');"
-        @focus="emits('focus'); emits('onFocus')"
+        @clear="
+          emits('clear')
+          emits('onClear')
+        "
+        @focus="
+          emits('focus')
+          emits('onFocus')
+        "
       />
     </slot>
   </el-form-item>
 </template>
 
 <script generic="E extends AirEntity" lang="ts" setup>
-import {
-  computed, inject, PropType, ref,
-} from 'vue'
+import { computed, inject, PropType, ref } from 'vue'
 import { ElFormItem } from 'element-plus'
 import { AirEntity } from '../base/AirEntity'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -107,15 +114,15 @@ const props = defineProps({
 })
 
 const emits = defineEmits<{
-  onChange: [value: E],
-  change: [value: E],
-  'update:modelValue': [value: E],
-  blur: [],
-  onBlur: [],
-  focus: [],
-  onFocus: [],
-  onClear: [],
-  clear: [],
+  onChange: [value: E]
+  change: [value: E]
+  'update:modelValue': [value: E]
+  blur: []
+  onBlur: []
+  focus: []
+  onFocus: []
+  onClear: []
+  clear: []
 }>()
 
 if (!props.field) {
@@ -139,7 +146,7 @@ if (!formData) {
 /**
  * # 手动传入的实体类 覆盖 自动注入的实体类
  */
-const entityClass = inject('entityClass') as ClassConstructor<E> || props.entity
+const entityClass = (inject('entityClass') as ClassConstructor<E>) || props.entity
 
 if (!entityClass) {
   throw new Error('请手动传入到AFormField的entity属性或使用useAirEditor创建表单对象(推荐)！！！')
@@ -155,12 +162,12 @@ const entityInstance = computed(() => AirClassTransformer.newInstance(entityClas
  * @param val 值
  */
 function onChange(val: unknown) {
-  (formData!.value)[props.field] = val
+  formData!.value[props.field] = val
   emits('update:modelValue', formData!.value)
   emits('change', formData!.value)
   emits('onChange', formData!.value)
   if (injectFormData) {
-    (injectFormData.value as IJson)[props.field] = val
+    ;(injectFormData.value as IJson)[props.field] = val
   }
 }
 </script>

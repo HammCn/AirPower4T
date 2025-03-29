@@ -19,9 +19,9 @@
       >
         {{ param }}
       </ACopy>
-      <span><el-icon class="icon">
-        <WarningFilled />
-      </el-icon>{{ tips }}</span>
+      <span
+        ><el-icon class="icon"> <WarningFilled /> </el-icon>{{ tips }}</span
+      >
     </div>
   </ADialog>
 </template>

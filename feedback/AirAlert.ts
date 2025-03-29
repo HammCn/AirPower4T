@@ -72,8 +72,7 @@ export class AirAlert {
    * @param title `可选` 消息标题
    */
   static success(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .success(content, title)
+    return this.create().success(content, title)
   }
 
   /**
@@ -89,8 +88,7 @@ export class AirAlert {
    * @param title `可选` 消息标题
    */
   static warning(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .warning(content, title)
+    return this.create().warning(content, title)
   }
 
   /**
@@ -99,8 +97,7 @@ export class AirAlert {
    * @param title `可选` 消息标题
    */
   static show(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .show(content, title)
+    return this.create().show(content, title)
   }
 
   /**
@@ -109,8 +106,7 @@ export class AirAlert {
    * @param title `可选` 消息标题
    */
   static error(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .error(content, title)
+    return this.create().error(content, title)
   }
 
   /**
@@ -119,8 +115,7 @@ export class AirAlert {
    * @param title `可选` 消息标题
    */
   static info(content?: string, title?: string): Promise<void> {
-    return this.create()
-      .info(content, title)
+    return this.create().info(content, title)
   }
 
   /**
@@ -278,11 +273,7 @@ export class AirAlert {
    */
   private alert(content = '操作成功', title = '温馨提示'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      ElMessageBox.alert(
-        content,
-        title,
-        this.getConfig(),
-      )
+      ElMessageBox.alert(content, title, this.getConfig())
         .then(() => {
           resolve()
         })

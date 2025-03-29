@@ -1,6 +1,4 @@
-import {
-  computed, Ref, ref, watch,
-} from 'vue'
+import { computed, Ref, ref, watch } from 'vue'
 import { AirFormInstance, ClassConstructor } from '../type/AirType'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
@@ -21,7 +19,12 @@ import { IValidateRule } from '../interface/IValidateRule'
  * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
-export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseEditorOption<E> = {}): IUseEditorResult<E, S> {
+export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(
+  props: IJson,
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseEditorOption<E> = {},
+): IUseEditorResult<E, S> {
   /**
    * ### 详情`Hook`返回对象
    */
@@ -30,7 +33,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * ### 对话框显示的标题
    */
-  const title = computed(() => ((result.formData.value.id ? (AirI18n.get().Edit || '编辑') : (AirI18n.get().Add || '添加'))))
+  const title = computed(() => (result.formData.value.id ? AirI18n.get().Edit || '编辑' : AirI18n.get().Add || '添加'))
 
   /**
    * ### 自动生成的验证规则
@@ -56,11 +59,19 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     }
     try {
       if (postData.id) {
-        const id = await result.service.update(postData, option.successMessage || (AirI18n.get().EditSuccess || '编辑成功'), option.apiUrlUpdate)
+        const id = await result.service.update(
+          postData,
+          option.successMessage || AirI18n.get().EditSuccess || '编辑成功',
+          option.apiUrlUpdate,
+        )
         props.onConfirm(id)
         return
       }
-      const id = await result.service.add(postData, option.successMessage || (AirI18n.get().AddSuccess || '添加成功'), option.apiUrlAdd)
+      const id = await result.service.add(
+        postData,
+        option.successMessage || AirI18n.get().AddSuccess || '添加成功',
+        option.apiUrlAdd,
+      )
       props.onConfirm(id)
     } catch (e: unknown) {
       if ((e as IJson).code === AirConfig.continueCode) {
@@ -71,12 +82,16 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  watch(result.formData, () => {
-    formRef.value?.validate()
-  }, {
-    deep: true,
-    immediate: true,
-  })
+  watch(
+    result.formData,
+    () => {
+      formRef.value?.validate()
+    },
+    {
+      deep: true,
+      immediate: true,
+    },
+  )
 
   return Object.assign(result, {
     title,

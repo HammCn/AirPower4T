@@ -13,5 +13,5 @@ export enum AirSortType {
   /**
    * ### 降序排列
    */
-  DESC = 'desc'
+  DESC = 'desc',
 }

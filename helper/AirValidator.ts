@@ -5,9 +5,7 @@ import { AirEntity } from '../base/AirEntity'
 import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import { AirI18n } from './AirI18n'
 import { IJson } from '../interface/IJson'
-import {
-  AirAny, AirValidatorCallback, AirValidatorRule, AirValidatorTrigger, AirValidatorType,
-} from '../type/AirType'
+import { AirAny, AirValidatorCallback, AirValidatorRule, AirValidatorTrigger, AirValidatorType } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
 
 /**
@@ -152,11 +150,16 @@ export class AirValidator {
       return false
     }
 
-    const validArray: Array<Array<number | 'X'>> = [[7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2], [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2]]
+    const validArray: Array<Array<number | 'X'>> = [
+      [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2],
+      [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2],
+    ]
 
     if (str.length === 15) {
       // 15位身份证校验
-      return /^[1-9]\d{5}((\d{2}(((0[13578]|1[02])(0[1-9]|[12][0-9]|3[01]))|((0[13456789]|1[012])(0[1-9]|[12][0-9]|30))|(02(0[1-9]|1[0-9]|2[0-8]))))|(((0[48]|[2468][048]|[13579][26])|(00))0229))\d{2}[0-9Xx]$/.test(str)
+      return /^[1-9]\d{5}((\d{2}(((0[13578]|1[02])(0[1-9]|[12][0-9]|3[01]))|((0[13456789]|1[012])(0[1-9]|[12][0-9]|30))|(02(0[1-9]|1[0-9]|2[0-8]))))|(((0[48]|[2468][048]|[13579][26])|(00))0229))\d{2}[0-9Xx]$/.test(
+        str,
+      )
     }
     if (str.length !== 18) {
       return false
@@ -179,7 +182,7 @@ export class AirValidator {
       sum += parseInt(str[i], AirConstant.DEFAULT_RADIX) * (validArray[0][i] as number)
     }
     // eslint-disable-next-line eqeqeq
-    return validArray[1][(sum % 11)] == str[17]
+    return validArray[1][sum % 11] == str[17]
   }
 
   /**
@@ -215,7 +218,11 @@ export class AirValidator {
    * @param service 接口服务对象
    * @param rules `可选` 表单验证规则
    */
-  static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(form: T, service: S, rules: IValidateRule<T> = {}) {
+  static createRules<T extends AirEntity, S extends AirAbstractEntityService<T>>(
+    form: T,
+    service: S,
+    rules: IValidateRule<T> = {},
+  ) {
     const formRules: IJson = rules
     const entity = AirClassTransformer.newInstance(service.entityClass)
     const formFieldList = entity.getFormFieldConfigList()
@@ -226,55 +233,42 @@ export class AirValidator {
         formRules[fieldKey] = []
       }
       if (config.requiredString) {
-        (formRules[fieldKey]).push(this.getValidator(config.requiredString)
-          .ifEmpty())
+        formRules[fieldKey].push(this.getValidator(config.requiredString).ifEmpty())
       }
       if (config.requiredNumber) {
-        (formRules[fieldKey]).push(this.getValidator(config.requiredNumber)
-          .toNumber()
-          .ifEmpty())
+        formRules[fieldKey].push(this.getValidator(config.requiredNumber).toNumber().ifEmpty())
       }
       if (config.requiredPayload) {
-        (formRules[fieldKey]).push(this.getValidator(config.requiredPayload)
-          .ifPayloadEmpty())
+        formRules[fieldKey].push(this.getValidator(config.requiredPayload).ifPayloadEmpty())
       }
       if (config.minLength) {
-        (formRules[fieldKey]).push(AirValidator.show()
-          .ifLengthLessThan(config.minLength))
+        formRules[fieldKey].push(AirValidator.show().ifLengthLessThan(config.minLength))
       }
       if (config.number) {
         if (config.min) {
-          (formRules[fieldKey]).push(AirValidator.show()
-            .ifLessThan(config.min))
+          formRules[fieldKey].push(AirValidator.show().ifLessThan(config.min))
         }
         if (config.max) {
-          (formRules[fieldKey]).push(AirValidator.show()
-            .ifGreaterThan(config.max))
+          formRules[fieldKey].push(AirValidator.show().ifGreaterThan(config.max))
         }
       }
       if (config.chinese) {
-        (formRules[fieldKey]).push(this.getValidator(config.chinese)
-          .ifNotChinese())
+        formRules[fieldKey].push(this.getValidator(config.chinese).ifNotChinese())
       }
       if (config.telPhone) {
-        (formRules[fieldKey]).push(this.getValidator(config.telPhone)
-          .ifNotTelPhone())
+        formRules[fieldKey].push(this.getValidator(config.telPhone).ifNotTelPhone())
       }
       if (config.mobilePhone) {
-        (formRules[fieldKey]).push(this.getValidator(config.mobilePhone)
-          .ifNotMobilePhone())
+        formRules[fieldKey].push(this.getValidator(config.mobilePhone).ifNotMobilePhone())
       }
       if (config.phone) {
-        (formRules[fieldKey]).push(this.getValidator(config.phone)
-          .ifNotPhone())
+        formRules[fieldKey].push(this.getValidator(config.phone).ifNotPhone())
       }
       if (config.email) {
-        (formRules[fieldKey]).push(this.getValidator(config.email)
-          .ifNotEmail())
+        formRules[fieldKey].push(this.getValidator(config.email).ifNotEmail())
       }
       if (config.regExp) {
-        (formRules[fieldKey]).push(AirValidator.show(AirConstant.STRING_EMPTY)
-          .ifNotTest(config.regExp))
+        formRules[fieldKey].push(AirValidator.show(AirConstant.STRING_EMPTY).ifNotTest(config.regExp))
       }
     }
     return formRules as IValidateRule<T>

@@ -71,7 +71,13 @@ const desensitized = computed(() => {
   if (!isDesensitize.value || !props.desensitize) {
     return props.content
   }
-  return AirDesensitize.desensitize(props.content, props.desensitize, props.desensitizeHead, props.desensitizeTail, props.desensitizeSymbol)
+  return AirDesensitize.desensitize(
+    props.content,
+    props.desensitize,
+    props.desensitizeHead,
+    props.desensitizeTail,
+    props.desensitizeSymbol,
+  )
 })
 </script>
 

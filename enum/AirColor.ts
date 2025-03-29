@@ -23,5 +23,5 @@ export enum AirColor {
   /**
    * ### 灰色未知状态
    */
-  NORMAL = '#909399'
+  NORMAL = '#909399',
 }

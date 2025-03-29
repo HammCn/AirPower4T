@@ -23,7 +23,7 @@ export class AirFile {
     }
     for (let i = 0; i < this.FILE_UNIT_LIST.length; i += 1) {
       if (size < AirConstant.RADIX_FILE_SIZE ** (i + 1)) {
-        return `${(size / (AirConstant.RADIX_FILE_SIZE ** i)).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
+        return `${(size / AirConstant.RADIX_FILE_SIZE ** i).toFixed(fractionDigits)}${this.FILE_UNIT_LIST[i]}`
       }
     }
     return AirI18n.get().FileTooLarge || '文件过大'

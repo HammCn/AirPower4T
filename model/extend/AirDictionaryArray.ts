@@ -54,7 +54,7 @@ export class AirDictionaryArray<T extends IDictionary = IDictionary> extends Arr
    * @param key Key
    */
   get(key: AirEnumKey): T {
-    return this.findByKey(key) as T || {}
+    return (this.findByKey(key) as T) || {}
   }
 
   /**

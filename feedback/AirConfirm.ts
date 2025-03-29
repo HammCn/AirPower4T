@@ -22,8 +22,7 @@ export class AirConfirm extends AirAlert {
    * @param title `可选` 确认标题
    */
   static success(content: string, title?: string): Promise<void> {
-    return this.create()
-      .success(content, title)
+    return this.create().success(content, title)
   }
 
   /**
@@ -32,8 +31,7 @@ export class AirConfirm extends AirAlert {
    * @param title `可选` 确认标题
    */
   static warning(content: string, title?: string): Promise<void> {
-    return this.create()
-      .warning(content, title)
+    return this.create().warning(content, title)
   }
 
   /**
@@ -42,8 +40,7 @@ export class AirConfirm extends AirAlert {
    * @param title `可选` 确认标题
    */
   static error(content: string, title?: string): Promise<void> {
-    return this.create()
-      .error(content, title)
+    return this.create().error(content, title)
   }
 
   /**
@@ -52,8 +49,7 @@ export class AirConfirm extends AirAlert {
    * @param title `可选` 确认标题
    */
   static info(content: string, title?: string): Promise<void> {
-    return this.create()
-      .info(content, title)
+    return this.create().info(content, title)
   }
 
   /**
@@ -62,8 +58,7 @@ export class AirConfirm extends AirAlert {
    * @param title `可选` 确认标题
    */
   static show(content: string, title?: string): Promise<void> {
-    return this.create()
-      .show(content, title)
+    return this.create().show(content, title)
   }
 
   /**
@@ -138,11 +133,7 @@ export class AirConfirm extends AirAlert {
    */
   show(content: string, title = AirI18n.get().OperateNotice || '操作提醒'): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      ElMessageBox.confirm(
-        content,
-        title,
-        this.getConfig(),
-      )
+      ElMessageBox.confirm(content, title, this.getConfig())
         .then(() => {
           resolve()
         })

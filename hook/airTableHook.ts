@@ -19,7 +19,11 @@ import { ClassConstructor } from '../type/AirType'
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
-export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: ITableHookOption<E> = {}): ITableHookResult<E, S> {
+export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: ITableHookOption<E> = {},
+): ITableHookResult<E, S> {
   /**
    * ### 加载状态
    */

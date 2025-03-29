@@ -47,10 +47,9 @@ app.use(ElementPlus, {
 })
 
 // 全局注册Element Plus 图标
-Object.keys(Icons)
-  .forEach((key) => {
-    app.component(key, Icons[key as keyof typeof Icons])
-  })
+Object.keys(Icons).forEach((key) => {
+  app.component(key, Icons[key as keyof typeof Icons])
+})
 
 export { app }
 
@@ -74,16 +73,8 @@ console.log(
   'font-size:10px;color:#ccc;padding-bottom:5px;',
 )
 console.groupCollapsed('%cRuntime', 'font-size:12px;color:#333;font-weight:300;')
-console.log(
-  `%cVue\t\t\t\t%cv${app.version}`,
-  'font-size:12px;color:#999;',
-  'font-size:12px;color:#333;',
-)
-console.log(
-  `%cElement Plus\t%cv${ElementPlus.version}`,
-  'font-size:12px;color:#999;',
-  'font-size:12px;color:#333;',
-)
+console.log(`%cVue\t\t\t\t%cv${app.version}`, 'font-size:12px;color:#999;', 'font-size:12px;color:#333;')
+console.log(`%cElement Plus\t%cv${ElementPlus.version}`, 'font-size:12px;color:#999;', 'font-size:12px;color:#333;')
 console.log(import.meta.env)
 console.groupEnd()
 if (!import.meta.env.DEV) {
@@ -107,35 +98,37 @@ const errorTitle = AirI18n.get().SystemError || AirConfig.errorTitle
 const defaultErrorMessage = AirI18n.get().SystemErrorAndRetryPlease || AirConfig.errorMessage
 
 // 网络错误和请求错误弹出错误
-AirEvent.onAll([
-  AirEventType.NETWORK_ERROR,
-  AirEventType.REQUEST_ERROR,
-], (message: string) => {
+AirEvent.onAll([AirEventType.NETWORK_ERROR, AirEventType.REQUEST_ERROR], (message: string) => {
   AirNotification.error(message || defaultErrorMessage, errorTitle)
 })
 
 AirEvent.on(AirEventType.REQUEST_CONTINUE, (message: string) => {
-  AirAlert.success(message || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作', AirI18n.get().ContinueOperate || '继续操作')
+  AirAlert.success(
+    message || AirI18n.get().SomeOperateSuccessAndContinuePlease || '部分操作成功，请继续操作',
+    AirI18n.get().ContinueOperate || '继续操作',
+  )
 })
 
 // 各种操作成功提示
-AirEvent.onAll([
-  AirEventType.UPDATE_SUCCESS,
-  AirEventType.ADD_SUCCESS,
-  AirEventType.ENABLE_SUCCESS,
-  AirEventType.DISABLE_SUCCESS,
-  AirEventType.DELETE_SUCCESS,
-], (title: string, message: string) => {
-  if (message) {
-    AirNotification.success(message, title)
-  }
-})
+AirEvent.onAll(
+  [
+    AirEventType.UPDATE_SUCCESS,
+    AirEventType.ADD_SUCCESS,
+    AirEventType.ENABLE_SUCCESS,
+    AirEventType.DISABLE_SUCCESS,
+    AirEventType.DELETE_SUCCESS,
+  ],
+  (title: string, message: string) => {
+    if (message) {
+      AirNotification.success(message, title)
+    }
+  },
+)
 
 // 各种操作失败的业务提示
-AirEvent.onAll([
-  AirEventType.DELETE_FAIL,
-  AirEventType.ENABLE_FAIL,
-  AirEventType.DISABLE_FAIL,
-], (title: string, message: string) => {
-  AirNotification.error(message || defaultErrorMessage, title)
-})
+AirEvent.onAll(
+  [AirEventType.DELETE_FAIL, AirEventType.ENABLE_FAIL, AirEventType.DISABLE_FAIL],
+  (title: string, message: string) => {
+    AirNotification.error(message || defaultErrorMessage, title)
+  },
+)

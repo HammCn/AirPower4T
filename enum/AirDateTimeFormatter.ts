@@ -31,5 +31,5 @@ export enum AirDateTimeFormatter {
   /**
    * ### e.g. `22:22:22`
    */
-  HH_mm_ss = 'HH:mm:ss'
+  HH_mm_ss = 'HH:mm:ss',
 }

@@ -16,7 +16,11 @@ import { ClassConstructor } from '../type/AirType'
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
-export function useAirTable<E extends AirEntity, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableOption<E> = {}): IUseTableResult<E, S> {
+export function useAirTable<E extends AirEntity, S extends AirAbstractEntityService<E>>(
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseTableOption<E> = {},
+): IUseTableResult<E, S> {
   /**
    * ### 表格`Hook`返回对象
    */

@@ -6,5 +6,5 @@
 export enum AirKeys {
   META = 'Meta',
   ALT = 'Alt',
-  ESC = 'Escape'
+  ESC = 'Escape',
 }

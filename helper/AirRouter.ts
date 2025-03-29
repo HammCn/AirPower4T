@@ -1,6 +1,4 @@
-import {
-  createRouter, createWebHistory, Router, RouteRecordRaw,
-} from 'vue-router'
+import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router'
 import { AirConfig } from '../config/AirConfig'
 import AirEvent from '../event/AirEvent'
 import { AirEventType } from '../event/AirEventType'

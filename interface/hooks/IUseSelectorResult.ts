@@ -7,12 +7,12 @@ import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
  * # 选择器 `Hook` 的标准返回
  * @author Hamm.cn
  */
-export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
-
+export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>>
+  extends ITableHookResult<E, S> {
   /**
    * ### `Selector` 的标题
    */
-  title: Ref<string>,
+  title: Ref<string>
 
   /**
    * ### 是否禁用确认按钮

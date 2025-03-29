@@ -15,7 +15,11 @@ import { useAirTable } from './useAirTable'
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
-export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
+export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseTableTreeOption<E> = {},
+): IUseTableTreeResult<E, S> {
   // 设置不分页
   if (option.unPaginate === undefined) {
     option.unPaginate = true

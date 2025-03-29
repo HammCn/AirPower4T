@@ -148,6 +148,5 @@ export enum AirIcon {
   /**
    * ### 关闭
    */
-  CLOSE = 'icon-commonicon_guanbi'
-
+  CLOSE = 'icon-commonicon_guanbi',
 }

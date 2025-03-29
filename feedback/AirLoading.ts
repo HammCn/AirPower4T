@@ -60,8 +60,7 @@ export class AirLoading {
    * @param message `可选` Loading文案
    */
   static show(message?: string): AirLoading {
-    return this.create()
-      .show(message)
+    return this.create().show(message)
   }
 
   /**

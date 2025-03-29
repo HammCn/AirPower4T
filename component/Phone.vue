@@ -75,7 +75,6 @@ const desensitizePhone = computed(() => {
   }
   return AirDesensitize.desensitize(props.phone, props.desensitize, props.desensitizeHead, props.desensitizeTail)
 })
-
 </script>
 <style lang="scss" scoped>
 .air-phone {
@@ -83,7 +82,7 @@ const desensitizePhone = computed(() => {
   flex-direction: row;
   align-items: center;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .air-phone:hover {

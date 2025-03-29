@@ -16,7 +16,12 @@ import { ClassConstructor } from '../type/AirType'
  * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
-export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseDetailOption<E> = {}): IUseDetailResult<E, S> {
+export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(
+  props: IJson,
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseDetailOption<E> = {},
+): IUseDetailResult<E, S> {
   /**
    * ### 加载状态
    */

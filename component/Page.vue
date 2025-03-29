@@ -99,8 +99,8 @@ import { AirI18n } from '../helper/AirI18n'
 import { AirEntity } from '../base/AirEntity'
 
 const emits = defineEmits<{
-  onChange: [page: AirPage],
-  change: [page: AirPage],
+  onChange: [page: AirPage]
+  change: [page: AirPage]
 }>()
 
 const props = defineProps({
@@ -232,7 +232,6 @@ const pageItemWidth = [30, 30, 30, 30, 40, 52, 58, 64, 70]
  * # 页码容器宽度
  */
 const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
-
 </script>
 
 <style lang="scss">
@@ -257,7 +256,6 @@ const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
     .btn-prev:hover {
       background-color: var(--el-color-primary-light-9) !important;
       color: var(--el-color-primary);
-
     }
   }
 
@@ -331,7 +329,6 @@ const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
   .air-page-jumper {
     display: flex;
     flex-direction: row;
-
   }
 }
 </style>

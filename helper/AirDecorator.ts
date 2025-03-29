@@ -2,11 +2,7 @@ import { AirFieldConfig } from '../config/AirFieldConfig'
 import { IJson } from '../interface/IJson'
 import { AirClassTransformer } from './AirClassTransformer'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import {
-  AirAny, AirDecoratorData, AirDecoratorTarget,
-  AirEnumKey,
-  ClassConstructor,
-} from '../type/AirType'
+import { AirAny, AirDecoratorData, AirDecoratorTarget, AirEnumKey, ClassConstructor } from '../type/AirType'
 import { AirEnum } from '../base/AirEnum'
 import { AirConstant } from '../config/AirConstant'
 
@@ -19,7 +15,9 @@ export class AirDecorator {
    * ### 获取一个字典
    * @param dictionary
    */
-  static getDictionary(dictionary: ClassConstructor<AirEnum<AirEnumKey>> | AirDictionaryArray | undefined): AirDictionaryArray | undefined {
+  static getDictionary(
+    dictionary: ClassConstructor<AirEnum<AirEnumKey>> | AirDictionaryArray | undefined,
+  ): AirDictionaryArray | undefined {
     if (!dictionary) {
       return dictionary
     }
@@ -46,7 +44,12 @@ export class AirDecorator {
    * @param defaultValue `可选` 类装饰器请传入配置项实例
    * @param isObject `可选` 是否是对象配置
    */
-  static getClassConfig(target: AirDecoratorTarget, classConfigKey: string, defaultValue: unknown = undefined, isObject = false): AirDecoratorData {
+  static getClassConfig(
+    target: AirDecoratorTarget,
+    classConfigKey: string,
+    defaultValue: unknown = undefined,
+    isObject = false,
+  ): AirDecoratorData {
     let classConfig = Reflect.get(target, classConfigKey)
     if (!isObject) {
       // 普通配置
@@ -78,7 +81,13 @@ export class AirDecorator {
    * @param fieldConfig 配置的参数
    * @param fieldListKey `可选` 类配置项列表索引值
    */
-  static setFieldConfig(target: AirDecoratorTarget, key: string, fieldConfigKey: string, fieldConfig: unknown, fieldListKey?: string) {
+  static setFieldConfig(
+    target: AirDecoratorTarget,
+    key: string,
+    fieldConfigKey: string,
+    fieldConfig: unknown,
+    fieldListKey?: string,
+  ) {
     if (fieldListKey) {
       this.addFieldDecoratorKey(target, key, fieldListKey)
     }
@@ -92,7 +101,12 @@ export class AirDecorator {
    * @param fieldConfigKey FieldConfigKey
    * @param isObject `可选` 是否对象配置
    */
-  static getFieldConfig(target: AirDecoratorTarget, key: string, fieldConfigKey: string, isObject = false): AirDecoratorData {
+  static getFieldConfig(
+    target: AirDecoratorTarget,
+    key: string,
+    fieldConfigKey: string,
+    isObject = false,
+  ): AirDecoratorData {
     if (typeof target !== 'object') {
       target = target.prototype
     }
@@ -144,7 +158,13 @@ export class AirDecorator {
    * @param keyList 指定的字段数组
    * @param FieldConfigClass 指定的返回类
    */
-  static getFieldConfigList<T extends AirFieldConfig>(target: AirDecoratorTarget, fieldListKey: string, fieldConfigKey: string, keyList: string[], FieldConfigClass: ClassConstructor<T>): T[] {
+  static getFieldConfigList<T extends AirFieldConfig>(
+    target: AirDecoratorTarget,
+    fieldListKey: string,
+    fieldConfigKey: string,
+    keyList: string[],
+    FieldConfigClass: ClassConstructor<T>,
+  ): T[] {
     const fieldConfigList: T[] = []
     if (keyList.length === 0) {
       keyList = this.getFieldList(target, fieldListKey)
@@ -187,7 +207,12 @@ export class AirDecorator {
    * @param key 字段
    * @param configKey 配置Key
    */
-  static getFieldConfigValue(target: AirDecoratorTarget, fieldConfigKey: string, key: string, configKey: string): AirDecoratorData {
+  static getFieldConfigValue(
+    target: AirDecoratorTarget,
+    fieldConfigKey: string,
+    key: string,
+    configKey: string,
+  ): AirDecoratorData {
     const fieldConfig = AirClassTransformer.copyJson(Reflect.get(target, `${fieldConfigKey}[${key}]`))
     if (fieldConfig && fieldConfig[configKey] !== undefined) {
       return fieldConfig[configKey]

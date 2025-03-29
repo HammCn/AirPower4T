@@ -30,5 +30,5 @@ export enum AirHttpContentType {
   /**
    * ### 纯文本方式提交
    */
-  PLAIN = 'text/plain'
+  PLAIN = 'text/plain',
 }

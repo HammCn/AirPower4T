@@ -32,7 +32,8 @@ export class AirI18n extends AirI18nDefault {
   /**
    * ### 当前使用的语言
    */
-  private static currentLanguage = (AirApi.getStorage(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
+  private static currentLanguage = (AirApi.getStorage(AirI18nDefault.languageCacheKey) ||
+    AirLanguage.ChineseSimplified) as AirLanguage
 
   /**
    * ### 当前使用的语言包

@@ -89,9 +89,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed, nextTick, onMounted, PropType, ref, watch,
-} from 'vue'
+import { computed, nextTick, onMounted, PropType, ref, watch } from 'vue'
 import { AButton } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
@@ -103,8 +101,8 @@ import { AirDialog } from '../helper/AirDialog'
 import { IJson } from '../interface/IJson'
 
 const emits = defineEmits<{
-  onCancel: [],
-  onFull: [isFullScreen: boolean],
+  onCancel: []
+  onFull: [isFullScreen: boolean]
   onConfirm: []
 }>()
 
@@ -352,8 +350,7 @@ const isFullScreen = ref(props.allowFullscreen && props.fullScreen)
  * # 强制焦点丢失
  */
 onMounted(() => {
-  document.getElementById(`hidden-button-${domId.value}`)
-    ?.focus()
+  document.getElementById(`hidden-button-${domId.value}`)?.focus()
 })
 
 /**
@@ -363,13 +360,21 @@ watch(isFullScreen, () => {
   emits('onFull', isFullScreen.value)
 })
 
-watch(() => AirStore().escKeyDown, () => {
-  if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc && AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
-    if (props.hoverClose || !props.hideClose) {
-      emits('onCancel')
+watch(
+  () => AirStore().escKeyDown,
+  () => {
+    if (
+      AirStore().escKeyDown &&
+      AirConfig.dialogCloseByEsc &&
+      AirDialog.dialogIdList.length > 0 &&
+      AirDialog.dialogIdList[0] === domId.value
+    ) {
+      if (props.hoverClose || !props.hideClose) {
+        emits('onCancel')
+      }
     }
-  }
-})
+  },
+)
 
 /**
  * # 鼠标按下的事件
@@ -384,10 +389,8 @@ function dialogMouseDownEvent(event: MouseEvent) {
   startY = event.clientY - y.value
   isMoving.value = true
   const dom: HTMLDivElement = document.querySelector(`#${dialogIdPrefix}${domId.value}`)!
-  trueWidth = window.innerWidth
-    - dom.offsetWidth
-  trueHeight = window.innerHeight
-    - dom.offsetHeight
+  trueWidth = window.innerWidth - dom.offsetWidth
+  trueHeight = window.innerHeight - dom.offsetHeight
 }
 
 /**
@@ -484,7 +487,7 @@ async function confirmEvent() {
     return
   }
   try {
-    if (!await props.formRef.validate()) {
+    if (!(await props.formRef.validate())) {
       // 校验返回结果为false
       dialogBgClicked()
       return
@@ -538,7 +541,9 @@ async function confirmEvent() {
     max-height: 80%;
     display: flex;
     flex-direction: column;
-    transition: min-width 0.2s, min-height 0.2s;
+    transition:
+      min-width 0.2s,
+      min-height 0.2s;
     user-select: none;
     overflow: hidden;
 

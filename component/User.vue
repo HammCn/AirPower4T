@@ -1,11 +1,22 @@
 <template>
   <div class="air-user">
-    <div class="air-user-head" @click="isDialogShow = true">
+    <div
+      class="air-user-head"
+      @click="isDialogShow = true"
+    >
       <el-image :src="userAvatar" />
     </div>
-    <div v-if="isDialogShow" class="air-user-cover" @click.self="isDialogShow = false" />
+    <div
+      v-if="isDialogShow"
+      class="air-user-cover"
+      @click.self="isDialogShow = false"
+    />
     <transition name="search">
-      <div v-if="isDialogShow" :style="{ width: width + 'px', height: height + 'px' }" class="air-user-dialog">
+      <div
+        v-if="isDialogShow"
+        :style="{ width: width + 'px', height: height + 'px' }"
+        class="air-user-dialog"
+      >
         <div class="air-user-header">
           <div class="air-user-title">
             <slot name="title">
@@ -13,7 +24,11 @@
             </slot>
           </div>
           <div class="air-user-logout">
-            <el-button text type="danger" @click="logout">
+            <el-button
+              text
+              type="danger"
+              @click="logout"
+            >
               <el-icon>
                 <SwitchButton />
               </el-icon>
@@ -23,9 +38,7 @@
         </div>
         <div class="air-user-body">
           <slot>
-            <div class="slot">
-              User Profile Card...
-            </div>
+            <div class="slot">User Profile Card...</div>
           </slot>
         </div>
       </div>
@@ -50,7 +63,7 @@ const props = defineProps({
    */
   user: {
     type: Object as PropType<IUser>,
-    required: true
+    required: true,
   },
 
   /**
@@ -86,7 +99,10 @@ async function logout() {
   await AirConfirm.create()
     .dangerButton()
     .setConfirmText(AirI18n.get().LogoutConfirm || '退出确认')
-    .show(AirI18n.get().AreYouConfirmToLogout || '是否确认退出当前登录的用户?', AirI18n.get().LogoutConfirm || '退出确认')
+    .show(
+      AirI18n.get().AreYouConfirmToLogout || '是否确认退出当前登录的用户?',
+      AirI18n.get().LogoutConfirm || '退出确认',
+    )
   AirConfig.removeAccessToken()
   AirPermission.saveList([])
   if (AirRouter.router) {

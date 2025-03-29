@@ -96,12 +96,15 @@ function checkErrorCode() {
 
 checkErrorCode()
 
-watch(() => route, () => {
-  checkErrorCode()
-}, {
-  deep: true,
-})
-
+watch(
+  () => route,
+  () => {
+    checkErrorCode()
+  },
+  {
+    deep: true,
+  },
+)
 </script>
 <style lang="scss" scoped>
 .air-error-page {

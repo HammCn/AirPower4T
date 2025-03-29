@@ -18,5 +18,5 @@ export enum AirSearchDataType {
   /**
    * ### 文本域
    */
-  TEXTAREA
+  TEXTAREA,
 }

@@ -10,18 +10,18 @@ export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEnti
   /**
    * ### 对话框显示的标题
    */
-  title: Ref<string>,
+  title: Ref<string>
 
   /**
    * ### 表单或详情数据
    */
-  formData: Ref<E>,
+  formData: Ref<E>
 
   /**
    * ### 当前绑定的 `Loading` 状态
    * 请随意 `v-loading` 到你需要的地方
    */
-  isLoading: Ref<boolean>,
+  isLoading: Ref<boolean>
 
   /**
    * ### 当前 `Hook` 使用的 `Service` 实例
@@ -31,5 +31,5 @@ export interface IUseDetailResult<E extends AirEntity, S extends AirAbstractEnti
   /**
    * ### 查询详情
    */
-  getDetail: () => void,
+  getDetail: () => void
 }

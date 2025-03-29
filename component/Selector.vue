@@ -7,7 +7,7 @@
     :title="dialogTitle"
     :width="width || '70%'"
     is-selector
-    @on-confirm="props.props.onConfirm(selectList.filter(item => !item.isDisabled))"
+    @on-confirm="props.props.onConfirm(selectList.filter((item) => !item.isDisabled))"
     @on-cancel="props.props.onCancel()"
   >
     <AToolBar
@@ -30,7 +30,7 @@
     </AToolBar>
     <ATable
       :ctrl-width="80"
-      :data-list="(unPaginate || treeList) ? list : response.list"
+      :data-list="unPaginate || treeList ? list : response.list"
       :entity="entity"
       :field-list="fields"
       :hide-ctrl="props.props.isMultiple"
@@ -74,11 +74,9 @@
   </ADialog>
 </template>
 
-<script generic="E extends AirEntity,S extends AirAbstractEntityService<E>" lang="ts" setup>
+<script generic="E extends AirEntity, S extends AirAbstractEntityService<E>" lang="ts" setup>
 import { Component, computed, useSlots } from 'vue'
-import {
-  AButton, ADialog, APage, ATable, AToolBar,
-} from '.'
+import { AButton, ADialog, APage, ATable, AToolBar } from '.'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { useAirSelector } from '../hook/useAirSelector'
 import { AirEntity } from '../base/AirEntity'
@@ -97,12 +95,12 @@ const props = defineProps<{
   /**
    * # 选择器使用的实体类
    */
-  entity: ClassConstructor<E>,
+  entity: ClassConstructor<E>
 
   /**
    * # 选择器使用的服务类
    */
-  service: ClassConstructor<S>,
+  service: ClassConstructor<S>
 
   /**
    * # 选择器的添加按钮的权限标识
@@ -113,7 +111,7 @@ const props = defineProps<{
   /**
    * # 选择器使用的字段列表
    */
-  fieldList?: AirTableFieldConfig[],
+  fieldList?: AirTableFieldConfig[]
 
   /**
    * # `Editor`
@@ -124,17 +122,17 @@ const props = defineProps<{
   /**
    * # 搜索使用的字段列表
    */
-  searchParams?: AirSearchFieldConfig[],
+  searchParams?: AirSearchFieldConfig[]
 
   /**
    * # 选择器宽度
    */
-  width?: string,
+  width?: string
 
   /**
    * # 选择器的高度
    */
-  height?: string,
+  height?: string
 
   /**
    * # 选择器标题
@@ -145,12 +143,12 @@ const props = defineProps<{
    * # 不分页
    * 默认请求分页接口 如配置了 `treeList` 则此项自动失效
    */
-  unPaginate?: boolean,
+  unPaginate?: boolean
 
   /**
    * # 请求专用的 `treeList` 接口
    */
-  treeList?: boolean,
+  treeList?: boolean
 
   /**
    * # 搜索前的拦截方法
@@ -159,7 +157,7 @@ const props = defineProps<{
    * @param requestData 请求对象
    */
   // eslint-disable-next-line no-unused-vars
-  beforeSearch?:(requestData: AirRequestPage<E>) => AirRequestPage<E> | void
+  beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E> | void
 
   /**
    * # Props参数
@@ -177,12 +175,12 @@ const props = defineProps<{
     /**
      * # 是否多选
      */
-    isMultiple: boolean,
+    isMultiple: boolean
 
     /**
      * # 已选中的列表
      */
-    selectList: E[],
+    selectList: E[]
 
     /**
      * # 确认按钮的回调事件
@@ -197,10 +195,7 @@ const props = defineProps<{
     onCancel: () => void
   }
 }>()
-const {
-  entity,
-  service,
-} = props
+const { entity, service } = props
 
 const hookOptions: IUseSelectorOption<E> = {}
 if (props.beforeSearch) {
@@ -248,8 +243,7 @@ const fields = computed(() => {
   if (props.fieldList) {
     return props.fieldList
   }
-  return AirClassTransformer.parse({}, props.entity)
-    .getTableFieldConfigList()
+  return AirClassTransformer.parse({}, props.entity).getTableFieldConfigList()
 })
 
 /**
@@ -278,6 +272,5 @@ async function onAdd() {
   await AirDialog.show(props.editor)
   onReloadData()
 }
-
 </script>
 <style lang="scss" scoped></style>

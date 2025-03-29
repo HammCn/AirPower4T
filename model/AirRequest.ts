@@ -21,7 +21,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   @Field({
     type: AirSort,
   })
-    sort?: AirSort
+  sort?: AirSort
 
   /**
    * ### 初始化一个请求类

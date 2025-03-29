@@ -33,5 +33,5 @@ export enum AirDateTimeType {
   /**
    * ### 月
    */
-  MONTH = 'month'
+  MONTH = 'month',
 }

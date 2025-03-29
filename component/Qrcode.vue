@@ -1,7 +1,7 @@
 <template>
   <div
     v-loading="!content"
-    :style="{ width: size + 'px', height: size + 'px', }"
+    :style="{ width: size + 'px', height: size + 'px' }"
     class="air-qrcode"
   >
     <QrcodeVue
@@ -42,9 +42,12 @@ const qr = ref('')
 /**
  * # 监听二维码内容变化
  */
-watch(() => props.content, () => {
-  qr.value = props.content || ''
-})
+watch(
+  () => props.content,
+  () => {
+    qr.value = props.content || ''
+  },
+)
 </script>
 <style lang="scss" scoped>
 .air-qrcode {

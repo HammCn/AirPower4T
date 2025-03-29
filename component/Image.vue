@@ -14,8 +14,8 @@
       <template #error>
         <div class="image-error">
           {{
-            placeholder || (upload && entity ? (AirI18n.get().UploadImage || '上传图片') :
-              (AirI18n.get().NoPicture || '暂无图片'))
+            placeholder ||
+            (upload && entity ? AirI18n.get().UploadImage || '上传图片' : AirI18n.get().NoPicture || '暂无图片')
           }}
         </div>
       </template>
@@ -54,9 +54,7 @@
 </template>
 
 <script generic="F extends IFile" lang="ts" setup>
-import {
-  computed, PropType, ref, watch,
-} from 'vue'
+import { computed, PropType, ref, watch } from 'vue'
 
 import { CircleCloseFilled } from '@element-plus/icons-vue'
 import { AirNotification } from '../feedback/AirNotification'
@@ -69,7 +67,7 @@ import { AirI18n } from '../helper/AirI18n'
 import { ClassConstructor } from '../type/AirType'
 
 const emits = defineEmits<{
-  onUpload: [file: F],
+  onUpload: [file: F]
   onRemove: []
 }>()
 
@@ -112,8 +110,7 @@ const props = defineProps({
    */
   headers: {
     type: Object as PropType<IJson>,
-    default: () => {
-    },
+    default: () => {},
   },
 
   /**
@@ -121,8 +118,7 @@ const props = defineProps({
    */
   data: {
     type: Object as PropType<IJson>,
-    default: () => {
-    },
+    default: () => {},
   },
 
   /**
@@ -257,11 +253,17 @@ function showLocalFile(file: File) {
 function beforeUpload(file: File): boolean {
   const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1)
   if (!props.extensions.includes(fileExt.toLocaleLowerCase())) {
-    AirNotification.warning(`${AirI18n.get().ImageSupportExtensions || '支持的图片格式为: '} ${props.extensions.join('/')}`, AirI18n.get().ImageExtNotSupported || '图片格式不支持')
+    AirNotification.warning(
+      `${AirI18n.get().ImageSupportExtensions || '支持的图片格式为: '} ${props.extensions.join('/')}`,
+      AirI18n.get().ImageExtNotSupported || '图片格式不支持',
+    )
     return false
   }
   if (file.size > props.limit) {
-    AirNotification.warning(`${AirI18n.get().FileMaxSizeAllowed || '文件最大允许为: '}${AirFile.getFileSizeFriendly(props.limit)}`, AirI18n.get().FileTooLarge || '文件过大')
+    AirNotification.warning(
+      `${AirI18n.get().FileMaxSizeAllowed || '文件最大允许为: '}${AirFile.getFileSizeFriendly(props.limit)}`,
+      AirI18n.get().FileTooLarge || '文件过大',
+    )
     return false
   }
   isUploading.value = true
@@ -274,14 +276,17 @@ function beforeUpload(file: File): boolean {
  */
 function onUploadError() {
   isUploading.value = false
-  AirNotification.error(AirI18n.get().FileUploadErrorAndRetryPlease || '文件上传失败,请重新上传', AirI18n.get().UploadError || '上传失败')
+  AirNotification.error(
+    AirI18n.get().FileUploadErrorAndRetryPlease || '文件上传失败,请重新上传',
+    AirI18n.get().UploadError || '上传失败',
+  )
 }
 
 /**
  * # 上传成功事件
  * @param response 成功响应
  */
-function onUploadSuccess(response: { code: number, data: { url: string } }) {
+function onUploadSuccess(response: { code: number; data: { url: string } }) {
   if (response.code === AirConfig.successCode) {
     const entityData = AirClassTransformer.parse(response.data, props.entity)
     if (entityData && entityData.url) {
@@ -331,7 +336,7 @@ init()
     right: 0;
     top: 0;
     bottom: 0;
-    transition: all .3s;
+    transition: all 0.3s;
 
     .image-upload-box {
       position: absolute;
@@ -365,7 +370,6 @@ init()
     pointer-events: auto;
     font-weight: bold;
   }
-
 }
 
 .air-image:hover {

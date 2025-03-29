@@ -9,7 +9,7 @@ export interface IDictionary<K extends AirEnumKey = AirEnumKey> {
   /**
    * ### 字典的值
    */
-  key: K,
+  key: K
 
   /**
    * ### 字典的显示标题

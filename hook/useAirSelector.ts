@@ -16,7 +16,12 @@ import { ClassConstructor } from '../type/AirType'
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
-export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E, S> {
+export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(
+  props: IJson,
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseSelectorOption<E> = {},
+): IUseSelectorResult<E, S> {
   /**
    * ### 表格`Hook`返回对象
    */

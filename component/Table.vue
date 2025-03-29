@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="{ height: (autoHeight ? 'auto' : '0px') }"
+    :style="{ height: autoHeight ? 'auto' : '0px' }"
     class="air-table-container"
   >
     <div class="air-table-tool-bar">
@@ -65,8 +65,9 @@
             >
               <span
                 v-if="item.prefixText"
-                style="color:#aaa;margin-right: 3px;"
-              >{{ item.prefixText }}</span>
+                style="color: #aaa; margin-right: 3px"
+                >{{ item.prefixText }}</span
+              >
               <!-- 自动读取枚举 -->
               <div
                 v-if="AirDecorator.getDictionary(item.dictionary)"
@@ -76,14 +77,18 @@
                 <span
                   v-if="item.showColor"
                   :style="{
-                    backgroundColor:
-                      AirDecorator.getDictionary(item.dictionary)?.getColor(getRowEntityField(scope, item.key), AirColor.NORMAL)
+                    backgroundColor: AirDecorator.getDictionary(item.dictionary)?.getColor(
+                      getRowEntityField(scope, item.key),
+                      AirColor.NORMAL,
+                    ),
                   }"
                   class="light"
                 />
                 {{
-                  AirDecorator.getDictionary(item.dictionary)?.getLabel(getRowEntityField(scope, item.key),
-                                                                        item.emptyValue)
+                  AirDecorator.getDictionary(item.dictionary)?.getLabel(
+                    getRowEntityField(scope, item.key),
+                    item.emptyValue,
+                  )
                 }}
               </div>
               <!-- 是手机字段 -->
@@ -117,12 +122,16 @@
                 <el-image
                   :preview-src-list="[AirFile.getStaticFileUrl(getRowEntityField(scope, item.key))]"
                   :src="AirFile.getStaticFileUrl(getRowEntityField(scope, item.key))"
-                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px', borderRadius: item.imageRadius }"
+                  :style="{
+                    width: item.imageWidth + 'px',
+                    height: item.imageHeight + 'px',
+                    borderRadius: item.imageRadius,
+                  }"
                   :z-index="999999"
                   fit="contain"
                   lazy
                   preview-teleported
-                  style="background-color:#f3f6f9"
+                  style="background-color: #f3f6f9"
                 >
                   <template #error>
                     <div class="image-error">
@@ -161,9 +170,7 @@
                         />
                       </template>
                       <template v-else>
-                        {{
-                          getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
-                        }}
+                        {{ getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue }}
                       </template>
                     </ACopy>
                   </div>
@@ -183,17 +190,16 @@
                       />
                     </template>
                     <template v-else>
-                      {{
-                        getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
-                      }}
+                      {{ getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue }}
                     </template>
                   </div>
                 </template>
               </template>
               <span
                 v-if="item.suffixText"
-                style="color:#aaa"
-              >{{ item.suffixText }}</span>
+                style="color: #aaa"
+                >{{ item.suffixText }}</span
+              >
             </slot>
           </template>
         </el-table-column>
@@ -269,7 +275,9 @@
                 {{ AirI18n.get().Detail || '详情' }}
               </AButton>
               <template
-                v-if="isEnableAndDisableShowInline && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
+                v-if="
+                  isEnableAndDisableShowInline && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)
+                "
               >
                 <AButton
                   v-if="getRowEntity(scope).isDisabled"
@@ -407,8 +415,8 @@
         <img
           alt=""
           src="../assets/img/empty.svg"
-          style="width: 80px;"
-        >
+          style="width: 80px"
+        />
         <div>{{ emptyText || modelConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
       </template>
     </el-table>
@@ -430,7 +438,7 @@
             <el-check-tag
               v-for="item in allFieldList"
               :key="item.key"
-              :checked="!!selectedFieldList.find(i => i === item.key)"
+              :checked="!!selectedFieldList.find((i) => i === item.key)"
               :class="item.forceShow ? 'disabled' : ''"
               :disabled="item.forceShow"
               @change="fieldSelectChanged($event, item)"
@@ -445,9 +453,7 @@
 </template>
 
 <script generic="E extends AirEntity" lang="ts" setup>
-import {
-  computed, ComputedRef, nextTick, PropType, ref, watch,
-} from 'vue'
+import { computed, ComputedRef, nextTick, PropType, ref, watch } from 'vue'
 
 import { Setting } from '@element-plus/icons-vue'
 import { ElCheckTag, ElDropdown } from 'element-plus'
@@ -458,9 +464,7 @@ import { AirAny, AirTableInstance, ClassConstructor } from '../type/AirType'
 import { AirColor } from '../enum/AirColor'
 import { AirFile } from '../helper/AirFile'
 import { AirSort } from '../model/AirSort'
-import {
-  AButton, ACopy, ADateTime, ADesensitize, AMoney, APhone,
-} from '.'
+import { AButton, ACopy, ADateTime, ADesensitize, AMoney, APhone } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirPermission } from '../helper/AirPermission'
@@ -477,7 +481,7 @@ import { getModelConfig } from '../decorator/Model'
 import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 
 const emits = defineEmits<{
-  onDetail: [row: E],
+  onDetail: [row: E]
   onDelete: [row: E]
   onEdit: [row: E]
   onSelect: [list: E[]]
@@ -916,13 +920,18 @@ const entityInstance = computed(() => {
 /**
  * # 显示按下快捷键的提醒
  */
-watch(() => AirStore().controlKeyDown, () => {
-  isForceDelete.value = !!(AirStore().controlKeyDown
-    && !props.customDelete
-    && !props.hideDelete
-    && props.dataList
-    && props.dataList.length > 0)
-})
+watch(
+  () => AirStore().controlKeyDown,
+  () => {
+    isForceDelete.value = !!(
+      AirStore().controlKeyDown &&
+      !props.customDelete &&
+      !props.hideDelete &&
+      props.dataList &&
+      props.dataList.length > 0
+    )
+  },
+)
 
 /**
  * # 内部使用的配置
@@ -948,7 +957,8 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   // 如果传入fieldList 优先使用fieldList
   if (props.fieldList.length > 0) {
     // 过滤没有隐藏且没有移除的列
-    return props.fieldList.filter((item) => !item.removed)
+    return props.fieldList
+      .filter((item) => !item.removed)
       .map((item) => {
         if (item.money && !item.align) {
           item.align = 'right'
@@ -956,8 +966,7 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
         return item
       })
   }
-  return (entityInstance.value.getTableFieldConfigList()
-    .filter((item) => !item.removed) || []).map((item) => {
+  return (entityInstance.value.getTableFieldConfigList().filter((item) => !item.removed) || []).map((item) => {
     if (item.money && !item.align) {
       item.align = 'right'
     }
@@ -965,26 +974,16 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   })
 })
 
-const selectFieldListKey = computed(() => `field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}_${props.fieldCacheKey}`)
+const selectFieldListKey = computed(
+  () => `field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}_${props.fieldCacheKey}`,
+)
 
-const isAddDisabled = (row: E) => (props.disableAdd
-  ? props.disableAdd(row)
-  : false)
-const isDisableChangeStatus = (row: E) => (props.disableChangeStatus
-  ? props.disableChangeStatus(row)
-  : false)
-const isDeleteDisabled = (row: E) => (props.disableDelete
-  ? props.disableDelete(row)
-  : false)
-const isDetailDisabled = (row: E) => (props.disableDetail
-  ? props.disableDetail(row)
-  : false)
-const isEditDisabled = (row: E) => (props.disableEdit
-  ? props.disableEdit(row)
-  : false)
-const isSelectable = (row: E) => (props.selectable
-  ? props.selectable(row)
-  : true)
+const isAddDisabled = (row: E) => (props.disableAdd ? props.disableAdd(row) : false)
+const isDisableChangeStatus = (row: E) => (props.disableChangeStatus ? props.disableChangeStatus(row) : false)
+const isDeleteDisabled = (row: E) => (props.disableDelete ? props.disableDelete(row) : false)
+const isDetailDisabled = (row: E) => (props.disableDetail ? props.disableDetail(row) : false)
+const isEditDisabled = (row: E) => (props.disableEdit ? props.disableEdit(row) : false)
+const isSelectable = (row: E) => (props.selectable ? props.selectable(row) : true)
 
 //! 计算按钮是否显示
 const isDeleteShowInline = computed(() => {
@@ -1047,10 +1046,7 @@ function updateSelectedFieldList() {
       return
     }
   }
-  selectedFieldList.value = allFieldList.value.filter(
-    (item) => !item.removed && !item.hide,
-  )
-    .map((item) => item.key)
+  selectedFieldList.value = allFieldList.value.filter((item) => !item.removed && !item.hide).map((item) => item.key)
 }
 
 /**
@@ -1098,8 +1094,7 @@ function getPayloadRowData(row: IJson, config: AirTableFieldConfig): AirAny {
     }
     if (row[config.key] && row[config.key].length > 0) {
       // 对象数组挂载
-      return row[config.key].map((i: IJson) => i[config.payloadField || ''])
-        .join(config.arraySeparator)
+      return row[config.key].map((i: IJson) => i[config.payloadField || '']).join(config.arraySeparator)
     }
   }
   return config.emptyValue
@@ -1195,11 +1190,7 @@ async function handleDelete(item: E) {
       if (props.deleteContent) {
         content = props.deleteContent
       }
-      await AirConfirm.create()
-        .dangerButton()
-        .enableEscClose()
-        .setConfirmText(title)
-        .show(content, title)
+      await AirConfirm.create().dangerButton().enableEscClose().setConfirmText(title).show(content, title)
     }
     emits('onDelete', item)
   } catch (e) {
@@ -1275,12 +1266,7 @@ function getRowEntityField(scope: IJson, key: string): AirAny {
   return scope.row[key]
 }
 
-const tableRowClassName = ({
-  row,
-}: {
-  row: E
-  rowIndex: number
-}) => {
+const tableRowClassName = ({ row }: { row: E; rowIndex: number }) => {
   if (props.disableRow && props.disableRow(row)) {
     return 'disable-row'
   }
@@ -1296,9 +1282,12 @@ function init() {
 /**
  * # 监听传入字段列表变化
  */
-watch(() => props.fieldList, () => {
-  updateSelectedFieldList()
-})
+watch(
+  () => props.fieldList,
+  () => {
+    updateSelectedFieldList()
+  },
+)
 
 /**
  * # 监听传入数据变化

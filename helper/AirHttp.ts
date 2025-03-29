@@ -56,7 +56,10 @@ export class AirHttp {
     }
     // 初始化一些默认值
     this.axiosRequestConfig.method = <Method>AirHttpMethod.POST
-    this.axiosRequestConfig.baseURL = this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0 ? AirConstant.STRING_EMPTY : AirConfig.apiUrl
+    this.axiosRequestConfig.baseURL =
+      this.url.indexOf(AirConstant.PREFIX_HTTP) === 0 || this.url.indexOf(AirConstant.PREFIX_HTTPS) === 0
+        ? AirConstant.STRING_EMPTY
+        : AirConfig.apiUrl
     this.axiosRequestConfig.timeout = this.timeout
     this.axiosRequestConfig.headers = {}
     this.axiosRequestConfig.headers[AirConstant.CONTENT_TYPE] = AirHttpContentType.JSON
@@ -217,30 +220,31 @@ export class AirHttp {
         this.axiosResponse = axios.get(this.url, this.axiosRequestConfig)
     }
     return new Promise((resolve, reject) => {
-      this.axiosResponse.then(({ data }) => {
-        if (AirHttp.isSuccess(data)) {
-          // 成功
-          resolve(AirHttp.getResponseData(data))
-          return
-        }
-        if (this.errorCallback) {
-          reject(data)
-          return
-        }
-        if (AirHttp.isContinue(data)) {
-          // 需要继续操作
-          AirEvent.emit(AirEventType.REQUEST_CONTINUE)
-          reject(data)
-          return
-        }
-        if (AirHttp.isUnAuthorize(data)) {
-          // 需要登录
-          AirEvent.emit(AirEventType.UNAUTHORIZED)
-          return
-        }
-        // 其他业务错误
-        AirEvent.emit(AirEventType.REQUEST_ERROR, data[AirConfig.httpMessageKey])
-      })
+      this.axiosResponse
+        .then(({ data }) => {
+          if (AirHttp.isSuccess(data)) {
+            // 成功
+            resolve(AirHttp.getResponseData(data))
+            return
+          }
+          if (this.errorCallback) {
+            reject(data)
+            return
+          }
+          if (AirHttp.isContinue(data)) {
+            // 需要继续操作
+            AirEvent.emit(AirEventType.REQUEST_CONTINUE)
+            reject(data)
+            return
+          }
+          if (AirHttp.isUnAuthorize(data)) {
+            // 需要登录
+            AirEvent.emit(AirEventType.UNAUTHORIZED)
+            return
+          }
+          // 其他业务错误
+          AirEvent.emit(AirEventType.REQUEST_ERROR, data[AirConfig.httpMessageKey])
+        })
         .catch((err) => {
           if (this.errorCallback) {
             reject(err)
@@ -283,7 +287,10 @@ export class AirHttp {
    * @param postData 请求的数据
    * @param parseClass 返回的模型
    */
-  async request<REQ extends AirModel, RES extends AirModel>(postData: REQ | REQ[] | undefined, parseClass: ClassConstructor<RES>): Promise<RES> {
+  async request<REQ extends AirModel, RES extends AirModel>(
+    postData: REQ | REQ[] | undefined,
+    parseClass: ClassConstructor<RES>,
+  ): Promise<RES> {
     const result = await this.post(postData)
     return AirClassTransformer.parse(result, parseClass)
   }
@@ -293,7 +300,10 @@ export class AirHttp {
    * @param postData 请求的数据
    * @param parseClass 返回的模型列表
    */
-  async requestArray<REQ extends AirModel, RES extends AirModel>(postData: REQ | REQ[] | undefined, parseClass: ClassConstructor<RES>): Promise<RES[]> {
+  async requestArray<REQ extends AirModel, RES extends AirModel>(
+    postData: REQ | REQ[] | undefined,
+    parseClass: ClassConstructor<RES>,
+  ): Promise<RES[]> {
     const result = await this.post(postData)
     return AirClassTransformer.parseArray(result as IJson[], parseClass)
   }

@@ -17,10 +17,9 @@ Window.prototype.airConfig = () => {
   // eslint-disable-next-line no-console
   console.clear()
   const airConfig: IJson = {}
-  Object.keys(AirConfig)
-    .forEach((item) => {
-      airConfig[item] = (AirConfig as IJson)[item]
-    })
+  Object.keys(AirConfig).forEach((item) => {
+    airConfig[item] = (AirConfig as IJson)[item]
+  })
   // eslint-disable-next-line no-console
   console.log(airConfig)
 }

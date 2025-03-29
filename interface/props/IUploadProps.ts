@@ -21,17 +21,17 @@ export interface IUploadProps {
    * ### 如传入数组包含 `*` 则直接允许所有格式
    * 允许上传文件后缀数组 不要加 `·`
    */
-  extensions?: string[],
+  extensions?: string[]
 
   /**
    * ### 上传表单的字段名 默认 `file`
    */
-  uploadName?: string,
+  uploadName?: string
 
   /**
    * ### 上传的地址 默认无需传入
    */
-  uploadUrl?: string,
+  uploadUrl?: string
 
   /**
    * ### 上传成功的文案提示

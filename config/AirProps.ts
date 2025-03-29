@@ -74,9 +74,7 @@ export function airPropsId() {
  *
  * @param param 选择器的参数
  */
-export function airPropsSelector<
-  S extends AirEntity, P extends AirEntity = S
->(param: P | null = null) {
+export function airPropsSelector<S extends AirEntity, P extends AirEntity = S>(param: P | null = null) {
   return Object.assign(airProps(), {
     /**
      * ### 是否使用多选

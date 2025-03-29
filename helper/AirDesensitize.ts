@@ -64,7 +64,13 @@ export class AirDesensitize {
    * @param symbol      `可选` 脱敏符号
    * @return 脱敏后的文本
    */
-  public static desensitize(source: string, type: AirDesensitizeType, head = 0, tail = 0, symbol = AirConstant.STRING_ASTERISK): string {
+  public static desensitize(
+    source: string,
+    type: AirDesensitizeType,
+    head = 0,
+    tail = 0,
+    symbol = AirConstant.STRING_ASTERISK,
+  ): string {
     if (!source) {
       return AirConstant.STRING_EMPTY
     }

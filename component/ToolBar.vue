@@ -25,7 +25,7 @@
       <slot name="beforeSearch" />
       <template v-if="isSearchEnabled">
         <template
-          v-for=" item in searchFieldList "
+          v-for="item in searchFieldList"
           :key="item.key"
         >
           <div
@@ -50,7 +50,7 @@
                   type="daterange"
                   value-format="x"
                   @change="onSearch()"
-                  @clear=" data[item.key] = undefined"
+                  @clear="data[item.key] = undefined"
                 />
                 <el-time-picker
                   v-if="item.betweenType === AirBetweenType.TIME"
@@ -63,7 +63,7 @@
                   arrow-control
                   is-range
                   @change="onSearch()"
-                  @clear=" data[item.key] = undefined"
+                  @clear="data[item.key] = undefined"
                 />
                 <el-date-picker
                   v-if="item.betweenType === AirBetweenType.DATETIME"
@@ -77,7 +77,7 @@
                   type="datetimerange"
                   value-format="x"
                   @change="onSearch()"
-                  @clear=" data[item.key] = undefined"
+                  @clear="data[item.key] = undefined"
                 />
               </template>
               <el-select
@@ -87,7 +87,7 @@
                 :filterable="item.filterable"
                 :placeholder="item.label + '...'"
                 @change="onSearch()"
-                @clear=" data[item.key] = undefined"
+                @clear="data[item.key] = undefined"
               >
                 <template v-for="enumItem of AirDecorator.getDictionary(item.dictionary)">
                   <el-option
@@ -116,7 +116,7 @@
         :permission="exportPermission || AirPermission.get(entity, AirPermissionAction.EXPORT)"
         custom-class="export-button"
         type="EXPORT"
-        @click=" onExport()"
+        @click="onExport()"
       >
         {{ AirI18n.get().Export || '导出' }}
       </AButton>
@@ -125,10 +125,8 @@
   </div>
 </template>
 
-<script generic="E extends AirEntity,S extends AirAbstractEntityService<E>" lang="ts" setup>
-import {
-  computed, PropType, Ref, ref,
-} from 'vue'
+<script generic="E extends AirEntity, S extends AirAbstractEntityService<E>" lang="ts" setup>
+import { computed, PropType, Ref, ref } from 'vue'
 
 import { ElOption } from 'element-plus'
 import { AButton } from '../component'
@@ -154,8 +152,8 @@ import { ClassConstructor } from '../type/AirType'
 import { AirConstant } from '../config/AirConstant'
 
 const emits = defineEmits<{
-  onSearch: [request: AirRequestPage<E>],
-  onAdd: [],
+  onSearch: [request: AirRequestPage<E>]
+  onAdd: []
   onReset: []
 }>()
 
@@ -330,10 +328,7 @@ const props = defineProps({
 /**
  * # 默认时间
  */
-const defaultTime = ref([
-  new Date(1991, 10, 3, 0, 0, 0),
-  new Date(1991, 10, 3, 23, 59, 59),
-])
+const defaultTime = ref([new Date(1991, 10, 3, 0, 0, 0), new Date(1991, 10, 3, 23, 59, 59)])
 
 /**
  * # 格式化年月日
@@ -381,7 +376,7 @@ const request = ref(new AirRequestPage(props.entity)) as Ref<AirRequestPage<E>>
 /**
  * # 添加按钮的标题
  */
-const addTitle = computed(() => modelConfig.value.addTitle || (AirI18n.get().Add || '添加'))
+const addTitle = computed(() => modelConfig.value.addTitle || AirI18n.get().Add || '添加')
 
 /**
  * # 是否显示搜索框
@@ -394,7 +389,10 @@ const isSearchEnabled = computed(() => props.showSearch ?? modelConfig.value.sho
  */
 function getUrlWithAccessToken(url: string): string {
   const accessToken = AirConfig.getAccessToken()
-  if (url.indexOf(`?${AirConfig.authorizationHeaderKey}=`) < 0 && url.indexOf(`&${AirConfig.authorizationHeaderKey}=`) < 0) {
+  if (
+    url.indexOf(`?${AirConfig.authorizationHeaderKey}=`) < 0 &&
+    url.indexOf(`&${AirConfig.authorizationHeaderKey}=`) < 0
+  ) {
     if (url.indexOf('?') < 0) {
       url += `?${AirConfig.authorizationHeaderKey}=${accessToken}`
     } else {
@@ -457,7 +455,7 @@ function onDownloadTemplate() {
 /**
  * # 高级搜索字段列表
  */
-const searchFieldList = computed(() => (props.searchParams || entityInstance.value.getSearchFieldConfigList()))
+const searchFieldList = computed(() => props.searchParams || entityInstance.value.getSearchFieldConfigList())
 
 /**
  * # 查询用的临时JSON
@@ -475,8 +473,7 @@ function onSearch() {
       data.value[key] = undefined
     }
   })
-  request.value.filter = AirClassTransformer.newInstance(props.entity)
-    .recoverBy(data.value)
+  request.value.filter = AirClassTransformer.newInstance(props.entity).recoverBy(data.value)
   if (request.value.page) {
     request.value.page.pageNum = 1
   }

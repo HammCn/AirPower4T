@@ -55,12 +55,15 @@ airpowerInit()
 
 let tooltipTimer: number
 
-watch(() => AirStore().tooltipRef, () => {
-  clearTimeout(tooltipTimer)
-  tooltipTimer = setTimeout(() => {
-    isShowTooltip.value = false
-  }, 2000)
-})
+watch(
+  () => AirStore().tooltipRef,
+  () => {
+    clearTimeout(tooltipTimer)
+    tooltipTimer = setTimeout(() => {
+      isShowTooltip.value = false
+    }, 2000)
+  },
+)
 </script>
 <style lang="scss" scoped>
 .airpower {

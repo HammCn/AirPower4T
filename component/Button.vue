@@ -7,7 +7,10 @@
     :type="danger ? 'danger' : 'default'"
     :underline="false"
     class="air-button"
-    @click="$emit('onClick'); $emit('click')"
+    @click="
+      $emit('onClick')
+      $emit('click')
+    "
   >
     <i
       :class="showIcon"
@@ -20,15 +23,18 @@
     :class="customClass"
     :disabled="isDisabled"
     :link="linkButton"
-    :type="danger ? 'danger' : (primary ? 'primary' : 'default')"
+    :type="danger ? 'danger' : primary ? 'primary' : 'default'"
     class="air-button"
-    @click=" $emit('onClick'); $emit('click')"
+    @click="
+      $emit('onClick')
+      $emit('click')
+    "
   >
     <i
       v-if="showIcon && !linkButton"
       :class="showIcon"
       class="airpower"
-      style="margin-right: 5px;"
+      style="margin-right: 5px"
     />
     <slot />
   </el-button>
@@ -140,7 +146,7 @@ const permissionTips = computed(() => {
     return props.tooltip
   }
   if (props.permission && !AirPermission.has(props.permission)) {
-    return (AirI18n.get().NoPermissionToOperate || '无权操作')
+    return AirI18n.get().NoPermissionToOperate || '无权操作'
   }
   return props.tooltip
 })

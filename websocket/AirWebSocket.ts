@@ -44,11 +44,14 @@ export class AirWebsocket {
   /**
    * ### 创建一个 `WebSocket`
    */
-  static create(url: string, handler: {
-    // eslint-disable-next-line no-unused-vars
-    onMessage?: (event: AirWebsocketEvent) => void,
-    onConnect?: () => void
-  }): AirWebsocket {
+  static create(
+    url: string,
+    handler: {
+      // eslint-disable-next-line no-unused-vars
+      onMessage?: (event: AirWebsocketEvent) => void
+      onConnect?: () => void
+    },
+  ): AirWebsocket {
     if (!url) {
       throw new Error('请传入WebSocket连接的URL')
     }

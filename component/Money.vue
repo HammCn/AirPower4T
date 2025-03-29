@@ -3,9 +3,7 @@
     :content="showMoney"
     class="air-money"
   >
-    <div class="prefix">
-      ¥
-    </div>
+    <div class="prefix">¥</div>
     <div class="money">
       {{ showMoney }}
     </div>
@@ -57,8 +55,7 @@ const showMoney = computed(() => {
   } else {
     number = Math.floor(number)
   }
-  return (number / precision).toFixed(props.precision)
-    .toString()
+  return (number / precision).toFixed(props.precision).toString()
 })
 </script>
 <style lang="scss" scoped>

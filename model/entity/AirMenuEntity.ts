@@ -31,14 +31,14 @@ export class AirMenuEntity extends AirEntity implements IMenu {
   @Field({
     type: Boolean,
   })
-    isDisabled = false
+  isDisabled = false
 
   @Field({
     // eslint-disable-next-line no-use-before-define
     type: AirMenuEntity,
     array: true,
   })
-    children: this[] = []
+  children: this[] = []
 
   /**
    * ### 设置菜单名称

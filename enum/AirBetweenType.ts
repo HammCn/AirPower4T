@@ -23,5 +23,5 @@ export enum AirBetweenType {
   /**
    * ### 普通数字
    */
-  NUMBER
+  NUMBER,
 }
