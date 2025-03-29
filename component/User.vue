@@ -1,22 +1,11 @@
 <template>
   <div class="air-user">
-    <div
-      class="air-user-head"
-      @click="isDialogShow = true"
-    >
+    <div class="air-user-head" @click="isDialogShow = true">
       <el-image :src="userAvatar" />
     </div>
-    <div
-      v-if="isDialogShow"
-      class="air-user-cover"
-      @click.self="isDialogShow = false"
-    />
+    <div v-if="isDialogShow" class="air-user-cover" @click.self="isDialogShow = false" />
     <transition name="search">
-      <div
-        v-if="isDialogShow"
-        :style="{ width: width + 'px', height: height + 'px' }"
-        class="air-user-dialog"
-      >
+      <div v-if="isDialogShow" :style="{ width: width + 'px', height: height + 'px' }" class="air-user-dialog">
         <div class="air-user-header">
           <div class="air-user-title">
             <slot name="title">
@@ -24,11 +13,7 @@
             </slot>
           </div>
           <div class="air-user-logout">
-            <el-button
-              text
-              type="danger"
-              @click="logout"
-            >
+            <el-button text type="danger" @click="logout">
               <el-icon>
                 <SwitchButton />
               </el-icon>
@@ -53,7 +38,6 @@ import { SwitchButton } from '@element-plus/icons-vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { IUser } from '../interface/IUser'
-import { AirUserEntity } from '../model/entity/AirUserEntity'
 import defaultAvatar from '../assets/img/avatar.svg'
 import { AirFile } from '../helper/AirFile'
 import { AirI18n } from '../helper/AirI18n'
@@ -66,7 +50,7 @@ const props = defineProps({
    */
   user: {
     type: Object as PropType<IUser>,
-    default: new AirUserEntity(),
+    required: true
   },
 
   /**
