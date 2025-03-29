@@ -127,13 +127,13 @@ yarn production     #生产环境 使用.env.production
 
 ```shell
 #使用标准commit模板
-yarn c   
+yarn c
 
 #更新项目和AirPower
-yarn u   
+yarn u
 
 #查看Git格式化日志
-yarn l           
+yarn l
 ```
 
 ## 8️⃣ 推荐的VSCODE插件扩展

@@ -1,21 +1,21 @@
 <script generic="F extends IFile" lang="ts" setup>
-import { computed, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import type { IFile } from '../interface/IFile'
+import type { IJson } from '../interface/IJson'
+import type { ClassConstructor } from '../type/AirType'
+import { computed, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
-import { IFile } from '../interface/IFile'
-import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
-import { ClassConstructor } from '../type/AirType'
 
 const props = defineProps({
   /**
    * # 标准确认返回
    */
   onConfirm: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(file: F | null) => void>,
     default: () => null,
   },
@@ -159,13 +159,13 @@ if (props.header) {
 /**
  * # 上传验证
  */
-function uploadReady(file: { name: string; size: number }): boolean {
+function uploadReady(file: { name: string, size: number }): boolean {
   // 文件类型验证
   if (!props.extensions.includes('*')) {
     const arr = file.name.split('.')
     const fileExt = arr && arr.length > 1 ? arr[arr.length - 1] : ''
-    const isFileTypeInLimited = !(props.extensions.indexOf(fileExt.toLowerCase()) < 0)
-    if (!isFileTypeInLimited) {
+    const isFileTypeAllowed = props.extensions.includes(fileExt.toLowerCase())
+    if (!isFileTypeAllowed) {
       AirNotification.error(
         `${AirI18n.get().FileExtNotSupported || '文件格式不支持 '}${fileExt}`,
         AirI18n.get().UploadError || '上传失败',
@@ -173,9 +173,9 @@ function uploadReady(file: { name: string; size: number }): boolean {
       return false
     }
   }
-  const isFileSizeInLimited = file.size <= props.maxSize
+  const isFileSizeAllowed = file.size <= props.maxSize
   // 文件大小验证
-  if (!isFileSizeInLimited) {
+  if (!isFileSizeAllowed) {
     AirNotification.error(
       `${AirI18n.get().FileSizeNotSupported || '文件大小不支持 '}${AirFile.getFileSizeFriendly(file.size)}`,
       AirI18n.get().UploadError || '上传失败',
@@ -218,7 +218,8 @@ function onUploadSuccess(result: IJson) {
 
     const entity = AirClassTransformer.parse(result.data as IJson, props.entity)
     props.onConfirm(entity)
-  } else {
+  }
+  else {
     AirNotification.error(
       (result.message as string) || '好家伙,后端的拉垮哥们连Message都没返回???',
       AirI18n.get().UploadError || '上传失败',
@@ -227,6 +228,7 @@ function onUploadSuccess(result: IJson) {
   }
 }
 </script>
+
 <template>
   <ADialog
     :allow-fullscreen="false"
