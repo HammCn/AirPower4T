@@ -93,6 +93,12 @@ async function onSelect() {
   result.value = await AirDialog.show<T>(props.selector, props.param)
   emitChange()
 }
+
+async function onClear() {
+  result.value = undefined
+  emitChange()
+  emitClear()
+}
 </script>
 
 <template>
@@ -116,11 +122,7 @@ async function onSelect() {
       <el-button
         v-else
         :disabled="disabled"
-        @click="
-          result = undefined
-          emitChange()
-          emitClear()
-        "
+        @click=" onClear() "
       >
         {{ clearLabel }}
       </el-button>

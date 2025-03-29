@@ -96,7 +96,7 @@ const props = defineProps({
   },
 })
 
-defineEmits(['click', 'onClick'])
+const emits = defineEmits(['click', 'onClick'])
 
 /**
  * # 权限提示
@@ -128,6 +128,11 @@ const isDisabled = computed(() => {
  * # 显示的图标
  */
 const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
+
+function emitClick() {
+  emits('onClick')
+  emits('click')
+}
 </script>
 
 <template>
@@ -139,10 +144,7 @@ const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
     :type="danger ? 'danger' : 'default'"
     :underline="false"
     class="air-button"
-    @click="
-      $emit('onClick')
-      $emit('click')
-    "
+    @click="emitClick()"
   >
     <i
       :class="showIcon"
@@ -157,10 +159,7 @@ const showIcon = computed(() => AirIcon[props.type] || `${props.icon} iconfont`)
     :link="linkButton"
     :type="danger ? 'danger' : primary ? 'primary' : 'default'"
     class="air-button"
-    @click="
-      $emit('onClick')
-      $emit('click')
-    "
+    @click="emitClick()"
   >
     <i
       v-if="showIcon && !linkButton"

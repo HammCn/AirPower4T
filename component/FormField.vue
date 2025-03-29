@@ -137,6 +137,21 @@ function onChange(val: unknown) {
     ;(injectFormData.value as IJson)[props.field] = val
   }
 }
+
+function emitBlur() {
+  emits('onBlur')
+  emits('blur')
+}
+
+function emitClear() {
+  emits('onClear')
+  emits('clear')
+}
+
+function emitFocus() {
+  emits('onFocus')
+  emits('focus')
+}
 </script>
 
 <template>
@@ -155,19 +170,10 @@ function onChange(val: unknown) {
         :modifier="field"
         :readonly="readonly"
         :tree="tree"
-        @blur="
-          emits('blur')
-          emits('onBlur')
-        "
+        @blur=" emitBlur() "
         @change="onChange($event)"
-        @clear="
-          emits('clear')
-          emits('onClear')
-        "
-        @focus="
-          emits('focus')
-          emits('onFocus')
-        "
+        @clear=" emitClear() "
+        @focus=" emitFocus() "
       />
     </slot>
   </ElFormItem>
