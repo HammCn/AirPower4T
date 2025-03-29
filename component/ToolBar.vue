@@ -1,161 +1,29 @@
-<template>
-  <div class="air-tool-bar">
-    <div class="air-tool-bar--left">
-      <slot name="beforeButton" />
-      <AButton
-        v-if="props.entity && !hideAdd"
-        :permission="addPermission || AirPermission.get(entity, AirPermissionAction.ADD)"
-        primary
-        type="ADD"
-        @click="emits('onAdd')"
-      >
-        {{ addTitle }}
-      </AButton>
-      <AButton
-        v-if="showImport"
-        :permission="importPermission || AirPermission.get(entity, AirPermissionAction.IMPORT)"
-        type="IMPORT"
-        @click="onImport()"
-      >
-        {{ AirI18n.get().Import || '导入' }}
-      </AButton>
-      <slot name="afterButton" />
-    </div>
-    <div class="air-tool-bar--right">
-      <slot name="beforeSearch" />
-      <template v-if="isSearchEnabled">
-        <template
-          v-for="item in searchFieldList"
-          :key="item.key"
-        >
-          <div
-            v-if="!item.hide"
-            :style="{ width: item.width + 'px' }"
-            class="item"
-          >
-            <slot
-              :data="data"
-              :name="item.key"
-            >
-              <template v-if="item.between">
-                <el-date-picker
-                  v-if="item.betweenType === AirBetweenType.DATE"
-                  v-model="data[item.key]"
-                  :default-time="defaultTime"
-                  :editable="false"
-                  :end-placeholder="AirI18n.get().End || LABEL_END"
-                  :format="YYYY_MM_DD"
-                  :range-separator="AirI18n.get().To || LABEL_TO"
-                  :start-placeholder="item.label + ''"
-                  type="daterange"
-                  value-format="x"
-                  @change="onSearch()"
-                  @clear="data[item.key] = undefined"
-                />
-                <el-time-picker
-                  v-if="item.betweenType === AirBetweenType.TIME"
-                  v-model="data[item.key]"
-                  :editable="false"
-                  :end-placeholder="AirI18n.get().End || LABEL_END"
-                  :range-separator="AirI18n.get().To || LABEL_TO"
-                  :start-placeholder="item.label + ''"
-                  :value-format="HH_MM_SS"
-                  arrow-control
-                  is-range
-                  @change="onSearch()"
-                  @clear="data[item.key] = undefined"
-                />
-                <el-date-picker
-                  v-if="item.betweenType === AirBetweenType.DATETIME"
-                  v-model="data[item.key]"
-                  :default-time="defaultTime"
-                  :editable="false"
-                  :end-placeholder="AirI18n.get().End || LABEL_END"
-                  :format="YYYY_MM_DD + ' ' + HH_MM_SS"
-                  :range-separator="AirI18n.get().To || LABEL_TO"
-                  :start-placeholder="item.label + ''"
-                  type="datetimerange"
-                  value-format="x"
-                  @change="onSearch()"
-                  @clear="data[item.key] = undefined"
-                />
-              </template>
-              <el-select
-                v-else-if="AirDecorator.getDictionary(item.dictionary)"
-                v-model="data[item.key]"
-                :clearable="item.clearable"
-                :filterable="item.filterable"
-                :placeholder="item.label + '...'"
-                @change="onSearch()"
-                @clear="data[item.key] = undefined"
-              >
-                <template v-for="enumItem of AirDecorator.getDictionary(item.dictionary)">
-                  <el-option
-                    v-if="!enumItem.disabled"
-                    :key="enumItem.key.toString()"
-                    :label="enumItem.label"
-                    :value="enumItem.key"
-                  />
-                </template>
-              </el-select>
-              <el-input
-                v-else
-                v-model="data[item.key]"
-                :clearable="item.clearable"
-                :placeholder="item.label + '...'"
-                @blur="onSearch()"
-                @clear="onSearch"
-                @keydown.enter="onSearch"
-              />
-            </slot>
-          </div>
-        </template>
-      </template>
-      <AButton
-        v-if="showExport"
-        :permission="exportPermission || AirPermission.get(entity, AirPermissionAction.EXPORT)"
-        custom-class="export-button"
-        type="EXPORT"
-        @click="onExport()"
-      >
-        {{ AirI18n.get().Export || '导出' }}
-      </AButton>
-      <slot name="afterSearch" />
-    </div>
-  </div>
-</template>
-
 <script generic="E extends AirEntity, S extends AirAbstractEntityService<E>" lang="ts" setup>
-import { computed, PropType, Ref, ref } from 'vue'
+import type { PropType, Ref } from 'vue'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
+import type { IFile } from '../interface/IFile'
+import type { IJson } from '../interface/IJson'
+import type { AirRequest } from '../model/AirRequest'
+import type { ClassConstructor } from '../type/AirType'
 
 import { ElOption } from 'element-plus'
+import { computed, ref } from 'vue'
+import { AirEntity } from '../base/AirEntity'
 import { AButton } from '../component'
-import { AirDialog } from '../helper/AirDialog'
 import { AirConfig } from '../config/AirConfig'
-import { AirNotification } from '../feedback/AirNotification'
-import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
+import { AirConstant } from '../config/AirConstant'
+import { getModelConfig } from '../decorator/Model'
 import { AirBetweenType } from '../enum/AirBetweenType'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
-import { AirPermission } from '../helper/AirPermission'
-import { IFile } from '../interface/IFile'
-import { AirEntity } from '../base/AirEntity'
-import { AirRequestPage } from '../model/AirRequestPage'
-import { AirRequest } from '../model/AirRequest'
-import { IJson } from '../interface/IJson'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { AirI18n } from '../helper/AirI18n'
-import { AirExportModel } from '../model/AirExportModel'
+import { AirNotification } from '../feedback/AirNotification'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirDecorator } from '../helper/AirDecorator'
-import { getModelConfig } from '../decorator/Model'
-import { ClassConstructor } from '../type/AirType'
-import { AirConstant } from '../config/AirConstant'
-
-const emits = defineEmits<{
-  onSearch: [request: AirRequestPage<E>]
-  onAdd: []
-  onReset: []
-}>()
+import { AirDialog } from '../helper/AirDialog'
+import { AirI18n } from '../helper/AirI18n'
+import { AirPermission } from '../helper/AirPermission'
+import { AirExportModel } from '../model/AirExportModel'
+import { AirRequestPage } from '../model/AirRequestPage'
 
 const props = defineProps({
   /**
@@ -325,6 +193,12 @@ const props = defineProps({
   },
 })
 
+const emits = defineEmits<{
+  onSearch: [request: AirRequestPage<E>]
+  onAdd: []
+  onReset: []
+}>()
+
 /**
  * # 默认时间
  */
@@ -350,9 +224,9 @@ const entityInstance = computed(() => {
   if (props.entity) {
     try {
       return AirClassTransformer.newInstance(props.entity)
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log('AToolBar创建实体的实例失败')
+    }
+    catch (e) {
+      console.error(e)
     }
   }
   return new AirEntity()
@@ -389,17 +263,14 @@ const isSearchEnabled = computed(() => props.showSearch ?? modelConfig.value.sho
  */
 function getUrlWithAccessToken(url: string): string {
   const accessToken = AirConfig.getAccessToken()
-  if (
-    url.indexOf(`?${AirConfig.authorizationHeaderKey}=`) < 0 &&
-    url.indexOf(`&${AirConfig.authorizationHeaderKey}=`) < 0
-  ) {
-    if (url.indexOf('?') < 0) {
-      url += `?${AirConfig.authorizationHeaderKey}=${accessToken}`
-    } else {
-      url += `&${AirConfig.authorizationHeaderKey}=${accessToken}`
-    }
+  const tempString = `${AirConfig.authorizationHeaderKey}=`
+  if (url.includes(`?${tempString}`) || url.includes((`&${tempString}`))) {
+    return url
   }
-  return url
+  if (url.includes('?')) {
+    return `&${AirConfig.authorizationHeaderKey}=${accessToken}`
+  }
+  return `?${AirConfig.authorizationHeaderKey}=${accessToken}`
 }
 
 /**
@@ -424,10 +295,10 @@ function onExport() {
  * @param url
  */
 function getApiUrl(url: string): string {
-  if (url.indexOf(AirConstant.PREFIX_HTTP) < 0 && url.indexOf(AirConstant.PREFIX_HTTPS) <= 0) {
-    url = AirConfig.apiUrl + url
+  if (url.includes(AirConstant.PREFIX_HTTP) || url.includes(AirConstant.PREFIX_HTTPS)) {
+    return url
   }
-  return url
+  return AirConfig.apiUrl + url
 }
 
 /**
@@ -530,6 +401,133 @@ defineExpose({
   search: onSearch,
 })
 </script>
+
+<template>
+  <div class="air-tool-bar">
+    <div class="air-tool-bar--left">
+      <slot name="beforeButton" />
+      <AButton
+        v-if="props.entity && !hideAdd"
+        :permission="addPermission || AirPermission.get(entity, AirPermissionAction.ADD)"
+        primary
+        type="ADD"
+        @click="emits('onAdd')"
+      >
+        {{ addTitle }}
+      </AButton>
+      <AButton
+        v-if="showImport"
+        :permission="importPermission || AirPermission.get(entity, AirPermissionAction.IMPORT)"
+        type="IMPORT"
+        @click="onImport()"
+      >
+        {{ AirI18n.get().Import || '导入' }}
+      </AButton>
+      <slot name="afterButton" />
+    </div>
+    <div class="air-tool-bar--right">
+      <slot name="beforeSearch" />
+      <template v-if="isSearchEnabled">
+        <template
+          v-for="item in searchFieldList"
+          :key="item.key"
+        >
+          <div
+            v-if="!item.hide"
+            :style="{ width: `${item.width}px` }"
+            class="item"
+          >
+            <slot
+              :data="data"
+              :name="item.key"
+            >
+              <template v-if="item.between">
+                <el-date-picker
+                  v-if="item.betweenType === AirBetweenType.DATE"
+                  v-model="data[item.key]"
+                  :default-time="defaultTime"
+                  :editable="false"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :format="YYYY_MM_DD"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
+                  :start-placeholder="`${item.label}`"
+                  type="daterange"
+                  value-format="x"
+                  @change="onSearch()"
+                  @clear="data[item.key] = undefined"
+                />
+                <el-time-picker
+                  v-if="item.betweenType === AirBetweenType.TIME"
+                  v-model="data[item.key]"
+                  :editable="false"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
+                  :start-placeholder="`${item.label}`"
+                  :value-format="HH_MM_SS"
+                  arrow-control
+                  is-range
+                  @change="onSearch()"
+                  @clear="data[item.key] = undefined"
+                />
+                <el-date-picker
+                  v-if="item.betweenType === AirBetweenType.DATETIME"
+                  v-model="data[item.key]"
+                  :default-time="defaultTime"
+                  :editable="false"
+                  :end-placeholder="AirI18n.get().End || LABEL_END"
+                  :format="`${YYYY_MM_DD} ${HH_MM_SS}`"
+                  :range-separator="AirI18n.get().To || LABEL_TO"
+                  :start-placeholder="`${item.label}`"
+                  type="datetimerange"
+                  value-format="x"
+                  @change="onSearch()"
+                  @clear="data[item.key] = undefined"
+                />
+              </template>
+              <el-select
+                v-else-if="AirDecorator.getDictionary(item.dictionary)"
+                v-model="data[item.key]"
+                :clearable="item.clearable"
+                :filterable="item.filterable"
+                :placeholder="`${item.label}...`"
+                @change="onSearch()"
+                @clear="data[item.key] = undefined"
+              >
+                <template v-for="enumItem of AirDecorator.getDictionary(item.dictionary)">
+                  <ElOption
+                    v-if="!enumItem.disabled"
+                    :key="enumItem.key.toString()"
+                    :label="enumItem.label"
+                    :value="enumItem.key"
+                  />
+                </template>
+              </el-select>
+              <el-input
+                v-else
+                v-model="data[item.key]"
+                :clearable="item.clearable"
+                :placeholder="`${item.label}...`"
+                @blur="onSearch()"
+                @clear="onSearch"
+                @keydown.enter="onSearch"
+              />
+            </slot>
+          </div>
+        </template>
+      </template>
+      <AButton
+        v-if="showExport"
+        :permission="exportPermission || AirPermission.get(entity, AirPermissionAction.EXPORT)"
+        custom-class="export-button"
+        type="EXPORT"
+        @click="onExport()"
+      >
+        {{ AirI18n.get().Export || '导出' }}
+      </AButton>
+      <slot name="afterSearch" />
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .air-tool-bar {
