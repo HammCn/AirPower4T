@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 内置的AirPower图标
  * @author Hamm.cn
@@ -148,6 +146,5 @@ export enum AirIcon {
   /**
    * ### 关闭
    */
-  CLOSE = 'icon-commonicon_guanbi'
-
+  CLOSE = 'icon-commonicon_guanbi',
 }

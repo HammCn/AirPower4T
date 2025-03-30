@@ -1,21 +1,9 @@
-<template>
-  <ACopy
-    :content="showMoney"
-    class="air-money"
-  >
-    <div class="prefix">
-      ¥
-    </div>
-    <div class="money">
-      {{ showMoney }}
-    </div>
-  </ACopy>
-</template>
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import type { AirMoneyDirection } from '../type/AirType'
+import { computed } from 'vue'
 import { ACopy } from '.'
 import { AirConfig } from '../config/AirConfig'
-import { AirMoneyDirection } from '../type/AirType'
 
 const props = defineProps({
   /**
@@ -54,13 +42,28 @@ const showMoney = computed(() => {
 
   if (props.direction === 'up') {
     number = Math.ceil(number)
-  } else {
+  }
+  else {
     number = Math.floor(number)
   }
-  return (number / precision).toFixed(props.precision)
-    .toString()
+  return (number / precision).toFixed(props.precision).toString()
 })
 </script>
+
+<template>
+  <ACopy
+    :content="showMoney"
+    class="air-money"
+  >
+    <div class="prefix">
+      ¥
+    </div>
+    <div class="money">
+      {{ showMoney }}
+    </div>
+  </ACopy>
+</template>
+
 <style lang="scss" scoped>
 .air-money {
   display: flex;

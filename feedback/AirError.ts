@@ -1,6 +1,6 @@
+import type { AirAny } from '../type/AirType'
 import { AirConfig } from '../config/AirConfig'
 import { AirI18n } from '../helper/AirI18n'
-import { AirAny } from '../type/AirType'
 import { AirNotification } from './AirNotification'
 
 /**
@@ -50,13 +50,9 @@ export class AirError {
    */
   static async show(message: string, code?: number): Promise<void> {
     if (code) {
-      return this.create()
-        .setCode(code)
-        .setMessage(message)
-        .show()
+      return this.create().setCode(code).setMessage(message).show()
     }
-    return this.create(message)
-      .show()
+    return this.create(message).show()
   }
 
   /**
@@ -81,7 +77,8 @@ export class AirError {
    * ### 显示错误信息提示
    */
   async show(): Promise<void> {
-    await new AirNotification().setTitle(AirI18n.get().SystemError || '发生错误')
+    await new AirNotification()
+      .setTitle(AirI18n.get().SystemError || '发生错误')
       .setMessage(this.message)
       .error()
   }

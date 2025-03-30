@@ -2,10 +2,10 @@
  * # 搜索字段的注解
  * @author Hamm.cn
  */
-import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
+import type { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
+import type { AirDecoratorTarget } from '../type/AirType'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
-import { AirDecoratorTarget } from '../type/AirType'
 import { getFieldConfig } from './Field'
 
 /**

@@ -1,3 +1,23 @@
+<script lang="ts" setup>
+import { WarningFilled } from '@element-plus/icons-vue'
+import { ACopy, ADialog, AQrcode } from '..'
+import { airPropsParam } from '../../config/AirProps'
+
+const props = defineProps({
+  ...airPropsParam(''),
+
+  /**
+   * # 💡提示
+   */
+  tips: {
+    type: String,
+    default: '请使用手机自带的相机扫码',
+  },
+})
+
+const content = `tel:${props.param}`
+</script>
+
 <template>
   <ADialog
     :allow-fullscreen="false"
@@ -19,32 +39,11 @@
       >
         {{ param }}
       </ACopy>
-      <span><el-icon class="icon">
-        <WarningFilled />
-      </el-icon>{{ tips }}</span>
+      <span><el-icon class="icon"> <WarningFilled /> </el-icon>{{ tips }}</span>
     </div>
   </ADialog>
 </template>
 
-<script lang="ts" setup>
-import { WarningFilled } from '@element-plus/icons-vue'
-import { airPropsParam } from '../../config/AirProps'
-import { ACopy, ADialog, AQrcode } from '..'
-
-const props = defineProps({
-  ...airPropsParam(''),
-
-  /**
-   * # 💡提示
-   */
-  tips: {
-    type: String,
-    default: '请使用手机自带的相机扫码',
-  },
-})
-
-const content = `tel:${props.param}`
-</script>
 <style lang="scss" scoped>
 .air-phone-call__content {
   display: flex;

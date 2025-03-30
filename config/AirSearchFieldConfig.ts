@@ -1,10 +1,10 @@
+import type { AirEnum } from '../base/AirEnum'
+import type { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
+import type { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import type { ClassConstructor } from '../type/AirType'
 import { AirBetweenType } from '../enum/AirBetweenType'
-import { AirFieldConfig } from './AirFieldConfig'
 import { AirSearchDataType } from '../enum/AirSearchDataType'
-import { ISearchFieldConfig } from '../interface/decorators/ISearchFieldConfig'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnum } from '../base/AirEnum'
-import { ClassConstructor } from '../type/AirType'
+import { AirFieldConfig } from './AirFieldConfig'
 
 /**
  * # 查询字段配置实现类

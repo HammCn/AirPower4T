@@ -1,12 +1,12 @@
-import { AirConfig } from './AirConfig'
+import type { AirEnum } from '../base/AirEnum'
+import type { AirDateTimeType } from '../enum/AirDateTimeType'
+import type { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
+import type { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import type { ClassConstructor } from '../type/AirType'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirDateTimeType } from '../enum/AirDateTimeType'
-import { AirFieldConfig } from './AirFieldConfig'
-import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
 import { AirTrim } from '../enum/AirTrim'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { AirEnum } from '../base/AirEnum'
-import { ClassConstructor } from '../type/AirType'
+import { AirConfig } from './AirConfig'
+import { AirFieldConfig } from './AirFieldConfig'
 
 /**
  * # 表单字段配置实现类

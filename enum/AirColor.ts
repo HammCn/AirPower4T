@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 标准颜色值
  * @author Hamm.cn
@@ -23,5 +21,5 @@ export enum AirColor {
   /**
    * ### 灰色未知状态
    */
-  NORMAL = '#909399'
+  NORMAL = '#909399',
 }

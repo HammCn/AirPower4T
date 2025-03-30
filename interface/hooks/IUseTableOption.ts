@@ -1,5 +1,5 @@
-import { AirEntity } from '../../base/AirEntity'
-import { ITableHookOption } from './ITableHookOption'
+import type { AirEntity } from '../../base/AirEntity'
+import type { ITableHookOption } from './ITableHookOption'
 
 /**
  * # `TableList` 的 `Hook` 可选配置

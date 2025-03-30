@@ -23,5 +23,5 @@ export class AirWebsocketEvent extends AirModel {
   @Field({
     type: AirWebSocketPayload,
   })
-    payload!: AirWebSocketPayload
+  payload!: AirWebSocketPayload
 }

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 常用权限标识枚举
  * @author Hamm.cn

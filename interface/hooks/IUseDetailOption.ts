@@ -1,4 +1,4 @@
-import { AirEntity } from '../../base/AirEntity'
+import type { AirEntity } from '../../base/AirEntity'
 
 /**
  * # `Detail` 的 `Hook` 可选配置
@@ -11,7 +11,6 @@ export interface IUseDetailOption<E extends AirEntity> {
    *
    * @param detailData 实体
    */
-  // eslint-disable-next-line no-unused-vars
   afterGetDetail?: (detailData: E) => E | void
 
   /**

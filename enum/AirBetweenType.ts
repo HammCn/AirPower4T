@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 区间类型
  * @author Hamm.cn
@@ -23,5 +21,5 @@ export enum AirBetweenType {
   /**
    * ### 普通数字
    */
-  NUMBER
+  NUMBER,
 }

@@ -1,16 +1,8 @@
-<template>
-  <el-link
-    v-tip="toolTips"
-    :underline="false"
-    class="air-friend-datetime"
-  >
-    {{ getDateTimeString }}
-  </el-link>
-</template>
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import type { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import { computed } from 'vue'
 import { AirConfig } from '../config/AirConfig'
-import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTime } from '../helper/AirDateTime'
 
 const props = defineProps({
@@ -66,6 +58,17 @@ const toolTips = computed(() => {
   return AirDateTime.formatFromMilliSecond(props.time, props.formatter)
 })
 </script>
+
+<template>
+  <el-link
+    v-tip="toolTips"
+    :underline="false"
+    class="air-friend-datetime"
+  >
+    {{ getDateTimeString }}
+  </el-link>
+</template>
+
 <style lang="scss" scoped>
 .air-friend-datetime,
 .air-friend-datetime * {

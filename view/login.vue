@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { AirConfig } from '../config/AirConfig'
+
+const isLoading = ref(true)
+
+window.location.replace(
+  `${AirConfig.oauthUrl}?appKey=${AirConfig.appKey}&redirectUri=${encodeURIComponent(`${window.location.origin}/callback`)}`,
+)
+</script>
+
 <template>
   <div
     v-loading="isLoading"
@@ -5,14 +16,6 @@
   />
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { AirConfig } from '../config/AirConfig'
-
-const isLoading = ref(true)
-
-window.location.replace(`${AirConfig.oauthUrl}?appKey=${AirConfig.appKey}&redirectUri=${encodeURIComponent(`${window.location.origin}/callback`)}`)
-</script>
 <style lang="scss" scoped>
 .air-login {
   position: fixed;

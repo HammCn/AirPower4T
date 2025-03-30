@@ -1,4 +1,4 @@
-import { AirEntity } from '../base/AirEntity'
+import type { AirEntity } from '../base/AirEntity'
 import { Field } from '../decorator'
 import { AirPage } from './AirPage'
 import { AirRequest } from './AirRequest'
@@ -14,5 +14,5 @@ export class AirRequestPage<E extends AirEntity> extends AirRequest<E> {
   @Field({
     type: AirPage,
   })
-    page = new AirPage()
+  page = new AirPage()
 }

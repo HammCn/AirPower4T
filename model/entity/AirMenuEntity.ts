@@ -1,6 +1,6 @@
-import { Field } from '../../decorator'
+import type { IMenu } from '../../interface/IMenu'
 import { AirEntity } from '../../base/AirEntity'
-import { IMenu } from '../../interface/IMenu'
+import { Field } from '../../decorator'
 
 /**
  * # 内置菜单实体
@@ -31,14 +31,14 @@ export class AirMenuEntity extends AirEntity implements IMenu {
   @Field({
     type: Boolean,
   })
-    isDisabled = false
+  isDisabled = false
 
   @Field({
-    // eslint-disable-next-line no-use-before-define
+
     type: AirMenuEntity,
     array: true,
   })
-    children: this[] = []
+  children: this[] = []
 
   /**
    * ### 设置菜单名称

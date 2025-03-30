@@ -1,10 +1,10 @@
-import { AirPermissionAction } from '../enum/AirPermissionAction'
+import type { AirEntity } from '../base/AirEntity'
+import type { ClassConstructor } from '../type/AirType'
+import { AirApi } from '../config/AirApi'
 import { AirConfig } from '../config/AirConfig'
-import { AirEntity } from '../base/AirEntity'
 import { AirConstant } from '../config/AirConstant'
 import { getModelConfig } from '../decorator/Model'
-import { ClassConstructor } from '../type/AirType'
-import { AirApi } from '../config/AirApi'
+import { AirPermissionAction } from '../enum/AirPermissionAction'
 
 /**
  * # 权限标识处理类
@@ -38,11 +38,11 @@ export class AirPermission {
       // 自动处理权限
       if (!modelConfig.permissionPrefix) {
         // 没有配置前缀 从类中获取权限前缀
-        const entityName = EntityClass.name.replace('Entity', AirConstant.STRING_EMPTY)
-          .toString()
+        const entityName = EntityClass.name.replace('Entity', AirConstant.STRING_EMPTY).toString()
         modelConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
       }
-    } else {
+    }
+    else {
       // 如不自动配置权限, 则将权限前缀清空
       modelConfig.permissionPrefix = AirConstant.STRING_EMPTY
     }
@@ -73,7 +73,7 @@ export class AirPermission {
    * @param permissions 权限列表
    */
   static saveList(permissions: string[]) {
-    this.permissionList = permissions.map((permission) => permission.toLocaleLowerCase())
+    this.permissionList = permissions.map(permission => permission.toLocaleLowerCase())
     AirApi.setStorage(AirConfig.appKey + this.permissionKey, JSON.stringify(this.permissionList))
   }
 
@@ -84,7 +84,9 @@ export class AirPermission {
     const str = AirApi.getStorage(AirConfig.appKey + this.permissionKey) || '[]'
     try {
       return JSON.parse(str)
-    } catch (e) {
+    }
+    catch (e) {
+      console.error(e)
       return []
     }
   }

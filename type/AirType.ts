@@ -1,7 +1,7 @@
-import { ElForm, ElTable, ElTree } from 'element-plus'
+import type { ElForm, ElTable, ElTree } from 'element-plus'
 
 import type Node from 'element-plus/es/components/tree/src/model/node'
-import { AirColor } from '../enum/AirColor'
+import type { AirColor } from '../enum/AirColor'
 
 /**
  * # 一些定义的类型
@@ -12,7 +12,6 @@ import { AirColor } from '../enum/AirColor'
  * ### 😡 慎用 Any
  * @deprecated
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AirAny = any
 
 /**
@@ -78,7 +77,7 @@ export type AirDecoratorData = AirAny
 /**
  * ### 验证器回调函数类型
  */
-// eslint-disable-next-line no-unused-vars
+
 export type AirValidatorCallback = (error?: string) => void
 
 /**
@@ -100,7 +99,7 @@ export type AirValidatorTrigger = 'blur' | 'change'
  * ###  图标类型字符串类型
  */
 export type AirIconType =
-  'DELETE_LIST'
+  | 'DELETE_LIST'
   | 'DELETE'
   | 'EDIT'
   | 'DETAIL'
@@ -132,7 +131,6 @@ export type AirIconType =
  * ### 类包装
  * @author Hamm.cn
  */
-export type ClassConstructor<T = AirAny> = {
-  // eslint-disable-next-line no-unused-vars
-  new(...args: AirAny[]): T
+export interface ClassConstructor<T = AirAny> {
+  new(...args: any[]): T
 }

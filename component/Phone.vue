@@ -1,27 +1,11 @@
-<template>
-  <div
-    v-if="phone && AirValidator.isTelephoneOrMobilePhone(phone)"
-    v-tip="'点击扫码拨打'"
-    class="air-phone"
-    @click="callPhone()"
-  >
-    <el-icon>
-      <Iphone />
-    </el-icon>
-    {{ desensitizePhone }}
-  </div>
-  <div v-else>
-    {{ phone || '-' }}
-  </div>
-</template>
 <script lang="ts" setup>
 import { Iphone } from '@element-plus/icons-vue'
 import { computed } from 'vue'
+import { AirDesensitizeType } from '../enum/AirDesensitizeType'
+import { AirDesensitize } from '../helper/AirDesensitize'
 import { AirDialog } from '../helper/AirDialog'
 import { AirValidator } from '../helper/AirValidator'
 import Call from './phone/Call.vue'
-import { AirDesensitize } from '../helper/AirDesensitize'
-import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 
 const props = defineProps({
   /**
@@ -75,15 +59,32 @@ const desensitizePhone = computed(() => {
   }
   return AirDesensitize.desensitize(props.phone, props.desensitize, props.desensitizeHead, props.desensitizeTail)
 })
-
 </script>
+
+<template>
+  <div
+    v-if="phone && AirValidator.isTelephoneOrMobilePhone(phone)"
+    v-tip="'点击扫码拨打'"
+    class="air-phone"
+    @click="callPhone()"
+  >
+    <el-icon>
+      <Iphone />
+    </el-icon>
+    {{ desensitizePhone }}
+  </div>
+  <div v-else>
+    {{ phone || '-' }}
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .air-phone {
   display: flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .air-phone:hover {

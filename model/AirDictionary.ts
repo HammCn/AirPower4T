@@ -1,5 +1,5 @@
-import { IDictionary } from '../interface/IDictionary'
-import { AirColorString, AirEnumKey } from '../type/AirType'
+import type { IDictionary } from '../interface/IDictionary'
+import type { AirColorString, AirEnumKey } from '../type/AirType'
 
 /**
  * # 标准字典实现类

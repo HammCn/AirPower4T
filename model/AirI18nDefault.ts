@@ -16,7 +16,7 @@ export class AirI18nDefault {
    */
   language = (AirApi.getStorage(AirI18nDefault.languageCacheKey) || AirLanguage.ChineseSimplified) as AirLanguage
 
-  //! Start
+  // ! Start
   /** ### 点击这里上传 */
   ClickHereToUpload?: string
 

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 图标类型
  * @author Hamm.cn
@@ -28,5 +26,5 @@ export enum AirFeedbackType {
   /**
    * ### 不显示任何图标
    */
-  NONE = ''
+  NONE = '',
 }

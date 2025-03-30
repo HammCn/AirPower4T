@@ -1,22 +1,9 @@
-<template>
-  <div class="air-desensitize">
-    <el-icon
-      :class="!isDesensitize ? 'desensitize' : ''"
-      class="icon"
-      @click.stop="isDesensitize = !isDesensitize"
-    >
-      <View v-if="isDesensitize" />
-      <Hide v-else />
-    </el-icon>
-    {{ desensitized || '-' }}
-  </div>
-</template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
 import { Hide, View } from '@element-plus/icons-vue'
+import { computed, ref } from 'vue'
+import { AirConstant } from '../config/AirConstant'
 import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 import { AirDesensitize } from '../helper/AirDesensitize'
-import { AirConstant } from '../config/AirConstant'
 
 const props = defineProps({
   /**
@@ -71,9 +58,29 @@ const desensitized = computed(() => {
   if (!isDesensitize.value || !props.desensitize) {
     return props.content
   }
-  return AirDesensitize.desensitize(props.content, props.desensitize, props.desensitizeHead, props.desensitizeTail, props.desensitizeSymbol)
+  return AirDesensitize.desensitize(
+    props.content,
+    props.desensitize,
+    props.desensitizeHead,
+    props.desensitizeTail,
+    props.desensitizeSymbol,
+  )
 })
 </script>
+
+<template>
+  <div class="air-desensitize">
+    <el-icon
+      :class="!isDesensitize ? 'desensitize' : ''"
+      class="icon"
+      @click.stop="isDesensitize = !isDesensitize"
+    >
+      <View v-if="isDesensitize" />
+      <Hide v-else />
+    </el-icon>
+    {{ desensitized || '-' }}
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .air-desensitize {

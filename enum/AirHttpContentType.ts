@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # `ContentType`
  * @author Hamm.cn
@@ -30,5 +28,5 @@ export enum AirHttpContentType {
   /**
    * ### 纯文本方式提交
    */
-  PLAIN = 'text/plain'
+  PLAIN = 'text/plain',
 }

@@ -1,10 +1,10 @@
+import type { IFile } from '../interface/IFile'
+import type { ITreeProps } from '../interface/props/ITreeProps'
+import type { AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { IFile } from '../interface/IFile'
 import { AirFileEntity } from '../model/entity/AirFileEntity'
-import { AirMoneyDirection, ClassConstructor } from '../type/AirType'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
-import { ITreeProps } from '../interface/props/ITreeProps'
 
 /**
  * # `AirPower` 全局配置
@@ -15,7 +15,7 @@ export class AirConfig {
   /**
    * ### `AirPower` 版本号
    */
-  static readonly version = 'v3.2.0'
+  static readonly version = 'v3.2.1'
 
   /**
    * ### `AppKey`

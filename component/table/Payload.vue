@@ -1,12 +1,7 @@
-<template>
-  <el-link @click="show()">
-    {{ payload.getPayloadLabel() }}
-  </el-link>
-</template>
 <script generic="T extends IPayload" lang="ts" setup>
-import { Component, PropType } from 'vue'
+import type { Component, PropType } from 'vue'
+import type { IPayload } from '../../interface/IPayload'
 import { AirDialog } from '../../helper/AirDialog'
-import { IPayload } from '../../interface/IPayload'
 
 const props = defineProps({
   /**
@@ -30,3 +25,9 @@ function show() {
   AirDialog.show(props.view, props.payload.copy())
 }
 </script>
+
+<template>
+  <el-link @click="show()">
+    {{ payload.getPayloadLabel() }}
+  </el-link>
+</template>

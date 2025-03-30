@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import image from '../assets/img/empty.svg'
+</script>
+
 <template>
   <el-empty
     :image="image"
@@ -11,10 +15,8 @@
     </template>
   </el-empty>
 </template>
-<script lang="ts" setup>
-import image from '../assets/img/empty.svg'
-</script>
-<style scoped lang="scss">
+
+<style lang="scss" scoped>
 .el-empty {
   position: absolute;
   left: 0;

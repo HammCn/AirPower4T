@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # 去空格方式枚举
  * @author Hamm.cn

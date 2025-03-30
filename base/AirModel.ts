@@ -1,16 +1,15 @@
-/* eslint-disable no-continue */
+import type { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
+import type { AirTableFieldConfig } from '../config/AirTableFieldConfig'
+import type { IFieldConfig } from '../interface/decorators/IFieldConfig'
+import type { IModelConfig } from '../interface/decorators/IModelConfig'
+import type { IJson } from '../interface/IJson'
+import type { ClassConstructor } from '../type/AirType'
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { getModelConfig } from '../decorator/Model'
-import { getFormConfig, getFormConfigList } from '../decorator/Form'
 import { getFieldConfig, getToJson, getToModel } from '../decorator/Field'
+import { getFormConfig, getFormConfigList } from '../decorator/Form'
+import { getModelConfig } from '../decorator/Model'
 import { getSearchConfigList } from '../decorator/Search'
 import { getTableConfigList } from '../decorator/Table'
-import { IFieldConfig } from '../interface/decorators/IFieldConfig'
-import { IJson } from '../interface/IJson'
-import { IModelConfig } from '../interface/decorators/IModelConfig'
-import { ClassConstructor } from '../type/AirType'
 
 /**
  * # 模型超类
@@ -23,7 +22,7 @@ export class AirModel {
    * @param json `JSON`
    */
   static fromJson<T extends AirModel>(this: ClassConstructor<T>, json: IJson = {}): T {
-    const instance: T = (Object.assign(new this()) as T)
+    const instance: T = Object.assign(new this()) as T
     return AirModel.parse<T>(instance, json)
   }
 
@@ -36,11 +35,12 @@ export class AirModel {
     const instanceList: T[] = []
     if (Array.isArray(jsonArray)) {
       for (let i = 0; i < jsonArray.length; i += 1) {
-        const instance: T = (Object.assign(new this()) as T)
+        const instance: T = Object.assign(new this()) as T
         instanceList.push(AirModel.parse(instance, jsonArray[i]))
       }
-    } else {
-      const instance: T = (Object.assign(new this()) as T)
+    }
+    else {
+      const instance: T = Object.assign(new this()) as T
       instanceList.push(AirModel.parse(instance, jsonArray))
     }
     return instanceList
@@ -62,16 +62,16 @@ export class AirModel {
         realKey += modelConfig.fieldPrefix
       }
       realKey += props.alias || fieldKey
-      const fieldData = json[realKey];
-      (instance as IJson)[fieldKey] = fieldData
+      const fieldData = json[realKey]
+      ;(instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
       if (toModelFunction !== undefined) {
         // 标记了手动转换到模型的自定义方法
         try {
-          (instance as IJson)[fieldKey] = toModelFunction(json as IJson)
-        } catch (e) {
-          // eslint-disable-next-line no-console
+          ;(instance as IJson)[fieldKey] = toModelFunction(json as IJson)
+        }
+        catch (e) {
           console.warn('ToModel Function Error', e)
           continue
         }
@@ -88,7 +88,7 @@ export class AirModel {
             }
           }
         }
-        (instance as IJson)[fieldKey] = fieldValueList
+        ;(instance as IJson)[fieldKey] = fieldValueList
         continue
       }
 
@@ -103,19 +103,19 @@ export class AirModel {
       }
       switch (FieldTypeClass.name) {
         case 'String':
-          (instance as IJson)[fieldKey] = fieldData.toString()
+          ;(instance as IJson)[fieldKey] = fieldData.toString()
           break
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          (instance as IJson)[fieldKey] = (Number.isNaN(parseFloat(fieldData)) ? undefined : parseFloat(fieldData))
+          ;(instance as IJson)[fieldKey] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
           break
         case 'Boolean':
           // 强制转换为布尔型
-          (instance as IJson)[fieldKey] = !!fieldData
+          ;(instance as IJson)[fieldKey] = !!fieldData
           break
         default:
           // 是对象 需要递归转换
-          (instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
+          ;(instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
       }
     }
 
@@ -135,8 +135,7 @@ export class AirModel {
    * ### 获取模型类配置项
    */
   static getModelConfig<M extends IModelConfig = IModelConfig>(): M {
-    return this.newInstance()
-      .getModelConfig<M>()
+    return this.newInstance().getModelConfig<M>()
   }
 
   /**
@@ -160,19 +159,16 @@ export class AirModel {
    * @returns 配置对象
    */
   static getFieldConfig(fieldKey: string): IFieldConfig {
-    return this.newInstance()
-      .getFieldConfig(fieldKey)
+    return this.newInstance().getFieldConfig(fieldKey)
   }
 
   /**
    * ### 创建一个当前类的实例
    * @param recoverBy `可选` 初始化用于覆盖对象实例的 `JSON`
    */
-  // eslint-disable-next-line no-unused-vars
+
   static newInstance<T extends AirModel>(this: ClassConstructor<T>, recoverBy?: IJson): T {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const instance = (Object.assign(new this(), null)) as T
+    const instance = Object.assign(new this(), null) as T
     if (recoverBy) {
       return instance.recoverBy(recoverBy)
     }
@@ -186,8 +182,7 @@ export class AirModel {
    * @param fieldKey 字段名
    */
   static getFormFieldLabel(fieldKey: string): string {
-    return this.newInstance()
-      .getFormFieldLabel(fieldKey)
+    return this.newInstance().getFormFieldLabel(fieldKey)
   }
 
   /**
@@ -195,8 +190,7 @@ export class AirModel {
    * @param fieldNameList 字段列表
    */
   static getTableFieldConfigList(...fieldNameList: string[]): AirTableFieldConfig[] {
-    return this.newInstance()
-      .getTableFieldConfigList(fieldNameList)
+    return this.newInstance().getTableFieldConfigList(fieldNameList)
   }
 
   /**
@@ -204,8 +198,7 @@ export class AirModel {
    * @param fieldNameList 字段列表
    */
   static getFormFieldConfigList(...fieldNameList: string[]): AirFormFieldConfig[] {
-    return this.newInstance()
-      .getFormFieldConfigList(fieldNameList)
+    return this.newInstance().getFormFieldConfigList(fieldNameList)
   }
 
   /**
@@ -214,8 +207,7 @@ export class AirModel {
    * @param fieldNameList `可选` 字段列表
    */
   static getSearchFieldConfigList(...fieldNameList: string[]): AirSearchFieldConfig[] {
-    return this.newInstance()
-      .getSearchFieldConfigList(fieldNameList)
+    return this.newInstance().getSearchFieldConfigList(fieldNameList)
   }
 
   /**
@@ -223,8 +215,7 @@ export class AirModel {
    * @param fieldKey 属性名
    */
   static getCustomFormFieldConfig(fieldKey: string): AirFormFieldConfig | null {
-    return this.newInstance()
-      .getCustomFormFieldConfig(fieldKey)
+    return this.newInstance().getCustomFormFieldConfig(fieldKey)
   }
 
   /**
@@ -243,7 +234,7 @@ export class AirModel {
     const fieldList = Object.keys(this)
     for (const field of fieldList) {
       if (!fields.includes(field)) {
-        (this as IJson)[field] = undefined
+        ;(this as IJson)[field] = undefined
       }
     }
     return this
@@ -257,7 +248,7 @@ export class AirModel {
     const fieldList = Object.keys(this)
     for (const field of fieldList) {
       if (fields.includes(field)) {
-        (this as IJson)[field] = undefined
+        ;(this as IJson)[field] = undefined
       }
     }
     return this
@@ -299,8 +290,8 @@ export class AirModel {
         // 如果标记了自定义转换JSON的方法
         try {
           json[fieldAliasName || fieldKey] = toJsonFunction(this)
-        } catch (e) {
-          // eslint-disable-next-line no-console
+        }
+        catch (e) {
           console.warn('ToJson Function Error', e)
         }
         continue
@@ -315,7 +306,7 @@ export class AirModel {
               jsonList[i] = (fieldData[i] as AirModel).toJson()
               continue
             }
-            jsonList[i] = (fieldData[i] as AirModel)
+            jsonList[i] = fieldData[i] as AirModel
           }
           json[fieldAliasName || fieldKey] = jsonList
           continue

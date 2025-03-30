@@ -26,7 +26,7 @@ export class AirRand {
    * @param max 最大
    */
   static getRandNumber(min: number, max: number): number {
-    return parseInt((min + Math.random() * (max - min)).toString(), AirConstant.DEFAULT_RADIX)
+    return Number.parseInt((min + Math.random() * (max - min)).toString(), AirConstant.DEFAULT_RADIX)
   }
 
   /**
@@ -36,7 +36,10 @@ export class AirRand {
   static getRandNumberString(length = 6): string {
     let str = AirConstant.STRING_EMPTY
     for (let i = 0; i < length; i += 1) {
-      str += this.STRING_OF_NUMBER[parseInt((Math.random() * this.STRING_OF_NUMBER.length).toString(), AirConstant.DEFAULT_RADIX)]
+      str
+        += this.STRING_OF_NUMBER[
+          Number.parseInt((Math.random() * this.STRING_OF_NUMBER.length).toString(), AirConstant.DEFAULT_RADIX)
+        ]
     }
     return str
   }
@@ -49,7 +52,10 @@ export class AirRand {
   static getRandCharString(length = 32, isUpper = false): string {
     let str = AirConstant.STRING_EMPTY
     for (let i = 0; i < length; i += 1) {
-      str += this.STRING_OF_LOWER_CHAR[parseInt((Math.random() * this.STRING_OF_LOWER_CHAR.length).toString(), AirConstant.DEFAULT_RADIX)]
+      str
+        += this.STRING_OF_LOWER_CHAR[
+          Number.parseInt((Math.random() * this.STRING_OF_LOWER_CHAR.length).toString(), AirConstant.DEFAULT_RADIX)
+        ]
     }
     return isUpper ? str.toLocaleUpperCase() : str
   }
@@ -62,7 +68,7 @@ export class AirRand {
     let str = AirConstant.STRING_EMPTY
     const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_UPPER_CHAR
     for (let i = 0; i < length; i += 1) {
-      str += strStorage[parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
+      str += strStorage[Number.parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
     }
     return str
   }
@@ -76,7 +82,7 @@ export class AirRand {
     let str = AirConstant.STRING_EMPTY
     const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_NUMBER
     for (let i = 0; i < length; i += 1) {
-      str += strStorage[parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
+      str += strStorage[Number.parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
     }
     return isUpper ? str.toLocaleUpperCase() : str
   }
@@ -89,7 +95,7 @@ export class AirRand {
     let str = AirConstant.STRING_EMPTY
     const strStorage = this.STRING_OF_LOWER_CHAR + this.STRING_OF_NUMBER + this.STRING_OF_UPPER_CHAR
     for (let i = 0; i < length; i += 1) {
-      str += strStorage[parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
+      str += strStorage[Number.parseInt((Math.random() * strStorage.length).toString(), AirConstant.DEFAULT_RADIX)]
     }
     return str
   }
@@ -99,9 +105,6 @@ export class AirRand {
    * @returns 随机颜色
    */
   static getRandColor() {
-    return `#${Math.random()
-      .toString(16)
-      .padEnd(6, AirConstant.STRING_ZERO)
-      .slice(2, 8)}`
+    return `#${Math.random().toString(16).padEnd(6, AirConstant.STRING_ZERO).slice(2, 8)}`
   }
 }

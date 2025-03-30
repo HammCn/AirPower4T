@@ -1,4 +1,4 @@
-import { ITree } from './ITree'
+import type { ITree } from './ITree'
 
 /**
  * # 标准菜单结构

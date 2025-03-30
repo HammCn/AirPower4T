@@ -1,5 +1,5 @@
+import type { AirRequest } from './AirRequest'
 import { AirModel } from '../base/AirModel'
-import { AirRequest } from './AirRequest'
 
 /**
  * # 导出的数据模型

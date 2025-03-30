@@ -1,7 +1,7 @@
-import { Ref } from 'vue'
+import type { Ref } from 'vue'
+import type { ClassConstructor } from '../type/AirType'
 import { AirHttp } from '../helper/AirHttp'
 import { AirModel } from './AirModel'
-import { ClassConstructor } from '../type/AirType'
 
 /**
  * # `API` 服务超类
@@ -36,8 +36,6 @@ export abstract class AirAbstractService extends AirModel {
    * @param loading `可选` Loading
    */
   static create<S extends AirAbstractService>(this: ClassConstructor<S>, loading?: Ref<boolean>): S {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const service = Object.assign(new this()) as S
     if (loading) {
       service.loading = loading

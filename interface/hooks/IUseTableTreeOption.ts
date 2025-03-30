@@ -1,5 +1,5 @@
-import { ITree } from '../ITree'
-import { IUseTableOption } from './IUseTableOption'
+import type { ITree } from '../ITree'
+import type { IUseTableOption } from './IUseTableOption'
 
 /**
  * # `TableTreeList` 的 `Hook` 可选配置
@@ -13,6 +13,5 @@ export interface IUseTableTreeOption<T extends ITree> extends IUseTableOption<T>
    * @param param 添加的数据
    * @param row 当前行数据
    */
-  // eslint-disable-next-line no-unused-vars
   beforeAddRow?: (param: T, row: T) => T | void
 }

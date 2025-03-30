@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /**
  * # `AInput` 使用的时间格式
  * @author Hamm.cn
@@ -33,5 +31,5 @@ export enum AirDateTimeType {
   /**
    * ### 月
    */
-  MONTH = 'month'
+  MONTH = 'month',
 }

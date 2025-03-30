@@ -1,108 +1,30 @@
-<template>
-  <ADialog
-    :disable-confirm="disableConfirm"
-    :height="height || '70%'"
-    :hide-footer="!props.props.isMultiple"
-    :loading="isLoading"
-    :title="dialogTitle"
-    :width="width || '70%'"
-    is-selector
-    @on-confirm="props.props.onConfirm(selectList.filter(item => !item.isDisabled))"
-    @on-cancel="props.props.onCancel()"
-  >
-    <AToolBar
-      :add-permission="addPermission"
-      :default-filter="props.props.param"
-      :entity="entity"
-      :hide-add="!editor"
-      :loading="isLoading"
-      :search-params="searchParamList"
-      :service="service"
-      @on-search="onSearch"
-      @on-add="onAdd"
-    >
-      <template #beforeSearch>
-        <slot name="beforeSearch" />
-      </template>
-      <template #afterSearch>
-        <slot name="afterSearch" />
-      </template>
-    </AToolBar>
-    <ATable
-      :ctrl-width="80"
-      :data-list="(unPaginate || treeList) ? list : response.list"
-      :entity="entity"
-      :field-list="fields"
-      :hide-ctrl="props.props.isMultiple"
-      :select-list="selectList"
-      :show-select="props.props.isMultiple"
-      hide-delete
-      hide-edit
-      hide-field-selector
-      @on-select="onSelected"
-    >
-      <template
-        v-for="(_, name) in slots"
-        #[name]="row"
-      >
-        <slot
-          :data="row.data"
-          :index="row.index"
-          :name="name"
-        />
-      </template>
-      <template
-        v-if="!props.props.isMultiple"
-        #customRow="{ data }"
-      >
-        <AButton
-          :disabled="data.isDisabled"
-          link-button
-          tooltip="选择"
-          @click="props.props.onConfirm(data)"
-        >
-          选择
-        </AButton>
-      </template>
-    </ATable>
-    <template #status>
-      <APage
-        :response="response"
-        @changed="onPageChanged"
-      />
-    </template>
-  </ADialog>
-</template>
-
-<script generic="E extends AirEntity,S extends AirAbstractEntityService<E>" lang="ts" setup>
-import { Component, computed, useSlots } from 'vue'
-import {
-  AButton, ADialog, APage, ATable, AToolBar,
-} from '.'
-import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { useAirSelector } from '../hook/useAirSelector'
-import { AirEntity } from '../base/AirEntity'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirDialog } from '../helper/AirDialog'
+<script generic="E extends AirEntity, S extends AirAbstractEntityService<E>" lang="ts" setup>
+import type { Component } from 'vue'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirEntity } from '../base/AirEntity'
+import type { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
+import type { AirTableFieldConfig } from '../config/AirTableFieldConfig'
+import type { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
+import type { IJson } from '../interface/IJson'
+import type { AirRequestPage } from '../model/AirRequestPage'
+import type { AirAny, ClassConstructor } from '../type/AirType'
+import { computed, useSlots } from 'vue'
+import { AButton, ADialog, APage, ATable, AToolBar } from '.'
 import { AirNotification } from '../feedback/AirNotification'
-import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
-import { AirRequestPage } from '../model/AirRequestPage'
-import { AirAny, ClassConstructor } from '../type/AirType'
-import { IJson } from '../interface/IJson'
+import { AirClassTransformer } from '../helper/AirClassTransformer'
+import { AirDialog } from '../helper/AirDialog'
+import { useAirSelector } from '../hook/useAirSelector'
 
-const slots: IJson = useSlots()
 const props = defineProps<{
   /**
    * # 选择器使用的实体类
    */
-  entity: ClassConstructor<E>,
+  entity: ClassConstructor<E>
 
   /**
    * # 选择器使用的服务类
    */
-  service: ClassConstructor<S>,
+  service: ClassConstructor<S>
 
   /**
    * # 选择器的添加按钮的权限标识
@@ -113,7 +35,7 @@ const props = defineProps<{
   /**
    * # 选择器使用的字段列表
    */
-  fieldList?: AirTableFieldConfig[],
+  fieldList?: AirTableFieldConfig[]
 
   /**
    * # `Editor`
@@ -124,17 +46,17 @@ const props = defineProps<{
   /**
    * # 搜索使用的字段列表
    */
-  searchParams?: AirSearchFieldConfig[],
+  searchParams?: AirSearchFieldConfig[]
 
   /**
    * # 选择器宽度
    */
-  width?: string,
+  width?: string
 
   /**
    * # 选择器的高度
    */
-  height?: string,
+  height?: string
 
   /**
    * # 选择器标题
@@ -145,12 +67,12 @@ const props = defineProps<{
    * # 不分页
    * 默认请求分页接口 如配置了 `treeList` 则此项自动失效
    */
-  unPaginate?: boolean,
+  unPaginate?: boolean
 
   /**
    * # 请求专用的 `treeList` 接口
    */
-  treeList?: boolean,
+  treeList?: boolean
 
   /**
    * # 搜索前的拦截方法
@@ -158,8 +80,8 @@ const props = defineProps<{
    *
    * @param requestData 请求对象
    */
-  // eslint-disable-next-line no-unused-vars
-  beforeSearch?:(requestData: AirRequestPage<E>) => AirRequestPage<E> | void
+
+  beforeSearch?: (requestData: AirRequestPage<E>) => AirRequestPage<E> | void
 
   /**
    * # Props参数
@@ -177,18 +99,18 @@ const props = defineProps<{
     /**
      * # 是否多选
      */
-    isMultiple: boolean,
+    isMultiple: boolean
 
     /**
      * # 已选中的列表
      */
-    selectList: E[],
+    selectList: E[]
 
     /**
      * # 确认按钮的回调事件
      * @param data [可选] 回调的数据
      */
-    // eslint-disable-next-line no-unused-vars
+
     onConfirm: (data?: E | E[]) => void
 
     /**
@@ -197,10 +119,8 @@ const props = defineProps<{
     onCancel: () => void
   }
 }>()
-const {
-  entity,
-  service,
-} = props
+const slots: IJson = useSlots()
+const { entity, service } = props
 
 const hookOptions: IUseSelectorOption<E> = {}
 if (props.beforeSearch) {
@@ -248,8 +168,7 @@ const fields = computed(() => {
   if (props.fieldList) {
     return props.fieldList
   }
-  return AirClassTransformer.parse({}, props.entity)
-    .getTableFieldConfigList()
+  return AirClassTransformer.parse({}, props.entity).getTableFieldConfigList()
 })
 
 /**
@@ -264,7 +183,7 @@ const searchParamList = computed(() => {
   if (!defaultFilter) {
     return list
   }
-  return list.filter((item) => !(defaultFilter[item?.key] !== null && defaultFilter[item?.key] !== undefined))
+  return list.filter(item => !(defaultFilter[item?.key] !== null && defaultFilter[item?.key] !== undefined))
 })
 
 /**
@@ -278,6 +197,82 @@ async function onAdd() {
   await AirDialog.show(props.editor)
   onReloadData()
 }
-
 </script>
+
+<template>
+  <ADialog
+    :disable-confirm="disableConfirm"
+    :height="height || '70%'"
+    :hide-footer="!props.props.isMultiple"
+    :loading="isLoading"
+    :title="dialogTitle"
+    :width="width || '70%'"
+    is-selector
+    @on-confirm="props.props.onConfirm(selectList.filter((item) => !item.isDisabled))"
+    @on-cancel="props.props.onCancel()"
+  >
+    <AToolBar
+      :add-permission="addPermission"
+      :default-filter="props.props.param"
+      :entity="entity"
+      :hide-add="!editor"
+      :loading="isLoading"
+      :search-params="searchParamList"
+      :service="service"
+      @on-search="onSearch"
+      @on-add="onAdd"
+    >
+      <template #beforeSearch>
+        <slot name="beforeSearch" />
+      </template>
+      <template #afterSearch>
+        <slot name="afterSearch" />
+      </template>
+    </AToolBar>
+    <ATable
+      :ctrl-width="80"
+      :data-list="unPaginate || treeList ? list : response.list"
+      :entity="entity"
+      :field-list="fields"
+      :hide-ctrl="props.props.isMultiple"
+      :select-list="selectList"
+      :show-select="props.props.isMultiple"
+      hide-delete
+      hide-edit
+      hide-field-selector
+      @on-select="onSelected"
+    >
+      <template
+        v-for="(_, name) in slots"
+        #[name]="row"
+      >
+        <slot
+          :data="row.data"
+          :index="row.index"
+          :name="name"
+        />
+      </template>
+      <template
+        v-if="!props.props.isMultiple"
+        #customRow="{ data }"
+      >
+        <AButton
+          :disabled="data.isDisabled"
+          link-button
+          tooltip="选择"
+          @click="props.props.onConfirm(data)"
+        >
+          选择
+        </AButton>
+      </template>
+    </ATable>
+    <template #status>
+      <APage
+        :response="response"
+        @changed="onPageChanged"
+      />
+    </template>
+  </ADialog>
+</template>
+
 <style lang="scss" scoped></style>

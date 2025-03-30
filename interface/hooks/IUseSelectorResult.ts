@@ -1,18 +1,18 @@
-import { Ref } from 'vue'
-import { AirEntity } from '../../base/AirEntity'
-import { ITableHookResult } from './ITableHookResult'
-import { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { Ref } from 'vue'
+import type { AirAbstractEntityService } from '../../base/AirAbstractEntityService'
+import type { AirEntity } from '../../base/AirEntity'
+import type { ITableHookResult } from './ITableHookResult'
 
 /**
  * # 选择器 `Hook` 的标准返回
  * @author Hamm.cn
  */
-export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>> extends ITableHookResult<E, S> {
-
+export interface IUseSelectorResult<E extends AirEntity, S extends AirAbstractEntityService<E>>
+  extends ITableHookResult<E, S> {
   /**
    * ### `Selector` 的标题
    */
-  title: Ref<string>,
+  title: Ref<string>
 
   /**
    * ### 是否禁用确认按钮
