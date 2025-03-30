@@ -127,13 +127,13 @@ yarn production     #Production .env.production
 
 ```shell
 # Standard Commit Template
-yarn c   
+yarn c
 
 # Update AirPower and Host Project
-yarn u   
+yarn u
 
 # View Git Logs
-yarn l           
+yarn l
 ```
 
 ## 8️⃣ Some recommended VSCODE plugins

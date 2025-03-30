@@ -1,7 +1,7 @@
-import { AirEnum } from '../../base/AirEnum'
-import { AirAny, ClassConstructor } from '../../type/AirType'
-import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
-import { IField } from './IField'
+import type { AirEnum } from '../../base/AirEnum'
+import type { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
+import type { AirAny, ClassConstructor } from '../../type/AirType'
+import type { IField } from './IField'
 
 /**
  * # 字段配置

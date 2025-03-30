@@ -7,7 +7,7 @@ export interface ITreeProps {
    * ### 表示子集节点的 `key`
    * 一般为 `children`
    */
-  children?: string,
+  children?: string
 
   /**
    * ### 表示是否含有子集节点的key 一般为 `hasChildren`
@@ -23,5 +23,5 @@ export interface ITreeProps {
   /**
    * ### 是否严格的遵守父子节点不互相关联
    */
-  checkStrictly?: boolean,
+  checkStrictly?: boolean
 }

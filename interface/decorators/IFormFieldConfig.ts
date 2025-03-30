@@ -1,10 +1,10 @@
-import { AirEnumKey, ClassConstructor } from '../../type/AirType'
-import { AirEnum } from '../../base/AirEnum'
-import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
-import { AirDateTimeType } from '../../enum/AirDateTimeType'
-import { AirTrim } from '../../enum/AirTrim'
-import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
-import { IField } from './IField'
+import type { AirEnum } from '../../base/AirEnum'
+import type { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
+import type { AirDateTimeType } from '../../enum/AirDateTimeType'
+import type { AirTrim } from '../../enum/AirTrim'
+import type { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
+import type { AirEnumKey, ClassConstructor } from '../../type/AirType'
+import type { IField } from './IField'
 
 /**
  * # 表单的字段配置接口

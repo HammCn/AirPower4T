@@ -1,11 +1,11 @@
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { IUseTableTreeOption } from '../interface/hooks/IUseTableTreeOption'
+import type { IUseTableTreeResult } from '../interface/hooks/IUseTableTreeResult'
+import type { ITree } from '../interface/ITree'
+import type { ClassConstructor } from '../type/AirType'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirDialog } from '../helper/AirDialog'
-import { ITree } from '../interface/ITree'
-import { IUseTableTreeOption } from '../interface/hooks/IUseTableTreeOption'
-import { IUseTableTreeResult } from '../interface/hooks/IUseTableTreeResult'
-import { ClassConstructor } from '../type/AirType'
 import { useAirTable } from './useAirTable'
 
 /**
@@ -15,7 +15,11 @@ import { useAirTable } from './useAirTable'
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
-export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseTableTreeOption<E> = {}): IUseTableTreeResult<E, S> {
+export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseTableTreeOption<E> = {},
+): IUseTableTreeResult<E, S> {
   // 设置不分页
   if (option.unPaginate === undefined) {
     option.unPaginate = true
@@ -45,7 +49,8 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
         }
       }
       await AirDialog.show(option.editView, param)
-    } finally {
+    }
+    finally {
       result.onReloadData()
     }
   }

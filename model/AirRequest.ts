@@ -1,8 +1,8 @@
-import { AirEntity } from '../base/AirEntity'
+import type { AirEntity } from '../base/AirEntity'
+import type { ClassConstructor } from '../type/AirType'
 import { AirModel } from '../base/AirModel'
 import { Field } from '../decorator'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { ClassConstructor } from '../type/AirType'
 import { AirSort } from './AirSort'
 
 /**
@@ -21,7 +21,7 @@ export class AirRequest<E extends AirEntity = AirEntity> extends AirModel {
   @Field({
     type: AirSort,
   })
-    sort?: AirSort
+  sort?: AirSort
 
   /**
    * ### 初始化一个请求类

@@ -1,8 +1,8 @@
-import { AirModel } from './AirModel'
-import { Table } from '../decorator/Table'
-import { AirDisableDictionary } from '../model/AirDisableDictionary'
 import { AirConstant } from '../config/AirConstant'
 import { Field } from '../decorator/Field'
+import { Table } from '../decorator/Table'
+import { AirDisableDictionary } from '../model/AirDisableDictionary'
+import { AirModel } from './AirModel'
 
 /**
  * # 实体超类
@@ -16,7 +16,7 @@ export class AirEntity extends AirModel {
     label: 'ID',
     type: Number,
   })
-    id!: number
+  id!: number
 
   /**
    * ### 是否禁用
@@ -33,7 +33,7 @@ export class AirEntity extends AirModel {
     type: Boolean,
     dictionary: AirDisableDictionary,
   })
-    isDisabled!: boolean
+  isDisabled!: boolean
 
   /**
    * ### 实例化一个实体
@@ -51,8 +51,7 @@ export class AirEntity extends AirModel {
    * @returns 仅包含ID的实体
    */
   copyExposeId(): this {
-    return this.copy()
-      .exposeId()
+    return this.copy().exposeId()
   }
 
   /**

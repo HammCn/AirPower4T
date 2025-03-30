@@ -1,46 +1,6 @@
-<template>
-  <div class="air-frame">
-    <div
-      :style="{ height: headerHeight + 'px' }"
-      class="air-header"
-    >
-      <div class="air-logo">
-        <slot name="logo">
-          <span>AirPower4T</span>
-        </slot>
-      </div>
-      <div class="air-navigator">
-        <slot name="navigator" />
-      </div>
-      <slot name="user" />
-    </div>
-    <div class="air-main">
-      <div
-        v-if="!hideMenu"
-        :style="{ width: menuWidth + 'px' }"
-        class="air-left"
-      >
-        <div
-          v-loading="!menuList"
-          class="air-menu"
-        >
-          <AMenu
-            v-if="menuList"
-            :menu-list="menuList"
-            :unique-opened="uniqueOpened"
-          />
-        </div>
-      </div>
-      <div class="air-right">
-        <slot />
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
+import type { IMenu } from '../interface/IMenu'
 import { AMenu } from '.'
-import { IMenu } from '../interface/IMenu'
 
 defineProps({
   /**
@@ -81,8 +41,47 @@ defineProps({
     default: 40,
   },
 })
-
 </script>
+
+<template>
+  <div class="air-frame">
+    <div
+      :style="{ height: `${headerHeight}px` }"
+      class="air-header"
+    >
+      <div class="air-logo">
+        <slot name="logo">
+          <span>AirPower4T</span>
+        </slot>
+      </div>
+      <div class="air-navigator">
+        <slot name="navigator" />
+      </div>
+      <slot name="user" />
+    </div>
+    <div class="air-main">
+      <div
+        v-if="!hideMenu"
+        :style="{ width: `${menuWidth}px` }"
+        class="air-left"
+      >
+        <div
+          v-loading="!menuList"
+          class="air-menu"
+        >
+          <AMenu
+            v-if="menuList"
+            :menu-list="menuList"
+            :unique-opened="uniqueOpened"
+          />
+        </div>
+      </div>
+      <div class="air-right">
+        <slot />
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .air-frame {
@@ -158,7 +157,7 @@ defineProps({
         .item {
           padding: 5px 15px;
           cursor: pointer;
-          transition: all .3s;
+          transition: all 0.3s;
           font-size: 14px;
           border-radius: 5px;
           color: var(--el-color-primary);

@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { AirEntity } from '../../base/AirEntity'
-import { IUseDetailOption } from './IUseDetailOption'
-import { IValidateRule } from '../IValidateRule'
+import type { AirEntity } from '../../base/AirEntity'
+import type { IValidateRule } from '../IValidateRule'
+import type { IUseDetailOption } from './IUseDetailOption'
 
 /**
  * # `Editor` 的 `Hook` 可选配置
@@ -11,7 +10,7 @@ export interface IUseEditorOption<E extends AirEntity> extends IUseDetailOption<
   /**
    * ### 自定义验证
    */
-  customRules?: IValidateRule<E>,
+  customRules?: IValidateRule<E>
 
   /**
    * ### 编辑成功的提示消息

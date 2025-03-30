@@ -1,5 +1,5 @@
+import type { ITree } from '../interface/ITree'
 import { AirConstant } from '../config/AirConstant'
-import { ITree } from '../interface/ITree'
 
 /**
  * # 树结构工具类
@@ -13,7 +13,7 @@ export class AirTree {
    * @returns 层级树列表
    */
   static list2treeList<E extends ITree>(list: E[], parentId: number | null = 0): E[] {
-    const treeList = list.filter((item) => item.parentId === parentId)
+    const treeList = list.filter(item => item.parentId === parentId)
     for (let i = 0; i < treeList.length; i += 1) {
       treeList[i].children = this.list2treeList(list, treeList[i].id)
     }
@@ -28,8 +28,7 @@ export class AirTree {
   static treeList2List<E extends ITree>(treeList: E[]): E[] {
     const list: E[] = []
     treeList.forEach((item) => {
-      const i = item.copy()
-        .exclude(AirConstant.STRING_CHILDREN)
+      const i = item.copy().exclude(AirConstant.STRING_CHILDREN)
       list.push(i)
       if (item.children && item.children.length > 0) {
         list.push(...this.treeList2List(item.children))

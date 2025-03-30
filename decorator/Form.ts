@@ -1,11 +1,11 @@
+import type { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
+import type { AirDecoratorTarget } from '../type/AirType'
 /**
  * # 表单字段的注解
  * @author Hamm.cn
  */
 import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
 import { AirDecorator } from '../helper/AirDecorator'
-import { IFormFieldConfig } from '../interface/decorators/IFormFieldConfig'
-import { AirDecoratorTarget } from '../type/AirType'
 import { getFieldConfig } from './Field'
 
 /**
@@ -59,7 +59,7 @@ export function getFormFieldList(target: AirDecoratorTarget): string[] {
  */
 export function getFormConfigList(target: AirDecoratorTarget, keyList: string[]): AirFormFieldConfig[] {
   return AirDecorator.getFieldConfigList(target, FIELD_LIST_KEY, FIELD_CONFIG_KEY, keyList, AirFormFieldConfig)
-    .filter((item) => !item.hide)
+    .filter(item => !item.hide)
     .sort((a, b) => b.orderNumber - a.orderNumber)
     .map((item) => {
       const props = getFieldConfig(target, item.key)

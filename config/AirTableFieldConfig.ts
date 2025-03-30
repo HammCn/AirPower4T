@@ -1,14 +1,12 @@
-import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirFieldConfig } from './AirFieldConfig'
-import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
+import type { AirEnum } from '../base/AirEnum'
+import type { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
+import type { AirDesensitizeType } from '../enum/AirDesensitizeType'
+import type { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
+import type { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
+import type { AirSortable, AirTableAlign, AirTableFixed, ClassConstructor } from '../type/AirType'
 import { AirConfig } from './AirConfig'
-import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import {
-  AirSortable, AirTableAlign, AirTableFixed, ClassConstructor,
-} from '../type/AirType'
-import { AirEnum } from '../base/AirEnum'
-import { AirDesensitizeType } from '../enum/AirDesensitizeType'
 import { AirConstant } from './AirConstant'
+import { AirFieldConfig } from './AirFieldConfig'
 
 /**
  * # 表格的字段配置实现类

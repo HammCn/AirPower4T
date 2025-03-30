@@ -1,13 +1,29 @@
+<script lang="ts" setup>
+import type { IMenu } from '../../interface/IMenu'
+import { ElMenuItem, ElSubMenu } from 'element-plus'
+
+defineProps({
+  /**
+   * # 菜单列表
+   * 请确保传入的数组类型为 `IMenu` 的实现类
+   */
+  menuList: {
+    type: Array<IMenu>,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <template
     v-for="menu in menuList"
     :key="menu.id"
   >
     <template v-if="!menu.isDisabled">
-      <el-sub-menu
+      <ElSubMenu
         v-if="menu.children && menu.children.length > 0"
         :id="menu.id"
-        :index="menu.id + ''"
+        :index="`${menu.id}`"
       >
         <template #title>
           <i
@@ -17,8 +33,8 @@
           <span>{{ menu.name }}</span>
         </template>
         <ChildMenu :menu-list="menu.children" />
-      </el-sub-menu>
-      <el-menu-item
+      </ElSubMenu>
+      <ElMenuItem
         v-else
         :id="menu.id"
         :index="menu.path"
@@ -32,26 +48,11 @@
             {{ menu.name }}
           </span>
         </template>
-      </el-menu-item>
+      </ElMenuItem>
     </template>
   </template>
 </template>
 
-<script lang="ts" setup>
-import { ElMenuItem, ElSubMenu } from 'element-plus'
-import { IMenu } from '../../interface/IMenu'
-
-defineProps({
-  /**
-   * # 菜单列表
-   * 请确保传入的数组类型为 `IMenu` 的实现类
-   */
-  menuList: {
-    type: Array<IMenu>,
-    required: true,
-  },
-})
-</script>
 <style lang="scss" scoped>
 .menu-icon {
   margin-right: 5px;

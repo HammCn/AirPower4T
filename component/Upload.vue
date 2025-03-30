@@ -1,72 +1,21 @@
-<template>
-  <ADialog
-    :allow-fullscreen="false"
-    :confirm-text="confirmText"
-    :hide-footer="!confirmText"
-    :title="title"
-    class="upload-dialog"
-    hide-cancel
-    min-height="220px"
-    @on-cancel="onCancel()"
-    @on-confirm="onCustomConfirm()"
-  >
-    <div
-      v-loading="loading"
-      class="file-upload-pack"
-    >
-      <el-upload
-        v-if="entity"
-        :action="url"
-        :before-upload="uploadReady"
-        :data="data"
-        :headers="uploadHeader"
-        :name="uploadName"
-        :on-error="onUploadError"
-        :on-success="onUploadSuccess"
-        :show-file-list="false"
-        class="upload"
-        drag
-      >
-        <div class="el-upload__text">
-          <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
-          <span>
-            {{ AirI18n.get().FileSize || '文件大小: ' }}
-            <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
-            {{ AirI18n.get().FileExt || '文件格式: ' }}
-            <template v-if="!extensions.includes('*')">
-              <b>{{ extensions.join('/') }}</b>
-            </template>
-          </span>
-          <div
-            v-if="tips"
-            class="tips"
-          >
-            {{ tips }}
-          </div>
-        </div>
-      </el-upload>
-    </div>
-  </ADialog>
-</template>
-
 <script generic="F extends IFile" lang="ts" setup>
-import { computed, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import type { IFile } from '../interface/IFile'
+import type { IJson } from '../interface/IJson'
+import type { ClassConstructor } from '../type/AirType'
+import { computed, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
-import { IFile } from '../interface/IFile'
-import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
-import { ClassConstructor } from '../type/AirType'
 
 const props = defineProps({
   /**
    * # 标准确认返回
    */
   onConfirm: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(file: F | null) => void>,
     default: () => null,
   },
@@ -210,21 +159,27 @@ if (props.header) {
 /**
  * # 上传验证
  */
-function uploadReady(file: { name: string; size: number; }): boolean {
+function uploadReady(file: { name: string, size: number }): boolean {
   // 文件类型验证
   if (!props.extensions.includes('*')) {
     const arr = file.name.split('.')
     const fileExt = arr && arr.length > 1 ? arr[arr.length - 1] : ''
-    const isFileTypeInLimited = !(props.extensions.indexOf(fileExt.toLowerCase()) < 0)
-    if (!isFileTypeInLimited) {
-      AirNotification.error(`${AirI18n.get().FileExtNotSupported || '文件格式不支持 '}${fileExt}`, AirI18n.get().UploadError || '上传失败')
+    const isFileTypeAllowed = props.extensions.includes(fileExt.toLowerCase())
+    if (!isFileTypeAllowed) {
+      AirNotification.error(
+        `${AirI18n.get().FileExtNotSupported || '文件格式不支持 '}${fileExt}`,
+        AirI18n.get().UploadError || '上传失败',
+      )
       return false
     }
   }
-  const isFileSizeInLimited = file.size <= props.maxSize
+  const isFileSizeAllowed = file.size <= props.maxSize
   // 文件大小验证
-  if (!isFileSizeInLimited) {
-    AirNotification.error(`${AirI18n.get().FileSizeNotSupported || '文件大小不支持 '}${AirFile.getFileSizeFriendly(file.size)}`, AirI18n.get().UploadError || '上传失败')
+  if (!isFileSizeAllowed) {
+    AirNotification.error(
+      `${AirI18n.get().FileSizeNotSupported || '文件大小不支持 '}${AirFile.getFileSizeFriendly(file.size)}`,
+      AirI18n.get().UploadError || '上传失败',
+    )
     return false
   }
 
@@ -237,7 +192,10 @@ function uploadReady(file: { name: string; size: number; }): boolean {
  */
 function onUploadError() {
   loading.value = false
-  AirNotification.error(AirI18n.get().FileUploadErrorAndRetryPlease || '上传文件失败, 请稍后再试', AirI18n.get().UploadError || '上传失败')
+  AirNotification.error(
+    AirI18n.get().FileUploadErrorAndRetryPlease || '上传文件失败, 请稍后再试',
+    AirI18n.get().UploadError || '上传失败',
+  )
   props.onCancel()
 }
 
@@ -258,18 +216,70 @@ function onUploadSuccess(result: IJson) {
   if (result.code === AirConfig.successCode) {
     AirNotification.success(props.uploadSuccess, AirI18n.get().UploadSuccess || '上传成功')
 
-    const entity = AirClassTransformer.parse(
-      result.data as IJson,
-      props.entity,
-    )
+    const entity = AirClassTransformer.parse(result.data as IJson, props.entity)
     props.onConfirm(entity)
-  } else {
-    AirNotification.error(result.message as string || '好家伙,后端的拉垮哥们连Message都没返回???', AirI18n.get().UploadError || '上传失败')
+  }
+  else {
+    AirNotification.error(
+      (result.message as string) || '好家伙,后端的拉垮哥们连Message都没返回???',
+      AirI18n.get().UploadError || '上传失败',
+    )
     props.onCancel()
   }
 }
-
 </script>
+
+<template>
+  <ADialog
+    :allow-fullscreen="false"
+    :confirm-text="confirmText"
+    :hide-footer="!confirmText"
+    :title="title"
+    class="upload-dialog"
+    hide-cancel
+    min-height="220px"
+    @on-cancel="onCancel()"
+    @on-confirm="onCustomConfirm()"
+  >
+    <div
+      v-loading="loading"
+      class="file-upload-pack"
+    >
+      <el-upload
+        v-if="entity"
+        :action="url"
+        :before-upload="uploadReady"
+        :data="data"
+        :headers="uploadHeader"
+        :name="uploadName"
+        :on-error="onUploadError"
+        :on-success="onUploadSuccess"
+        :show-file-list="false"
+        class="upload"
+        drag
+      >
+        <div class="el-upload__text">
+          <b>{{ AirI18n.get().ClickHereToUpload || '点击或拖到此处上传' }}</b>
+          <span>
+            {{ AirI18n.get().FileSize || '文件大小: ' }}
+            <b>{{ AirFile.getFileSizeFriendly(props.maxSize) }}</b>
+            {{ AirI18n.get().FileExt || '文件格式: ' }}
+            <template v-if="!extensions.includes('*')">
+              <b>{{ extensions.join('/') }}</b>
+            </template>
+          </span>
+          <div
+            v-if="tips"
+            class="tips"
+          >
+            {{ tips }}
+          </div>
+        </div>
+      </el-upload>
+    </div>
+  </ADialog>
+</template>
+
 <style lang="scss">
 .upload-dialog {
   .body {

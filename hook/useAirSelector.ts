@@ -1,12 +1,12 @@
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirEntity } from '../base/AirEntity'
+import type { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
+import type { IUseSelectorResult } from '../interface/hooks/IUseSelectorResult'
+import type { IJson } from '../interface/IJson'
+import type { ClassConstructor } from '../type/AirType'
 import { computed, ref } from 'vue'
-import { AirEntity } from '../base/AirEntity'
-import { AirAbstractEntityService } from '../base/AirAbstractEntityService'
-import { IUseSelectorOption } from '../interface/hooks/IUseSelectorOption'
-import { IUseSelectorResult } from '../interface/hooks/IUseSelectorResult'
-import { IJson } from '../interface/IJson'
-import { airTableHook } from './airTableHook'
 import { AirI18n } from '../helper/AirI18n'
-import { ClassConstructor } from '../type/AirType'
+import { airTableHook } from './airTableHook'
 
 /**
  * # 引入`Selector`使用的`Hook`
@@ -16,7 +16,12 @@ import { ClassConstructor } from '../type/AirType'
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
-export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(props: IJson, entityClass: ClassConstructor<E>, serviceClass: ClassConstructor<S>, option: IUseSelectorOption<E> = {}): IUseSelectorResult<E, S> {
+export function useAirSelector<E extends AirEntity, S extends AirAbstractEntityService<E>>(
+  props: IJson,
+  entityClass: ClassConstructor<E>,
+  serviceClass: ClassConstructor<S>,
+  option: IUseSelectorOption<E> = {},
+): IUseSelectorResult<E, S> {
   /**
    * ### 表格`Hook`返回对象
    */

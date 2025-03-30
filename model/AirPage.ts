@@ -12,7 +12,7 @@ export class AirPage extends AirModel {
   @Field({
     type: Number,
   })
-    pageNum = 1
+  pageNum = 1
 
   /**
    * ### 每页数量
@@ -20,7 +20,7 @@ export class AirPage extends AirModel {
   @Field({
     type: Number,
   })
-    pageSize = 20
+  pageSize = 20
 
   /**
    * ### 是否在当前首页

@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-
-/* eslint-disable camelcase */
-
 /**
  * # 标准时间格式化
  * @author Hamm.cn
@@ -31,5 +27,5 @@ export enum AirDateTimeFormatter {
   /**
    * ### e.g. `22:22:22`
    */
-  HH_mm_ss = 'HH:mm:ss'
+  HH_mm_ss = 'HH:mm:ss',
 }

@@ -1,227 +1,26 @@
-<template>
-  <div class="air-input">
-    <template v-if="fieldConfig && fieldConfig.dateType !== undefined">
-      <el-date-picker
-        v-if="fieldConfig.dateType !== AirDateTimeType.TIME"
-        v-model="value"
-        :clearable="fieldConfig?.clearable"
-        :disabled="disabled"
-        :format="fieldConfig.dateShowFormatter || getShowFormatter"
-        :placeholder="placeholderRef"
-        :prefix-icon="fieldConfig?.prefixIcon"
-        :readonly="readonly"
-        :suffix-icon="fieldConfig?.suffixIcon"
-        :type="fieldConfig.dateType"
-        :value-format="fieldConfig.dateFormatter"
-        style="width:100%"
-        @clear="onClear"
-        @focus="emits('focus')"
-        @keydown="onKeyDown"
-      />
-      <el-time-picker
-        v-else
-        v-model="value"
-        :clearable="fieldConfig?.clearable"
-        :disabled="disabled"
-        :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
-        :placeholder="placeholderRef"
-        :prefix-icon="fieldConfig?.prefixIcon"
-        :readonly="readonly"
-        :suffix-icon="fieldConfig?.suffixIcon"
-        :value-format="fieldConfig.dateFormatter"
-        style="width:100%"
-        @clear="onClear"
-        @focus="emits('focus')"
-        @keydown="onKeyDown"
-      />
-    </template>
-    <template v-else-if="list || dictionary">
-      <el-switch
-        v-if="fieldConfig?.switch"
-        v-model="value"
-        :active-text="getSwitchLabel(true)"
-        :inactive-text="getSwitchLabel(false)"
-        :readonly="readonly"
-        :style="{
-          '--el-switch-on-color': getSwitchColor(true),
-          '--el-switch-off-color': getSwitchColor(false)
-        }"
-      />
-      <el-radio-group
-        v-else-if="fieldConfig?.radioButton"
-        v-model="value"
-        :readonly="readonly"
-      >
-        <el-radio-button
-          v-for="item in dictionary"
-          :key="item.key"
-          :value="item.key"
-        >
-          {{ item.label }}
-        </el-radio-button>
-      </el-radio-group>
-      <el-radio-group
-        v-else-if="fieldConfig?.radio"
-        v-model="value"
-        :readonly="readonly"
-      >
-        <el-radio
-          v-for="item in dictionary"
-          :key="item.key"
-          :value="item.key"
-        >
-          {{ item.label }}
-        </el-radio>
-      </el-radio-group>
-      <el-select
-        v-else
-        v-model="value"
-        :clearable="fieldConfig?.clearable"
-        :collapse-tags="fieldConfig?.collapseTags"
-        :disabled="disabled"
-        :filterable="fieldConfig?.filterable"
-        :multiple="fieldConfig?.multiple"
-        :multiple-limit="fieldConfig?.multipleLimit"
-        :placeholder="placeholderRef"
-        :prefix-icon="fieldConfig?.prefixIcon"
-        :readonly="readonly"
-        :remote="!!onSearch"
-        :remote-method="onSearch"
-        :suffix-icon="fieldConfig?.suffixIcon"
-        collapse-tags-tooltip
-        fit-input-width
-        @clear="onClear"
-        @focus="emits('focus')"
-        @keydown="onKeyDown"
-      >
-        <el-option
-          v-for="item in dictionary"
-          :key="item.key.toString()"
-          :disabled="item.disabled"
-          :label="item.label"
-          :value="item.key"
-        >
-          <div
-            v-if="fieldConfig?.showColor"
-            class="air-input-select"
-          >
-            <span class="label">{{ item.label }}</span>
-            <span
-              :style="{ backgroundColor: item.color || AirColor.NORMAL }"
-              class="light"
-            />
-          </div>
-        </el-option>
-      </el-select>
-    </template>
-
-    <el-cascader
-      v-else-if="(fieldConfig && tree)"
-      v-model="value"
-      :clearable="fieldConfig?.clearable"
-      :collapse-tags="fieldConfig?.collapseTags"
-      :disabled="disabled"
-      :options="tree"
-      :placeholder="placeholderRef"
-      :props="{
-        value: 'id',
-        label: 'name',
-        multiple: fieldConfig?.multiple,
-        emitPath: fieldConfig?.emitPath,
-        checkStrictly: fieldConfig?.checkStrictly
-      }"
-      :readonly="readonly"
-      :show-all-levels="fieldConfig?.showAllLevels"
-      class="air-input-cascader"
-      collapse-tags-tooltip
-      popper-class="air-input-cascader-popper"
-      @clear="onClear"
-      @focus="emits('focus')"
-      @keydown="onKeyDown"
-    />
-    <el-input
-      v-else
-      v-model="value"
-      :autosize="fieldConfig?.autoSize ?
-        { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows }
-        : false
-      "
-      :clearable="fieldConfig?.clearable"
-      :disabled="disabled"
-      :max="fieldConfig?.max"
-      :maxlength="fieldConfig?.maxLength || (fieldConfig?.textarea
-        ? AirConfig.maxTextAreaLength :
-          AirConfig.maxTextLength)
-      "
-      :min="fieldConfig?.min ?? 0"
-      :placeholder="placeholderRef"
-      :prefix-icon="fieldConfig?.prefixIcon"
-      :readonly="readonly"
-      :rows="fieldConfig?.textarea ? AirConfig.textareaMinRows : 0"
-      :show-word-limit="getShowWordLimit()"
-      :suffix-icon="fieldConfig?.suffixIcon"
-      :type="getInputType"
-      @blur="onBlur"
-      @change="checkNumberValue"
-      @clear="onClear"
-      @focus="emits('focus')"
-      @keydown="onKeyDown"
-    >
-      <template
-        v-for="(index, name) in slots"
-        #[name]
-      >
-        <slot :name="name">
-          <template v-if="name === 'append'">
-            {{ fieldConfig?.suffixText }}
-          </template>
-          <template v-if="name == 'suffix'">
-            <el-icon
-              v-if="isClearButtonShow"
-              @click="onClear()"
-            >
-              <CircleClose />
-            </el-icon>
-          </template>
-        </slot>
-      </template>
-      <template
-        v-if="!slots.append && fieldConfig?.suffixText"
-        #append
-      >
-        {{ fieldConfig.suffixText }}
-      </template>
-    </el-input>
-  </div>
-</template>
-
 <script generic="M extends AirModel" lang="ts" setup>
-import {
-  computed, PropType, ref, Ref, useSlots, watch,
-} from 'vue'
+import type { PropType, Ref } from 'vue'
+import type { AirModel } from '../base/AirModel'
 
+import type { AirFormFieldConfig } from '../config/AirFormFieldConfig'
+import type { IDictionary } from '../interface/IDictionary'
+import type { IJson } from '../interface/IJson'
+import type { ITree } from '../interface/ITree'
+import type { ClassConstructor } from '../type/AirType'
 import { CircleClose } from '@element-plus/icons-vue'
-import { AirModel } from '../base/AirModel'
-import { AirFormFieldConfig } from '../config/AirFormFieldConfig'
+import { computed, ref, useSlots, watch } from 'vue'
+import { AirEntity } from '../base/AirEntity'
 import { AirConfig } from '../config/AirConfig'
+import { AirConstant } from '../config/AirConstant'
+import { AirColor } from '../enum/AirColor'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
 import { AirDateTimeType } from '../enum/AirDateTimeType'
-import { IDictionary } from '../interface/IDictionary'
-import { AirValidator } from '../helper/AirValidator'
 import { AirTrim } from '../enum/AirTrim'
-import { IJson } from '../interface/IJson'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { AirEntity } from '../base/AirEntity'
-import { ITree } from '../interface/ITree'
-import { AirI18n } from '../helper/AirI18n'
-import { AirColor } from '../enum/AirColor'
-import { AirConstant } from '../config/AirConstant'
 import { AirDecorator } from '../helper/AirDecorator'
+import { AirI18n } from '../helper/AirI18n'
+import { AirValidator } from '../helper/AirValidator'
 import { AirDictionaryArray } from '../model/extend/AirDictionaryArray'
-import { ClassConstructor } from '../type/AirType'
-
-const emits = defineEmits(['blur', 'onBlur', 'focus', 'onFocus', 'onChange', 'change', 'update:modelValue', 'onClear', 'clear'])
-const slots: IJson = useSlots()
 
 const props = defineProps({
   modelValue: {
@@ -329,6 +128,18 @@ const props = defineProps({
     default: null,
   },
 })
+const emits = defineEmits([
+  'blur',
+  'onBlur',
+  'focus',
+  'onFocus',
+  'onChange',
+  'change',
+  'update:modelValue',
+  'onClear',
+  'clear',
+])
+const slots: IJson = useSlots()
 
 /**
  * 绑定的数据
@@ -409,13 +220,13 @@ function onPropsValueUpdated(newProps?: typeof props) {
   if (newProps) {
     if (newProps.disabled) {
       // disabled
-      value.value = newProps.disabledValue === undefined
-        ? newProps.modelValue
-        : newProps.disabledValue
-    } else {
+      value.value = newProps.disabledValue === undefined ? newProps.modelValue : newProps.disabledValue
+    }
+    else {
       value.value = newProps.modelValue
     }
-  } else {
+  }
+  else {
     value.value = props.modelValue
   }
 }
@@ -434,7 +245,6 @@ const getShowFormatter = computed(() => {
         return 'YYYY'
       case AirDateTimeType.MONTH:
         return 'YYYY-MM'
-      default:
     }
   }
   return AirConfig.dateTimeFormatter
@@ -445,7 +255,7 @@ const getShowFormatter = computed(() => {
  * @param status
  */
 function getSwitchColor(status: boolean): string {
-  return dictionary.value?.find((item) => item.key === status)?.color || AirConstant.STRING_EMPTY
+  return dictionary.value?.find(item => item.key === status)?.color || AirConstant.STRING_EMPTY
 }
 
 /**
@@ -453,7 +263,7 @@ function getSwitchColor(status: boolean): string {
  * @param status
  */
 function getSwitchLabel(status: boolean): string {
-  return dictionary.value?.find((item) => item.key === status)?.label || AirConstant.STRING_EMPTY
+  return dictionary.value?.find(item => item.key === status)?.label || AirConstant.STRING_EMPTY
 }
 
 /**
@@ -469,9 +279,7 @@ function getShowWordLimit(): boolean {
     return fieldConfig.value.showLimit
   }
   // 配置了装饰器 但没配置属性 读取默认值
-  return fieldConfig.value.textarea
-    ? AirConfig.showLengthLimitTextarea
-    : AirConfig.showLengthLimitInput
+  return fieldConfig.value.textarea ? AirConfig.showLengthLimitTextarea : AirConfig.showLengthLimitInput
 }
 
 /**
@@ -507,20 +315,21 @@ function checkNumberValue() {
     let tempValue = value.value as number | string | undefined | null
     const max = Math.min(fieldConfig.value.max ?? AirConfig.maxNumber, Number.MAX_SAFE_INTEGER)
     const min = Math.max(fieldConfig.value.min ?? AirConfig.minNumber, Number.MIN_SAFE_INTEGER)
-    if (tempValue !== '' && tempValue !== undefined && tempValue !== null && AirValidator.isNumber(tempValue.toString())) {
-      tempValue = parseFloat(tempValue.toString())
+    if (
+      tempValue !== ''
+      && tempValue !== undefined
+      && tempValue !== null
+      && AirValidator.isNumber(tempValue.toString())
+    ) {
+      tempValue = Number.parseFloat(tempValue.toString())
       // 按最大值最小值做边界处理
       tempValue = Math.max(tempValue, min)
       tempValue = Math.min(tempValue, max)
-      tempValue = parseFloat(
-        tempValue.toFixed(
-          fieldConfig.value.precision ?? AirConfig.numberPrecision,
-        ),
-      )
+      tempValue = Number.parseFloat(tempValue.toFixed(fieldConfig.value.precision ?? AirConfig.numberPrecision))
       value.value = tempValue
-      value.value = parseFloat(value.value?.toString() || '0')
+      value.value = Number.parseFloat(value.value?.toString() || '0')
     }
-    value.value = parseFloat(value.value?.toString() || '0')
+    value.value = Number.parseFloat(value.value?.toString() || '0')
   }
 }
 
@@ -539,12 +348,10 @@ function emitValue() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
-        value.value = value.value.toString()
-          .trim()
+        value.value = value.value.toString().trim()
         break
       case AirTrim.END:
-        value.value = value.value.toString()
-          .trimEnd()
+        value.value = value.value.toString().trimEnd()
         break
       default:
     }
@@ -582,16 +389,13 @@ function onBlur() {
   if (fieldConfig.value && value.value) {
     switch (fieldConfig.value.trim) {
       case AirTrim.ALL:
-        value.value = value.value.toString()
-          .trim()
+        value.value = value.value.toString().trim()
         break
       case AirTrim.START:
-        value.value = value.value.toString()
-          .trimStart()
+        value.value = value.value.toString().trimStart()
         break
       case AirTrim.END:
-        value.value = value.value.toString()
-          .trimEnd()
+        value.value = value.value.toString().trimEnd()
         break
       default:
     }
@@ -615,8 +419,8 @@ function init() {
   if (props.modifier) {
     // 如传入了自定义的modifier 则优先使用
     fieldName.value = props.modifier
-  } else {
-    // eslint-disable-next-line guard-for-in
+  }
+  else {
     for (const key in props.modelModifiers) {
       fieldName.value = key
     }
@@ -627,15 +431,15 @@ function init() {
     fieldConfig.value = entityInstance.value.getCustomFormFieldConfig(fieldName.value)
 
     if (!placeholderRef.value) {
-      const field = fieldConfig.value?.label
-        || entityInstance.value.getFieldName(fieldName.value)
+      const field = fieldConfig.value?.label || entityInstance.value.getFieldName(fieldName.value)
       // 默认生成输入的placeholder
       placeholderRef.value = `请输入${field}...`
 
       if (fieldConfig.value) {
         // 装饰了FormField
         if (
-          dictionary.value || fieldConfig.value.dictionary
+          dictionary.value
+          || fieldConfig.value.dictionary
           || props.list
           || props.tree
           || fieldConfig.value.dateType !== undefined
@@ -662,6 +466,200 @@ function init() {
 
 init()
 </script>
+
+<template>
+  <div class="air-input">
+    <template v-if="fieldConfig && fieldConfig.dateType !== undefined">
+      <el-date-picker
+        v-if="fieldConfig.dateType !== AirDateTimeType.TIME"
+        v-model="value"
+        :clearable="fieldConfig?.clearable"
+        :disabled="disabled"
+        :format="fieldConfig.dateShowFormatter || getShowFormatter"
+        :placeholder="placeholderRef"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :readonly="readonly"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :type="fieldConfig.dateType"
+        :value-format="fieldConfig.dateFormatter"
+        style="width: 100%"
+        @clear="onClear"
+        @focus="emits('focus')"
+        @keydown="onKeyDown"
+      />
+      <el-time-picker
+        v-else
+        v-model="value"
+        :clearable="fieldConfig?.clearable"
+        :disabled="disabled"
+        :format="fieldConfig.dateShowFormatter || AirDateTimeFormatter.HH_mm_ss"
+        :placeholder="placeholderRef"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :readonly="readonly"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        :value-format="fieldConfig.dateFormatter"
+        style="width: 100%"
+        @clear="onClear"
+        @focus="emits('focus')"
+        @keydown="onKeyDown"
+      />
+    </template>
+    <template v-else-if="list || dictionary">
+      <el-switch
+        v-if="fieldConfig?.switch"
+        v-model="value"
+        :active-text="getSwitchLabel(true)"
+        :inactive-text="getSwitchLabel(false)"
+        :readonly="readonly"
+        :style="{
+          '--el-switch-on-color': getSwitchColor(true),
+          '--el-switch-off-color': getSwitchColor(false),
+        }"
+      />
+      <el-radio-group
+        v-else-if="fieldConfig?.radioButton"
+        v-model="value"
+        :readonly="readonly"
+      >
+        <el-radio-button
+          v-for="item in dictionary"
+          :key="item.key"
+          :value="item.key"
+        >
+          {{ item.label }}
+        </el-radio-button>
+      </el-radio-group>
+      <el-radio-group
+        v-else-if="fieldConfig?.radio"
+        v-model="value"
+        :readonly="readonly"
+      >
+        <el-radio
+          v-for="item in dictionary"
+          :key="item.key"
+          :value="item.key"
+        >
+          {{ item.label }}
+        </el-radio>
+      </el-radio-group>
+      <el-select
+        v-else
+        v-model="value"
+        :clearable="fieldConfig?.clearable"
+        :collapse-tags="fieldConfig?.collapseTags"
+        :disabled="disabled"
+        :filterable="fieldConfig?.filterable"
+        :multiple="fieldConfig?.multiple"
+        :multiple-limit="fieldConfig?.multipleLimit"
+        :placeholder="placeholderRef"
+        :prefix-icon="fieldConfig?.prefixIcon"
+        :readonly="readonly"
+        :remote="!!onSearch"
+        :remote-method="onSearch"
+        :suffix-icon="fieldConfig?.suffixIcon"
+        collapse-tags-tooltip
+        fit-input-width
+        @clear="onClear"
+        @focus="emits('focus')"
+        @keydown="onKeyDown"
+      >
+        <el-option
+          v-for="item in dictionary"
+          :key="item.key.toString()"
+          :disabled="item.disabled"
+          :label="item.label"
+          :value="item.key"
+        >
+          <div
+            v-if="fieldConfig?.showColor"
+            class="air-input-select"
+          >
+            <span class="label">{{ item.label }}</span>
+            <span
+              :style="{ backgroundColor: item.color || AirColor.NORMAL }"
+              class="light"
+            />
+          </div>
+        </el-option>
+      </el-select>
+    </template>
+
+    <el-cascader
+      v-else-if="fieldConfig && tree"
+      v-model="value"
+      :clearable="fieldConfig?.clearable"
+      :collapse-tags="fieldConfig?.collapseTags"
+      :disabled="disabled"
+      :options="tree"
+      :placeholder="placeholderRef"
+      :props="{
+        value: 'id',
+        label: 'name',
+        multiple: fieldConfig?.multiple,
+        emitPath: fieldConfig?.emitPath,
+        checkStrictly: fieldConfig?.checkStrictly,
+      }"
+      :readonly="readonly"
+      :show-all-levels="fieldConfig?.showAllLevels"
+      class="air-input-cascader"
+      collapse-tags-tooltip
+      popper-class="air-input-cascader-popper"
+      @clear="onClear"
+      @focus="emits('focus')"
+      @keydown="onKeyDown"
+    />
+    <el-input
+      v-else
+      v-model="value"
+      :autosize="fieldConfig?.autoSize ? { minRows: fieldConfig.minRows, maxRows: fieldConfig.maxRows } : false"
+      :clearable="fieldConfig?.clearable"
+      :disabled="disabled"
+      :max="fieldConfig?.max"
+      :maxlength="
+        fieldConfig?.maxLength || (fieldConfig?.textarea ? AirConfig.maxTextAreaLength : AirConfig.maxTextLength)
+      "
+      :min="fieldConfig?.min ?? 0"
+      :placeholder="placeholderRef"
+      :prefix-icon="fieldConfig?.prefixIcon"
+      :readonly="readonly"
+      :rows="fieldConfig?.textarea ? AirConfig.textareaMinRows : 0"
+      :show-word-limit="getShowWordLimit()"
+      :suffix-icon="fieldConfig?.suffixIcon"
+      :type="getInputType"
+      @blur="onBlur"
+      @change="checkNumberValue"
+      @clear="onClear"
+      @focus="emits('focus')"
+      @keydown="onKeyDown"
+    >
+      <template
+        v-for="(index, name) in slots"
+        #[name]
+      >
+        <slot :name="name">
+          <template v-if="name === 'append'">
+            {{ fieldConfig?.suffixText }}
+          </template>
+          <template v-if="name === 'suffix'">
+            <el-icon
+              v-if="isClearButtonShow"
+              @click="onClear()"
+            >
+              <CircleClose />
+            </el-icon>
+          </template>
+        </slot>
+      </template>
+      <template
+        v-if="!slots.append && fieldConfig?.suffixText"
+        #append
+      >
+        {{ fieldConfig.suffixText }}
+      </template>
+    </el-input>
+  </div>
+</template>
+
 <style lang="scss">
 .air-input {
   width: 100%;

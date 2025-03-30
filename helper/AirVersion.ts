@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import ElementPlus from 'element-plus'
 import { AirConstant } from '../config/AirConstant'
 
@@ -24,7 +23,10 @@ export class AirVersion {
     if (this.parseVersion(ElementPlus.version) >= this.parseVersion(this.elementPlusRequired)) {
       return
     }
-    console.error(`%cElement Plus 版本过低，请升级至 ${this.elementPlusRequired} 或以上版本`, 'color:red;font-size:12px;')
+    console.error(
+      `%cElement Plus 版本过低，请升级至 ${this.elementPlusRequired} 或以上版本`,
+      'color:red;font-size:12px;',
+    )
   }
 
   /**
@@ -42,9 +44,13 @@ export class AirVersion {
    * @returns 版本号数字
    */
   static parseVersion(version: string, separator = AirConstant.STRING_DOT, padding = this.VERSION_LENGTH): number {
-    return parseInt(version.split(separator)
-      .map((item) => item.padStart(padding, AirConstant.STRING_ZERO))
-      .join(AirConstant.STRING_EMPTY), 10)
+    return Number.parseInt(
+      version
+        .split(separator)
+        .map(item => item.padStart(padding, AirConstant.STRING_ZERO))
+        .join(AirConstant.STRING_EMPTY),
+      10,
+    )
   }
 
   /**
@@ -55,8 +61,8 @@ export class AirVersion {
    * @returns 版本号字符串
    */
   static formatVersion(version: number, separator = AirConstant.STRING_DOT, padding = this.VERSION_LENGTH): string {
-    const major = Math.floor(version / (10 ** padding ** padding))
-    const minor = Math.floor(version % (10 ** padding ** padding)) / (10 ** padding)
+    const major = Math.floor(version / 10 ** (padding ** padding))
+    const minor = Math.floor(version % 10 ** (padding ** padding)) / 10 ** padding
     return [major, minor].join(separator)
   }
 }

@@ -1,43 +1,8 @@
-<template>
-  <el-input
-    :disabled="disabled"
-    :placeholder="placeholder"
-    :value="label"
-    readonly
-  >
-    <template
-      v-if="!disabled"
-      #append
-    >
-      <el-button
-        v-if="!result"
-        :disabled="disabled"
-        @click="onSelect()"
-      >
-        {{ selectLabel }}
-      </el-button>
-      <el-button
-        v-else
-        :disabled="disabled"
-        @click="
-          result = undefined;
-          emitChange();
-          emitClear();
-        "
-      >
-        {{ clearLabel }}
-      </el-button>
-    </template>
-  </el-input>
-</template>
 <script generic="T extends IPayload" lang="ts" setup>
-import {
-  Component, computed, ModelRef, PropType,
-} from 'vue'
+import type { Component, ModelRef, PropType } from 'vue'
+import type { IPayload } from '../interface/IPayload'
+import { computed } from 'vue'
 import { AirDialog } from '../helper/AirDialog'
-import { IPayload } from '../interface/IPayload'
-
-const result = defineModel<T>() as ModelRef<T | undefined>
 
 const props = defineProps({
   /**
@@ -98,11 +63,13 @@ const props = defineProps({
 })
 
 const emits = defineEmits<{
-  change: [data: T | undefined],
-  onChange: [data: T | undefined],
-  clear: [],
+  change: [data: T | undefined]
+  onChange: [data: T | undefined]
+  clear: []
   onClear: []
 }>()
+
+const result = defineModel<T>() as ModelRef<T | undefined>
 
 function emitChange() {
   emits('change', result.value)
@@ -127,4 +94,38 @@ async function onSelect() {
   emitChange()
 }
 
+async function onClear() {
+  result.value = undefined
+  emitChange()
+  emitClear()
+}
 </script>
+
+<template>
+  <el-input
+    :disabled="disabled"
+    :placeholder="placeholder"
+    :value="label"
+    readonly
+  >
+    <template
+      v-if="!disabled"
+      #append
+    >
+      <el-button
+        v-if="!result"
+        :disabled="disabled"
+        @click="onSelect()"
+      >
+        {{ selectLabel }}
+      </el-button>
+      <el-button
+        v-else
+        :disabled="disabled"
+        @click=" onClear() "
+      >
+        {{ clearLabel }}
+      </el-button>
+    </template>
+  </el-input>
+</template>

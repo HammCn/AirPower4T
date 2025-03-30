@@ -1,16 +1,17 @@
-import { App, Component, createApp } from 'vue'
-import ElementPlus from 'element-plus'
+import type { App, Component } from 'vue'
+import type { AirEntity } from '../base/AirEntity'
+import type { IFile } from '../interface/IFile'
+import type { IJson } from '../interface/IJson'
+import type { IUploadProps } from '../interface/props/IUploadProps'
+import type { AirExportModel } from '../model/AirExportModel'
 import * as Icons from '@element-plus/icons-vue'
+import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import { AirExportModel } from '../model/AirExportModel'
+import { createApp } from 'vue'
 import { AUpload } from '../component'
 import ExportView from '../component/toolbar/Export.vue'
-import { IUploadProps } from '../interface/props/IUploadProps'
-import { IFile } from '../interface/IFile'
-import { AirEntity } from '../base/AirEntity'
-import { IJson } from '../interface/IJson'
-import { AirStore } from '../store/AirStore'
 import { AirConstant } from '../config/AirConstant'
+import { AirStore } from '../store/AirStore'
 
 /**
  * # 弹窗助手类
@@ -86,12 +87,11 @@ export class AirDialog {
       app.use(ElementPlus, { locale: zhCn })
 
       // 注册全局组件
-      Object.keys(Icons)
-        .forEach((key) => {
-          if (app) {
-            app.component(key, Icons[key as keyof typeof Icons])
-          }
-        })
+      Object.keys(Icons).forEach((key) => {
+        if (app) {
+          app.component(key, Icons[key as keyof typeof Icons])
+        }
+      })
 
       this.currentDialogId += 1
       this.dialogIdList.unshift(this.currentDialogId)
@@ -153,7 +153,11 @@ export class AirDialog {
    * @param selectList `可选` 已选列表 将传入到目标对象的 `props.selectList` 参数上
    * @param param `可选` 普通参数 将传入到目标对象的 `props.param` 参数上
    */
-  static async selectList<E extends AirEntity>(view: Component, selectList: E[] = [], param: E | undefined = undefined): Promise<E[]> {
+  static async selectList<E extends AirEntity>(
+    view: Component,
+    selectList: E[] = [],
+    param: E | undefined = undefined,
+  ): Promise<E[]> {
     return this.build(view, {
       selectList,
       isMultiple: true,

@@ -1,107 +1,11 @@
-<template>
-  <div class="air-page">
-    <el-pagination
-      v-model:current-page="page.pageNum"
-      v-model:page-size="page.pageSize"
-      :page-sizes="AirConfig.pageSizes"
-      :total="response.total"
-      background
-      class="air-page-bar"
-      layout=" prev, next"
-      size="small"
-      @current-change="pageChanged($event)"
-    />
-    <el-popover
-      v-if="page.pageNum && response.pageCount"
-      :width="pageBoxWidth[pageCountList[pageCountList.length - 1].length]"
-      trigger="click"
-      @hide="pageChanged(page.pageNum)"
-    >
-      <template #reference>
-        <div class="air-page-count">
-          <span>{{ page.pageNum }} / {{ response.pageCount }}</span>
-        </div>
-      </template>
-      <template #default>
-        <div class="air-page-panel-box">
-          <div class="air-page-header">
-            <div class="air-page-title">
-              {{ AirI18n.get().PageSize || '每页' }}
-            </div>
-
-            <el-radio-group
-              v-model="page.pageSize"
-              class="air-page-radio"
-              size="small"
-            >
-              <el-radio-button
-                v-for="item in AirConfig.pageSizes"
-                :key="item"
-                :value="item"
-                @click="sizeChanged(item)"
-              >
-                {{ item }}
-              </el-radio-button>
-            </el-radio-group>
-          </div>
-          <div class="air-page-goto">
-            <el-button
-              v-for="item in pageCountList"
-              :key="item"
-              :disabled="item === disablePageLabel"
-              :style="{ width: pageItemWidth[pageCountList[pageCountList.length - 1].length] + 'px' }"
-              :type="page.pageNum == parseInt(item, 10) ? 'primary' : 'default'"
-              round
-              @click="pageChanged(item)"
-            >
-              {{ item }}
-            </el-button>
-          </div>
-          <div class="air-page-jumper">
-            <el-input
-              v-model="currentPage"
-              :max="response.pageCount"
-              :placeholder="AirI18n.get().InputPageNumber || '输入页码跳转'"
-              min="1"
-              type="number"
-              @change="currentPageChanged"
-            >
-              <template #append>
-                <el-button
-                  size="small"
-                  @click="pageChanged(page.pageNum)"
-                >
-                  {{ AirI18n.get().Jump || '跳转' }}
-                </el-button>
-              </template>
-            </el-input>
-          </div>
-        </div>
-      </template>
-    </el-popover>
-    <div
-      v-if="response.total"
-      class="air-page-total"
-    >
-      {{ AirI18n.get().TotalRow || '总条数' }}: <span>{{ response.total }}</span>
-    </div>
-  </div>
-</template>
-
 <script generic="E extends AirEntity" lang="ts" setup="props">
-/* eslint-disable no-continue */
-import { computed, ref } from 'vue'
+import type { AirEntity } from '../base/AirEntity'
 import { ElRadioButton, ElRadioGroup } from 'element-plus'
+import { computed, ref } from 'vue'
 import { AirConfig } from '../config/AirConfig'
-import { AirResponsePage } from '../model/AirResponsePage'
-import { AirPage } from '../model/AirPage'
 import { AirI18n } from '../helper/AirI18n'
-import { AirEntity } from '../base/AirEntity'
-
-const emits = defineEmits<{
-  onChange: [page: AirPage],
-  change: [page: AirPage],
-}>()
+import { AirPage } from '../model/AirPage'
+import { AirResponsePage } from '../model/AirResponsePage'
 
 const props = defineProps({
   /**
@@ -112,6 +16,11 @@ const props = defineProps({
     required: true,
   },
 })
+
+const emits = defineEmits<{
+  onChange: [page: AirPage]
+  change: [page: AirPage]
+}>()
 
 /**
  * # 页码对象
@@ -136,7 +45,7 @@ function emitChange() {
  * # 页码变更
  */
 function pageChanged(num: string | number): void {
-  page.value.pageNum = parseInt(num.toString(), 10)
+  page.value.pageNum = Number.parseInt(num.toString(), 10)
   page.value.pageSize = props.response.page.pageSize
   emitChange()
 }
@@ -161,7 +70,7 @@ const disablePageLabel = '...'
 const pageCountList = computed(() => {
   const showPageCount = 15
   const endSecondPage = showPageCount - 1
-  const mid = parseInt((showPageCount / 2).toString(), 10) + 1
+  const mid = Number.parseInt((showPageCount / 2).toString(), 10) + 1
 
   const list: string[] = []
   if (props.response.pageCount <= showPageCount) {
@@ -217,7 +126,7 @@ const pageCountList = computed(() => {
  */
 function currentPageChanged() {
   if (currentPage.value) {
-    page.value.pageNum = Math.min(props.response.pageCount, parseInt(currentPage.value.toString(), 10))
+    page.value.pageNum = Math.min(props.response.pageCount, Number.parseInt(currentPage.value.toString(), 10))
     page.value.pageNum = Math.max(page.value.pageNum, 1)
     emitChange()
   }
@@ -232,8 +141,97 @@ const pageItemWidth = [30, 30, 30, 30, 40, 52, 58, 64, 70]
  * # 页码容器宽度
  */
 const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
-
 </script>
+
+<template>
+  <div class="air-page">
+    <el-pagination
+      v-model:current-page="page.pageNum"
+      v-model:page-size="page.pageSize"
+      :page-sizes="AirConfig.pageSizes"
+      :total="response.total"
+      background
+      class="air-page-bar"
+      layout=" prev, next"
+      size="small"
+      @current-change="pageChanged($event)"
+    />
+    <el-popover
+      v-if="page.pageNum && response.pageCount"
+      :width="pageBoxWidth[pageCountList[pageCountList.length - 1].length]"
+      trigger="click"
+      @hide="pageChanged(page.pageNum)"
+    >
+      <template #reference>
+        <div class="air-page-count">
+          <span>{{ page.pageNum }} / {{ response.pageCount }}</span>
+        </div>
+      </template>
+      <template #default>
+        <div class="air-page-panel-box">
+          <div class="air-page-header">
+            <div class="air-page-title">
+              {{ AirI18n.get().PageSize || '每页' }}
+            </div>
+
+            <ElRadioGroup
+              v-model="page.pageSize"
+              class="air-page-radio"
+              size="small"
+            >
+              <ElRadioButton
+                v-for="item in AirConfig.pageSizes"
+                :key="item"
+                :value="item"
+                @click="sizeChanged(item)"
+              >
+                {{ item }}
+              </ElRadioButton>
+            </ElRadioGroup>
+          </div>
+          <div class="air-page-goto">
+            <el-button
+              v-for="item in pageCountList"
+              :key="item"
+              :disabled="item === disablePageLabel"
+              :style="{ width: `${pageItemWidth[pageCountList[pageCountList.length - 1].length]}px` }"
+              :type="page.pageNum === parseInt(item, 10) ? 'primary' : 'default'"
+              round
+              @click="pageChanged(item)"
+            >
+              {{ item }}
+            </el-button>
+          </div>
+          <div class="air-page-jumper">
+            <el-input
+              v-model="currentPage"
+              :max="response.pageCount"
+              :placeholder="AirI18n.get().InputPageNumber || '输入页码跳转'"
+              min="1"
+              type="number"
+              @change="currentPageChanged"
+            >
+              <template #append>
+                <el-button
+                  size="small"
+                  @click="pageChanged(page.pageNum)"
+                >
+                  {{ AirI18n.get().Jump || '跳转' }}
+                </el-button>
+              </template>
+            </el-input>
+          </div>
+        </div>
+      </template>
+    </el-popover>
+    <div
+      v-if="response.total"
+      class="air-page-total"
+    >
+      {{ AirI18n.get().TotalRow || '总条数' }}: <span>{{ response.total }}</span>
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .air-page {
@@ -257,7 +255,6 @@ const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
     .btn-prev:hover {
       background-color: var(--el-color-primary-light-9) !important;
       color: var(--el-color-primary);
-
     }
   }
 
@@ -331,7 +328,6 @@ const pageBoxWidth = [230, 230, 230, 230, 280, 340, 370, 400, 430]
   .air-page-jumper {
     display: flex;
     flex-direction: row;
-
   }
 }
 </style>

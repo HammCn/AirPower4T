@@ -1,10 +1,10 @@
+import type { IModelConfig } from '../interface/decorators/IModelConfig'
+import type { AirDecoratorTarget } from '../type/AirType'
 /**
  * # 自定义类和属性名注解
  * @author Hamm.cn
  */
 import { AirDecorator } from '../helper/AirDecorator'
-import { IModelConfig } from '../interface/decorators/IModelConfig'
-import { AirDecoratorTarget } from '../type/AirType'
 
 /**
  * ### 类名称 `Key`

@@ -1,112 +1,15 @@
-<template>
-  <transition name="dialog">
-    <div
-      v-if="true"
-      :class="getDialogClass"
-      class="dialog air-dialog"
-      @mousemove="dialogMouseMoveEvent"
-      @mouseup="dialogMouseUpEvent"
-      @click.self="dialogBgClicked"
-    >
-      <button
-        :id="'hidden-button-' + domId"
-        class="hidden-button"
-      />
-      <div
-        :id="dialogIdPrefix + domId"
-        :class="isFullScreen && allowFullscreen ? 'fullscreen' : ''"
-        :style="{
-          width: width,
-          height: height,
-          minWidth: minWidth,
-          minHeight: minHeight,
-          transform: 'translate(' + x + 'px, ' + y + 'px)',
-          borderRadius: isFullScreen ? '0px' : '4px',
-        }"
-        class="main"
-      >
-        <div
-          :style="{
-            cursor: cursorRef,
-          }"
-          class="header"
-          @dblclick="headerDoubleClicked"
-          @mousedown="dialogMouseDownEvent"
-        >
-          <div class="title">
-            {{ title }}
-          </div>
-          <i
-            v-if="allowFullscreen"
-            :class="isFullScreen ? 'icon-commonicon_suoxiao' : 'icon-commonicon_quanping'"
-            class="airpower"
-            @click="headerDoubleClicked"
-          />
-          <i
-            v-if="!hideClose"
-            class="airpower icon-commonicon_guanbi close"
-            @click="emits('onCancel')"
-          />
-        </div>
-        <div
-          v-loading="loading"
-          class="body"
-        >
-          <slot />
-        </div>
-        <div
-          v-if="!hideFooter"
-          class="footer"
-        >
-          <div class="status">
-            <slot name="status" />
-          </div>
-          <div
-            v-if="!hideCtrl"
-            class="control"
-          >
-            <slot name="leftCtrl" />
-            <AButton
-              v-if="!hideConfirm"
-              :disabled="disableConfirm || loading"
-              primary
-              @click="confirmEvent"
-            >
-              {{ confirmText }}
-            </AButton>
-            <slot name="middleButton" />
-            <AButton
-              v-if="!hideCancel"
-              @click="emits('onCancel')"
-            >
-              {{ cancelText }}
-            </AButton>
-          </div>
-        </div>
-      </div>
-    </div>
-  </transition>
-</template>
-
 <script lang="ts" setup>
-import {
-  computed, nextTick, onMounted, PropType, ref, watch,
-} from 'vue'
+import type { PropType } from 'vue'
+import type { AirValidator } from '../helper/AirValidator'
+import type { IJson } from '../interface/IJson'
+import type { AirFormInstance } from '../type/AirType'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { AButton } from '.'
 import { AirConfig } from '../config/AirConfig'
 import { AirNotification } from '../feedback/AirNotification'
-import { AirValidator } from '../helper/AirValidator'
-import type { AirFormInstance } from '../type/AirType'
-import { AirStore } from '../store/AirStore'
-import { AirI18n } from '../helper/AirI18n'
 import { AirDialog } from '../helper/AirDialog'
-import { IJson } from '../interface/IJson'
-
-const emits = defineEmits<{
-  onCancel: [],
-  onFull: [isFullScreen: boolean],
-  onConfirm: []
-}>()
+import { AirI18n } from '../helper/AirI18n'
+import { AirStore } from '../store/AirStore'
 
 const props = defineProps({
   /**
@@ -278,6 +181,12 @@ const props = defineProps({
   },
 })
 
+const emits = defineEmits<{
+  onCancel: []
+  onFull: [isFullScreen: boolean]
+  onConfirm: []
+}>()
+
 /**
  * # 对话框ID前缀
  */
@@ -352,8 +261,7 @@ const isFullScreen = ref(props.allowFullscreen && props.fullScreen)
  * # 强制焦点丢失
  */
 onMounted(() => {
-  document.getElementById(`hidden-button-${domId.value}`)
-    ?.focus()
+  document.getElementById(`hidden-button-${domId.value}`)?.focus()
 })
 
 /**
@@ -363,13 +271,21 @@ watch(isFullScreen, () => {
   emits('onFull', isFullScreen.value)
 })
 
-watch(() => AirStore().escKeyDown, () => {
-  if (AirStore().escKeyDown && AirConfig.dialogCloseByEsc && AirDialog.dialogIdList.length > 0 && AirDialog.dialogIdList[0] === domId.value) {
-    if (props.hoverClose || !props.hideClose) {
-      emits('onCancel')
+watch(
+  () => AirStore().escKeyDown,
+  () => {
+    if (
+      AirStore().escKeyDown
+      && AirConfig.dialogCloseByEsc
+      && AirDialog.dialogIdList.length > 0
+      && AirDialog.dialogIdList[0] === domId.value
+    ) {
+      if (props.hoverClose || !props.hideClose) {
+        emits('onCancel')
+      }
     }
-  }
-})
+  },
+)
 
 /**
  * # 鼠标按下的事件
@@ -384,10 +300,8 @@ function dialogMouseDownEvent(event: MouseEvent) {
   startY = event.clientY - y.value
   isMoving.value = true
   const dom: HTMLDivElement = document.querySelector(`#${dialogIdPrefix}${domId.value}`)!
-  trueWidth = window.innerWidth
-    - dom.offsetWidth
-  trueHeight = window.innerHeight
-    - dom.offsetHeight
+  trueWidth = window.innerWidth - dom.offsetWidth
+  trueHeight = window.innerHeight - dom.offsetHeight
 }
 
 /**
@@ -484,12 +398,13 @@ async function confirmEvent() {
     return
   }
   try {
-    if (!await props.formRef.validate()) {
+    if (!(await props.formRef.validate())) {
       // 校验返回结果为false
       dialogBgClicked()
       return
     }
-  } catch (e) {
+  }
+  catch (e) {
     // 校验抛出了一异常
     const keys = Object.keys(e as Error)
     if (keys.length > 0) {
@@ -504,6 +419,96 @@ async function confirmEvent() {
   emits('onConfirm')
 }
 </script>
+
+<template>
+  <transition name="dialog">
+    <div
+      v-if="true"
+      :class="getDialogClass"
+      class="dialog air-dialog"
+      @mousemove="dialogMouseMoveEvent"
+      @mouseup="dialogMouseUpEvent"
+      @click.self="dialogBgClicked"
+    >
+      <button
+        :id="`hidden-button-${domId}`"
+        class="hidden-button"
+      />
+      <div
+        :id="dialogIdPrefix + domId"
+        :class="isFullScreen && allowFullscreen ? 'fullscreen' : ''"
+        :style="{
+          width,
+          height,
+          minWidth,
+          minHeight,
+          transform: `translate(${x}px, ${y}px)`,
+          borderRadius: isFullScreen ? '0px' : '4px',
+        }"
+        class="main"
+      >
+        <div
+          :style="{
+            cursor: cursorRef,
+          }"
+          class="header"
+          @dblclick="headerDoubleClicked"
+          @mousedown="dialogMouseDownEvent"
+        >
+          <div class="title">
+            {{ title }}
+          </div>
+          <i
+            v-if="allowFullscreen"
+            :class="isFullScreen ? 'icon-commonicon_suoxiao' : 'icon-commonicon_quanping'"
+            class="airpower"
+            @click="headerDoubleClicked"
+          />
+          <i
+            v-if="!hideClose"
+            class="airpower icon-commonicon_guanbi close"
+            @click="emits('onCancel')"
+          />
+        </div>
+        <div
+          v-loading="loading"
+          class="body"
+        >
+          <slot />
+        </div>
+        <div
+          v-if="!hideFooter"
+          class="footer"
+        >
+          <div class="status">
+            <slot name="status" />
+          </div>
+          <div
+            v-if="!hideCtrl"
+            class="control"
+          >
+            <slot name="leftCtrl" />
+            <AButton
+              v-if="!hideConfirm"
+              :disabled="disableConfirm || loading"
+              primary
+              @click="confirmEvent"
+            >
+              {{ confirmText }}
+            </AButton>
+            <slot name="middleButton" />
+            <AButton
+              v-if="!hideCancel"
+              @click="emits('onCancel')"
+            >
+              {{ cancelText }}
+            </AButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
 
 <style lang="scss" scoped>
 .dialog {
@@ -538,7 +543,8 @@ async function confirmEvent() {
     max-height: 80%;
     display: flex;
     flex-direction: column;
-    transition: min-width 0.2s, min-height 0.2s;
+    transition: min-width 0.2s,
+    min-height 0.2s;
     user-select: none;
     overflow: hidden;
 

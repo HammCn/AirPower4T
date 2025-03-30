@@ -37,8 +37,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   static async warning(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .warning(message, title)
+    return this.create().warning(message, title)
   }
 
   /**
@@ -49,8 +48,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   static async success(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .success(message, title)
+    return this.create().success(message, title)
   }
 
   /**
@@ -61,8 +59,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   static async info(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .info(message, title)
+    return this.create().info(message, title)
   }
 
   /**
@@ -73,8 +70,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   static async error(message?: string, title?: string): Promise<boolean> {
-    return this.create()
-      .error(message, title)
+    return this.create().error(message, title)
   }
 
   /**
@@ -124,8 +120,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   async success(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message)
-      .show(AirFeedbackType.SUCCESS)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.SUCCESS)
   }
 
   /**
@@ -136,8 +131,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   async info(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message)
-      .show(AirFeedbackType.INFO)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.INFO)
   }
 
   /**
@@ -148,8 +142,7 @@ export class AirNotification {
    * @param title `可选` 标题
    */
   async error(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message)
-      .show(AirFeedbackType.ERROR)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.ERROR)
   }
 
   /**

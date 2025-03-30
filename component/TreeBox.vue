@@ -1,71 +1,10 @@
-<template>
-  <div class="air-tree-box">
-    <div
-      v-if="!hideTree"
-      :style="{ width: showWidth }"
-      class="air-tree-box-left"
-    >
-      <APanel
-        v-show="isShow"
-        :hide-icon="hideIcon"
-        :show-title="!!title"
-        :title="title"
-        class="air-tree-box-panel"
-        hide-footer
-      >
-        <template #icon>
-          <slot name="icon" />
-        </template>
-        <div
-          v-if="searchable"
-          class="search-box"
-        >
-          <el-input
-            v-model="searchKeyword"
-            :placeholder="placeholder"
-            clearable
-          />
-        </div>
-        <el-tree
-          ref="treeRef"
-          v-loading="isTreeLoading"
-          :current-node-key="currentData ? currentData.id : 0"
-          :data="treeData"
-          :default-expand-all="defaultExpandAll"
-          :expand-on-click-node="false"
-          :filter-node-method="filterNode"
-          :props="AirConfig.treeProps"
-          highlight-current
-          node-key="id"
-          @node-click="treeSelectChanged"
-        />
-      </APanel>
-      <div
-        v-if="collapse"
-        :style="{ marginLeft: isShow ? '5px' : '0px' }"
-        class="collapse-bar"
-        @click="isShow = !isShow"
-      />
-    </div>
-    <div class="air-tree-box-right">
-      <slot />
-    </div>
-  </div>
-</template>
-
 <script generic="T extends ITree" lang="ts" setup="props">
-import {
-  computed, Ref, ref, watch,
-} from 'vue'
+import type { Ref } from 'vue'
+import type { ITree } from '../interface/ITree'
+import type { AirTreeInstance } from '../type/AirType'
+import { computed, ref, watch } from 'vue'
 import { APanel } from '.'
 import { AirConfig } from '../config/AirConfig'
-import { ITree } from '../interface/ITree'
-import { AirTreeInstance } from '../type/AirType'
-
-const emits = defineEmits<{
-  onChange: [data: T | undefined],
-  change: [data: T | undefined],
-}>()
 
 const props = defineProps({
   /**
@@ -156,6 +95,11 @@ const props = defineProps({
   },
 })
 
+const emits = defineEmits<{
+  onChange: [data: T | undefined]
+  change: [data: T | undefined]
+}>()
+
 /**
  * # 树的实例
  */
@@ -185,7 +129,7 @@ watch(searchKeyword, (val) => {
   }
 })
 
-const showWidth = computed(() => (isShow.value ? (`${props.width}px`) : 'auto'))
+const showWidth = computed(() => (isShow.value ? `${props.width}px` : 'auto'))
 
 /**
  * # 树节点选中事件
@@ -197,7 +141,8 @@ function treeSelectChanged(row: T) {
     if (treeRef.value) {
       treeRef.value.setCurrentKey(undefined)
     }
-  } else {
+  }
+  else {
     currentData.value = row
   }
   emits('onChange', currentData.value)
@@ -210,10 +155,66 @@ function treeSelectChanged(row: T) {
  * @param node 节点
  */
 function filterNode(value: string, node: ITree): boolean {
-  if (!value) return true
+  if (!value)
+    return true
   return node.name?.indexOf(value) !== -1
 }
 </script>
+
+<template>
+  <div class="air-tree-box">
+    <div
+      v-if="!hideTree"
+      :style="{ width: showWidth }"
+      class="air-tree-box-left"
+    >
+      <APanel
+        v-show="isShow"
+        :hide-icon="hideIcon"
+        :show-title="!!title"
+        :title="title"
+        class="air-tree-box-panel"
+        hide-footer
+      >
+        <template #icon>
+          <slot name="icon" />
+        </template>
+        <div
+          v-if="searchable"
+          class="search-box"
+        >
+          <el-input
+            v-model="searchKeyword"
+            :placeholder="placeholder"
+            clearable
+          />
+        </div>
+        <el-tree
+          ref="treeRef"
+          v-loading="isTreeLoading"
+          :current-node-key="currentData ? currentData.id : 0"
+          :data="treeData"
+          :default-expand-all="defaultExpandAll"
+          :expand-on-click-node="false"
+          :filter-node-method="filterNode"
+          :props="AirConfig.treeProps"
+          highlight-current
+          node-key="id"
+          @node-click="treeSelectChanged"
+        />
+      </APanel>
+      <div
+        v-if="collapse"
+        :style="{ marginLeft: isShow ? '5px' : '0px' }"
+        class="collapse-bar"
+        @click="isShow = !isShow"
+      />
+    </div>
+    <div class="air-tree-box-right">
+      <slot />
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .air-tree-box {
@@ -235,7 +236,7 @@ function filterNode(value: string, node: ITree): boolean {
       width: 5px;
       margin-left: 5px;
       cursor: pointer;
-      transition: all .3s;
+      transition: all 0.3s;
       border-radius: 3px;
     }
 

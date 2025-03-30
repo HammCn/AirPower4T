@@ -1,5 +1,5 @@
-import { AirDictionaryArray } from './extend/AirDictionaryArray'
 import { AirColor } from '../enum/AirColor'
+import { AirDictionaryArray } from './extend/AirDictionaryArray'
 
 /**
  * # 禁用启用字典

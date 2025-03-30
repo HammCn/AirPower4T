@@ -22,16 +22,11 @@ export class AirCrypto {
     padding = CryptoJS.pad.Pkcs7,
     iv = AirConfig.aesCbcIvString,
   ): string {
-    return CryptoJS.AES.encrypt(
-      data,
-      CryptoJS.enc.Base64.parse(key),
-      {
-        iv: CryptoJS.enc.Utf8.parse(iv),
-        mode,
-        padding,
-      },
-    )
-      .toString()
+    return CryptoJS.AES.encrypt(data, CryptoJS.enc.Base64.parse(key), {
+      iv: CryptoJS.enc.Utf8.parse(iv),
+      mode,
+      padding,
+    }).toString()
   }
 
   /**
@@ -49,16 +44,11 @@ export class AirCrypto {
     padding = CryptoJS.pad.Pkcs7,
     iv = AirConfig.aesCbcIvString,
   ): string {
-    return CryptoJS.AES.decrypt(
-      data,
-      CryptoJS.enc.Base64.parse(key),
-      {
-        iv: CryptoJS.enc.Utf8.parse(iv),
-        mode,
-        padding,
-      },
-    )
-      .toString(CryptoJS.enc.Utf8)
+    return CryptoJS.AES.decrypt(data, CryptoJS.enc.Base64.parse(key), {
+      iv: CryptoJS.enc.Utf8.parse(iv),
+      mode,
+      padding,
+    }).toString(CryptoJS.enc.Utf8)
   }
 
   /**
@@ -66,8 +56,7 @@ export class AirCrypto {
    * @param data 源字符串
    */
   static sha1(data: string): string {
-    return CryptoJS.SHA1(data)
-      .toString()
+    return CryptoJS.SHA1(data).toString()
   }
 
   /**
@@ -75,8 +64,7 @@ export class AirCrypto {
    * @param data 源字符串
    */
   static md5(data: string): string {
-    return CryptoJS.MD5(data)
-      .toString()
+    return CryptoJS.MD5(data).toString()
   }
 
   /**

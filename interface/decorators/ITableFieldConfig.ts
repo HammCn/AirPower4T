@@ -1,7 +1,8 @@
-import { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
-import { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
-import { IField } from './IField'
-import {
+import type { AirEnum } from '../../base/AirEnum'
+import type { AirDateTimeFormatter } from '../../enum/AirDateTimeFormatter'
+import type { AirDesensitizeType } from '../../enum/AirDesensitizeType'
+import type { AirDictionaryArray } from '../../model/extend/AirDictionaryArray'
+import type {
   AirEnumKey,
   AirMoneyDirection,
   AirSortable,
@@ -9,8 +10,7 @@ import {
   AirTableFixed,
   ClassConstructor,
 } from '../../type/AirType'
-import { AirEnum } from '../../base/AirEnum'
-import { AirDesensitizeType } from '../../enum/AirDesensitizeType'
+import type { IField } from './IField'
 
 /**
  * # 表格的字段配置接口

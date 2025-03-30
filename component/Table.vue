@@ -1,491 +1,32 @@
-<template>
-  <div
-    :style="{ height: (autoHeight ? 'auto' : '0px') }"
-    class="air-table-container"
-  >
-    <div class="air-table-tool-bar">
-      <slot name="addButton" />
-    </div>
-    <el-table
-      v-if="allFieldList"
-      :id="tableId"
-      ref="airTableRef"
-      :data="dataList"
-      :default-expand-all="defaultExpandAll"
-      :lazy="lazy"
-      :load="load"
-      :row-class-name="tableRowClassName"
-      :row-key="(row: E) => row.id"
-      :stripe="stripe"
-      :tree-props="treeProps"
-      class="air-table"
-      flexible
-      height="100%"
-      @select="handleSelectChanged"
-      @select-all="handleSelectChanged"
-      @sort-change="handleSortChanged"
-    >
-      <el-table-column
-        v-if="showSelect"
-        :reserve-selection="true"
-        :selectable="isSelectable"
-        fixed="left"
-        type="selection"
-        width="40"
-      />
-      <el-table-column
-        v-if="!AirConfig.hideTableIndex && !hideIndex"
-        :label="AirI18n.get().ID || '序号'"
-        fixed="left"
-        type="index"
-        width="60"
-      />
-      <!-- 文本数据渲染 -->
-      <template
-        v-for="item in allFieldList"
-        :key="item.key"
-      >
-        <el-table-column
-          v-if="isFieldSelected(item)"
-          :align="item.align"
-          :fixed="item.fixed"
-          :label="item.label"
-          :min-width="item.minWidth || 'auto'"
-          :prop="item.key"
-          :sortable="item.sortable"
-          :width="item.width || 'auto'"
-        >
-          <template #default="scope">
-            <!-- 支持自定义插槽 -->
-            <slot
-              v-if="scope.$index >= 0"
-              :data="getRowEntity(scope)"
-              :index="scope.$index as number"
-              :name="item.key"
-            >
-              <span
-                v-if="item.prefixText"
-                style="color:#aaa;margin-right: 3px;"
-              >{{ item.prefixText }}</span>
-              <!-- 自动读取枚举 -->
-              <div
-                v-if="AirDecorator.getDictionary(item.dictionary)"
-                class="status"
-              >
-                <!-- 显示状态灯 -->
-                <span
-                  v-if="item.showColor"
-                  :style="{
-                    backgroundColor:
-                      AirDecorator.getDictionary(item.dictionary)?.getColor(getRowEntityField(scope, item.key), AirColor.NORMAL)
-                  }"
-                  class="light"
-                />
-                {{
-                  AirDecorator.getDictionary(item.dictionary)?.getLabel(getRowEntityField(scope, item.key),
-                                                                        item.emptyValue)
-                }}
-              </div>
-              <!-- 是手机字段 -->
-              <template v-else-if="item.phone">
-                <APhone
-                  :desensitize="item.desensitize"
-                  :desensitize-head="item.desensitizeHead"
-                  :desensitize-symbol="item.desensitizeSymbol"
-                  :desensitize-tail="item.desensitizeTail"
-                  :phone="getStringValue(getRowEntityField(scope, item.key))"
-                />
-              </template>
-              <!-- 是金额字段 -->
-              <template v-else-if="item.money">
-                <AMoney
-                  :direction="item.moneyDirection"
-                  :money="getRowEntityField(scope, item.key)"
-                  :precision="item.moneyPrecision"
-                />
-              </template>
-              <!-- 自动时间日期格式化 -->
-              <template v-else-if="item.dateTimeFormatter">
-                <ADateTime
-                  :formatter="item.dateTimeFormatter"
-                  :is-friendly="item.friendlyDateTime"
-                  :time="getRowEntityField(scope, item.key)"
-                />
-              </template>
-              <!-- 图片字段 -->
-              <template v-else-if="item.image">
-                <el-image
-                  :preview-src-list="[AirFile.getStaticFileUrl(getRowEntityField(scope, item.key))]"
-                  :src="AirFile.getStaticFileUrl(getRowEntityField(scope, item.key))"
-                  :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px', borderRadius: item.imageRadius }"
-                  :z-index="999999"
-                  fit="contain"
-                  lazy
-                  preview-teleported
-                  style="background-color:#f3f6f9"
-                >
-                  <template #error>
-                    <div class="image-error">
-                      {{ AirI18n.get().Nothing || '暂无' }}
-                    </div>
-                  </template>
-                </el-image>
-              </template>
-              <!-- 读取挂载数据 -->
-              <template v-else-if="item.payloadField">
-                <template v-if="item.copyField">
-                  <div :class="getTableColumnClass(item)">
-                    <ACopy :content="getPayloadRowData(getRowEntity(scope), item)">
-                      {{ getPayloadRowData(getRowEntity(scope), item) }}
-                    </ACopy>
-                  </div>
-                </template>
-                <template v-else>
-                  <div :class="getTableColumnClass(item)">
-                    {{ getPayloadRowData(getRowEntity(scope), item) }}
-                  </div>
-                </template>
-              </template>
-              <!-- 通用字段 -->
-              <template v-else>
-                <template v-if="item.copyField">
-                  <div :class="getTableColumnClass(item)">
-                    <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
-                      <template v-if="item.desensitize">
-                        <ADesensitize
-                          :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
-                          :desensitize="item.desensitize"
-                          :desensitize-head="item.desensitizeHead"
-                          :desensitize-symbol="item.desensitizeSymbol"
-                          :desensitize-tail="item.desensitizeTail"
-                        />
-                      </template>
-                      <template v-else>
-                        {{
-                          getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
-                        }}
-                      </template>
-                    </ACopy>
-                  </div>
-                </template>
-                <template v-else>
-                  <div
-                    :class="item.nowrap ? 'nowrap' : ''"
-                    class="air-table-column"
-                  >
-                    <template v-if="item.desensitize">
-                      <ADesensitize
-                        :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
-                        :desensitize="item.desensitize"
-                        :desensitize-head="item.desensitizeHead"
-                        :desensitize-symbol="item.desensitizeSymbol"
-                        :desensitize-tail="item.desensitizeTail"
-                      />
-                    </template>
-                    <template v-else>
-                      {{
-                        getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue
-                      }}
-                    </template>
-                  </div>
-                </template>
-              </template>
-              <span
-                v-if="item.suffixText"
-                style="color:#aaa"
-              >{{ item.suffixText }}</span>
-            </slot>
-          </template>
-        </el-table-column>
-      </template>
-      <!-- 如果没有隐藏操作列 或者字段选择器启用 -->
-      <el-table-column
-        v-if="!hideCtrl || isFieldSelectorEnabled"
-        :width="ctrlWidth || 'auto'"
-        align="right"
-        fixed="right"
-      >
-        <template #header>
-          <div class="custom-header">
-            <span
-              v-if="!hideCtrl"
-              class="custom-header-title"
-            />
-            <template v-if="isFieldSelectorEnabled">
-              <el-icon
-                v-tip="AirI18n.get().ConfigureTableColumns || '配置表格列'"
-                class="air-field-select-icon"
-                @click="isFieldSelectorShow = true"
-              >
-                <Setting />
-              </el-icon>
-            </template>
-          </div>
-        </template>
-        <template #default="scope">
-          <div class="ctrlRow">
-            <!-- 自定义操作列前置插槽 -->
-            <slot
-              v-if="scope.$index >= 0"
-              :data="getRowEntity(scope)"
-              :index="scope.$index as number"
-              name="customRow"
-            />
-            <template v-if="!hideCtrl">
-              <AButton
-                v-if="showAdd"
-                :disabled="isAddDisabled(getRowEntity(scope))"
-                :icon-button="!linkButton"
-                :link-button="linkButton"
-                :permission="addPermission || AirPermission.get(entity, AirPermissionAction.ADD_CHILD)"
-                :tooltip="AirI18n.get().AddSubItem || '添加子项'"
-                type="ADD"
-                @click="handleAdd(getRowEntity(scope))"
-              >
-                {{ AirI18n.get().Add || '添加' }}
-              </AButton>
-              <AButton
-                v-if="isEditShowInline"
-                :disabled="isEditDisabled(getRowEntity(scope))"
-                :icon-button="!linkButton"
-                :link-button="linkButton"
-                :permission="editPermission || AirPermission.get(entity, AirPermissionAction.EDIT)"
-                :tooltip="AirI18n.get().Edit || '编辑'"
-                type="EDIT"
-                @click="handleEdit(getRowEntity(scope))"
-              >
-                {{ AirI18n.get().Edit || '编辑' }}
-              </AButton>
-              <AButton
-                v-if="isDetailShowInline"
-                :disabled="isDetailDisabled(getRowEntity(scope))"
-                :icon-button="!linkButton"
-                :link-button="linkButton"
-                :permission="detailPermission || AirPermission.get(entity, AirPermissionAction.DETAIL)"
-                :tooltip="AirI18n.get().Detail || '详情'"
-                type="DETAIL"
-                @click="handleDetail(getRowEntity(scope))"
-              >
-                {{ AirI18n.get().Detail || '详情' }}
-              </AButton>
-              <template
-                v-if="isEnableAndDisableShowInline && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
-              >
-                <AButton
-                  v-if="getRowEntity(scope).isDisabled"
-                  :disabled="isDisableChangeStatus(getRowEntity(scope))"
-                  :icon-button="!linkButton"
-                  :link-button="linkButton"
-                  :permission="enablePermission || AirPermission.get(entity, AirPermissionAction.ENABLE)"
-                  :tooltip="AirI18n.get().Enable || '启用'"
-                  type="CLOSE"
-                  @click="handleEnable(getRowEntity(scope))"
-                >
-                  {{ AirI18n.get().Enable || '启用' }}
-                </AButton>
-                <AButton
-                  v-else
-                  :disabled="isDisableChangeStatus(getRowEntity(scope))"
-                  :icon-button="!linkButton"
-                  :link-button="linkButton"
-                  :permission="disablePermission || AirPermission.get(entity, AirPermissionAction.DISABLE)"
-                  :tooltip="AirI18n.get().Disable || '禁用'"
-                  type="CLOSE"
-                  @click="handleDisable(getRowEntity(scope))"
-                >
-                  {{ AirI18n.get().Edit || '禁用' }}
-                </AButton>
-              </template>
-              <AButton
-                v-if="isDeleteShowInline"
-                :danger="isForceDelete"
-                :disabled="isDeleteDisabled(getRowEntity(scope))"
-                :icon-button="!linkButton"
-                :link-button="linkButton"
-                :permission="deletePermission || AirPermission.get(entity, AirPermissionAction.DELETE)"
-                :tooltip="AirI18n.get().Delete || '删除'"
-                type="DELETE"
-                @click="handleDelete(getRowEntity(scope))"
-              >
-                {{ AirI18n.get().Delete || '删除' }}
-              </AButton>
-            </template>
-            <!-- 自定义操作列后置插槽 -->
-            <slot
-              v-if="scope.$index >= 0"
-              :data="getRowEntity(scope)"
-              :index="scope.$index as number"
-              name="endRow"
-            />
-            <el-dropdown
-              v-if="showMoreButton"
-              popper-class="air-table-more-button"
-            >
-              <span class="el-dropdown-link">
-                <AButton link-button>[更多]</AButton>
-              </span>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <slot
-                    v-if="scope.$index >= 0"
-                    :data="getRowEntity(scope)"
-                    :index="scope.$index as number"
-                    name="moreButtons"
-                  />
-                  <AButton
-                    v-if="!hideEdit && editInMore"
-                    :disabled="isEditDisabled(getRowEntity(scope))"
-                    :icon-button="!linkButton"
-                    :link-button="linkButton"
-                    :permission="editPermission || AirPermission.get(entity, AirPermissionAction.EDIT)"
-                    :tooltip="AirI18n.get().Edit || '编辑'"
-                    type="EDIT"
-                    @click="handleEdit(getRowEntity(scope))"
-                  >
-                    {{ AirI18n.get().Edit || '编辑' }}
-                  </AButton>
-                  <AButton
-                    v-if="showDetail && detailInMore"
-                    :disabled="isDetailDisabled(getRowEntity(scope))"
-                    :icon-button="!linkButton"
-                    :link-button="linkButton"
-                    :permission="detailPermission || AirPermission.get(entity, AirPermissionAction.DETAIL)"
-                    :tooltip="AirI18n.get().Detail || '详情'"
-                    type="DETAIL"
-                    @click="handleDetail(getRowEntity(scope))"
-                  >
-                    {{ AirI18n.get().Detail || '详情' }}
-                  </AButton>
-                  <template
-                    v-if="enableAndDisableInMore && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
-                  >
-                    <AButton
-                      v-if="getRowEntity(scope).isDisabled"
-                      :disabled="isDisableChangeStatus(getRowEntity(scope))"
-                      :icon-button="!linkButton"
-                      :link-button="linkButton"
-                      :permission="enablePermission || AirPermission.get(entity, AirPermissionAction.ENABLE)"
-                      :tooltip="AirI18n.get().Enable || '启用'"
-                      type="CLOSE"
-                      @click="handleEnable(getRowEntity(scope))"
-                    >
-                      {{ AirI18n.get().Enable || '启用' }}
-                    </AButton>
-                    <AButton
-                      v-else
-                      :disabled="isDisableChangeStatus(getRowEntity(scope))"
-                      :icon-button="!linkButton"
-                      :link-button="linkButton"
-                      :permission="disablePermission || AirPermission.get(entity, AirPermissionAction.DISABLE)"
-                      :tooltip="AirI18n.get().Disable || '禁用'"
-                      type="CLOSE"
-                      @click="handleDisable(getRowEntity(scope))"
-                    >
-                      {{ AirI18n.get().Edit || '禁用' }}
-                    </AButton>
-                  </template>
-                  <AButton
-                    v-if="!hideDelete && deleteInMore"
-                    :danger="isForceDelete"
-                    :disabled="isDeleteDisabled(getRowEntity(scope))"
-                    :icon-button="!linkButton"
-                    :link-button="linkButton"
-                    :permission="deletePermission || AirPermission.get(entity, AirPermissionAction.DELETE)"
-                    :tooltip="AirI18n.get().Delete || '删除'"
-                    type="DELETE"
-                    @click="handleDelete(getRowEntity(scope))"
-                  >
-                    {{ AirI18n.get().Delete || '删除' }}
-                  </AButton>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </div>
-        </template>
-      </el-table-column>
-      <template #empty>
-        <img
-          alt=""
-          src="../assets/img/empty.svg"
-          style="width: 80px;"
-        >
-        <div>{{ emptyText || modelConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
-      </template>
-    </el-table>
-    <div class="air-field-selector">
-      <div
-        v-if="isFieldSelectorShow"
-        class="air-field-selector-bg"
-        @click.self="isFieldSelectorShow = false"
-      />
-      <transition name="search">
-        <div
-          v-if="isFieldSelectorShow"
-          class="air-field-selector-dialog"
-        >
-          <div class="air-field-selector-title">
-            {{ AirI18n.get().SelectTableColumnsToShow || '选择要显示的列' }}
-          </div>
-          <div class="air-field-selector-list">
-            <el-check-tag
-              v-for="item in allFieldList"
-              :key="item.key"
-              :checked="!!selectedFieldList.find(i => i === item.key)"
-              :class="item.forceShow ? 'disabled' : ''"
-              :disabled="item.forceShow"
-              @change="fieldSelectChanged($event, item)"
-            >
-              {{ item.label }}
-            </el-check-tag>
-          </div>
-        </div>
-      </transition>
-    </div>
-  </div>
-</template>
-
 <script generic="E extends AirEntity" lang="ts" setup>
-import {
-  computed, ComputedRef, nextTick, PropType, ref, watch,
-} from 'vue'
+import type { ComputedRef, PropType } from 'vue'
+import type { AirTableFieldConfig } from '../config/AirTableFieldConfig'
+import type { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
+import type { IJson } from '../interface/IJson'
+import type { ITree } from '../interface/ITree'
 
+import type { ITreeProps } from '../interface/props/ITreeProps'
+import type { AirAny, AirTableInstance, ClassConstructor } from '../type/AirType'
 import { Setting } from '@element-plus/icons-vue'
 import { ElCheckTag, ElDropdown } from 'element-plus'
+import { computed, nextTick, ref, watch } from 'vue'
+import { AButton, ACopy, ADateTime, ADesensitize, AMoney, APhone } from '.'
+import { AirEntity } from '../base/AirEntity'
+import { AirConfig } from '../config/AirConfig'
+import { getModelConfig } from '../decorator/Model'
+import { AirColor } from '../enum/AirColor'
+import { AirPermissionAction } from '../enum/AirPermissionAction'
 import { AirSortType } from '../enum/AirSortType'
 import { AirConfirm } from '../feedback/AirConfirm'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { AirAny, AirTableInstance, ClassConstructor } from '../type/AirType'
-import { AirColor } from '../enum/AirColor'
-import { AirFile } from '../helper/AirFile'
-import { AirSort } from '../model/AirSort'
-import {
-  AButton, ACopy, ADateTime, ADesensitize, AMoney, APhone,
-} from '.'
-import { AirConfig } from '../config/AirConfig'
-import { AirPermissionAction } from '../enum/AirPermissionAction'
-import { AirPermission } from '../helper/AirPermission'
-import { AirEntity } from '../base/AirEntity'
-import { ITree } from '../interface/ITree'
-import { AirStore } from '../store/AirStore'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
-import { AirI18n } from '../helper/AirI18n'
-import { IJson } from '../interface/IJson'
 import { AirCrypto } from '../helper/AirCrypto'
-import { ITreeProps } from '../interface/props/ITreeProps'
 import { AirDecorator } from '../helper/AirDecorator'
-import { getModelConfig } from '../decorator/Model'
-import { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
+import { AirFile } from '../helper/AirFile'
+import { AirI18n } from '../helper/AirI18n'
+import { AirPermission } from '../helper/AirPermission'
+import { AirSort } from '../model/AirSort'
+import { AirStore } from '../store/AirStore'
 
-const emits = defineEmits<{
-  onDetail: [row: E],
-  onDelete: [row: E]
-  onEdit: [row: E]
-  onSelect: [list: E[]]
-  onAdd: [row: E]
-  onSort: [sort?: AirSort]
-  onDisable: [row: E]
-  onEnable: [row: E]
-}>()
 const props = defineProps({
   /**
    * # 表格使用链接按钮
@@ -595,7 +136,6 @@ const props = defineProps({
    * # 控制是否禁用行内编辑按钮的回调方法
    */
   disableEdit: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -604,7 +144,6 @@ const props = defineProps({
    * # 控制是否禁用行内添加按钮的回调方法
    */
   disableAdd: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -613,7 +152,6 @@ const props = defineProps({
    * # 控制是否允许操作禁用启用
    */
   disableChangeStatus: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -622,7 +160,6 @@ const props = defineProps({
    * # 控制是否禁用行内详情按钮的回调方法
    */
   disableDetail: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -631,7 +168,6 @@ const props = defineProps({
    * # 控制是否禁用行内删除按钮的回调方法
    */
   disableDelete: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -641,7 +177,6 @@ const props = defineProps({
    * 如禁用了行，则行将被模糊并显示灰色背景色
    */
   disableRow: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -658,7 +193,6 @@ const props = defineProps({
    * # 控制是否禁用多选按钮的回调方法
    */
   selectable: {
-    // eslint-disable-next-line no-unused-vars
     type: Function as PropType<(row: E) => boolean>,
     default: null,
   },
@@ -860,6 +394,16 @@ const props = defineProps({
     default: true,
   },
 })
+const emits = defineEmits<{
+  onDetail: [row: E]
+  onDelete: [row: E]
+  onEdit: [row: E]
+  onSelect: [list: E[]]
+  onAdd: [row: E]
+  onSort: [sort?: AirSort]
+  onDisable: [row: E]
+  onEnable: [row: E]
+}>()
 
 /**
  * # 获取表格列的样式
@@ -905,7 +449,8 @@ const entityInstance = computed(() => {
   if (props.entity) {
     try {
       return AirClassTransformer.newInstance(props.entity)
-    } catch (e) {
+    }
+    catch (e) {
       // eslint-disable-next-line no-console
       console.log('ATable创建实例失败', e)
     }
@@ -916,13 +461,18 @@ const entityInstance = computed(() => {
 /**
  * # 显示按下快捷键的提醒
  */
-watch(() => AirStore().controlKeyDown, () => {
-  isForceDelete.value = !!(AirStore().controlKeyDown
-    && !props.customDelete
-    && !props.hideDelete
-    && props.dataList
-    && props.dataList.length > 0)
-})
+watch(
+  () => AirStore().controlKeyDown,
+  () => {
+    isForceDelete.value = !!(
+      AirStore().controlKeyDown
+      && !props.customDelete
+      && !props.hideDelete
+      && props.dataList
+      && props.dataList.length > 0
+    )
+  },
+)
 
 /**
  * # 内部使用的配置
@@ -948,7 +498,8 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   // 如果传入fieldList 优先使用fieldList
   if (props.fieldList.length > 0) {
     // 过滤没有隐藏且没有移除的列
-    return props.fieldList.filter((item) => !item.removed)
+    return props.fieldList
+      .filter(item => !item.removed)
       .map((item) => {
         if (item.money && !item.align) {
           item.align = 'right'
@@ -956,8 +507,7 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
         return item
       })
   }
-  return (entityInstance.value.getTableFieldConfigList()
-    .filter((item) => !item.removed) || []).map((item) => {
+  return (entityInstance.value.getTableFieldConfigList().filter(item => !item.removed) || []).map((item) => {
     if (item.money && !item.align) {
       item.align = 'right'
     }
@@ -965,28 +515,18 @@ const allFieldList: ComputedRef<AirTableFieldConfig[]> = computed(() => {
   })
 })
 
-const selectFieldListKey = computed(() => `field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}_${props.fieldCacheKey}`)
+const selectFieldListKey = computed(
+  () => `field_list_of_${AirConfig.appKey}_${entityInstance.value.constructor.name}_${props.fieldCacheKey}`,
+)
 
-const isAddDisabled = (row: E) => (props.disableAdd
-  ? props.disableAdd(row)
-  : false)
-const isDisableChangeStatus = (row: E) => (props.disableChangeStatus
-  ? props.disableChangeStatus(row)
-  : false)
-const isDeleteDisabled = (row: E) => (props.disableDelete
-  ? props.disableDelete(row)
-  : false)
-const isDetailDisabled = (row: E) => (props.disableDetail
-  ? props.disableDetail(row)
-  : false)
-const isEditDisabled = (row: E) => (props.disableEdit
-  ? props.disableEdit(row)
-  : false)
-const isSelectable = (row: E) => (props.selectable
-  ? props.selectable(row)
-  : true)
+const isAddDisabled = (row: E) => (props.disableAdd ? props.disableAdd(row) : false)
+const isDisableChangeStatus = (row: E) => (props.disableChangeStatus ? props.disableChangeStatus(row) : false)
+const isDeleteDisabled = (row: E) => (props.disableDelete ? props.disableDelete(row) : false)
+const isDetailDisabled = (row: E) => (props.disableDetail ? props.disableDetail(row) : false)
+const isEditDisabled = (row: E) => (props.disableEdit ? props.disableEdit(row) : false)
+const isSelectable = (row: E) => (props.selectable ? props.selectable(row) : true)
 
-//! 计算按钮是否显示
+// ! 计算按钮是否显示
 const isDeleteShowInline = computed(() => {
   if (props.hideDelete) {
     return false
@@ -1047,10 +587,7 @@ function updateSelectedFieldList() {
       return
     }
   }
-  selectedFieldList.value = allFieldList.value.filter(
-    (item) => !item.removed && !item.hide,
-  )
-    .map((item) => item.key)
+  selectedFieldList.value = allFieldList.value.filter(item => !item.removed && !item.hide).map(item => item.key)
 }
 
 /**
@@ -1082,7 +619,7 @@ function isFieldSelected(item: AirTableFieldConfig) {
   if (!item.key) {
     return false
   }
-  return selectedFieldList.value.indexOf(item.key) >= 0
+  return selectedFieldList.value.includes(item.key)
 }
 
 /**
@@ -1098,8 +635,7 @@ function getPayloadRowData(row: IJson, config: AirTableFieldConfig): AirAny {
     }
     if (row[config.key] && row[config.key].length > 0) {
       // 对象数组挂载
-      return row[config.key].map((i: IJson) => i[config.payloadField || ''])
-        .join(config.arraySeparator)
+      return row[config.key].map((i: IJson) => i[config.payloadField || '']).join(config.arraySeparator)
     }
   }
   return config.emptyValue
@@ -1195,14 +731,12 @@ async function handleDelete(item: E) {
       if (props.deleteContent) {
         content = props.deleteContent
       }
-      await AirConfirm.create()
-        .dangerButton()
-        .enableEscClose()
-        .setConfirmText(title)
-        .show(content, title)
+      await AirConfirm.create().dangerButton().enableEscClose().setConfirmText(title).show(content, title)
     }
     emits('onDelete', item)
-  } catch (e) {
+  }
+  catch (e) {
+    console.error(e)
     // 取消删除
   }
 }
@@ -1229,13 +763,13 @@ function inCurrentPage(list: E[], find: E): boolean {
  * @param list 选中的列表
  */
 function handleSelectChanged(list: E[]) {
-  const selectAll = list.map((item) => item.copy())
+  const selectAll = list.map(item => item.copy())
   list.forEach((find) => {
     if (inCurrentPage(props.dataList, find)) {
       // 在当前页面没找到的数据 保持选中
       return
     }
-    const exist = selectAll.find((item) => item.id === find.id)
+    const exist = selectAll.find(item => item.id === find.id)
     if (!exist) {
       selectAll.push(find)
     }
@@ -1245,15 +779,18 @@ function handleSelectChanged(list: E[]) {
 
 /**
  * # 排序事件
- * @param data
+ * @param data 数据
+ * @param data.prop 排序字段
+ * @param data.order 排序方向
  */
-function handleSortChanged(data: { prop: string; order: string }) {
+function handleSortChanged(data: { prop: string, order: string }) {
   if (data.prop && data.order) {
     const sort = new AirSort()
     sort.field = data.prop
     sort.direction = data.order === 'descending' ? AirSortType.DESC : AirSortType.ASC
     emits('onSort', sort)
-  } else {
+  }
+  else {
     emits('onSort', undefined)
   }
 }
@@ -1275,12 +812,7 @@ function getRowEntityField(scope: IJson, key: string): AirAny {
   return scope.row[key]
 }
 
-const tableRowClassName = ({
-  row,
-}: {
-  row: E
-  rowIndex: number
-}) => {
+function tableRowClassName({ row }: { row: E, rowIndex: number }) {
   if (props.disableRow && props.disableRow(row)) {
     return 'disable-row'
   }
@@ -1296,9 +828,12 @@ function init() {
 /**
  * # 监听传入字段列表变化
  */
-watch(() => props.fieldList, () => {
-  updateSelectedFieldList()
-})
+watch(
+  () => props.fieldList,
+  () => {
+    updateSelectedFieldList()
+  },
+)
 
 /**
  * # 监听传入数据变化
@@ -1334,6 +869,458 @@ watch(
 
 init()
 </script>
+
+<template>
+  <div
+    :style="{ height: autoHeight ? 'auto' : '0px' }"
+    class="air-table-container"
+  >
+    <div class="air-table-tool-bar">
+      <slot name="addButton" />
+    </div>
+    <el-table
+      v-if="allFieldList"
+      :id="tableId"
+      ref="airTableRef"
+      :data="dataList"
+      :default-expand-all="defaultExpandAll"
+      :lazy="lazy"
+      :load="load"
+      :row-class-name="tableRowClassName"
+      :row-key="(row: E) => row.id"
+      :stripe="stripe"
+      :tree-props="treeProps"
+      class="air-table"
+      flexible
+      height="100%"
+      @select="handleSelectChanged"
+      @select-all="handleSelectChanged"
+      @sort-change="handleSortChanged"
+    >
+      <el-table-column
+        v-if="showSelect"
+        :reserve-selection="true"
+        :selectable="isSelectable"
+        fixed="left"
+        type="selection"
+        width="40"
+      />
+      <el-table-column
+        v-if="!AirConfig.hideTableIndex && !hideIndex"
+        :label="AirI18n.get().ID || '序号'"
+        fixed="left"
+        type="index"
+        width="60"
+      />
+      <!-- 文本数据渲染 -->
+      <template
+        v-for="item in allFieldList"
+        :key="item.key"
+      >
+        <el-table-column
+          v-if="isFieldSelected(item)"
+          :align="item.align"
+          :fixed="item.fixed"
+          :label="item.label"
+          :min-width="item.minWidth || 'auto'"
+          :prop="item.key"
+          :sortable="item.sortable"
+          :width="item.width || 'auto'"
+        >
+          <template #default="scope">
+            <!-- 支持自定义插槽 -->
+            <slot
+              v-if="scope.$index >= 0"
+              :data="getRowEntity(scope)"
+              :index="scope.$index as number"
+              :name="item.key"
+            >
+              <span
+                v-if="item.prefixText"
+                style="color: #aaa; margin-right: 3px"
+              >{{ item.prefixText }}</span>
+              <!-- 自动读取枚举 -->
+              <div
+                v-if="AirDecorator.getDictionary(item.dictionary)"
+                class="status"
+              >
+                <!-- 显示状态灯 -->
+                <span
+                  v-if="item.showColor"
+                  :style="{
+                    backgroundColor: AirDecorator.getDictionary(item.dictionary)?.getColor(
+                      getRowEntityField(scope, item.key),
+                      AirColor.NORMAL,
+                    ),
+                  }"
+                  class="light"
+                />
+                {{
+                  AirDecorator.getDictionary(item.dictionary)?.getLabel(
+                    getRowEntityField(scope, item.key),
+                    item.emptyValue,
+                  )
+                }}
+              </div>
+              <!-- 是手机字段 -->
+              <template v-else-if="item.phone">
+                <APhone
+                  :desensitize="item.desensitize"
+                  :desensitize-head="item.desensitizeHead"
+                  :desensitize-symbol="item.desensitizeSymbol"
+                  :desensitize-tail="item.desensitizeTail"
+                  :phone="getStringValue(getRowEntityField(scope, item.key))"
+                />
+              </template>
+              <!-- 是金额字段 -->
+              <template v-else-if="item.money">
+                <AMoney
+                  :direction="item.moneyDirection"
+                  :money="getRowEntityField(scope, item.key)"
+                  :precision="item.moneyPrecision"
+                />
+              </template>
+              <!-- 自动时间日期格式化 -->
+              <template v-else-if="item.dateTimeFormatter">
+                <ADateTime
+                  :formatter="item.dateTimeFormatter"
+                  :is-friendly="item.friendlyDateTime"
+                  :time="getRowEntityField(scope, item.key)"
+                />
+              </template>
+              <!-- 图片字段 -->
+              <template v-else-if="item.image">
+                <el-image
+                  :preview-src-list="[AirFile.getStaticFileUrl(getRowEntityField(scope, item.key))]"
+                  :src="AirFile.getStaticFileUrl(getRowEntityField(scope, item.key))"
+                  :style="{
+                    width: `${item.imageWidth}px`,
+                    height: `${item.imageHeight}px`,
+                    borderRadius: item.imageRadius,
+                  }"
+                  :z-index="999999"
+                  fit="contain"
+                  lazy
+                  preview-teleported
+                  style="background-color: #f3f6f9"
+                >
+                  <template #error>
+                    <div class="image-error">
+                      {{ AirI18n.get().Nothing || '暂无' }}
+                    </div>
+                  </template>
+                </el-image>
+              </template>
+              <!-- 读取挂载数据 -->
+              <template v-else-if="item.payloadField">
+                <template v-if="item.copyField">
+                  <div :class="getTableColumnClass(item)">
+                    <ACopy :content="getPayloadRowData(getRowEntity(scope), item)">
+                      {{ getPayloadRowData(getRowEntity(scope), item) }}
+                    </ACopy>
+                  </div>
+                </template>
+                <template v-else>
+                  <div :class="getTableColumnClass(item)">
+                    {{ getPayloadRowData(getRowEntity(scope), item) }}
+                  </div>
+                </template>
+              </template>
+              <!-- 通用字段 -->
+              <template v-else>
+                <template v-if="item.copyField">
+                  <div :class="getTableColumnClass(item)">
+                    <ACopy :content="getStringValue(getRowEntityField(scope, item.key))">
+                      <template v-if="item.desensitize">
+                        <ADesensitize
+                          :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
+                          :desensitize="item.desensitize"
+                          :desensitize-head="item.desensitizeHead"
+                          :desensitize-symbol="item.desensitizeSymbol"
+                          :desensitize-tail="item.desensitizeTail"
+                        />
+                      </template>
+                      <template v-else>
+                        {{ getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue }}
+                      </template>
+                    </ACopy>
+                  </div>
+                </template>
+                <template v-else>
+                  <div
+                    :class="item.nowrap ? 'nowrap' : ''"
+                    class="air-table-column"
+                  >
+                    <template v-if="item.desensitize">
+                      <ADesensitize
+                        :content="getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue"
+                        :desensitize="item.desensitize"
+                        :desensitize-head="item.desensitizeHead"
+                        :desensitize-symbol="item.desensitizeSymbol"
+                        :desensitize-tail="item.desensitizeTail"
+                      />
+                    </template>
+                    <template v-else>
+                      {{ getStringValue(getRowEntityField(scope, item.key)) ?? item.emptyValue }}
+                    </template>
+                  </div>
+                </template>
+              </template>
+              <span
+                v-if="item.suffixText"
+                style="color: #aaa"
+              >{{ item.suffixText }}</span>
+            </slot>
+          </template>
+        </el-table-column>
+      </template>
+      <!-- 如果没有隐藏操作列 或者字段选择器启用 -->
+      <el-table-column
+        v-if="!hideCtrl || isFieldSelectorEnabled"
+        :width="ctrlWidth || 'auto'"
+        align="right"
+        fixed="right"
+      >
+        <template #header>
+          <div class="custom-header">
+            <span
+              v-if="!hideCtrl"
+              class="custom-header-title"
+            />
+            <template v-if="isFieldSelectorEnabled">
+              <el-icon
+                v-tip="AirI18n.get().ConfigureTableColumns || '配置表格列'"
+                class="air-field-select-icon"
+                @click="isFieldSelectorShow = true"
+              >
+                <Setting />
+              </el-icon>
+            </template>
+          </div>
+        </template>
+        <template #default="scope">
+          <div class="ctrlRow">
+            <!-- 自定义操作列前置插槽 -->
+            <slot
+              v-if="scope.$index >= 0"
+              :data="getRowEntity(scope)"
+              :index="scope.$index as number"
+              name="customRow"
+            />
+            <template v-if="!hideCtrl">
+              <AButton
+                v-if="showAdd"
+                :disabled="isAddDisabled(getRowEntity(scope))"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
+                :permission="addPermission || AirPermission.get(entity, AirPermissionAction.ADD_CHILD)"
+                :tooltip="AirI18n.get().AddSubItem || '添加子项'"
+                type="ADD"
+                @click="handleAdd(getRowEntity(scope))"
+              >
+                {{ AirI18n.get().Add || '添加' }}
+              </AButton>
+              <AButton
+                v-if="isEditShowInline"
+                :disabled="isEditDisabled(getRowEntity(scope))"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
+                :permission="editPermission || AirPermission.get(entity, AirPermissionAction.EDIT)"
+                :tooltip="AirI18n.get().Edit || '编辑'"
+                type="EDIT"
+                @click="handleEdit(getRowEntity(scope))"
+              >
+                {{ AirI18n.get().Edit || '编辑' }}
+              </AButton>
+              <AButton
+                v-if="isDetailShowInline"
+                :disabled="isDetailDisabled(getRowEntity(scope))"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
+                :permission="detailPermission || AirPermission.get(entity, AirPermissionAction.DETAIL)"
+                :tooltip="AirI18n.get().Detail || '详情'"
+                type="DETAIL"
+                @click="handleDetail(getRowEntity(scope))"
+              >
+                {{ AirI18n.get().Detail || '详情' }}
+              </AButton>
+              <template
+                v-if="
+                  isEnableAndDisableShowInline && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)
+                "
+              >
+                <AButton
+                  v-if="getRowEntity(scope).isDisabled"
+                  :disabled="isDisableChangeStatus(getRowEntity(scope))"
+                  :icon-button="!linkButton"
+                  :link-button="linkButton"
+                  :permission="enablePermission || AirPermission.get(entity, AirPermissionAction.ENABLE)"
+                  :tooltip="AirI18n.get().Enable || '启用'"
+                  type="CLOSE"
+                  @click="handleEnable(getRowEntity(scope))"
+                >
+                  {{ AirI18n.get().Enable || '启用' }}
+                </AButton>
+                <AButton
+                  v-else
+                  :disabled="isDisableChangeStatus(getRowEntity(scope))"
+                  :icon-button="!linkButton"
+                  :link-button="linkButton"
+                  :permission="disablePermission || AirPermission.get(entity, AirPermissionAction.DISABLE)"
+                  :tooltip="AirI18n.get().Disable || '禁用'"
+                  type="CLOSE"
+                  @click="handleDisable(getRowEntity(scope))"
+                >
+                  {{ AirI18n.get().Edit || '禁用' }}
+                </AButton>
+              </template>
+              <AButton
+                v-if="isDeleteShowInline"
+                :danger="isForceDelete"
+                :disabled="isDeleteDisabled(getRowEntity(scope))"
+                :icon-button="!linkButton"
+                :link-button="linkButton"
+                :permission="deletePermission || AirPermission.get(entity, AirPermissionAction.DELETE)"
+                :tooltip="AirI18n.get().Delete || '删除'"
+                type="DELETE"
+                @click="handleDelete(getRowEntity(scope))"
+              >
+                {{ AirI18n.get().Delete || '删除' }}
+              </AButton>
+            </template>
+            <!-- 自定义操作列后置插槽 -->
+            <slot
+              v-if="scope.$index >= 0"
+              :data="getRowEntity(scope)"
+              :index="scope.$index as number"
+              name="endRow"
+            />
+            <ElDropdown
+              v-if="showMoreButton"
+              popper-class="air-table-more-button"
+            >
+              <span class="el-dropdown-link">
+                <AButton link-button>[更多]</AButton>
+              </span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <slot
+                    v-if="scope.$index >= 0"
+                    :data="getRowEntity(scope)"
+                    :index="scope.$index as number"
+                    name="moreButtons"
+                  />
+                  <AButton
+                    v-if="!hideEdit && editInMore"
+                    :disabled="isEditDisabled(getRowEntity(scope))"
+                    :icon-button="!linkButton"
+                    :link-button="linkButton"
+                    :permission="editPermission || AirPermission.get(entity, AirPermissionAction.EDIT)"
+                    :tooltip="AirI18n.get().Edit || '编辑'"
+                    type="EDIT"
+                    @click="handleEdit(getRowEntity(scope))"
+                  >
+                    {{ AirI18n.get().Edit || '编辑' }}
+                  </AButton>
+                  <AButton
+                    v-if="showDetail && detailInMore"
+                    :disabled="isDetailDisabled(getRowEntity(scope))"
+                    :icon-button="!linkButton"
+                    :link-button="linkButton"
+                    :permission="detailPermission || AirPermission.get(entity, AirPermissionAction.DETAIL)"
+                    :tooltip="AirI18n.get().Detail || '详情'"
+                    type="DETAIL"
+                    @click="handleDetail(getRowEntity(scope))"
+                  >
+                    {{ AirI18n.get().Detail || '详情' }}
+                  </AButton>
+                  <template
+                    v-if="enableAndDisableInMore && (AirConfig.tableShowEnableAndDisable || props.showEnableAndDisable)"
+                  >
+                    <AButton
+                      v-if="getRowEntity(scope).isDisabled"
+                      :disabled="isDisableChangeStatus(getRowEntity(scope))"
+                      :icon-button="!linkButton"
+                      :link-button="linkButton"
+                      :permission="enablePermission || AirPermission.get(entity, AirPermissionAction.ENABLE)"
+                      :tooltip="AirI18n.get().Enable || '启用'"
+                      type="CLOSE"
+                      @click="handleEnable(getRowEntity(scope))"
+                    >
+                      {{ AirI18n.get().Enable || '启用' }}
+                    </AButton>
+                    <AButton
+                      v-else
+                      :disabled="isDisableChangeStatus(getRowEntity(scope))"
+                      :icon-button="!linkButton"
+                      :link-button="linkButton"
+                      :permission="disablePermission || AirPermission.get(entity, AirPermissionAction.DISABLE)"
+                      :tooltip="AirI18n.get().Disable || '禁用'"
+                      type="CLOSE"
+                      @click="handleDisable(getRowEntity(scope))"
+                    >
+                      {{ AirI18n.get().Edit || '禁用' }}
+                    </AButton>
+                  </template>
+                  <AButton
+                    v-if="!hideDelete && deleteInMore"
+                    :danger="isForceDelete"
+                    :disabled="isDeleteDisabled(getRowEntity(scope))"
+                    :icon-button="!linkButton"
+                    :link-button="linkButton"
+                    :permission="deletePermission || AirPermission.get(entity, AirPermissionAction.DELETE)"
+                    :tooltip="AirI18n.get().Delete || '删除'"
+                    type="DELETE"
+                    @click="handleDelete(getRowEntity(scope))"
+                  >
+                    {{ AirI18n.get().Delete || '删除' }}
+                  </AButton>
+                </el-dropdown-menu>
+              </template>
+            </ElDropdown>
+          </div>
+        </template>
+      </el-table-column>
+      <template #empty>
+        <img
+          alt=""
+          src="../assets/img/empty.svg"
+          style="width: 80px"
+        >
+        <div>{{ emptyText || modelConfig.tableEmptyText || AirI18n.get().NoData || '暂无数据' }}</div>
+      </template>
+    </el-table>
+    <div class="air-field-selector">
+      <div
+        v-if="isFieldSelectorShow"
+        class="air-field-selector-bg"
+        @click.self="isFieldSelectorShow = false"
+      />
+      <transition name="search">
+        <div
+          v-if="isFieldSelectorShow"
+          class="air-field-selector-dialog"
+        >
+          <div class="air-field-selector-title">
+            {{ AirI18n.get().SelectTableColumnsToShow || '选择要显示的列' }}
+          </div>
+          <div class="air-field-selector-list">
+            <ElCheckTag
+              v-for="item in allFieldList"
+              :key="item.key"
+              :checked="!!selectedFieldList.find((i: any) => i === item.key)"
+              :class="item.forceShow ? 'disabled' : ''"
+              :disabled="item.forceShow"
+              @change="fieldSelectChanged($event, item)"
+            >
+              {{ item.label }}
+            </ElCheckTag>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .ctrlRow {

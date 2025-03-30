@@ -1,3 +1,65 @@
+<script lang="ts" setup>
+import { FullScreen } from '@element-plus/icons-vue'
+import { ref } from 'vue'
+import { AirRouter } from '../helper/AirRouter'
+
+defineProps({
+  /**
+   * # 卡片的标题
+   * 默认读取当前路由元数据里的 `name` 属性
+   */
+  title: {
+    type: String,
+    default: () => (AirRouter.router.currentRoute.value.meta.name as string) || '',
+  },
+
+  /**
+   * # 描述
+   */
+  description: {
+    type: String,
+    default: '',
+  },
+
+  /**
+   * # 是否显示标题
+   */
+  showTitle: {
+    type: Boolean,
+    default: true,
+  },
+
+  /**
+   * # 是否隐藏底部
+   */
+  hideFooter: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * # 是否显示图标
+   */
+  hideIcon: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * # 是否允许全屏
+   */
+  allowFullscreen: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+/**
+ * # 是否全屏
+ */
+const isFullScreen = ref(false)
+</script>
+
 <template>
   <div
     :class="isFullScreen ? 'fullscreen' : ''"
@@ -50,68 +112,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { FullScreen } from '@element-plus/icons-vue'
-import { AirRouter } from '../helper/AirRouter'
-
-defineProps({
-  /**
-   * # 卡片的标题
-   * 默认读取当前路由元数据里的 `name` 属性
-   */
-  title: {
-    type: String,
-    default: () => AirRouter.router.currentRoute.value.meta.name as string || '',
-  },
-
-  /**
-   * # 描述
-   */
-  description: {
-    type: String,
-    default: '',
-  },
-
-  /**
-   * # 是否显示标题
-   */
-  showTitle: {
-    type: Boolean,
-    default: true,
-  },
-
-  /**
-   * # 是否隐藏底部
-   */
-  hideFooter: {
-    type: Boolean,
-    default: false,
-  },
-
-  /**
-   * # 是否显示图标
-   */
-  hideIcon: {
-    type: Boolean,
-    default: false,
-  },
-
-  /**
-   * # 是否允许全屏
-   */
-  allowFullscreen: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-/**
- * # 是否全屏
- */
-const isFullScreen = ref(false)
-</script>
 
 <style lang="scss" scoped>
 .air-panel {
@@ -191,7 +191,7 @@ const isFullScreen = ref(false)
     .panel-footer-left {
       flex-direction: row;
       justify-content: flex-start;
-      align-items: center
+      align-items: center;
     }
 
     .panel-footer-right {

@@ -1,7 +1,7 @@
+import type { IJson } from '../interface/IJson'
+import type { AirAny } from '../type/AirType'
 import { ElLoading } from 'element-plus'
-import { IJson } from '../interface/IJson'
 import { AirI18n } from '../helper/AirI18n'
-import { AirAny } from '../type/AirType'
 
 /**
  * # 通知基类
@@ -60,8 +60,7 @@ export class AirLoading {
    * @param message `可选` Loading文案
    */
   static show(message?: string): AirLoading {
-    return this.create()
-      .show(message)
+    return this.create().show(message)
   }
 
   /**
