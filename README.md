@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" src="./assets/img/logo.png"/> <b>4T</b>
+  <img width="300" src="./assets/img/airpower-bg.svg"/> <b>4T</b>
 </p>
 
 <p align="center">
