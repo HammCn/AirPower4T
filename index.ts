@@ -57,8 +57,8 @@ console.clear()
 
 console.log(
   `%c©%cAirPower%c4T%c${AirConfig.version}%c\n已支持: Web、微信小程序、uni-app\n\n%c🔥🔥🔥AirPower系列开源项目推荐\n
-%c前端: https://github.com/HammCn/AirPower4T
-%c后端: https://github.com/HammCn/AirPower4J
+%c前端: https://github.com/AirPowerTeam/AirPower4T
+%c后端: https://github.com/AirPowerTeam/AirPower4J
   `,
   `padding:20px 0px 0px 0px;
   font-size:24px;font-weight:bold;

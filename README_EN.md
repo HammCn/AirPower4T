@@ -9,7 +9,7 @@
   <img src="https://svg.hamm.cn?key=UI&value=ElementPlus"/>
 </p>
 
-<p align="center"><a href="https://github.com/HammCn/AirPower4T">Github</a> /
+<p align="center"><a href="https://github.com/AirPowerTeam/AirPower4T">Github</a> /
   <a href="https://gitee.com/air-power/AirPower4T">Gitee</a> /  <a href="./CHANGELOG.md">CHANGELOG</a> / <a href="./docs/README.md">DOCUMENT</a>
 </p>
 
@@ -79,7 +79,7 @@ You can use our **SPMS-Web** project to initialize a project:
   ```shell
   git clone https://github.com/s-pms/SPMS-Web.git &&
   cd SPMS-Web &&
-  git clone https://github.com/HammCn/AirPower4T.git airpower &&
+  git clone https://github.com/AirPowerTeam/AirPower4T.git airpower &&
   yarn && cp .env.dev .env && yarn s
   ```
 
@@ -152,7 +152,7 @@ We provide some `ESlint rules` `router config` `env config` `tsconfig` `vite.con
 
 If you have any questions or problems, you can join the developer QQ group (`555156313`) for consultation, of course, we
 recommend you to submit your **issues** in this
-repository [Github issue](https://github.com/HammCn/AirPower4T/issues/new) / [Gitee issue](https://gitee.com/air-power/AirPower4T/issues/new)
+repository [Github issue](https://github.com/AirPowerTeam/AirPower4T/issues/new) / [Gitee issue](https://gitee.com/air-power/AirPower4T/issues/new)
 here.
 
 ## 🔟 Enjoy it
