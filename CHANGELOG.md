@@ -1,4 +1,14 @@
-# AirPower4T 版本发布日志
+<p align="center">
+  <img width="300" src="./assets/img/airpower-bg.svg"/> <b>4T</b> 
+</p>
+
+# 版本发布日志
+
+## 3.2.2
+
+### 😅 What happened?:
+
+- docs(Logo): 你没看错，只换了个Logo...
 
 ## 3.2.1
 
